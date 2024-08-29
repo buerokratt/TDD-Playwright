@@ -7,12 +7,17 @@ Technologies used: Playwright, NODE.js, Docker
 
 ## Project setup
 * in root directory
-* Build image ```docker build -t PW-testing .```
-* Run docker container ```docker run PW-testing```  
+* Build image ```docker-compose up -d```
+* Run docker CLI interactively ```docker-compose exec playwright bash```
+* Run tests
+* To see report ```npx playwright show-report --host 0.0.0.0```	
+	
+	when done...
+* Exit docker CLI ```exit``` or ```CTRL + D```
+* Stop and remove container ```docker-compose down```
 
-!!! This section needs an update - docker commands !!!
 
-# Running tests in Docker container CLI
+# Running tests
 * run all tests - ```npx playwright test```
 
 * run tests in specific directory - ```npx playwright test ./tests/chatBox```
@@ -28,9 +33,12 @@ Technologies used: Playwright, NODE.js, Docker
     --workers=3         // amount of workers to run tests
 	```  
 [Official documentation for running and debugging tests](https://playwright.dev/docs/running-tests)  
- Tests will appear on ```localhost:9323``` 
+Tests result will be opened automatically in the browser and localhost address will be displayed in the terminal 
 
 # Writing tests:
+NB! Writng tests should be done outside the container.
+The container has to be rebuilt after.
+
 * create new file with ```example.spec.js``` extension
  
 * ```import { test, expect } from '@playwright/test'```
@@ -38,7 +46,7 @@ Technologies used: Playwright, NODE.js, Docker
 * action before each separate test
     ```
     test.beforeEach(async ({ page }) => {
-		await page.goto('https://prod.buerokratt.ee/');
+		await page.goto('/');
 		// Additional actions here
 	});
     ```  
@@ -50,6 +58,7 @@ for other useful follow this link: [locators](https://playwright.dev/docs/locato
 [Official documentation for writing tests](https://playwright.dev/docs/writing-tests)
 
 ### Generating tests:
+NB! Test generation should be done outside the container
 Test can be generated using:
 ```
 npx playwright codegen https://prod.buerokratt.ee/
@@ -69,10 +78,8 @@ Global configuration are defined in: ```playwright.config.js``` and apply to eve
 * Failed tests will retain a video, a screenshot and a trace.
 
 # Reading logs
-* Test report/log will be outputted to HTML:  
-** (if a failed test occurs, popup page will appear - ```localhost:9323```  )    
-** (if no failed tests, the command has to be inserted manually  ```npx playwright show-report```  )  
-All currently running test will be displayed in terminal.  
+* In container the test result will be diplayed ```http://0.0.0.0:9323```
+* Outside the container tests result will be opened automatically in the browser and localhost address will be displayed in the terminal.
 
 NB! All tests are saved (including video, screenshot and trace) in the local directories until next batch of tests:
 * ```/playwright-report```  

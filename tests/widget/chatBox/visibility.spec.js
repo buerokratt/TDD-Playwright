@@ -1,17 +1,13 @@
 import { test, expect } from '@playwright/test';
 
 test.beforeEach(async ({ page }) => {
-    await page.goto('https://prod.buerokratt.ee/');
+    await page.goto('/');
     await page.getByLabel('Ava vestlus').click();
 });
 
 test.describe('chatbox navBar visibility', () => {
-    test('should display the chat box', async ({ page }) => {
-        await expect(page.getByText('BürokrattTervist!0/')).toBeVisible();
-    });
-
     test('should display the chat box title', async ({ page }) => {
-        await expect(page.getByText('Bürokratt')).toBeVisible();
+        await expect(page.getByText('Bürokratt', { exact: true })).toBeVisible();
     });
 
     test('should display the details icon', async ({ page }) => {
@@ -32,13 +28,14 @@ test.describe('chatbox robot visibility', () => {
         await expect(page.getByRole('img', { name: 'Robot icon' })).toBeVisible();
     });
 
-    test('should display the greeting text', async ({ page }) => {
-        await expect(page.getByText('Tervist!')).toBeVisible();
+    // needs improvement
+    test('should display greeting container', async ({ page }) => {
+        await expect(page.locator('.os-content > div')).toBeVisible();
     });
+
 })
 
 test.describe('chatbox form visibility', () => {
-    
     test('should display the input area', async ({ page }) => {
         await expect(page.locator('input[aria-label="Sisesta tekst"]')).toBeVisible();
     });

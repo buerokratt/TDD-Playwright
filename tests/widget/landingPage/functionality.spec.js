@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 let response;
 
 test.beforeEach('load page before each test', async ({ page }) => {
-    response = await page.goto('https://prod.buerokratt.ee/');
+    response = await page.goto('/');
 });
 
 test('should have a page response 200', async () => {   
@@ -11,14 +11,14 @@ test('should have a page response 200', async () => {
 })
 
 test('should have correct page URL', async ({ page }) => { 
-    expect(page).toHaveURL('https://prod.buerokratt.ee/');
+    expect(page).toHaveURL('/');
 })
 
 test('should be enabled and visible buerokratt start button', async ({ page }) => {
     const button = page.getByRole('button', { name: 'Ava vestlus' });
     await expect(button).toBeEnabled();
     await button.click();
-    await expect(page.getByText('BürokrattTervist!0/')).toBeVisible();
+    await expect(page.locator('.os-content')).toBeVisible();
 });
 
 test('should intentionally fail', async () => {

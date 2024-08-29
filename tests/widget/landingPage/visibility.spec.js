@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test.beforeEach(async ({ page }) => {
-  await page.goto('https://prod.buerokratt.ee/');
+  await page.goto('/');
 });
 
 test('should display the correct page title', async ({ page }) => {
@@ -9,7 +9,7 @@ test('should display the correct page title', async ({ page }) => {
 });
 
 test('should have the correct URL', async ({ page }) => {
-  await expect(page).toHaveURL('https://prod.buerokratt.ee/');
+  await expect(page).toHaveURL('/');
 });
 
 test('should display the "Ava vestlus" button', async ({ page }) => {

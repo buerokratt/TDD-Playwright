@@ -1,0 +1,15 @@
+services:
+  playwright:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: buerokratt_pw_image
+    container_name: buerokratt_pw
+    ipc: host
+    environment:
+      - PLAYWRIGHT_HTML_HOST=0.0.0.0
+    ports:
+      - "9323:9323"
+    stdin_open: true
+    tty: true
+    command: bash

@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test.beforeEach('prepair page for each test', async ({ page }) => {
-    await page.goto('https://prod.buerokratt.ee/');
+    await page.goto('/');
     await page.getByLabel('Ava vestlus').click();
     await page.getByPlaceholder('Kirjutage oma sõnum...').click();
     await page.getByPlaceholder('Kirjutage oma sõnum...').fill('Maksuvaba miinimum?');

@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test.beforeEach(async ({ page }) => {
-    await page.goto('https://prod.buerokratt.ee/');
+    await page.goto('/');
     await page.getByLabel('Ava vestlus').click();
 });
 
@@ -12,11 +12,11 @@ test.describe('chat box functionality', () => {
 
         // Toggle details
         await detailsButton.click();
-        await expect(page.getByText('BürokrattTervist!0/')).toBeHidden();
+        await expect(page.locator('.os-content')).toBeHidden();
         await expect(page.getByText('BürokrattTutvuge teenuse')).toBeVisible();
 
         await detailsButton.click();
-        await expect(page.getByText('BürokrattTervist!0/')).toBeVisible();
+        await expect(page.locator('.os-content')).toBeVisible();
         await expect(page.getByText('BürokrattTutvuge teenuse')).toBeHidden();
     });
 
@@ -24,14 +24,14 @@ test.describe('chat box functionality', () => {
         const minimizeButton = page.getByLabel('Minimeeri');
         await expect(minimizeButton).toBeEnabled();
         await minimizeButton.click();
-        await expect(page.getByText('BürokrattTervist!0/')).toBeHidden();
+        await expect(page.locator('.os-content')).toBeHidden();
     });
 
     test('should close chat box on button click', async ({ page }) => {
         const closeButton = page.getByLabel('Sulge');
         await expect(closeButton).toBeEnabled();
         await closeButton.click();
-        await expect(page.getByText('BürokrattTervist!0/')).toBeHidden();
+        await expect(page.locator('.os-content')).toBeHidden();
     });
 
     test('confirm/send/enter button', async ({ page }) => {

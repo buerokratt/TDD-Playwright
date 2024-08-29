@@ -5,3 +5,8 @@ node_modules/
 /playwright/.cache/
 /venv/
 venv/
+.venv/
+
+.gitignore
+.gitignore/
+

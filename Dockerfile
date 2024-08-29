@@ -1,20 +1,23 @@
-# Use the official Node.js image as the base image
-FROM node:18-bullseye-slim
+# Use an official Node.js image with Playwright pre-installed
+FROM mcr.microsoft.com/playwright:focal
 
 # Set the working directory in the container
-WORKDIR /prod
+WORKDIR /TDD-playwright
 
-# Copy the package.json and package-lock.json files to the container
-COPY package*.json ./
+# Copy the package.json and package-lock.json
+COPY package.json package-lock.json ./
 
 # Install the dependencies
 RUN npm install
 
-# Copy the rest of the application code to the container
+# Copy the entire project to the working directory
 COPY . .
 
-# Install the necessary Playwright dependencies
-RUN npx playwright install-deps && npx playwright install
+# Run Playwright installation to ensure all browsers are installed
+RUN npx playwright install
 
-# Command to run your tests
-CMD ["npx", "playwright", "test"]
+# Expose the port for the Playwright HTML report
+EXPOSE 9323
+
+# # Keep the container running and open for commands
+# CMD ["tail", "-f", "/dev/null"]
