@@ -7,22 +7,22 @@ Technologies used: Playwright, NODE.js, Docker
 
 ## Project setup
 * in root directory
-* Build image ```docker-compose up -d```
-* Run docker CLI interactively ```docker-compose exec playwright bash```
+* Build image ```docker compose up -d```
+* Run docker CLI interactively ```docker compose exec playwright bash```
 * Run tests
 * To see report ```npx playwright show-report --host 0.0.0.0```	
 	
 	when done...
 * Exit docker CLI ```exit``` or ```CTRL + D```
-* Stop and remove container ```docker-compose down```
+* Stop and remove container ```docker compose down```
 
 
 # Running tests
 * run all tests - ```npx playwright test```
 
-* run tests in specific directory - ```npx playwright test ./tests/chatBox```
+* run tests in specific directory - ```npx playwright test ./tests/widget/chatBox```
  
-* run specific test file - ```npx playwright test ./tests/chatBox/visibility.spec.js```
+* run specific test file - ```npx playwright test ./tests/widget/chatBox/visibility.spec.js```
 	
 * additional flags
 	```
@@ -78,7 +78,7 @@ Global configuration are defined in: ```playwright.config.js``` and apply to eve
 * Failed tests will retain a video, a screenshot and a trace.
 
 # Reading logs
-* In container the test result will be diplayed ```http://0.0.0.0:9323```
+* In container the test result will be diplayed ```http://0.0.0.0:9323``` or ```http://localhost:9323/```
 * Outside the container tests result will be opened automatically in the browser and localhost address will be displayed in the terminal.
 
 NB! All tests are saved (including video, screenshot and trace) in the local directories until next batch of tests:
