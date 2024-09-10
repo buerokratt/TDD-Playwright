@@ -1,0 +1,32 @@
+resource: /login
+description: "Endpoint for user login. Expects a form submission with username and password."
+methods:
+  - method: POST
+    description: "Submits user credentials and returns a response with a success message or an error."
+    headers:
+      content-type: application/x-www-form-urlencoded
+    request_body:
+      required_fields:
+        - username: string
+        - password: string
+      optional_fields:
+        - remember_me: boolean
+    expectations:
+      - status_code: 200
+        description: "Success login returns HTTP 200."
+        conditions:
+          - expect_text: "Welcome"
+          - expect_cookie: session_id
+      - status_code: 401
+        description: "Invalid credentials return HTTP 401."
+        conditions:
+          - expect_text: "Invalid username or password"
+  - method: GET
+    description: "Fetches the login page."
+    expectations:
+      - status_code: 200
+        description: "Page loads successfully."
+        conditions:
+          - expect_element: "input[name='username']"
+          - expect_element: "input[name='password']"
+          - expect_element: "button[type='submit']"
