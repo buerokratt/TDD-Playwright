@@ -9,3 +9,4 @@ export async function getTranslations(page) {
     });
     return translations[locale];
 }
+

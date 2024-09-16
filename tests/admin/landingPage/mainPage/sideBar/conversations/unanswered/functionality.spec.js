@@ -1,12 +1,13 @@
 import { test, expect } from '@playwright/test';
 import { openDialog, selectFirstChat, takeOverFirstChat } from '../unanswered/helper';
 
+let translations;
 // todo: cleaner path
 import {getTranslations} from '../../../../../../translations/languageDetector'
-const translations = await getTranslations(page);
 
 test.beforeEach(async ({ page }) => {
     await page.goto('https://admin.test.buerokratt.ee/chat/unanswered');
+    translations = await getTranslations(page);
 
    
 
@@ -102,7 +103,6 @@ test('Should activate chat, when "Võta üle" button is clicked', async ({ page 
     await expect(page.locator('#myButton')).toBeVisible();
     await expect(page.locator('.active-chat__toolbar-actions > button:nth-child(2)')).toBeVisible();
 })
-
 
 
 test('Should be able to type text in chat input field', async ({ page }) => {

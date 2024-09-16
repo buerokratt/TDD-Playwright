@@ -107,4 +107,7 @@ NB! All tests are saved (including video, screenshot and trace) in the local dir
     ├── functionality.spec.js
     └── visibility.spec.js
 ```
+# Playwright Test Case Generator using OpenAI and YAML:
+```
 
+```
