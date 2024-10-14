@@ -6,10 +6,10 @@ let translation;
 
 test.beforeEach(async ({ page }) => {
     await page.goto('https://admin.prod.buerokratt.ee/chat/active');
-    await page.waitForTimeout(2000);
+    await page.waitForTimeout(1000);
     await page.getByRole('button', { name: 'Kustutamiseks' }).click();
     
-    await expect(page.locator('.drawer')).toBeVisible({ timeout: 5000 });
+    await expect(page.locator('.drawer')).toBeVisible();
     translation = await getTranslations(page)
 });
 
@@ -23,7 +23,7 @@ test.describe("user profile/drawer visibility", () => {
 
         await expect(switchButton).toHaveAttribute('aria-checked', 'false');
 
-        await page.waitForTimeout(500); 
+        await page.waitForTimeout(1000); 
 
         const button = await page.getByRole('button', { name: 'Kustutamiseks' })
         const redSpan = await button.locator('span').first();
@@ -43,7 +43,7 @@ test.describe("user profile/drawer visibility", () => {
 
         await expect(switchButton).toHaveAttribute('aria-checked', 'true');
 
-        await page.waitForTimeout(500); 
+        await page.waitForTimeout(1000); 
 
         const button = await page.getByRole('button', { name: 'Kustutamiseks' })
         const redSpan = await button.locator('span').first();
@@ -51,6 +51,8 @@ test.describe("user profile/drawer visibility", () => {
         const backgroundColor = await redSpan.evaluate(el => getComputedStyle(el).backgroundColor);
 
         await expect(backgroundColor).toBe('rgb(48, 134, 83)');
+
+        
 
     });
 

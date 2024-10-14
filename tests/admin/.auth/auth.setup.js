@@ -6,6 +6,7 @@ import { test as setup } from '@playwright/test';
 const authFile = 'tests/admin/.auth/user.json';
 
 setup('authenticate', async ({ page }) => {
+    console.log('Authenticating...');
     // Ensure the .auth directory exists
     if (!fs.existsSync(path.dirname(authFile))) {
         fs.mkdirSync(path.dirname(authFile), { recursive: true });
