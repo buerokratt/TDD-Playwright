@@ -26,7 +26,6 @@ test.describe('Table Sorting and Searching Automation', () => {
     // Handle empty or uniform data
     const uniqueValues = [...new Set(unsortedValues)];
     if (uniqueValues.length <= 1) {
-      console.log("Skipping sorting test: all values are either the same or empty.");
       return;
     }
   
@@ -36,10 +35,7 @@ test.describe('Table Sorting and Searching Automation', () => {
   
     // Capture values after ascending sort
     const sortedAscValues = (await columnCells.allTextContents()).map(val => val.trim());
-  
-    // Log for debugging
-    console.log("Before sorting:", unsortedValues);
-    console.log("After ascending sort:", sortedAscValues);
+
   
     // Check that the values have changed after sorting ascending
     expect(sortedAscValues).not.toEqual(unsortedValues);
@@ -51,8 +47,7 @@ test.describe('Table Sorting and Searching Automation', () => {
     // Capture values after descending sort
     const sortedDescValues = (await columnCells.allTextContents()).map(val => val.trim());
   
-    // Log for debugging
-    console.log("After descending sort:", sortedDescValues);
+
   
     // Check if sorted values are the same
     const isSameAfterSort = (sortedAscValues.length === sortedDescValues.length) &&
@@ -61,14 +56,8 @@ test.describe('Table Sorting and Searching Automation', () => {
     if (!isSameAfterSort) {
         // Check that the values have changed again after sorting descending
         expect(sortedDescValues).not.toEqual(sortedAscValues);
-    } else {
-        console.log("Sorting did not change values from ascending to descending.");
     }
   }
-  
-  
-
-  
   
 
   async function searchInTableWithDropdown({ page }, column) {
