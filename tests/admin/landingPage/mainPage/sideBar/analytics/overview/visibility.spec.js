@@ -45,6 +45,71 @@ test.describe('Metrics Cards Visibility Test', () => {
     await expect(page.locator(`button:has-text("${translation["edit"]}")`)).toBeVisible();
   });
 
+  test('Check graph header visibility', async ({ page }) => {
+    const card = page.locator('.card')
+    const graphHeader = card.locator('.card__header').first();
+    await expect(graphHeader).toBeVisible();
+    await expect(graphHeader).toHaveText(translation.totalNumberOfChats);
+  })
+
+  test('Check graph and legend visibility', async ({ page }) => {
+    const card = page.locator('.card');
+    const cardBody = card.locator('.card__body');
+    const graph = cardBody.locator('.recharts-wrapper');
+
+    // Check if the graph is visible
+    await expect(graph).toBeVisible();
+
+    // Check if the legend is visible
+    const legendWrapper = graph.locator('.recharts-legend-wrapper');
+    await expect(legendWrapper).toBeVisible();
+
+    // Check for each legend item and its associated text
+    const legendItems = legendWrapper.locator('.recharts-legend-item');
+
+    // Get the count of legend items and verify
+    const itemCount = await legendItems.count();
+    expect(itemCount).toBe(7); // Expect 7 legend items
+
+    // Check the content of each legend item
+    for (let i = 0; i < itemCount; i++) {
+      const legendItem = legendItems.nth(i);
+      const legendText = await legendItem.locator('span').textContent();
+
+      // Verify the legend text matches expected values (you can modify these according to your needs)
+      const expectedLegendTexts = [
+        translation.chatsStarted,
+        translation.clienfLeftWithAnAnswer,
+        translation.customerLeftWithoutAnAnswer,
+        translation.hateSpeech,
+        translation.acceptedAnswer,
+        translation.otherReasons,
+        translation.answeredInAnotherChannel,
+      ];
+      expect(legendText.trim()).toBe(expectedLegendTexts[i]);
+    }
+  });
+
+  test('Check opensearch Dashboard header visibility', async ({ page }) => {
+    const card = page.locator('.card')
+    const graphHeader = card.locator('.card__header').nth(1);
+    await expect(graphHeader).toBeVisible();
+  })
+
+  test('Capture Open OpenSearch button', async ({ page }) => {
+    const card = page.locator('.card');
+    const cardBody = card.locator('.card__body');
+    
+    // Locate the button by class and text content
+    const openSearchButton = cardBody.locator('button', { hasText: translation.openOpenSearch });
+    
+    // Check if the button is visible
+    await expect(openSearchButton).toBeVisible();
+    
+    // Optionally, click the button to verify functionality
+    await openSearchButton.click();
+});
+
   const cardTests = [
     { key: "numberOfChatsToday", description: "Number of chats: today / previous" },
     { key: "forwardedChatsYesterday", description: "Forwarded chats yesterday: internal / external" },
@@ -61,8 +126,8 @@ test.describe('Metrics Cards Visibility Test', () => {
   for (const { key, description } of cardTests) {
     test(`Check card for "${description}" visibility`, async ({ page }) => {
       await checkCardVisibility(
-        `.draggable-card:has(.title:text("${translation[key]}"))`, 
-        translation[key], 
+        `.draggable-card:has(.title:text("${translation[key]}"))`,
+        translation[key],
         page
       );
     });

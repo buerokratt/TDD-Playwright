@@ -136,6 +136,12 @@
     "numberOfConversationsDirectedFromAdvisor": "Nüustajalt suunatud vestluste arv",
     "counselorDirectedConversations": "Nõustajale suunatud vestluste arv",
     "outOfFacilityForwards": "Suunamised asutusest välja",
+    "chatsStarted": "Alustatud vestlused",
+    "clienfLeftWithAnAnswer": "Klient lahkus vastusega",
+    "customerLeftWithoutAnAnswer": "Klient lahkus vastuseta",
+    "acceptedAnswer": "Aksepteeritud vastus",
+    "answeredInAnotherChannel": "Vastus muus kanalis",
+    "openOpenSearch": "Ava OpenSearch",
 
 
     "askAuthentication": "Küsi autentimist",
