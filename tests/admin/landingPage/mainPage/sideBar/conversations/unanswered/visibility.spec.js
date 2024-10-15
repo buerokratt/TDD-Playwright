@@ -59,7 +59,7 @@ test.describe('Selected conversation open chat visibility tests', () => {
         await page.waitForTimeout(4000);
         const switchButton = await page.locator('.switch__button');
         const isChecked = await switchButton.getAttribute('aria-checked');
-        if (isChecked !== 'true' ) {
+        if (isChecked !== 'true') {
             await switchButton.click();
         }
 
@@ -82,7 +82,7 @@ test.describe('Selected conversation open chat visibility tests', () => {
         // Verify individual meta information fields
         const pElement = page.locator('p strong')
         await expect(pElement.filter({ hasText: new RegExp(translation.id) })).toBeVisible();
-        await expect(pElement.filter({ hasText: new RegExp( translation.endUserName) })).toBeVisible();
+        await expect(pElement.filter({ hasText: new RegExp(translation.endUserName) })).toBeVisible();
         await expect(pElement.filter({ hasText: new RegExp(translation.chatStartedAt) })).toBeVisible();
         await expect(pElement.filter({ hasText: new RegExp(translation.device) })).toBeVisible();
         await expect(pElement.filter({ hasText: new RegExp(translation.location) })).toBeVisible();
@@ -115,7 +115,34 @@ test.describe('Selected conversation open chat visibility tests', () => {
         await expect(buttonElement.filter({ hasText: new RegExp(translation.takeOver) })).toBeVisible();
     });
 
-    
+
+    test.only('Should have active chat side actions like ask authentication, ask contact information, ask permission disabled until chat is taken over', async ({ page }) => {
+        // Get all chats
+        const chatSideActions = page.locator('div.active-chat__side-actions')
+
+        const askAuthenticationButton = chatSideActions.locator('button').filter({ hasText: new RegExp(translation.askAuthentication) });
+        const askContactInformationButton = chatSideActions.locator('button').filter({ hasText: new RegExp(translation.askContactInformation) });
+        const askPermissionButton = chatSideActions.locator('button').filter({ hasText: new RegExp(translation.askPermission) });
+
+
+        await expect(askAuthenticationButton).toBeVisible();
+        await expect(askAuthenticationButton).toBeDisabled();
+
+        await expect(askContactInformationButton).toBeVisible();
+        await expect(askContactInformationButton).toBeDisabled();
+
+        await expect(askPermissionButton).toBeVisible();
+        await expect(askPermissionButton).toBeDisabled();
+
+        const takeOverButton = page.locator(`button:has-text("${translation.takeOver}")`);
+        await takeOverButton.click();
+
+        await expect(askAuthenticationButton).not.toBeDisabled();
+        await expect(askContactInformationButton).not.toBeDisabled();
+        await expect(askPermissionButton).not.toBeDisabled();
+    });
+
+
     test('Should have active chat header', async ({ page }) => {
         // Verify chat header
         const header = page.locator('div.active-chat__header');
@@ -137,7 +164,7 @@ test.describe('"Vali vestluse staatus" dialog visibility', async () => {
 
         const switchButton = await page.locator('.switch__button');
         const isChecked = await switchButton.getAttribute('aria-checked');
-        if (isChecked !== 'true' ) {
+        if (isChecked !== 'true') {
             await switchButton.click();
         }
 
@@ -160,12 +187,12 @@ test.describe('"Vali vestluse staatus" dialog visibility', async () => {
 
         const title = page.locator('div.dialog__header')
         await expect(title).toBeVisible();
-    
+
         const body = page.locator('div.dialog__body')
         await expect(body).toBeVisible();
 
         const radios = page.locator('fieldset.radios .radios__item input[type="radio"]');
-        await expect(radios).toHaveCount(4); 
+        await expect(radios).toHaveCount(4);
     });
 
     test('Should have all radio labels visible', async ({ page }) => {
@@ -191,17 +218,17 @@ test.describe('"Vali vestluse staatus" dialog visibility', async () => {
 })
 
 
-test.describe('"Suuna kolleegile" active chat actions dialog visibility',  () => {
+test.describe('"Suuna kolleegile" active chat actions dialog visibility', () => {
     let translation;
     let headers;
     test.beforeEach(async ({ page }) => {
 
         await page.goto('https://admin.prod.buerokratt.ee/chat/unanswered');
         await page.waitForTimeout(4000);
-        
+
         const switchButton = await page.locator('.switch__button');
         const isChecked = await switchButton.getAttribute('aria-checked');
-        if (isChecked !== 'true' ) {
+        if (isChecked !== 'true') {
             await switchButton.click();
         }
 
