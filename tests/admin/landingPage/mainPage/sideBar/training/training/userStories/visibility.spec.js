@@ -64,7 +64,7 @@ test.describe('Visibility Tests for "Rules"/"Reeglid" right vertical tab', () =>
         }
     }); */
 
-    test.describe.only('Check the functionality of "Add" button', () => {
+    test.describe('Check the functionality of "Add" button', () => {
         test('Check if clicking on the "Add" button directs to new url and check the visbility of elements', async ({ page }) => {
             const addButton = page.locator(`button:has-text("${translations.add}")`);
             addButton.click();
