@@ -1,8 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { getTranslations } from '@translation/languageDetector.js';
-import { selectFirstChat } from '../../conversations/unanswered/helper';
 let translations;
-let headers;
+
 
 test.beforeEach(async ({ page }) => {
     await page.goto('https://admin.prod.buerokratt.ee/training/train-new-model');
@@ -80,25 +79,6 @@ test.describe('Visibility Tests for "Train new model"/"Treeni uus mudel" page', 
         const trainingTimeInput = page.locator(`label:has-text("${translations.trainingTime}") + div input`);
         await expect(trainingTimeInput).toBeVisible();
     });
-
-    // test('Check if the all models table and all headers are rendered', async ({ page }) => {
-    //     const table = page.locator('table.data-table');
-    //     await expect(table).toBeVisible();
-
-    //     for (const header of headers) {
-    //         const headerElement = table.locator('th').filter({ hasText: header });
-    //         await expect(headerElement).toBeVisible();
-    //     }
-    // });
-
-
-    // test('Check if sorting buttons are present in each column', async ({ page }) => {
-    //     for (const header of headers) {
-    //         const sortingButton = page.locator('th').filter({ hasText: header }).locator('button');
-    //         await expect(sortingButton).toBeVisible();
-    //     }
-    // });
-
 });
 
 
