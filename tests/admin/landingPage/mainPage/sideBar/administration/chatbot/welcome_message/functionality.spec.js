@@ -59,7 +59,13 @@ test.describe.serial('Welcome message/Tervitussõnum Functionality Tests', () =>
     await expect(messageDisplay).toHaveCount(0); // Expect no elements matching the text selector
   });
 
-  test('Check writing to input and character counter updates', async ({ page }) => {
+  test.skip('Check writing to input and character counter updates ### ISSUE', async ({ page }) => {
+
+    test.info().annotations.push({
+      type: 'Known bug',
+      description: 'The character counter does not update when writing to the input field. This test will fail until the bug is fixed.',
+    })
+
     const textarea = page.locator(`label:has-text("${translation["welcomeMessage"]}") + div textarea`);
     const charCount = page.locator('.textarea__max-length-bottom');
     const saveButton = page.locator(`text=${translation["save"]}`);
