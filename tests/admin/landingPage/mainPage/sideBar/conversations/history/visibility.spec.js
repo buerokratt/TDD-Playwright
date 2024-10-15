@@ -73,7 +73,7 @@ test.describe('Data Table Tests', () => {
             new RegExp(translation.supportName), new RegExp(translation.name),
             new RegExp(translation.idCode)
         ];
-        
+
     });
 
     test('Check if the table and all headers are rendered', async ({ page }) => {
@@ -93,13 +93,12 @@ test.describe('Data Table Tests', () => {
         // Check if there are any rows with data in the table
         const tableRows = dataTable.locator('tbody tr');
         const rowCount = await tableRows.count();
-        console.log(rowCount)
         if (rowCount > 0) {
             // Click the details button in the first row
             const vaataButton = tableRows.first().locator(`td button:has-text("${translation.view}")`);
             await expect(vaataButton).toBeVisible();
             await vaataButton.click();
-            
+
             // Verify the drawer is opened and visible
             const drawer = page.locator('div.drawer');
             await expect(drawer).toBeVisible();
@@ -116,15 +115,12 @@ test.describe('Data Table Tests', () => {
 
             const toolbar = drawer.locator('.historical-chat__toolbar');
             await expect(toolbar).toBeVisible();
-        }
-        
-        
-        
 
-        // // Check if the drawer contains historical chat messages
-        // const chatMessages = drawer.locator('div.historical-chat__message');
-        // await expect(chatMessages).toBeVisible();
-        // await expect(chatMessages).toHaveCountGreaterThan(0); // Ensure there are messages visible in the drawer
+            // Check if the drawer contains historical chat messages
+            const chatMessages = drawer.locator('.historical-chat__messages');
+            // Ensure there are messages visible in the drawer
+            await expect(chatMessages).not.toHaveCount(0);
+        }
     });
 
 
