@@ -24,10 +24,6 @@ jobs:
       - name: Install Playwright Browsers
         run: npm install @playwright/test && npx playwright install --with-deps
 
-      # Run the generateCookie script
-      - name: Generate Cookie
-        run: node scripts/generateCookie.js  # Update this line to point to the script
-
       # Run all tests using 2 workers
       - name: Run Playwright tests
         run: npx playwright test tests --workers=2
