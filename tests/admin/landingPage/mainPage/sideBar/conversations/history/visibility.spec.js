@@ -86,7 +86,7 @@ test.describe('Data Table Tests', () => {
         }
     });
 
-    test.only('Check for table data presence and look for opened drawer visibility when view button is clicked', async ({ page }) => {
+    test('Check for table data presence and look for opened drawer visibility when view button is clicked', async ({ page }) => {
         const dataTable = page.locator('table.data-table');
         await expect(dataTable).toBeVisible();
 
