@@ -153,12 +153,10 @@ class DSLConverter {
         return testTemplate;
       }
 
-      if (componentType === 'table') {
-        return testTemplate + this.populateTableTemplate(componentTemplate, component);
-      } else {
-        const commentDescription = `\n\n# ${componentType} component tests for ${this.businessDSL.description}\n\n`;
-        return testTemplate + commentDescription + this.populateTemplate(componentTemplate, component);
-      }
+
+      const commentDescription = `\n\n# ${componentType} component tests for ${this.businessDSL.description}\n\n`;
+      return testTemplate + commentDescription + this.populateTemplate(componentTemplate, component);
+
 
 
     }, '');
@@ -168,6 +166,10 @@ class DSLConverter {
 
   populateTemplate(template, component) {
     const componentType = Object.keys(component)[0];
+    if (componentType === 'table') {
+      return this.populateTableTemplate(template, component);
+    }
+    
     const componentData = component[componentType];
 
     // Extract label and name values using optional chaining
