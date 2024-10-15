@@ -1,41 +1,24 @@
-# IMPORTANT: Basically tables are located in a card. Table consists of table header, table body and pagination. Table has n amount of columns and n amount of rows.
-# Assume that should provide table headers
 templates:
-# You HAVE to use Template Literals to get the translation of a key inside the string meaning for example: page.locator(`ELEMENT${translation["key"]}ELEMENT`)
-  - name: table
-  - components:
-      parent: card  # Container for the entire table
-      children: TableHeader + TableBody + Pagination
-      - name: TableHeader
-        type: Table
-        class: data-table
+    name: table
+    components:
+      parent: card
+      columns: []  # This will be populated dynamically
+      rows:  # Ensure rows structure exists
+        - name: Row
+          data: []  # This will be populated dynamically
+          actions:  # Actions should be a list of buttons
+            - button:
+                args:
+                  - type: button
+                  - value: "Change"
+                  - style: button
+            - button:
+                args:
+                  - type: button
+                  - value: "Delete"
+                  - style: button
+      pagination:  # Ensure pagination structure is present
+        name: Pagination
         props:
-          columns: # n number of columns
-            - name: Column
-              label: "Regex(`/^${translations.header}$`)"  # Dynamic Column header text. Example: 'Name'
-              sortable: true  # Defines if the column is sortable
-              icon: true  # Indicates the presence of an icon button
-            
-      - name: TableBody
-        type: Table
-        props:
-          rows:
-            - name: Row
-              data:
-                - cell_data: "{{ cellValue }}"  # Example: 'Jakob Tulve'
-               
-              actions:  # Buttons for Edit and Delete actions
-                    - name: EditButton
-                      type: Button
-                      label: "translations['editButton']"
-                      icon: true
-                    - name: DeleteButton
-                      type: Button
-                      label: "translations['deleteButton']"
-                      icon: true
-
-      - name: Pagination
-        type: Pagination
-        props:
-          result_count_label: "translations['resultCount']"  # Example: 'Result count'
-          options: [10, 20, 30, 40, 50]  # Pagination options
+          result_count_label: "translations['resultCount']"
+          options: [10, 20, 30, 40, 50]
