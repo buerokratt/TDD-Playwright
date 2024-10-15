@@ -141,6 +141,12 @@
     "acceptedAnswer": "Accepted answer",
     "answeredInAnotherChannel": "Answered in other channel",
     "openOpenSearch": "Open OpenSearch",
+    "conditions": "Conditions",
+    "forms": "Forms",
+    "slots": "Slots",
+    "actions": "Actions",
+    "reset": "Reset",
+    "back": "Back",
 
 
     "askAuthentication": "Ask for authentication",

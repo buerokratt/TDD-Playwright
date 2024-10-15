@@ -64,12 +64,43 @@ test.describe('Visibility Tests for "Rules"/"Reeglid" right vertical tab', () =>
         }
     }); */
 
-    test('Check if clicking on the "Add" button directs to new url', async ({ page }) => {
-        const addButton = page.locator(`button:has-text("${translations.add}")`);
-        addButton.click();
-        await page.waitForURL('https://admin.prod.buerokratt.ee/training/training/rules/new')
-    })
+    test.describe.only('Check the functionality of "Add" button', () => {
+        test('Check if clicking on the "Add" button directs to new url and check the visbility of elements', async ({ page }) => {
+            const addButton = page.locator(`button:has-text("${translations.add}")`);
+            addButton.click();
+            await page.waitForURL('https://admin.prod.buerokratt.ee/training/training/rules/new')
 
+            const sideBarHeaders = [
+                translations.conditions,
+                translations.intents,
+                translations.responses,
+                translations.forms,
+                translations.slots,
+                translations.actions
+            ];
+
+
+            const sideBarParent = page.locator('.track');
+
+            // Loop through headers and check visibility
+            for (const header of sideBarHeaders) {
+                const headerElement = sideBarParent.locator(`.collapsible__trigger h3.h6:has-text("${header}")`);
+                await expect(headerElement).toBeVisible();
+            }
+
+            const footer = page.locator('.graph__footer');
+            await expect(footer).toBeVisible();
+            const saveButton = footer.locator(`.btn:has-text("${translations.save}")`);
+            await expect(saveButton).toBeVisible();
+            const backButton = footer.locator(`.btn:has-text("${translations.back}")`);
+            await expect(backButton).toBeVisible();
+            const resetButton = footer.locator(`.btn:has-text("${translations.reset}")`);
+            await expect(resetButton).toBeVisible();
+        })
+
+
+
+    });
 });
 
 
