@@ -174,7 +174,7 @@ test.describe('Edit user dialog visibility', async () => {
     });
 
 
-    test.only('Should have dialog footer cancel and edit user buttons', async ({ page }) => {
+    test('Should have dialog footer cancel and edit user buttons', async ({ page }) => {
         // Check if there are any rows with data in the table
         if (rowCount > 0) {
             // Click the details button in the first row
