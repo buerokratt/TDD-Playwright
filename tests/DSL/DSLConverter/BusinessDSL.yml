@@ -10,7 +10,7 @@ methods:
       title:
         name: title
         components:
-        - title:
+        - titleTemplate:
            - title:
               args:
                 - type: text
@@ -20,7 +20,7 @@ methods:
       body:
         name: card_body
         components:
-          - input:
+          - inputTemplate:
               - label:
                   args:
                     - type: text
@@ -31,7 +31,7 @@ methods:
                     - type: number
                     - style: input
 
-          - switch:
+          - switchTemplate:
               - label:
                   args:
                     - type: text
@@ -42,7 +42,7 @@ methods:
                     - type: button
                     - style: switch
 
-          - input:
+          - inputTemplate:
               - label:
                   args:
                     - type: text
@@ -54,7 +54,7 @@ methods:
                     - style: input
                     - name: "Widget display bubble message seconds"
 
-          - input:
+          - inputTemplate:
               - label:
                   args:
                     - type: text
@@ -65,7 +65,7 @@ methods:
                     - type: text
                     - style: input
 
-          - colorpicker:
+          - colorpickerTemplate:
               - label:
                   args:
                     - type: text
@@ -77,7 +77,7 @@ methods:
                     - style: input
                     - button: true
 
-          - dropdown:
+          - dropdownTemplate:
               - label:
                   args:
                     - type: text
@@ -91,13 +91,13 @@ methods:
       footer:
         name: card_footer
         components:
-          - button:
+          - buttonTemplate:
               - button:
                   args:
                     - type: button
                     - value: "Save"
                     - style: button
-          - button:
+          - buttonTemplate:
               - button:
                   args:
                     - type: button

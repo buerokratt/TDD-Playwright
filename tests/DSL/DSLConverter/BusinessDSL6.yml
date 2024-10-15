@@ -10,7 +10,7 @@ methods:
       title:
         name: title
         components:
-        - title:
+        - titleTemplate:
            - title:
               args:
                 - type: text
@@ -19,7 +19,7 @@ methods:
       body:
         name: card_body
         components:
-          - switch:
+          - switchTemplate:
               - label:
                   args:
                     - type: text
@@ -30,7 +30,7 @@ methods:
                     - type: button
                     - style: switch
           
-          - textarea:
+          - textareaTemplate:
               - label:
                   args:
                     - type: text
@@ -45,7 +45,7 @@ methods:
       footer:
         name: card_footer
         components:
-          - button:
+          - buttonTemplate:
               - button:
                   args:
                     - type: button

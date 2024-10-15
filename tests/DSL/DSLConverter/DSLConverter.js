@@ -4,10 +4,6 @@ const path = require('path');
 const yaml = require('js-yaml');
 
 
-const TITLE = 'title';
-const FOOTER = 'footer';
-const BODY = 'body';
-
 class DSLConverter {
   constructor() {
     this.templates = {};
