@@ -116,7 +116,7 @@ test.describe('Selected conversation open chat visibility tests', () => {
     });
 
 
-    test.only('Should have active chat side actions like ask authentication, ask contact information, ask permission disabled until chat is taken over', async ({ page }) => {
+    test('Should have active chat side actions like ask authentication, ask contact information, ask permission disabled until chat is taken over', async ({ page }) => {
         // Get all chats
         const chatSideActions = page.locator('div.active-chat__side-actions')
 

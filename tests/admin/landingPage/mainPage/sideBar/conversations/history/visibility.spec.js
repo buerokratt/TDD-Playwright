@@ -11,6 +11,8 @@ test.beforeEach(async ({ page }) => {
 
     // Ensure the page is loaded and authenticated
     await expect(page).toHaveURL('https://admin.prod.buerokratt.ee/chat/history');
+
+    await page.waitForTimeout(2000);
 });
 
 test.describe('Visibility Tests for "Ajalugu" / "History" Page', () => {
@@ -71,6 +73,7 @@ test.describe('Data Table Tests', () => {
             new RegExp(translation.supportName), new RegExp(translation.name),
             new RegExp(translation.idCode)
         ];
+        
     });
 
     test('Check if the table and all headers are rendered', async ({ page }) => {
@@ -83,6 +86,47 @@ test.describe('Data Table Tests', () => {
         }
     });
 
+    test.only('Check for table data presence and look for opened drawer visibility when view button is clicked', async ({ page }) => {
+        const dataTable = page.locator('table.data-table');
+        await expect(dataTable).toBeVisible();
+
+        // Check if there are any rows with data in the table
+        const tableRows = dataTable.locator('tbody tr');
+        const rowCount = await tableRows.count();
+        console.log(rowCount)
+        if (rowCount > 0) {
+            // Click the details button in the first row
+            const vaataButton = tableRows.first().locator(`td button:has-text("${translation.view}")`);
+            await expect(vaataButton).toBeVisible();
+            await vaataButton.click();
+            
+            // Verify the drawer is opened and visible
+            const drawer = page.locator('div.drawer');
+            await expect(drawer).toBeVisible();
+
+            const drawerHeader = page.locator('.drawer__header');
+            await expect(drawerHeader).toBeVisible();
+
+            // Check if the drawer title is correct
+            const drawerTitle = drawer.locator('.drawer__title');
+            await expect(drawerTitle).toBeVisible();
+
+            const drawerBody = drawer.locator('.drawer__body');
+            await expect(drawerBody).toBeVisible();
+
+            const toolbar = drawer.locator('.historical-chat__toolbar');
+            await expect(toolbar).toBeVisible();
+        }
+        
+        
+        
+
+        // // Check if the drawer contains historical chat messages
+        // const chatMessages = drawer.locator('div.historical-chat__message');
+        // await expect(chatMessages).toBeVisible();
+        // await expect(chatMessages).toHaveCountGreaterThan(0); // Ensure there are messages visible in the drawer
+    });
+
 
     test('Check if sorting buttons are present in each column', async ({ page }) => {
         for (const header of headers) {
@@ -90,6 +134,8 @@ test.describe('Data Table Tests', () => {
             await expect(sortingButton).toBeVisible();
         }
     });
+
+
 
     test('Check if pagination controls are present and functioning', async ({ page }) => {
         const pageSizeSelector = page.locator('.data-table__page-size select');
