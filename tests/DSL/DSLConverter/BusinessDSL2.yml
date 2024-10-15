@@ -26,7 +26,7 @@ methods:
                     - type: text
                     - value: "Notice active"
                     - style: label
-              - input:
+              - switch:
                   args:
                     - type: button
                     - style: switch

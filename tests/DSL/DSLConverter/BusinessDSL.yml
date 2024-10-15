@@ -1,7 +1,7 @@
 resource: chat/chatbot/appearance
 description: "Appearance and Behaviour"
 methods:
-  - methods: POST
+  - methods:
     description: "Update Widget Appearance and Behaviour"
     required:
       - "header"

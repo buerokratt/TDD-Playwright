@@ -1,11 +1,11 @@
-name: Appearance and Behaviour
+name: Train new model
 setup:
 	- describe: Check visibility of Page Elements
 	  serial: true
 	  beforeEach:
 	  - name: Setup
 		  action:
-			  navigate: "undefinedchat/chatbot/appearance"
+			  navigate: "https://prod.buerokratt.ee/training/train-new-model"
 	  - name: Fetch Translations
 			  action:
 				  getTranslations: true
@@ -13,7 +13,7 @@ setup:
 tests:
 	
 	
-	# titleTemplate component tests for Appearance and Behaviour
+	# titleTemplate component tests for Train new model
 	
 	- name: title
 	  - components:
@@ -24,24 +24,7 @@ tests:
 	            - style: h1
 	
 	
-	# inputTemplate component tests for Appearance and Behaviour
-	
-	- name: label_input
-	  - components: 
-	      parent: input
-	      children: Label + Input
-	      - name: Label
-	        type: Label
-	        props:
-	          label: "{{ labelInput }}"
-	          
-	      - name: Input
-	        type: Input
-	        props:
-	          input: "input"
-	          name: "widgetProactiveSeconds"
-	
-	# switchTemplate component tests for Appearance and Behaviour
+	# switchTemplate component tests for Train new model
 	
 	- name: label_switch
 	  - components: 
@@ -59,104 +42,19 @@ tests:
 	          switch: "button.switch__button"
 	          adjacent_to_label: true
 	
-	# inputTemplate component tests for Appearance and Behaviour
+	# labelDateTemplate component tests for Train new model
 	
-	- name: label_input
+	- name: label_date
 	  - components: 
 	      parent: input
-	      children: Label + Input
+	      children: Label + Date
 	      - name: Label
 	        type: Label
 	        props:
 	          label: "{{ labelInput }}"
 	          
-	      - name: Input
-	        type: Input
+	      - name: Date
+	        type: datepicker
 	        props:
-	          input: "input"
-	          name: "widgetDisplayBubbleMessageSeconds"
-	
-	# inputTemplate component tests for Appearance and Behaviour
-	
-	- name: label_input
-	  - components: 
-	      parent: input
-	      children: Label + Input
-	      - name: Label
-	        type: Label
-	        props:
-	          label: "{{ labelInput }}"
-	          
-	      - name: Input
-	        type: Input
-	        props:
-	          input: "input"
-	          name: "widgetBubbleMessageText"
-	
-	# colorpickerTemplate component tests for Appearance and Behaviour
-	
-	- name: label_colorpicker
-	  - components: 
-	      parent: input
-	      children: Label + ColorPicker + Button
-	      - name: Label
-	        type: Label
-	        props:
-	          label: "{{ labelColorpicker }}"
-	          
-	      - name: ColorPicker
-	        type: Input
-	        props:
-	          input: "input"
-	          readonly: true
-	      
-	      - name: Button
-	        type: Button
-	        props:
-	          icon: true
-	          # Indicates it's next to the ColorPicker in the DOM structure
-	          adjacent_to: div input    
-	
-	# dropdownTemplate component tests for Appearance and Behaviour
-	
-	- name: label_dropdown
-	  - components: 
-	      parent: select
-	      children: Label + Dropdown
-	      - name: Label
-	        type: Label
-	        props:
-	          label: "{{ labelDropdown }}"
-	          
-	      - name: Dropdown
-	        type: Input
-	        props:
-	          role: "combobox"
-	          name: "{{ labelDropdown}}"
-	          expanded: false
-	
-	          
-	        
-	
-	
-	# buttonTemplate component tests for Appearance and Behaviour
-	
-	- name: button
-	  - components: 
-	      - name: Button
-	        type: Button
-	        props:
-	          class: "btn"
-	          text: "{{ labelButton }}"
-	          
-	
-	# buttonTemplate component tests for Appearance and Behaviour
-	
-	- name: button
-	  - components: 
-	      - name: Button
-	        type: Button
-	        props:
-	          class: "btn"
-	          text: "{{ labelButton }}"
-	          
+	          input: text
+	          index: 0

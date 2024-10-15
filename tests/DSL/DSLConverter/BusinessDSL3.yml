@@ -26,11 +26,10 @@ methods:
                     - type: text
                     - value: "Consider public holidays"
                     - style: label
-              - input:
+              - switch:
                   args:
-                    - type: number
-                    - style: input
-                    - checked: false
+                    - type: button
+                    - style: switch
 
           - switchTemplate:
               - label:
@@ -38,7 +37,7 @@ methods:
                     - type: text
                     - value: "Closed on weekends"
                     - style: label
-              - input:
+              - switch:
                   args:
                     - type: button
                     - style: switch
@@ -49,11 +48,10 @@ methods:
                     - type: text
                     - value: "The same on all working days"
                     - style: label
-              - input:
+              - switch:
                   args:
-                    - type: number
-                    - style: input
-                    - checked: false
+                    - type: button
+                    - style: switch
 
           - workingtimeTemplate:
               - label:

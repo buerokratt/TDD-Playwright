@@ -8,7 +8,8 @@ class DSLConverter {
   constructor() {
     this.templates = {};
     this.businessDSL = null;
-    this.baseUrl = process.env.BASE_URL;
+    this.baseUrl = 'https://prod.buerokratt.ee/';
+    //this.baseUrl = process.env.BASE_URL;
     this.loadTemplates();
   }
 
