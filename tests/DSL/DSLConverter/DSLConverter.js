@@ -153,8 +153,14 @@ class DSLConverter {
         return testTemplate;
       }
 
-      const commentDescription = `\n\n# ${componentType} component tests for ${this.businessDSL.description}\n\n`;
-      return testTemplate + commentDescription + this.populateTemplate(componentTemplate, component);
+      if (componentType === 'table') {
+        return testTemplate + this.populateTableTemplate(componentTemplate, component);
+      } else {
+        const commentDescription = `\n\n# ${componentType} component tests for ${this.businessDSL.description}\n\n`;
+        return testTemplate + commentDescription + this.populateTemplate(componentTemplate, component);
+      }
+
+
     }, '');
   }
 
@@ -176,12 +182,63 @@ class DSLConverter {
       if (placeholder === `label${capitalizedType}`) {
         return `translation.${translationKey}`; // Replace with translation key
       }
-      if (placeholder === "name") {
-        return this.toCamelCase(nameValue) || translationKey; // Replace with camel-cased name or fallback to translation key
+      if (p1 === "name") {
+        const nameObject = componentData[1].input.args.find(arg => arg.name !== undefined);
+        return nameObject ? this.toCamelCase(nameObject.name) : translationKey;
       }
       return match; // If no match, return the original placeholder
     });
   }
+
+  populateTableTemplate(templateStr, component) {
+    const tableData = component.table;
+    const template = yaml.load(templateStr);
+
+    // Check if the table data structure is valid
+    if (!tableData || !tableData.header || !Array.isArray(tableData.header.columns)) {
+      console.warn('Invalid table structure');
+      return JSON.stringify(template, null, 2);
+    }
+
+    const columns = tableData.header.columns;
+
+    // Populate columns dynamically
+    template.templates.components.columns = columns.map(column => {
+
+      // Construct the column label with the value
+      const columnLabel = `translation.`
+
+      return {
+        name: this.toCamelCase(column.name), // Camel case for the column name
+        label: columnLabel + this.toCamelCase(column.args[1].value), // Use the constructed string directly for the label
+        sortable: true
+      };
+    });
+
+
+    // Create dynamic row structure based on columns
+    template.templates.components.rows = [{
+      name: 'Row',
+      data: columns.map(column => ({
+        [this.toCamelCase(column.name)]: "Data exists here"
+      }))
+    }];
+
+    // Add pagination if needed
+    if (!template.templates.components.pagination) {
+      template.templates.components.pagination = {
+        name: "Pagination",
+        props: {
+          type: "dropdown",
+          options: [10, 20, 30, 40, 50]
+        }
+      };
+    }
+
+    // Return final structured YAML as a string
+    return yaml.dump(template);
+  }
+
 
   toCamelCase(str) {
     return str
