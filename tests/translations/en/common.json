@@ -135,6 +135,12 @@
     "numberOfConversationsDirectedFromAdvisor": "Number of conversations directed from the advisor",
     "counselorDirectedConversations": "Counselor directed conversations",
     "outOfFacilityForwards": "Out-of-facility forwards",
+    "chatsStarted": "Chats started",
+    "clienfLeftWithAnAnswer": "Client left with an answer",
+    "customerLeftWithoutAnAnswer": "Customer left without an answer",
+    "acceptedAnswer": "Accepted answer",
+    "answeredInAnotherChannel": "Answered in other channel",
+    "openOpenSearch": "Open OpenSearch",
 
 
     "askAuthentication": "Ask for authentication",
