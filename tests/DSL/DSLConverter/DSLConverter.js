@@ -184,7 +184,7 @@ class DSLConverter {
       if (placeholder === `label${capitalizedType}`) {
         return `translation.${translationKey}`; // Replace with translation key
       }
-      if (p1 === "name") {
+      if (placeholder === "name") {
         const nameObject = componentData[1].input.args.find(arg => arg.name !== undefined);
         return nameObject ? this.toCamelCase(nameObject.name) : translationKey;
       }

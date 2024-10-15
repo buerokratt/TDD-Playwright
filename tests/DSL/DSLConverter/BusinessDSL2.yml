@@ -49,7 +49,7 @@ methods:
                     - type: text
                     - value: "Display period"
                     - style: label
-              - input:
+              - date:
                   args:
                     - type: date
               - label:
@@ -57,7 +57,7 @@ methods:
                     - type: text
                     - value: "to"
                     - style: label
-              - input:
+              - date:
                   args:
                     - type: date
 
@@ -70,3 +70,4 @@ methods:
                     - type: button
                     - value: "Save"
                     - style: button
+
