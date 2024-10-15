@@ -13,18 +13,18 @@ setup:
 tests:
 	
 	
-	# title tests for Appearance and Behaviour
+	# title component tests for Appearance and Behaviour
 	
 	- name: title
 	  - components:
 	      - title:
 	          args:
 	            - type: text
-	            - value: "translation.appearanceAndBehaviour"
+	            - value: "translation."
 	            - style: h1
 	
 	
-	# input tests for Appearance and Behaviour
+	# input component tests for Appearance and Behaviour
 	
 	- name: label_input
 	  - components: 
@@ -41,7 +41,7 @@ tests:
 	          input: "input"
 	          name: "widgetProactiveSeconds"
 	
-	# switch tests for Appearance and Behaviour
+	# switch component tests for Appearance and Behaviour
 	
 	- name: label_switch
 	  - components: 
@@ -59,7 +59,7 @@ tests:
 	          switch: "button.switch__button"
 	          adjacent_to_label: true
 	
-	# input tests for Appearance and Behaviour
+	# input component tests for Appearance and Behaviour
 	
 	- name: label_input
 	  - components: 
@@ -76,7 +76,7 @@ tests:
 	          input: "input"
 	          name: "widgetDisplayBubbleMessageSeconds"
 	
-	# input tests for Appearance and Behaviour
+	# input component tests for Appearance and Behaviour
 	
 	- name: label_input
 	  - components: 
@@ -93,7 +93,7 @@ tests:
 	          input: "input"
 	          name: "widgetBubbleMessageText"
 	
-	# colorpicker tests for Appearance and Behaviour
+	# colorpicker component tests for Appearance and Behaviour
 	
 	- name: label_colorpicker
 	  - components: 
@@ -117,7 +117,7 @@ tests:
 	          # Indicates it's next to the ColorPicker in the DOM structure
 	          adjacent_to: div input    
 	
-	# dropdown tests for Appearance and Behaviour
+	# dropdown component tests for Appearance and Behaviour
 	
 	- name: label_dropdown
 	  - components: 
@@ -139,7 +139,7 @@ tests:
 	        
 	
 	
-	# button tests for Appearance and Behaviour
+	# button component tests for Appearance and Behaviour
 	
 	- name: button
 	  - components: 
@@ -147,10 +147,10 @@ tests:
 	        type: Button
 	        props:
 	          class: "btn"
-	          text: "translation.save"
+	          text: "translation."
 	          
 	
-	# button tests for Appearance and Behaviour
+	# button component tests for Appearance and Behaviour
 	
 	- name: button
 	  - components: 
@@ -158,5 +158,5 @@ tests:
 	        type: Button
 	        props:
 	          class: "btn"
-	          text: "translation.preview"
+	          text: "translation."
 	          

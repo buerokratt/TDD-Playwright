@@ -96,97 +96,95 @@ class DSLConverter {
     }
   }
 
-  // Function to convert businessDSL to testDSL.
+  // Function to convert businessDSL to testDSL. It goes through each method in the businessDSL and generates a testDSL for each by using the templates.
   convertToTestDSL() {
-    if (!this.businessDSL) {
-      console.error("Business DSL not loaded.");
-      return;
-    }
+    if (!this.businessDSL) return console.error('No Business DSL loaded');
 
     let testDSL = '';
 
     this.businessDSL.methods.forEach(method => {
+      // method.main.title should be converted to method.main.titleTemplate
+      // Also should change the name of title to header. so our businesstemplate will keep header, body, footer.
       if (method.main && method.main.title) {
-        testDSL += this.generateTest(method, TITLE);
+        testDSL += this.generateTest(method.main.title);
       }
-      testDSL += this.generateTest(method, BODY);
+      if (method.main && method.main.body) {
+        testDSL += this.generateTest(method.main.body);
+      }
+      if (method.main && method.main.footer) {
+        testDSL += this.generateTest(method.main.footer);
+      }
     });
 
-    const footer = this.businessDSL.methods[0];
-    testDSL += this.generateTest(footer, FOOTER);
-    testDSL = this.cleanTestDSL(testDSL);
-
-    return testDSL;
+    return this.cleanTestDSL(testDSL);
   }
 
-  generateTest(method, type) {
-    let testTemplate = '';
-    let body;
 
-    switch (type) {
-      case TITLE:
-        body = method.main.title;
-        break;
-      case BODY:
-        body = method.main.body;
-        break;
-      case FOOTER:
-        body = method.main.footer;
-        break;
-      default:
-        break;
-    }
 
-    if (body && Array.isArray(body.components)) {
-      body.components.forEach(component => {
-        const componentType = Object.keys(component)[0];
-        const title = `${componentType} tests for ${this.businessDSL.description}`;
-        testTemplate += `\n\n# ${title}\n\n`;
-        const componentTemplate = this.templates[componentType];
-
-        if (componentTemplate) {
-          testTemplate += this.populateTemplate(componentTemplate, component);
-        } else {
-          console.warn(`Template not found for component type: ${componentType}`);
-        }
-      });
-    } else {
+  /**
+   * Generates test templates for a given element's components.
+   * 
+   * @param {Object} element - The element containing a `components` array, such as header, body, or footer.
+   * 
+   * @returns {string} - A string containing the generated test templates for all components within the element. 
+   *                     If no components or templates are found, it returns an empty string.
+   * 
+   * Process:
+   * 1. Validation: Checks if the `element` has a valid `components` array. If not, logs a warning and returns an empty string.
+   * 2. Template Generation: For each component in the array:
+   *    - Extracts the component type (e.g., input, switch).
+   *    - Fetches the corresponding template for that component type from `this.templates`.
+   *    - Populates the template with data by calling `populateTemplate()`.
+   *    - Adds a comment section describing the component tests.
+   * 3. Warnings: Logs warnings if the `components` array is invalid or if a component's template is not found.
+   * 4. Returns: The final test template string for all components.
+   * 
+   * Example:
+   * const testTemplate = this.generateTest(header);
+   * console.log(testTemplate);
+   */
+  generateTest(element) {
+    if (!element?.components?.length) {
       console.warn('\x1b[31mInvalid body structure or no components found.\x1b[0m');
-
+      return '';
     }
+    return element.components.reduce((testTemplate, component) => {
+      const componentType = Object.keys(component)[0];
+      const componentTemplate = this.templates[componentType];
 
-    return testTemplate;
+      if (!componentTemplate) {
+        console.warn(`Template not found for component type: ${componentType}`);
+        return testTemplate;
+      }
+
+      const commentDescription = `\n\n# ${componentType} component tests for ${this.businessDSL.description}\n\n`;
+      return testTemplate + commentDescription + this.populateTemplate(componentTemplate, component);
+    }, '');
   }
+
+
 
   populateTemplate(template, component) {
     const componentType = Object.keys(component)[0];
     const componentData = component[componentType];
 
-    const comp2 = Object.keys(componentData[0])[0];
-    const labelValue = componentData[0][comp2].args[1].value;
-
-    const translationData = {};
-    const placeHolderMap = new Map();
-    const matchString = 'label ' + componentType;
-
-    translationData.label = labelValue;
-    placeHolderMap.set(this.toCamelCase(matchString), labelValue);
-
-    const translationKey = this.toCamelCase(translationData.label);
+    // Extract label and name values using optional chaining
+    const labelValue = componentData[0]?.label?.args?.[1].value || ''
+    const nameValue = componentData?.[1]?.input?.args?.find(arg => arg.name)?.name || '';
+    // Convert label and name values to camel case
+    const translationKey = this.toCamelCase(labelValue);
     const capitalizedType = componentType.charAt(0).toUpperCase() + componentType.slice(1);
 
-    const populatedTemplate = template.replace(/{{\s*(\w+)\s*}}/g, (match, p1) => {
-      if (p1 === "label" + capitalizedType) {
-        return 'translation.' + translationKey;
+    // Replace placeholders in the template
+    return template.replace(/{{\s*(\w+)\s*}}/g, (match, placeholder) => {
+      if (placeholder === `label${capitalizedType}`) {
+        return `translation.${translationKey}`; // Replace with translation key
       }
-      if (p1 === "name") {
-        const nameObject = componentData[1].input.args.find(arg => arg.name !== undefined);
-        return nameObject ? this.toCamelCase(nameObject.name) : translationKey;
+      if (placeholder === "name") {
+        return this.toCamelCase(nameValue) || translationKey; // Replace with camel-cased name or fallback to translation key
       }
-      return match;
+      return match; // If no match, return the original placeholder
     });
-
-    return populatedTemplate;
   }
 
   toCamelCase(str) {
@@ -199,47 +197,27 @@ class DSLConverter {
   }
 
   cleanTestDSL(testDSL) {
-    let name = `name: ${this.businessDSL.description}\n`;
-    let navigateUrl = `${this.baseUrl}${this.businessDSL.resource}`;
-
-    let setupBlock = `setup:\n\t- describe: Check visibility of Page Elements\n\t  serial: true\n\t  beforeEach:\n\t  - name: Setup\n\t\t  action:\n\t\t\t  navigate: "${navigateUrl}"\n\t  - name: Fetch Translations\n\t\t\t  action:\n\t\t\t\t  getTranslations: true\n\t\t\t\t  assignVariable: translations\n`;
-
-    let testsLabel = 'tests:\n';
-    testDSL = testDSL.replace(/^/gm, '\t');
-    testDSL = testDSL.replace(/templates:\s*/g, '');
-    testDSL = name + setupBlock + testsLabel + testDSL;
-
-    return testDSL;
+    const name = `name: ${this.businessDSL.description}\n`;
+    const navigateUrl = `${this.baseUrl}${this.businessDSL.resource}`;
+    const setupBlock = `setup:\n\t- describe: Check visibility of Page Elements\n\t  serial: true\n\t  beforeEach:\n\t  - name: Setup\n\t\t  action:\n\t\t\t  navigate: "${navigateUrl}"\n\t  - name: Fetch Translations\n\t\t\t  action:\n\t\t\t\t  getTranslations: true\n\t\t\t\t  assignVariable: translations\n`;
+    return name + setupBlock + 'tests:\n' + testDSL.replace(/^/gm, '\t').replace(/templates:\s*/g, '');
   }
 
+
+  /**
+ * Processes business.yml file(s) by loading it(them), converting it(them) to testDSL(s), and saving it(them).
+ * 
+ * @param {string} businessYMLPath - The path to the business.yml file.
+ */
   processBusinessDSL(businessYMLPath = null) {
-    if (businessYMLPath) {
-      // If a specific path is provided, load that file directly
+    const paths = businessYMLPath ? [businessYMLPath] : this.findBusinessYMLFolders(path.resolve(__dirname, '../../'));
+    paths.forEach(businessYMLPath => {
       this.loadBusinessDSL(businessYMLPath);
       const testDSL = this.convertToTestDSL();
-
-      const outputDir = path.dirname(businessYMLPath);
-      const outputFilePath = path.join(outputDir, 'testDSL.yml');
+      const outputFilePath = path.join(path.dirname(businessYMLPath), 'testDSL.yml');
       this.writeToFile(outputFilePath, testDSL);
-
-      console.log(`TestDSL written to: ${outputFilePath} \n`); // Log where the TestDSL was written
-    } else {
-      // Otherwise, search for business.yml files
-      const startDirectory = path.resolve(__dirname, '../../'); // Go up two levels to reach TDD-Playwright
-      const businessYMLPaths = this.findBusinessYMLFolders(startDirectory); // Traverse from the TDD-Playwright directory
-      console.log(`\n`);
-
-      businessYMLPaths.forEach(businessYMLPath => {
-        this.loadBusinessDSL(businessYMLPath);
-        const testDSL = this.convertToTestDSL();
-
-        const outputDir = path.dirname(businessYMLPath);
-        const outputFilePath = path.join(outputDir, 'testDSL.yml');
-        this.writeToFile(outputFilePath, testDSL);
-
-        console.log(`TestDSL written to: ${outputFilePath} \n`); // Log where the TestDSL was written
-      });
-    }
+      console.log(`TestDSL written to: ${outputFilePath}`);
+    });
   }
 }
 
