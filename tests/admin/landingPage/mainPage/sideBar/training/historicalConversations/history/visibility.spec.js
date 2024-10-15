@@ -86,7 +86,7 @@ test.describe('Data Table Tests', () => {
         }
     });
 
-    test.only('Check for table data presence and look for opened drawer visibility when view button is clicked', async ({ page }) => {
+    test('Check for table data presence and look for opened drawer visibility when view button is clicked', async ({ page }) => {
         const dataTable = page.locator('table.data-table');
         await expect(dataTable).toBeVisible();
 
@@ -95,9 +95,9 @@ test.describe('Data Table Tests', () => {
         const rowCount = await tableRows.count();
         if (rowCount > 0) {
             // Click the details button in the first row
-            const vaataButton = tableRows.first().locator(`td button:has-text("${translation.view}")`);
-            await expect(vaataButton).toBeVisible();
-            await vaataButton.click();
+            const viewButton = tableRows.first().locator(`td button:has-text("${translation.view}")`);
+            await expect(viewButton).toBeVisible();
+            await viewButton.click();
             
             // Verify the drawer is opened and visible
             const drawer = page.locator('div.drawer');
