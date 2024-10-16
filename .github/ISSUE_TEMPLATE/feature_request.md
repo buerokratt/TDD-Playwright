@@ -7,11 +7,10 @@ assignees: ''
 
 ---
 
-**AS A**
-**I WANT**
-**SO THAT**
+**AS A** *role or user type*
+**I WANT** *the feature or functionality desired*
+**SO THAT** *desired outcome or goal*
 
 ### Acceptance Criteria
 
-- [ ] ...
 - [ ] ...
