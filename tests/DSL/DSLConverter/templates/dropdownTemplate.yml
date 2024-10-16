@@ -2,7 +2,7 @@ templates:
   - name: label_dropdown
   - components: 
       parent: select
-      children: Label + Dropdown
+      children: Label + Dropdown(options)
       - name: Label
         type: Label
         props:
@@ -12,8 +12,9 @@ templates:
         type: Input
         props:
           role: "combobox"
-          name: "{{ labelDropdown}}"
+          name: "{{ labelDropdown }}"
           expanded: false
+        options: []
 
           
         

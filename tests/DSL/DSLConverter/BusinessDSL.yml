@@ -87,6 +87,10 @@ methods:
                   args:
                     - type: select
                     - style: select
+                  options:
+                    - value: "Shockwave"
+                    - value: "Jump"
+                    - value: "Wiggle"
 
       footer:
         name: card_footer
