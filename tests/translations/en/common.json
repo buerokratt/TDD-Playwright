@@ -147,6 +147,7 @@
     "actions": "Actions",
     "reset": "Reset",
     "back": "Back",
+    "resultCount": "Result count",
 
 
     "askAuthentication": "Ask for authentication",
