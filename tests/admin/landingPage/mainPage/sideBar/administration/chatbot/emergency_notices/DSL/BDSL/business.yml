@@ -10,8 +10,8 @@ methods:
       title:
         name: title
         components:
-          - title:
-              - title:
+          - titleTemplate:
+              - label:
                   args:
                     - type: text
                     - value: "Emergency notices"
@@ -20,7 +20,7 @@ methods:
       body:
         name: card_body
         components:
-          - switch:
+          - switchTemplate:
               - label:
                   args:
                     - type: text
@@ -31,7 +31,7 @@ methods:
                     - type: button
                     - style: switch
 
-          - textarea:
+          - textareaTemplate:
               - label:
                   args:
                     - type: text
@@ -43,7 +43,7 @@ methods:
                     - type: text
                     - style: textarea
 
-          - date:
+          - dateTemplate:
               - label:
                   args:
                     - type: text
@@ -64,7 +64,7 @@ methods:
       footer:
         name: card_footer
         components:
-          - button:
+          - buttonTemplate:
               - button:
                   args:
                     - type: button

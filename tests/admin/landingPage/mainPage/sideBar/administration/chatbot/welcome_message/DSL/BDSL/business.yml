@@ -10,8 +10,8 @@ methods:
       title:
         name: title
         components:
-          - title:
-              - title:
+          - titleTemplate:
+              - label:
                   args:
                     - type: text
                     - value: "Welcome Message"
@@ -20,7 +20,7 @@ methods:
       body:
         name: card_body
         components:
-          - switch:
+          - switchTemplate:
               - label:
                   args:
                     - type: text
@@ -30,7 +30,7 @@ methods:
                   args:
                     - type: button
                     - style: switch
-          - textarea:
+          - textareaTemplate:
               - label:
                   args:
                     - type: text
@@ -45,7 +45,7 @@ methods:
       footer:
         name: card_footer
         components:
-          - button:
+          - buttonTemplate:
               - button:
                   args:
                     - type: button

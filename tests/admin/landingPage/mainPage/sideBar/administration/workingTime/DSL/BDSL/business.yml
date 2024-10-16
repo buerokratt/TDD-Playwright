@@ -10,7 +10,7 @@ methods:
       title:
         name: title
         components:
-          - title:
+          - titleTemplate:
               - title:
                   args:
                     - type: text
@@ -20,7 +20,7 @@ methods:
       body:
         name: card_body_divided
         components:
-          - switch:
+          - switchTemplate:
               - label:
                   args:
                     - type: text
@@ -32,7 +32,7 @@ methods:
                     - style: input
                     - checked: false
 
-          - switch:
+          - switchTemplate:
               - label:
                   args:
                     - type: text
@@ -43,7 +43,7 @@ methods:
                     - type: button
                     - style: switch
 
-          - switch:
+          - switchTemplate:
               - label:
                   args:
                     - type: text
@@ -55,7 +55,7 @@ methods:
                     - style: input
                     - checked: false
 
-          - workingtime:
+          - workingtimeTemplate:
               - label:
                   args:
                     - type: text
@@ -74,7 +74,7 @@ methods:
                   - type: input
                   - style: timepicker
 
-          - workingtime:
+          - workingtimeTemplate:
               - label:
                   args:
                     - type: text
@@ -93,7 +93,7 @@ methods:
                   - type: input
                   - style: timepicker
 
-          - workingtime:
+          - workingtimeTemplate:
               - label:
                   args:
                     - type: text
@@ -112,7 +112,7 @@ methods:
                   - type: input
                   - style: timepicker
 
-          - workingtime:
+          - workingtimeTemplate:
               - label:
                   args:
                     - type: text
@@ -131,7 +131,7 @@ methods:
                   - type: input
                   - style: timepicker
 
-          - workingtime:
+          - workingtimeTemplate:
               - label:
                   args:
                     - type: text
@@ -150,7 +150,7 @@ methods:
                   - type: input
                   - style: timepicker
 
-          - workingtime:
+          - workingtimeTemplate:
               - label:
                   args:
                     - type: text
@@ -169,7 +169,7 @@ methods:
                   - type: input
                   - style: timepicker
 
-          - workingtime:
+          - workingtimeTemplate:
               - label:
                   args:
                     - type: text
@@ -191,7 +191,7 @@ methods:
       footer:
         name: card_footer
         components:
-          - button:
+          - buttonTemplate:
               - button:
                   args:
                     - type: button
