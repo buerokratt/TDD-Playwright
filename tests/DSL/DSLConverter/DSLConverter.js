@@ -176,13 +176,15 @@ class DSLConverter {
       componentData[0] && componentData[0].label && componentData[0].label.args && componentData[0].label.args[1]
         ? componentData[0].label.args[1].value
         : '';
+  
     // Convert label and name values to camel case
     const translationKey = this.toCamelCase(labelValue);
     const capitalizedType = componentType.charAt(0).toUpperCase() + componentType.slice(1);
+    const cleanedType = capitalizedType.split('Template')[0];
 
     // Replace placeholders in the template
     return template.replace(/{{\s*(\w+)\s*}}/g, (match, placeholder) => {
-      if (placeholder === `label${capitalizedType}`) {
+      if (placeholder === `label${cleanedType}`) {
         return `translation.${translationKey}`; // Replace with translation key
       }
       if (placeholder === "name") {
@@ -225,7 +227,7 @@ class DSLConverter {
         [this.toCamelCase(column.name)]: "Data exists here"
       }))
     }];
-    
+
     // Return final structured YAML as a string
     return yaml.dump(template);
   }
