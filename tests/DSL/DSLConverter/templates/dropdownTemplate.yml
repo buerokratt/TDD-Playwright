@@ -1,20 +1,15 @@
-templates: 
+templates:
   - name: label_dropdown
-  - components: 
+    components:
       parent: select
-      children: Label + Dropdown(options)
-      - name: Label
-        type: Label
-        props:
-          label: "{{ labelDropdown }}"
-          
-      - name: Dropdown
-        type: Input
-        props:
-          role: "combobox"
-          name: "{{ labelDropdown }}"
-          expanded: false
-        options: []
-
-          
-        
+      children:
+        - name: Label
+          type: Label
+          props:
+            label: "{{ labelDropdown }}"
+        - name: Dropdown
+          type: Input
+          props:
+            role: "combobox"
+            name: "{{ labelDropdown }}"
+            expanded: false
