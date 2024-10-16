@@ -141,7 +141,7 @@ class DSLConverter {
    * console.log(testTemplate);
    */
   generateTest(element) {
-    if (!element?.components?.length) {
+    if (!element || !element.components || !element.components.length) {
       console.warn('\x1b[31mInvalid body structure or no components found.\x1b[0m');
       return '';
     }
@@ -158,8 +158,6 @@ class DSLConverter {
       const commentDescription = `\n\n# ${componentType} component tests for ${this.businessDSL.description}\n\n`;
       return testTemplate + commentDescription + this.populateTemplate(componentTemplate, component);
 
-
-
     }, '');
   }
 
@@ -167,15 +165,17 @@ class DSLConverter {
 
   populateTemplate(template, component) {
     const componentType = Object.keys(component)[0];
-    if (componentType === 'table') {
+    if (componentType === 'tableTemplate') {
       return this.populateTableTemplate(template, component);
     }
     
     const componentData = component[componentType];
 
     // Extract label and name values using optional chaining
-    const labelValue = componentData[0]?.label?.args?.[1].value || ''
-    const nameValue = componentData?.[1]?.input?.args?.find(arg => arg.name)?.name || '';
+    const labelValue =
+      componentData[0] && componentData[0].label && componentData[0].label.args && componentData[0].label.args[1]
+        ? componentData[0].label.args[1].value
+        : '';
     // Convert label and name values to camel case
     const translationKey = this.toCamelCase(labelValue);
     const capitalizedType = componentType.charAt(0).toUpperCase() + componentType.slice(1);
@@ -194,7 +194,7 @@ class DSLConverter {
   }
 
   populateTableTemplate(templateStr, component) {
-    const tableData = component.table;
+    const tableData = component.tableTemplate;
     const template = yaml.load(templateStr);
 
     // Check if the table data structure is valid
@@ -218,7 +218,6 @@ class DSLConverter {
       };
     });
 
-
     // Create dynamic row structure based on columns
     template.templates.components.rows = [{
       name: 'Row',
@@ -226,18 +225,7 @@ class DSLConverter {
         [this.toCamelCase(column.name)]: "Data exists here"
       }))
     }];
-
-    // Add pagination if needed
-    if (!template.templates.components.pagination) {
-      template.templates.components.pagination = {
-        name: "Pagination",
-        props: {
-          type: "dropdown",
-          options: [10, 20, 30, 40, 50]
-        }
-      };
-    }
-
+    
     // Return final structured YAML as a string
     return yaml.dump(template);
   }
