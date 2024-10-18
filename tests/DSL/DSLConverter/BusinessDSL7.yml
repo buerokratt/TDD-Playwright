@@ -10,7 +10,7 @@ methods:
       title:
         name: title
         components:
-          - titleTemplate:
+          - title:
               - title:
                   args:
                     - type: text
@@ -51,7 +51,6 @@ methods:
                     args:
                       - type: text
                       - value: "Email"
-            body:
               rows:  # Acknowledges the presence of data in rows
                 - row:
                     data:
@@ -67,20 +66,3 @@ methods:
                                 - type: button
                                 - value: "Delete"
                                 - style: button
-              pagination: 
-                - label:
-                      args:
-                        - type: text
-                        - value: "Result count"
-                        - style: label
-                - select:
-                      args:
-                        - type: select
-                        - style: select
-                      options:
-                        - value: "10"
-                        - value: "20"
-                        - value: "30"
-                        - value: "40"
-                        - value: "50"
-

@@ -3,7 +3,6 @@
 
 - Väga algses faasis, põhimõtteliselt praegu lihtsalt loeb templiidid sisse äriDSLi baasil ja annab tagasi testDSLi, kuhu {{ }} sulgude sisse tõlkevariatsioonid
 
-- Tõlkeid endid pole rakendanud veel, tõenäoliselt saab lihtsamalt, eriti mainHeaderiga, mis on igal leheküljel. Seal ei pea midagi asendama ning saab panna otse translations.XXX. 
 
 # How to run
 - Move into DSLConverter directory

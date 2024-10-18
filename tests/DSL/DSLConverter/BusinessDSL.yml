@@ -20,7 +20,7 @@ methods:
       body:
         name: card_body
         components:
-          - inputTemplate:
+          - labelInputTemplate:
               - label:
                   args:
                     - type: text
@@ -42,7 +42,7 @@ methods:
                     - type: button
                     - style: switch
 
-          - inputTemplate:
+          - labelInputTemplate:
               - label:
                   args:
                     - type: text
@@ -54,7 +54,7 @@ methods:
                     - style: input
                     - name: "Widget display bubble message seconds"
 
-          - inputTemplate:
+          - labelInputTemplate:
               - label:
                   args:
                     - type: text

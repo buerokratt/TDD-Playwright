@@ -1,15 +1,12 @@
-templates: 
-  - name: label_input
-  - components: 
+templates:
+  - name: inputTemplate
+  - components:
       parent: input
-      children: Label + Input
-      - name: Label
-        type: Label
-        props:
-          label: "{{ labelInput }}"
-          
+      children: Input
       - name: Input
         type: Input
         props:
           input: "input"
-          name: "{{ name }}"
+          name: "{{ name }}" 
+          type: "{{ inputType }}"
+          placeholder: "{{ placeholder }}"

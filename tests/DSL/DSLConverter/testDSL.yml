@@ -1,11 +1,11 @@
-name: Train new model
+name: Historical Conversations
 setup:
 	- describe: Check visibility of Page Elements
 	  serial: true
 	  beforeEach:
 	  - name: Setup
 		  action:
-			  navigate: "https://prod.buerokratt.ee/training/train-new-model"
+			  navigate: "https://prod.buerokratt.ee/chat/training/history"
 	  - name: Fetch Translations
 			  action:
 				  getTranslations: true
@@ -13,36 +13,33 @@ setup:
 tests:
 	
 	
-	# titleTemplate component tests for Train new model
+	# titleTemplate component tests for Historical Conversations
 	
 	- name: title
 	  - components:
 	      - title:
 	          args:
 	            - type: text
-	            - value: "{{ labelTitle }}"
+	            - value: "translation."
 	            - style: h1
 	
 	
-	# switchTemplate component tests for Train new model
+	# inputTemplate component tests for Historical Conversations
 	
-	- name: label_switch
-	  - components: 
-	      parent: switch
-	      children: Label + Switch
-	      - name: Label
-	        type: Label
+	- name: inputTemplate
+	  - components:
+	      parent: input
+	      children: Input
+	      - name: Input
+	        type: Input
 	        props:
-	          label: " {{ labelSwitch }}"
-	          adjacent_to: Switch
-	          
-	      - name: Switch
-	        type: Switch
-	        props:
-	          switch: "button.switch__button"
-	          adjacent_to_label: true
+	          input: "input"
+	          name: "searchChats" 
+	          type: "{{ inputType }}"
+	          placeholder: "{{ placeholder }}"
 	
-	# labelDateTemplate component tests for Train new model
+	
+	# labelDateTemplate component tests for Historical Conversations
 	
 	- name: label_date
 	  - components: 
@@ -58,3 +55,110 @@ tests:
 	        props:
 	          input: text
 	          index: 0
+	
+	# tableTemplate component tests for Historical Conversations
+	
+	{
+	  "templates": {
+	    "name": "table",
+	    "components": {
+	      "parent": "card",
+	      "columns": [],
+	      "rows": [
+	        {
+	          "name": "Row",
+	          "data": [],
+	          "actions": [
+	            {
+	              "button": {
+	                "args": [
+	                  {
+	                    "type": "button"
+	                  },
+	                  {
+	                    "value": "Change"
+	                  },
+	                  {
+	                    "style": "button"
+	                  }
+	                ]
+	              }
+	            },
+	            {
+	              "button": {
+	                "args": [
+	                  {
+	                    "type": "button"
+	                  },
+	                  {
+	                    "value": "Delete"
+	                  },
+	                  {
+	                    "style": "button"
+	                  }
+	                ]
+	              }
+	            }
+	          ]
+	        }
+	      ],
+	      "pagination": [
+	        {
+	          "label": {
+	            "args": [
+	              {
+	                "type": "text"
+	              },
+	              {
+	                "value": "translation.resultCount"
+	              },
+	              {
+	                "style": "label"
+	              }
+	            ]
+	          }
+	        },
+	        {
+	          "dropdown": {
+	            "args": [
+	              {
+	                "type": "dropdown"
+	              },
+	              {
+	                "default": 10
+	              }
+	            ],
+	            "options": [
+	              {
+	                "value": 10
+	              },
+	              {
+	                "value": 20
+	              },
+	              {
+	                "value": 30
+	              },
+	              {
+	                "value": 40
+	              },
+	              {
+	                "value": 50
+	              }
+	            ]
+	          }
+	        }
+	      ]
+	    }
+	  }
+	}
+	
+	# buttonTemplate component tests for Historical Conversations
+	
+	- name: button
+	  - components: 
+	      - name: Button
+	        type: Button
+	        props:
+	          class: "btn"
+	          text: "translation."
+	          
