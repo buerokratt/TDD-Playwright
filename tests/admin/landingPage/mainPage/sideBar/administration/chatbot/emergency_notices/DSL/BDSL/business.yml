@@ -1,11 +1,6 @@
 resource: chat/chatbot/emergency-notices
-description: "Emergency notices"
-methods:
-  - methods: POST
-    description: "Emergency notices"
-    required:
-      - "header"
-      - "left_menu"
+description: "Emergency Notices Visibility tests"
+test:
     main:
       title:
         name: title
@@ -39,7 +34,6 @@ methods:
                     - style: label
               - textarea:
                   args:
-                    - type: date
                     - type: text
                     - style: textarea
 
@@ -52,6 +46,7 @@ methods:
               - input:
                   args:
                     - type: date
+                    - opens_datePicker: true
               - label:
                   args:
                     - type: text
@@ -60,6 +55,7 @@ methods:
               - input:
                   args:
                     - type: date
+                    - opens_datePicker: true
 
       footer:
         name: card_footer
