@@ -1,0 +1,72 @@
+resource: chat/chatbot/appearance
+description: "Appearance and Behaviour"
+
+beforeEach:
+  - action: navigate
+    target: "/chat/chatbot/appearance"
+  - action: getTranslations
+
+tests:
+  - name: "Appearance and Behaviour Visibility"
+    steps:
+      - name: "Check title visibility"
+        element:
+          type: header
+          text: "${translation.appearanceAndBehaviour}"
+        assertion: isVisible
+
+      - name: "Check Widget proactive seconds visibility"
+        element:
+          type: input
+          label: "${translation.widgetProactiveSeconds}"
+          attributes:
+            type: number
+        assertion: isVisible
+
+      - name: "Check Widget bubble message text visibility (Switch)"
+        element:
+          type: switch
+          label: "${translation.widgetBubbleMessageText}"
+        assertion: isVisible
+
+      - name: "Check Widget bubble message seconds visibility"
+        element:
+          type: input
+          label: "${translation.widgetBubbleMessageSeconds}"
+          attributes:
+            type: number
+        assertion: isVisible
+
+      - name: "Check Widget bubble message text input visibility"
+        element:
+          type: input
+          label: "${translation.widgetBubbleMessageText}"
+          attributes:
+            type: text
+        assertion: isVisible
+
+      - name: "Check Widget color picker visibility"
+        element:
+          type: input
+          label: "${translation.widgetColor}"
+          attributes:
+            type: text
+        assertion: isVisible
+
+      - name: "Check Widget animation dropdown visibility"
+        element:
+          type: select
+          label: "${translation.widgetAnimation}"
+        assertion: isVisible
+
+      - name: "Check Save button visibility"
+        element:
+          type: button
+          text: "${translation.save}"
+        assertion: isVisible
+
+      - name: "Check Preview button visibility"
+        element:
+          type: button
+          text: "${translation.preview}"
+        assertion: isVisible

@@ -14,7 +14,7 @@ test:
 
       card:
         components:
-          - name: card_body
+          - name: card__body
           - labelInputTemplate:
               - label:
                   args:
@@ -86,7 +86,7 @@ test:
                       - value: Jump
                       - value: Shockwave
                       - value: Wiggle
-          - name: card_footer
+          - name: card__footer
           - buttonTemplate:
                - button:
                   args:
