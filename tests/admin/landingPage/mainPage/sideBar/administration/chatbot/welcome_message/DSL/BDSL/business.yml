@@ -1,53 +1,45 @@
 resource: chat/chatbot/welcome-message
-description: Settings
-methods:
-  - methods: POST
-    description: Welcome Message
-    required:
-      - header
-      - left_menu
-    main:
-      title:
-        name: title
-        components:
-          - titleTemplate:
-              - label:
-                  args:
-                    - type: text
-                    - value: "Welcome Message"
-                    - style: h1
+description: "Settings"
+test:
+  main:
+    title:
+      name: title
+      components:
+        - titleTemplate:
+            - label:
+                args:
+                  - type: text
+                  - value: "Welcome Message"
+                  - style: h1
 
-      body:
-        name: card_body
-        components:
-          - switchTemplate:
-              - label:
-                  args:
-                    - type: text
-                    - value: "Greeting Active"
-                    - style: label
-              - switch:
-                  args:
-                    - type: button
-                    - style: switch
-          - textareaTemplate:
-              - label:
-                  args:
-                    - type: text
-                    - value: "Welcome Message"
-                    - style: label
+    card:
+      components:
+        - name: card_body
+        - switchTemplate:
+            - label:
+                args:
+                  - type: text
+                  - value: "Greeting Active"
+                  - style: label
+            - switch:
+                args:
+                  - type: button
+                  - style: switch
+        - textareaTemplate:
+            - label:
+                args:
+                  - type: text
+                  - value: "Welcome Message"
+                  - style: label
 
-              - textarea:
-                  args:
-                    - type: text
-                    - style: textarea
-
-      footer:
-        name: card_footer
-        components:
-          - buttonTemplate:
-              - button:
-                  args:
-                    - type: button
-                    - value: "Save"
-                    - style: button
+            - textarea:
+                args:
+                  - type: text
+                  - style: textarea
+        - name: card_footer
+        - buttonTemplate:
+            - button:
+                args:
+                  - type: button
+                  - value: "Save"
+                  - style: button
