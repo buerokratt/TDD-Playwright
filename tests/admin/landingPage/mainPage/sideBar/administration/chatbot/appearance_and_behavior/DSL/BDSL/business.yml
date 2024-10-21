@@ -1,5 +1,5 @@
 resource: chat/chatbot/appearance
-description: "Appearance and Behaviour Visibility tests"
+description: "Appearance and Behaviour"
 test: 
     main:
       title:
@@ -12,9 +12,9 @@ test:
                 - value: "Appearance and behaviour"
                 - style: h1
 
-      body:
-        name: card_body
+      card:
         components:
+          - name: card_body
           - labelInputTemplate:
               - label:
                   args:
@@ -86,19 +86,16 @@ test:
                       - value: Jump
                       - value: Shockwave
                       - value: Wiggle
-
-      footer:
-        name: card_footer
-        components:
+          - name: card_footer
           - buttonTemplate:
-              - button:
+               - button:
                   args:
-                    - type: button
-                    - value: Save
-                    - style: button
+                     - type: button
+                     - value: Save
+                     - style: button
           - buttonTemplate:
-              - button:
-                  args:
-                    - type: button
-                    - value: Preview
-                    - style: button
+               - button:
+                   args:
+                     - type: button
+                     - value: Preview
+                     - style: button
