@@ -1,0 +1,67 @@
+resource: chat/users
+description: "Users"
+beforeEach:
+  - navigate: "/chat/users"
+  - getTranslations: true
+test:
+  main:
+    title:
+      - locator: page.locator('h1:has-text("${translation.users}")')
+        assertion: toBeVisible
+    addUserButton:
+      - locator: page.locator('button:has-text("${translation.addUser}")')
+        assertion: toBeVisible
+    table:
+      header:
+        - locator: page.locator('th:has-text("${translation.name}")')
+          assertion: toBeVisible
+        - locator: page.locator('th:has-text("${translation.idCode}")')
+          assertion: toBeVisible
+        - locator: page.locator('th:has-text("${translation.role}")')
+          assertion: toBeVisible
+        - locator: page.locator('th:has-text("${translation.displayName}")')
+          assertion: toBeVisible
+        - locator: page.locator('th:has-text("${translation.title}")')
+          assertion: toBeVisible
+        - locator: page.locator('th:has-text("${translation.email}")')
+          assertion: toBeVisible
+      rows:
+        - locator: page.locator('table tbody tr')
+          forEach:
+            name:
+              - locator: locator('td:nth-child(1)')
+                assertion: toBeVisible
+            idCode:
+              - locator: locator('td:nth-child(2)')
+                assertion: toBeVisible
+            role:
+              - locator: locator('td:nth-child(3)')
+                assertion: toBeVisible
+            displayName:
+              - locator: locator('td:nth-child(4)')
+                assertion: toBeVisible
+            title:
+              - locator: locator('td:nth-child(5)')
+                assertion: toBeVisible
+            email:
+              - locator: locator('td:nth-child(6)')
+                assertion: toBeVisible
+            changeButton:
+              - locator: locator('button:has-text("${translation.edit}")')
+                assertion: toBeVisible
+            deleteButton:
+              - locator: locator('button:has-text("${translation.delete}")')
+                assertion: toBeVisible
+      pagination:
+        resultCount:
+          - locator: page.locator('label:has-text("${translation.resultCount}")')
+            assertion: toBeVisible
+        pageSize:
+          - locator: page.locator('select')
+            assertion: toBeVisible
+          - options:
+              - value: "10"
+              - value: "20"
+              - value: "30"
+              - value: "40"
+              - value: "50"
