@@ -11,6 +11,7 @@ test:
                     - type: text
                     - value: "Users"
                     - style: h1
+          - buttonTemplate:
               - button:
                   args:
                     - type: button
