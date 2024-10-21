@@ -1,53 +1,46 @@
 resource: chat/chatbot/welcome-message
 description: "Welcome Message"
-methods:
-  - methods: POST
-    description: "Submit settings for the welcome message."
-    required:
-      - "header"
-      - "left_menu"
-    main:
-      title:
-        name: title
-        components:
+test:
+  main:
+    title:
+      name: title
+      components:
         - titleTemplate:
-           - title:
-              args:
-                - type: text
-                - value: "Welcome Message"
-                - style: h1
-      body:
-        name: card_body
-        components:
-          - switchTemplate:
-              - label:
-                  args:
-                    - type: text
-                    - value: "Greeting Active"
-                    - style: label
-              - switch:
-                  args:
-                    - type: button
-                    - style: switch
-          
-          - textareaTemplate:
-              - label:
-                  args:
-                    - type: text
-                    - value: "Welcome Message"
-                    - style: label
-              - textarea:
-                  args:
-                    - type: date
-                    - type: text
-                    - style: textarea
+            - title:
+                args:
+                  - type: text
+                  - value: "Welcome Message"
+                  - style: h1
+    card:
+      components:
+        - name: card_body
+        - switchTemplate:
+            - label:
+                args:
+                  - type: text
+                  - value: "Greeting Active"
+                  - style: label
+            - switch:
+                args:
+                  - type: button
+                  - style: switch
 
-      footer:
-        name: card_footer
-        components:
-          - buttonTemplate:
-              - button:
-                  args:
-                    - type: button
-                    - value: "Save"
-                    - style: button
+        - textareaTemplate:
+            - label:
+                args:
+                  - type: text
+                  - value: "Welcome Message"
+                  - style: label
+            - textarea:
+                args:
+                  - type: date
+                  - type: text
+                  - style: textarea
+
+        - name: card_footer
+        - buttonTemplate:
+            - button:
+                args:
+                  - type: button
+                  - value: "Save"
+                  - style: button
