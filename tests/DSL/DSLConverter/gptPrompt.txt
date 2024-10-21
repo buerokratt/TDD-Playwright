@@ -1,0 +1,24 @@
+"I am working on converting a businessDSL into a testDSL that can later be used to generate Playwright tests. I will provide you with the businessDSL and templates. Here are the key requirements:
+
+All locators for text-based elements (labels, buttons, headers) must use translation keys. Translations are fetched using the getTranslations function and should be integrated into the locators as translation.key.
+
+Example: page.locator('h1:has-text("${translation.appearanceAndBehaviour}")') for headers, label:has-text("${translation.widgetProactiveSeconds}") for labels, etc.
+All elements with text content (such as labels, headers, buttons) should be located using page.locator() with the :has-text() pseudo-class, referencing the translation keys dynamically.
+
+Replace placeholders in the businessDSL with the appropriate template:
+
+Key placeholders in the businessDSL (e.g., labels, inputs, switches) should be replaced with the corresponding template components.
+Each component from the businessDSL must be mapped to its corresponding template, which will provide the necessary structure and hierarchy for the testDSL.
+Example: If the businessDSL has a labelInputTemplate, replace it with the corresponding label_input template and use translation keys for labels and input fields.
+For components that involve labels and related inputs (or switches), use parent-child or sibling relationships to locate them:
+
+Example: label.locator('..').locator('input') for inputs associated with labels, or label:has-text("${translation.widgetBubbleMessageText}") + button.switch__button for switches adjacent to labels.
+The test setup should include navigation and fetching translations in a beforeEach hook to ensure the page and translations are ready before running each test.
+
+Example:
+yaml
+Copy code
+beforeEach:
+  - navigate: "/chat/chatbot/appearance"
+  - getTranslations: true
+All interactive elements (like buttons, dropdowns, inputs) must be tested for visibility using the appropriate translation keys for their text values.
