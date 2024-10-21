@@ -55,7 +55,7 @@ test:
                           - button:
                               args:
                                 - type: button
-                                - value: "Change"
+                                - value: "Edit"
                                 - style: button
                           - button:
                               args:
