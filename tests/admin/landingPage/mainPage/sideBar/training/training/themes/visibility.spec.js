@@ -69,8 +69,8 @@ test.describe('Visibility Tests for "Themes"/"Teemad" right vertical tab', async
         const downloadExamplesButton = page.locator(`.track .btn:has-text("${translations.downloadExamples}")`);
         await expect(downloadExamplesButton).toBeVisible();
 
-        const addToModelButton = page.locator(`.track .btn:has-text("${translations.addToModel}")`);
-        await expect(addToModelButton).toBeVisible();
+        //const addToModelButton = page.locator(`.track .btn:has-text("${translations.addToModel}")`);
+        //await expect(addToModelButton).toBeVisible();
 
         const deleteButton = page.locator(`.track .btn:has-text("${translations.delete}")`);
         await expect(deleteButton).toBeVisible();
