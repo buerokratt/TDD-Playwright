@@ -1,59 +1,67 @@
-name: Full Visibility Tests for User Management Page
-
-setup:
-  - name: Check Visibility of Page Elements
-    serial: true
-    steps:
-      - name: Setup
-        action:
-          navigate: "https://admin.prod.buerokratt.ee/chat/users"
-          waitFor: networkidle
-
-      - name: Fetch Translations
-        action:
-          getTranslations: true
-          assignVariable: translations
-tests:
-  - name: Check Heading Visibility
-    action:
-      assertVisible:
-        element: "heading"
-        text: "translations['users']"
-
-  - name: Check Add User Button Visibility
-    action:
-      assertVisible:
-        element: "button"
-        text: "translations['addUser']"
-
-  - name: Check User Data Table Visibility
-    action:
-      assertVisible:
-        element: "data-table"
-
-  - name: Check Table Headers
-    actions:
-      - name: Verify Header Count
-        action:
-          assertCount:
-            element: "header"
-            count: 8
-
-      - name: Verify Header Texts
-        action:
-          assertTexts:
-            element: "header"
-            texts:
-              - "translations['name']"
-              - "translations['idCode']"
-              - "translations['role']"
-              - "translations['displayName']"
-              - "translations['userTitle']"
-              - "translations['e-mail']"
-
-  - name: Check Edit and Delete Buttons
-    action:
-      verifyButtonsPerRow:
-        editText: "translations['edit']"
-        deleteText: "translations['delete']"
-        count: 1
+resource: chat/users
+description: "Users"
+beforeEach:
+  - navigate: "/chat/users"
+  - getTranslations: true
+test:
+  main:
+    title:
+      - locator: page.locator('h1:has-text("${translation.users}")')
+        assertion: toBeVisible
+    addUserButton:
+      - locator: page.locator('button:has-text("${translation.addUser}")')
+        assertion: toBeVisible
+    table:
+      header:
+        - locator: page.locator('th:has-text("${translation.name}")')
+          assertion: toBeVisible
+        - locator: page.locator('th:has-text("${translation.idCode}")')
+          assertion: toBeVisible
+        - locator: page.locator('th:has-text("${translation.role}")')
+          assertion: toBeVisible
+        - locator: page.locator('th:has-text("${translation.displayName}")')
+          assertion: toBeVisible
+        - locator: page.locator('th:has-text("${translation.title}")')
+          assertion: toBeVisible
+        - locator: page.locator('th:has-text("${translation.email}")')
+          assertion: toBeVisible
+      rows:
+        - locator: page.locator('table tbody tr')
+          forEach:
+            name:
+              - locator: locator('td:nth-child(1)')
+                assertion: toBeVisible
+            idCode:
+              - locator: locator('td:nth-child(2)')
+                assertion: toBeVisible
+            role:
+              - locator: locator('td:nth-child(3)')
+                assertion: toBeVisible
+            displayName:
+              - locator: locator('td:nth-child(4)')
+                assertion: toBeVisible
+            title:
+              - locator: locator('td:nth-child(5)')
+                assertion: toBeVisible
+            email:
+              - locator: locator('td:nth-child(6)')
+                assertion: toBeVisible
+            changeButton:
+              - locator: locator('button:has-text("${translation.change}")')
+                assertion: toBeVisible
+            deleteButton:
+              - locator: locator('button:has-text("${translation.delete}")')
+                assertion: toBeVisible
+      pagination:
+        resultCount:
+          - locator: page.locator('label:has-text("${translation.resultCount}")')
+            assertion: toBeVisible
+        pageSize:
+          - locator: page.locator('select')
+            assertion: toBeVisible
+          - options:
+              - value: "10"
+              - value: "20"
+              - value: "30"
+              - value: "40"
+              - value: "50"

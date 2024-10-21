@@ -1,0 +1,51 @@
+beforeEach:
+  - navigate: "/chat/chatbot/appearance"
+  - getTranslations: true
+
+tests:
+  - test: "Appearance and Behaviour Visibility"
+    steps:
+      - step:
+          name: "Check title visibility"
+          action: page.locator('h1:has-text("${translation.appearanceAndBehaviour}")').isVisible()
+          expected: true
+
+      - step:
+          name: "Check Widget proactive seconds visibility"
+          action: page.locator('label:has-text("${translation.widgetProactiveSeconds}")').locator('..').locator('input[type="number"]').isVisible()
+          expected: true
+
+      - step:
+          name: "Check Widget bubble message text visibility (Switch)"
+          action: page.locator('label:has-text("${translation.widgetBubbleMessageText}")').locator('+ button.switch__button').isVisible()
+          expected: true
+
+      - step:
+          name: "Check Widget bubble message seconds visibility"
+          action: page.locator('label:has-text("${translation.widgetBubbleMessageSeconds}")').locator('..').locator('input[type="number"]').isVisible()
+          expected: true
+
+      - step:
+          name: "Check Widget bubble message text input visibility"
+          action: page.locator('label:has-text("${translation.widgetBubbleMessageText}")').locator('..').locator('input[type="text"]').isVisible()
+          expected: true
+
+      - step:
+          name: "Check Widget color picker visibility"
+          action: page.locator('label:has-text("${translation.widgetColor}")').locator('..').locator('input[type="text"]').isVisible()
+          expected: true
+
+      - step:
+          name: "Check Widget animation dropdown visibility"
+          action: page.locator('label:has-text("${translation.widgetAnimation}")').locator('..').locator('select').isVisible()
+          expected: true
+
+      - step:
+          name: "Check Save button visibility"
+          action: page.locator('button:has-text("${translation.save}")').isVisible()
+          expected: true
+
+      - step:
+          name: "Check Preview button visibility"
+          action: page.locator('button:has-text("${translation.preview}")').isVisible()
+          expected: true
