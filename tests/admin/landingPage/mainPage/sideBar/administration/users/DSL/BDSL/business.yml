@@ -1,6 +1,6 @@
 resource: chat/users
 description: "Users"
-methods:
+test:
     main:
       title:
         name: title
