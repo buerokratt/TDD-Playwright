@@ -1,11 +1,6 @@
 resource: chat/users
 description: "Users"
 methods:
-  - methods: GET
-    description: "Retrieve and display user list"
-    required:
-      - "header"
-      - "left_menu"
     main:
       title:
         name: title
@@ -21,7 +16,7 @@ methods:
                     - type: button
                     - value: "Add User"
                     - style: button
-      body:
+      card:
         name: card_body
         components:
           - tableTemplate:
@@ -51,12 +46,12 @@ methods:
                     args:
                       - type: text
                       - value: "Email"
-            body:
-              rows:  # Acknowledges the presence of data in rows
+            tableBody:
+              rows:  
                 - row:
                     data:
-                      - data: 
-                      - actions:  # Row actions
+                      - has_data: true
+                      - actions:  
                           - button:
                               args:
                                 - type: button
@@ -75,7 +70,7 @@ methods:
                         - style: label
                 - select:
                       args:
-                        - type: select
+                        - type: dropdown
                         - style: select
                       options:
                         - value: "10"
