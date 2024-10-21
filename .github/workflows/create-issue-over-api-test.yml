@@ -1,0 +1,85 @@
+name: Create Issues Over API Test
+
+on: 
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          
+      - name: Run Docker
+        run: docker compose up -d
+
+      - name: Install Dependencies
+        run: npm ci
+        
+      - name: Install Playwright Browsers
+        run: npm install @playwright/test && npx playwright install --with-deps
+
+      # Run all tests using 2 workers
+      - name: Run Playwright tests
+        id: playwright  # Adding ID to reference later steps
+        run: npx playwright test tests/admin --workers=2
+      
+      # Upload Playwright Report
+      - name: Upload Playwright Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30
+
+      - name: Search for existing issues for failed tests
+        if: failure()  # Only execute if tests fail
+        id: search_issue
+        run: |
+          TEST_NAME=$(jq -r '.suites[].tests[] | select(.status == "failed") | .name' playwright-report.json)
+          echo "Searching for issues related to failed test: $TEST_NAME"
+          existing_issues=$(curl -s \
+            -H "Authorization: token ${{ github.token }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            "https://api.github.com/search/issues?q=repo:buerokratt/GH-API-Test-1+is:issue+is:open+in:title+$TEST_NAME")
+          echo "Found issues: $existing_issues"
+          echo "::set-output name=issue_found::$(echo $existing_issues | jq '.total_count')"
+
+      - name: Create new issue for failed test
+        if: steps.search_issue.outputs.issue_found == '0'
+        run: |
+          TEST_NAME=$(jq -r '.suites[].tests[] | select(.status == "failed") | .name' playwright-report.json)
+          ERROR_DETAILS=$(jq -r '.suites[].tests[] | select(.status == "failed") | .error.message' playwright-report.json)
+          echo "Creating issue for failed test: $TEST_NAME"
+          curl -X POST \
+            -H "Authorization: token ${{ github.token }}" \  # Use the default GITHUB_TOKEN
+            -H "Accept: application/vnd.github.v3+json" \
+            https://api.github.com/repos/buerokratt/GH-API-Test-1/issues \
+            -d '{
+              "title": "[Playwright Test Failure]: '"$TEST_NAME"'",
+              "body": "A test failed in buerokratt/TDD-Playwright.\nDetails:\n- Test: '"$TEST_NAME"'\n- Error: '"$ERROR_DETAILS"'",
+              "labels": ["bug"]
+            }'
+
+      # # Optional: Add the created issue to a project board
+      # - name: Add issue to project board
+      #   if: steps.search_issue.outputs.issue_found == '0'
+      #   run: |
+      #     ISSUE_ID="[issue_id]"  # Get this from the created issue response
+      #     COLUMN_ID="[column_id]"  # Get this from your project board setup
+      #     echo "Adding issue to the project board..."
+      #     curl -X POST \
+      #       -H "Authorization: token ${{ github.token }}" \  # Use the default GITHUB_TOKEN
+      #       -H "Accept: application/vnd.github.v3+json" \
+      #       https://api.github.com/projects/columns/$COLUMN_ID/cards \
+      #       -d '{
+      #         "content_id": '"$ISSUE_ID"',
+      #         "content_type": "Issue"
+      #       }'

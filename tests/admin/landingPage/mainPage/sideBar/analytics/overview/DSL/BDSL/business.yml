@@ -1,0 +1,75 @@
+resource: analytics/overview
+description: "Analytics overview"
+test:
+  main:
+    title:
+      name: title
+      templates:
+        - title:
+            - label:
+                args:
+                  - type: text
+                  - value: "Overview"
+                  - style: h1
+        - button:
+            - label:
+              args:
+                - type: button
+                - value: Edit
+                - style: button
+    main-metrics-area:
+      templates:
+        draggable_card:
+            label: "Average chats per day: month / previous"
+            args:
+              - type: integer
+              - style: h2
+        draggable_card:
+            label: "Average chats per day: week / previous"
+            args:
+              - type: integer
+              - style: h2
+        draggable_card:
+            label: "Average chats answered by Bürokrat: month / previous"
+            args:
+              - type: integer
+              - style: h2
+        draggable_card:
+            label: "Average chats answered by Bürokrat: week / previous"
+            args:
+              - type: integer
+              - style: h2
+        draggable_card:
+            label: "Answered by Bürokrat: today / yesterday"
+            args:
+              - type: integer
+              - style: h2
+        draggable_card:
+            label: "Number of chats: month / previous"
+            args:
+              - type: integer
+              - style: h2
+    card: 
+      templates:
+        - name: card__header
+          label: 
+          args:
+            - type: text
+            - value: "Total number of chats"
+            - style: h3
+        - name: card__body
+          chart:
+    card: 
+      templates: 
+        - name: card__header
+        - label:
+          args:   
+            - type: text
+            - value: "OpenSearch Dashboard (OSD)"
+            - style: h3
+        - name: card__body
+        - button: 
+          args: 
+            - type: button
+            - value: "Open OpenSearch"
+            - style: button
