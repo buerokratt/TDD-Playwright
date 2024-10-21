@@ -64,8 +64,8 @@ jobs:
             https://api.github.com/repos/buerokratt/GH-API-Test-1/issues \
             -d '{
               "title": "[Playwright Test Failure]: '"$TEST_NAME"'",
-              "body": "A test failed in [repository].\nDetails:\n- Test: '"$TEST_NAME"'\n- Error: '"$ERROR_DETAILS"'",
-              "labels": ["bug", "automated", "failed-test"]
+              "body": "A test failed in buerokratt/TDD-Playwright.\nDetails:\n- Test: '"$TEST_NAME"'\n- Error: '"$ERROR_DETAILS"'",
+              "labels": ["bug"]
             }'
 
       # # Optional: Add the created issue to a project board
