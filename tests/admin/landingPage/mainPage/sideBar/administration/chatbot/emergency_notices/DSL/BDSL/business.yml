@@ -1,5 +1,5 @@
 resource: chat/chatbot/emergency-notices
-description: "Emergency Notices Visibility tests"
+description: "Emergency Notices"
 test:
     main:
       title:
@@ -12,9 +12,9 @@ test:
                     - value: "Emergency notices"
                     - style: h1
 
-      body:
-        name: card_body
+      card:
         components:
+          - name: card_body
           - switchTemplate:
               - label:
                   args:
@@ -56,10 +56,7 @@ test:
                   args:
                     - type: date
                     - opens_datePicker: true
-
-      footer:
-        name: card_footer
-        components:
+          - name: card_footer
           - buttonTemplate:
               - button:
                   args:
