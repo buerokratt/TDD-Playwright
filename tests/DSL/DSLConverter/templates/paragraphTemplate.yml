@@ -1,0 +1,8 @@
+templates:
+  - name: paragraph
+  - components:
+      - paragraph:
+          args:
+            - type: text
+            - value: "{{ paragraphText }}"
+            - style: p

@@ -6,7 +6,7 @@ test:
       name: title
       components:
         - titleTemplate:
-            - label:
+            - title:
                 args:
                   - type: text
                   - value: "Organization working time"

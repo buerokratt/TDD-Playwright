@@ -1,4 +1,4 @@
-"I am working on converting a businessDSL into a testDSL that can later be used to generate Playwright tests. I will provide you with the businessDSL and templates. Here are the key requirements:
+"I am working on converting a businessDSL into playwright tests. I will provide you with the businessDSL and templates. Here are the key requirements:
 
 All locators for text-based elements (labels, buttons, headers) must use translation keys. Translations are fetched using the getTranslations function and should be integrated into the locators as translation.key.
 
