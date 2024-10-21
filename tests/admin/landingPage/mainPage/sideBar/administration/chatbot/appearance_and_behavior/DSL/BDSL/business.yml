@@ -1,11 +1,6 @@
 resource: chat/chatbot/appearance
-description: "Appearance and Behaviour"
-methods:
-  - methods: POST 
-    description: "Appearance and Behaviour"
-    required:
-      - "header"
-      - "left_menu"
+description: "Appearance and Behaviour Visibility tests"
+test: 
     main:
       title:
         name: title
@@ -74,6 +69,7 @@ methods:
                   args:
                     - type: text
                     - style: input
+                    - opens_colorpallet: true
                     - button: true
 
           - dropdownTemplate:
@@ -84,8 +80,12 @@ methods:
                     - style: label
               - select:
                   args:
-                    - type: select
+                    - type: dropdown
                     - style: select
+                    - options: 
+                      - value: Jump
+                      - value: Shockwave
+                      - value: Wiggle
 
       footer:
         name: card_footer
@@ -94,11 +94,11 @@ methods:
               - button:
                   args:
                     - type: button
-                    - value: "Save"
+                    - value: Save
                     - style: button
           - buttonTemplate:
               - button:
                   args:
                     - type: button
-                    - value: "Preview"
+                    - value: Preview
                     - style: button
