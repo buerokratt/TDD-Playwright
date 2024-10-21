@@ -43,7 +43,7 @@ methods:
                     - type: text
                     - style: textarea
 
-          - dateTemplate:
+          - labelDate_labelDateTemplate:
               - label:
                   args:
                     - type: text

@@ -52,24 +52,24 @@ test.describe('Header Functionality Tests', () => {
         expect(isVisible).toBe(true, 'Logout button is not visible');
     });
 
-    // Test to check the status switch button color change
-    // test('Check status switch button color change', async ({ page }) => {
-    //     const button = page.locator('header').locator('.switch__button');
-    //     const initialColor = await button.evaluate(el => getComputedStyle(el).backgroundColor);
+    //Test to check the status switch button color change
+    test('Check status switch button color change', async ({ page }) => {
+        const button = page.locator('header').locator('.switch__button');
+        const initialColor = await button.evaluate(el => getComputedStyle(el).backgroundColor);
 
-    //     // Get the first span child of the statusDotButton for checking color
-    //     const statusDotButton = page.locator('header').locator('.btn.btn--text.btn--m').first();
-    //     const statusColorSpan = statusDotButton.locator('span').first(); // First <span> child
-    //     const initialStatusColor = await statusColorSpan.evaluate(el => getComputedStyle(el).backgroundColor);
+        // Get the first span child of the statusDotButton for checking color
+        const statusDotButton = page.locator('header').locator('.btn.btn--text.btn--m').first();
+        const statusColorSpan = statusDotButton.locator('span').first(); // First <span> child
+        const initialStatusColor = await statusColorSpan.evaluate(el => getComputedStyle(el).backgroundColor);
 
-    //     // Click to trigger color change
-    //     await button.click();
-    //     await page.waitForTimeout(400); // Wait for animation to complete
+        // Click to trigger color change
+        await button.click();
+        await page.waitForTimeout(400); // Wait for animation to complete
 
-    //     const newColor = await button.evaluate(el => getComputedStyle(el).backgroundColor);
-    //     expect(newColor).not.toBe(initialColor, 'Button background color did not change');
+        const newColor = await button.evaluate(el => getComputedStyle(el).backgroundColor);
+        expect(newColor).not.toBe(initialColor, 'Button background color did not change');
 
-    //     const newStatusColor = await statusColorSpan.evaluate(el => getComputedStyle(el).backgroundColor);
-    //     expect(newStatusColor).not.toBe(initialStatusColor, 'Active status dot color did not change');
-    // });
+        const newStatusColor = await statusColorSpan.evaluate(el => getComputedStyle(el).backgroundColor);
+        expect(newStatusColor).not.toBe(initialStatusColor, 'Active status dot color did not change');
+    });
 });

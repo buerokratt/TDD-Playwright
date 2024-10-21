@@ -20,7 +20,7 @@ methods:
       body:
         name: card_body
         components:
-          - inputTemplate:
+          - labelInputTemplate:
               - label:
                   args:
                     - type: text
@@ -42,7 +42,7 @@ methods:
                     - type: button
                     - style: switch
 
-          - inputTemplate:
+          - labelInputTemplate:
               - label:
                   args:
                     - type: text
@@ -53,7 +53,7 @@ methods:
                     - type: number
                     - style: input
 
-          - inputTemplate:
+          - labelInputTemplate:
               - label:
                   args:
                     - type: text
