@@ -1,0 +1,163 @@
+resource: analytics/feedback
+description: "Analytics feedback"
+test:
+  main:
+    title:
+      name: title
+      components:
+        - titleTemplate:
+            - label:
+                args:
+                  - type: text
+                  - value: Feedback
+                  - style: h1
+
+    card:
+      components:
+        - name: card__body
+        - labelTemplate:
+            - label:
+                args:
+                  - type: text
+                  - value: Period
+                  - style: label
+
+        - buttonTemplate:
+            - button:
+                args:
+                  - type: button
+                  - value: Today
+                  - style: button
+        - buttonTemplate:
+            - button:
+                args:
+                  - type: button
+                  - value: Yesterday
+                  - style: button
+        - buttonTemplate:
+            - button:
+                args:
+                  - type: button
+                  - value: Last 30 Days
+                  - style: button
+        - buttonTemplate:
+            - button:
+                args:
+                  - type: button
+                  - value: Selected Months
+                  - style: button
+        - buttonTemplate:
+            - button:
+                args:
+                  - type: button
+                  - value: Selected Period
+                  - style: button
+
+        - labelTemplate:
+            - label:
+                args:
+                  - type: text
+                  - value: Choose a metric
+                  - style: label
+
+        - buttonTemplate:
+            - button:
+                args:
+                  - type: button
+                  - value: Completed statuses / number of conversations
+                  - style: button
+        - buttonTemplate:
+            - button:
+                args:
+                  - type: button
+                  - value: Feedback on bureaucrat conversations
+                  - style: button
+        - buttonTemplate:
+            - button:
+                args:
+                  - type: button
+                  - value: Feedback on advisor conversations
+                  - style: button
+        - buttonTemplate:
+            - button:
+                args:
+                  - type: button
+                  - value: Feedback to selected advisor
+                  - style: button
+        - buttonTemplate:
+            - button:
+                args:
+                  - type: button
+                  - value: Conversations with negative feedback
+                  - style: button
+
+        - additionalOptions:
+            components:
+              - label:
+                  args:
+                    - type: text
+                    - value: Additional Options
+                    - style: label
+
+              - switchTemplate:
+                  - switch:
+                      args:
+                        - type: checkbox
+                        - value: Bureaucrat - the client left with an answer
+                        - style: switch
+                  - switch:
+                      args:
+                        - type: checkbox
+                        - value: Bureaucrat - the customer left without an answer
+
+                        - style: switch
+                  - switch:
+                      args:
+                        - type: checkbox
+                        - value: Bureaucrat - terminated for an unspecified reason
+                        - style: switch
+                  - switch:
+                      args:
+                        - type: checkbox
+                        - value: Advisor - accepted answer
+                        - style: switch
+                  - switch:
+                      args:
+                        - type: checkbox
+                        - value: Advisor - signs of hate speech
+                        - style: switch
+                  - switch:
+                      args:
+                        - type: checkbox
+                        - value: Advisor - other reasons
+                        - style: switch
+                  - switch:
+                      args:
+                        - type: checkbox
+                        - value: Advisor - answered in another channel
+                        - style: switch
+
+        - chartSection:
+            components:
+              - card__header:
+                  args:
+                    - type: text
+                    - value: Completed statuses / number of conversations
+                    - style: header
+
+              - card__content:
+                  components:
+                    - dropdownTemplate:
+                        - select:
+                            args:
+                              - type: dropdown
+                              - options:
+                                - value: Barchart
+                                - value: Piechart
+                                - value: Linechart
+                    - buttonTemplate:
+                        - button:
+                            args:
+                              - type: button
+                              - value: CSV
+                              - style: button
