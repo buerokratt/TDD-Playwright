@@ -1,81 +1,80 @@
 resource: chat/users
 description: "Users"
 test:
-    main:
-      title:
-        name: title
-        components:
-          - titleTemplate:
-              - title:
+  main:
+    title:
+      name: title
+      components:
+        - titleTemplate:
+            - title:
+                args:
+                  - type: text
+                  - value: "Users"
+                  - style: h1
+            - button:
+                args:
+                  - type: button
+                  - value: "Add User"
+                  - style: button
+    card:
+      name: card__body
+      components:
+        - tableTemplate:
+            header:
+              columns:
+                - name: "Name"
                   args:
                     - type: text
-                    - value: "Users"
-                    - style: h1
-              - button:
+                    - value: "Name"
+                - name: "Id Code"
                   args:
-                    - type: button
-                    - value: "Add User"
-                    - style: button
-      card:
-        name: card_body
-        components:
-          - tableTemplate:
-              header:
-                columns:
-                  - name: "Name"
-                    args:
-                      - type: text
-                      - value: "Name"
-                  - name: "Id Code"
-                    args:
-                      - type: text
-                      - value: "Id Code"
-                  - name: "Role"
-                    args:
-                      - type: text
-                      - value: "Role"
-                  - name: "Display name"
-                    args:
-                      - type: text
-                      - value: "Display name"
-                  - name: "Title"
-                    args:
-                      - type: text
-                      - value: "Title"
-                  - name: "Email"
-                    args:
-                      - type: text
-                      - value: "Email"
-            tableBody:
-              rows:  
-                - row:
-                    data:
-                      - has_data: true
-                      - actions:  
-                          - button:
-                              args:
-                                - type: button
-                                - value: "Edit"
-                                - style: button
-                          - button:
-                              args:
-                                - type: button
-                                - value: "Delete"
-                                - style: button
-              pagination: 
-                - label:
-                      args:
-                        - type: text
-                        - value: "Result count"
-                        - style: label
-                - select:
-                      args:
-                        - type: dropdown
-                        - style: select
-                      options:
-                        - value: "10"
-                        - value: "20"
-                        - value: "30"
-                        - value: "40"
-                        - value: "50"
-
+                    - type: text
+                    - value: "Id Code"
+                - name: "Role"
+                  args:
+                    - type: text
+                    - value: "Role"
+                - name: "Display name"
+                  args:
+                    - type: text
+                    - value: "Display name"
+                - name: "Title"
+                  args:
+                    - type: text
+                    - value: "Title"
+                - name: "Email"
+                  args:
+                    - type: text
+                    - value: "Email"
+          tableBody:
+            rows:
+              - row:
+                  data:
+                    - has_data: true
+                    - actions:
+                        - button:
+                            args:
+                              - type: button
+                              - value: "Edit"
+                              - style: button
+                        - button:
+                            args:
+                              - type: button
+                              - value: "Delete"
+                              - style: button
+            pagination:
+              - label:
+                  args:
+                    - type: text
+                    - value: "Result count"
+                    - style: label
+              - select:
+                  args:
+                    - type: dropdown
+                    - style: select
+                  options:
+                    - value: "10"
+                    - value: "20"
+                    - value: "30"
+                    - value: "40"
+                    - value: "50"

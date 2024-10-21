@@ -6,7 +6,7 @@ test:
       name: title
       components:
         - titleTemplate:
-            - label:
+            - title:
                 args:
                   - type: text
                   - value: "Welcome Message"
@@ -14,7 +14,7 @@ test:
 
     card:
       components:
-        - name: card_body
+        - name: card__body
         - switchTemplate:
             - label:
                 args:
@@ -36,7 +36,7 @@ test:
                 args:
                   - type: text
                   - style: textarea
-        - name: card_footer
+        - name: card__footer
         - buttonTemplate:
             - button:
                 args:

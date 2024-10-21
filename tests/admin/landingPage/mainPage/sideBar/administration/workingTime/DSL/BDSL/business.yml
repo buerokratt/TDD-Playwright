@@ -1,199 +1,190 @@
 resource: chat/working-time
 description: "Working time"
-methods:
-  - methods: POST
-    description: "Update working time"
-    required:
-      - "header"
-      - "left_menu"
-    main:
-      title:
-        name: title
-        components:
-          - titleTemplate:
-              - title:
-                  args:
-                    - type: text
-                    - value: "Working time"
-                    - style: h1
-
-      body:
-        name: card_body_divided
-        components:
-          - switchTemplate:
-              - label:
-                  args:
-                    - type: text
-                    - value: "Consider public holidays"
-                    - style: label
-              - input:
-                  args:
-                    - type: number
-                    - style: input
-                    - checked: false
-
-          - switchTemplate:
-              - label:
-                  args:
-                    - type: text
-                    - value: "Closed on weekends"
-                    - style: label
-              - input:
-                  args:
-                    - type: button
-                    - style: switch
-
-          - switchTemplate:
-              - label:
-                  args:
-                    - type: text
-                    - value: "The same on all working days"
-                    - style: label
-              - input:
-                  args:
-                    - type: number
-                    - style: input
-                    - checked: false
-
-          - workingtimeTemplate:
-              - label:
-                  args:
-                    - type: text
-                    - value: "Monday"
-                    - style: label
-              - input:
+test:
+  main:
+    title:
+      name: title
+      components:
+        - titleTemplate:
+            - label:
+                args:
+                  - type: text
+                  - value: "Organization working time"
+                  - style: h1
+    card:
+      components:
+        - name: card__header
+        - switchTemplate:
+            - label:
+                args:
+                  - type: text
+                  - value: "Consider public holidays"
+                  - style: label
+            - switch:
                 args:
                   - type: button
                   - style: switch
-              - input:
-                args:
-                  - type: input
-                  - style: timepicker
-              - input:
-                args:
-                  - type: input
-                  - style: timepicker
 
-          - workingtimeTemplate:
-              - label:
-                  args:
-                    - type: text
-                    - value: "Tuesday"
-                    - style: label
-              - input:
+        - switchTemplate:
+            - label:
+                args:
+                  - type: text
+                  - value: "Closed on weekends"
+                  - style: label
+            - switch:
                 args:
                   - type: button
                   - style: switch
-              - input:
-                args:
-                  - type: input
-                  - style: timepicker
-              - input:
-                args:
-                  - type: input
-                  - style: timepicker
 
-          - workingtimeTemplate:
-              - label:
-                  args:
-                    - type: text
-                    - value: "Wednesday"
-                    - style: label
-              - input:
+        - switchTemplate:
+            - label:
+                args:
+                  - type: text
+                  - value: "The same on all working days"
+                  - style: label
+            - switch:
                 args:
                   - type: button
                   - style: switch
-              - input:
-                args:
-                  - type: input
-                  - style: timepicker
-              - input:
-                args:
-                  - type: input
-                  - style: timepicker
 
-          - workingtimeTemplate:
-              - label:
-                  args:
-                    - type: text
-                    - value: "Thursday"
-                    - style: label
-              - input:
+        - name: card__body divided
+        - workingtimeTemplate:
+            - label:
+                args:
+                  - type: text
+                  - value: "Monday"
+                  - style: label
+            - input:
+              args:
+                - type: button
+                - style: switch
+            - input:
+              args:
+                - type: input
+                - style: timepicker
+            - input:
+              args:
+                - type: input
+                - style: timepicker
+
+        - workingtimeTemplate:
+            - label:
+                args:
+                  - type: text
+                  - value: "Tuesday"
+                  - style: label
+            - input:
+              args:
+                - type: button
+                - style: switch
+            - input:
+              args:
+                - type: input
+                - style: timepicker
+            - input:
+              args:
+                - type: input
+                - style: timepicker
+
+        - workingtimeTemplate:
+            - label:
+                args:
+                  - type: text
+                  - value: "Wednesday"
+                  - style: label
+            - input:
+              args:
+                - type: button
+                - style: switch
+            - input:
+              args:
+                - type: input
+                - style: timepicker
+            - input:
+              args:
+                - type: input
+                - style: timepicker
+
+        - workingtimeTemplate:
+            - label:
+                args:
+                  - type: text
+                  - value: "Thursday"
+                  - style: label
+            - input:
+              args:
+                - type: button
+                - style: switch
+            - input:
+              args:
+                - type: input
+                - style: timepicker
+            - input:
+              args:
+                - type: input
+                - style: timepicker
+
+        - workingtimeTemplate:
+            - label:
+                args:
+                  - type: text
+                  - value: "Friday"
+                  - style: label
+            - input:
+              args:
+                - type: button
+                - style: switch
+            - input:
+              args:
+                - type: input
+                - style: timepicker
+            - input:
+              args:
+                - type: input
+                - style: timepicker
+
+        - workingtimeTemplate:
+            - label:
+                args:
+                  - type: text
+                  - value: "Saturday"
+                  - style: label
+            - input:
+              args:
+                - type: button
+                - style: switch
+            - input:
+              args:
+                - type: input
+                - style: timepicker
+            - input:
+              args:
+                - type: input
+                - style: timepicker
+
+        - workingtimeTemplate:
+            - label:
+                args:
+                  - type: text
+                  - value: "Sunday"
+                  - style: label
+            - input:
+              args:
+                - type: button
+                - style: switch
+            - input:
+              args:
+                - type: input
+                - style: timepicker
+            - input:
+              args:
+                - type: input
+                - style: timepicker
+
+        - name: card__footer
+        - buttonTemplate:
+            - button:
                 args:
                   - type: button
-                  - style: switch
-              - input:
-                args:
-                  - type: input
-                  - style: timepicker
-              - input:
-                args:
-                  - type: input
-                  - style: timepicker
-
-          - workingtimeTemplate:
-              - label:
-                  args:
-                    - type: text
-                    - value: "Friday"
-                    - style: label
-              - input:
-                args:
-                  - type: button
-                  - style: switch
-              - input:
-                args:
-                  - type: input
-                  - style: timepicker
-              - input:
-                args:
-                  - type: input
-                  - style: timepicker
-
-          - workingtimeTemplate:
-              - label:
-                  args:
-                    - type: text
-                    - value: "Saturday"
-                    - style: label
-              - input:
-                args:
-                  - type: button
-                  - style: switch
-              - input:
-                args:
-                  - type: input
-                  - style: timepicker
-              - input:
-                args:
-                  - type: input
-                  - style: timepicker
-
-          - workingtimeTemplate:
-              - label:
-                  args:
-                    - type: text
-                    - value: "Sunday"
-                    - style: label
-              - input:
-                args:
-                  - type: button
-                  - style: switch
-              - input:
-                args:
-                  - type: input
-                  - style: timepicker
-              - input:
-                args:
-                  - type: input
-                  - style: timepicker
-
-      footer:
-        name: card_footer
-        components:
-          - buttonTemplate:
-              - button:
-                  args:
-                    - type: button
-                    - value: "Save"
-                    - style: button
+                  - value: "Save"
+                  - style: button
