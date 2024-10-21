@@ -1,11 +1,6 @@
 resource: chat/chatbot/settings
-description: Settings
-methods:
-  - methods: POST
-    description: Settings
-    required:
-      - header
-      - left_menu
+description: "Settings"
+test:
     main:
       title:
         name: title
@@ -17,9 +12,9 @@ methods:
                     - value: "Settings"
                     - style: h1
 
-      body:
-        name: card_body
+      card:
         components:
+          - name: card__header
           - switchTemplate:
               - label:
                   args:
@@ -30,6 +25,7 @@ methods:
                   args:
                     - type: button
                     - style: switch
+          - name: card__body
           - switchTemplate:
               - label:
                   args:
@@ -51,13 +47,12 @@ methods:
                   args:
                     - type: button
                     - style: switch
-
-      footer:
-        name: card_footer
-        components:
+          - name: card_footer
           - buttonTemplate:
               - button:
                   args:
                     - type: button
                     - value: "Save"
                     - style: button
+
+
