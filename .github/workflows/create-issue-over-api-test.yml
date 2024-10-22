@@ -34,20 +34,20 @@ jobs:
       - name: List root directory contents
         run: ls -R .
       
-      # Upload Playwright Report
+      # Upload Playwright Report (note the correct path)
       - name: Upload Playwright Report
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: playwright-report
-          path: playwright-report/
+          path: playwright-report.json
           retention-days: 30
 
       - name: Search for existing issues for failed tests
         if: failure()  # Only execute if tests fail
         id: search_issue
         run: |
-          TEST_NAME=$(jq -r '.suites[].tests[] | select(.status == "failed") | .name' playwright-report/playwright-report.json)
+          TEST_NAME=$(jq -r '.suites[].tests[] | select(.status == "failed") | .name' playwright-report.json)
           echo "Searching for issues related to failed test: $TEST_NAME"
           existing_issues=$(curl -s \
             -H "Authorization: token ${{ github.token }}" \
@@ -59,18 +59,18 @@ jobs:
       - name: Create new issue for failed test
         if: steps.search_issue.outputs.issue_found == '0'
         run: |
-          TEST_NAME=$(jq -r '.suites[].tests[] | select(.status == "failed") | .name' playwright-report/playwright-report.json)
-          ERROR_DETAILS=$(jq -r '.suites[].tests[] | select(.status == "failed") | .error.message' playwright-report/playwright-report.json)
+          TEST_NAME=$(jq -r '.suites[].tests[] | select(.status == "failed") | .name' playwright-report.json)
+          ERROR_DETAILS=$(jq -r '.suites[].tests[] | select(.status == "failed") | .error.message' playwright-report.json)
           echo "Creating issue for failed test: $TEST_NAME"
-          curl -X POST \
-            -H "Authorization: token ${{ github.token }}" \  # Use the default GITHUB_TOKEN
+          response=$(curl -X POST \
+            -H "Authorization: token ${{ github.token }}" \
             -H "Accept: application/vnd.github.v3+json" \
             https://api.github.com/repos/buerokratt/GH-API-Test-1/issues \
             -d '{
               "title": "[Playwright Test Failure]: '"$TEST_NAME"'",
               "body": "A test failed in buerokratt/TDD-Playwright.\nDetails:\n- Test: '"$TEST_NAME"'\n- Error: '"$ERROR_DETAILS"'",
               "labels": ["bug"]
-            }'
+            }')
 
           # Extract the issue ID from the response
           ISSUE_ID=$(echo "$response" | jq '.id')
