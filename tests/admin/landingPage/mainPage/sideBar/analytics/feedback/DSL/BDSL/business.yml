@@ -123,16 +123,16 @@ test:
     name: card__header
     heading:
         args:
-           - type: text
-           - value: Completed statuses / number of conversations
-           - style: header
+            - type: text
+            - value: Completed statuses / number of conversations
+            - style: heading
 
     name: other_content
     button:
        args:
-            - type: button
-            - value: CSV
-            - style: button
+           - type: button
+           - value: CSV
+           - style: button
     select:
        args:
            - type: dropdown
