@@ -2,145 +2,124 @@ resource: analytics/advisors
 description: "Analytics advisors"
 test:
   main:
+  heading:
+      args:
+          - type: text
+          - value: Advisors
+          - style: h1
+
+  card:
+    name: card__body
+    name: section
+    label:
+      args:
+          - type: text
+          - value: Period
+          - style: label
+
+    button:
+       args:
+           - type: button
+           - value: Today
+           - style: button
+    button:
+       args:
+           - type: button
+           - value: Yesterday
+           - style: button
+    button:
+       args:
+           - type: button
+           - value: Last 30 Days
+           - style: button
+    button:
+       args:
+           - type: button
+           - value: Selected Months
+           - style: button
+    button:
+       args:
+           - type: button
+           - value: Selected Period
+           - style: button
+
+    name: section
+    label:
+      args:
+           - type: text
+           - value: Choose a metric
+           - style: label
+
+    button:
+       args:
+            - type: button
+            - value: Forwarding
+            - style: button
+    button:
+       args:
+            - type: button
+            - value: Average response speed in the institution
+            - style: button
+    button:
+       args:
+            - type: button
+            - value: Average presence of counselors
+            - style: button
+    button:
+       args:
+            - type: button
+            - value: Number of conversations by adviser
+            - style: button
+    button:
+       args:
+            - type: button
+            - value: Conversation time by advisor
+            - style: button
+
+    name: section
+    label:
+      args:
+          - type: text
+          - value: Additional Options
+          - style: label
+
+    switch:
+       args:
+           - type: checkbox
+           - value: Number of conversations directed from the advisor
+           - style: switch
+    switch:
+       args:
+           - type: checkbox
+           - value: Counselor directed conversations
+           - style: switch
+    switch:
+       args:
+           - type: checkbox
+           - value: Out-of-facility forwards
+           - style: switch
+
+  card:
+    name: card__header
     heading:
-      name: title
-      templates:
-        - heading:
-            heading:
-              args:
-                - type: text
-                - value: Advisors
-                - style: h1
+        args:
+            - type: text
+            - value: Completed statuses / number of conversations
+            - style: heading
 
-    card:
-      templates:
-        - name: card__body
-        - name: section
-        - label:
-            label:
-              args:
-                - type: text
-                - value: Period
-                - style: label
-
-        - button:
-            button:
-              args:
-                - type: button
-                - value: Today
-                - style: button
-        - button:
-            button:
-              args:
-                - type: button
-                - value: Yesterday
-                - style: button
-        - button:
-            button:
-              args:
-                - type: button
-                - value: Last 30 Days
-                - style: button
-        - button:
-            button:
-              args:
-                - type: button
-                - value: Selected Months
-                - style: button
-        - button:
-            button:
-              args:
-                - type: button
-                - value: Selected Period
-                - style: button
-
-        - name: section
-        - label:
-            label:
-              args:
-                - type: text
-                - value: Choose a metric
-                - style: label
-
-        - button:
-            button:
-              args:
-                - type: button
-                - value: Forwarding
-                - style: button
-        - button:
-            button:
-              args:
-                - type: button
-                - value: Average response speed in the institution
-                - style: button
-        - button:
-            button:
-              args:
-                - type: button
-                - value: Average presence of counselors
-                - style: button
-        - button:
-            button:
-              args:
-                - type: button
-                - value: Number of conversations by adviser
-                - style: button
-        - button:
-            button:
-              args:
-                - type: button
-                - value: Conversation time by advisor
-                - style: button
-
-        - name: section
-        - label:
-           args:
-                - type: text
-                - value: Additional Options
-                - style: label
-
-        - multipleChoices:
-            switch:
-              args:
-                - type: checkbox
-                - value: Number of conversations directed from the advisor
-                - style: switch
-            switch:
-              args:
-                - type: checkbox
-                - value: Counselor directed conversations
-                - style: switch
-            switch:
-              args:
-                - type: checkbox
-                - value: Out-of-facility forwards
-                - style: switch
-
-    card:
-      templates:
-        - name: card__header
-        - header:
-            header:
-              args:
-                - type: text
-                - value: Completed statuses / number of conversations
-                - style: header
-
-        - name: other_content
-        - dropdown:
-            select:
-              args:
-                - type: dropdown
-                - options:
-                  - value: Bar Chart
-                  - value: Pie Chart
-                  - value: Line Chart
-        - button:
-            button:
-              args:
-                - type: button
-                - value: CSV
-                - style: button
-        - name: card__body
-          has_chart: true
+    name: other_content
+    button:
+       args:
+            - type: button
+            - value: CSV
+            - style: button
+    select:
+       args:
+           - type: dropdown
+           - options:
+             - value: Bar Chart
+             - value: Pie Chart
+             - value: Line Chart
+    
+    name: card__body
+    has_chart: true
