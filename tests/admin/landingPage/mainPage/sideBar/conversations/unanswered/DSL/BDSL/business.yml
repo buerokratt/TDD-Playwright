@@ -2,113 +2,118 @@ resource: chat/unanswered
 description: "Unanswered chats"
 test:
   main:
-    name: vertical-tabs
-    name: vertical-tabs__list
-    name: vertical-tabs__body-placeholder
-    components:
-        - paragraph:
+    templates:
+    - name: vertical-tabs
+    - name: vertical-tabs__list
+    - name: vertical-tabs__body-placeholder
+    - paragraphTemplate:
+      paragraph:
+          args:
+            - type: text
+            - value: "Choose a chat to begin"
+            - style: paragraph
+
+    selectedChat:
+      templates:
+      - name: active-chat__body
+      - name: active-chat__header
+      - paragraphTemplate:
+          paragraph:
             args:
               - type: text
-              - value: "Choose a chat to begin"
-              - style: paragraph
+              - value: "Header paragraph"
+              - style: p
 
-  selectedChat:
-    - name: active-chat__body
-      components:
-        - name: active-chat__header
-          components:
-            - paragraphTemplate:
-              - paragraph:
-                  args:
-                    - type: text
-                    - value: "Header paragraph"
-                    - style: p
-
-            - heading:
-                args:
-                  - type: text
-                  - value: "Header title"
-                  - style: h3
+      - headingTemplate:
+          heading:
+            args:
+              - type: text
+              - value: "Header title"
+              - style: h3
 
 
-        - name: active-chat__group-wrapper
+      - name: active-chat__group-wrapper
+        hasChat : true
 
-        - name: active-chat__toolbar
-        - buttonTemplate:
-        - button:
-          args:
-            - type: button
-            - value: "End chat"
-            - style: button
+      - name: active-chat__toolbar
+      - buttonTemplate:
+          button:
+            args:
+              - type: button
+              - value: "Take Over"
+              - style: button
 
 
 
-    - name: active-chat__side
-      components:
-        - name: active-chat__side-actions
-        - buttonTemplate:
-          - button:
+      - name: active-chat__side
+      - name: active-chat__side-actions
+      - buttonTemplate:
+          button:
             args:
               - type: button
               - value: "End chat"
               - style: button
 
-        - buttonTemplate:
-          - button:
+      - buttonTemplate:
+          button:
             args:
               - type: button
               - value: "Ask Authentication"
               - style: button
 
-        - buttonTemplate:
-          - button:
+      - buttonTemplate:
+          button:
             args:
               - type: button
               - value: "Ask Contact Information"
               - style: button
 
-        - buttonTemplate:
-          - button:
+      - buttonTemplate:
+          button:
             args:
               - type: button
               - value: "Ask Permission"
               - style: button
 
-        - buttonTemplate:
-          - button:
+      - buttonTemplate:
+          button:
             args:
               - type: button
               - value: "Forward to Colleague"
               - style: button
 
-        - name: active-chat__side-meta
-          components:
-            - paragraph:
-                args:
-                  - type: text
-                  - value: "Id"
-                  - style: p
+      - name: active-chat__side-meta
+      - paragraphTemplate:
+          paragraph:
+            args:
+              - type: text
+              - value: "Id"
+              - style: p
 
-            - paragraph:
-                args:
-                  - type: text
-                  - value: "End user name"
-                  - style: p
+      - paragraphTemplate:
+          paragraph:
+            args:
+              - type: text
+              - value: "End user name"
+              - style: p
 
-            - paragraph:
-                args:
-                  - type: text
-                  - value: "Chat started at"
-                  - style: p
+      - paragraphTemplate:
+          paragraph:
+            args:
+              - type: text
+              - value: "Chat started at"
+              - style: p
 
-            - paragraph:
-                args:
-                  - type: text
-                  - value: "Device"
-                  - style: p
+      - paragraphTemplate:
+          paragraph:
+            args:
+              - type: text
+              - value: "Device"
+              - style: p
 
-            - paragraph:
-                args:
-                  - type: text
-                  - value: "Location"
-                  - style: p
+      - paragraphTemplate:
+          paragraph:
+            args:
+              - type: text
+              - value: "Location"
+              - style: p

@@ -1,8 +1,0 @@
-templates:
-  - name: title
-  - components:
-      - title:
-          args:
-            - type: text
-            - value: "{{ labelTitle }}"
-            - style: h1

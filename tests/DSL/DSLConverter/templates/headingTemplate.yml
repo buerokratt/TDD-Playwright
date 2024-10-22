@@ -1,0 +1,8 @@
+templates:
+  name: heading
+  components:
+    - heading:
+        args:
+          - type: text
+          - value: "{{ labelValue }}"
+          - style: "{{ labelStyle }}"
