@@ -1,0 +1,45 @@
+resource: training/training/responses
+description: "Responses"
+test:
+  main:
+  heading:
+      args:
+          - type: text
+          - value: "Responses"
+          - style: h1
+  card:
+    name: card__body
+    name: track
+    input: 
+      args:
+          - type: text
+          - value: "Search response..."
+          - style: input
+    
+    button:
+       args:
+          - type: text
+          - value: "Add"
+          - style: button
+         
+  card:
+    name: card__body
+    table:
+    headers:
+        args:
+            - type: text
+            - value: "Response" 
+    body:
+      row:
+      data:
+         has_data: true
+      button:
+         args:
+             - type: button
+             - value: "Edit"
+             - style: button
+      button:
+         args:
+             - type: button
+             - value: "Delete"
+             - style: button
