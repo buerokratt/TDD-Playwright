@@ -1,0 +1,33 @@
+resource: chat/unanswered
+description: "Header"
+test:
+  main:
+  header:
+  - name: track
+  svg: 
+    args:
+        - type: logo
+        - color: 005aa3
+  paragraph: 
+    args: 
+        - type: text
+        - value: integer + "unanswered" + integer + "forwarded"
+        - style: paragraph
+  switch:
+        args:
+          - type: button
+          - style: switch
+  element: 
+        args:
+          - type: indicator
+          - style: circle
+          - color: red/green
+  button: 
+     args: 
+         - type: button
+         - style: button
+  button: 
+     args: 
+         - type: button
+         - value: Log out
+         - style: button
