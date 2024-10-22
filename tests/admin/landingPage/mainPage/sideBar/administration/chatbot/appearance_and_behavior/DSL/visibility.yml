@@ -1,54 +1,93 @@
-name: Visibility Tests for "Välimus ja käitumine"/"Appearance and Behaviour" Page
+resource: chat/chatbot/appearance
+description: "Appearance and Behaviour"
+test:
+  main:
+  heading:    
+    args:
+      - type: text
+      - value: "Appearance and behaviour"
+      - style: h1
 
-setup:
-  - describe: Check Visibility of Page Elements
-    serial: true
-    beforeEach:
-      - name: Setup
-        action:
-          navigate: "https://admin.prod.buerokratt.ee/chat/chatbot/appearance"
-      - name: Fetch Translations
-        action:
-          getTranslations: true
-          assignVariable: translations
+    card:
+      name: card__body
+      label:
+        args:
+          - type: text
+          - value: "Widget proactive seconds"
+          - style: label
+      input:
+        args:
+          - type: number
+          - style: input
 
-tests:
-      - name: Check Visibility of Header
-        action:
-          assertVisible: "h1:has-text('translations['appearanceAndBehaviour']')"
+      label:
+        args:
+          - type: text
+          - value: "Widget bubble message text"
+          - style: label
+      switch:
+        args:
+          - type: button
+          - style: switch
+          - adjacentTo: label
+          - associatedLabel: "Widget bubble message text"
 
-      - name: Check Visibility of Animation Duration Input
-        action:
-          assertVisible: "input[name='widgetProactiveSeconds']"
+      label:
+        args:
+          - type: text
+          - value: "Widget bubble message seconds"
+          - style: label
+      input:
+        args:
+          - type: number
+          - style: input
+          - adjacentTo: label
+          - associatedLabel: "Widget bubble message text"
 
-      - name: Check Visibility of Notification Switch
-        action:
-          assertVisible: template.label_switch[label=widgetBubbleMessage]
+      label:
+        args:
+          - type: text
+          - value: "Widget bubble message text"
+          - style: label
+      input:
+        args:
+          - type: text
+          - style: input
 
-      - name: Check Visibility of Animation Start Time Input
-        action:
-          assertVisible: "input[name='widgetBubbleMessageSeconds']"
+      label:
+        args:
+          - type: text
+          - value: "Widget color"
+          - style: label
+      input:
+        args:
+          - type: text
+          - style: input
+          - opens_colorpallet: true
+          - button: true
 
-      - name: Check Visibility of Notification Message Input
-        action:
-          assertVisible: "textarea[name='widgetBubbleMessage']"
-
-      - name: Check Visibility of Primary Color Picker
-        action:
-          assertVisible: "input[name='widgetColor']"
-
-      - name: Check Visibility of Color Picker Button
-        action:
-          assertVisible: "button.color-picker[name='widgetColorPicker']"
-
-      - name: Check Visibility of Animation Dropdown
-        action:
-          assertVisible: "div.select__trigger[name='widgetAnimation']"
-
-      - name: Check Visibility of Save Button
-        action:
-          assertVisible: "button:has-text('translations['save']')"
-
-      - name: Check Visibility of Preview Button
-        action:
-          assertVisible: "button:has-text('translations['preview']')"
+      label:
+        args:
+          - type: text
+          - value: "Widget animation"
+          - style: label
+      select:
+        args:
+          - type: dropdown
+          - style: select
+          - options:
+              - value: Jump
+              - value: Shockwave
+              - value: Wiggle
+      
+      name: card__footer
+      button:
+        args:
+          - type: button
+          - value: Save
+          - style: button
+      button:
+        args:
+          - type: button
+          - value: Preview
+          - style: button

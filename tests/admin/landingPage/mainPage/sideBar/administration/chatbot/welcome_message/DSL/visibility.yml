@@ -1,41 +1,38 @@
-name: Welcome Message/Tervitussõnum Visibility Tests
+resource: chat/chatbot/welcome-message
+description: "Settings"
+test:
+  main:
+  heading:
+    args:
+      - type: text
+      - value: "Welcome Message"
+      - style: h1
 
-setup:
-  description: Welcome Message Elements Visibility
-  serial: true
-  beforeEach:
-    - name: Navigate to the welcome message page
-      actions:
-        - navigate: "https://admin.prod.buerokratt.ee/chat/chatbot/welcome-message"
+    card:
+      name: card__body
+      label:
+        args:
+          - type: text
+          - value: "Greeting Active"
+          - style: label
+      switch:
+        args:
+          - type: button
+          - style: switch
 
-    - name: Fetch Translations
-      action:
-        getTranslations: true
-        assignVariable: translations
+      label:
+        args:
+          - type: text
+          - value: "Welcome Message"
+          - style: label
 
-tests:
-  - name: Verify main title visibility
-    check: h1:has-text("translations['welcomeMessage']")
-
-  - name: Ensure textarea is visible and not empty
-    checks:
-      - .textarea__wrapper textarea
-      - textareaNotEmpty: true
-
-  - name: Check switch label visibility
-    check: label:has-text(translations['greetingActive']")
-
-  - name: Verify switch button visibility
-    check: .switch__button
-    nth: 1
-
-  - name: Confirm textarea label visibility
-    check: label:has-text("translations['welcomeMessage']")
-
-  - name: Check textarea text and character count (known bug)
-    checks:
-      - textareaContainsText: true
-      - charCountMatchesTextLength: true
-
-  - name: Verify "Save" button visibility
-    check: button.btn--primary:has-text("translations['save']")
+      textarea:
+        args:
+          - type: text
+          - style: textarea
+      name: card__footer
+      button:
+        args:
+          - type: button
+          - value: "Save"
+          - style: button

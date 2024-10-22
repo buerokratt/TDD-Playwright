@@ -1,44 +1,60 @@
-name: Visibility Tests for "Erakorralised Teated"/"Emergency Notices" Page
+resource: chat/chatbot/emergency-notices
+description: "Emergency Notices"
+test:
+  main:
+    heading:
+      args:
+        - type: text
+        - value: "Emergency notices"
+        - style: h1
 
-setup:
-  - describe: Check Visibility of Page Elements
-    serial: true
-    beforeEach:
-      - name: Setup
-        action:
-          navigate: "https://admin.prod.buerokratt.ee/chat/chatbot/emergency-notices"
+    card:
+      name: card__body
+      label:
+        args:
+          - type: text
+          - value: "Notice active"
+          - style: label
+      input:
+        args:
+          - type: button
+          - style: switch
 
-      - name: Fetch Translations
-        action:
-          getTranslations: true
-          assignVariable: translations
+      label:
+        args:
+          - type: text
+          - value: "Notice"
+          - style: label
+      textarea:
+        args:
+          - type: text
+          - style: textarea
 
-tests:
-      - name: Check Visibility of "Erakorralised teated" Header
-        action:
-          assertVisible: "h1:has-text('{{ translations['emergencyNotices'] }}')"
+      label:
+        args:
+          - type: text
+          - value: "Display period"
+          - style: label
+      
+      input:
+        args:
+          - type: date
+          - opens_datePicker: true
 
-      - name: Check Visibility of "Teade aktiivne" Switch Button
-        action:
-          assertVisible: ".switch:has(.switch__label:has-text('{{ translations['noticeActive'] }}')) button[role='switch']"
+      label:
+        args:
+          - type: text
+          - value: "to"
+          - style: label
 
-      - name: Check Visibility of "Teade" Input Field
-        action:
-          assertVisible: ".textarea:has(.textarea__label:has-text('{{ translations['notice'] }}')) textarea"
+      input:
+        args:
+          - type: date
+          - opens_datePicker: true
 
-      - name: Check Visibility of "Kuvamisperiood" Date Inputs
-        serial: true
-        steps:
-          - name: Check "Kuvamisperiood" Label
-            action:
-              assertVisible: "p:has-text('{{ translations['displayPeriod'] }}')"
-          - name: Check Start Date Input
-            action:
-              assertVisible: ".datepicker:first-of-type"
-          - name: Check End Date Input
-            action:
-              assertVisible: ".datepicker:nth-of-type(2)"
-
-      - name: Check Visibility of "Salvesta" Button
-        action:
-          assertVisible: "button.btn--primary:has-text('{{ translations['save'] }}')"
+      name: card__footer
+      button:
+        args:
+          - type: button
+          - value: "Save"
+          - style: button

@@ -1,56 +1,48 @@
----
-name: Visibility Tests for "Seaded"/"Settings" Page
-setup:
-  - beforeEach:
-      - action:
-          navigate: https://admin.prod.buerokratt.ee/chat/chatbot/settings
-          waitFor: networkidle
-        name: Setup
-      - action:
-          assignVariable: translations
-          getTranslations: true
-        name: Fetch Translations
-    describe: Check Visibility of Page Elements
-    serial: true
-tests:
-  - name: Check Visibility of Main Heading
-    serial: true
-    steps:
-      - action:
-          assertVisible: main.layout__main h1
-        name: Check Heading is Visible
-      - action:
-          assertTexts:
-            selector: main.layout__main h1
-            text: {{ translations['settings'] }}
-        name: Check Heading Text
-  - action:
-      assertVisible: label:has-text({{ translations['chatBotActive'] }}) + button.switch__button
-    name: Check Visibility of "Vestlusrobot aktiivne" Switch
-  - name: Check Visibility of "Kuva nõustaja nimi" Switch
-    serial: true
-    steps:
-      - action:
-          assertVisible: label:has-text({{ translations['showSupportName'] }}) + button.switch__button
-        name: Check Switch Visibility
-      - action:
-          assertAttributes:
-            attribute: data-state
-            selector: label:has-text({{ translations['showSupportName'] }}) + button.switch__button
-            value: checked
-        name: Verify Default State
-  - name: Check Visibility of "Kuva nõustaja tiitel" Switch
-    serial: true
-    steps:
-      - action:
-          assertVisible: label:has-text({{ translations['showSupportTitle'] }}) + button.switch__button
-        name: Check Switch Visibility
-      - action:
-          assertAttributes:
-            attribute: data-state
-            selector: label:has-text({{ translations['showSupportTitle'] }}) + button.switch__button
-            value: checked
-        name: Verify Default State
-  - action:
-      assertVisible: button:has-text({{ translations['save'] }})
-    name: Check Visibility of "Salvesta" Button
+resource: chat/chatbot/settings
+description: "Settings"
+test:
+  main:
+  heading:
+    args:
+      - type: text
+      - value: "Settings"
+      - style: h1
+
+    card:
+      name: card__header
+      label:
+        args:
+          - type: text
+          - value: "Chatbot active"
+          - style: label
+      switch:
+        args:
+          - type: button
+          - style: switch
+
+      name: card__body
+      label:
+        args:
+          - type: text
+          - value: "Show support name"
+          - style: label
+      switch:
+        args:
+          - type: button
+          - style: switch
+
+      label:
+        args:
+          - type: text
+          - value: "Show support title"
+          - style: label
+      switch:
+        args:
+          - type: button
+          - style: switch
+      name: card__footer
+      button:
+        args:
+          - type: button
+          - value: "Save"
+          - style: button

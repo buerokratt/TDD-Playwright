@@ -1,89 +1,175 @@
-name: Working Time Functionality Tests DSL
+resource: chat/working-time
+description: "Working time"
+test:
+  main:
+  heading:
+      args:
+          - type: text
+          - value: "Organization working time"
+          - style: h1
+  card:
+    name: card__header
+    label:
+      args:
+          - type: text
+          - value: "Consider public holidays"
+          - style: label
 
-setup:
-  describe: Switch Visibility and Text Validation
-  serial: true # Ensure tests are executed in sequence
+    switch:
+       args:
+           - type: button
+           - style: switch
 
-  beforeEach:
-    - name: Setup Test
-      actions:
-        - navigate_to: "https://admin.prod.buerokratt.ee/chat/working-time"
-        - capture_initial_state:
-            switches:
-              - "closedOnWeekends"
-              - "sameOnAllWorkingDays"
-    - name: Fetch Translations
-      action:
-        - getTranslations: true
-        - assignVariable: translations
+    label:
+      args:
+          - type: text
+          - value: "Closed on weekends"
+          - style: label
+    switch:
+       args:
+           - type: button
+           - style: switch
 
-  afterEach:
-    - name: Restore Test Environment
-      actions:
-        - restore_initial_state:
-            switches:
-              - "closedOnWeekends"
-              - "sameOnAllWorkingDays"
+    label:
+      args:
+          - type: text
+          - value: "The same on all working days"
+          - style: label
+    switch:
+       args:
+           - type: button
+           - style: switch
 
-tests:
-  - name: Validate Header Visibility and Text
-    actions:
-      - wait_for_element: "header"
-      - assert_visibility: "header"
-      - assert_text:
-          selector: "header"
-          expected_text: "translations['workingTime']"
+    name: card__body divided
+    label:
+      args:
+          - type: text
+          - value: "Monday"
+          - style: label
+    input:
+      args:
+          - type: button
+          - style: switch
+    input:
+      args:
+          - type: input
+          - style: timepicker
+    input:
+      args:
+          - type: input
+          - style: timepicker
 
-  - name: Validate 'Consider Public Holidays' Switch
-    actions:
-      - wait_for_element: "switch"
-      - select_switch: "considerPublicHolidays"
-      - wait_for_element: "switch_label"
-      - assert_visibility: "switch"
-      - assert_text:
-          selector: "switch_label"
-          expected_text: "translations['considerPublicHolidays']"
+    label:
+      args:
+          - type: text
+          - value: "Tuesday"
+          - style: label
+    input:
+      args:
+          - type: button
+          - style: switch
+    input:
+      args:
+          - type: input
+          - style: timepicker
+    input:
+      args:
+          - type: input
+          - style: timepicker
 
-  - name: Validate 'Closed on Weekends' Switch
-    actions:
-      - wait_for_element: "switch"
-      - select_switch: "closedOnWeekends"
-      - wait_for_element: "switch_label"
-      - assert_visibility: "switch"
-      - assert_text:
-          selector: "switch_label"
-          expected_text: "translations['closedOnWeekends']"
+    label:
+      args:
+          - type: text
+          - value: "Wednesday"
+          - style: label
+    input:
+      args:
+          - type: button
+          - style: switch
+    input:
+      args:
+          - type: input
+          - style: timepicker
+    input:
+      args:
+          - type: input
+          - style: timepicker
 
-  - name: Validate 'Same On All Working Days' Switch
-    actions:
-      - wait_for_element: "switch"
-      - select_switch: "sameOnAllWorkingDays"
-      - wait_for_element: "switch_label"
-      - assert_visibility: "switch"
-      - assert_text:
-          selector: "switch_label"
-          expected_text: "translations['sameOnAllWorkingDays']"
+    label:
+      args:
+          - type: text
+          - value: "Thursday"
+          - style: label
+    input:
+      args:
+          - type: button
+          - style: switch
+    input:
+      args:
+          - type: input
+          - style: timepicker
+    input:
+      args:
+          - type: input
+          - style: timepicker
 
-  - name: Validate Visibility and Translation of Days
-    days:
-      - name: "Monday"
-        label_selector: "day_label"
-        expected_text: "translations['monday']"
-      - name: "Tuesday"
-        label_selector: "day_label"
-        expected_text: "translations['tuesday']"
-      - name: "Wednesday"
-        label_selector: "day_label"
-        expected_text: "translations['wednesday']"
-      - name: "Thursday"
-        label_selector: "day_label"
-        expected_text: "translations['thursday']"
-      - name: "Friday"
-        label_selector: "day_label"
-        expected_text: "translations['friday']"
-      - name: "Saturday"
-        label_selector: "day_label"
-        expected_text: "translations['saturday']"
-      - name: "Sunday"
-        label_selector: "day_label"
-        expected_text: "translations['sunday']"
+    label:
+      args:
+          - type: text
+          - value: "Friday"
+          - style: label
+    input:
+      args:
+          - type: button
+          - style: switch
+    input:
+      args:
+          - type: input
+          - style: timepicker
+    input:
+      args:
+          - type: input
+          - style: timepicker
+
+    label:
+      args:
+          - type: text
+          - value: "Saturday"
+          - style: label
+    input:
+      args:
+          - type: button
+          - style: switch
+    input:
+      args:
+          - type: input
+          - style: timepicker
+    input:
+      args:
+          - type: input
+          - style: timepicker
+
+    label:
+      args:
+          - type: text
+          - value: "Sunday"
+          - style: label
+    input:
+      args:
+          - type: button
+          - style: switch
+    input:
+      args:
+          - type: input
+          - style: timepicker
+    input:
+      args:
+          - type: input
+          - style: timepicker
+
+    name: card__footer
+    button:
+       args:
+           - type: button
+           - value: "Save"
+           - style: button
