@@ -128,6 +128,11 @@ test:
            - style: header
 
     name: other_content
+    button:
+       args:
+            - type: button
+            - value: CSV
+            - style: button
     select:
        args:
            - type: dropdown
@@ -135,10 +140,6 @@ test:
               - value: Bar Chart
               - value: Pie Chart
               - value: Line Chart
-    button:
-       args:
-            - type: button
-            - value: CSV
-            - style: button
+    
     name: card__body
     has_chart: true
