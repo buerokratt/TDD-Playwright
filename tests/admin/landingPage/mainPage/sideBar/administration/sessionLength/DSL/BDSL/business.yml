@@ -3,26 +3,26 @@ description: "Session Length"
 test:
   main:
   heading:
-      args:
-          - type: text
-          - value: "Session length"
-          - style: h1
+    args:
+      - type: text
+      - value: "Session length"
+      - style: h1
 
-  card:
-    name: card__body
-    label:
-      args:
-          - type: text
-          - value: "Session length"
-          - style: label
-    input:
-      args:
-          - type: number
-          - style: input
+    card:
+      name: card__body
+      label:
+        args:
+            - type: text
+            - value: "Session length"
+            - style: label
+      input:
+        args:
+            - type: number
+            - style: input
 
-    name: card__footer
-    button:
-       args:
-           - type: button
-           - value: "Save"
-           - style: button
+      name: card__footer
+      button:
+        args:
+            - type: button
+            - value: "Save"
+            - style: button
