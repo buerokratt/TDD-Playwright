@@ -1,5 +1,5 @@
-resource: analytics/feedback
-description: "Analytics feedback"
+resource: analytics/chats
+description: "Analytics chats"
 test:
   main:
     heading:
@@ -66,31 +66,37 @@ test:
             button:
               args:
                 - type: button
-                - value: Completed statuses / number of conversations
+                - value: Total number of chats
                 - style: button
         - button:
             button:
               args:
                 - type: button
-                - value: Feedback on bureaucrat conversations
+                - value: Contact information provided
                 - style: button
         - button:
             button:
               args:
                 - type: button
-                - value: Feedback on advisor conversations
+                - value: Average conversation time (min)
                 - style: button
         - button:
             button:
               args:
                 - type: button
-                - value: Feedback to selected advisor
+                - value: Average waiting time (min)
                 - style: button
         - button:
             button:
               args:
                 - type: button
-                - value: Conversations with negative feedback
+                - value: Average number of messages in a chat
+                - style: button
+        - button:
+            button:
+              args:
+                - type: button
+                - value: Count of idle chats ended by Bürokratt
                 - style: button
 
         - name: section
@@ -104,37 +110,17 @@ test:
             switch:
               args:
                 - type: checkbox
-                - value: Bureaucrat - the client left with an answer
+                - value: Only Bürokratt involved
                 - style: switch
             switch:
               args:
                 - type: checkbox
-                - value: Bureaucrat - the customer left without an answer
+                - value: CSA involved
                 - style: switch
             switch:
               args:
                 - type: checkbox
-                - value: Bureaucrat - terminated for an unspecified reason
-                - style: switch
-            switch:
-              args:
-                - type: checkbox
-                - value: Advisor - accepted answer
-                - style: switch
-            switch:
-              args:
-                - type: checkbox
-                - value: Advisor - signs of hate speech
-                - style: switch
-            switch:
-              args:
-                - type: checkbox
-                - value: Advisor - other reasons
-                - style: switch
-            switch:
-              args:
-                - type: checkbox
-                - value: Advisor - answered in another channel
+                - value: Total
                 - style: switch
 
     card:
@@ -144,7 +130,7 @@ test:
             header:
               args:
                 - type: text
-                - value: Completed statuses / number of conversations
+                - value: Total number of chats
                 - style: header
 
         - name: other_content
