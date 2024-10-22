@@ -2,64 +2,59 @@ resource: chat/chatbot/emergency-notices
 description: "Emergency Notices"
 test:
   main:
-    title:
-      name: title
-      components:
-        - titleTemplate:
-            - title:
-                args:
-                  - type: text
-                  - value: "Emergency notices"
-                  - style: h1
+    heading:
+      args:
+        - type: text
+        - value: "Emergency notices"
+        - style: h1
 
     card:
-      components:
-        - name: card__body
-        - switchTemplate:
-            - label:
-                args:
-                  - type: text
-                  - value: "Notice active"
-                  - style: label
-            - input:
-                args:
-                  - type: button
-                  - style: switch
+      name: card__body
+      label:
+        args:
+          - type: text
+          - value: "Notice active"
+          - style: label
+      input:
+        args:
+          - type: button
+          - style: switch
 
-        - textareaTemplate:
-            - label:
-                args:
-                  - type: text
-                  - value: "Notice"
-                  - style: label
-            - textarea:
-                args:
-                  - type: text
-                  - style: textarea
+      label:
+        args:
+          - type: text
+          - value: "Notice"
+          - style: label
+      textarea:
+        args:
+          - type: text
+          - style: textarea
 
-        - labelDate_labelDateTemplate:
-            - label:
-                args:
-                  - type: text
-                  - value: "Display period"
-                  - style: label
-            - input:
-                args:
-                  - type: date
-                  - opens_datePicker: true
-            - label:
-                args:
-                  - type: text
-                  - value: "to"
-                  - style: label
-            - input:
-                args:
-                  - type: date
-                  - opens_datePicker: true
-        - name: card__footer
-        - buttonTemplate:
-            - button:
-                args:
-                  - type: button
-                  - value: "Save"
-                  - style: button
+      label:
+        args:
+          - type: text
+          - value: "Display period"
+          - style: label
+      
+      input:
+        args:
+          - type: date
+          - opens_datePicker: true
+
+      label:
+        args:
+          - type: text
+          - value: "to"
+          - style: label
+
+      input:
+        args:
+          - type: date
+          - opens_datePicker: true
+
+      name: card__footer
+      button:
+        args:
+          - type: button
+          - value: "Save"
+          - style: button

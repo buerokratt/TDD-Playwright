@@ -35,6 +35,11 @@ jobs:
         if: always()  # Ensure it runs even if the test fails
         run: ls -R .
 
+      # Debug: Output Playwright report content
+      - name: Debug Playwright Report
+        if: always()  # Ensure it runs even if the test fails
+        run: cat playwright-report.json
+
       # Upload Playwright Report, ensure it's always attempted
       - name: Upload Playwright Report
         if: always()  # Ensure it runs even if the test fails
@@ -49,7 +54,7 @@ jobs:
         if: failure()  # Only execute if tests fail
         id: search_issue
         run: |
-          TEST_NAME=$(jq -r '.suites[].tests[] | select(.status == "failed") | .name' playwright-report.json)
+          TEST_NAME=$(jq -r '.suites[]?.tests[]? | select(.status == "failed") | .name // empty' playwright-report.json)
           echo "Searching for issues related to failed test: $TEST_NAME"
           if [ -z "$TEST_NAME" ]; then
             echo "No failed tests found."
@@ -66,8 +71,8 @@ jobs:
       - name: Create new issue for failed test
         if: steps.search_issue.outputs.issue_found == '0'
         run: |
-          TEST_NAME=$(jq -r '.suites[].tests[] | select(.status == "failed") | .name' playwright-report.json)
-          ERROR_DETAILS=$(jq -r '.suites[].tests[] | select(.status == "failed") | .error.message' playwright-report.json)
+          TEST_NAME=$(jq -r '.suites[]?.tests[]? | select(.status == "failed") | .name // empty' playwright-report.json)
+          ERROR_DETAILS=$(jq -r '.suites[]?.tests[]? | select(.status == "failed") | .error.message // empty' playwright-report.json)
           echo "Creating issue for failed test: $TEST_NAME"
           response=$(curl -X POST \
             -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
@@ -83,7 +88,6 @@ jobs:
           ISSUE_ID=$(echo "$response" | jq '.id')
           echo "Created issue with ID: $ISSUE_ID"
           echo "::set-output name=issue_id::$ISSUE_ID"
-
 
       # # Optional: Add the created issue to a project board
       # - name: Add issue to project board
