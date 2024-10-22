@@ -28,7 +28,7 @@ jobs:
       # Run all tests using 2 workers
       - name: Run Playwright tests
         id: playwright  # Adding ID to reference later steps
-        run: npx playwright test tests/admin --workers=2
+        run: npx playwright test tests/admin --workers=2 --reporter=json --output=playwright-report
       
       # Upload Playwright Report
       - name: Upload Playwright Report
@@ -43,7 +43,7 @@ jobs:
         if: failure()  # Only execute if tests fail
         id: search_issue
         run: |
-          TEST_NAME=$(jq -r '.suites[].tests[] | select(.status == "failed") | .name' playwright-report.json)
+          TEST_NAME=$(jq -r '.suites[].tests[] | select(.status == "failed") | .name' playwright-report/test-results.json)
           echo "Searching for issues related to failed test: $TEST_NAME"
           existing_issues=$(curl -s \
             -H "Authorization: token ${{ github.token }}" \
@@ -55,8 +55,8 @@ jobs:
       - name: Create new issue for failed test
         if: steps.search_issue.outputs.issue_found == '0'
         run: |
-          TEST_NAME=$(jq -r '.suites[].tests[] | select(.status == "failed") | .name' playwright-report.json)
-          ERROR_DETAILS=$(jq -r '.suites[].tests[] | select(.status == "failed") | .error.message' playwright-report.json)
+          TEST_NAME=$(jq -r '.suites[].tests[] | select(.status == "failed") | .name' playwright-report/test-results.json)
+          ERROR_DETAILS=$(jq -r '.suites[].tests[] | select(.status == "failed") | .error.message' playwright-report/test-results.json)
           echo "Creating issue for failed test: $TEST_NAME"
           curl -X POST \
             -H "Authorization: token ${{ github.token }}" \  # Use the default GITHUB_TOKEN
