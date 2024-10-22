@@ -11,7 +11,7 @@ test.describe('Unanswered chats page tests', () => {
 
     test.describe('Main section tests', () => {
 
-        test.only('Check visibility of vertical tabs and placeholder text', async ({ page }) => {
+        test('Check visibility of vertical tabs and placeholder text', async ({ page }) => {
             const verticalTabs = page.locator('.vertical-tabs');
             await expect(verticalTabs).toBeVisible();
             const verticalTabsList = page.locator('.vertical-tabs__list');

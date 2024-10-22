@@ -1,32 +1,28 @@
-"I am working on converting a businessDSL into playwright tests. Provide test file without any additional information. I will provide you with the businessDSL and templates. Here are the key requirements:
+"I am working on converting a businessDSL into Playwright tests. Provide the test file without any additional information. I will provide you with the businessDSL. Here are the key requirements:
 
+1. Text-based locators:
 All locators for text-based elements (labels, buttons, headers) must use translation keys. Translations are fetched using the getTranslations function and should be integrated into the locators as translation.key.
-
 Example: page.locator('h1:has-text("${translation.appearanceAndBehaviour}")') for headers, label:has-text("${translation.widgetProactiveSeconds}") for labels, etc.
 All elements with text content (such as labels, headers, buttons) should be located using page.locator() with the :has-text() pseudo-class, referencing the translation keys dynamically.
 
-Replace placeholders in the businessDSL with the appropriate template:
-
-Key placeholders in the businessDSL (e.g., labels, inputs, switches) should be replaced with the corresponding template components.
-Each component from the businessDSL must be mapped to its corresponding template, which will provide the necessary structure and hierarchy for the testDSL.
-Example: If the businessDSL has a labelInputTemplate, replace it with the corresponding label_input template and use translation keys for labels and input fields.
-For components that involve labels and related inputs (or switches), use parent-child or sibling relationships to locate them:
-
+2. Component handling:
+For components that involve labels and related inputs (or switches), use parent-child or sibling relationships to locate them.
 Example: label.locator('..').locator('input') for inputs associated with labels, or label:has-text("${translation.widgetBubbleMessageText}") + button.switch__button for switches adjacent to labels.
-The test setup should include navigation and fetching translations in a beforeEach hook to ensure the page and translations are ready before running each test.
 
-Baseurl is https://admin.prod.buerokratt.ee
+For dropdowns (select elements), use:
+const select = await page.getByRole('combobox', { name: `${translation.widgetAnimation}` });
 
-Translations should be defined as import { getTranslations } from '@translation/languageDetector.js'; In test.describe define variable as "let translation" and in beforeEach provide value "translation = await getTranslations(page);"
+3. Test setup:
+Include navigation and fetching translations in a beforeEach hook to ensure the page and translations are ready before running each test.
+Base URL: https://admin.prod.buerokratt.ee
+Translations should be defined as:
+  import { getTranslations } from '@translation/languageDetector.js';
+  let translation;
 
-File should be valid Playwright test file. Should be able just copy-paste and run them.
+And in beforeEach:
+translation = await getTranslations(page);
+Include a 3000ms timeout in the beforeEach to ensure all elements load properly.
 
-Some timeout is also needed to have all elements loaded appropriately. So in beforeEach include 3000ms timeout.
-
-Group tests with test.describe by logical parts
-
-Example:
-beforeEach:
-  - navigate: "/chat/chatbot/appearance"
-  - getTranslations: true
-All interactive elements (like buttons, dropdowns, inputs) must be tested for visibility using the appropriate translation keys for their text values.
+4. Logical grouping:
+Group tests using test.describe() by logical parts (e.g., headings, card body, footer).
+The output should be a valid Playwright test file, ready for copy-pasting and running without further modification."
