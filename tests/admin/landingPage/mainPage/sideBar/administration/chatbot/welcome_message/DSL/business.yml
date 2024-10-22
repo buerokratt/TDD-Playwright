@@ -10,26 +10,19 @@ test:
 
     card:
       name: card__body
-      label:
-        args:
-          - type: text
-          - value: "Greeting Active"
-          - style: label
       switch:
+        label: "Greeting Active"
         args:
           - type: button
           - style: switch
-
-      label:
-        args:
-          - type: text
-          - value: "Welcome Message"
-          - style: label
+          - adjacentTo: label
 
       textarea:
+        label: "Welcome Message"
         args:
           - type: text
           - style: textarea
+          - adjacentTo: label
       name: card__footer
       button:
         args:

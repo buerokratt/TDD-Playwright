@@ -10,36 +10,28 @@ test:
 
     card:
       name: card__header
-      label:
-        args:
-          - type: text
-          - value: "Chatbot active"
-          - style: label
       switch:
+        label: "Chatbot active"
         args:
           - type: button
           - style: switch
+          - adjacentTo: label
 
       name: card__body
-      label:
-        args:
-          - type: text
-          - value: "Show support name"
-          - style: label
       switch:
+        label: "Show support name"
         args:
           - type: button
           - style: switch
+          - adjacentTo: label
 
-      label:
-        args:
-          - type: text
-          - value: "Show support title"
-          - style: label
       switch:
+        label: "Show support title"
         args:
           - type: button
           - style: switch
+          - adjacentTo: label
+
       name: card__footer
       button:
         args:

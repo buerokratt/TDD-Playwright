@@ -10,68 +10,42 @@ test:
 
     card:
       name: card__body
-      label:
-        args:
-          - type: text
-          - value: "Widget proactive seconds"
-          - style: label
       input:
+        label: "Widget proactive seconds"
         args:
           - type: number
           - style: input
 
-      label:
-        args:
-          - type: text
-          - value: "Widget bubble message text"
-          - style: label
       switch:
+        label: "Widget bubble message text"
         args:
           - type: button
           - style: switch
           - adjacentTo: label
-          - associatedLabel: "Widget bubble message text"
 
-      label:
-        args:
-          - type: text
-          - value: "Widget bubble message seconds"
-          - style: label
       input:
+        label: "Widget bubble message seconds"
         args:
           - type: number
           - style: input
           - adjacentTo: label
-          - associatedLabel: "Widget bubble message text"
 
-      label:
-        args:
-          - type: text
-          - value: "Widget bubble message text"
-          - style: label
       input:
+        label: "Widget bubble message text"
         args:
           - type: text
           - style: input
 
-      label:
-        args:
-          - type: text
-          - value: "Widget color"
-          - style: label
       input:
+        label: "Widget color"
         args:
           - type: text
           - style: input
           - opens_colorpallet: true
           - button: true
 
-      label:
-        args:
-          - type: text
-          - value: "Widget animation"
-          - style: label
       select:
+        label: "Widget animation"
         args:
           - type: dropdown
           - style: select

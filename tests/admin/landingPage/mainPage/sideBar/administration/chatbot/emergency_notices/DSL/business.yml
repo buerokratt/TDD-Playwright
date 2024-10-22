@@ -10,22 +10,15 @@ test:
 
     card:
       name: card__body
-      label:
-        args:
-          - type: text
-          - value: "Notice active"
-          - style: label
-      input:
+      switch:
+        label: "Notice active"
         args:
           - type: button
           - style: switch
+          - adjacentTo: label
 
-      label:
-        args:
-          - type: text
-          - value: "Notice"
-          - style: label
       textarea:
+        label: "Notice"
         args:
           - type: text
           - style: textarea
@@ -37,17 +30,13 @@ test:
           - style: label
       
       input:
+        label: "Display period"
         args:
           - type: date
           - opens_datePicker: true
 
-      label:
-        args:
-          - type: text
-          - value: "to"
-          - style: label
-
       input:
+        label: "to"
         args:
           - type: date
           - opens_datePicker: true

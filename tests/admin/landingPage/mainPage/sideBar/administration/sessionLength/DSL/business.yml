@@ -10,15 +10,13 @@ test:
 
     card:
       name: card__body
-      label:
-        args:
-            - type: text
-            - value: "Session length"
-            - style: label
+
       input:
+        label: "Session length"
         args:
             - type: number
             - style: input
+            - adjacentTo: label
 
       name: card__footer
       button:

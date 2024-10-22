@@ -9,36 +9,26 @@ test:
           - style: h1
   card:
     name: card__header
-    label:
+    switch:
+      label: "Consider public holidays"
       args:
-          - type: text
-          - value: "Consider public holidays"
-          - style: label
+           - type: button
+           - style: switch
+           - adjacentTo: label
 
     switch:
+       label: Closed on weekends
        args:
            - type: button
            - style: switch
+           - adjacentTo: label
 
-    label:
-      args:
-          - type: text
-          - value: "Closed on weekends"
-          - style: label
     switch:
+       label: "The same on all working days"
        args:
            - type: button
            - style: switch
-
-    label:
-      args:
-          - type: text
-          - value: "The same on all working days"
-          - style: label
-    switch:
-       args:
-           - type: button
-           - style: switch
+           - adjacentTo: label
 
     name: card__body divided
     label:
