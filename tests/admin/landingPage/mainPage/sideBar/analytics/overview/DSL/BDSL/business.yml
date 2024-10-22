@@ -5,46 +5,46 @@ test:
     title:
       name: title
       templates:
-        - title:
-            - label:
+        - header:
+            - header:
                 args:
                   - type: text
                   - value: "Overview"
                   - style: h1
         - button:
-            - label:
+            button:
               args:
                 - type: button
                 - value: Edit
                 - style: button
     main-metrics-area:
       templates:
-        draggable_card:
+        - draggable_card:
             label: "Average chats per day: month / previous"
             args:
               - type: integer
               - style: h2
-        draggable_card:
+        - draggable_card:
             label: "Average chats per day: week / previous"
             args:
               - type: integer
               - style: h2
-        draggable_card:
+        - draggable_card:
             label: "Average chats answered by Bürokrat: month / previous"
             args:
               - type: integer
               - style: h2
-        draggable_card:
+        - draggable_card:
             label: "Average chats answered by Bürokrat: week / previous"
             args:
               - type: integer
               - style: h2
-        draggable_card:
+        - draggable_card:
             label: "Answered by Bürokrat: today / yesterday"
             args:
               - type: integer
               - style: h2
-        draggable_card:
+        - draggable_card:
             label: "Number of chats: month / previous"
             args:
               - type: integer
@@ -58,7 +58,7 @@ test:
             - value: "Total number of chats"
             - style: h3
         - name: card__body
-          chart:
+          has_chart: true
     card: 
       templates: 
         - name: card__header

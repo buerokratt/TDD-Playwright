@@ -1,5 +1,5 @@
-resource: analytics/feedback
-description: "Analytics feedback"
+resource: analytics/advisors
+description: "Analytics advisors"
 test:
   main:
     heading:
@@ -9,7 +9,7 @@ test:
             heading:
               args:
                 - type: text
-                - value: Feedback
+                - value: Advisors
                 - style: h1
 
     card:
@@ -66,31 +66,31 @@ test:
             button:
               args:
                 - type: button
-                - value: Completed statuses / number of conversations
+                - value: Forwarding
                 - style: button
         - button:
             button:
               args:
                 - type: button
-                - value: Feedback on bureaucrat conversations
+                - value: Average response speed in the institution
                 - style: button
         - button:
             button:
               args:
                 - type: button
-                - value: Feedback on advisor conversations
+                - value: Average presence of counselors
                 - style: button
         - button:
             button:
               args:
                 - type: button
-                - value: Feedback to selected advisor
+                - value: Number of conversations by adviser
                 - style: button
         - button:
             button:
               args:
                 - type: button
-                - value: Conversations with negative feedback
+                - value: Conversation time by advisor
                 - style: button
 
         - name: section
@@ -104,37 +104,17 @@ test:
             switch:
               args:
                 - type: checkbox
-                - value: Bureaucrat - the client left with an answer
+                - value: Number of conversations directed from the advisor
                 - style: switch
             switch:
               args:
                 - type: checkbox
-                - value: Bureaucrat - the customer left without an answer
+                - value: Counselor directed conversations
                 - style: switch
             switch:
               args:
                 - type: checkbox
-                - value: Bureaucrat - terminated for an unspecified reason
-                - style: switch
-            switch:
-              args:
-                - type: checkbox
-                - value: Advisor - accepted answer
-                - style: switch
-            switch:
-              args:
-                - type: checkbox
-                - value: Advisor - signs of hate speech
-                - style: switch
-            switch:
-              args:
-                - type: checkbox
-                - value: Advisor - other reasons
-                - style: switch
-            switch:
-              args:
-                - type: checkbox
-                - value: Advisor - answered in another channel
+                - value: Out-of-facility forwards
                 - style: switch
 
     card:
