@@ -2,165 +2,143 @@ resource: analytics/feedback
 description: "Analytics feedback"
 test:
   main:
+  heading:
+      args:
+          - type: text
+          - value: Feedback
+          - style: h1
+
+  card:
+    name: card__body
+    name: section 
+    label:
+       args:
+           - type: text
+           - value: Period
+           - style: label
+
+    button:
+       args:
+           - type: button
+           - value: Today
+           - style: button
+    button:
+       args:
+           - type: button
+           - value: Yesterday
+           - style: button
+    button:
+       args:
+           - type: button
+           - value: Last 30 Days
+           - style: button
+    button:
+       args:
+           - type: button
+           - value: Selected Months
+           - style: button
+    button:
+       args:
+           - type: button
+           - value: Selected Period
+           - style: button
+
+    name: section
+    label:
+       args:
+           - type: text
+           - value: Choose a metric
+           - style: label
+
+    button:
+       args:
+           - type: button
+           - value: Completed statuses / number of conversations
+           - style: button
+    button:
+       args:
+           - type: button
+           - value: Feedback on bureaucrat conversations
+           - style: button
+    button:
+       args:
+           - type: button
+           - value: Feedback on advisor conversations
+           - style: button
+    button:
+       args:
+           - type: button
+           - value: Feedback to selected advisor
+           - style: button
+    button:
+       args:
+           - type: button
+           - value: Conversations with negative feedback
+           - style: button
+
+    name: section
+    label:
+      args:
+           - type: text
+           - value: Additional Options
+           - style: label
+
+    switch:
+       args:
+           - type: checkbox
+           - value: Bureaucrat - the client left with an answer
+           - style: switch
+    switch:
+       args:
+           - type: checkbox
+           - value: Bureaucrat - the customer left without an answer
+           - style: switch
+    switch:
+       args:
+           - type: checkbox
+           - value: Bureaucrat - terminated for an unspecified reason
+           - style: switch
+    switch:
+       args:
+           - type: checkbox
+           - value: Advisor - accepted answer
+           - style: switch
+    switch:
+       args:
+           - type: checkbox
+           - value: Advisor - signs of hate speech
+           - style: switch
+    switch:
+       args:
+           - type: checkbox
+           - value: Advisor - other reasons
+           - style: switch
+    switch:
+       args:
+           - type: checkbox
+           - value: Advisor - answered in another channel
+           - style: switch
+
+  card:
+    name: card__header
     heading:
-      name: title
-      templates:
-        - heading:
-            heading:
-              args:
-                - type: text
-                - value: Feedback
-                - style: h1
+        args:
+           - type: text
+           - value: Completed statuses / number of conversations
+           - style: header
 
-    card:
-      templates:
-        - name: card__body
-        - name: section
-        - label:
-            label:
-              args:
-                - type: text
-                - value: Period
-                - style: label
-
-        - button:
-            button:
-              args:
-                - type: button
-                - value: Today
-                - style: button
-        - button:
-            button:
-              args:
-                - type: button
-                - value: Yesterday
-                - style: button
-        - button:
-            button:
-              args:
-                - type: button
-                - value: Last 30 Days
-                - style: button
-        - button:
-            button:
-              args:
-                - type: button
-                - value: Selected Months
-                - style: button
-        - button:
-            button:
-              args:
-                - type: button
-                - value: Selected Period
-                - style: button
-
-        - name: section
-        - label:
-            label:
-              args:
-                - type: text
-                - value: Choose a metric
-                - style: label
-
-        - button:
-            button:
-              args:
-                - type: button
-                - value: Completed statuses / number of conversations
-                - style: button
-        - button:
-            button:
-              args:
-                - type: button
-                - value: Feedback on bureaucrat conversations
-                - style: button
-        - button:
-            button:
-              args:
-                - type: button
-                - value: Feedback on advisor conversations
-                - style: button
-        - button:
-            button:
-              args:
-                - type: button
-                - value: Feedback to selected advisor
-                - style: button
-        - button:
-            button:
-              args:
-                - type: button
-                - value: Conversations with negative feedback
-                - style: button
-
-        - name: section
-        - label:
-           args:
-                - type: text
-                - value: Additional Options
-                - style: label
-
-        - multipleChoices:
-            switch:
-              args:
-                - type: checkbox
-                - value: Bureaucrat - the client left with an answer
-                - style: switch
-            switch:
-              args:
-                - type: checkbox
-                - value: Bureaucrat - the customer left without an answer
-                - style: switch
-            switch:
-              args:
-                - type: checkbox
-                - value: Bureaucrat - terminated for an unspecified reason
-                - style: switch
-            switch:
-              args:
-                - type: checkbox
-                - value: Advisor - accepted answer
-                - style: switch
-            switch:
-              args:
-                - type: checkbox
-                - value: Advisor - signs of hate speech
-                - style: switch
-            switch:
-              args:
-                - type: checkbox
-                - value: Advisor - other reasons
-                - style: switch
-            switch:
-              args:
-                - type: checkbox
-                - value: Advisor - answered in another channel
-                - style: switch
-
-    card:
-      templates:
-        - name: card__header
-        - header:
-            header:
-              args:
-                - type: text
-                - value: Completed statuses / number of conversations
-                - style: header
-
-        - name: other_content
-        - dropdown:
-            select:
-              args:
-                - type: dropdown
-                - options:
-                  - value: Bar Chart
-                  - value: Pie Chart
-                  - value: Line Chart
-        - button:
-            button:
-              args:
-                - type: button
-                - value: CSV
-                - style: button
-        - name: card__body
-          has_chart: true
+    name: other_content
+    select:
+       args:
+           - type: dropdown
+           - options:
+              - value: Bar Chart
+              - value: Pie Chart
+              - value: Line Chart
+    button:
+       args:
+            - type: button
+            - value: CSV
+            - style: button
+    name: card__body
+    has_chart: true
