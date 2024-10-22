@@ -28,7 +28,7 @@ jobs:
       # Run Playwright tests using 2 workers with config
       - name: Run Playwright tests
         id: playwright
-        run: npx playwright test tests/always-fail.test.js --workers=2
+        run: npx playwright test tests/always-fail.test.js --workers=2 --reporter=json > playwright-report.json
 
       # Always list root directory to verify report file location
       - name: List root directory contents
@@ -49,14 +49,14 @@ jobs:
         if: failure()  # Only execute if tests fail
         id: search_issue
         run: |
-          TEST_NAME=$(jq -r '.suites[]?.tests[]? | select(.status == "failed") | .name' playwright-report.json)
+          TEST_NAME=$(jq -r '.suites[].tests[] | select(.status == "failed") | .name' playwright-report.json)
           echo "Searching for issues related to failed test: $TEST_NAME"
           if [ -z "$TEST_NAME" ]; then
             echo "No failed tests found."
-            exit 0
+            exit 0  # No action required if no failed tests
           fi
           existing_issues=$(curl -s \
-            -H "Authorization: token ${{ github.token }}" \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
             -H "Accept: application/vnd.github.v3+json" \
             "https://api.github.com/search/issues?q=repo:buerokratt/GH-API-Test-1+is:issue+is:open+in:title+$TEST_NAME")
           echo "Found issues: $existing_issues"
@@ -66,11 +66,11 @@ jobs:
       - name: Create new issue for failed test
         if: steps.search_issue.outputs.issue_found == '0'
         run: |
-          TEST_NAME=$(jq -r '.suites[]?.tests[]? | select(.status == "failed") | .name' playwright-report.json)
-          ERROR_DETAILS=$(jq -r '.suites[]?.tests[]? | select(.status == "failed") | .error.message' playwright-report.json)
+          TEST_NAME=$(jq -r '.suites[].tests[] | select(.status == "failed") | .name' playwright-report.json)
+          ERROR_DETAILS=$(jq -r '.suites[].tests[] | select(.status == "failed") | .error.message' playwright-report.json)
           echo "Creating issue for failed test: $TEST_NAME"
           response=$(curl -X POST \
-            -H "Authorization: token ${{ github.token }}" \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
             -H "Accept: application/vnd.github.v3+json" \
             https://api.github.com/repos/buerokratt/GH-API-Test-1/issues \
             -d '{
