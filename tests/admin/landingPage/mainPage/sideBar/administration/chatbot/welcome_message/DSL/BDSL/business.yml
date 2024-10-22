@@ -2,44 +2,37 @@ resource: chat/chatbot/welcome-message
 description: "Settings"
 test:
   main:
-    title:
-      name: title
-      components:
-        - titleTemplate:
-            - title:
-                args:
-                  - type: text
-                  - value: "Welcome Message"
-                  - style: h1
+  heading:
+    args:
+      - type: text
+      - value: "Welcome Message"
+      - style: h1
 
     card:
-      components:
-        - name: card__body
-        - switchTemplate:
-            - label:
-                args:
-                  - type: text
-                  - value: "Greeting Active"
-                  - style: label
-            - switch:
-                args:
-                  - type: button
-                  - style: switch
-        - textareaTemplate:
-            - label:
-                args:
-                  - type: text
-                  - value: "Welcome Message"
-                  - style: label
+      name: card__body
+      label:
+        args:
+          - type: text
+          - value: "Greeting Active"
+          - style: label
+      switch:
+        args:
+          - type: button
+          - style: switch
 
-            - textarea:
-                args:
-                  - type: text
-                  - style: textarea
-        - name: card__footer
-        - buttonTemplate:
-            - button:
-                args:
-                  - type: button
-                  - value: "Save"
-                  - style: button
+      label:
+        args:
+          - type: text
+          - value: "Welcome Message"
+          - style: label
+
+      textarea:
+        args:
+          - type: text
+          - style: textarea
+      name: card__footer
+      button:
+        args:
+          - type: button
+          - value: "Save"
+          - style: button
