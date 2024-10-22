@@ -54,16 +54,16 @@ jobs:
         if: failure()  # Only execute if tests fail
         id: search_issue
         run: |
-          TEST_NAME=$(jq -r '.suites[]?.tests[]? | select(.status == "failed") | .name // empty' playwright-report.json)
-          echo "Searching for issues related to failed test: $TEST_NAME"
-          if [ -z "$TEST_NAME" ]; then
+          TEST_NAMES=$(jq -r '.suites[]?.specs[]?.tests[]? | select(.results[0].status == "failed") | .title // empty' playwright-report.json)
+          echo "Searching for issues related to failed test: $TEST_NAMES"
+          if [ -z "$TEST_NAMES" ]; then
             echo "No failed tests found."
             exit 0  # No action required if no failed tests
           fi
           existing_issues=$(curl -s \
             -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
             -H "Accept: application/vnd.github.v3+json" \
-            "https://api.github.com/search/issues?q=repo:buerokratt/GH-API-Test-1+is:issue+is:open+in:title+$TEST_NAME")
+            https://api.github.com/search/issues?q=repo:buerokratt/GH-API-Test-1+is:issue+is:open+in:title+${TEST_NAMES// /%20}")
           echo "Found issues: $existing_issues"
           echo "::set-output name=issue_found::$(echo $existing_issues | jq '.total_count')"
 
@@ -71,23 +71,27 @@ jobs:
       - name: Create new issue for failed test
         if: steps.search_issue.outputs.issue_found == '0'
         run: |
-          TEST_NAME=$(jq -r '.suites[]?.tests[]? | select(.status == "failed") | .name // empty' playwright-report.json)
-          ERROR_DETAILS=$(jq -r '.suites[]?.tests[]? | select(.status == "failed") | .error.message // empty' playwright-report.json)
-          echo "Creating issue for failed test: $TEST_NAME"
-          response=$(curl -X POST \
-            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-            -H "Accept: application/vnd.github.v3+json" \
-            https://api.github.com/repos/buerokratt/GH-API-Test-1/issues \
-            -d '{
-              "title": "[Playwright Test Failure]: '"$TEST_NAME"'",
-              "body": "A test failed in buerokratt/TDD-Playwright.\nDetails:\n- Test: '"$TEST_NAME"'\n- Error: '"$ERROR_DETAILS"'",
-              "labels": ["bug"]
-            }')
+          TEST_NAMES=$(jq -r '.suites[]?.specs[]?.tests[]? | select(.results[0].status == "failed") | .title // empty' playwright-report.json)
+          ERROR_DETAILS=$(jq -r '.suites[]?.specs[]?.tests[]? | select(.results[0].status == "failed") | .results[0].error.message // empty' playwright-report.json)
+          
+          echo "Creating issue for failed tests: $TEST_NAMES"
+          IFS=',' read -r -a names_array <<< "$TEST_NAMES"  # Convert string to array
+          for TEST_NAME in "${names_array[@]}"; do
+            response=$(curl -X POST \
+              -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+              -H "Accept: application/vnd.github.v3+json" \
+              https://api.github.com/repos/buerokratt/GH-API-Test-1/issues \
+              -d '{
+                "title": "[Playwright Test Failure]: '"$TEST_NAME"'",
+                "body": "A test failed in buerokratt/TDD-Playwright.\nDetails:\n- Test: '"$TEST_NAME"'\n- Error: '"$ERROR_DETAILS"'",
+                "labels": ["bug"]
+              }')
 
           # Extract the issue ID from the response
           ISSUE_ID=$(echo "$response" | jq '.id')
           echo "Created issue with ID: $ISSUE_ID"
           echo "::set-output name=issue_id::$ISSUE_ID"
+          done
 
       # # Optional: Add the created issue to a project board
       # - name: Add issue to project board
