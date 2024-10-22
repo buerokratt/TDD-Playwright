@@ -28,7 +28,7 @@ jobs:
       # Run all tests using 2 workers
       - name: Run Playwright tests
         id: playwright  # Adding ID to reference later steps
-        run: npx playwright test tests/admin --workers=2 --reporter=json --output=playwright-report
+        run: npx playwright test tests/always-fail.test.js --workers=2 --reporter=json --output=playwright-report
       
       # Upload Playwright Report
       - name: Upload Playwright Report
