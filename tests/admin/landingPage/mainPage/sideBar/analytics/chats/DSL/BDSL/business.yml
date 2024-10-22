@@ -9,7 +9,7 @@ test:
             heading:
               args:
                 - type: text
-                - value: Feedback
+                - value: Chats
                 - style: h1
 
     card:
