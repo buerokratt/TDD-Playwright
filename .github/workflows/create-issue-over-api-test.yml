@@ -49,8 +49,12 @@ jobs:
         if: failure()  # Only execute if tests fail
         id: search_issue
         run: |
-          TEST_NAME=$(jq -r '.suites[].tests[] | select(.status == "failed") | .name' playwright-report.json)
+          TEST_NAME=$(jq -r '.suites[]?.tests[]? | select(.status == "failed") | .name' playwright-report.json)
           echo "Searching for issues related to failed test: $TEST_NAME"
+          if [ -z "$TEST_NAME" ]; then
+            echo "No failed tests found."
+            exit 0
+          fi
           existing_issues=$(curl -s \
             -H "Authorization: token ${{ github.token }}" \
             -H "Accept: application/vnd.github.v3+json" \
@@ -62,8 +66,8 @@ jobs:
       - name: Create new issue for failed test
         if: steps.search_issue.outputs.issue_found == '0'
         run: |
-          TEST_NAME=$(jq -r '.suites[].tests[] | select(.status == "failed") | .name' playwright-report.json)
-          ERROR_DETAILS=$(jq -r '.suites[].tests[] | select(.status == "failed") | .error.message' playwright-report.json)
+          TEST_NAME=$(jq -r '.suites[]?.tests[]? | select(.status == "failed") | .name' playwright-report.json)
+          ERROR_DETAILS=$(jq -r '.suites[]?.tests[]? | select(.status == "failed") | .error.message' playwright-report.json)
           echo "Creating issue for failed test: $TEST_NAME"
           response=$(curl -X POST \
             -H "Authorization: token ${{ github.token }}" \
