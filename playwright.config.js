@@ -24,6 +24,7 @@ module.exports = defineConfig({
   reporter: [
     ['html', { open: 'always' }], // Generates the HTML report
     ['list', { printSteps: true }], // Generates the line-based report
+    ['json', { outputFile: 'playwright-report.json' }] // Generates the JSON report
   ],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
