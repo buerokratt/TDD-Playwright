@@ -1,4 +1,4 @@
-"I am working on converting a businessDSL into playwright tests. I will provide you with the businessDSL and templates. Here are the key requirements:
+"I am working on converting a businessDSL into playwright tests. Provide test file without any additional information. I will provide you with the businessDSL and templates. Here are the key requirements:
 
 All locators for text-based elements (labels, buttons, headers) must use translation keys. Translations are fetched using the getTranslations function and should be integrated into the locators as translation.key.
 
@@ -15,9 +15,17 @@ For components that involve labels and related inputs (or switches), use parent-
 Example: label.locator('..').locator('input') for inputs associated with labels, or label:has-text("${translation.widgetBubbleMessageText}") + button.switch__button for switches adjacent to labels.
 The test setup should include navigation and fetching translations in a beforeEach hook to ensure the page and translations are ready before running each test.
 
+Baseurl is https://admin.prod.buerokratt.ee
+
+Translations should be defined as import { getTranslations } from '@translation/languageDetector.js'; In test.describe define variable as "let translation" and in beforeEach provide value "translation = await getTranslations(page);"
+
+File should be valid Playwright test file. Should be able just copy-paste and run them.
+
+Some timeout is also needed to have all elements loaded appropriately. So in beforeEach include 3000ms timeout.
+
+Group tests with test.describe by logical parts
+
 Example:
-yaml
-Copy code
 beforeEach:
   - navigate: "/chat/chatbot/appearance"
   - getTranslations: true
