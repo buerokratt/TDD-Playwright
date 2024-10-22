@@ -17,7 +17,7 @@ card:
 ```
 
 - Before Template use **-** like **- buttonTemplate**, args declarations does not need **-** 
-- **Layout_main** is the main class where the content is displayed to. This is written in DSL as **main** on top of the file. 
+- **Layout_main** is the main class where the content is displayed to on the webpage. This is written in DSL as **main** on top of the file. 
 - **Any parent class** inside the **layout_main** should be without **-**, but classes inside that should start as **- name: classname** as per code above.
 
 ## **TODO:**
