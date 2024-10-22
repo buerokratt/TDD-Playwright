@@ -1,0 +1,384 @@
+name: Working time
+setup:
+	- describe: Check visibility of Page Elements
+	  serial: true
+	  beforeEach:
+	  - name: Setup
+		  action:
+			  navigate: "https://prod.buerokratt.ee/chat/working-time"
+	  - name: Fetch Translations
+			  action:
+				  getTranslations: true
+				  assignVariable: translations
+tests:
+	
+	
+	# titleTemplate component tests for Working time
+	
+	- name: title
+	  - components:
+	      - title:
+	          args:
+	            - type: text
+	            - value: "translation."
+	            - style: h1
+	
+	
+	# switchTemplate component tests for Working time
+	
+	- name: label_switch
+	  - components: 
+	      parent: switch
+	      children: Label + Switch
+	      - name: Label
+	        type: Label
+	        props:
+	          label: " translation.considerPublicHolidays"
+	          adjacent_to: Switch
+	          
+	      - name: Switch
+	        type: Switch
+	        props:
+	          switch: "button.switch__button"
+	          adjacent_to_label: true
+	
+	# switchTemplate component tests for Working time
+	
+	- name: label_switch
+	  - components: 
+	      parent: switch
+	      children: Label + Switch
+	      - name: Label
+	        type: Label
+	        props:
+	          label: " translation.closedOnWeekends"
+	          adjacent_to: Switch
+	          
+	      - name: Switch
+	        type: Switch
+	        props:
+	          switch: "button.switch__button"
+	          adjacent_to_label: true
+	
+	# switchTemplate component tests for Working time
+	
+	- name: label_switch
+	  - components: 
+	      parent: switch
+	      children: Label + Switch
+	      - name: Label
+	        type: Label
+	        props:
+	          label: " translation.theSameOnAllWorkingDays"
+	          adjacent_to: Switch
+	          
+	      - name: Switch
+	        type: Switch
+	        props:
+	          switch: "button.switch__button"
+	          adjacent_to_label: true
+	
+	# workingtimeTemplate component tests for Working time
+	
+	# IMPORTANT: Always select the **track** based on the **weekday** FIRST 
+	  # before performing any operations on its components (Label, Switch, Start Time, End Time).
+	  
+	  - name: label_workingtime
+	  - components: 
+	      parentclass: "track"
+	      children: Label + Switch + Track(startTime + endTime)
+	
+	      - name: Label
+	        type: label
+	        props:
+	          label: translation.monday 
+	
+	      - name: Switch
+	        type: Switch
+	        props:
+	          switch: "button.switch__button" 
+	    
+	      class: "track"
+	    - name: Start time
+	        wrapperclass: "startTime"
+	        type: datepicker
+	        props:
+	          input: text
+	          format: 00:00
+	
+	      - name: Label
+	        wrapperclass: "track"
+	        type: label
+	        props: 
+	          label: "translation.timeUntil"
+	      
+	      - name: End time
+	        wrapperclass: "endTime"
+	        type: datepicker
+	        props:
+	          input: text
+	          format: 00:00
+	
+	
+	# workingtimeTemplate component tests for Working time
+	
+	# IMPORTANT: Always select the **track** based on the **weekday** FIRST 
+	  # before performing any operations on its components (Label, Switch, Start Time, End Time).
+	  
+	  - name: label_workingtime
+	  - components: 
+	      parentclass: "track"
+	      children: Label + Switch + Track(startTime + endTime)
+	
+	      - name: Label
+	        type: label
+	        props:
+	          label: translation.tuesday 
+	
+	      - name: Switch
+	        type: Switch
+	        props:
+	          switch: "button.switch__button" 
+	    
+	      class: "track"
+	    - name: Start time
+	        wrapperclass: "startTime"
+	        type: datepicker
+	        props:
+	          input: text
+	          format: 00:00
+	
+	      - name: Label
+	        wrapperclass: "track"
+	        type: label
+	        props: 
+	          label: "translation.timeUntil"
+	      
+	      - name: End time
+	        wrapperclass: "endTime"
+	        type: datepicker
+	        props:
+	          input: text
+	          format: 00:00
+	
+	
+	# workingtimeTemplate component tests for Working time
+	
+	# IMPORTANT: Always select the **track** based on the **weekday** FIRST 
+	  # before performing any operations on its components (Label, Switch, Start Time, End Time).
+	  
+	  - name: label_workingtime
+	  - components: 
+	      parentclass: "track"
+	      children: Label + Switch + Track(startTime + endTime)
+	
+	      - name: Label
+	        type: label
+	        props:
+	          label: translation.wednesday 
+	
+	      - name: Switch
+	        type: Switch
+	        props:
+	          switch: "button.switch__button" 
+	    
+	      class: "track"
+	    - name: Start time
+	        wrapperclass: "startTime"
+	        type: datepicker
+	        props:
+	          input: text
+	          format: 00:00
+	
+	      - name: Label
+	        wrapperclass: "track"
+	        type: label
+	        props: 
+	          label: "translation.timeUntil"
+	      
+	      - name: End time
+	        wrapperclass: "endTime"
+	        type: datepicker
+	        props:
+	          input: text
+	          format: 00:00
+	
+	
+	# workingtimeTemplate component tests for Working time
+	
+	# IMPORTANT: Always select the **track** based on the **weekday** FIRST 
+	  # before performing any operations on its components (Label, Switch, Start Time, End Time).
+	  
+	  - name: label_workingtime
+	  - components: 
+	      parentclass: "track"
+	      children: Label + Switch + Track(startTime + endTime)
+	
+	      - name: Label
+	        type: label
+	        props:
+	          label: translation.thursday 
+	
+	      - name: Switch
+	        type: Switch
+	        props:
+	          switch: "button.switch__button" 
+	    
+	      class: "track"
+	    - name: Start time
+	        wrapperclass: "startTime"
+	        type: datepicker
+	        props:
+	          input: text
+	          format: 00:00
+	
+	      - name: Label
+	        wrapperclass: "track"
+	        type: label
+	        props: 
+	          label: "translation.timeUntil"
+	      
+	      - name: End time
+	        wrapperclass: "endTime"
+	        type: datepicker
+	        props:
+	          input: text
+	          format: 00:00
+	
+	
+	# workingtimeTemplate component tests for Working time
+	
+	# IMPORTANT: Always select the **track** based on the **weekday** FIRST 
+	  # before performing any operations on its components (Label, Switch, Start Time, End Time).
+	  
+	  - name: label_workingtime
+	  - components: 
+	      parentclass: "track"
+	      children: Label + Switch + Track(startTime + endTime)
+	
+	      - name: Label
+	        type: label
+	        props:
+	          label: translation.friday 
+	
+	      - name: Switch
+	        type: Switch
+	        props:
+	          switch: "button.switch__button" 
+	    
+	      class: "track"
+	    - name: Start time
+	        wrapperclass: "startTime"
+	        type: datepicker
+	        props:
+	          input: text
+	          format: 00:00
+	
+	      - name: Label
+	        wrapperclass: "track"
+	        type: label
+	        props: 
+	          label: "translation.timeUntil"
+	      
+	      - name: End time
+	        wrapperclass: "endTime"
+	        type: datepicker
+	        props:
+	          input: text
+	          format: 00:00
+	
+	
+	# workingtimeTemplate component tests for Working time
+	
+	# IMPORTANT: Always select the **track** based on the **weekday** FIRST 
+	  # before performing any operations on its components (Label, Switch, Start Time, End Time).
+	  
+	  - name: label_workingtime
+	  - components: 
+	      parentclass: "track"
+	      children: Label + Switch + Track(startTime + endTime)
+	
+	      - name: Label
+	        type: label
+	        props:
+	          label: translation.saturday 
+	
+	      - name: Switch
+	        type: Switch
+	        props:
+	          switch: "button.switch__button" 
+	    
+	      class: "track"
+	    - name: Start time
+	        wrapperclass: "startTime"
+	        type: datepicker
+	        props:
+	          input: text
+	          format: 00:00
+	
+	      - name: Label
+	        wrapperclass: "track"
+	        type: label
+	        props: 
+	          label: "translation.timeUntil"
+	      
+	      - name: End time
+	        wrapperclass: "endTime"
+	        type: datepicker
+	        props:
+	          input: text
+	          format: 00:00
+	
+	
+	# workingtimeTemplate component tests for Working time
+	
+	# IMPORTANT: Always select the **track** based on the **weekday** FIRST 
+	  # before performing any operations on its components (Label, Switch, Start Time, End Time).
+	  
+	  - name: label_workingtime
+	  - components: 
+	      parentclass: "track"
+	      children: Label + Switch + Track(startTime + endTime)
+	
+	      - name: Label
+	        type: label
+	        props:
+	          label: translation.sunday 
+	
+	      - name: Switch
+	        type: Switch
+	        props:
+	          switch: "button.switch__button" 
+	    
+	      class: "track"
+	    - name: Start time
+	        wrapperclass: "startTime"
+	        type: datepicker
+	        props:
+	          input: text
+	          format: 00:00
+	
+	      - name: Label
+	        wrapperclass: "track"
+	        type: label
+	        props: 
+	          label: "translation.timeUntil"
+	      
+	      - name: End time
+	        wrapperclass: "endTime"
+	        type: datepicker
+	        props:
+	          input: text
+	          format: 00:00
+	
+	
+	# buttonTemplate component tests for Working time
+	
+	- name: button
+	  - components: 
+	      - name: Button
+	        type: Button
+	        props:
+	          class: "btn"
+	          text: "translation."
+	          
