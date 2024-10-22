@@ -11,6 +11,7 @@ Example: label.locator('..').locator('input') for inputs associated with labels,
 
 For dropdowns (select elements), use:
 const select = await page.getByRole('combobox', { name: `${translation.widgetAnimation}` });
+so translation.<label>
 
 3. Test setup:
 Include navigation and fetching translations in a beforeEach hook to ensure the page and translations are ready before running each test.
