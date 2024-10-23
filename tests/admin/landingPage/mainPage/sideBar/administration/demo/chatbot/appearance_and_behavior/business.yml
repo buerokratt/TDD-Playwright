@@ -22,7 +22,7 @@ test:
           - type: button
           - style: switch
           - adjacentTo: label
-          - additionalSelector: nth(0)
+          - additionalSelector: first()
 
       input:
         label: "Widget bubble message seconds"

@@ -21,3 +21,10 @@ args:
     - type: button
 ```
 
+# How to use business.yml files to generate Playwright tests?
+
+- First copy and paste the business.yml file to chatGPT. 
+
+- Then take the whole of the prompt from the root folder and copy and paste it after the .yml file.
+
+- Add that you want visibility tests. (Functionality tests generation have not been implemented yet)
