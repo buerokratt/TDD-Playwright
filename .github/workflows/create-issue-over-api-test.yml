@@ -62,7 +62,7 @@ jobs:
         if: always()  # Only execute if tests fail
         id: search_issue
         run: |
-          TEST_NAMES=$(jq -r '.suites[]?.specs[]? | select(.tests[]?.results[]?.status == "failed") | .title' playwright-report.json)
+          TEST_NAMES=$(jq -r '.suites[]?.specs[]? | select(.tests[]?.results[-1].status == "failed") | .title' playwright-report.json)
           echo "Searching for issues related to failed test: $TEST_NAMES"
           
           if [ -z "$TEST_NAMES" ]; then
