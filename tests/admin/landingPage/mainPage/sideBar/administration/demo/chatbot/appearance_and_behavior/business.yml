@@ -1,0 +1,69 @@
+resource: chat/chatbot/appearance
+description: "Appearance and Behaviour"
+test:
+  main:
+  heading:    
+    args:
+      - type: text
+      - value: "Appearance and behaviour"
+      - style: h1
+
+    card:
+      name: card__body
+      input:
+        label: "Widget proactive seconds"
+        args:
+          - type: number
+          - style: input
+
+      switch:
+        label: "Widget bubble message text"
+        args:
+          - type: button
+          - style: switch
+          - adjacentTo: label
+          - additionalSelector: nth(0)
+
+      input:
+        label: "Widget bubble message seconds"
+        args:
+          - type: number
+          - style: input
+          - adjacentTo: label
+
+      input:
+        label: "Widget bubble message text"
+        args:
+          - type: text
+          - style: input
+          - additionalSelector: nth(1)
+
+      input:
+        label: "Widget color"
+        args:
+          - type: text
+          - style: input
+          - opens_colorpallet: true
+          - button: true
+
+      select:
+        label: "Widget animation"
+        args:
+          - type: dropdown
+          - style: select
+          - options:
+              - value: Jump
+              - value: Shockwave
+              - value: Wiggle
+      
+      name: card__footer
+      button:
+        args:
+          - type: button
+          - value: Save
+          - style: button
+      button:
+        args:
+          - type: button
+          - value: Preview
+          - style: button

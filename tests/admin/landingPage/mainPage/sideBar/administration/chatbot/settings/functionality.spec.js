@@ -15,7 +15,7 @@ test.describe('Settings/Seaded Functionality Tests', () => {
         translation = await getTranslations(page);
 
         // Capture the original states of the switches using translations
-        originalRobotActiveState = await page.locator(`label:has-text("${translation["chatBotActive"]}") + button.switch__button`).getAttribute('data-state');
+        originalRobotActiveState = await page.locator(`label:has-text("${translation["chatbotActive"]}") + button.switch__button`).getAttribute('data-state');
         originalShowAdvisorNameState = await page.locator(`label:has-text("${translation["showSupportName"]}") + button.switch__button`).getAttribute('data-state');
         originalShowAdvisorTitleState = await page.locator(`label:has-text("${translation["showSupportTitle"]}") + button.switch__button`).getAttribute('data-state');
     });
@@ -28,7 +28,7 @@ test.describe('Settings/Seaded Functionality Tests', () => {
         })
 
         // Locate all switches using translations
-        const robotActiveSwitch = page.locator(`label:has-text("${translation["chatBotActive"]}") + button.switch__button`);
+        const robotActiveSwitch = page.locator(`label:has-text("${translation["chatbotActive"]}") + button.switch__button`);
         const showAdvisorNameSwitch = page.locator(`label:has-text("${translation["showSupportName"]}") + button.switch__button`);
         const showAdvisorTitleSwitch = page.locator(`label:has-text("${translation["showSupportTitle"]}") + button.switch__button`);
 

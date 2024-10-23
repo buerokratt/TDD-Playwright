@@ -1,0 +1,49 @@
+resource: chat/chatbot/emergency-notices
+description: "Emergency Notices"
+test:
+  main:
+    heading:
+      args:
+        - type: text
+        - value: "Emergency notices"
+        - style: h1
+
+    card:
+      name: card__body
+      switch:
+        label: "Notice active"
+        args:
+          - type: button
+          - style: switch
+          - adjacentTo: label
+
+      textarea:
+        label: "Notice"
+        args:
+          - type: text
+          - style: textarea
+
+      label:
+        args:
+          - type: text
+          - value: "Display period"
+          - style: label
+      
+      input:
+        label: "Display period"
+        args:
+          - type: date
+          - opens_datePicker: true
+
+      input:
+        label: "to"
+        args:
+          - type: date
+          - opens_datePicker: true
+
+      name: card__footer
+      button:
+        args:
+          - type: button
+          - value: "Save"
+          - style: button

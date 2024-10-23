@@ -1,0 +1,40 @@
+resource: chat/chatbot/settings
+description: "Settings"
+test:
+  main:
+  heading:
+    args:
+      - type: text
+      - value: "Settings"
+      - style: h1
+
+    card:
+      name: card__header
+      switch:
+        label: "Chatbot active"
+        args:
+          - type: button
+          - style: switch
+          - adjacentTo: label
+
+      name: card__body
+      switch:
+        label: "Show support name"
+        args:
+          - type: button
+          - style: switch
+          - adjacentTo: label
+
+      switch:
+        label: "Show support title"
+        args:
+          - type: button
+          - style: switch
+          - adjacentTo: label
+
+      name: card__footer
+      button:
+        args:
+          - type: button
+          - value: "Save"
+          - style: button

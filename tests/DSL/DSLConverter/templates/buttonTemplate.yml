@@ -1,9 +1,0 @@
-templates: 
-  - name: button
-  - components: 
-      - name: Button
-        type: Button
-        props:
-          class: "btn"
-          text: "{{ labelButton }}"
-          

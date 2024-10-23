@@ -1,0 +1,34 @@
+resource: chat/chatbot/welcome-message
+description: "Settings"
+test:
+  main:
+  heading:
+    args:
+      - type: text
+      - value: "Welcome Message"
+      - style: h1
+
+    card:
+      name: card__body
+      switch:
+        label: "Greeting Active"
+        args:
+          - type: button
+          - style: switch
+          - adjacentTo: label
+
+      textarea:
+        label: "Welcome Message"
+        args:
+          - type: text
+          - style: textarea
+          - adjacentTo: label
+          - wrapperclass: textarea__wrapper
+          - exact: true
+          
+      name: card__footer
+      button:
+        args:
+          - type: button
+          - value: "Save"
+          - style: button

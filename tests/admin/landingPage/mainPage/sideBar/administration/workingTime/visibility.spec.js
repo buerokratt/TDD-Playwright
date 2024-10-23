@@ -55,7 +55,7 @@ test.describe('Switch visibility and text tests', () => {
         // Check if the <h1> element is visible
         const header = page.locator('h1');
         await expect(header).toBeVisible();
-        await expect(header).toHaveText(translation["workingTime"]);
+        await expect(header).toHaveText(translation["organizationworkingTime"]);
     });
 
     test('check visibility and text of "considerPublicHolidays" switch', async ({ page }) => {
