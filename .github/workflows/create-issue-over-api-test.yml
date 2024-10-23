@@ -51,9 +51,20 @@ jobs:
           path: playwright-report.json  # Correct file path
           retention-days: 30
 
+      - name: Debug jq output
+        if: always()
+        run: |
+          TEST_NAMES=$(jq -r '.suites[]?.specs[]?.tests[]? | select(.results[]?.status == "failed") | .title' playwright-report.json)
+          echo "Test names: $TEST_NAMES"
+
+      - name: Debug search_issue output
+        if: always()
+        run: |
+          echo "Issue found count: ${{ steps.search_issue.outputs.issue_found }}"
+
       # Search for existing issues for failed tests
       - name: Search for existing issues for failed tests
-        if: failure()  # Only execute if tests fail
+        if: always()  # Only execute if tests fail
         id: search_issue
         run: |
           TEST_NAMES=$(jq -r '.suites[]?.specs[]?.tests[]? | select(.results[]?.status == "failed") | .title' playwright-report.json)
@@ -72,7 +83,7 @@ jobs:
 
       # Create new issue for failed test
       - name: Create new issue for failed test
-        if: failure()
+        if: steps.search_issue.outputs.issue_found == '0'
         run: |
           TEST_NAMES=$(jq -r '.suites[]?.specs[]?.tests[]? | select(.results[]?.status == "failed") | .title' playwright-report.json)
           echo "Creating issue for failed tests: $TEST_NAMES"
