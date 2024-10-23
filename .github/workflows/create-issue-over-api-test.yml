@@ -54,13 +54,8 @@ jobs:
       - name: Debug jq output
         if: always()
         run: |
-          TEST_NAMES=$(jq -r '.suites[]?.specs[]?.tests[]? | select(.results[]?.status == "failed") | .title' playwright-report.json)
+          TEST_NAMES=$(jq -r '.suites[]?.specs[]? | select(.tests[]?.results[]?.status == "failed") | .title' playwright-report.json)
           echo "Test names: $TEST_NAMES"
-
-      - name: Debug search_issue output
-        if: always()
-        run: |
-          echo "Issue found count: ${{ steps.search_issue.outputs.issue_found }}"
 
       # Search for existing issues for failed tests
       - name: Search for existing issues for failed tests
@@ -80,6 +75,11 @@ jobs:
             "https://api.github.com/search/issues?q=repo:buerokratt/GH-API-Test-1+is:issue+is:open+in:title+$TEST_NAMES")
           echo "Found issues: $existing_issues"
           echo "::set-output name=issue_found::$(echo $existing_issues | jq '.total_count')"
+
+      - name: Debug search_issue output
+        if: always()
+        run: |
+          echo "Issue found count: ${{ steps.search_issue.outputs.issue_found }}"
 
       # Create new issue for failed test
       - name: Create new issue for failed test
