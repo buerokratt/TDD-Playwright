@@ -33,14 +33,14 @@ jobs:
         continue-on-error: true
 
       # Always list root directory to verify report file location
-      - name: List root directory contents
-        if: always()  # Ensure it runs even if the test fails
-        run: ls -R .
+      # - name: List root directory contents
+      #   if: always()  # Ensure it runs even if the test fails
+      #   run: ls -R .
 
       # Debug: Output Playwright report content
-      - name: Debug Playwright Report
-        if: always()  # Ensure it runs even if the test fails
-        run: cat playwright-report.json
+      # - name: Debug Playwright Report
+      #   if: always()  # Ensure it runs even if the test fails
+      #   run: cat playwright-report.json
 
       # Upload Playwright Report, ensure it's always attempted
       - name: Upload Playwright Report
@@ -49,7 +49,7 @@ jobs:
         with:
           name: playwright-report
           path: playwright-report.json  # Correct file path
-          retention-days: 30
+          retention-days: 3
 
       - name: Debug jq output
         if: always()
@@ -64,18 +64,32 @@ jobs:
         run: |
           TEST_NAMES=$(jq -r '.suites[]?.specs[]? | select(.tests[]?.results[]?.status == "failed") | .title' playwright-report.json)
           echo "Searching for issues related to failed test: $TEST_NAMES"
+          
           if [ -z "$TEST_NAMES" ]; then
             echo "No failed tests found."
             exit 0  # No action required if no failed tests
           fi
-          ESCAPED_TEST_NAMES=$(echo "$TEST_NAMES" | sed 's/ /%20/g')
+
+          SEARCH_URL="https://api.github.com/search/issues?q=repo:buerokratt/GH-API-Test-1+is:issue+is:open+in:title+$TEST_NAMES"
+          echo "GitHub API search URL: $SEARCH_URL"
+          
           existing_issues=$(curl -s \
             -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
             -H "Accept: application/vnd.github.v3+json" \
-            "https://api.github.com/search/issues?q=repo:buerokratt/GH-API-Test-1+is:issue+is:open+in:title+$TEST_NAMES")
-          echo "Found issues: $existing_issues"
-          echo "::set-output name=issue_found::$(echo $existing_issues | jq '.total_count')"
+            "$SEARCH_URL")
 
+          echo "API response: $existing_issues"
+
+          issue_count=$(echo "$existing_issues" | jq '.total_count')
+
+          if [ $? -ne 0 ]; then
+            echo "Error parsing the API response with jq."
+            exit 3
+          fi
+            
+          echo "Found issues count: $issue_count"
+          echo "::set-output name=issue_found::$issue_count"
+          
       - name: Debug search_issue output
         if: always()
         run: |
