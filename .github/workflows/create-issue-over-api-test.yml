@@ -3,6 +3,9 @@ name: Create Issues Over API Test
 on: 
   workflow_dispatch:
 
+permissions:
+  issues: write
+
 jobs:
   test:
     runs-on: ubuntu-latest
