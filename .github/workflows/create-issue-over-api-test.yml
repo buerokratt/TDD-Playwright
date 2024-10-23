@@ -126,7 +126,15 @@ jobs:
                 "labels": ["bug"]
               }')
 
-            ISSUE_ID=$(echo "$response" | jq '.id')
+            echo "Raw API response: $response"
+
+            ISSUE_ID=$(echo "$response" | jq -r '.id')
+
+            if [ "$ISSUE_ID" == "null" ] || [ -z "$ISSUE_ID" ]; then
+              echo "Failed to create the issue. Response was: $response"
+              exit 1
+            fi
+            
             echo "Created issue with ID: $ISSUE_ID"
             echo "::set-output name=issue_id::$ISSUE_ID"
           done <<< "$TEST_NAMES"
