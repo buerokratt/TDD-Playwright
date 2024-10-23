@@ -28,7 +28,9 @@ jobs:
       # Run Playwright tests using 2 workers with config
       - name: Run Playwright tests
         id: playwright
-        run: npx playwright test tests/always-fail.test.js --workers=2 --reporter=json > playwright-report.json
+        run: |
+          npx playwright test tests/always-fail.test.js --workers=2 --reporter=json > playwright-report.json
+        continue-on-error: true
 
       # Always list root directory to verify report file location
       - name: List root directory contents
@@ -60,6 +62,7 @@ jobs:
             echo "No failed tests found."
             exit 0  # No action required if no failed tests
           fi
+          ESCAPED_TEST_NAMES=$(echo "$TEST_NAMES" | sed 's/ /%20/g')
           existing_issues=$(curl -s \
             -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
             -H "Accept: application/vnd.github.v3+json" \
