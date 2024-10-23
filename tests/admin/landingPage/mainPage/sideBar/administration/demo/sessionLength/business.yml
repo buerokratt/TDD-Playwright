@@ -17,6 +17,7 @@ test:
             - type: number
             - style: input
             - adjacentTo: label
+            - nth-matching-element: nth(3)
 
       name: card__footer
       button:

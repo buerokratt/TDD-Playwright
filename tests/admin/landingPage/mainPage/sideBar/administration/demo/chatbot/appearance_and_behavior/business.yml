@@ -22,7 +22,7 @@ test:
           - type: button
           - style: switch
           - adjacentTo: label
-          - additionalSelector: first()
+          - nth-matching-element: nth(0)
 
       input:
         label: "Widget bubble message seconds"
@@ -36,7 +36,7 @@ test:
         args:
           - type: text
           - style: input
-          - additionalSelector: nth(1)
+          - nth-matching-element: nth(1)
 
       input:
         label: "Widget color"

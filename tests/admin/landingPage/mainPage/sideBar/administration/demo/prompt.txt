@@ -13,12 +13,18 @@ In general translations are in camelcase format meaning translation.idCode, tran
   use the extraselector.
   Use page.getByLabel() for input fields that are associated with a label.
   Use page.getByRole() for headings.
-  If you use getByText() and there's additionalselecot argument in the DSL element, add it.
+  Using getByText() and there's extra argument in the .yml file nth-matching-element the value is a locator to the n-th matching element. This is important. 
+  Example:
+        const label = await page.getByText(`${translation.widgetBubbleMessageText}`).nth(0);
+        const label = await page.getByText(`${translation.widgetBubbleMessageText}`).nth(1);
   Example: 
     const label = await page.getByText(`${translation.widgetProactiveSeconds}`);
     const input = await page.getByLabel(`${translation.widgetProactiveSeconds}`);
     await expect(label).toBeVisible();
     await expect(input).toBeVisible();
+  When it comes to table headers, use exact locators like this:
+      getByText(`${translation.name}`, { exact: true }
+  WHen it comes to table body, it should check the body per row.
 
 2. Component handling: 
    Always use sibling selectors (`+`) for adjacent components. Do not use `..` for locating elements based on labels.

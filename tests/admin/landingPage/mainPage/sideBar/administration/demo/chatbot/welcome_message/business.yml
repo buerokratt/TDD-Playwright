@@ -23,7 +23,7 @@ test:
           - type: text
           - style: textarea
           - adjacentTo: label
-          - wrapperclass: textarea__wrapper
+          - parentClass: textarea__wrapper
           - exact: true
           
       name: card__footer
