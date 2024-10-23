@@ -54,7 +54,7 @@ jobs:
       - name: Debug jq output
         if: always()
         run: |
-          TEST_NAMES=$(jq -r '.suites[]?.specs[]? | select(.tests[]?.results[]?.status == "failed") | .title' playwright-report.json)
+          TEST_NAMES=$(jq -r '.suites[]?.specs[]? | select(.tests[]?.results[-1].status == "failed") | .title' playwright-report.json)
           echo "Test names: $TEST_NAMES"
 
       # Search for existing issues for failed tests
@@ -102,16 +102,19 @@ jobs:
       - name: Create new issue for failed test
         if: steps.search_issue.outputs.issue_found == '0'
         run: |
-          TEST_NAMES=$(jq -r '.suites[]?.specs[]?.tests[]? | select(.results[]?.status == "failed") | .title' playwright-report.json)
+          TEST_NAMES=$(jq -r '.suites[]?.specs[]? | select(.tests[]?.results[-1].status == "failed") | .title' playwright-report.json)
+          ERROR_DETAILS=$(jq -r '.suites[]?.specs[]?.tests[]? | select(.results[-1].status == "failed") | .results[-1].error.message' playwright-report.json)
+          
           echo "Creating issue for failed tests: $TEST_NAMES"
+          echo "Error details: $ERROR_DETAILS"
 
-          if [ -z "$TEST_NAMES" ]; then
-            echo "No failed tests found."
+          if [ -z "$TEST_NAMES" ] || [ -z "$ERROR_DETAILS" ]; then
+            echo "Test names or error details are missing, skipping issue creation."
             exit 0
           fi
 
           while IFS= read -r TEST_NAME; do
-            ERROR_DETAILS=$(jq -r --arg TEST_NAME "$TEST_NAME" '.suites[]?.specs[]?.tests[]? | select(.title == $TEST_NAME) | .results[]?.error.message' playwright-report.json)
+            # ERROR_DETAILS=$(jq -r --arg TEST_NAME "$TEST_NAME" '.suites[]?.specs[]? | select(.title == $TEST_NAME) | .results[]?.error.message' playwright-report.json)
             echo "Creating issue for failed test: $TEST_NAME"
             response=$(curl -X POST \
               -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
@@ -125,6 +128,7 @@ jobs:
 
             ISSUE_ID=$(echo "$response" | jq '.id')
             echo "Created issue with ID: $ISSUE_ID"
+            echo "::set-output name=issue_id::$ISSUE_ID"
           done <<< "$TEST_NAMES"
 
       # # Optional: Add the created issue to a project board
