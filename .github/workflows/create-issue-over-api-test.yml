@@ -105,12 +105,10 @@ jobs:
       - name: Create new issue for failed test
         if: steps.search_issue.outputs.issue_found == '0'
         run: |
-          TEST_NAMES=$(jq -r '.suites[]?.specs[]? | select(.tests[]?.results[-1].status == "failed") | .title' playwright-report.json | jq -Rr @json)
-          ERROR_DETAILS=$(jq -r '.suites[]?.specs[]?.tests[]? | select(.results[-1].status == "failed") | .results[-1].error.message' playwright-report.json | jq -Rr @json)
+          TEST_NAMES=$(jq -r '.suites[]?.specs[]? | select(.tests[]?.results[-1].status == "failed") | .title' playwright-report.json)
+          ERROR_DETAILS=$(jq -r '.suites[]?.specs[]?.tests[]? | select(.results[-1].status == "failed") | .results[-1].error.message' playwright-report.json)
 
-          CLEAN_ERROR_DETAILS=$(echo "$ERROR_DETAILS" | sed 's/\x1b\[[0-9;]*m//g' | jq -Rr @json)
-
-          CLEAN_ERROR_DETAILS=$(echo "$CLEAN_ERROR_DETAILS" | sed 's/^"//' | sed 's/"$//')
+          CLEAN_ERROR_DETAILS=$(echo "$ERROR_DETAILS" | sed 's/\x1b\[[0-9;]*m//g')
           
           echo "Creating issue for failed tests: $TEST_NAMES"
           echo "Error details (cleaned): $CLEAN_ERROR_DETAILS"
@@ -121,17 +119,22 @@ jobs:
           fi
 
           while IFS= read -r TEST_NAME; do
-            # ERROR_DETAILS=$(jq -r --arg TEST_NAME "$TEST_NAME" '.suites[]?.specs[]? | select(.title == $TEST_NAME) | .results[]?.error.message' playwright-report.json)
             echo "Creating issue for failed test: $TEST_NAME"
+
+            JSON_PAYLOAD=$(jq -n \
+              --arg title "[Playwright Test Failure]: $TEST_NAME" \
+              --arg body "A test failed in buerokratt/GH-API-Test-1.\nDetails:\n- Test: $TEST_NAME\n- Error: $CLEAN_ERROR_DETAILS" \
+              '{
+                title: $title,
+                body: $body,
+                labels: ["bug"]
+              }')
+            
             response=$(curl -X POST \
               -H "Authorization: token ${{ secrets.BYK_PAT }}" \
               -H "Accept: application/vnd.github.v3+json" \
               https://api.github.com/repos/buerokratt/GH-API-Test-1/issues \
-              -d '{
-                "title": "[Playwright Test Failure]: '"$TEST_NAME"'",
-                "body": "A test failed in buerokratt/GH-API-Test-1.\nDetails:\n- Test: '"$TEST_NAME"'\n- Error: '"$CLEAN_ERROR_DETAILS"'",
-                "labels": ["bug"]
-              }')
+              -d "$JSON_PAYLOAD")
 
             echo "Raw API response: $response"
 
