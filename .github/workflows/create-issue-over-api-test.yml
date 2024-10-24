@@ -107,11 +107,13 @@ jobs:
         run: |
           TEST_NAMES=$(jq -r '.suites[]?.specs[]? | select(.tests[]?.results[-1].status == "failed") | .title' playwright-report.json | jq -Rr @json)
           ERROR_DETAILS=$(jq -r '.suites[]?.specs[]?.tests[]? | select(.results[-1].status == "failed") | .results[-1].error.message' playwright-report.json | jq -Rr @json)
+
+          CLEAN_ERROR_DETAILS=$(echo "$ERROR_DETAILS" | sed 's/\x1b\[[0-9;]*m//g' | jq -Rr @json)
           
           echo "Creating issue for failed tests: $TEST_NAMES"
-          echo "Error details: $ERROR_DETAILS"
+          echo "Error details (cleaned): $CLEAN_ERROR_DETAILS"
 
-          if [ -z "$TEST_NAMES" ] || [ -z "$ERROR_DETAILS" ]; then
+          if [ -z "$TEST_NAMES" ] || [ -z "$CLEAN_ERROR_DETAILS" ]; then
             echo "Test names or error details are missing, skipping issue creation."
             exit 0
           fi
@@ -125,7 +127,7 @@ jobs:
               https://api.github.com/repos/buerokratt/GH-API-Test-1/issues \
               -d '{
                 "title": "[Playwright Test Failure]: '"$TEST_NAME"'",
-                "body": "A test failed in buerokratt/GH-API-Test-1.\nDetails:\n- Test: '"$TEST_NAME"'\n- Error: '"$ERROR_DETAILS"'",
+                "body": "A test failed in buerokratt/GH-API-Test-1.\nDetails:\n- Test: '"$TEST_NAME"'\n- Error: '"$CLEAN_ERROR_DETAILS"'",
                 "labels": ["bug"]
               }')
 
