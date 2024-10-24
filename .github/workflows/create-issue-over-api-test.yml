@@ -80,7 +80,7 @@ jobs:
           echo "GitHub API search URL: $SEARCH_URL"
           
           existing_issues=$(curl -s \
-            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Authorization: token ${{ secrets.API_TEST_TOKEN }}" \
             -H "Accept: application/vnd.github.v3+json" \
             "$SEARCH_URL")
 
@@ -120,7 +120,7 @@ jobs:
             # ERROR_DETAILS=$(jq -r --arg TEST_NAME "$TEST_NAME" '.suites[]?.specs[]? | select(.title == $TEST_NAME) | .results[]?.error.message' playwright-report.json)
             echo "Creating issue for failed test: $TEST_NAME"
             response=$(curl -X POST \
-              -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+              -H "Authorization: token ${{ secrets.API_TEST_TOKEN }}" \
               -H "Accept: application/vnd.github.v3+json" \
               https://api.github.com/repos/buerokratt/GH-API-Test-1/issues \
               -d '{
