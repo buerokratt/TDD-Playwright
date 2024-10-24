@@ -123,7 +123,11 @@ jobs:
 
             JSON_PAYLOAD=$(jq -n \
               --arg title "[Playwright Test Failure]: $TEST_NAME" \
-              --arg body "A test failed in buerokratt/GH-API-Test-1.\nDetails:\n- Test: $TEST_NAME\n- Error: $CLEAN_ERROR_DETAILS" \
+              --arg body "A test failed in buerokratt/GH-API-Test-1.
+              
+              Details:
+              - Test: $TEST_NAME
+              - Error: $CLEAN_ERROR_DETAILS" \
               '{
                 title: $title,
                 body: $body,
