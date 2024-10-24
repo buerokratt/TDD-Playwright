@@ -28,14 +28,12 @@ jobs:
       - name: Install Playwright Browsers
         run: npm install @playwright/test && npx playwright install --with-deps
 
-      # Run Playwright tests using 2 workers with config
       - name: Run Playwright tests
         id: playwright
         run: |
           npx playwright test tests/always-fail.test.js --workers=2 --reporter=json > playwright-report.json
         continue-on-error: true
 
-      # Always list root directory to verify report file location
       # - name: List root directory contents
       #   if: always()  # Ensure it runs even if the test fails
       #   run: ls -R .
@@ -45,24 +43,22 @@ jobs:
       #   if: always()  # Ensure it runs even if the test fails
       #   run: cat playwright-report.json
 
-      # Upload Playwright Report, ensure it's always attempted
       - name: Upload Playwright Report
-        if: always()  # Ensure it runs even if the test fails
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: playwright-report
-          path: playwright-report.json  # Correct file path
+          path: playwright-report.json
           retention-days: 3
 
-      - name: Debug jq output
-        if: always()
-        run: |
-          TEST_NAMES=$(jq -r '.suites[]?.specs[]? | select(.tests[]?.results[-1].status == "failed") | .title' playwright-report.json)
-          echo "Test names: $TEST_NAMES"
+      # - name: Debug jq output
+      #   if: always()
+      #   run: |
+      #     TEST_NAMES=$(jq -r '.suites[]?.specs[]? | select(.tests[]?.results[-1].status == "failed") | .title' playwright-report.json)
+      #     echo "Test names: $TEST_NAMES"
 
-      # Search for existing issues for failed tests
       - name: Search for existing issues for failed tests
-        if: always()  # Only execute if tests fail
+        if: always()
         id: search_issue
         run: |
           TEST_NAMES=$(jq -r '.suites[]?.specs[]? | select(.tests[]?.results[-1].status == "failed") | .title' playwright-report.json)
@@ -96,12 +92,11 @@ jobs:
           echo "Found issues count: $issue_count"
           echo "::set-output name=issue_found::$issue_count"
           
-      - name: Debug search_issue output
-        if: always()
-        run: |
-          echo "Issue found count: ${{ steps.search_issue.outputs.issue_found }}"
+      # - name: Debug search_issue output
+      #   if: always()
+      #   run: |
+      #     echo "Issue found count: ${{ steps.search_issue.outputs.issue_found }}"
 
-      # Create new issue for failed test
       - name: Create new issue for failed test
         if: steps.search_issue.outputs.issue_found == '0'
         run: |
