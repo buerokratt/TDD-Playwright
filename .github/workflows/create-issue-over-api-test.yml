@@ -124,6 +124,7 @@ jobs:
             JSON_PAYLOAD=$(jq -n \
               --arg title "[Playwright Test Failure]: $TEST_NAME" \
               --arg body "A test failed in buerokratt/TDD-Playwright.
+          
           Details:
           - Test: $TEST_NAME
           - Error: $CLEAN_ERROR_DETAILS" \
