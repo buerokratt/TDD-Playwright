@@ -109,6 +109,8 @@ jobs:
           ERROR_DETAILS=$(jq -r '.suites[]?.specs[]?.tests[]? | select(.results[-1].status == "failed") | .results[-1].error.message' playwright-report.json | jq -Rr @json)
 
           CLEAN_ERROR_DETAILS=$(echo "$ERROR_DETAILS" | sed 's/\x1b\[[0-9;]*m//g' | jq -Rr @json)
+
+          CLEAN_ERROR_DETAILS=$(echo "$CLEAN_ERROR_DETAILS" | sed 's/^"//' | sed 's/"$//')
           
           echo "Creating issue for failed tests: $TEST_NAMES"
           echo "Error details (cleaned): $CLEAN_ERROR_DETAILS"
