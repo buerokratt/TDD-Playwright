@@ -1,0 +1,74 @@
+resource: intents
+description: "Intents Section"
+
+test:
+  main:
+    heading:      
+      args:
+        - type: text
+        - value: "Intents"
+        - style: h1
+
+    verticalTabs:
+      - name: vertical-tabs
+
+      - name: vertical-tabs__list
+    
+      # Search Input Field
+      - name: vertical-tabs__list-search
+        track:
+          input:
+            args:
+              - type: text
+              - placeholder: "Search for intent..."
+              - style: input
+
+          
+          button:
+            args:
+              - type: button
+              - value: "Add"
+              - style: button
+              - disabled: true
+
+    selectedTab:
+      - name: vertical-tabs__body
+      - name: vertical-tabs__content-header
+        track: 
+          heading:
+            args:
+              - type: text
+              - style: h3
+          
+          button:
+            args:
+              - type: button
+              - value: "Edit"
+              - style: button
+
+          paragraph:
+            args:
+              - type: text
+              - style: p
+
+          button:
+            args:
+              - type: button
+              - value: "Upload examples"
+              - style: button
+          button:
+            args:
+              - type: button
+              - value: "Download examples"
+              - style: button
+          button:
+            args:
+              - type: button
+              - value: "Remove from model"
+              - style: button
+          button:
+            args:
+              - type: button
+              - value: "Delete"
+              - style: button
+
