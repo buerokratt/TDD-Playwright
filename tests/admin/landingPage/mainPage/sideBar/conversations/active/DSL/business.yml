@@ -40,5 +40,39 @@ test:
       - name: active-chat__side
       - name: active-chat__side-actions
       - name: active-chat__side-meta
-      
-      
+        paragraph:
+          args:
+            - type: text
+            - value: "Id"
+            - style: p
+
+        paragraph:
+          args:
+            - type: text
+            - value: "End user name"
+            - style: p
+
+        paragraph:
+          args:
+            - type: text
+            - value: "Client support name"
+            - style: p
+        
+        paragraph:
+          args:
+            - type: text
+            - value: "Chat started at"
+            - style: p
+
+        paragraph:
+          args:
+            - type: text
+            - value: "Device"
+            - style: p
+
+        paragraph:
+          args:
+            - type: text
+            - value: "Location"
+            - style: p
+            
