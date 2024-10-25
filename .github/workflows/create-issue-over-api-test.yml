@@ -139,7 +139,7 @@ jobs:
             response=$(curl -X POST \
               -H "Authorization: token ${{ secrets.BYK_PAT }}" \
               -H "Accept: application/vnd.github.v3+json" \
-              https://api.github.com/repos/$ORGANIZATION/GH-API-Test-1/issues \
+              https://api.github.com/repos/buerokratt/GH-API-Test-1/issues \
               -d "$JSON_PAYLOAD")
 
             echo "Raw API response: $response"
