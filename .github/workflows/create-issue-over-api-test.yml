@@ -14,6 +14,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Set up environment variables
+        run: |
+          PROJECT_NUMBER=56  # TO BE REPLACED
+          ORGANIZATION="buerokratt"
+          FIELD_NAME="Status"  # TO BE REPLACED
+          FIELD_VALUE="Ready"  # TO BE REPLACED
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -72,7 +79,7 @@ jobs:
           ENCODED_TEST_NAMES=$(echo "$TEST_NAMES" | sed 's/ /%20/g')
           echo "Encoded test names: $ENCODED_TEST_NAMES"
 
-          SEARCH_URL="https://api.github.com/search/issues?q=repo:buerokratt/GH-API-Test-1+is:issue+is:open+in:title+$ENCODED_TEST_NAMES"
+          SEARCH_URL="https://api.github.com/search/issues?q=repo:$ORGANIZATION/GH-API-Test-1+is:issue+is:open+in:title+$ENCODED_TEST_NAMES"
           echo "GitHub API search URL: $SEARCH_URL"
           
           existing_issues=$(curl -s \
@@ -132,7 +139,7 @@ jobs:
             response=$(curl -X POST \
               -H "Authorization: token ${{ secrets.BYK_PAT }}" \
               -H "Accept: application/vnd.github.v3+json" \
-              https://api.github.com/repos/buerokratt/GH-API-Test-1/issues \
+              https://api.github.com/repos/$ORGANIZATION/GH-API-Test-1/issues \
               -d "$JSON_PAYLOAD")
 
             echo "Raw API response: $response"
@@ -148,18 +155,50 @@ jobs:
             echo "::set-output name=issue_id::$ISSUE_ID"
           done <<< "$TEST_NAMES"
 
-      # # Optional: Add the created issue to a project board
-      # - name: Add issue to project board
-      #   if: steps.search_issue.outputs.issue_found == '0'
-      #   run: |
-      #     ISSUE_ID="[issue_id]"  # Get this from the created issue response
-      #     COLUMN_ID="[column_id]"  # Get this from your project board setup
-      #     echo "Adding issue to the project board..."
-      #     curl -X POST \
-      #       -H "Authorization: token ${{ github.token }}" \  # Use the default GITHUB_TOKEN
-      #       -H "Accept: application/vnd.github.v3+json" \
-      #       https://api.github.com/projects/columns/$COLUMN_ID/cards \
-      #       -d '{
-      #         "content_id": '"$ISSUE_ID"',
-      #         "content_type": "Issue"
-      #       }'
+      - name: Get Project ID and Field ID
+        id: get_project_and_field_id
+        run: |
+          echo "Fetching project ID and field ID..."
+          project_response=$(curl -X POST \
+            -H "Authorization: bearer ${{ secrets.BYK_PAT }}" \
+            -H "Content-Type: application/json" \
+            -d "{\"query\":\"query { organization(login: \\\"$ORGANIZATION\\\") { projectV2(number: $PROJECT_NUMBER) { id fields(first: 20) { nodes { id name } } } } }\"}" \
+            https://api.github.com/graphql)
+
+          PROJECT_ID=$(echo "$project_response" | jq -r '.data.organization.projectV2.id')
+          FIELD_ID=$(echo "$project_response" | jq -r ".data.organization.projectV2.fields.nodes[] | select(.name == \\\"$FIELD_NAME\\\") | .id")
+          echo "Project ID: $PROJECT_ID"
+          echo "Field ID for '$FIELD_NAME': $FIELD_ID"
+          
+          echo "::set-output name=project_id::$PROJECT_ID"
+          echo "::set-output name=field_id::$FIELD_ID"
+
+      - name: Add issue to Project V2 board
+        run: |
+          ISSUE_ID=${{ steps.create_issue.outputs.issue_id }}
+          PROJECT_ID=${{ steps.get_project_and_field_id.outputs.project_id }}
+
+          echo "Adding issue to Project V2 board..."
+          add_response=$(curl -X POST \
+            -H "Authorization: bearer ${{ secrets.BYK_PAT }}" \
+            -H "Content-Type: application/json" \
+            -d "{\"query\":\"mutation { addProjectV2ItemById(input: {projectId: \\\"$PROJECT_ID\\\", contentId: \\\"$ISSUE_ID\\\"}) { item { id } } }\"}" \
+            https://api.github.com/graphql)
+
+          ITEM_ID=$(echo "$add_response" | jq -r '.data.addProjectV2ItemById.item.id')
+          echo "Item ID in Project V2: $ITEM_ID"
+          echo "::set-output name=item_id::$ITEM_ID"
+
+      - name: Set field value for the project item
+        run: |
+          FIELD_ID=${{ steps.get_project_and_field_id.outputs.field_id }}
+          ITEM_ID=${{ steps.add_to_project.outputs.item_id }}
+
+          echo "Setting field value..."
+          set_field_response=$(curl -X POST \
+            -H "Authorization: bearer ${{ secrets.BYK_PAT }}" \
+            -H "Content-Type: application/json" \
+            -d "{\"query\":\"mutation { updateProjectV2ItemFieldValue(input: {projectId: \\\"$PROJECT_ID\\\", itemId: \\\"$ITEM_ID\\\", fieldId: \\\"$FIELD_ID\\\", value: \\\"$FIELD_VALUE\\\"}) { projectV2Item { id } } }\"}" \
+            https://api.github.com/graphql)
+
+          echo "Set Field Response: $set_field_response"
