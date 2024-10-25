@@ -9,36 +9,36 @@ test:
           - style: h1
   card:
     name: card__body
-    name: track
-    input: 
-      args:
-          - type: text
-          - value: "Search chats..."
-          - style: input
-    input:
-      args:
-          - type: input
-          - style: datepicker
-    input:
-      args:
-          - type: input
-          - style: datepicker
-    select:
-      args:
-          - type: text
-          - style: dropdown
-          - multipleChoice: true
-          - options:
-            - value: "Start time"
-            - value: "End time"
-            - value: "Customer support name"
-            - value: "Name"
-            - value: "ID code"
-            - value: "Contact"
-            - value: "Comment"
-            - value: "Label"
-            - value: "Status"
-            - value: "ID"
+    track:
+        input: 
+        args:
+            - type: text
+            - value: "Search chats..."
+            - style: input
+        input:
+        args:
+            - type: input
+            - style: datepicker
+        input:
+        args:
+            - type: input
+            - style: datepicker
+        select:
+        args:
+            - type: text
+            - style: dropdown
+            - multipleChoice: true
+            - options:
+                - value: "Start time"
+                - value: "End time"
+                - value: "Customer support name"
+                - value: "Name"
+                - value: "ID code"
+                - value: "Contact"
+                - value: "Comment"
+                - value: "Label"
+                - value: "Status"
+                - value: "ID"
          
   card:
     name: card__body
