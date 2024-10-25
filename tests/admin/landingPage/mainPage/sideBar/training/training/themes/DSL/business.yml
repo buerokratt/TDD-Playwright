@@ -1,4 +1,4 @@
-resource: intents
+resource: training/training/intents
 description: "Intents Section"
 
 test:

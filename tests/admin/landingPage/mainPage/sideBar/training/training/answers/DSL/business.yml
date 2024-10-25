@@ -9,18 +9,18 @@ test:
           - style: h1
   card:
     name: card__body
-    name: track
-    input: 
-      args:
-          - type: text
-          - value: "Search response..."
-          - style: input
-    
-    button:
-       args:
-          - type: text
-          - value: "Add"
-          - style: button
+    track:
+      input: 
+        args:
+            - type: text
+            - value: "Search response..."
+            - style: input
+      
+      button:
+        args:
+            - type: text
+            - value: "Add"
+            - style: button
          
   card:
     name: card__body

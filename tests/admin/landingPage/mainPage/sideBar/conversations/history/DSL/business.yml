@@ -10,41 +10,41 @@ test:
 
   card:
       name: card__body
-      name: track
-      input:
-        args:
-            - type: text
-            - value: "Search chats..."
-            - style: input
-      
-      input:
-        label: "From"
-        args:
-          - type: input
-          - style: datepicker
+      track:
+        input:
+            args:
+                - type: text
+                - value: "Search chats..."
+                - style: input
+        
+        input:
+            label: "From"
+            args:
+            - type: input
+            - style: datepicker
 
-      input:
-        label: "To"
-        args:
-          - type: input
-          - style: datepicker
+        input:
+            label: "To"
+            args:
+            - type: input
+            - style: datepicker
 
-      select:
-        args:
-          - type: dropdown
-          - style: select
-          - options:
-              - value: Start time
-              - value: End time
-              - value: Customer support name
-              - value: Name
-              - value: ID code
-              - value: Contact
-              - value: Comment
-              - value: Rating
-              - value: Feedback
-              - value: Status
-              - value: ID
+        select:
+            args:
+            - type: dropdown
+            - style: select
+            - options:
+                - value: Start time
+                - value: End time
+                - value: Customer support name
+                - value: Name
+                - value: ID code
+                - value: Contact
+                - value: Comment
+                - value: Rating
+                - value: Feedback
+                - value: Status
+                - value: ID
       
   card:
       name: card__body
