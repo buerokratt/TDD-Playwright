@@ -1,0 +1,18 @@
+This prompt is specific and should be considered only for unanswered chats visibility tests. 
+
+
+"End chat" button is there only when user is Present. 
+This means:
+1. Present / Away switch is in active state (user is present).
+2. In beforeEach hook after the "page.goto" and waiting for timeout, should add:
+
+const switchButton = await page.locator('.switch__button');
+const isChecked = await switchButton.getAttribute('aria-checked');
+if (isChecked !== 'true') {
+    await switchButton.click();
+}
+await selectFirstChat(page);
+
+SelectFirstChat is helper function that is in helper.js file which is in unanswered directory.
+
+selectFirstChat is used for tests that are related to selectedChat

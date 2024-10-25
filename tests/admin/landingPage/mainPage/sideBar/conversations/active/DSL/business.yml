@@ -1,0 +1,44 @@
+resource: chat/active
+description: "Active chats"
+test:
+  main:
+    verticalTabs:
+      - name: vertical-tabs
+      - name: vertical-tabs__group-header
+        paragraph:
+          args:
+            - type: text
+            - value: "My chats"
+            - style: paragraph
+      - name: vertical-tabs__body-placeholder
+        paragraph:
+          args:
+            - type: text
+            - value: "Choose a chat to begin"
+            - style: paragraph
+
+    selectedChat:
+      - name: active-chat__body
+      - name: active-chat__header
+        paragraph:
+          args:
+            - type: text
+            - value: "Header paragraph"
+            - style: p
+
+        heading:
+          args:
+            - type: text
+            - value: "Header title"
+            - style: h3
+
+      - name: active-chat__group-wrapper
+        hasChat : true
+
+      - name: active-chat__toolbar
+
+      - name: active-chat__side
+      - name: active-chat__side-actions
+      - name: active-chat__side-meta
+      
+      

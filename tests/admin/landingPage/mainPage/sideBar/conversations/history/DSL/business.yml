@@ -10,6 +10,7 @@ test:
 
   card:
       name: card__body
+      name: track
       input:
         args:
             - type: text

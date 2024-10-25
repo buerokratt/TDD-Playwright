@@ -15,7 +15,7 @@ test.describe('Appearance and Behaviour Page Tests', () => {
     await expect(headingLocator).toBeVisible();
   });
 
-  test.only('Check proactive seconds label and input visibility', async ({ page }) => {
+  test('Check proactive seconds label and input visibility', async ({ page }) => {
     const label = await page.getByText(`${translation.widgetProactiveSeconds}`);
     const input = await page.getByLabel(`${translation.widgetProactiveSeconds}`);
     

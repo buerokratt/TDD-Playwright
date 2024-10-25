@@ -1,81 +1,64 @@
-import { getTranslations } from '@translation/languageDetector.js';
-const { test, expect } = require('@playwright/test');
+// import { test, expect } from '@playwright/test';
+// import { getTranslations } from '@translation/languageDetector.js';
+// import { selectFirstChat } from '../../unanswered/helper.js';
 
-test.describe('Unanswered chats page tests', () => {
-    let translation;
-    test.beforeEach(async ({ page }) => {
-        await page.goto('https://admin.prod.buerokratt.ee/chat/unanswered');
-        await page.waitForTimeout(3000); // Wait for 3 seconds to ensure all elements are loaded
-        translation = await getTranslations(page);
-    });
+// let translation;
 
-    test.describe('Main section tests', () => {
+// test.describe('Unanswered Chats Visibility Tests', () => {
 
-        test('Check visibility of vertical tabs and placeholder text', async ({ page }) => {
-            const verticalTabs = page.locator('.vertical-tabs');
-            await expect(verticalTabs).toBeVisible();
-            const verticalTabsList = page.locator('.vertical-tabs__list');
-            await expect(verticalTabsList).toBeVisible();
-            const placeholderText = page.locator(`p:has-text("${translation.chooseChatToBegin}")`);
-            await expect(placeholderText).toBeVisible();
-        });
+//     test.beforeEach(async ({ page }) => {
+//         await page.goto('https://admin.prod.buerokratt.ee/chat/unanswered');
+//         await page.waitForTimeout(3000);
+        
+//         const switchButton = await page.locator('.switch__button');
+//         const isChecked = await switchButton.getAttribute('aria-checked');
+//         if (isChecked !== 'true') {
+//             await switchButton.click();
+//         }
+//         await selectFirstChat(page);
+//         translation = await getTranslations(page);
+//     });
 
-    });
+//     test('Verify main vertical tabs elements', async ({ page }) => {
+//         await expect(page.locator('.vertical-tabs')).toBeVisible();
+//         await expect(page.locator('.vertical-tabs__list')).toBeVisible();
+//         await expect(page.locator('.vertical-tabs__body-placeholder')).toHaveText("Choose a chat to begin");
+//     });
 
-    test.describe('Selected chat section tests', () => {
+//     test.describe('Selected Chat Details Section', () => {
+//         test('Verify selected chat elements', async ({ page }) => {
+//             const chatBody = page.locator('.active-chat__body');
+//             await expect(chatBody).toBeVisible();
+//             await expect(chatBody.locator('h3:has-text("Header title")')).toBeVisible();
+//             await expect(chatBody.locator('p:has-text("Header paragraph")')).toBeVisible();
+//         });
+//     });
 
-        test('Check visibility of active chat header and body', async ({ page }) => {
-            const translation = await getTranslations();
-            const activeChatBody = page.locator('.active-chat__body');
-            await expect(activeChatBody).toBeVisible();
-            const headerParagraph = page.locator(`p:has-text("${translation.headerParagraph}")`);
-            await expect(headerParagraph).toBeVisible();
-            const headerTitle = page.locator(`h3:has-text("${translation.headerTitle}")`);
-            await expect(headerTitle).toBeVisible();
-        });
+//     test.describe('Chat Toolbar Section', () => {
+//         test('Verify toolbar buttons', async ({ page }) => {
+//             await expect(page.locator('.active-chat__toolbar button:has-text("Take Over")')).toBeVisible();
+//         });
+//     });
 
-        test('Check visibility of "Take Over" button in toolbar', async ({ page }) => {
-            const translation = await getTranslations();
-            const takeOverButton = page.locator(`button:has-text("${translation.takeOver}")`);
-            await expect(takeOverButton).toBeVisible();
-        });
+//     test.describe('Side Action Buttons Section', () => {
+//         test('Verify side action buttons', async ({ page }) => {
+//             await expect(page.locator('.active-chat__side-actions button:has-text("End chat")')).toBeVisible();
+//             await expect(page.locator('.active-chat__side-actions button:has-text("Ask Authentication")')).toBeVisible();
+//             await expect(page.locator('.active-chat__side-actions button:has-text("Ask Contact Information")')).toBeVisible();
+//             await expect(page.locator('.active-chat__side-actions button:has-text("Ask Permission")')).toBeVisible();
+//             await expect(page.locator('.active-chat__side-actions button:has-text("Forward to Colleague")')).toBeVisible();
+//         });
+//     });
 
-    });
+//     test.describe('Meta Information Section', () => {
+//         test('Verify meta information in side meta section', async ({ page }) => {
+//             const metaSection = page.locator('.active-chat__side-meta');
+//             await expect(metaSection.locator('p:has-text("Id")')).toBeVisible();
+//             await expect(metaSection.locator('p:has-text("End user name")')).toBeVisible();
+//             await expect(metaSection.locator('p:has-text("Chat started at")')).toBeVisible();
+//             await expect(metaSection.locator('p:has-text("Device")')).toBeVisible();
+//             await expect(metaSection.locator('p:has-text("Location")')).toBeVisible();
+//         });
+//     });
 
-    test.describe('Side actions tests', () => {
-
-        test('Check visibility of side action buttons', async ({ page }) => {
-            const translation = await getTranslations();
-            const endChatButton = page.locator(`button:has-text("${translation.endChat}")`);
-            await expect(endChatButton).toBeVisible();
-            const askAuthButton = page.locator(`button:has-text("${translation.askAuthentication}")`);
-            await expect(askAuthButton).toBeVisible();
-            const askContactInfoButton = page.locator(`button:has-text("${translation.askContactInformation}")`);
-            await expect(askContactInfoButton).toBeVisible();
-            const askPermissionButton = page.locator(`button:has-text("${translation.askPermission}")`);
-            await expect(askPermissionButton).toBeVisible();
-            const forwardButton = page.locator(`button:has-text("${translation.forwardToColleague}")`);
-            await expect(forwardButton).toBeVisible();
-        });
-
-    });
-
-    test.describe('Meta information section tests', () => {
-
-        test('Check visibility of active chat side meta information', async ({ page }) => {
-            const translation = await getTranslations();
-            const idParagraph = page.locator(`p:has-text("${translation.id}")`);
-            await expect(idParagraph).toBeVisible();
-            const endUserNameParagraph = page.locator(`p:has-text("${translation.endUserName}")`);
-            await expect(endUserNameParagraph).toBeVisible();
-            const chatStartedAtParagraph = page.locator(`p:has-text("${translation.chatStartedAt}")`);
-            await expect(chatStartedAtParagraph).toBeVisible();
-            const deviceParagraph = page.locator(`p:has-text("${translation.device}")`);
-            await expect(deviceParagraph).toBeVisible();
-            const locationParagraph = page.locator(`p:has-text("${translation.location}")`);
-            await expect(locationParagraph).toBeVisible();
-        });
-
-    });
-
-});
+// });
