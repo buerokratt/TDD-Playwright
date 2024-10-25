@@ -12,8 +12,8 @@ test.describe('Chat Appearance Settings', () => {
 
   test.describe('Header Section', () => {
     test('should display main heading', async ({ page }) => {
-      const heading = await page.getByRole('heading', { 
-        name: `${translation.appearanceAndBehaviour}` 
+      const heading = await page.getByRole('heading', {
+        name: `${translation.appearanceAndBehaviour}`
       });
       await expect(heading).toBeVisible();
     });
@@ -54,11 +54,11 @@ test.describe('Chat Appearance Settings', () => {
     });
 
     test('should display widget animation dropdown', async ({ page }) => {
-      const select = await page.getByRole('combobox', { 
-        name: `${translation.widgetAnimation}` 
+      const select = await page.getByRole('combobox', {
+        name: `${translation.widgetAnimation}`
       });
       await expect(select).toBeVisible();
-      
+
       // Verify dropdown options
       await select.click();
       const options = ['Jump', 'Shockwave', 'Wiggle'];
@@ -71,13 +71,13 @@ test.describe('Chat Appearance Settings', () => {
 
   test.describe('Card Footer Section', () => {
     test('should display action buttons', async ({ page }) => {
-      const saveButton = await page.getByRole('button', { 
-        name: `${translation.save}` 
+      const saveButton = await page.getByRole('button', {
+        name: `${translation.save}`
       });
-      const previewButton = await page.getByRole('button', { 
-        name: `${translation.preview}` 
+      const previewButton = await page.getByRole('button', {
+        name: `${translation.preview}`
       });
-      
+
       await expect(saveButton).toBeVisible();
       await expect(previewButton).toBeVisible();
     });
