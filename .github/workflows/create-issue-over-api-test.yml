@@ -79,7 +79,7 @@ jobs:
           ENCODED_TEST_NAMES=$(echo "$TEST_NAMES" | sed 's/ /%20/g')
           echo "Encoded test names: $ENCODED_TEST_NAMES"
 
-          SEARCH_URL="https://api.github.com/search/issues?q=repo:$ORGANIZATION/GH-API-Test-1+is:issue+is:open+in:title+$ENCODED_TEST_NAMES"
+          SEARCH_URL="https://api.github.com/search/issues?q=repo:buerokratt/GH-API-Test-1+is:issue+is:open+in:title+$ENCODED_TEST_NAMES"
           echo "GitHub API search URL: $SEARCH_URL"
           
           existing_issues=$(curl -s \
