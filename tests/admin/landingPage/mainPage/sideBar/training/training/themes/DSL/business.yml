@@ -72,3 +72,41 @@ test:
               - value: "Delete"
               - style: button
 
+      - name: vertical-tabs__content  
+        table:
+          headers:
+            args:
+              - type: text
+              - value: "Examples"
+          body:
+            row:
+              data:
+                has_data: true
+                button:
+                  args:
+                    - type: button
+                    - value: "Turn into an intent"
+                    - style: button
+                button:
+                  args:
+                    - type: button
+                    - value: "Edit"
+                    - style: button
+                button:
+                  args:
+                    - type: button
+                    - value: "Delete"
+                    - style: button
+              
+              firstRow: 
+                textarea:
+                  args:
+                    - type: text
+                    - style: textarea
+                    - placeholder: "Add new..."
+
+                button:
+                  args:
+                    - type: button
+                    - value: "Add"
+                    - style: button
