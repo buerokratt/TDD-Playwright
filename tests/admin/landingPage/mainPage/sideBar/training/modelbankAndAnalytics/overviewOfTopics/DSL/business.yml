@@ -1,4 +1,4 @@
-resource: training/training/intents
+resource: training/analytics/overview
 description: "Intents Overview"
 
 test:
@@ -23,13 +23,13 @@ test:
               args:
                   - type: text
                   - value: "Model in use"
-                  - style: paragraph
+                  - style: p
 
             paragraph:
               args:
                   - type: text
                   - value: "Trained"
-                  - style: paragraph
+                  - style: p
 
     card:
       - name: card__header
