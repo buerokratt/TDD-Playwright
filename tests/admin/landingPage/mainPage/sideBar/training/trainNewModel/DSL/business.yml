@@ -1,0 +1,62 @@
+resource: training/train-new-model
+description: "Train new model"
+
+test:
+  main:
+    container:
+      top_section:
+        heading:
+          args:
+            - type: text
+            - value: "Training and test"
+        paragraph:
+          args:
+            - type: text
+
+        button:
+          args:
+            - type: button
+            - value: "Train now"
+            - style: button
+            
+      card:
+        - name: card__header
+          header:
+            args:
+              - type: text
+              - value: "Training and Testing Data"
+
+        - name: card__body
+          switch:
+            label: "Repeat training"
+            args:
+              - type: button
+              - style: switch
+              - adjacentTo: label             
+
+      card:
+        - name: card__header
+          header:
+            args:
+              - type: text
+              - value: "Planned training"
+
+        - name: card__body
+          input:
+            label: "Starting from"
+            args:
+              - type: input
+              - style: timepicker
+
+          input:
+            label: "Training time"  
+            args:
+              - type: input
+              - style: timepicker   
+
+      bottom_section:
+        button:
+          args:
+            - type: button
+            - value: "Save"
+            - style: button
