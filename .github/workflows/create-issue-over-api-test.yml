@@ -9,17 +9,15 @@ permissions:
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      PROJECT_NUMBER: 56           # TO BE REPLACED
+      ORGANIZATION: buerokratt
+      FIELD_NAME: Status           # TO BE REPLACED
+      FIELD_VALUE: "Ready"         # TO BE REPLACED
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
-      - name: Set up environment variables
-        run: |
-          PROJECT_NUMBER=56  # TO BE REPLACED
-          ORGANIZATION="buerokratt"
-          FIELD_NAME="Status"  # TO BE REPLACED
-          FIELD_VALUE="Ready"  # TO BE REPLACED
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
