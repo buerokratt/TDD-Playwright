@@ -158,15 +158,10 @@ jobs:
         run: |
           echo "Fetching project ID and field ID..."
 
-          if [ -z "$FIELD_NAME" ]; then
-            echo "FIELD_NAME is not set. Exiting."
-            exit 1
-          fi
-          
           project_response=$(curl -X POST \
             -H "Authorization: bearer ${{ secrets.BYK_PAT }}" \
             -H "Content-Type: application/json" \
-            -d "{\"query\":\"query { organization(login: \\\"$ORGANIZATION\\\") { projectV2(number: $PROJECT_NUMBER) { id fields(first: 20) { nodes { id name } } } } }\"}" \
+            -d "{\"query\":\"query { organization(login: \\\"$ORGANIZATION\\\") { projectV2(number: $PROJECT_NUMBER) { id fields(first: 20) { nodes { ... on ProjectV2SingleSelectField { id name } } } } } }\"}" \
             https://api.github.com/graphql)
 
           echo "Project and fields response: $project_response"
@@ -178,7 +173,7 @@ jobs:
             echo "Failed to retrieve Project ID or Field ID. Exiting."
             exit 1
           fi
-          
+
           echo "Project ID: $PROJECT_ID"
           echo "Field ID for '$FIELD_NAME': $FIELD_ID"
           
