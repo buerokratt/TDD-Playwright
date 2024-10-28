@@ -181,10 +181,35 @@ jobs:
           echo "::set-output name=project_id::$PROJECT_ID"
           echo "::set-output name=field_id::$FIELD_ID"
 
+      - name: Get Issue Global ID
+        id: get_issue_global_id
+        run: |
+          ISSUE_NUMBER=${{ steps.create_issue.outputs.issue_id }}
+
+          echo "Fetching global ID for issue number $ISSUE_NUMBER..."
+
+          response=$(curl -X POST \
+            -H "Authorization: bearer ${{ secrets.BYK_PAT }}" \
+            -H "Content-Type: application/json" \
+            -d "{\"query\":\"query { repository(owner: \\\"buerokratt\\\", name: \\\"GH-API-Test-1\\\") { issue(number: $ISSUE_NUMBER) { id } } }\"}" \
+            https://api.github.com/graphql)
+
+          echo "Global ID response: $response"
+
+          GLOBAL_ID=$(echo "$response" | jq -r '.data.repository.issue.id')
+
+          if [ "$GLOBAL_ID" == "null" ] || [ -z "$GLOBAL_ID" ]; then
+            echo "Failed to fetch the global ID. Response was: $response"
+            exit 1
+          fi
+
+          echo "Issue Global ID: $GLOBAL_ID"
+          echo "::set-output name=global_id::$GLOBAL_ID"
+
       - name: Add issue to Project V2 board
         if: steps.search_issue.outputs.issue_found == '0'
         run: |
-          ISSUE_ID=${{ steps.create_issue.outputs.issue_id }}
+          GLOBAL_ID=${{ steps.get_issue_global_id.outputs.global_id }}
           PROJECT_ID=${{ steps.get_project_and_field_id.outputs.project_id }}
           FIELD_ID=${{ steps.get_project_and_field_id.outputs.field_id }}
           FIELD_VALUE="Ready"
@@ -194,12 +219,13 @@ jobs:
           project_item_response=$(curl -X POST \
             -H "Authorization: bearer ${{ secrets.BYK_PAT }}" \
             -H "Content-Type: application/json" \
-            -d "{\"query\":\"mutation { addProjectV2ItemById(input: {projectId: \\\"$PROJECT_ID\\\", contentId: \\\"$ISSUE_ID\\\"}) { item { id } } }\"}" \
+            -d "{\"query\":\"mutation { addProjectV2ItemById(input: {projectId: \\\"$PROJECT_ID\\\", contentId: \\\"$GLOBAL_ID\\\"}) { item { id } } }\"}" \
             https://api.github.com/graphql)
 
           echo "Project item creation response: $project_item_response"
 
           ITEM_ID=$(echo "$project_item_response" | jq -r '.data.addProjectV2ItemById.item.id')
+          
           if [ "$ITEM_ID" == "null" ] || [ -z "$ITEM_ID" ]; then
             echo "Failed to add the issue to the project. Response was: $project_item_response"
             exit 1
