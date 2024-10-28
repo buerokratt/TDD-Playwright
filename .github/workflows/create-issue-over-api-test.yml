@@ -184,7 +184,7 @@ jobs:
       - name: Get Issue Global ID
         id: get_issue_global_id
         run: |
-          ISSUE_NUMBER=${{ steps.create_issue.outputs.issue_id }}
+          ISSUE_NUMBER=${{ steps.create_issue.outputs.issue_number }}
 
           echo "Fetching global ID for issue number $ISSUE_NUMBER..."
 
