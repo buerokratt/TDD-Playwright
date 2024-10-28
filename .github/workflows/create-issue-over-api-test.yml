@@ -71,7 +71,11 @@ jobs:
             # Create JSON payload for issue creation
             JSON_PAYLOAD=$(jq -n \
               --arg title "[Playwright Test Failure]: $TEST_NAME" \
-              --arg body "A test failed in buerokratt/TDD-Playwright.\n\nDetails:\nTest: $TEST_NAME\n$ERROR_DETAILS" \
+              --arg body "A test failed in buerokratt/TDD-Playwright.
+              
+          Details:
+          Test: $TEST_NAME
+          $ERROR_DETAILS" \
               '{
                 title: $title,
                 body: $body,
