@@ -51,197 +51,81 @@ jobs:
           path: playwright-report.json
           retention-days: 30
 
-      - name: Search for existing issues for failed tests
-        if: always()
-        id: search_issue
+      - name: Parse failed tests
+        id: parse_tests
         run: |
-          TEST_NAMES=$(jq -r '.suites[]?.specs[]? | select(.tests[]?.results[-1].status == "failed") | .title' playwright-report.json)
-          echo "Searching for issues related to failed test: $TEST_NAMES"
-          
-          if [ -z "$TEST_NAMES" ]; then
-            echo "No failed tests found."
-            exit 0  # No action required if no failed tests
-          fi
+          FAILED_TESTS=$(jq -c '.suites[]?.specs[]? | select(.tests[]?.results[-1].status == "failed") | {title: .title, error: .tests[]?.results[-1].error.message}' playwright-report.json)
+          echo "Failed tests: $FAILED_TESTS"
+          echo "::set-output name=failed_tests::$FAILED_TESTS"
 
-          ENCODED_TEST_NAMES=$(echo "$TEST_NAMES" | sed 's/ /%20/g')
-          echo "Encoded test names: $ENCODED_TEST_NAMES"
-
-          SEARCH_URL="https://api.github.com/search/issues?q=repo:buerokratt/GH-API-Test-1+is:issue+is:open+in:title+$ENCODED_TEST_NAMES"
-          echo "GitHub API search URL: $SEARCH_URL"
-          
-          existing_issues=$(curl -s \
-            -H "Authorization: token ${{ secrets.BYK_PAT }}" \
-            -H "Accept: application/vnd.github.v3+json" \
-            "$SEARCH_URL")
-
-          echo "API response: $existing_issues"
-
-          issue_count=$(echo "$existing_issues" | jq '.total_count')
-
-          if [ $? -ne 0 ]; then
-            echo "Error parsing the API response with jq."
-            exit 3
-          fi
-            
-          echo "Found issues count: $issue_count"
-          echo "::set-output name=issue_found::$issue_count"
-
-      - name: Create new issue for failed test
-        if: steps.search_issue.outputs.issue_found == '0'
-        id: create_issue
+      - name: Process each failed test
+        if: steps.parse_tests.outputs.failed_tests != '[]'
         run: |
-          TEST_NAMES=$(jq -r '.suites[]?.specs[]? | select(.tests[]?.results[-1].status == "failed") | .title' playwright-report.json)
-          ERROR_DETAILS=$(jq -r '.suites[]?.specs[]?.tests[]? | select(.results[-1].status == "failed") | .results[-1].error.message' playwright-report.json)
+          echo "${{ steps.parse_tests.outputs.failed_tests }}" | jq -c '.[]' | while read test; do
+            TEST_NAME=$(echo $test | jq -r '.title')
+            ERROR_DETAILS=$(echo $test | jq -r '.error')
 
-          CLEAN_ERROR_DETAILS=$(echo "$ERROR_DETAILS" | sed 's/\x1b\[[0-9;]*m//g')
-          
-          echo "Creating issue for failed tests: $TEST_NAMES"
-          echo "Error details (cleaned): $CLEAN_ERROR_DETAILS"
-
-          if [ -z "$TEST_NAMES" ] || [ -z "$CLEAN_ERROR_DETAILS" ]; then
-            echo "Test names or error details are missing, skipping issue creation."
-            exit 0
-          fi
-
-          while IFS= read -r TEST_NAME; do
-            echo "Creating issue for failed test: $TEST_NAME"
-
+            # Create JSON payload for issue creation
             JSON_PAYLOAD=$(jq -n \
               --arg title "[Playwright Test Failure]: $TEST_NAME" \
-              --arg body "A test failed in buerokratt/TDD-Playwright.
-          
-          Details:
-          Test: $TEST_NAME
-          $CLEAN_ERROR_DETAILS" \
+              --arg body "A test failed in buerokratt/TDD-Playwright.\n\nDetails:\nTest: $TEST_NAME\n$ERROR_DETAILS" \
               '{
                 title: $title,
                 body: $body,
                 labels: ["bug"]
               }')
-            
-            response=$(curl -X POST \
+
+            # Create issue
+            response=$(curl -s -X POST \
               -H "Authorization: token ${{ secrets.BYK_PAT }}" \
               -H "Accept: application/vnd.github.v3+json" \
-              https://api.github.com/repos/buerokratt/GH-API-Test-1/issues \
-              -d "$JSON_PAYLOAD")
-
-            echo "Raw API response: $response"
+              -d "$JSON_PAYLOAD" \
+              https://api.github.com/repos/buerokratt/GH-API-Test-1/issues)
 
             ISSUE_ID=$(echo "$response" | jq -r '.id')
             ISSUE_NUMBER=$(echo "$response" | jq -r '.number')
 
             if [ "$ISSUE_ID" == "null" ] || [ -z "$ISSUE_ID" ]; then
-              echo "Failed to create the issue. Response was: $response"
-              exit 1
+              echo "Failed to create issue for $TEST_NAME. Response: $response"
+              continue
             fi
 
-            echo "Created issue with number: $ISSUE_NUMBER"
-            echo "::set-output name=issue_number::$ISSUE_NUMBER"
-            echo "Created issue with ID: $ISSUE_ID"
-            echo "::set-output name=issue_id::$ISSUE_ID"
-          done <<< "$TEST_NAMES"
+            echo "Created issue #$ISSUE_NUMBER for failed test: $TEST_NAME"
 
-      - name: Get Issue Global ID
-        id: get_issue_global_id
-        run: |
-          ISSUE_NUMBER="${{ steps.create_issue.outputs.issue_number }}"
+            # Get the global ID of the issue for project assignment
+            issue_id_response=$(curl -s -X POST \
+              -H "Authorization: bearer ${{ secrets.BYK_PAT }}" \
+              -H "Content-Type: application/json" \
+              -d "{\"query\":\"query { repository(owner: \\\"buerokratt\\\", name: \\\"GH-API-Test-1\\\") { issue(number: $ISSUE_NUMBER) { id } } }\"}" \
+              https://api.github.com/graphql)
 
-          if [ -z "$ISSUE_NUMBER" ]; then
-            echo "ISSUE_NUMBER is empty. Exiting."
-            exit 1
-          fi
+            GLOBAL_ID=$(echo "$issue_id_response" | jq -r '.data.repository.issue.id')
 
-          echo "Fetching global ID for issue number $ISSUE_NUMBER..."
+            if [ "$GLOBAL_ID" == "null" ] || [ -z "$GLOBAL_ID" ]; then
+              echo "Failed to get the global ID for issue #$ISSUE_NUMBER."
+              continue
+            fi
 
-          response=$(curl -X POST \
-            -H "Authorization: bearer ${{ secrets.BYK_PAT }}" \
-            -H "Content-Type: application/json" \
-            -d "{\"query\":\"query { repository(owner: \\\"buerokratt\\\", name: \\\"GH-API-Test-1\\\") { issue(number: $ISSUE_NUMBER) { id } } }\"}" \
-            https://api.github.com/graphql)
+            # Add issue to project board
+            project_item_response=$(curl -s -X POST \
+              -H "Authorization: bearer ${{ secrets.BYK_PAT }}" \
+              -H "Content-Type: application/json" \
+              -d "{\"query\":\"mutation { addProjectV2ItemById(input: {projectId: \\\"${{ steps.get_project_field_and_option_id.outputs.project_id }}\\\", contentId: \\\"$GLOBAL_ID\\\"}) { item { id } } }\"}" \
+              https://api.github.com/graphql)
 
-          echo "Global ID response: $response"
+            ITEM_ID=$(echo "$project_item_response" | jq -r '.data.addProjectV2ItemById.item.id')
 
-          GLOBAL_ID=$(echo "$response" | jq -r '.data.repository.issue.id')
+            if [ "$ITEM_ID" == "null" ] || [ -z "$ITEM_ID" ]; then
+              echo "Failed to add the issue to the project board for issue #$ISSUE_NUMBER."
+              continue
+            fi
 
-          if [ "$GLOBAL_ID" == "null" ] || [ -z "$GLOBAL_ID" ]; then
-            echo "Failed to fetch the global ID. Response was: $response"
-            exit 1
-          fi
+            # Update field to "Ready"
+            update_field_response=$(curl -s -X POST \
+              -H "Authorization: bearer ${{ secrets.BYK_PAT }}" \
+              -H "Content-Type: application/json" \
+              -d "{\"query\":\"mutation { updateProjectV2ItemFieldValue(input: {projectId: \\\"${{ steps.get_project_field_and_option_id.outputs.project_id }}\\\", itemId: \\\"$ITEM_ID\\\", fieldId: \\\"${{ steps.get_project_field_and_option_id.outputs.field_id }}\\\", value: { singleSelectOptionId: \\\"${{ steps.get_project_field_and_option_id.outputs.ready_option_id }}\\\" }}) { projectV2Item { id } } }\"}" \
+              https://api.github.com/graphql)
 
-          echo "Issue Global ID: $GLOBAL_ID"
-          echo "::set-output name=global_id::$GLOBAL_ID"
-
-      - name: Get Project ID, Field ID, and Ready Option ID
-        id: get_project_field_and_option_id
-        run: |
-          echo "Fetching project ID, field ID, and option ID for 'Ready'..."
-
-          project_response=$(curl -X POST \
-            -H "Authorization: bearer ${{ secrets.BYK_PAT }}" \
-            -H "Content-Type: application/json" \
-            -d "{\"query\":\"query { organization(login: \\\"$ORGANIZATION\\\") { projectV2(number: $PROJECT_NUMBER) { id fields(first: 20) { nodes { ... on ProjectV2SingleSelectField { id name options { id name } } } } } } }\"}" \
-            https://api.github.com/graphql)
-
-          echo "Project and fields response: $project_response"
-
-          PROJECT_ID=$(echo "$project_response" | jq -r '.data.organization.projectV2.id')
-          FIELD_ID=$(echo "$project_response" | jq -r '.data.organization.projectV2.fields.nodes[] | select(.name == "'"$FIELD_NAME"'") | .id')
-          READY_OPTION_ID=$(echo "$project_response" | jq -r '.data.organization.projectV2.fields.nodes[] | select(.name == "'"$FIELD_NAME"'") | .options[] | select(.name == "Ready") | .id')
-
-          if [ -z "$PROJECT_ID" ] || [ -z "$FIELD_ID" ] || [ -z "$READY_OPTION_ID" ]; then
-            echo "Failed to retrieve Project ID, Field ID, or Ready Option ID. Exiting."
-            exit 1
-          fi
-
-          echo "Project ID: $PROJECT_ID"
-          echo "Field ID for '$FIELD_NAME': $FIELD_ID"
-          echo "Ready Option ID: $READY_OPTION_ID"
-          
-          echo "::set-output name=project_id::$PROJECT_ID"
-          echo "::set-output name=field_id::$FIELD_ID"
-          echo "::set-output name=ready_option_id::$READY_OPTION_ID"
-
-      - name: Add issue to Project V2 board
-        if: steps.search_issue.outputs.issue_found == '0'
-        run: |
-          GLOBAL_ID=${{ steps.get_issue_global_id.outputs.global_id }}
-          PROJECT_ID=${{ steps.get_project_field_and_option_id.outputs.project_id }}
-          FIELD_ID=${{ steps.get_project_field_and_option_id.outputs.field_id }}
-          READY_OPTION_ID=${{ steps.get_project_field_and_option_id.outputs.ready_option_id }}
-
-          echo "Adding issue to Project V2 board..."
-          
-          project_item_response=$(curl -X POST \
-            -H "Authorization: bearer ${{ secrets.BYK_PAT }}" \
-            -H "Content-Type: application/json" \
-            -d "{\"query\":\"mutation { addProjectV2ItemById(input: {projectId: \\\"$PROJECT_ID\\\", contentId: \\\"$GLOBAL_ID\\\"}) { item { id } } }\"}" \
-            https://api.github.com/graphql)
-
-          echo "Project item creation response: $project_item_response"
-
-          ITEM_ID=$(echo "$project_item_response" | jq -r '.data.addProjectV2ItemById.item.id')
-          
-          if [ "$ITEM_ID" == "null" ] || [ -z "$ITEM_ID" ]; then
-            echo "Failed to add the issue to the project. Response was: $project_item_response"
-            exit 1
-          fi
-          
-          echo "Item ID in Project V2: $ITEM_ID"
-
-          update_field_response=$(curl -X POST \
-            -H "Authorization: bearer ${{ secrets.BYK_PAT }}" \
-            -H "Content-Type: application/json" \
-            -d "{\"query\":\"mutation { updateProjectV2ItemFieldValue(input: {projectId: \\\"$PROJECT_ID\\\", itemId: \\\"$ITEM_ID\\\", fieldId: \\\"$FIELD_ID\\\", value: { singleSelectOptionId: \\\"$READY_OPTION_ID\\\" }}) { projectV2Item { id } } }\"}" \
-            https://api.github.com/graphql)
-
-          echo "Field update response: $update_field_response"
-
-          UPDATED_ITEM_ID=$(echo "$update_field_response" | jq -r '.data.updateProjectV2ItemFieldValue.projectV2Item.id')
-
-          if [ "$UPDATED_ITEM_ID" == "null" ] || [ -z "$UPDATED_ITEM_ID" ]; then
-            echo "Failed to update the project item field. Response was: $update_field_response"
-            exit 1
-          fi
-
-          echo "Successfully added issue to Project V2 board with updated field."
-          echo "Project Item ID: $ITEM_ID"
+            echo "Processed test failure: $TEST_NAME"
+          done
