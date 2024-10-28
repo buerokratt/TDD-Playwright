@@ -182,32 +182,59 @@ jobs:
           echo "::set-output name=field_id::$FIELD_ID"
 
       - name: Add issue to Project V2 board
-        id: add_to_project
+        if: steps.search_issue.outputs.issue_found == '0'
         run: |
           ISSUE_ID=${{ steps.create_issue.outputs.issue_id }}
           PROJECT_ID=${{ steps.get_project_and_field_id.outputs.project_id }}
+          FIELD_ID=${{ steps.get_project_and_field_id.outputs.field_id }}
+          FIELD_VALUE="Ready"
 
           echo "Adding issue to Project V2 board..."
-          add_response=$(curl -X POST \
+          
+          project_item_response=$(curl -X POST \
             -H "Authorization: bearer ${{ secrets.BYK_PAT }}" \
             -H "Content-Type: application/json" \
             -d "{\"query\":\"mutation { addProjectV2ItemById(input: {projectId: \\\"$PROJECT_ID\\\", contentId: \\\"$ISSUE_ID\\\"}) { item { id } } }\"}" \
             https://api.github.com/graphql)
 
-          ITEM_ID=$(echo "$add_response" | jq -r '.data.addProjectV2ItemById.item.id')
+          echo "Project item creation response: $project_item_response"
+
+          ITEM_ID=$(echo "$project_item_response" | jq -r '.data.addProjectV2ItemById.item.id')
+          if [ "$ITEM_ID" == "null" ] || [ -z "$ITEM_ID" ]; then
+            echo "Failed to add the issue to the project. Response was: $project_item_response"
+            exit 1
+          fi
+          
           echo "Item ID in Project V2: $ITEM_ID"
-          echo "::set-output name=item_id::$ITEM_ID"
 
-      - name: Set field value for the project item
-        run: |
-          FIELD_ID=${{ steps.get_project_and_field_id.outputs.field_id }}
-          ITEM_ID=${{ steps.add_to_project.outputs.item_id }}
-
-          echo "Setting field value..."
-          set_field_response=$(curl -X POST \
+          update_field_response=$(curl -X POST \
             -H "Authorization: bearer ${{ secrets.BYK_PAT }}" \
             -H "Content-Type: application/json" \
             -d "{\"query\":\"mutation { updateProjectV2ItemFieldValue(input: {projectId: \\\"$PROJECT_ID\\\", itemId: \\\"$ITEM_ID\\\", fieldId: \\\"$FIELD_ID\\\", value: \\\"$FIELD_VALUE\\\"}) { projectV2Item { id } } }\"}" \
             https://api.github.com/graphql)
 
-          echo "Set Field Response: $set_field_response"
+          echo "Field update response: $update_field_response"
+
+          UPDATED_ITEM_ID=$(echo "$update_field_response" | jq -r '.data.updateProjectV2ItemFieldValue.projectV2Item.id')
+
+          if [ "$UPDATED_ITEM_ID" == "null" ] || [ -z "$UPDATED_ITEM_ID" ]; then
+            echo "Failed to update the project item field. Response was: $update_field_response"
+            exit 1
+          fi
+
+          echo "Successfully added issue to Project V2 board with updated field."
+          echo "Project Item ID: $ITEM_ID"
+
+      # - name: Set field value for the project item
+      #   run: |
+      #     FIELD_ID=${{ steps.get_project_and_field_id.outputs.field_id }}
+      #     ITEM_ID=${{ steps.add_to_project.outputs.item_id }}
+
+      #     echo "Setting field value..."
+      #     set_field_response=$(curl -X POST \
+      #       -H "Authorization: bearer ${{ secrets.BYK_PAT }}" \
+      #       -H "Content-Type: application/json" \
+      #       -d "{\"query\":\"mutation { updateProjectV2ItemFieldValue(input: {projectId: \\\"$PROJECT_ID\\\", itemId: \\\"$ITEM_ID\\\", fieldId: \\\"$FIELD_ID\\\", value: \\\"$FIELD_VALUE\\\"}) { projectV2Item { id } } }\"}" \
+      #       https://api.github.com/graphql)
+
+      #     echo "Set Field Response: $set_field_response"
