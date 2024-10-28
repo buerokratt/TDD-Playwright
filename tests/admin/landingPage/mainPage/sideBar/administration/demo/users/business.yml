@@ -30,7 +30,7 @@ test:
               - value: "Display name"
           args:
               - type: text
-              - value: "Title"
+              - value: "User title"
           args:
               - type: text
               - value: "Email"
