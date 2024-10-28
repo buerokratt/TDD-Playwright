@@ -157,6 +157,36 @@ jobs:
             echo "::set-output name=issue_id::$ISSUE_ID"
           done <<< "$TEST_NAMES"
 
+      - name: Get Issue Global ID
+        id: get_issue_global_id
+        run: |
+          ISSUE_NUMBER="${{ steps.create_issue.outputs.issue_number }}"
+
+          if [ -z "$ISSUE_NUMBER" ]; then
+            echo "ISSUE_NUMBER is empty. Exiting."
+            exit 1
+          fi
+
+          echo "Fetching global ID for issue number $ISSUE_NUMBER..."
+
+          response=$(curl -X POST \
+            -H "Authorization: bearer ${{ secrets.BYK_PAT }}" \
+            -H "Content-Type: application/json" \
+            -d "{\"query\":\"query { repository(owner: \\\"buerokratt\\\", name: \\\"GH-API-Test-1\\\") { issue(number: $ISSUE_NUMBER) { id } } }\"}" \
+            https://api.github.com/graphql)
+
+          echo "Global ID response: $response"
+
+          GLOBAL_ID=$(echo "$response" | jq -r '.data.repository.issue.id')
+
+          if [ "$GLOBAL_ID" == "null" ] || [ -z "$GLOBAL_ID" ]; then
+            echo "Failed to fetch the global ID. Response was: $response"
+            exit 1
+          fi
+
+          echo "Issue Global ID: $GLOBAL_ID"
+          echo "::set-output name=global_id::$GLOBAL_ID"
+
       - name: Get Project ID, Field ID, and Ready Option ID
         id: get_project_field_and_option_id
         run: |
