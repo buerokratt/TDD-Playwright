@@ -39,28 +39,13 @@ jobs:
           npx playwright test tests/always-fail.test.js --workers=2 --reporter=json > playwright-report.json
         continue-on-error: true
 
-      # - name: List root directory contents
-      #   if: always()  # Ensure it runs even if the test fails
-      #   run: ls -R .
-
-      # Debug: Output Playwright report content
-      # - name: Debug Playwright Report
-      #   if: always()  # Ensure it runs even if the test fails
-      #   run: cat playwright-report.json
-
       - name: Upload Playwright Report
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: playwright-report
           path: playwright-report.json
-          retention-days: 3
-
-      # - name: Debug jq output
-      #   if: always()
-      #   run: |
-      #     TEST_NAMES=$(jq -r '.suites[]?.specs[]? | select(.tests[]?.results[-1].status == "failed") | .title' playwright-report.json)
-      #     echo "Test names: $TEST_NAMES"
+          retention-days: 30
 
       - name: Search for existing issues for failed tests
         if: always()
@@ -96,11 +81,6 @@ jobs:
             
           echo "Found issues count: $issue_count"
           echo "::set-output name=issue_found::$issue_count"
-          
-      # - name: Debug search_issue output
-      #   if: always()
-      #   run: |
-      #     echo "Issue found count: ${{ steps.search_issue.outputs.issue_found }}"
 
       - name: Create new issue for failed test
         if: steps.search_issue.outputs.issue_found == '0'
@@ -261,17 +241,3 @@ jobs:
 
           echo "Successfully added issue to Project V2 board with updated field."
           echo "Project Item ID: $ITEM_ID"
-
-      # - name: Set field value for the project item
-      #   run: |
-      #     FIELD_ID=${{ steps.get_project_and_field_id.outputs.field_id }}
-      #     ITEM_ID=${{ steps.add_to_project.outputs.item_id }}
-
-      #     echo "Setting field value..."
-      #     set_field_response=$(curl -X POST \
-      #       -H "Authorization: bearer ${{ secrets.BYK_PAT }}" \
-      #       -H "Content-Type: application/json" \
-      #       -d "{\"query\":\"mutation { updateProjectV2ItemFieldValue(input: {projectId: \\\"$PROJECT_ID\\\", itemId: \\\"$ITEM_ID\\\", fieldId: \\\"$FIELD_ID\\\", value: \\\"$FIELD_VALUE\\\"}) { projectV2Item { id } } }\"}" \
-      #       https://api.github.com/graphql)
-
-      #     echo "Set Field Response: $set_field_response"
