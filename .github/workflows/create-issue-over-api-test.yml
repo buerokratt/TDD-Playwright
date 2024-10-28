@@ -61,9 +61,12 @@ jobs:
       - name: Process each failed test
         if: steps.parse_tests.outputs.failed_tests != '[]'
         run: |
-          echo "${{ steps.parse_tests.outputs.failed_tests }}" | jq -c '.[]' | while read test; do
-            TEST_NAME=$(echo $test | jq -r '.title')
-            ERROR_DETAILS=$(echo $test | jq -r '.error')
+          # Iterate over each failed test in the parsed JSON array
+          echo '${{ steps.parse_tests.outputs.failed_tests }}' | jq -c '.[]' | while read -r test; do
+            TEST_NAME=$(echo "$test" | jq -r '.title')
+            ERROR_DETAILS=$(echo "$test" | jq -r '.error' | sed 's/\x1b\[[0-9;]*m//g')  # Remove ANSI escape codes
+
+            echo "Creating issue for failed test: $TEST_NAME"
 
             # Create JSON payload for issue creation
             JSON_PAYLOAD=$(jq -n \
