@@ -10,14 +10,21 @@ test:
 
     card:
       name: card__body
-      
+
+      label:
+        args:
+            - type: text
+            - value: "Session Length"
+            - style: label
+            - selector: input
+
       input:
-        label: "Session length"
         args:
             - type: number
             - style: input
             - adjacentTo: label
-            - nth-matching-element: nth(3)
+            - selector: input__wrapper
+            
 
       name: card__footer
       button:

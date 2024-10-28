@@ -36,10 +36,11 @@ test:
           - type: text
           - value: "Monday"
           - style: label
-    input:
+    switch:
       args:
           - type: button
           - style: switch
+          - selector: div div.switch button
     input:
       args:
           - type: input
@@ -54,10 +55,11 @@ test:
           - type: text
           - value: "Tuesday"
           - style: label
-    input:
+    switch:
       args:
           - type: button
           - style: switch
+          - selector: div div.switch bbutton'
     input:
       args:
           - type: input
@@ -72,10 +74,11 @@ test:
           - type: text
           - value: "Wednesday"
           - style: label
-    input:
+    switch:
       args:
           - type: button
           - style: switch
+          - selector: div div.switch button
     input:
       args:
           - type: input
@@ -90,10 +93,11 @@ test:
           - type: text
           - value: "Thursday"
           - style: label
-    input:
+    switch:
       args:
           - type: button
           - style: switch
+          - selector: div div.switch button
     input:
       args:
           - type: input
@@ -108,10 +112,11 @@ test:
           - type: text
           - value: "Friday"
           - style: label
-    input:
+    switch:
       args:
           - type: button
           - style: switch
+          - selector: div div.switch button
     input:
       args:
           - type: input
@@ -126,10 +131,11 @@ test:
           - type: text
           - value: "Saturday"
           - style: label
-    input:
+    switch:
       args:
           - type: button
           - style: switch
+          - selector: div div.switch button
     input:
       args:
           - type: input
@@ -144,10 +150,11 @@ test:
           - type: text
           - value: "Sunday"
           - style: label
-    input:
+    switch:
       args:
           - type: button
           - style: switch
+          - selector: div div.switch button
     input:
       args:
           - type: input
