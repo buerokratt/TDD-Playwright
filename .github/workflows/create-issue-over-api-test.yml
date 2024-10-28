@@ -104,6 +104,7 @@ jobs:
 
       - name: Create new issue for failed test
         if: steps.search_issue.outputs.issue_found == '0'
+        id: create_issue
         run: |
           TEST_NAMES=$(jq -r '.suites[]?.specs[]? | select(.tests[]?.results[-1].status == "failed") | .title' playwright-report.json)
           ERROR_DETAILS=$(jq -r '.suites[]?.specs[]?.tests[]? | select(.results[-1].status == "failed") | .results[-1].error.message' playwright-report.json)
@@ -181,6 +182,7 @@ jobs:
           echo "::set-output name=field_id::$FIELD_ID"
 
       - name: Add issue to Project V2 board
+        id: add_to_project
         run: |
           ISSUE_ID=${{ steps.create_issue.outputs.issue_id }}
           PROJECT_ID=${{ steps.get_project_and_field_id.outputs.project_id }}
