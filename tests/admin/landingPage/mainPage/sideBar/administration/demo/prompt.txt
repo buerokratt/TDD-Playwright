@@ -3,9 +3,8 @@
 1. Text-based locators: 
   All locators for text-based elements (labels, buttons, headers) must use translation keys. Translations are fetched using the getTranslations function and should be integrated into the locators as `${translation.key}`. key's first letter is lowercase. 
   For example:
-  Use page.getByText() for labels, buttonsclear, or any other text-based elements. If the element has specified extraselector argument in the DSL,
-  use the extraselector.
-  Use page.getByLabel() for input fields that are associated with a label.
+  Use page.getByText() for labels, buttons, or any other text-based elements.
+  Use page.getByLabel() for elements that are associated with a label.
   Use page.getByRole() for headings.
   Using getByText() and there's extra argument in the .yml file nth-matching-element the value is a locator to the n-th matching element. This is important. 
   Example:
