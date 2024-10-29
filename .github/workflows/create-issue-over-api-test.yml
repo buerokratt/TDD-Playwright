@@ -63,6 +63,36 @@ jobs:
           echo "Raw failed tests output:"
           echo "$FAILED_TESTS"
 
+      - name: Get Project ID, Field ID, and Ready Option ID
+        id: get_project_field_and_option_id
+        run: |
+          echo "Fetching project ID, field ID, and option ID for 'Ready'..."
+
+          project_response=$(curl -X POST \
+            -H "Authorization: bearer ${{ secrets.BYK_PAT }}" \
+            -H "Content-Type: application/json" \
+            -d "{\"query\":\"query { organization(login: \\\"$ORGANIZATION\\\") { projectV2(number: $PROJECT_NUMBER) { id fields(first: 20) { nodes { ... on ProjectV2SingleSelectField { id name options { id name } } } } } } }\"}" \
+            https://api.github.com/graphql)
+
+          echo "Project and fields response: $project_response"
+
+          PROJECT_ID=$(echo "$project_response" | jq -r '.data.organization.projectV2.id')
+          FIELD_ID=$(echo "$project_response" | jq -r '.data.organization.projectV2.fields.nodes[] | select(.name == "'"$FIELD_NAME"'") | .id')
+          READY_OPTION_ID=$(echo "$project_response" | jq -r '.data.organization.projectV2.fields.nodes[] | select(.name == "'"$FIELD_NAME"'") | .options[] | select(.name == "Ready") | .id')
+
+          if [ -z "$PROJECT_ID" ] || [ -z "$FIELD_ID" ] || [ -z "$READY_OPTION_ID" ]; then
+            echo "Failed to retrieve Project ID, Field ID, or Ready Option ID. Exiting."
+            exit 1
+          fi
+
+          echo "Project ID: $PROJECT_ID"
+          echo "Field ID for '$FIELD_NAME': $FIELD_ID"
+          echo "Ready Option ID: $READY_OPTION_ID"
+          
+          echo "::set-output name=project_id::$PROJECT_ID"
+          echo "::set-output name=field_id::$FIELD_ID"
+          echo "::set-output name=ready_option_id::$READY_OPTION_ID"
+
       - name: Process each failed test
         if: env.FAILED_TESTS != '[]'
         run: |
