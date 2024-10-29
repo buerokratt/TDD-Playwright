@@ -97,12 +97,12 @@
                 {
                   "workerIndex": 0,
                   "status": "passed",
-                  "duration": 20833,
+                  "duration": 14332,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2024-10-29T10:35:19.517Z",
+                  "startTime": "2024-10-29T10:48:59.624Z",
                   "attachments": [
                     {
                       "name": "video",
@@ -148,8 +148,8 @@
               "column": 10,
               "specs": [
                 {
-                  "title": "should handle Notice textarea",
-                  "ok": false,
+                  "title": "Notice active switch visibility",
+                  "ok": true,
                   "tags": [],
                   "tests": [
                     {
@@ -161,113 +161,33 @@
                       "results": [
                         {
                           "workerIndex": 1,
-                          "status": "failed",
-                          "duration": 4191,
-                          "error": {
-                            "message": "ReferenceError: noticeLabel is not defined",
-                            "stack": "ReferenceError: noticeLabel is not defined\n    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/demo/chatbot/emergency_notices/visibility.spec.js:34:26",
-                            "location": {
-                              "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/demo/chatbot/emergency_notices/visibility.spec.js",
-                              "column": 26,
-                              "line": 34
-                            },
-                            "snippet": "\u001b[0m \u001b[90m 32 |\u001b[39m             \u001b[36mawait\u001b[39m expect(noticeTextarea)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 33 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 34 |\u001b[39m             \u001b[36mawait\u001b[39m expect(noticeLabel)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                          \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 35 |\u001b[39m         })\u001b[33m;\u001b[39m\n \u001b[90m 36 |\u001b[39m\n \u001b[90m 37 |\u001b[39m         test(\u001b[32m'Display period label and input visibility'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\u001b[0m"
-                          },
-                          "errors": [
-                            {
-                              "location": {
-                                "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/demo/chatbot/emergency_notices/visibility.spec.js",
-                                "column": 26,
-                                "line": 34
-                              },
-                              "message": "ReferenceError: noticeLabel is not defined\n\n\u001b[0m \u001b[90m 32 |\u001b[39m             \u001b[36mawait\u001b[39m expect(noticeTextarea)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 33 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 34 |\u001b[39m             \u001b[36mawait\u001b[39m expect(noticeLabel)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                          \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 35 |\u001b[39m         })\u001b[33m;\u001b[39m\n \u001b[90m 36 |\u001b[39m\n \u001b[90m 37 |\u001b[39m         test(\u001b[32m'Display period label and input visibility'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\u001b[0m\n\n\u001b[2m    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/demo/chatbot/emergency_notices/visibility.spec.js:34:26\u001b[22m"
-                            }
-                          ],
+                          "status": "passed",
+                          "duration": 4150,
+                          "errors": [],
                           "stdout": [],
                           "stderr": [],
                           "retry": 0,
-                          "startTime": "2024-10-29T10:35:41.246Z",
+                          "startTime": "2024-10-29T10:49:14.784Z",
                           "attachments": [
-                            {
-                              "name": "screenshot",
-                              "contentType": "image/png",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-d9ca1-ould-handle-Notice-textarea-chromium/test-failed-1.png"
-                            },
                             {
                               "name": "video",
                               "contentType": "video/webm",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-d9ca1-ould-handle-Notice-textarea-chromium/video.webm"
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-14d8e-ce-active-switch-visibility-chromium/video.webm"
                             },
                             {
                               "name": "trace",
                               "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-d9ca1-ould-handle-Notice-textarea-chromium/trace.zip"
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-14d8e-ce-active-switch-visibility-chromium/trace.zip"
                             }
-                          ],
-                          "errorLocation": {
-                            "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/demo/chatbot/emergency_notices/visibility.spec.js",
-                            "column": 26,
-                            "line": 34
-                          }
-                        },
-                        {
-                          "workerIndex": 2,
-                          "status": "failed",
-                          "duration": 4095,
-                          "error": {
-                            "message": "ReferenceError: noticeLabel is not defined",
-                            "stack": "ReferenceError: noticeLabel is not defined\n    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/demo/chatbot/emergency_notices/visibility.spec.js:34:26",
-                            "location": {
-                              "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/demo/chatbot/emergency_notices/visibility.spec.js",
-                              "column": 26,
-                              "line": 34
-                            },
-                            "snippet": "\u001b[0m \u001b[90m 32 |\u001b[39m             \u001b[36mawait\u001b[39m expect(noticeTextarea)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 33 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 34 |\u001b[39m             \u001b[36mawait\u001b[39m expect(noticeLabel)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                          \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 35 |\u001b[39m         })\u001b[33m;\u001b[39m\n \u001b[90m 36 |\u001b[39m\n \u001b[90m 37 |\u001b[39m         test(\u001b[32m'Display period label and input visibility'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\u001b[0m"
-                          },
-                          "errors": [
-                            {
-                              "location": {
-                                "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/demo/chatbot/emergency_notices/visibility.spec.js",
-                                "column": 26,
-                                "line": 34
-                              },
-                              "message": "ReferenceError: noticeLabel is not defined\n\n\u001b[0m \u001b[90m 32 |\u001b[39m             \u001b[36mawait\u001b[39m expect(noticeTextarea)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 33 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 34 |\u001b[39m             \u001b[36mawait\u001b[39m expect(noticeLabel)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                          \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 35 |\u001b[39m         })\u001b[33m;\u001b[39m\n \u001b[90m 36 |\u001b[39m\n \u001b[90m 37 |\u001b[39m         test(\u001b[32m'Display period label and input visibility'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\u001b[0m\n\n\u001b[2m    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/demo/chatbot/emergency_notices/visibility.spec.js:34:26\u001b[22m"
-                            }
-                          ],
-                          "stdout": [],
-                          "stderr": [],
-                          "retry": 1,
-                          "startTime": "2024-10-29T10:35:46.202Z",
-                          "attachments": [
-                            {
-                              "name": "screenshot",
-                              "contentType": "image/png",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-d9ca1-ould-handle-Notice-textarea-chromium-retry1/test-failed-1.png"
-                            },
-                            {
-                              "name": "video",
-                              "contentType": "video/webm",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-d9ca1-ould-handle-Notice-textarea-chromium-retry1/video.webm"
-                            },
-                            {
-                              "name": "trace",
-                              "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-d9ca1-ould-handle-Notice-textarea-chromium-retry1/trace.zip"
-                            }
-                          ],
-                          "errorLocation": {
-                            "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/demo/chatbot/emergency_notices/visibility.spec.js",
-                            "column": 26,
-                            "line": 34
-                          }
+                          ]
                         }
                       ],
-                      "status": "unexpected"
+                      "status": "expected"
                     }
                   ],
-                  "id": "624079707bf00914186f-e9bdcc716a93695235ac",
+                  "id": "624079707bf00914186f-f12135eb0ff6e5e66319",
                   "file": "admin/landingPage/mainPage/sideBar/administration/demo/chatbot/emergency_notices/visibility.spec.js",
-                  "line": 28,
+                  "line": 19,
                   "column": 14
                 }
               ]
@@ -279,11 +199,11 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2024-10-29T10:35:18.945Z",
-    "duration": 31638.974,
-    "expected": 1,
+    "startTime": "2024-10-29T10:48:59.084Z",
+    "duration": 20139.134000000002,
+    "expected": 2,
     "skipped": 0,
-    "unexpected": 1,
+    "unexpected": 0,
     "flaky": 0
   }
 }

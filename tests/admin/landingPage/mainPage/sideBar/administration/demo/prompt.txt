@@ -38,16 +38,16 @@
     const label = container.locator(``${translation.monday}`);
     const switch = label.locator(`+ div div.switch button`);
 
-3. Dropdown handling: 
+2. Dropdown handling: 
    Use the following format for dropdown (select) elements:
    const select = await page.getByRole('combobox', { name: `${translation.widgetAnimation}` });
 
-4. Table handling: 
+3. Table handling: 
    Consider only first row when checking data persistence. For example when checking edit and delete buttons in table data.
    For example: const editButton = container.getByRole('button', { name: `${translation.edit}` }).first();
                 const deleteButton = container.getByRole('button', { name: `${translation.delete}` }).first();
 
-5. Test setup:
+4. Test setup:
 Include navigation and fetching translations in a beforeEach hook to ensure the page and translations are ready before running each test.
 Base URL: https://admin.prod.buerokratt.ee. Add this before the url provided in the DSL under resource header.
 Translations should be defined as:
@@ -59,10 +59,10 @@ translation = await getTranslations(page);
 Translation should be after the playwright test has gone to the page to avoid security error.
 Include a 3000ms timeout in the beforeEach to ensure all elements load properly.
 
-6. Logical grouping:
+5. Logical grouping:
 Group tests using test.describe() by logical parts (e.g., headings, card body, footer).
 Combine related assertions (e.g., heading and button checks) into single tests where possible.
 The output should be a valid Playwright test file, ready for copy-pasting and running without further modification."
 
-7. Exact match for similar elements:
+6. Exact match for similar elements:
 Add { exact: true } to all locators.
