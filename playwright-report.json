@@ -97,12 +97,12 @@
                 {
                   "workerIndex": 0,
                   "status": "passed",
-                  "duration": 20207,
+                  "duration": 9300,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2024-10-29T08:56:39.408Z",
+                  "startTime": "2024-10-29T09:13:10.109Z",
                   "attachments": [
                     {
                       "name": "video",
@@ -135,64 +135,71 @@
       "specs": [],
       "suites": [
         {
-          "title": "Users Page",
+          "title": "Users Page Tests",
           "file": "admin/landingPage/mainPage/sideBar/administration/demo/users/visibility.spec.js",
           "line": 6,
           "column": 6,
-          "specs": [
-            {
-              "title": "Heading and Add User button visibility",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 30000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "chromium",
-                  "projectName": "chromium",
-                  "results": [
-                    {
-                      "workerIndex": 1,
-                      "status": "passed",
-                      "duration": 5927,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2024-10-29T08:57:00.590Z",
-                      "attachments": [
-                        {
-                          "name": "video",
-                          "contentType": "video/webm",
-                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-97e00--Add-User-button-visibility-chromium/video.webm"
-                        },
-                        {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-97e00--Add-User-button-visibility-chromium/trace.zip"
-                        }
-                      ]
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "48d1ebb9bc78d8d3ec41-5885b073ade8b9d589b9",
-              "file": "admin/landingPage/mainPage/sideBar/administration/demo/users/visibility.spec.js",
-              "line": 13,
-              "column": 9
-            }
-          ],
+          "specs": [],
           "suites": [
             {
-              "title": "Card Body",
+              "title": "Page Heading",
+              "file": "admin/landingPage/mainPage/sideBar/administration/demo/users/visibility.spec.js",
+              "line": 13,
+              "column": 10,
+              "specs": [
+                {
+                  "title": "should display the heading",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 1,
+                          "status": "passed",
+                          "duration": 5015,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-10-29T09:13:20.568Z",
+                          "attachments": [
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-89014--should-display-the-heading-chromium/video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-89014--should-display-the-heading-chromium/trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "48d1ebb9bc78d8d3ec41-1657b48f611c24a4ad86",
+                  "file": "admin/landingPage/mainPage/sideBar/administration/demo/users/visibility.spec.js",
+                  "line": 14,
+                  "column": 13
+                }
+              ]
+            },
+            {
+              "title": "Add User Button",
               "file": "admin/landingPage/mainPage/sideBar/administration/demo/users/visibility.spec.js",
               "line": 20,
               "column": 10,
               "specs": [
                 {
-                  "title": "Table headers visibility",
+                  "title": "should display the \"Add User\" button",
                   "ok": true,
                   "tags": [],
                   "tests": [
@@ -206,22 +213,22 @@
                         {
                           "workerIndex": 2,
                           "status": "passed",
-                          "duration": 5970,
+                          "duration": 5620,
                           "errors": [],
                           "stdout": [],
                           "stderr": [],
                           "retry": 0,
-                          "startTime": "2024-10-29T08:57:00.569Z",
+                          "startTime": "2024-10-29T09:13:20.614Z",
                           "attachments": [
                             {
                               "name": "video",
                               "contentType": "video/webm",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-fabd0-dy-Table-headers-visibility-chromium/video.webm"
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-44ff0-display-the-Add-User-button-chromium/video.webm"
                             },
                             {
                               "name": "trace",
                               "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-fabd0-dy-Table-headers-visibility-chromium/trace.zip"
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-44ff0-display-the-Add-User-button-chromium/trace.zip"
                             }
                           ]
                         }
@@ -229,13 +236,21 @@
                       "status": "expected"
                     }
                   ],
-                  "id": "48d1ebb9bc78d8d3ec41-abfaca3f48bd3c33c0df",
+                  "id": "48d1ebb9bc78d8d3ec41-48b80fe3995a4a399f53",
                   "file": "admin/landingPage/mainPage/sideBar/administration/demo/users/visibility.spec.js",
                   "line": 21,
                   "column": 13
-                },
+                }
+              ]
+            },
+            {
+              "title": "User Data Table",
+              "file": "admin/landingPage/mainPage/sideBar/administration/demo/users/visibility.spec.js",
+              "line": 27,
+              "column": 10,
+              "specs": [
                 {
-                  "title": "should display Edit and Delete buttons in first row",
+                  "title": "should display table headers",
                   "ok": false,
                   "tags": [],
                   "tests": [
@@ -249,124 +264,116 @@
                         {
                           "workerIndex": 3,
                           "status": "failed",
-                          "duration": 10242,
+                          "duration": 5331,
                           "error": {
-                            "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('.card__body .table-row').first().getByText('undefined')\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.card__body .table-row').first().getByText('undefined')\u001b[22m\n",
-                            "stack": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('.card__body .table-row').first().getByText('undefined')\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.card__body .table-row').first().getByText('undefined')\u001b[22m\n\n    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/demo/users/visibility.spec.js:43:38",
+                            "message": "Error: expect.toBeVisible: Error: strict mode violation: locator('.card__body').getByText('Name') resolved to 2 elements:\n    1) <div class=\"track\">…</div> aka getByText('Name', { exact: true })\n    2) <div class=\"track\">…</div> aka getByText('Display Name')\n\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.card__body').getByText('Name')\u001b[22m\n",
+                            "stack": "Error: expect.toBeVisible: Error: strict mode violation: locator('.card__body').getByText('Name') resolved to 2 elements:\n    1) <div class=\"track\">…</div> aka getByText('Name', { exact: true })\n    2) <div class=\"track\">…</div> aka getByText('Display Name')\n\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.card__body').getByText('Name')\u001b[22m\n\n    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/demo/users/visibility.spec.js:36:38",
                             "location": {
                               "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/demo/users/visibility.spec.js",
                               "column": 38,
-                              "line": 43
+                              "line": 36
                             },
-                            "snippet": "\u001b[0m \u001b[90m 41 |\u001b[39m             \u001b[36mconst\u001b[39m deleteButton \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m firstRow\u001b[33m.\u001b[39mgetByText(\u001b[32m`${translation.Delete}`\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 42 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 43 |\u001b[39m             \u001b[36mawait\u001b[39m expect(editButton)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                      \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 44 |\u001b[39m             \u001b[36mawait\u001b[39m expect(deleteButton)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 45 |\u001b[39m         })\u001b[33m;\u001b[39m\n \u001b[90m 46 |\u001b[39m     })\u001b[33m;\u001b[39m\u001b[0m"
+                            "snippet": "\u001b[0m \u001b[90m 34 |\u001b[39m             \u001b[36mconst\u001b[39m userTitleHeader \u001b[33m=\u001b[39m container\u001b[33m.\u001b[39mgetByText(\u001b[32m`${translation.userTitle}`\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 35 |\u001b[39m             \u001b[36mconst\u001b[39m emailHeader \u001b[33m=\u001b[39m container\u001b[33m.\u001b[39mgetByText(\u001b[32m`${translation.email}`\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 36 |\u001b[39m             \u001b[36mawait\u001b[39m expect(nameHeader)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                      \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 37 |\u001b[39m             \u001b[36mawait\u001b[39m expect(idCodeHeader)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 38 |\u001b[39m             \u001b[36mawait\u001b[39m expect(roleHeader)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 39 |\u001b[39m             \u001b[36mawait\u001b[39m expect(displayNameHeader)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\u001b[0m"
                           },
                           "errors": [
                             {
                               "location": {
                                 "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/demo/users/visibility.spec.js",
                                 "column": 38,
-                                "line": 43
+                                "line": 36
                               },
-                              "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('.card__body .table-row').first().getByText('undefined')\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.card__body .table-row').first().getByText('undefined')\u001b[22m\n\n\n\u001b[0m \u001b[90m 41 |\u001b[39m             \u001b[36mconst\u001b[39m deleteButton \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m firstRow\u001b[33m.\u001b[39mgetByText(\u001b[32m`${translation.Delete}`\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 42 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 43 |\u001b[39m             \u001b[36mawait\u001b[39m expect(editButton)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                      \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 44 |\u001b[39m             \u001b[36mawait\u001b[39m expect(deleteButton)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 45 |\u001b[39m         })\u001b[33m;\u001b[39m\n \u001b[90m 46 |\u001b[39m     })\u001b[33m;\u001b[39m\u001b[0m\n\n\u001b[2m    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/demo/users/visibility.spec.js:43:38\u001b[22m"
+                              "message": "Error: expect.toBeVisible: Error: strict mode violation: locator('.card__body').getByText('Name') resolved to 2 elements:\n    1) <div class=\"track\">…</div> aka getByText('Name', { exact: true })\n    2) <div class=\"track\">…</div> aka getByText('Display Name')\n\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.card__body').getByText('Name')\u001b[22m\n\n\n\u001b[0m \u001b[90m 34 |\u001b[39m             \u001b[36mconst\u001b[39m userTitleHeader \u001b[33m=\u001b[39m container\u001b[33m.\u001b[39mgetByText(\u001b[32m`${translation.userTitle}`\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 35 |\u001b[39m             \u001b[36mconst\u001b[39m emailHeader \u001b[33m=\u001b[39m container\u001b[33m.\u001b[39mgetByText(\u001b[32m`${translation.email}`\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 36 |\u001b[39m             \u001b[36mawait\u001b[39m expect(nameHeader)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                      \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 37 |\u001b[39m             \u001b[36mawait\u001b[39m expect(idCodeHeader)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 38 |\u001b[39m             \u001b[36mawait\u001b[39m expect(roleHeader)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 39 |\u001b[39m             \u001b[36mawait\u001b[39m expect(displayNameHeader)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\u001b[0m\n\n\u001b[2m    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/demo/users/visibility.spec.js:36:38\u001b[22m"
                             }
                           ],
                           "stdout": [],
                           "stderr": [],
                           "retry": 0,
-                          "startTime": "2024-10-29T08:57:00.538Z",
+                          "startTime": "2024-10-29T09:13:20.606Z",
                           "attachments": [
                             {
                               "name": "screenshot",
                               "contentType": "image/png",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-e20cb-Delete-buttons-in-first-row-chromium/test-failed-1.png"
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-9d036-hould-display-table-headers-chromium/test-failed-1.png"
                             },
                             {
                               "name": "video",
                               "contentType": "video/webm",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-e20cb-Delete-buttons-in-first-row-chromium/video.webm"
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-9d036-hould-display-table-headers-chromium/video.webm"
                             },
                             {
                               "name": "trace",
                               "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-e20cb-Delete-buttons-in-first-row-chromium/trace.zip"
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-9d036-hould-display-table-headers-chromium/trace.zip"
                             }
                           ],
                           "errorLocation": {
                             "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/demo/users/visibility.spec.js",
                             "column": 38,
-                            "line": 43
+                            "line": 36
                           }
                         },
                         {
                           "workerIndex": 5,
                           "status": "failed",
-                          "duration": 9706,
+                          "duration": 4202,
                           "error": {
-                            "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('.card__body .table-row').first().getByText('undefined')\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.card__body .table-row').first().getByText('undefined')\u001b[22m\n",
-                            "stack": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('.card__body .table-row').first().getByText('undefined')\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.card__body .table-row').first().getByText('undefined')\u001b[22m\n\n    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/demo/users/visibility.spec.js:43:38",
+                            "message": "Error: expect.toBeVisible: Error: strict mode violation: locator('.card__body').getByText('Name') resolved to 2 elements:\n    1) <div class=\"track\">…</div> aka getByText('Name', { exact: true })\n    2) <div class=\"track\">…</div> aka getByText('Display Name')\n\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.card__body').getByText('Name')\u001b[22m\n",
+                            "stack": "Error: expect.toBeVisible: Error: strict mode violation: locator('.card__body').getByText('Name') resolved to 2 elements:\n    1) <div class=\"track\">…</div> aka getByText('Name', { exact: true })\n    2) <div class=\"track\">…</div> aka getByText('Display Name')\n\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.card__body').getByText('Name')\u001b[22m\n\n    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/demo/users/visibility.spec.js:36:38",
                             "location": {
                               "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/demo/users/visibility.spec.js",
                               "column": 38,
-                              "line": 43
+                              "line": 36
                             },
-                            "snippet": "\u001b[0m \u001b[90m 41 |\u001b[39m             \u001b[36mconst\u001b[39m deleteButton \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m firstRow\u001b[33m.\u001b[39mgetByText(\u001b[32m`${translation.Delete}`\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 42 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 43 |\u001b[39m             \u001b[36mawait\u001b[39m expect(editButton)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                      \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 44 |\u001b[39m             \u001b[36mawait\u001b[39m expect(deleteButton)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 45 |\u001b[39m         })\u001b[33m;\u001b[39m\n \u001b[90m 46 |\u001b[39m     })\u001b[33m;\u001b[39m\u001b[0m"
+                            "snippet": "\u001b[0m \u001b[90m 34 |\u001b[39m             \u001b[36mconst\u001b[39m userTitleHeader \u001b[33m=\u001b[39m container\u001b[33m.\u001b[39mgetByText(\u001b[32m`${translation.userTitle}`\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 35 |\u001b[39m             \u001b[36mconst\u001b[39m emailHeader \u001b[33m=\u001b[39m container\u001b[33m.\u001b[39mgetByText(\u001b[32m`${translation.email}`\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 36 |\u001b[39m             \u001b[36mawait\u001b[39m expect(nameHeader)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                      \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 37 |\u001b[39m             \u001b[36mawait\u001b[39m expect(idCodeHeader)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 38 |\u001b[39m             \u001b[36mawait\u001b[39m expect(roleHeader)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 39 |\u001b[39m             \u001b[36mawait\u001b[39m expect(displayNameHeader)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\u001b[0m"
                           },
                           "errors": [
                             {
                               "location": {
                                 "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/demo/users/visibility.spec.js",
                                 "column": 38,
-                                "line": 43
+                                "line": 36
                               },
-                              "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('.card__body .table-row').first().getByText('undefined')\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.card__body .table-row').first().getByText('undefined')\u001b[22m\n\n\n\u001b[0m \u001b[90m 41 |\u001b[39m             \u001b[36mconst\u001b[39m deleteButton \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m firstRow\u001b[33m.\u001b[39mgetByText(\u001b[32m`${translation.Delete}`\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 42 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 43 |\u001b[39m             \u001b[36mawait\u001b[39m expect(editButton)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                      \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 44 |\u001b[39m             \u001b[36mawait\u001b[39m expect(deleteButton)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 45 |\u001b[39m         })\u001b[33m;\u001b[39m\n \u001b[90m 46 |\u001b[39m     })\u001b[33m;\u001b[39m\u001b[0m\n\n\u001b[2m    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/demo/users/visibility.spec.js:43:38\u001b[22m"
+                              "message": "Error: expect.toBeVisible: Error: strict mode violation: locator('.card__body').getByText('Name') resolved to 2 elements:\n    1) <div class=\"track\">…</div> aka getByText('Name', { exact: true })\n    2) <div class=\"track\">…</div> aka getByText('Display Name')\n\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.card__body').getByText('Name')\u001b[22m\n\n\n\u001b[0m \u001b[90m 34 |\u001b[39m             \u001b[36mconst\u001b[39m userTitleHeader \u001b[33m=\u001b[39m container\u001b[33m.\u001b[39mgetByText(\u001b[32m`${translation.userTitle}`\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 35 |\u001b[39m             \u001b[36mconst\u001b[39m emailHeader \u001b[33m=\u001b[39m container\u001b[33m.\u001b[39mgetByText(\u001b[32m`${translation.email}`\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 36 |\u001b[39m             \u001b[36mawait\u001b[39m expect(nameHeader)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                      \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 37 |\u001b[39m             \u001b[36mawait\u001b[39m expect(idCodeHeader)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 38 |\u001b[39m             \u001b[36mawait\u001b[39m expect(roleHeader)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 39 |\u001b[39m             \u001b[36mawait\u001b[39m expect(displayNameHeader)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\u001b[0m\n\n\u001b[2m    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/demo/users/visibility.spec.js:36:38\u001b[22m"
                             }
                           ],
                           "stdout": [],
                           "stderr": [],
                           "retry": 1,
-                          "startTime": "2024-10-29T08:57:11.721Z",
+                          "startTime": "2024-10-29T09:13:27.517Z",
                           "attachments": [
                             {
                               "name": "screenshot",
                               "contentType": "image/png",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-e20cb-Delete-buttons-in-first-row-chromium-retry1/test-failed-1.png"
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-9d036-hould-display-table-headers-chromium-retry1/test-failed-1.png"
                             },
                             {
                               "name": "video",
                               "contentType": "video/webm",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-e20cb-Delete-buttons-in-first-row-chromium-retry1/video.webm"
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-9d036-hould-display-table-headers-chromium-retry1/video.webm"
                             },
                             {
                               "name": "trace",
                               "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-e20cb-Delete-buttons-in-first-row-chromium-retry1/trace.zip"
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-9d036-hould-display-table-headers-chromium-retry1/trace.zip"
                             }
                           ],
                           "errorLocation": {
                             "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/demo/users/visibility.spec.js",
                             "column": 38,
-                            "line": 43
+                            "line": 36
                           }
                         }
                       ],
                       "status": "unexpected"
                     }
                   ],
-                  "id": "48d1ebb9bc78d8d3ec41-78bab4b8d6e8f76c857c",
+                  "id": "48d1ebb9bc78d8d3ec41-4e4bd18fb7b82d00033c",
                   "file": "admin/landingPage/mainPage/sideBar/administration/demo/users/visibility.spec.js",
-                  "line": 38,
+                  "line": 28,
                   "column": 13
-                }
-              ]
-            },
-            {
-              "title": "Pagination",
-              "file": "admin/landingPage/mainPage/sideBar/administration/demo/users/visibility.spec.js",
-              "line": 48,
-              "column": 10,
-              "specs": [
+                },
                 {
-                  "title": "Result count label and select visibility",
+                  "title": "should display edit and delete buttons for first row",
                   "ok": true,
                   "tags": [],
                   "tests": [
@@ -380,22 +387,22 @@
                         {
                           "workerIndex": 4,
                           "status": "passed",
-                          "duration": 5658,
+                          "duration": 5306,
                           "errors": [],
                           "stdout": [],
                           "stderr": [],
                           "retry": 0,
-                          "startTime": "2024-10-29T08:57:00.631Z",
+                          "startTime": "2024-10-29T09:13:20.638Z",
                           "attachments": [
                             {
                               "name": "video",
                               "contentType": "video/webm",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-79cd4-label-and-select-visibility-chromium/video.webm"
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-85fc7-elete-buttons-for-first-row-chromium/video.webm"
                             },
                             {
                               "name": "trace",
                               "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-79cd4-label-and-select-visibility-chromium/trace.zip"
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-85fc7-elete-buttons-for-first-row-chromium/trace.zip"
                             }
                           ]
                         }
@@ -403,9 +410,60 @@
                       "status": "expected"
                     }
                   ],
-                  "id": "48d1ebb9bc78d8d3ec41-cc2c7079a56058e26cc6",
+                  "id": "48d1ebb9bc78d8d3ec41-e69d13c384c878d3b5a1",
                   "file": "admin/landingPage/mainPage/sideBar/administration/demo/users/visibility.spec.js",
-                  "line": 49,
+                  "line": 44,
+                  "column": 13
+                }
+              ]
+            },
+            {
+              "title": "Pagination Controls",
+              "file": "admin/landingPage/mainPage/sideBar/administration/demo/users/visibility.spec.js",
+              "line": 53,
+              "column": 10,
+              "specs": [
+                {
+                  "title": "should display result count label and dropdown",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 1,
+                          "status": "passed",
+                          "duration": 4285,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-10-29T09:13:26.121Z",
+                          "attachments": [
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-e3725-lt-count-label-and-dropdown-chromium/video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-e3725-lt-count-label-and-dropdown-chromium/trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "48d1ebb9bc78d8d3ec41-fc2664d54ea094e4a080",
+                  "file": "admin/landingPage/mainPage/sideBar/administration/demo/users/visibility.spec.js",
+                  "line": 54,
                   "column": 13
                 }
               ]
@@ -417,9 +475,9 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2024-10-29T08:56:38.868Z",
-    "duration": 43006.155,
-    "expected": 4,
+    "startTime": "2024-10-29T09:13:09.520Z",
+    "duration": 22500.154,
+    "expected": 5,
     "skipped": 0,
     "unexpected": 1,
     "flaky": 0
