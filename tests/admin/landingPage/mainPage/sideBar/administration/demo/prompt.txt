@@ -2,10 +2,11 @@
 
 1. Text-based locators: 
   All locators for text-based elements (labels, buttons, headers) must use translation keys. Translations are fetched using the getTranslations function and should be integrated into the locators as `${translation.key}`. key's first letter is lowercase. 
-  For example:
+  
   Use page.getByText() for labels, buttons, or any other text-based elements.
   Use page.getByLabel() for elements that are associated with a label.
   Use page.getByRole() for headings.
+
   Using getByText() and there's extra argument in the .yml file nth-matching-element the value is a locator to the n-th matching element. This is important. 
   Example:
         const label = await page.getByText(`${translation.widgetBubbleMessageText}`).nth(0);
@@ -16,26 +17,6 @@
     const input = await page.getByLabel(`${translation.widgetProactiveSeconds}`, { exact: true });
     await expect(label).toBeVisible();
     await expect(input).toBeVisible();
-  When it comes to body, always check by the content of the card for example:
-    const container = page.locator('.card');
-    const label = container.locator('.card-label');
-    
-  This extends to when the element has a defined selector argument for example:
-    name: card__body divided
-    label:
-      args:
-          - type: text
-          - value: "Monday"
-          - style: label
-    switch:
-      args:
-          - type: button
-          - style: switch
-          - selector: div div.switch button
-        
-    const container = page.locator('.card');
-    const label = container.locator(``${translation.monday}`);
-    const switch = label.locator(`+ div div.switch button`);
 
 2. Dropdown handling: 
    Use the following format for dropdown (select) elements:
