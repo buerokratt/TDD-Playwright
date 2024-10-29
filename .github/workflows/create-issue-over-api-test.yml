@@ -139,7 +139,7 @@ jobs:
           
           Details:
           Test: $TEST_NAME
-          $CLEAN_ERROR_DETAILS" \
+          $ERROR_DETAILS" \
               '{
                 title: $title,
                 body: $body,
