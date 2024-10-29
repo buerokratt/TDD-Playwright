@@ -97,12 +97,12 @@
                 {
                   "workerIndex": 0,
                   "status": "passed",
-                  "duration": 14912,
+                  "duration": 20207,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2024-10-29T08:47:12.626Z",
+                  "startTime": "2024-10-29T08:56:39.408Z",
                   "attachments": [
                     {
                       "name": "video",
@@ -155,12 +155,12 @@
                     {
                       "workerIndex": 1,
                       "status": "passed",
-                      "duration": 4786,
+                      "duration": 5927,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2024-10-29T08:47:28.528Z",
+                      "startTime": "2024-10-29T08:57:00.590Z",
                       "attachments": [
                         {
                           "name": "video",
@@ -206,12 +206,12 @@
                         {
                           "workerIndex": 2,
                           "status": "passed",
-                          "duration": 5798,
+                          "duration": 5970,
                           "errors": [],
                           "stdout": [],
                           "stderr": [],
                           "retry": 0,
-                          "startTime": "2024-10-29T08:47:28.583Z",
+                          "startTime": "2024-10-29T08:57:00.569Z",
                           "attachments": [
                             {
                               "name": "video",
@@ -235,8 +235,8 @@
                   "column": 13
                 },
                 {
-                  "title": "Edit and Delete buttons visibility for table rows",
-                  "ok": true,
+                  "title": "should display Edit and Delete buttons in first row",
+                  "ok": false,
                   "tags": [],
                   "tests": [
                     {
@@ -248,31 +248,111 @@
                       "results": [
                         {
                           "workerIndex": 3,
-                          "status": "passed",
-                          "duration": 5683,
-                          "errors": [],
+                          "status": "failed",
+                          "duration": 10242,
+                          "error": {
+                            "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('.card__body .table-row').first().getByText('undefined')\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.card__body .table-row').first().getByText('undefined')\u001b[22m\n",
+                            "stack": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('.card__body .table-row').first().getByText('undefined')\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.card__body .table-row').first().getByText('undefined')\u001b[22m\n\n    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/demo/users/visibility.spec.js:43:38",
+                            "location": {
+                              "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/demo/users/visibility.spec.js",
+                              "column": 38,
+                              "line": 43
+                            },
+                            "snippet": "\u001b[0m \u001b[90m 41 |\u001b[39m             \u001b[36mconst\u001b[39m deleteButton \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m firstRow\u001b[33m.\u001b[39mgetByText(\u001b[32m`${translation.Delete}`\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 42 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 43 |\u001b[39m             \u001b[36mawait\u001b[39m expect(editButton)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                      \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 44 |\u001b[39m             \u001b[36mawait\u001b[39m expect(deleteButton)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 45 |\u001b[39m         })\u001b[33m;\u001b[39m\n \u001b[90m 46 |\u001b[39m     })\u001b[33m;\u001b[39m\u001b[0m"
+                          },
+                          "errors": [
+                            {
+                              "location": {
+                                "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/demo/users/visibility.spec.js",
+                                "column": 38,
+                                "line": 43
+                              },
+                              "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('.card__body .table-row').first().getByText('undefined')\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.card__body .table-row').first().getByText('undefined')\u001b[22m\n\n\n\u001b[0m \u001b[90m 41 |\u001b[39m             \u001b[36mconst\u001b[39m deleteButton \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m firstRow\u001b[33m.\u001b[39mgetByText(\u001b[32m`${translation.Delete}`\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 42 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 43 |\u001b[39m             \u001b[36mawait\u001b[39m expect(editButton)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                      \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 44 |\u001b[39m             \u001b[36mawait\u001b[39m expect(deleteButton)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 45 |\u001b[39m         })\u001b[33m;\u001b[39m\n \u001b[90m 46 |\u001b[39m     })\u001b[33m;\u001b[39m\u001b[0m\n\n\u001b[2m    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/demo/users/visibility.spec.js:43:38\u001b[22m"
+                            }
+                          ],
                           "stdout": [],
                           "stderr": [],
                           "retry": 0,
-                          "startTime": "2024-10-29T08:47:28.577Z",
+                          "startTime": "2024-10-29T08:57:00.538Z",
                           "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-e20cb-Delete-buttons-in-first-row-chromium/test-failed-1.png"
+                            },
                             {
                               "name": "video",
                               "contentType": "video/webm",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-73afc-s-visibility-for-table-rows-chromium/video.webm"
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-e20cb-Delete-buttons-in-first-row-chromium/video.webm"
                             },
                             {
                               "name": "trace",
                               "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-73afc-s-visibility-for-table-rows-chromium/trace.zip"
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-e20cb-Delete-buttons-in-first-row-chromium/trace.zip"
                             }
-                          ]
+                          ],
+                          "errorLocation": {
+                            "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/demo/users/visibility.spec.js",
+                            "column": 38,
+                            "line": 43
+                          }
+                        },
+                        {
+                          "workerIndex": 5,
+                          "status": "failed",
+                          "duration": 9706,
+                          "error": {
+                            "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('.card__body .table-row').first().getByText('undefined')\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.card__body .table-row').first().getByText('undefined')\u001b[22m\n",
+                            "stack": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('.card__body .table-row').first().getByText('undefined')\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.card__body .table-row').first().getByText('undefined')\u001b[22m\n\n    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/demo/users/visibility.spec.js:43:38",
+                            "location": {
+                              "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/demo/users/visibility.spec.js",
+                              "column": 38,
+                              "line": 43
+                            },
+                            "snippet": "\u001b[0m \u001b[90m 41 |\u001b[39m             \u001b[36mconst\u001b[39m deleteButton \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m firstRow\u001b[33m.\u001b[39mgetByText(\u001b[32m`${translation.Delete}`\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 42 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 43 |\u001b[39m             \u001b[36mawait\u001b[39m expect(editButton)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                      \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 44 |\u001b[39m             \u001b[36mawait\u001b[39m expect(deleteButton)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 45 |\u001b[39m         })\u001b[33m;\u001b[39m\n \u001b[90m 46 |\u001b[39m     })\u001b[33m;\u001b[39m\u001b[0m"
+                          },
+                          "errors": [
+                            {
+                              "location": {
+                                "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/demo/users/visibility.spec.js",
+                                "column": 38,
+                                "line": 43
+                              },
+                              "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('.card__body .table-row').first().getByText('undefined')\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.card__body .table-row').first().getByText('undefined')\u001b[22m\n\n\n\u001b[0m \u001b[90m 41 |\u001b[39m             \u001b[36mconst\u001b[39m deleteButton \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m firstRow\u001b[33m.\u001b[39mgetByText(\u001b[32m`${translation.Delete}`\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 42 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 43 |\u001b[39m             \u001b[36mawait\u001b[39m expect(editButton)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                      \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 44 |\u001b[39m             \u001b[36mawait\u001b[39m expect(deleteButton)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 45 |\u001b[39m         })\u001b[33m;\u001b[39m\n \u001b[90m 46 |\u001b[39m     })\u001b[33m;\u001b[39m\u001b[0m\n\n\u001b[2m    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/demo/users/visibility.spec.js:43:38\u001b[22m"
+                            }
+                          ],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 1,
+                          "startTime": "2024-10-29T08:57:11.721Z",
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-e20cb-Delete-buttons-in-first-row-chromium-retry1/test-failed-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-e20cb-Delete-buttons-in-first-row-chromium-retry1/video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-e20cb-Delete-buttons-in-first-row-chromium-retry1/trace.zip"
+                            }
+                          ],
+                          "errorLocation": {
+                            "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/demo/users/visibility.spec.js",
+                            "column": 38,
+                            "line": 43
+                          }
                         }
                       ],
-                      "status": "expected"
+                      "status": "unexpected"
                     }
                   ],
-                  "id": "48d1ebb9bc78d8d3ec41-257fa5161afca46dd550",
+                  "id": "48d1ebb9bc78d8d3ec41-78bab4b8d6e8f76c857c",
                   "file": "admin/landingPage/mainPage/sideBar/administration/demo/users/visibility.spec.js",
                   "line": 38,
                   "column": 13
@@ -300,12 +380,12 @@
                         {
                           "workerIndex": 4,
                           "status": "passed",
-                          "duration": 5620,
+                          "duration": 5658,
                           "errors": [],
                           "stdout": [],
                           "stderr": [],
                           "retry": 0,
-                          "startTime": "2024-10-29T08:47:28.586Z",
+                          "startTime": "2024-10-29T08:57:00.631Z",
                           "attachments": [
                             {
                               "name": "video",
@@ -337,11 +417,11 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2024-10-29T08:47:12.064Z",
-    "duration": 22905.39,
-    "expected": 5,
+    "startTime": "2024-10-29T08:56:38.868Z",
+    "duration": 43006.155,
+    "expected": 4,
     "skipped": 0,
-    "unexpected": 0,
+    "unexpected": 1,
     "flaky": 0
   }
 }
