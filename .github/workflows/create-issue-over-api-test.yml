@@ -39,10 +39,6 @@ jobs:
           npx playwright test tests/always-fail.test.js --workers=2 --reporter=json > playwright-report.json
         continue-on-error: true
 
-      # - name: List root directory contents
-      #   if: always()  # Ensure it runs even if the test fails
-      #   run: ls -R .
-
       - name: Upload Playwright Report
         if: always()
         uses: actions/upload-artifact@v4
@@ -65,7 +61,7 @@ jobs:
       - name: Debug failed tests output
         run: |
           echo "Raw failed tests output:"
-          echo '${{ steps.parse_tests.outputs.failed_tests }}'
+          echo "$FAILED_TESTS"
 
       - name: Process each failed test
         if: env.FAILED_TESTS != '[]'
