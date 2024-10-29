@@ -6,5 +6,5 @@
       }
     },
     "include": ["tests/**/*.js", "src/**/*.js"]  
-  }
+}
   
