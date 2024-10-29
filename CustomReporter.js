@@ -4,7 +4,7 @@ const path = require('path');
 
 class CustomReporter extends Reporter {
   onTestBegin(test) {
-    const testResultDir = path.join('test-results', test.title.replace(/[^a-zA-Z0-9]/g, '_'));
+    const testResultDir = path.join('test-attachments', test.title.replace(/[^a-zA-Z0-9]/g, '_'));
     if (!fs.existsSync(testResultDir)) {
       fs.mkdirSync(testResultDir, { recursive: true });
     }
