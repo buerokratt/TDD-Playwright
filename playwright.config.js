@@ -29,19 +29,21 @@ module.exports = defineConfig({
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     // viewport: { width: 1366, height: 768 },  
-    video: {
-      mode: 'retain-on-failure',
-      dir: 'test-results/videos/',
-      name: ({ test }) => `${test.title}.webm`,
-    // launchOptions: {
-    //   slowMo: 1000,
+    video: 'retain-on-failure',
+    // {
+    //   mode: 'retain-on-failure',
+    //   dir: 'test-results/videos/',
+    //   name: ({ test }) => `${test.title}.webm`,
+    // // launchOptions: {
+    // //   slowMo: 1000,
+    // // },
     // },
-    },
-    screenshot: {
-      mode: 'only-on-failure',
-      dir: 'test-results/screenshots/',
-      name: ({ test }) => `${test.title}.png`,
-    },
+    screenshot: 'only-on-failure',
+    // {
+    //   mode: 'only-on-failure',
+    //   dir: 'test-results/screenshots/',
+    //   name: ({ test }) => `${test.title}.png`,
+    // },
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on',
     //* Base URL to use in actions like `await page.goto('/')`. */

@@ -100,7 +100,6 @@ jobs:
       - name: Process each failed test
         if: env.FAILED_TESTS != '[]'
         run: |
-          # set -x  # Enable debug mode to trace commands
           echo "Parsing failed tests JSON array: $FAILED_TESTS"
 
           echo "$FAILED_TESTS" | jq -c '.[]' | while IFS= read -r test; do
@@ -137,9 +136,16 @@ jobs:
 
             echo "Creating new issue for failed test: $TEST_NAME"
 
+            # Construct the base path based on the test name
+            TEST_NAME_SLUG=$(echo "$TEST_NAME" | tr ' ' '-' | tr '[:upper:]' '[:lower:]')
+            BASE_PATH="./test-results/*-${TEST_NAME_SLUG}-*"
+
+            # Find the latest path for the current test name
+            LATEST_PATH=$(ls -d ${BASE_PATH} 2>/dev/null | sort -V | tail -n 1)
+
             # Define the video and screenshot paths
-            VIDEO_PATH="test-results/videos/${TEST_NAME}.webm"
-            SCREENSHOT_PATH="test-results/screenshots/${TEST_NAME}.png"
+            VIDEO_PATH="${LATEST_PATH}/video.webm"
+            SCREENSHOT_PATH="${LATEST_PATH}/test-failed-1.png"
 
             # Prepare the issue body with initial details
             ISSUE_BODY="A test failed in buerokratt/TDD-Playwright.
@@ -151,8 +157,7 @@ jobs:
             # Check if the video exists and append to issue body
             if [ -f "$VIDEO_PATH" ]; then
               echo "Video found for $TEST_NAME. Adding to issue body."
-              # Assuming the file is uploaded and accessible; this could also be a URL to a file storage service
-              ISSUE_BODY+="\nVideo attached: ![video](https://github.com/buerokratt/GH-API-Test-1/raw/main/$VIDEO_PATH)\n"
+              ISSUE_BODY+="\nVideo attached: ![video](https://github.com/buerokratt/TDD-Playwright/raw/main/${VIDEO_PATH#./})\n"
             else
               echo "No video found for $TEST_NAME."
             fi
@@ -160,7 +165,7 @@ jobs:
             # Check if the screenshot exists and append to issue body
             if [ -f "$SCREENSHOT_PATH" ]; then
               echo "Screenshot found for $TEST_NAME. Adding to issue body."
-              ISSUE_BODY+="\nScreenshot attached: ![screenshot](https://github.com/buerokratt/GH-API-Test-1/raw/main/$SCREENSHOT_PATH)\n"
+              ISSUE_BODY+="\nScreenshot attached: ![screenshot](https://github.com/buerokratt/TDD-Playwright/raw/main/${SCREENSHOT_PATH#./})\n"
             else
               echo "No screenshot found for $TEST_NAME."
             fi
