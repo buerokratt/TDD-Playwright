@@ -13,8 +13,8 @@
         const label = await page.getByText(`${translation.widgetBubbleMessageText}`).nth(1);
   Otherwise:
   Example: 
-    const label = await page.getByText(`${translation.widgetProactiveSeconds}`);
-    const input = await page.getByLabel(`${translation.widgetProactiveSeconds}`);
+    const label = await page.getByText(`${translation.widgetProactiveSeconds}`, { exact: true });
+    const input = await page.getByLabel(`${translation.widgetProactiveSeconds}`, { exact: true });
     await expect(label).toBeVisible();
     await expect(input).toBeVisible();
   When it comes to body, always check by the content of the card for example:
@@ -37,13 +37,6 @@
     const container = page.locator('.card');
     const label = container.locator(``${translation.monday}`);
     const switch = label.locator(`+ div div.switch button`);
-
-2. Component handling: 
-   Always use sibling selectors (`+`) for adjacent components. Do not use `..` for locating elements based on labels.
-   - For example, use: 
-     - `label:has-text("${translation.widgetBubbleMessageText}") + button.switch__button` for switches next to labels.
-     - `label:has-text("${translation.widgetColor}") + div input` for color pickers next to labels.
-   Avoid using the same label locator for multiple elements; locate each element based on its specific role (input, switch, etc.).
 
 3. Dropdown handling: 
    Use the following format for dropdown (select) elements:
@@ -72,4 +65,4 @@ Combine related assertions (e.g., heading and button checks) into single tests w
 The output should be a valid Playwright test file, ready for copy-pasting and running without further modification."
 
 7. Exact match for similar elements:
-Add { exact: true } to locators if there are multiple elements with similar names, such as 'Name' and 'Display Name,' to avoid strict mode violations caused by multiple matching elements.
+Add { exact: true } to all locators.
