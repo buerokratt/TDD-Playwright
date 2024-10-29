@@ -22,6 +22,7 @@ module.exports = defineConfig({
   workers: process.env.CI ? 4 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [
+    ['./CustomReporter.js'],
     ['html', { open: 'always' }], // Generates the HTML report
     ['list', { printSteps: true }], // Generates the line-based report
     ['json', { outputFile: 'playwright-report.json' }] // Generates the JSON report
@@ -29,19 +30,21 @@ module.exports = defineConfig({
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     // viewport: { width: 1366, height: 768 },  
-    video: {
-      mode: 'retain-on-failure',
-      dir: 'test-results/videos/',
-      name: ({ test }) => `${test.title}.webm`,
-    // launchOptions: {
-    //   slowMo: 1000,
+    video: 'retain-on-failure',
+    // {
+    //   mode: 'retain-on-failure',
+    //   dir: 'test-results/videos/',
+    //   name: ({ test }) => `${test.title}.webm`,
+    // // launchOptions: {
+    // //   slowMo: 1000,
+    // // },
     // },
-    },
-    screenshot: {
-      mode: 'only-on-failure',
-      dir: 'test-results/screenshots/',
-      name: ({ test }) => `${test.title}.png`,
-    },
+    screenshot: 'only-on-failure',
+    // {
+    //   mode: 'only-on-failure',
+    //   dir: 'test-results/screenshots/',
+    //   name: ({ test }) => `${test.title}.png`,
+    // },
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on',
     //* Base URL to use in actions like `await page.goto('/')`. */
