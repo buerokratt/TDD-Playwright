@@ -16,14 +16,12 @@ test:
             - type: text
             - value: "Session Length"
             - style: label
-            - selector: input
 
       input:
         args:
             - type: number
             - style: input
             - adjacentTo: label
-            - selector: input__wrapper
             
 
       name: card__footer
