@@ -22,7 +22,6 @@ module.exports = defineConfig({
   workers: process.env.CI ? 4 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [
-    ['./CustomReporter.js'],
     ['html', { open: 'always' }], // Generates the HTML report
     ['list', { printSteps: true }], // Generates the line-based report
     ['json', { outputFile: 'playwright-report.json' }] // Generates the JSON report
