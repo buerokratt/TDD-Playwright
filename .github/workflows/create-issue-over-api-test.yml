@@ -36,7 +36,7 @@ jobs:
       - name: Run Playwright tests
         id: playwright
         run: |
-          npx playwright test tests/always-fail.test.js --workers=2 --reporter=json > playwright-report.json
+          npx playwright test tests/always-fail.test.js --workers=2
         continue-on-error: true
 
       - name: Upload Playwright Report
@@ -44,8 +44,12 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: playwright-report
-          path: playwright-report.json
+          path: playwright-report/
           retention-days: 30
+
+      - name: List root directory contents
+        if: always()  # Ensure it runs even if the test fails
+        run: ls -R .
 
       - name: Parse failed tests
         id: parse_tests
@@ -102,8 +106,6 @@ jobs:
           echo "$FAILED_TESTS" | jq -c '.[]' | while IFS= read -r test; do
             TEST_NAME=$(echo "$test" | jq -r '.title' | sed 's/[[:space:]]*$//')
             ERROR_DETAILS=$(echo "$test" | jq -r '.error' | sed 's/\x1b\[[0-9;]*m//g')
-            VIDEO_PATH=$(echo "$test" | jq -r '.video')
-            SCREENSHOT_PATH=$(echo "$test" | jq -r '.screenshot')
 
             if [ -z "$TEST_NAME" ] || [ -z "$ERROR_DETAILS" ]; then
               echo "Error: Missing test name or error details. Skipping."
@@ -135,13 +137,37 @@ jobs:
 
             echo "Creating new issue for failed test: $TEST_NAME"
 
-            JSON_PAYLOAD=$(jq -n \
-              --arg title "$TEST_NAME" \
-              --arg body "A test failed in buerokratt/TDD-Playwright.
+            # Define the video and screenshot paths
+            VIDEO_PATH="test-results/videos/${TEST_NAME}.webm"
+            SCREENSHOT_PATH="test-results/screenshots/${TEST_NAME}.png"
+
+            # Prepare the issue body with initial details
+            ISSUE_BODY="A test failed in buerokratt/TDD-Playwright.
           
           Details:
           Test: $TEST_NAME
-          $ERROR_DETAILS" \
+          $ERROR_DETAILS"
+
+            # Check if the video exists and append to issue body
+            if [ -f "$VIDEO_PATH" ]; then
+              echo "Video found for $TEST_NAME. Adding to issue body."
+              # Assuming the file is uploaded and accessible; this could also be a URL to a file storage service
+              ISSUE_BODY+="\nVideo attached: ![video](https://github.com/buerokratt/GH-API-Test-1/raw/main/$VIDEO_PATH)\n"
+            else
+              echo "No video found for $TEST_NAME."
+            fi
+
+            # Check if the screenshot exists and append to issue body
+            if [ -f "$SCREENSHOT_PATH" ]; then
+              echo "Screenshot found for $TEST_NAME. Adding to issue body."
+              ISSUE_BODY+="\nScreenshot attached: ![screenshot](https://github.com/buerokratt/GH-API-Test-1/raw/main/$SCREENSHOT_PATH)\n"
+            else
+              echo "No screenshot found for $TEST_NAME."
+            fi
+
+            JSON_PAYLOAD=$(jq -n \
+              --arg title "$TEST_NAME" \
+              --arg body "$ISSUE_BODY" \
               '{
                 title: $title,
                 body: $body,
@@ -164,47 +190,6 @@ jobs:
             fi
 
             echo "Created issue #$ISSUE_NUMBER for failed test: $TEST_NAME"
-
-            # Upload video and screenshot
-            echo "Uploading video and screenshot to the issue"
-
-            if [ "$VIDEO_PATH" != "null" ] && [ -f "$VIDEO_PATH" ]; then
-              VIDEO_UPLOAD_RESPONSE=$(curl -s -X POST \
-                -H "Authorization: token ${{ secrets.BYK_PAT }}" \
-                -H "Accept: application/vnd.github.v3+json" \
-                -F "file=@$VIDEO_PATH" \
-                "https://uploads.github.com/repos/buerokratt/GH-API-Test-1/issues/$ISSUE_NUMBER/uploads")
-              
-              VIDEO_URL=$(echo "$VIDEO_UPLOAD_RESPONSE" | jq -r '.url')
-              echo "Uploaded video URL: $VIDEO_URL"
-
-              # Update issue with video URL
-              COMMENT_BODY="**Video of the failed test:** ![$TEST_NAME]($VIDEO_URL)"
-              curl -s -X POST \
-                -H "Authorization: token ${{ secrets.BYK_PAT }}" \
-                -H "Accept: application/vnd.github.v3+json" \
-                -d "{\"body\": \"$COMMENT_BODY\"}" \
-                "https://api.github.com/repos/buerokratt/GH-API-Test-1/issues/$ISSUE_NUMBER/comments"
-            fi
-
-            if [ "$SCREENSHOT_PATH" != "null" ] && [ -f "$SCREENSHOT_PATH" ]; then
-              SCREENSHOT_UPLOAD_RESPONSE=$(curl -s -X POST \
-                -H "Authorization: token ${{ secrets.BYK_PAT }}" \
-                -H "Accept: application/vnd.github.v3+json" \
-                -F "file=@$SCREENSHOT_PATH" \
-                "https://uploads.github.com/repos/buerokratt/GH-API-Test-1/issues/$ISSUE_NUMBER/uploads")
-
-              SCREENSHOT_URL=$(echo "$SCREENSHOT_UPLOAD_RESPONSE" | jq -r '.url')
-              echo "Uploaded screenshot URL: $SCREENSHOT_URL"
-
-              # Update issue with screenshot URL
-              COMMENT_BODY="**Screenshot of the failed test:** ![$TEST_NAME]($SCREENSHOT_URL)"
-              curl -s -X POST \
-                -H "Authorization: token ${{ secrets.BYK_PAT }}" \
-                -H "Accept: application/vnd.github.v3+json" \
-                -d "{\"body\": \"$COMMENT_BODY\"}" \
-                "https://api.github.com/repos/buerokratt/GH-API-Test-1/issues/$ISSUE_NUMBER/comments"
-            fi
 
             # Get the global ID of the issue for project assignment
             issue_id_response=$(curl -s -X POST \
