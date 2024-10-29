@@ -31,7 +31,9 @@
    Use the following format for dropdown (select) elements:
    const select = await page.getByRole('combobox', { name: `${translation.widgetAnimation}` });
 
-4. Test setup:
+4. Table handling: 
+   Consider only first row when checking data persistence. For example when checking edit and delete buttons in table data.
+5. Test setup:
 Include navigation and fetching translations in a beforeEach hook to ensure the page and translations are ready before running each test.
 Base URL: https://admin.prod.buerokratt.ee. Add this before the url provided in the DSL under resource header.
 Translations should be defined as:
@@ -43,6 +45,6 @@ translation = await getTranslations(page);
 Translation should be after the playwright test has gone to the page to avoid security error.
 Include a 3000ms timeout in the beforeEach to ensure all elements load properly.
 
-5. Logical grouping:
+6. Logical grouping:
 Group tests using test.describe() by logical parts (e.g., headings, card body, footer).
 The output should be a valid Playwright test file, ready for copy-pasting and running without further modification."

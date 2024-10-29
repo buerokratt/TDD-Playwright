@@ -1,3 +1,5 @@
+# BUGS:
+emergency-notices has actually bug instead of label element it is paragraph
 #  Playwright testing
 This project is built to test GUI functionality of buerokratt admin panel
 
