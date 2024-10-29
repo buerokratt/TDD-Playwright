@@ -66,10 +66,10 @@ jobs:
       - name: Process each failed test
         if: env.FAILED_TESTS != '[]'
         run: |
+          set -x  # Enable debug mode to trace commands
           echo "Parsing failed tests JSON array: $FAILED_TESTS"
 
           echo "$FAILED_TESTS" | jq -c '.[]' | while IFS= read -r test; do
-            # Extract test details and sanitize test name
             TEST_NAME=$(echo "$test" | jq -r '.title' | sed 's/[[:space:]]*$//')
             ERROR_DETAILS=$(echo "$test" | jq -r '.error' | sed 's/\x1b\[[0-9;]*m//g')
 
@@ -80,18 +80,15 @@ jobs:
 
             echo "Checking for existing issues for failed test: $TEST_NAME"
 
-            # Encode the sanitized test name
             ENCODED_TEST_NAME=$(echo -n "$TEST_NAME" | jq -sRr @uri)
             echo "Encoded test name: $ENCODED_TEST_NAME"
 
-            # Search for existing issues
             search_response=$(curl -s \
               -H "Authorization: token ${{ secrets.BYK_PAT }}" \
               -H "Accept: application/vnd.github.v3+json" \
               "https://api.github.com/search/issues?q=repo:buerokratt/GH-API-Test-1+is:issue+is:open+in:title+[Playwright+Test+Failure]:+$ENCODED_TEST_NAME")
-            
-            # Print the search response for debugging
-            echo "Search response: $search_response"
+
+            echo "Search response: $search_response"  # Print full response for debugging
 
             issue_count=$(echo "$search_response" | jq -r '.total_count')
             if [ "$issue_count" == "null" ] || [ -z "$issue_count" ]; then
@@ -106,7 +103,6 @@ jobs:
 
             echo "Creating new issue for failed test: $TEST_NAME"
 
-            # Create issue payload
             JSON_PAYLOAD=$(jq -n \
               --arg title "[Playwright Test Failure]: $TEST_NAME" \
               --arg body "A test failed in buerokratt/TDD-Playwright.\n\nDetails:\nTest: $TEST_NAME\n$ERROR_DETAILS" \
@@ -116,13 +112,13 @@ jobs:
                 labels: ["bug"]
               }')
 
-            # Create issue
             response=$(curl -s -X POST \
               -H "Authorization: token ${{ secrets.BYK_PAT }}" \
               -H "Accept: application/vnd.github.v3+json" \
               -d "$JSON_PAYLOAD" \
               https://api.github.com/repos/buerokratt/GH-API-Test-1/issues)
-            echo "Issue creation response: $response"
+
+            echo "Issue creation response: $response"  # Debugging issue creation
 
             ISSUE_ID=$(echo "$response" | jq -r '.id')
             ISSUE_NUMBER=$(echo "$response" | jq -r '.number')
