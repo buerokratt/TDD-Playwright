@@ -19,6 +19,23 @@
   When it comes to body, always check by the content of the card for example:
     const container = page.locator('.card');
     const label = container.locator('.card-label');
+    
+  This extends to when the element has a defined selector argument for example:
+    name: card__body divided
+    label:
+      args:
+          - type: text
+          - value: "Monday"
+          - style: label
+    switch:
+      args:
+          - type: button
+          - style: switch
+          - selector: div div.switch button
+        
+    const container = page.locator('.card');
+    const label = container.locator(``${translation.monday}`);
+    const switch = label.locator(`+ div div.switch button`);
 
 2. Component handling: 
    Always use sibling selectors (`+`) for adjacent components. Do not use `..` for locating elements based on labels.
