@@ -1,4 +1,6 @@
-require('dotenv').config(); 
+require('dotenv').config();
+
+console.log("Loaded OpenAI API Key:", process.env.OPENAI_API_KEY);
 const fs = require('fs')
 const OpenAi = require('openai')
 const yaml = require('js-yaml')
