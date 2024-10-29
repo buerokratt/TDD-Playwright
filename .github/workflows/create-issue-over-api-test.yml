@@ -36,7 +36,7 @@ jobs:
       - name: Run Playwright tests
         id: playwright
         run: |
-          npx playwright test tests/always-fail.test.js --workers=2 --reporter=json > playwright-report.json
+          npx playwright test tests/always-fail.test.js --workers=2 --reporter=json --trace on --video on --screenshot on > playwright-report.json
         continue-on-error: true
 
       - name: Upload Playwright Report
@@ -51,7 +51,7 @@ jobs:
         id: parse_tests
         run: |
           # Collect failed tests into an array
-          FAILED_TESTS=$(jq -c '[.suites[]?.specs[]? | select(.tests[]?.results[-1].status == "failed") | {title: .title, error: .tests[]?.results[-1].error.message}]' playwright-report.json)
+          FAILED_TESTS=$(jq -c '[.suites[]?.specs[]? | select(.tests[]?.results[-1].status == "failed") | {title: .title, error: .tests[]?.results[-1].error.message, video: .tests[]?.results[-1].video, screenshot: .tests[]?.results[-1].screenshot}]' playwright-report.json)
           
           echo "Failed tests: $FAILED_TESTS"
 
@@ -102,6 +102,8 @@ jobs:
           echo "$FAILED_TESTS" | jq -c '.[]' | while IFS= read -r test; do
             TEST_NAME=$(echo "$test" | jq -r '.title' | sed 's/[[:space:]]*$//')
             ERROR_DETAILS=$(echo "$test" | jq -r '.error' | sed 's/\x1b\[[0-9;]*m//g')
+            VIDEO_PATH=$(echo "$test" | jq -r '.video')
+            SCREENSHOT_PATH=$(echo "$test" | jq -r '.screenshot')
 
             if [ -z "$TEST_NAME" ] || [ -z "$ERROR_DETAILS" ]; then
               echo "Error: Missing test name or error details. Skipping."
@@ -162,6 +164,47 @@ jobs:
             fi
 
             echo "Created issue #$ISSUE_NUMBER for failed test: $TEST_NAME"
+
+            # Upload video and screenshot
+            echo "Uploading video and screenshot to the issue"
+
+            if [ "$VIDEO_PATH" != "null" ] && [ -f "$VIDEO_PATH" ]; then
+              VIDEO_UPLOAD_RESPONSE=$(curl -s -X POST \
+                -H "Authorization: token ${{ secrets.BYK_PAT }}" \
+                -H "Accept: application/vnd.github.v3+json" \
+                -F "file=@$VIDEO_PATH" \
+                "https://uploads.github.com/repos/buerokratt/GH-API-Test-1/issues/$ISSUE_NUMBER/uploads")
+              
+              VIDEO_URL=$(echo "$VIDEO_UPLOAD_RESPONSE" | jq -r '.url')
+              echo "Uploaded video URL: $VIDEO_URL"
+
+              # Update issue with video URL
+              COMMENT_BODY="**Video of the failed test:** ![$TEST_NAME]($VIDEO_URL)"
+              curl -s -X POST \
+                -H "Authorization: token ${{ secrets.BYK_PAT }}" \
+                -H "Accept: application/vnd.github.v3+json" \
+                -d "{\"body\": \"$COMMENT_BODY\"}" \
+                "https://api.github.com/repos/buerokratt/GH-API-Test-1/issues/$ISSUE_NUMBER/comments"
+            fi
+
+            if [ "$SCREENSHOT_PATH" != "null" ] && [ -f "$SCREENSHOT_PATH" ]; then
+              SCREENSHOT_UPLOAD_RESPONSE=$(curl -s -X POST \
+                -H "Authorization: token ${{ secrets.BYK_PAT }}" \
+                -H "Accept: application/vnd.github.v3+json" \
+                -F "file=@$SCREENSHOT_PATH" \
+                "https://uploads.github.com/repos/buerokratt/GH-API-Test-1/issues/$ISSUE_NUMBER/uploads")
+
+              SCREENSHOT_URL=$(echo "$SCREENSHOT_UPLOAD_RESPONSE" | jq -r '.url')
+              echo "Uploaded screenshot URL: $SCREENSHOT_URL"
+
+              # Update issue with screenshot URL
+              COMMENT_BODY="**Screenshot of the failed test:** ![$TEST_NAME]($SCREENSHOT_URL)"
+              curl -s -X POST \
+                -H "Authorization: token ${{ secrets.BYK_PAT }}" \
+                -H "Accept: application/vnd.github.v3+json" \
+                -d "{\"body\": \"$COMMENT_BODY\"}" \
+                "https://api.github.com/repos/buerokratt/GH-API-Test-1/issues/$ISSUE_NUMBER/comments"
+            fi
 
             # Get the global ID of the issue for project assignment
             issue_id_response=$(curl -s -X POST \
