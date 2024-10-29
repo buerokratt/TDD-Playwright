@@ -97,12 +97,12 @@
                 {
                   "workerIndex": 0,
                   "status": "passed",
-                  "duration": 20044,
+                  "duration": 15875,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2024-10-29T12:07:55.101Z",
+                  "startTime": "2024-10-29T14:28:25.875Z",
                   "attachments": [
                     {
                       "name": "trace",
@@ -140,10 +140,10 @@
               "title": "Heading",
               "file": "admin/landingPage/mainPage/sideBar/administration/demo/chatbot/appearance_and_behavior/visibility.spec.js",
               "line": 13,
-              "column": 10,
+              "column": 8,
               "specs": [
                 {
-                  "title": "should display the heading with correct text",
+                  "title": "should display heading with correct text",
                   "ok": true,
                   "tags": [],
                   "tests": [
@@ -157,17 +157,17 @@
                         {
                           "workerIndex": 1,
                           "status": "passed",
-                          "duration": 5140,
+                          "duration": 5895,
                           "errors": [],
                           "stdout": [],
                           "stderr": [],
                           "retry": 0,
-                          "startTime": "2024-10-29T12:08:16.223Z",
+                          "startTime": "2024-10-29T14:28:42.688Z",
                           "attachments": [
                             {
                               "name": "trace",
                               "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-f2a46-e-heading-with-correct-text-chromium/trace.zip"
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-e384d-y-heading-with-correct-text-chromium/trace.zip"
                             }
                           ]
                         }
@@ -175,10 +175,10 @@
                       "status": "expected"
                     }
                   ],
-                  "id": "de9f858d471e4f9cb1cd-85f70c0b903a571e1dbc",
+                  "id": "de9f858d471e4f9cb1cd-689d51a374cea832ffe5",
                   "file": "admin/landingPage/mainPage/sideBar/administration/demo/chatbot/appearance_and_behavior/visibility.spec.js",
                   "line": 14,
-                  "column": 13
+                  "column": 9
                 }
               ]
             },
@@ -186,10 +186,10 @@
               "title": "Card Body",
               "file": "admin/landingPage/mainPage/sideBar/administration/demo/chatbot/appearance_and_behavior/visibility.spec.js",
               "line": 20,
-              "column": 10,
+              "column": 8,
               "specs": [
                 {
-                  "title": "should display inputs and switches with correct labels",
+                  "title": "should display proactive seconds input and bubble message text switch",
                   "ok": true,
                   "tags": [],
                   "tests": [
@@ -203,17 +203,17 @@
                         {
                           "workerIndex": 2,
                           "status": "passed",
-                          "duration": 10458,
+                          "duration": 5644,
                           "errors": [],
                           "stdout": [],
                           "stderr": [],
                           "retry": 0,
-                          "startTime": "2024-10-29T12:08:16.220Z",
+                          "startTime": "2024-10-29T14:28:42.715Z",
                           "attachments": [
                             {
                               "name": "trace",
                               "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-62839-witches-with-correct-labels-chromium/trace.zip"
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-da8a9--bubble-message-text-switch-chromium/trace.zip"
                             }
                           ]
                         }
@@ -221,13 +221,13 @@
                       "status": "expected"
                     }
                   ],
-                  "id": "de9f858d471e4f9cb1cd-12deb828891da236cd55",
+                  "id": "de9f858d471e4f9cb1cd-4ddcc7b856f6ac4f1e24",
                   "file": "admin/landingPage/mainPage/sideBar/administration/demo/chatbot/appearance_and_behavior/visibility.spec.js",
                   "line": 21,
-                  "column": 13
+                  "column": 9
                 },
                 {
-                  "title": "should display the dropdown with correct label and options",
+                  "title": "should display bubble message seconds input",
                   "ok": true,
                   "tags": [],
                   "tests": [
@@ -241,17 +241,17 @@
                         {
                           "workerIndex": 3,
                           "status": "passed",
-                          "duration": 5456,
+                          "duration": 5753,
                           "errors": [],
                           "stdout": [],
                           "stderr": [],
                           "retry": 0,
-                          "startTime": "2024-10-29T12:08:16.228Z",
+                          "startTime": "2024-10-29T14:28:42.698Z",
                           "attachments": [
                             {
                               "name": "trace",
                               "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-ef425-h-correct-label-and-options-chromium/trace.zip"
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-eb838-ubble-message-seconds-input-chromium/trace.zip"
                             }
                           ]
                         }
@@ -259,18 +259,132 @@
                       "status": "expected"
                     }
                   ],
-                  "id": "de9f858d471e4f9cb1cd-b8f1fcd7eb6aeddf16e4",
+                  "id": "de9f858d471e4f9cb1cd-59028a1eed7a1e848dc7",
                   "file": "admin/landingPage/mainPage/sideBar/administration/demo/chatbot/appearance_and_behavior/visibility.spec.js",
-                  "line": 53,
-                  "column": 13
+                  "line": 28,
+                  "column": 9
+                },
+                {
+                  "title": "should display widget bubble message text input",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 4,
+                          "status": "passed",
+                          "duration": 5914,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-10-29T14:28:42.708Z",
+                          "attachments": [
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-d9a1a-t-bubble-message-text-input-chromium/trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "de9f858d471e4f9cb1cd-bd90b0bcb420f54bfd6a",
+                  "file": "admin/landingPage/mainPage/sideBar/administration/demo/chatbot/appearance_and_behavior/visibility.spec.js",
+                  "line": 33,
+                  "column": 9
+                },
+                {
+                  "title": "should display widget color input with color picker button",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 3,
+                          "status": "passed",
+                          "duration": 5134,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-10-29T14:28:48.937Z",
+                          "attachments": [
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-e2381-ut-with-color-picker-button-chromium/trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "de9f858d471e4f9cb1cd-7ad79fa3e1c79bc6499d",
+                  "file": "admin/landingPage/mainPage/sideBar/administration/demo/chatbot/appearance_and_behavior/visibility.spec.js",
+                  "line": 38,
+                  "column": 9
+                },
+                {
+                  "title": "should display animation dropdown with correct options",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 2,
+                          "status": "passed",
+                          "duration": 5148,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-10-29T14:28:48.941Z",
+                          "attachments": [
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-4e068-opdown-with-correct-options-chromium/trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "de9f858d471e4f9cb1cd-b3d55e68f8699c683410",
+                  "file": "admin/landingPage/mainPage/sideBar/administration/demo/chatbot/appearance_and_behavior/visibility.spec.js",
+                  "line": 43,
+                  "column": 9
                 }
               ]
             },
             {
               "title": "Card Footer",
               "file": "admin/landingPage/mainPage/sideBar/administration/demo/chatbot/appearance_and_behavior/visibility.spec.js",
-              "line": 59,
-              "column": 10,
+              "line": 49,
+              "column": 8,
               "specs": [
                 {
                   "title": "should display Save and Preview buttons",
@@ -285,14 +399,14 @@
                       "projectName": "chromium",
                       "results": [
                         {
-                          "workerIndex": 4,
+                          "workerIndex": 1,
                           "status": "passed",
-                          "duration": 5584,
+                          "duration": 5273,
                           "errors": [],
                           "stdout": [],
                           "stderr": [],
                           "retry": 0,
-                          "startTime": "2024-10-29T12:08:16.244Z",
+                          "startTime": "2024-10-29T14:28:49.076Z",
                           "attachments": [
                             {
                               "name": "trace",
@@ -307,8 +421,8 @@
                   ],
                   "id": "de9f858d471e4f9cb1cd-a19d01eacf851da3a0f0",
                   "file": "admin/landingPage/mainPage/sideBar/administration/demo/chatbot/appearance_and_behavior/visibility.spec.js",
-                  "line": 60,
-                  "column": 13
+                  "line": 50,
+                  "column": 9
                 }
               ]
             }
@@ -319,9 +433,9 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2024-10-29T12:07:54.506Z",
-    "duration": 32598.091,
-    "expected": 5,
+    "startTime": "2024-10-29T14:28:25.284Z",
+    "duration": 29157.913,
+    "expected": 8,
     "skipped": 0,
     "unexpected": 0,
     "flaky": 0
