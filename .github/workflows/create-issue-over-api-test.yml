@@ -47,6 +47,22 @@ jobs:
           path: playwright-report.json
           retention-days: 30
 
+      - name: Parse failed tests
+        id: parse_tests
+        run: |
+          # Collect failed tests into an array
+          FAILED_TESTS=$(jq -c '[.suites[]?.specs[]? | select(.tests[]?.results[-1].status == "failed") | {title: .title, error: .tests[]?.results[-1].error.message}]' playwright-report.json)
+          
+          echo "Failed tests: $FAILED_TESTS"
+
+          # Save output to environment file for compatibility
+          echo "FAILED_TESTS=$FAILED_TESTS" >> $GITHUB_ENV
+
+      - name: Debug failed tests output
+        run: |
+          echo "Raw failed tests output:"
+          echo "$FAILED_TESTS"
+
       - name: Get Project ID, Field ID, and Ready Option ID
         id: get_project_field_and_option_id
         run: |
@@ -77,22 +93,6 @@ jobs:
           echo "::set-output name=field_id::$FIELD_ID"
           echo "::set-output name=ready_option_id::$READY_OPTION_ID"
 
-      - name: Parse failed tests
-        id: parse_tests
-        run: |
-          # Collect failed tests into an array
-          FAILED_TESTS=$(jq -c '[.suites[]?.specs[]? | select(.tests[]?.results[-1].status == "failed") | {title: .title, error: .tests[]?.results[-1].error.message}]' playwright-report.json)
-          
-          echo "Failed tests: $FAILED_TESTS"
-
-          # Save output to environment file for compatibility
-          echo "FAILED_TESTS=$FAILED_TESTS" >> $GITHUB_ENV
-
-      - name: Debug failed tests output
-        run: |
-          echo "Raw failed tests output:"
-          echo "$FAILED_TESTS"
-
       - name: Process each failed test
         if: env.FAILED_TESTS != '[]'
         run: |
@@ -116,7 +116,7 @@ jobs:
             search_response=$(curl -s \
               -H "Authorization: token ${{ secrets.BYK_PAT }}" \
               -H "Accept: application/vnd.github.v3+json" \
-              "https://api.github.com/search/issues?q=repo:buerokratt/GH-API-Test-1+is:issue+is:open+in:title+Playwright+Test+Failure+$ENCODED_TEST_NAME")
+              "https://api.github.com/search/issues?q=repo:buerokratt/GH-API-Test-1+is:issue+is:open+in:title+$ENCODED_TEST_NAME")
 
             echo "Search response: $search_response"  # Print full response for debugging
 
@@ -134,7 +134,7 @@ jobs:
             echo "Creating new issue for failed test: $TEST_NAME"
 
             JSON_PAYLOAD=$(jq -n \
-              --arg title "[Playwright Test Failure]: $TEST_NAME" \
+              --arg title "$TEST_NAME" \
               --arg body "A test failed in buerokratt/TDD-Playwright.
           
           Details:
