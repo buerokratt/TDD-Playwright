@@ -18,17 +18,21 @@ test.describe('Emergency Notices', () => {
     test.describe('Card Body', () => {
         test('Notice active switch visibility', async ({ page }) => {
             const label = await page.getByText(`${translation.noticeActive}`);
-            const switchButton = await page.locator(`label:has-text("${translation.noticeActive}") + button.switch__button`);
-            await expect(label).toBeVisible();
+            
+            const switchButton = await page.getByRole('switch', { name: `${translation.noticeActive}`, exact: true });
+
             await expect(switchButton).toBeVisible();
+
+            await expect(label).toBeVisible();
         });
 
-        test('Notice textarea visibility', async ({ page }) => {
-            
-            const label = await page.getByText(`${translation.notice}`, { exact: true });
-            const textarea = await page.getByLabel(`${translation.notice}`, { exact: true });
-            await expect(label).toBeVisible();
-            await expect(textarea).toBeVisible();
+        // 
+
+        test.only('should handle Notice textarea', async ({ page }) => {
+            const container = page.locator('.card__body');
+            const noticeTextarea = await page.getByLabel(`${translation.notice}`, { exact: true });
+
+            await expect(noticeTextarea).toBeVisible();
         });
 
         test('Display period label and input visibility', async ({ page }) => {

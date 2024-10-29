@@ -72,4 +72,4 @@ Combine related assertions (e.g., heading and button checks) into single tests w
 The output should be a valid Playwright test file, ready for copy-pasting and running without further modification."
 
 7. Exact match for similar elements:
-Add { exact: true } to locators if there are multiple elements with similar names, such as 'Name' and 'Display Name,' to avoid strict mode violations caused by multiple matching elements.
+Add { exact: true } to all locators.
