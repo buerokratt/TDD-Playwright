@@ -97,18 +97,13 @@
                 {
                   "workerIndex": 0,
                   "status": "passed",
-                  "duration": 20170,
+                  "duration": 20044,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2024-10-29T10:55:31.539Z",
+                  "startTime": "2024-10-29T12:07:55.101Z",
                   "attachments": [
-                    {
-                      "name": "video",
-                      "contentType": "video/webm",
-                      "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-.auth-auth.setup.js-authenticate-setup/video.webm"
-                    },
                     {
                       "name": "trace",
                       "contentType": "application/zip",
@@ -142,13 +137,13 @@
           "specs": [],
           "suites": [
             {
-              "title": "Main Heading",
+              "title": "Heading",
               "file": "admin/landingPage/mainPage/sideBar/administration/demo/chatbot/appearance_and_behavior/visibility.spec.js",
-              "line": 14,
-              "column": 8,
+              "line": 13,
+              "column": 10,
               "specs": [
                 {
-                  "title": "should display the main heading",
+                  "title": "should display the heading with correct text",
                   "ok": true,
                   "tags": [],
                   "tests": [
@@ -162,22 +157,17 @@
                         {
                           "workerIndex": 1,
                           "status": "passed",
-                          "duration": 5165,
+                          "duration": 5140,
                           "errors": [],
                           "stdout": [],
                           "stderr": [],
                           "retry": 0,
-                          "startTime": "2024-10-29T10:55:52.934Z",
+                          "startTime": "2024-10-29T12:08:16.223Z",
                           "attachments": [
-                            {
-                              "name": "video",
-                              "contentType": "video/webm",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-b15a9-ld-display-the-main-heading-chromium/video.webm"
-                            },
                             {
                               "name": "trace",
                               "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-b15a9-ld-display-the-main-heading-chromium/trace.zip"
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-f2a46-e-heading-with-correct-text-chromium/trace.zip"
                             }
                           ]
                         }
@@ -185,21 +175,21 @@
                       "status": "expected"
                     }
                   ],
-                  "id": "de9f858d471e4f9cb1cd-31faeeb1bef946262fa9",
+                  "id": "de9f858d471e4f9cb1cd-85f70c0b903a571e1dbc",
                   "file": "admin/landingPage/mainPage/sideBar/administration/demo/chatbot/appearance_and_behavior/visibility.spec.js",
-                  "line": 15,
-                  "column": 9
+                  "line": 14,
+                  "column": 13
                 }
               ]
             },
             {
               "title": "Card Body",
               "file": "admin/landingPage/mainPage/sideBar/administration/demo/chatbot/appearance_and_behavior/visibility.spec.js",
-              "line": 21,
-              "column": 8,
+              "line": 20,
+              "column": 10,
               "specs": [
                 {
-                  "title": "should display and interact with widget proactive seconds input",
+                  "title": "should display inputs and switches with correct labels",
                   "ok": true,
                   "tags": [],
                   "tests": [
@@ -213,22 +203,17 @@
                         {
                           "workerIndex": 2,
                           "status": "passed",
-                          "duration": 4942,
+                          "duration": 10458,
                           "errors": [],
                           "stdout": [],
                           "stderr": [],
                           "retry": 0,
-                          "startTime": "2024-10-29T10:55:52.960Z",
+                          "startTime": "2024-10-29T12:08:16.220Z",
                           "attachments": [
-                            {
-                              "name": "video",
-                              "contentType": "video/webm",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-ca9ff-get-proactive-seconds-input-chromium/video.webm"
-                            },
                             {
                               "name": "trace",
                               "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-ca9ff-get-proactive-seconds-input-chromium/trace.zip"
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-62839-witches-with-correct-labels-chromium/trace.zip"
                             }
                           ]
                         }
@@ -236,13 +221,13 @@
                       "status": "expected"
                     }
                   ],
-                  "id": "de9f858d471e4f9cb1cd-e1b4d706533b7d276bec",
+                  "id": "de9f858d471e4f9cb1cd-12deb828891da236cd55",
                   "file": "admin/landingPage/mainPage/sideBar/administration/demo/chatbot/appearance_and_behavior/visibility.spec.js",
-                  "line": 23,
-                  "column": 9
+                  "line": 21,
+                  "column": 13
                 },
                 {
-                  "title": "should toggle widget bubble message switch",
+                  "title": "should display the dropdown with correct label and options",
                   "ok": true,
                   "tags": [],
                   "tests": [
@@ -256,22 +241,17 @@
                         {
                           "workerIndex": 3,
                           "status": "passed",
-                          "duration": 5597,
+                          "duration": 5456,
                           "errors": [],
                           "stdout": [],
                           "stderr": [],
                           "retry": 0,
-                          "startTime": "2024-10-29T10:55:52.965Z",
+                          "startTime": "2024-10-29T12:08:16.228Z",
                           "attachments": [
-                            {
-                              "name": "video",
-                              "contentType": "video/webm",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-eed95-idget-bubble-message-switch-chromium/video.webm"
-                            },
                             {
                               "name": "trace",
                               "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-eed95-idget-bubble-message-switch-chromium/trace.zip"
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-ef425-h-correct-label-and-options-chromium/trace.zip"
                             }
                           ]
                         }
@@ -279,273 +259,21 @@
                       "status": "expected"
                     }
                   ],
-                  "id": "de9f858d471e4f9cb1cd-8b648033eca74a59745c",
+                  "id": "de9f858d471e4f9cb1cd-b8f1fcd7eb6aeddf16e4",
                   "file": "admin/landingPage/mainPage/sideBar/administration/demo/chatbot/appearance_and_behavior/visibility.spec.js",
-                  "line": 30,
-                  "column": 9
-                },
-                {
-                  "title": "should display widget bubble message seconds input",
-                  "ok": true,
-                  "tags": [],
-                  "tests": [
-                    {
-                      "timeout": 30000,
-                      "annotations": [],
-                      "expectedStatus": "passed",
-                      "projectId": "chromium",
-                      "projectName": "chromium",
-                      "results": [
-                        {
-                          "workerIndex": 4,
-                          "status": "passed",
-                          "duration": 6209,
-                          "errors": [],
-                          "stdout": [],
-                          "stderr": [],
-                          "retry": 0,
-                          "startTime": "2024-10-29T10:55:52.970Z",
-                          "attachments": [
-                            {
-                              "name": "video",
-                              "contentType": "video/webm",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-a4f05-ubble-message-seconds-input-chromium/video.webm"
-                            },
-                            {
-                              "name": "trace",
-                              "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-a4f05-ubble-message-seconds-input-chromium/trace.zip"
-                            }
-                          ]
-                        }
-                      ],
-                      "status": "expected"
-                    }
-                  ],
-                  "id": "de9f858d471e4f9cb1cd-0d33326029a2a00dfde6",
-                  "file": "admin/landingPage/mainPage/sideBar/administration/demo/chatbot/appearance_and_behavior/visibility.spec.js",
-                  "line": 37,
-                  "column": 9
-                },
-                {
-                  "title": "should display and interact with widget bubble message text input",
-                  "ok": true,
-                  "tags": [],
-                  "tests": [
-                    {
-                      "timeout": 30000,
-                      "annotations": [],
-                      "expectedStatus": "passed",
-                      "projectId": "chromium",
-                      "projectName": "chromium",
-                      "results": [
-                        {
-                          "workerIndex": 2,
-                          "status": "passed",
-                          "duration": 4783,
-                          "errors": [],
-                          "stdout": [],
-                          "stderr": [],
-                          "retry": 0,
-                          "startTime": "2024-10-29T10:55:58.499Z",
-                          "attachments": [
-                            {
-                              "name": "video",
-                              "contentType": "video/webm",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-901c2-t-bubble-message-text-input-chromium/video.webm"
-                            },
-                            {
-                              "name": "trace",
-                              "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-901c2-t-bubble-message-text-input-chromium/trace.zip"
-                            }
-                          ]
-                        }
-                      ],
-                      "status": "expected"
-                    }
-                  ],
-                  "id": "de9f858d471e4f9cb1cd-c516b71b2dec1137c736",
-                  "file": "admin/landingPage/mainPage/sideBar/administration/demo/chatbot/appearance_and_behavior/visibility.spec.js",
-                  "line": 44,
-                  "column": 9
-                },
-                {
-                  "title": "should open color pallet for widget color input",
-                  "ok": true,
-                  "tags": [],
-                  "tests": [
-                    {
-                      "timeout": 30000,
-                      "annotations": [],
-                      "expectedStatus": "passed",
-                      "projectId": "chromium",
-                      "projectName": "chromium",
-                      "results": [
-                        {
-                          "workerIndex": 1,
-                          "status": "passed",
-                          "duration": 5096,
-                          "errors": [],
-                          "stdout": [],
-                          "stderr": [],
-                          "retry": 0,
-                          "startTime": "2024-10-29T10:55:58.776Z",
-                          "attachments": [
-                            {
-                              "name": "video",
-                              "contentType": "video/webm",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-a1602-llet-for-widget-color-input-chromium/video.webm"
-                            },
-                            {
-                              "name": "trace",
-                              "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-a1602-llet-for-widget-color-input-chromium/trace.zip"
-                            }
-                          ]
-                        }
-                      ],
-                      "status": "expected"
-                    }
-                  ],
-                  "id": "de9f858d471e4f9cb1cd-8fbf927e6123c53c223d",
-                  "file": "admin/landingPage/mainPage/sideBar/administration/demo/chatbot/appearance_and_behavior/visibility.spec.js",
-                  "line": 51,
-                  "column": 9
-                },
-                {
-                  "title": "should select widget animation from dropdown",
-                  "ok": false,
-                  "tags": [],
-                  "tests": [
-                    {
-                      "timeout": 30000,
-                      "annotations": [],
-                      "expectedStatus": "passed",
-                      "projectId": "chromium",
-                      "projectName": "chromium",
-                      "results": [
-                        {
-                          "workerIndex": 3,
-                          "status": "failed",
-                          "duration": 4938,
-                          "error": {
-                            "message": "Error: locator.selectOption: Error: Element is not a <select> element\nCall log:\n  \u001b[2m- waiting for getByRole('combobox', { name: 'Widget animation', exact: true })\u001b[22m\n\u001b[2m  -   locator resolved to <div tabindex=\"0\" role=\"combobox\" aria-expanded=\"false\" class=\"select__trigger\" aria-haspopup=\"listbox\" id=\":r6:-toggle-button\" aria-activedescendant=\"\" aria-controls=\":r6:-menu\" aria-labelledby=\":r6:-label\">…</div>\u001b[22m\n\u001b[2m  - attempting select option action\u001b[22m\n\u001b[2m  -   waiting for element to be visible and enabled\u001b[22m\n",
-                            "stack": "Error: locator.selectOption: Error: Element is not a <select> element\nCall log:\n  \u001b[2m- waiting for getByRole('combobox', { name: 'Widget animation', exact: true })\u001b[22m\n\u001b[2m  -   locator resolved to <div tabindex=\"0\" role=\"combobox\" aria-expanded=\"false\" class=\"select__trigger\" aria-haspopup=\"listbox\" id=\":r6:-toggle-button\" aria-activedescendant=\"\" aria-controls=\":r6:-menu\" aria-labelledby=\":r6:-label\">…</div>\u001b[22m\n\u001b[2m  - attempting select option action\u001b[22m\n\u001b[2m  -   waiting for element to be visible and enabled\u001b[22m\n\n    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/demo/chatbot/appearance_and_behavior/visibility.spec.js:61:20",
-                            "location": {
-                              "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/demo/chatbot/appearance_and_behavior/visibility.spec.js",
-                              "column": 20,
-                              "line": 61
-                            },
-                            "snippet": "\u001b[0m \u001b[90m 59 |\u001b[39m       \u001b[36mconst\u001b[39m select \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m'combobox'\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m`${translation.widgetAnimation}`\u001b[39m\u001b[33m,\u001b[39m exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m 60 |\u001b[39m       \u001b[36mawait\u001b[39m expect(select)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 61 |\u001b[39m       \u001b[36mawait\u001b[39m select\u001b[33m.\u001b[39mselectOption({ label\u001b[33m:\u001b[39m \u001b[32m'Jump'\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                    \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 62 |\u001b[39m     })\u001b[33m;\u001b[39m\n \u001b[90m 63 |\u001b[39m   })\u001b[33m;\u001b[39m\n \u001b[90m 64 |\u001b[39m\u001b[0m"
-                          },
-                          "errors": [
-                            {
-                              "location": {
-                                "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/demo/chatbot/appearance_and_behavior/visibility.spec.js",
-                                "column": 20,
-                                "line": 61
-                              },
-                              "message": "Error: locator.selectOption: Error: Element is not a <select> element\nCall log:\n  \u001b[2m- waiting for getByRole('combobox', { name: 'Widget animation', exact: true })\u001b[22m\n\u001b[2m  -   locator resolved to <div tabindex=\"0\" role=\"combobox\" aria-expanded=\"false\" class=\"select__trigger\" aria-haspopup=\"listbox\" id=\":r6:-toggle-button\" aria-activedescendant=\"\" aria-controls=\":r6:-menu\" aria-labelledby=\":r6:-label\">…</div>\u001b[22m\n\u001b[2m  - attempting select option action\u001b[22m\n\u001b[2m  -   waiting for element to be visible and enabled\u001b[22m\n\n\n\u001b[0m \u001b[90m 59 |\u001b[39m       \u001b[36mconst\u001b[39m select \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m'combobox'\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m`${translation.widgetAnimation}`\u001b[39m\u001b[33m,\u001b[39m exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m 60 |\u001b[39m       \u001b[36mawait\u001b[39m expect(select)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 61 |\u001b[39m       \u001b[36mawait\u001b[39m select\u001b[33m.\u001b[39mselectOption({ label\u001b[33m:\u001b[39m \u001b[32m'Jump'\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                    \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 62 |\u001b[39m     })\u001b[33m;\u001b[39m\n \u001b[90m 63 |\u001b[39m   })\u001b[33m;\u001b[39m\n \u001b[90m 64 |\u001b[39m\u001b[0m\n\n\u001b[2m    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/demo/chatbot/appearance_and_behavior/visibility.spec.js:61:20\u001b[22m"
-                            }
-                          ],
-                          "stdout": [],
-                          "stderr": [],
-                          "retry": 0,
-                          "startTime": "2024-10-29T10:55:59.301Z",
-                          "attachments": [
-                            {
-                              "name": "screenshot",
-                              "contentType": "image/png",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-69b41-get-animation-from-dropdown-chromium/test-failed-1.png"
-                            },
-                            {
-                              "name": "video",
-                              "contentType": "video/webm",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-69b41-get-animation-from-dropdown-chromium/video.webm"
-                            },
-                            {
-                              "name": "trace",
-                              "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-69b41-get-animation-from-dropdown-chromium/trace.zip"
-                            }
-                          ],
-                          "errorLocation": {
-                            "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/demo/chatbot/appearance_and_behavior/visibility.spec.js",
-                            "column": 20,
-                            "line": 61
-                          }
-                        },
-                        {
-                          "workerIndex": 5,
-                          "status": "failed",
-                          "duration": 4114,
-                          "error": {
-                            "message": "Error: locator.selectOption: Error: Element is not a <select> element\nCall log:\n  \u001b[2m- waiting for getByRole('combobox', { name: 'Widget animation', exact: true })\u001b[22m\n\u001b[2m  -   locator resolved to <div tabindex=\"0\" role=\"combobox\" aria-expanded=\"false\" class=\"select__trigger\" aria-haspopup=\"listbox\" id=\":r6:-toggle-button\" aria-activedescendant=\"\" aria-controls=\":r6:-menu\" aria-labelledby=\":r6:-label\">…</div>\u001b[22m\n\u001b[2m  - attempting select option action\u001b[22m\n\u001b[2m  -   waiting for element to be visible and enabled\u001b[22m\n",
-                            "stack": "Error: locator.selectOption: Error: Element is not a <select> element\nCall log:\n  \u001b[2m- waiting for getByRole('combobox', { name: 'Widget animation', exact: true })\u001b[22m\n\u001b[2m  -   locator resolved to <div tabindex=\"0\" role=\"combobox\" aria-expanded=\"false\" class=\"select__trigger\" aria-haspopup=\"listbox\" id=\":r6:-toggle-button\" aria-activedescendant=\"\" aria-controls=\":r6:-menu\" aria-labelledby=\":r6:-label\">…</div>\u001b[22m\n\u001b[2m  - attempting select option action\u001b[22m\n\u001b[2m  -   waiting for element to be visible and enabled\u001b[22m\n\n    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/demo/chatbot/appearance_and_behavior/visibility.spec.js:61:20",
-                            "location": {
-                              "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/demo/chatbot/appearance_and_behavior/visibility.spec.js",
-                              "column": 20,
-                              "line": 61
-                            },
-                            "snippet": "\u001b[0m \u001b[90m 59 |\u001b[39m       \u001b[36mconst\u001b[39m select \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m'combobox'\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m`${translation.widgetAnimation}`\u001b[39m\u001b[33m,\u001b[39m exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m 60 |\u001b[39m       \u001b[36mawait\u001b[39m expect(select)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 61 |\u001b[39m       \u001b[36mawait\u001b[39m select\u001b[33m.\u001b[39mselectOption({ label\u001b[33m:\u001b[39m \u001b[32m'Jump'\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                    \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 62 |\u001b[39m     })\u001b[33m;\u001b[39m\n \u001b[90m 63 |\u001b[39m   })\u001b[33m;\u001b[39m\n \u001b[90m 64 |\u001b[39m\u001b[0m"
-                          },
-                          "errors": [
-                            {
-                              "location": {
-                                "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/demo/chatbot/appearance_and_behavior/visibility.spec.js",
-                                "column": 20,
-                                "line": 61
-                              },
-                              "message": "Error: locator.selectOption: Error: Element is not a <select> element\nCall log:\n  \u001b[2m- waiting for getByRole('combobox', { name: 'Widget animation', exact: true })\u001b[22m\n\u001b[2m  -   locator resolved to <div tabindex=\"0\" role=\"combobox\" aria-expanded=\"false\" class=\"select__trigger\" aria-haspopup=\"listbox\" id=\":r6:-toggle-button\" aria-activedescendant=\"\" aria-controls=\":r6:-menu\" aria-labelledby=\":r6:-label\">…</div>\u001b[22m\n\u001b[2m  - attempting select option action\u001b[22m\n\u001b[2m  -   waiting for element to be visible and enabled\u001b[22m\n\n\n\u001b[0m \u001b[90m 59 |\u001b[39m       \u001b[36mconst\u001b[39m select \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m'combobox'\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m`${translation.widgetAnimation}`\u001b[39m\u001b[33m,\u001b[39m exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m 60 |\u001b[39m       \u001b[36mawait\u001b[39m expect(select)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 61 |\u001b[39m       \u001b[36mawait\u001b[39m select\u001b[33m.\u001b[39mselectOption({ label\u001b[33m:\u001b[39m \u001b[32m'Jump'\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                    \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 62 |\u001b[39m     })\u001b[33m;\u001b[39m\n \u001b[90m 63 |\u001b[39m   })\u001b[33m;\u001b[39m\n \u001b[90m 64 |\u001b[39m\u001b[0m\n\n\u001b[2m    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/demo/chatbot/appearance_and_behavior/visibility.spec.js:61:20\u001b[22m"
-                            }
-                          ],
-                          "stdout": [],
-                          "stderr": [],
-                          "retry": 1,
-                          "startTime": "2024-10-29T10:56:04.901Z",
-                          "attachments": [
-                            {
-                              "name": "screenshot",
-                              "contentType": "image/png",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-69b41-get-animation-from-dropdown-chromium-retry1/test-failed-1.png"
-                            },
-                            {
-                              "name": "video",
-                              "contentType": "video/webm",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-69b41-get-animation-from-dropdown-chromium-retry1/video.webm"
-                            },
-                            {
-                              "name": "trace",
-                              "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-69b41-get-animation-from-dropdown-chromium-retry1/trace.zip"
-                            }
-                          ],
-                          "errorLocation": {
-                            "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/demo/chatbot/appearance_and_behavior/visibility.spec.js",
-                            "column": 20,
-                            "line": 61
-                          }
-                        }
-                      ],
-                      "status": "unexpected"
-                    }
-                  ],
-                  "id": "de9f858d471e4f9cb1cd-23b95feed02409381921",
-                  "file": "admin/landingPage/mainPage/sideBar/administration/demo/chatbot/appearance_and_behavior/visibility.spec.js",
-                  "line": 58,
-                  "column": 9
+                  "line": 53,
+                  "column": 13
                 }
               ]
             },
             {
               "title": "Card Footer",
               "file": "admin/landingPage/mainPage/sideBar/administration/demo/chatbot/appearance_and_behavior/visibility.spec.js",
-              "line": 65,
-              "column": 8,
+              "line": 59,
+              "column": 10,
               "specs": [
                 {
-                  "title": "should display and interact with Save and Preview buttons",
+                  "title": "should display Save and Preview buttons",
                   "ok": true,
                   "tags": [],
                   "tests": [
@@ -559,22 +287,17 @@
                         {
                           "workerIndex": 4,
                           "status": "passed",
-                          "duration": 4813,
+                          "duration": 5584,
                           "errors": [],
                           "stdout": [],
                           "stderr": [],
                           "retry": 0,
-                          "startTime": "2024-10-29T10:56:00.260Z",
+                          "startTime": "2024-10-29T12:08:16.244Z",
                           "attachments": [
-                            {
-                              "name": "video",
-                              "contentType": "video/webm",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-0a71d-th-Save-and-Preview-buttons-chromium/video.webm"
-                            },
                             {
                               "name": "trace",
                               "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-0a71d-th-Save-and-Preview-buttons-chromium/trace.zip"
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-1cc48-ay-Save-and-Preview-buttons-chromium/trace.zip"
                             }
                           ]
                         }
@@ -582,10 +305,10 @@
                       "status": "expected"
                     }
                   ],
-                  "id": "de9f858d471e4f9cb1cd-3c63bc5d699499776e45",
+                  "id": "de9f858d471e4f9cb1cd-a19d01eacf851da3a0f0",
                   "file": "admin/landingPage/mainPage/sideBar/administration/demo/chatbot/appearance_and_behavior/visibility.spec.js",
-                  "line": 67,
-                  "column": 9
+                  "line": 60,
+                  "column": 13
                 }
               ]
             }
@@ -596,11 +319,11 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2024-10-29T10:55:30.964Z",
-    "duration": 38424.727999999996,
-    "expected": 8,
+    "startTime": "2024-10-29T12:07:54.506Z",
+    "duration": 32598.091,
+    "expected": 5,
     "skipped": 0,
-    "unexpected": 1,
+    "unexpected": 0,
     "flaky": 0
   }
 }

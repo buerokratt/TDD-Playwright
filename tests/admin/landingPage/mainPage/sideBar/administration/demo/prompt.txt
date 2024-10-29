@@ -6,6 +6,11 @@
   Use page.getByText() for labels, buttons, or any other text-based elements.
   Use page.getByLabel() for elements that are associated with a label.
   Use page.getByRole() for headings.
+  Examples: 
+         const switchButton = await page.getByRole('switch', { name: `${translation.showSupportTitle}`, exact: true });
+         const switchLabel = await page.getByText(`${translation.showSupportName}`, { exact: true });
+         const saveButton = await page.getByText(`${translation.save}`, {exact: true });
+         const heading = await page.getByRole('heading', { name: `${translation.settings}`, exact: true });
 
   Using getByText() and there's extra argument in the .yml file nth-matching-element the value is a locator to the n-th matching element. This is important. 
   Example:
