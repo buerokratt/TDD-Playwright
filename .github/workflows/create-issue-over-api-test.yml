@@ -69,8 +69,8 @@ jobs:
           echo "Parsing failed tests JSON array: $FAILED_TESTS"
 
           echo "$FAILED_TESTS" | jq -c '.[]' | while IFS= read -r test; do
-            # Extract test details
-            TEST_NAME=$(echo "$test" | jq -r '.title')
+            # Extract test details and sanitize test name
+            TEST_NAME=$(echo "$test" | jq -r '.title' | sed 's/[[:space:]]*$//')
             ERROR_DETAILS=$(echo "$test" | jq -r '.error' | sed 's/\x1b\[[0-9;]*m//g')
 
             if [ -z "$TEST_NAME" ] || [ -z "$ERROR_DETAILS" ]; then
@@ -80,8 +80,8 @@ jobs:
 
             echo "Checking for existing issues for failed test: $TEST_NAME"
 
-            # Encode the test name for API search
-            ENCODED_TEST_NAME=$(jq -n --arg title "$TEST_NAME" '$title' | jq -sRr @uri)
+            # Encode the sanitized test name
+            ENCODED_TEST_NAME=$(echo -n "$TEST_NAME" | jq -sRr @uri)
             echo "Encoded test name: $ENCODED_TEST_NAME"
 
             # Search for existing issues
@@ -89,11 +89,13 @@ jobs:
               -H "Authorization: token ${{ secrets.BYK_PAT }}" \
               -H "Accept: application/vnd.github.v3+json" \
               "https://api.github.com/search/issues?q=repo:buerokratt/GH-API-Test-1+is:issue+is:open+in:title+[Playwright+Test+Failure]:+$ENCODED_TEST_NAME")
+            
+            # Print the search response for debugging
             echo "Search response: $search_response"
 
             issue_count=$(echo "$search_response" | jq -r '.total_count')
-            if [ $? -ne 0 ]; then
-              echo "Error: Failed to parse search response."
+            if [ "$issue_count" == "null" ] || [ -z "$issue_count" ]; then
+              echo "Error: Failed to parse search response or invalid response format."
               continue
             fi
 
