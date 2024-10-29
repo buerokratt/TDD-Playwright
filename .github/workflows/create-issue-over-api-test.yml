@@ -96,7 +96,7 @@ jobs:
       - name: Process each failed test
         if: env.FAILED_TESTS != '[]'
         run: |
-          set -x  # Enable debug mode to trace commands
+          # set -x  # Enable debug mode to trace commands
           echo "Parsing failed tests JSON array: $FAILED_TESTS"
 
           echo "$FAILED_TESTS" | jq -c '.[]' | while IFS= read -r test; do
