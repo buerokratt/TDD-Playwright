@@ -58,13 +58,26 @@ jobs:
           echo "Failed tests: $FAILED_TESTS"
           echo "::set-output name=failed_tests::$FAILED_TESTS"
 
+      - name: Debug failed tests output
+        run: |
+          echo "Raw failed tests output:"
+          echo '${{ steps.parse_tests.outputs.failed_tests }}'
+
       - name: Process each failed test
         if: steps.parse_tests.outputs.failed_tests != '[]'
         run: |
-          # Remove surrounding quotes from JSON array and parse
-          TESTS_JSON=$(echo '${{ steps.parse_tests.outputs.failed_tests }}' | jq -c .)
-          
-          # Iterate over each failed test in the parsed JSON array
+          # Store and check JSON format of failed tests
+          TESTS_JSON='${{ steps.parse_tests.outputs.failed_tests }}'
+          echo "Parsed failed tests JSON: $TESTS_JSON"
+
+          # Attempt parsing as JSON array to confirm the structure
+          echo "$TESTS_JSON" | jq -c '.[]' > /dev/null 2>&1
+          if [ $? -ne 0 ]; then
+            echo "Failed tests output is not a valid JSON array. Exiting."
+            exit 1
+          fi
+
+          # Process each test in the JSON array
           echo "$TESTS_JSON" | jq -c '.[]' | while read -r test; do
             TEST_NAME=$(echo "$test" | jq -r '.title')
             ERROR_DETAILS=$(echo "$test" | jq -r '.error' | sed 's/\x1b\[[0-9;]*m//g')  # Remove ANSI escape codes
