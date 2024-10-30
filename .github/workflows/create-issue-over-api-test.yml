@@ -177,7 +177,7 @@ jobs:
             issue_id_response=$(curl -s -X POST \
               -H "Authorization: bearer ${{ secrets.BYK_PAT }}" \
               -H "Content-Type: application/json" \
-              -d "{\"query\":\"query { repository(owner: \\\"buerokratt\\\", name: \\\"$TARGET_REPOSITORY\\\") { issue(number: $ISSUE_NUMBER) { id } } }\"}"
+              -d "{\"query\":\"query { repository(owner: \\\"buerokratt\\\", name: "$TARGET_REPOSITORY") { issue(number: $ISSUE_NUMBER) { id } } }\"}"
               https://api.github.com/graphql)
 
             GLOBAL_ID=$(echo "$issue_id_response" | jq -r '.data.repository.issue.id')
