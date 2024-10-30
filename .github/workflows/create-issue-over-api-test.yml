@@ -55,11 +55,11 @@ jobs:
         id: parse_tests
         run: |
           # Collect failed tests into an array
-          FAILED_TESTS=$(jq -c '[.suites[]?.specs[]? | select(.tests[]?.results[-1].status == "failed") | {title: .title, error: .tests[]?.results[-1].error.message}]' playwright-report.json)
+          FAILED_TESTS=$(jq -c '[.suites[]?.specs[]? | select(.tests[]?.results[-1].status == "failed") | 
+          {title: .title, error: .tests[]?.results[-1].error.message, repository: (.annotations[]? | select(.type == "repository") | .description)}]' playwright-report.json)
           
           echo "Failed tests: $FAILED_TESTS"
 
-          # Save output to environment file for compatibility
           echo "FAILED_TESTS=$FAILED_TESTS" >> $GITHUB_ENV
 
       - name: Debug failed tests output
@@ -105,13 +105,17 @@ jobs:
           echo "$FAILED_TESTS" | jq -c '.[]' | while IFS= read -r test; do
             TEST_NAME=$(echo "$test" | jq -r '.title' | sed 's/[[:space:]]*$//')
             ERROR_DETAILS=$(echo "$test" | jq -r '.error' | sed 's/\x1b\[[0-9;]*m//g')
+            TARGET_REPOSITORY=$(echo "$test" | jq -r '.repository')
 
             if [ -z "$TEST_NAME" ] || [ -z "$ERROR_DETAILS" ]; then
               echo "Error: Missing test name or error details. Skipping."
               continue
+            elif [ -z "$TARGET_REPOSITORY" ]; then
+              echo "No repository annotation found for $TEST_NAME. Skipping issue creation."
+              continue
             fi
 
-            echo "Checking for existing issues for failed test: $TEST_NAME"
+            echo "Creating new issue in repository $TARGET_REPOSITORY for failed test: $TEST_NAME"
 
             ENCODED_TEST_NAME=$(echo -n "$TEST_NAME" | jq -sRr @uri)
             echo "Encoded test name: $ENCODED_TEST_NAME"
@@ -119,7 +123,7 @@ jobs:
             search_response=$(curl -s \
               -H "Authorization: token ${{ secrets.BYK_PAT }}" \
               -H "Accept: application/vnd.github.v3+json" \
-              "https://api.github.com/search/issues?q=repo:buerokratt/GH-API-Test-1+is:issue+is:open+in:title+$ENCODED_TEST_NAME")
+              "https://api.github.com/search/issues?q=repo:buerokratt/$TARGET_REPOSITORY+is:issue+is:open+in:title+$ENCODED_TEST_NAME")
 
             echo "Search response: $search_response"  # Print full response for debugging
 
@@ -156,7 +160,7 @@ jobs:
               -H "Authorization: token ${{ secrets.BYK_PAT }}" \
               -H "Accept: application/vnd.github.v3+json" \
               -d "$JSON_PAYLOAD" \
-              https://api.github.com/repos/buerokratt/GH-API-Test-1/issues)
+              https://api.github.com/repos/buerokratt/$TARGET_REPOSITORY/issues)
 
             echo "Issue creation response: $response"  # Debugging issue creation
 
@@ -173,7 +177,7 @@ jobs:
             issue_id_response=$(curl -s -X POST \
               -H "Authorization: bearer ${{ secrets.BYK_PAT }}" \
               -H "Content-Type: application/json" \
-              -d "{\"query\":\"query { repository(owner: \\\"buerokratt\\\", name: \\\"GH-API-Test-1\\\") { issue(number: $ISSUE_NUMBER) { id } } }\"}" \
+              -d "{\"query\":\"query { repository(owner: \\\"buerokratt\\\", name: $TARGET_REPOSITORY) { issue(number: $ISSUE_NUMBER) { id } } }\"}" \
               https://api.github.com/graphql)
 
             GLOBAL_ID=$(echo "$issue_id_response" | jq -r '.data.repository.issue.id')
