@@ -56,7 +56,7 @@ jobs:
         run: |
           # Collect failed tests into an array
           FAILED_TESTS=$(jq -c '[.suites[]?.specs[]? | select(.tests[]?.results[-1].status == "failed") | 
-          {title: .title, error: .tests[]?.results[-1].error.message, repository: (.annotations[]? | select(.type == "repository") | .description)}]' playwright-report.json)
+          {title: .title, error: .tests[]?.results[-1].error.message, repository: (.tests[]?.annotations[]? | select(.type == "repository") | .description)}]' playwright-report.json)
           
           echo "Failed tests: $FAILED_TESTS"
 
