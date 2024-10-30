@@ -93,9 +93,9 @@ jobs:
           echo "Field ID for '$FIELD_NAME': $FIELD_ID"
           echo "Ready Option ID: $READY_OPTION_ID"
           
-          echo "::set-output name=project_id::$PROJECT_ID"
-          echo "::set-output name=field_id::$FIELD_ID"
-          echo "::set-output name=ready_option_id::$READY_OPTION_ID"
+          echo "project_id=$PROJECT_ID" >> $GITHUB_ENV
+          echo "field_id=$FIELD_ID" >> $GITHUB_ENV
+          echo "ready_option_id=$READY_OPTION_ID" >> $GITHUB_ENV
 
       - name: Process each failed test
         if: env.FAILED_TESTS != '[]'
@@ -187,7 +187,7 @@ jobs:
             project_item_response=$(curl -s -X POST \
               -H "Authorization: bearer ${{ secrets.BYK_PAT }}" \
               -H "Content-Type: application/json" \
-              -d "{\"query\":\"mutation { addProjectV2ItemById(input: {projectId: \\\"${{ steps.get_project_field_and_option_id.outputs.project_id }}\\\", contentId: \\\"$GLOBAL_ID\\\"}) { item { id } } }\"}" \
+              -d "{\"query\":\"mutation { addProjectV2ItemById(input: {projectId: \\\"${{ env.project_id }}\\\", contentId: \\\"$GLOBAL_ID\\\"}) { item { id } } }\"}" \
               https://api.github.com/graphql)
 
             ITEM_ID=$(echo "$project_item_response" | jq -r '.data.addProjectV2ItemById.item.id')
@@ -201,7 +201,7 @@ jobs:
             update_field_response=$(curl -s -X POST \
               -H "Authorization: bearer ${{ secrets.BYK_PAT }}" \
               -H "Content-Type: application/json" \
-              -d "{\"query\":\"mutation { updateProjectV2ItemFieldValue(input: {projectId: \\\"${{ steps.get_project_field_and_option_id.outputs.project_id }}\\\", itemId: \\\"$ITEM_ID\\\", fieldId: \\\"${{ steps.get_project_field_and_option_id.outputs.field_id }}\\\", value: { singleSelectOptionId: \\\"${{ steps.get_project_field_and_option_id.outputs.ready_option_id }}\\\" }}) { projectV2Item { id } } }\"}" \
+              -d "{\"query\":\"mutation { updateProjectV2ItemFieldValue(input: {projectId: \\\"${{ env.project_id }}\\\", itemId: \\\"$ITEM_ID\\\", fieldId: \\\"${{ env.field_id }}\\\", value: { singleSelectOptionId: \\\"${{ env.ready_option_id }}\\\" }}) { projectV2Item { id } } }\"}" \
               https://api.github.com/graphql)
 
             echo "Processed test failure: $TEST_NAME"
