@@ -152,8 +152,7 @@ jobs:
           
           Details:
           Test: $TEST_NAME
-          
-          ```$ERROR_DETAILS```"
+          $ERROR_DETAILS"
           
             # # Check if the video exists and append to issue body
             # if [ -f "$VIDEO_PATH" ]; then
