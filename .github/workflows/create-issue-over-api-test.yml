@@ -55,7 +55,7 @@ jobs:
         id: parse_tests
         run: |
           # Collect failed tests into an array
-          FAILED_TESTS=$(jq -c '[.suites[]?.specs[]? | select(.tests[]?.results[-1].status == "failed") | {title: .title, error: .tests[]?.results[-1].error.message, video: .tests[]?.results[-1].video, screenshot: .tests[]?.results[-1].screenshot}]' playwright-report.json)
+          FAILED_TESTS=$(jq -c '[.suites[]?.specs[]? | select(.tests[]?.results[-1].status == "failed") | {title: .title, error: .tests[]?.results[-1].error.message}]' playwright-report.json)
           
           echo "Failed tests: $FAILED_TESTS"
 
