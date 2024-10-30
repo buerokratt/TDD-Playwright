@@ -136,39 +136,40 @@ jobs:
 
             echo "Creating new issue for failed test: $TEST_NAME"
 
-            # Construct the base path based on the test name
-            TEST_NAME_SLUG=$(echo "$TEST_NAME" | tr ' ' '-' | tr '[:upper:]' '[:lower:]')
-            BASE_PATH="./test-results/*-${TEST_NAME_SLUG}-*"
+            # # Construct the base path based on the test name
+            # TEST_NAME_SLUG=$(echo "$TEST_NAME" | tr ' ' '-' | tr '[:upper:]' '[:lower:]')
+            # BASE_PATH="./test-results/*-${TEST_NAME_SLUG}-*"
 
-            # Find the latest path for the current test name
-            LATEST_PATH=$(ls -d ${BASE_PATH} 2>/dev/null | sort -V | tail -n 1)
+            # # Find the latest path for the current test name
+            # LATEST_PATH=$(ls -d ${BASE_PATH} 2>/dev/null | sort -V | tail -n 1)
 
-            # Define the video and screenshot paths
-            VIDEO_PATH="${LATEST_PATH}/video.webm"
-            SCREENSHOT_PATH="${LATEST_PATH}/test-failed-1.png"
+            # # Define the video and screenshot paths
+            # VIDEO_PATH="${LATEST_PATH}/video.webm"
+            # SCREENSHOT_PATH="${LATEST_PATH}/test-failed-1.png"
 
             # Prepare the issue body with initial details
             ISSUE_BODY="A test failed in buerokratt/TDD-Playwright.
           
           Details:
           Test: $TEST_NAME
-          $ERROR_DETAILS"
+          
+          ```$ERROR_DETAILS```"
+          
+            # # Check if the video exists and append to issue body
+            # if [ -f "$VIDEO_PATH" ]; then
+            #   echo "Video found for $TEST_NAME. Adding to issue body."
+            #   ISSUE_BODY+="\nVideo attached: ![video](https://github.com/buerokratt/TDD-Playwright/raw/main/${VIDEO_PATH#./})\n"
+            # else
+            #   echo "No video found for $TEST_NAME."
+            # fi
 
-            # Check if the video exists and append to issue body
-            if [ -f "$VIDEO_PATH" ]; then
-              echo "Video found for $TEST_NAME. Adding to issue body."
-              ISSUE_BODY+="\nVideo attached: ![video](https://github.com/buerokratt/TDD-Playwright/raw/main/${VIDEO_PATH#./})\n"
-            else
-              echo "No video found for $TEST_NAME."
-            fi
-
-            # Check if the screenshot exists and append to issue body
-            if [ -f "$SCREENSHOT_PATH" ]; then
-              echo "Screenshot found for $TEST_NAME. Adding to issue body."
-              ISSUE_BODY+="\nScreenshot attached: ![screenshot](https://github.com/buerokratt/TDD-Playwright/raw/main/${SCREENSHOT_PATH#./})\n"
-            else
-              echo "No screenshot found for $TEST_NAME."
-            fi
+            # # Check if the screenshot exists and append to issue body
+            # if [ -f "$SCREENSHOT_PATH" ]; then
+            #   echo "Screenshot found for $TEST_NAME. Adding to issue body."
+            #   ISSUE_BODY+="\nScreenshot attached: ![screenshot](https://github.com/buerokratt/TDD-Playwright/raw/main/${SCREENSHOT_PATH#./})\n"
+            # else
+            #   echo "No screenshot found for $TEST_NAME."
+            # fi
 
             JSON_PAYLOAD=$(jq -n \
               --arg title "$TEST_NAME" \
