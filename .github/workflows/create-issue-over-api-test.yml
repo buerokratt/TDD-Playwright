@@ -62,10 +62,10 @@ jobs:
 
           echo "FAILED_TESTS=$FAILED_TESTS" >> $GITHUB_ENV
 
-      - name: Debug failed tests output
-        run: |
-          echo "Raw failed tests output:"
-          echo "$FAILED_TESTS"
+      # - name: Debug failed tests output
+      #   run: |
+      #     echo "Raw failed tests output:"
+      #     echo "$FAILED_TESTS"
 
       - name: Get Project ID, Field ID, and Ready Option ID
         id: get_project_field_and_option_id
@@ -78,7 +78,7 @@ jobs:
             -d "{\"query\":\"query { organization(login: \\\"$ORGANIZATION\\\") { projectV2(number: $PROJECT_NUMBER) { id fields(first: 20) { nodes { ... on ProjectV2SingleSelectField { id name options { id name } } } } } } }\"}" \
             https://api.github.com/graphql)
 
-          echo "Project and fields response: $project_response"
+          # echo "Project and fields response: $project_response"
 
           PROJECT_ID=$(echo "$project_response" | jq -r '.data.organization.projectV2.id')
           FIELD_ID=$(echo "$project_response" | jq -r '.data.organization.projectV2.fields.nodes[] | select(.name == "'"$FIELD_NAME"'") | .id')
@@ -164,7 +164,7 @@ jobs:
               -d "$JSON_PAYLOAD" \
               https://api.github.com/repos/buerokratt/$TARGET_REPOSITORY/issues)
 
-            echo "Issue creation response: $response"  # Debugging issue creation
+            # echo "Issue creation response: $response"  # Debugging issue creation
 
             ISSUE_ID=$(echo "$response" | jq -r '.id')
             ISSUE_NUMBER=$(echo "$response" | jq -r '.number')
