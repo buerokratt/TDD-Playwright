@@ -3,6 +3,7 @@ import { test, expect } from '@playwright/test';
 let response;
 
 test.beforeEach('load page before each test', async ({ page }) => {
+    test.info().annotations.push({ type: 'repository', description: 'Chat-Widget' });   
     response = await page.goto('https://prod.buerokratt.ee/');
 });
 

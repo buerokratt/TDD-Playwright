@@ -2,6 +2,7 @@ import { test, expect } from '@playwright/test';
 
 test.describe('chatbox details menu', () => {
     test.beforeEach(async ({ page }) => {
+        test.info().annotations.push({ type: 'repository', description: 'Chat-Widget' });
         await page.goto('https://prod.buerokratt.ee');
         await page.getByLabel('Ava vestlus').click();
         await page.getByLabel('Detailid').click();
@@ -58,18 +59,18 @@ test.describe('chatbox details menu', () => {
 
 
 // test.describe('authentication button visibility', () => {
-    // test('authentication button visible', async ({ page }) => {
-    //     ///navigate to chat 
-    //     await page.goto('/');
-    //     await page.getByLabel('Ava vestlus').click();
+// test('authentication button visible', async ({ page }) => {
+//     ///navigate to chat
+//     await page.goto('/');
+//     await page.getByLabel('Ava vestlus').click();
 
-    //     // make a query
-    //     await page.getByPlaceholder('Kirjutage oma sõnum...').fill('Maksuvaba miinimum?');
-    //     await page.getByLabel('Saada').click()
+//     // make a query
+//     await page.getByPlaceholder('Kirjutage oma sõnum...').fill('Maksuvaba miinimum?');
+//     await page.getByLabel('Saada').click()
 
-    //     //check if button is visible in details menu
-    //     await page.getByRole('button', { name: 'Detailid' }).click()
-    //     await expect(page.getByRole('button', { name: 'Isikustage TARA kaudu' })).toBeVisible();
-    // })
+//     //check if button is visible in details menu
+//     await page.getByRole('button', { name: 'Detailid' }).click()
+//     await expect(page.getByRole('button', { name: 'Isikustage TARA kaudu' })).toBeVisible();
+// })
 // })
 

@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test.beforeEach(async ({ page }) => {
+  test.info().annotations.push({ type: 'repository', description: 'Chat-Widget' });   
   await page.goto('https://prod.buerokratt.ee/');
 });
 
