@@ -3,64 +3,64 @@ import { getTranslations } from '../../../../../../../translations/languageDetec
 
 test.describe('Functionality Tests for "Välimus ja käitumine"/"Appearance and Behaviour" Page', () => {
 
-    let translation 
+    let translation
 
     test.beforeEach(async ({ page }) => {
         await page.goto('https://admin.prod.buerokratt.ee/chat/chatbot/appearance');
         translation = await getTranslations(page)
+        await page.waitForTimeout(3000);
     });
 
     test('Test Animation Duration Input', async ({ page }) => {
-        const newAnimationDuration = '5';
-        await page.locator('input[name="widgetProactiveSeconds"]').fill(newAnimationDuration);
-        await expect(page.locator('input[name="widgetProactiveSeconds"]')).toHaveValue(newAnimationDuration);
+        const proactiveSecondsInput = await page.getByLabel(`${translation.widgetProactiveSeconds}`, { exact: true });
+        await proactiveSecondsInput.fill('5')
+        await expect(proactiveSecondsInput).toHaveValue('5');
     });
 
     test('Test Notification Switch Toggle', async ({ page }) => {
-        const notificationSwitch = page.locator('button.switch__button[aria-checked]').nth(1);
-        const originalNotificationState = await notificationSwitch.getAttribute('aria-checked');
-        await notificationSwitch.click();
-        const newNotificationState = originalNotificationState === 'true' ? 'false' : 'true';
-        await expect(notificationSwitch).toHaveAttribute('aria-checked', newNotificationState);
+        const bubbleMessageSwitch = await page.getByRole('switch', { name: `${translation.widgetBubbleMessageText}` }).nth(0);
+        if (await bubbleMessageSwitch.getAttribute('data-state') === 'checked') {
+            await bubbleMessageSwitch.click();
+        }
+        await expect(bubbleMessageSwitch).toHaveAttribute('data-state', 'unchecked');
+        await bubbleMessageSwitch.click();
+        await expect(bubbleMessageSwitch).toHaveAttribute('data-state', 'checked');
     });
 
     test('Test Animation Start Time Input', async ({ page }) => {
-        const newAnimationStartTime = '3';
-        await page.locator('input[name="widgetDisplayBubbleMessageSeconds"]').fill(newAnimationStartTime);
-        await expect(page.locator('input[name="widgetDisplayBubbleMessageSeconds"]')).toHaveValue(newAnimationStartTime);
+        const bubbleMessageSecondsInput = await page.getByLabel(`${translation.widgetBubbleMessageSeconds}`, { exact: true });
+        await bubbleMessageSecondsInput.fill('10');
+        await expect(bubbleMessageSecondsInput).toHaveValue('10');
     });
 
     test('Test Notification Message Input', async ({ page }) => {
-        const newNotificationMessage = 'Test notification';
-        await page.locator('input[name="widgetBubbleMessageText"]').fill(newNotificationMessage);
-        await expect(page.locator('input[name="widgetBubbleMessageText"]')).toHaveValue(newNotificationMessage);
+        const bubbleMessageTextInput = await page.getByText(`${translation.widgetBubbleMessageText}`).nth(1);
+        await bubbleMessageTextInput.fill('Hello, welcome to the chatbot!');
+        await expect(bubbleMessageTextInput).toHaveValue('Hello, welcome to the chatbot!');
     });
 
     test('Test Primary Color Picker', async ({ page }) => {
-        await page.locator('input[name="widgetColor"]').click();
-        const editableInput = page.locator('input[id="rc-editable-input-1"]');
-        await editableInput.clear();
-        await editableInput.fill('#FF0000');
-        await expect(editableInput).toHaveValue('#FF0000');
+        const widgetColorInput = await page.getByLabel(`${translation.widgetColor}`, { exact: true });
+        await widgetColorInput.click();
+        await page.locator('.saturation-black').click();
+        await expect(widgetColorInput).toHaveValue('#414181');
     });
 
     test('Test Animation Dropdown', async ({ page }) => {
-        await page.locator('div.select__trigger').click();
-        const dropdownMenu = page.locator('ul.select__menu');
-        await expect(dropdownMenu).toBeVisible();
-        await dropdownMenu.locator('li:has-text("Jump")').click();
-        await expect(page.locator('div.select__trigger')).toHaveText('JumpDropdown icon');
+        await page.getByRole('combobox', { name: `${translation.widgetAnimation}` }).click();
+        await page.getByRole('option', { name: 'Jump' }).click();
+        await expect(page.getByRole('combobox', { name: 'Widget animation' })).toBeVisible();
     });
 
     test('Test "Eelvaade"/"Preview" Button Functionality', async ({ page }) => {
-        await page.locator(`button:has-text("${translation['preview']}")`).click();
+        await page.getByText(`${translation.preview}`, { exact: true }).click();
         const mockWidget = page.locator('img[alt="Buerokratt logo"]');
         await expect(mockWidget).toBeVisible();
     });
 
 
 
-// Full functionality tests + persistence tests
+    // Full functionality tests + persistence tests
 
 
     let originalStates = {};
@@ -163,23 +163,6 @@ test.describe('Functionality Tests for "Välimus ja käitumine"/"Appearance and 
         expect(hasAnimationClass).toBe(true);
 
 
-     });   
     });
+});
 
-    /* test.afterEach(async ({ page }) => {
-        // Restore original states
-        await page.locator('input[name="widgetProactiveSeconds"]').fill(originalStates.animationDuration);
-        if (await page.locator('button.switch__button[aria-checked]').nth(1).getAttribute('aria-checked') !== originalStates.notificationSwitch) {
-            await page.locator('button.switch__button[aria-checked]').nth(1).click();
-        }
-        await page.locator('input[name="widgetDisplayBubbleMessageSeconds"]').fill(originalStates.animationStartTime);
-        await page.locator('input[name="widgetBubbleMessageText"]').fill(originalStates.notificationMessage);
-        // Assuming there's a way to reset color (may require specific interactions depending on the UI)
-        await page.locator('input[name="widgetColor"]').click();
-        const editableInput = await page.locator('input[id="rc-editable-input-1"]')
-        editableInput.clear();
-        editableInput.fill(originalStates.primaryColor);
-        await page.locator('div.select__trigger').click();
-        await page.locator(`li:has-text("${originalStates.animationDropdown}")`).click();
-
-    }); */
