@@ -7,7 +7,8 @@ test.describe('Switch visibility and text tests', () => {
     let closedOnWeekendsState;
 
     test.beforeEach(async ({ page }) => {
-        // Navigate to the page with a longer timeout
+        test.info().annotations.push({ type: 'repository', description: 'Buerokratt-Chatbot' });
+
         await page.goto('https://admin.prod.buerokratt.ee/chat/working-time');
 
         // Check and store the initial state of the closedOnWeekends switch

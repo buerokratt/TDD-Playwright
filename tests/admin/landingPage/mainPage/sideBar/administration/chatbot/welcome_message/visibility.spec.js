@@ -6,7 +6,8 @@ test.describe('Welcome message/Tervitussõnum Visibility Tests', () => {
     let translation;
 
     test.beforeEach(async ({ page }) => {
-        // Load the page before each test
+        test.info().annotations.push({ type: 'repository', description: 'Buerokratt-Chatbot' });
+        
         await page.goto('https://admin.prod.buerokratt.ee/chat/chatbot/welcome-message');
         translation = await getTranslations(page);
     });

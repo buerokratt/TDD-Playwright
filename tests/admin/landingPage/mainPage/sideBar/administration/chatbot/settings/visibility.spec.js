@@ -6,7 +6,7 @@ test.describe('Seaded/Settings Visibility Tests', () => {
     let translation
 
     test.beforeEach(async ({ page }) => {
-        // Navigate to the page before each test
+        test.info().annotations.push({ type: 'repository', description: 'Buerokratt-Chatbot' });
         await page.goto('https://admin.prod.buerokratt.ee/chat/chatbot/settings'); // Replace with your actual page URL
         translation = await getTranslations(page)
     });

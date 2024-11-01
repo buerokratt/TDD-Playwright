@@ -8,30 +8,27 @@ test.describe('Full Visibility Test for User Management Page', () => {
 
     // Navigate to the page before each test
     test.beforeEach(async ({ page }) => {
-        await page.goto('https://admin.prod.buerokratt.ee/chat/users'); // Replace with your actual URL
+        test.info().annotations.push({ type: 'repository', description: 'Buerokratt-Chatbot' });
+        await page.goto('https://admin.prod.buerokratt.ee/chat/users'); 
         translation = await getTranslations(page)
 
     });
 
-    // Test 1: Check if the "Kasutajad"// "Users" heading is visible
     test('should display the "Kasutajad" / "Users" heading', async ({ page }) => {
         const heading = await page.locator(`h1:has-text("${translation["users"]}")`);
         await expect(heading).toBeVisible();
     });
 
-    // Test 2: Check if the "Lisa kasutaja"// "Add user" button is visible
     test('should display the "Lisa kasutaja"/ "Add user" button', async ({ page }) => {
         const addButton = await page.locator(`button.btn--primary:has-text("${translation["addUser"]}")`);
         await expect(addButton).toBeVisible();
     });
 
-    // Test 3: Check if the user data table is visible
     test('should display the user data table', async ({ page }) => {
         const table = await page.locator('table.data-table');
         await expect(table).toBeVisible();
     });
 
-    // Test 4: Check if the table headers are visible
     test('should display the table headers', async ({ page }) => {
 
         const headers = await page.locator('table.data-table thead tr th');
@@ -49,7 +46,7 @@ test.describe('Full Visibility Test for User Management Page', () => {
 
     test('should have one Edit and one Delete button per row', async ({ page }) => {
         // Wait for the table to be visible
-        await page.waitForSelector('.data-table'); // Adjust if needed
+        await page.waitForSelector('.data-table'); 
         const table = page.locator('.data-table');
 
         // Check for tbody if it's a separate element
@@ -93,6 +90,8 @@ test.describe('Edit user dialog visibility', async () => {
     let rowCount;
     let tableRows;
     test.beforeEach(async ({ page }) => {
+        test.info().annotations.push({ type: 'repository', description: 'Buerokratt-Chatbot' });
+
         await page.goto('https://admin.prod.buerokratt.ee/chat/users'); // Replace with your actual URL
         translation = await getTranslations(page)
 

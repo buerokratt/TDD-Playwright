@@ -3,8 +3,8 @@ import { getTranslations } from '@translation/languageDetector.js';
 
 test.describe('Visibility Tests for "Välimus ja käitumine"/"Appearance and Behaviour" Page', async () => {
     let translation;
-
     test.beforeEach(async ({ page }) => {
+        test.info().annotations.push({ type: 'repository', description: 'Buerokratt-Chatbot' });
         // Navigate to the page before each test
         await page.goto('https://admin.prod.buerokratt.ee/chat/chatbot/appearance');
         translation = await getTranslations(page);

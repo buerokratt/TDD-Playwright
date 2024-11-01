@@ -6,7 +6,7 @@ test.describe('Erakorralised Teated/Emergency notices Page Visibility', () => {
   let translation
 
   test.beforeEach(async ({ page }) => {
-    // Visit the page (replace 'your-url' with the actual URL)
+    test.info().annotations.push({ type: 'repository', description: 'Buerokratt-Chatbot' });
     await page.goto('https://admin.prod.buerokratt.ee/chat/chatbot/emergency-notices');
     translation = await getTranslations(page)
   });

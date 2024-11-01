@@ -11,7 +11,7 @@
     "grepInvert": null,
     "maxFailures": 0,
     "metadata": {
-      "actualWorkers": 1
+      "actualWorkers": 4
     },
     "preserveOutput": "always",
     "reporter": [
@@ -97,12 +97,12 @@
                 {
                   "workerIndex": 0,
                   "status": "passed",
-                  "duration": 29691,
+                  "duration": 20531,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2024-11-01T09:07:28.017Z",
+                  "startTime": "2024-11-01T09:56:50.946Z",
                   "attachments": [
                     {
                       "name": "trace",
@@ -123,26 +123,31 @@
       ]
     },
     {
-      "title": "widget/chatBox/visibility.spec.js",
-      "file": "widget/chatBox/visibility.spec.js",
+      "title": "admin/landingPage/mainPage/sideBar/administration/chatbot/appearance_and_behavior/visbility.spec.js",
+      "file": "admin/landingPage/mainPage/sideBar/administration/chatbot/appearance_and_behavior/visbility.spec.js",
       "column": 0,
       "line": 0,
       "specs": [],
       "suites": [
         {
-          "title": "chatbox form visibility",
-          "file": "widget/chatBox/visibility.spec.js",
-          "line": 38,
+          "title": "Visibility Tests for \"Välimus ja käitumine\"/\"Appearance and Behaviour\" Page",
+          "file": "admin/landingPage/mainPage/sideBar/administration/chatbot/appearance_and_behavior/visbility.spec.js",
+          "line": 4,
           "column": 6,
           "specs": [
             {
-              "title": "should display the input area",
+              "title": "Check visibility of the header",
               "ok": true,
               "tags": [],
               "tests": [
                 {
                   "timeout": 30000,
-                  "annotations": [],
+                  "annotations": [
+                    {
+                      "type": "repository",
+                      "description": "Buerokratt-Chatbot"
+                    }
+                  ],
                   "expectedStatus": "passed",
                   "projectId": "chromium",
                   "projectName": "chromium",
@@ -150,17 +155,17 @@
                     {
                       "workerIndex": 1,
                       "status": "passed",
-                      "duration": 6372,
+                      "duration": 4306,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2024-11-01T09:08:01.997Z",
+                      "startTime": "2024-11-01T09:57:12.645Z",
                       "attachments": [
                         {
                           "name": "trace",
                           "contentType": "application/zip",
-                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/widget-chatBox-visibility--97588-ould-display-the-input-area-chromium/trace.zip"
+                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-64a44-ck-visibility-of-the-header-chromium/trace.zip"
                         }
                       ]
                     }
@@ -168,10 +173,440 @@
                   "status": "expected"
                 }
               ],
-              "id": "498c013c075d335b2698-d060fe9ea31f15c08136",
-              "file": "widget/chatBox/visibility.spec.js",
-              "line": 39,
-              "column": 10
+              "id": "fdd9ff8a3f76c4297818-3d77c453c2bfce1ace16",
+              "file": "admin/landingPage/mainPage/sideBar/administration/chatbot/appearance_and_behavior/visbility.spec.js",
+              "line": 13,
+              "column": 9
+            },
+            {
+              "title": "Check visibility of animation duration input",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "repository",
+                      "description": "Buerokratt-Chatbot"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "status": "passed",
+                      "duration": 5407,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-11-01T09:57:12.651Z",
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-08cac-of-animation-duration-input-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "fdd9ff8a3f76c4297818-34e8a507374b6cec1f15",
+              "file": "admin/landingPage/mainPage/sideBar/administration/chatbot/appearance_and_behavior/visbility.spec.js",
+              "line": 18,
+              "column": 9
+            },
+            {
+              "title": "Check visibility of notification switch",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "repository",
+                      "description": "Buerokratt-Chatbot"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "status": "passed",
+                      "duration": 4704,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-11-01T09:57:12.696Z",
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-73dbc-lity-of-notification-switch-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "fdd9ff8a3f76c4297818-5798849cc180f75c193e",
+              "file": "admin/landingPage/mainPage/sideBar/administration/chatbot/appearance_and_behavior/visbility.spec.js",
+              "line": 25,
+              "column": 9
+            },
+            {
+              "title": "Check visibility of animation start time input",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "repository",
+                      "description": "Buerokratt-Chatbot"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "status": "passed",
+                      "duration": 5946,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-11-01T09:57:12.702Z",
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-3639b--animation-start-time-input-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "fdd9ff8a3f76c4297818-aaf9155a1eb23d61aacb",
+              "file": "admin/landingPage/mainPage/sideBar/administration/chatbot/appearance_and_behavior/visbility.spec.js",
+              "line": 30,
+              "column": 9
+            },
+            {
+              "title": "Check visibility of notification message input",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "repository",
+                      "description": "Buerokratt-Chatbot"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "status": "passed",
+                      "duration": 2800,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-11-01T09:57:17.672Z",
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-fb22e--notification-message-input-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "fdd9ff8a3f76c4297818-b59842d696a8220e0688",
+              "file": "admin/landingPage/mainPage/sideBar/administration/chatbot/appearance_and_behavior/visbility.spec.js",
+              "line": 35,
+              "column": 9
+            },
+            {
+              "title": "Check visibility of primary color picker",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "repository",
+                      "description": "Buerokratt-Chatbot"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "status": "passed",
+                      "duration": 2969,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-11-01T09:57:18.078Z",
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-c04b2-ity-of-primary-color-picker-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "fdd9ff8a3f76c4297818-4c1286f8ec5c4fbab336",
+              "file": "admin/landingPage/mainPage/sideBar/administration/chatbot/appearance_and_behavior/visbility.spec.js",
+              "line": 41,
+              "column": 9
+            },
+            {
+              "title": "Check visibility of color picker button",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "repository",
+                      "description": "Buerokratt-Chatbot"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "status": "passed",
+                      "duration": 3299,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-11-01T09:57:18.679Z",
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-68f79-lity-of-color-picker-button-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "fdd9ff8a3f76c4297818-e2d8db8580c771f06a41",
+              "file": "admin/landingPage/mainPage/sideBar/administration/chatbot/appearance_and_behavior/visbility.spec.js",
+              "line": 46,
+              "column": 9
+            },
+            {
+              "title": "Check visibility of animation dropdown",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "repository",
+                      "description": "Buerokratt-Chatbot"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "status": "passed",
+                      "duration": 3293,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-11-01T09:57:19.571Z",
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-f8aa2-ility-of-animation-dropdown-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "fdd9ff8a3f76c4297818-71c2224e24ddd0043cbd",
+              "file": "admin/landingPage/mainPage/sideBar/administration/chatbot/appearance_and_behavior/visbility.spec.js",
+              "line": 51,
+              "column": 9
+            },
+            {
+              "title": "Check visibility of save button",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "repository",
+                      "description": "Buerokratt-Chatbot"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "status": "passed",
+                      "duration": 2892,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-11-01T09:57:20.751Z",
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-42c33-k-visibility-of-save-button-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "fdd9ff8a3f76c4297818-74b60ee0039b4070fdcc",
+              "file": "admin/landingPage/mainPage/sideBar/administration/chatbot/appearance_and_behavior/visbility.spec.js",
+              "line": 56,
+              "column": 9
+            },
+            {
+              "title": "Check visibility of preview button",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "repository",
+                      "description": "Buerokratt-Chatbot"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "status": "passed",
+                      "duration": 2809,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-11-01T09:57:21.358Z",
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-34938-isibility-of-preview-button-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "fdd9ff8a3f76c4297818-003cbb7a7fe170dc4395",
+              "file": "admin/landingPage/mainPage/sideBar/administration/chatbot/appearance_and_behavior/visbility.spec.js",
+              "line": 61,
+              "column": 9
+            },
+            {
+              "title": "test label input visibility",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "repository",
+                      "description": "Buerokratt-Chatbot"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "status": "passed",
+                      "duration": 2196,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-11-01T09:57:22.224Z",
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-6d31b-test-label-input-visibility-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "fdd9ff8a3f76c4297818-ab57f83725d7ad139c58",
+              "file": "admin/landingPage/mainPage/sideBar/administration/chatbot/appearance_and_behavior/visbility.spec.js",
+              "line": 67,
+              "column": 9
             }
           ]
         }
@@ -180,9 +615,9 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2024-11-01T09:07:25.585Z",
-    "duration": 44581.087999999996,
-    "expected": 2,
+    "startTime": "2024-11-01T09:56:50.304Z",
+    "duration": 34246.129,
+    "expected": 12,
     "skipped": 0,
     "unexpected": 0,
     "flaky": 0
