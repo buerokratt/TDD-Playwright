@@ -7,6 +7,7 @@ test.describe('Metrics Cards Visibility Test', () => {
   let checkboxStatesInitialized = false;
 
   test.beforeEach(async ({ page }) => {
+    test.info().annotations.push({ type: 'repository', description: 'Analytics-Module' });
     await page.goto('https://admin.prod.buerokratt.ee/analytics/overview');
     translation = await getTranslations(page);
     await page.getByRole('button', { name: `${translation["edit"]}` }).click();

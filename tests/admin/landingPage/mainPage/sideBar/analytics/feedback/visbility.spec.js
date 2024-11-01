@@ -6,6 +6,7 @@ test.describe('Metrics Cards Visibility Test', () => {
     let translation;
 
     test.beforeEach(async ({ page }) => {
+        test.info().annotations.push({ type: 'repository', description: 'Analytics-Module' });
         await page.goto('https://admin.prod.buerokratt.ee/analytics/feedback');
         translation = await getTranslations(page);
     });

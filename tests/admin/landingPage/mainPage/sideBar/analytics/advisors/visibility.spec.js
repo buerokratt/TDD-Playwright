@@ -2,10 +2,10 @@ const { test, expect } = require('@playwright/test');
 const { getTranslations } = require('../../../../../../translations/languageDetector');
 
 test.describe('Metrics Cards Visibility Test', () => {
-
     let translation;
 
     test.beforeEach(async ({ page }) => {
+    test.info().annotations.push({ type: 'repository', description: 'Analytics-Module' });
         await page.goto('https://admin.prod.buerokratt.ee/analytics/advisors');
         translation = await getTranslations(page);
     });
