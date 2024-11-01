@@ -4,6 +4,7 @@ import { getTranslations } from '@translation/languageDetector';
 let translation 
 
 test.beforeEach(async ({ page }) => {
+
     await page.goto('https://admin.prod.buerokratt.ee/training/training/intents');
 
     await page.waitForTimeout(4000);

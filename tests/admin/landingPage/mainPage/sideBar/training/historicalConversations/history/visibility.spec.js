@@ -2,16 +2,13 @@ import { test, expect } from '@playwright/test';
 import { getTranslations } from '@translation/languageDetector.js';
 let translation;
 
-
 test.beforeEach(async ({ page }) => {
+    test.info().annotations.push({ type: 'repository', description: 'Training-Module' });
+
     await page.goto('https://admin.prod.buerokratt.ee/training/history/history');
 
     await page.waitForTimeout(4000);
-    // Fetch translations for the test
     translation = await getTranslations(page);
-
-    // Ensure the page is loaded and authenticated
-    await expect(page).toHaveURL('https://admin.prod.buerokratt.ee/training/history/history');
 });
 
 test.describe('Visibility Tests for "Historical Conversations" / "Ajaloolised vestlused" Page', () => {

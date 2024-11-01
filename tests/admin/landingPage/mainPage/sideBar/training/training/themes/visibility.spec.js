@@ -5,6 +5,8 @@ let translations;
 let hasElements = false;
 
 test.beforeEach(async ({ page }) => {
+    test.info().annotations.push({ type: 'repository', description: 'Training-Module' });
+
     await page.goto('https://admin.prod.buerokratt.ee/training/training/intents');
 
     await page.waitForTimeout(4000);
