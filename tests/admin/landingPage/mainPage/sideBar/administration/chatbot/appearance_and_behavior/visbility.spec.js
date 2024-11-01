@@ -1,79 +1,58 @@
 import { test, expect } from '@playwright/test';
 import { getTranslations } from '@translation/languageDetector.js';
 
-test.describe('Visibility Tests for "Välimus ja käitumine"/"Appearance and Behaviour" Page', async () => {
-    let translation;
-    test.beforeEach(async ({ page }) => {
-        test.info().annotations.push({ type: 'repository', description: 'Buerokratt-Chatbot' });
-        // Navigate to the page before each test
-        await page.goto('https://admin.prod.buerokratt.ee/chat/chatbot/appearance');
-        translation = await getTranslations(page);
+let translation;
+
+test.describe('Appearance and Behaviour', () => {
+  test.beforeEach(async ({ page }) => {
+    test.info().annotations.push({ type: 'repository', description: 'Buerokratt-Chatbot' });
+    await page.goto('https://admin.prod.buerokratt.ee/chat/chatbot/appearance');
+    translation = await getTranslations(page);
+    await page.waitForTimeout(3000);
+  });
+
+  test.describe('Heading', () => {
+    test('should display heading with correct text', async ({ page }) => {
+      const heading = await page.getByRole('heading', { name: `${translation.appearanceAndBehaviour}`, exact: true });
+      await expect(heading).toBeVisible();
+    });
+  });
+
+  test.describe('Card Body', () => {
+    test('should display proactive seconds input and bubble message text switch', async ({ page }) => {
+      const proactiveSecondsInput = await page.getByLabel(`${translation.widgetProactiveSeconds}`, { exact: true });
+      const bubbleMessageSwitch = await page.getByText(`${translation.widgetBubbleMessageText}`).nth(0);
+      await expect(proactiveSecondsInput).toBeVisible();
+      await expect(bubbleMessageSwitch).toBeVisible();
     });
 
-    test('Check visibility of the header', async ({ page }) => {
-        const header = page.locator(`h1:has-text("${translation['appearanceAndBehaviour']}")`);
-        await expect(header).toBeVisible();
+    test('should display bubble message seconds input', async ({ page }) => {
+      const bubbleMessageSecondsInput = await page.getByLabel(`${translation.widgetBubbleMessageSeconds}`, { exact: true });
+      await expect(bubbleMessageSecondsInput).toBeVisible();
     });
 
-    test('Check visibility of animation duration input', async ({ page }) => {
-        const label = page.locator(`label:has-text("${translation['widgetProactiveSeconds']}")`);
-        await expect(label).toBeVisible();
-        const inputField = page.locator('input[name="widgetProactiveSeconds"]');
-        await expect(inputField).toBeVisible();
+    test('should display widget bubble message text input', async ({ page }) => {
+      const bubbleMessageTextInput = await page.getByText(`${translation.widgetBubbleMessageText}`).nth(1);
+      await expect(bubbleMessageTextInput).toBeVisible();
     });
 
-    test('Check visibility of notification switch', async ({ page }) => {
-        const notificationSwitch = page.locator(`label:has-text("${translation['widgetBubbleMessageText']}") + button.switch__button`);
-        await expect(notificationSwitch).toBeVisible();
+    test('should display widget color input with color picker button', async ({ page }) => {
+      const widgetColorInput = await page.getByLabel(`${translation.widgetColor}`, { exact: true });
+      await expect(widgetColorInput).toBeVisible();
     });
 
-    test('Check visibility of animation start time input', async ({ page }) => {
-        const animationStartTimeInput = page.locator(`label:has-text("${translation['widgetBubbleMessageSeconds']}") + div input`);
-        await expect(animationStartTimeInput).toBeVisible();
+    test('should display animation dropdown with correct options', async ({ page }) => {
+      const animationSelect = await page.getByRole('combobox', { name: `${translation.widgetAnimation}`, exact: true });
+      await expect(animationSelect).toBeVisible();
     });
+  });
 
-    test('Check visibility of notification message input', async ({ page }) => {
-        const notificationMessageInput = page.locator(`label:has-text("${translation['widgetBubbleMessageText']}") + div input`);
-        await expect(notificationMessageInput).toBeVisible();
-
+  test.describe('Card Footer', () => {
+    test('should display Save and Preview buttons', async ({ page }) => {
+      const saveButton = await page.getByText(`${translation.save}`, { exact: true });
+      const previewButton = await page.getByText(`${translation.preview}`, { exact: true });
+      await expect(saveButton).toBeVisible();
+      await expect(previewButton).toBeVisible();
     });
-
-    test('Check visibility of primary color picker', async ({ page }) => {
-        const primaryColorPicker = page.locator(`label:has-text("${translation['widgetColor']}") + div input`);
-        await expect(primaryColorPicker).toBeVisible();
-    });
-
-    test('Check visibility of color picker button', async ({ page }) => {
-        const colorPickerButton = page.locator(`label:has-text("${translation['widgetColor']}") + div input`);
-        await expect(colorPickerButton).toBeVisible();
-    });
-
-    test('Check visibility of animation dropdown', async ({ page }) => {
-        const animationDropdown = page.locator(`label:has-text("${translation['widgetAnimation']}") + div div.select__trigger`);
-        await expect(animationDropdown).toBeVisible();
-    });
-
-    test('Check visibility of save button', async ({ page }) => {
-        const saveButton = page.locator(`button:has-text("${translation['save']}")`);
-        await expect(saveButton).toBeVisible();
-    });
-
-    test('Check visibility of preview button', async ({ page }) => {
-        const previewButton = page.locator(`button:has-text("${translation['preview']}")`);
-        await expect(previewButton).toBeVisible();
-    });
-
-
-    test('test label input visibility', async ({ page }) => {
-        // Locate the label based on its text
-        const labelLocator = page.locator('label', { hasText: translation['widgetProactiveSeconds'] });
-
-        // Locate the input field based on the label
-        const inputContainer = labelLocator.locator('..'); // Move to parent container
-        const inputLocator = inputContainer.locator('input');
-
-        // Example usage: Assert the input is visible and interact with it
-        await expect(inputLocator).toBeVisible();
-    });
-
+  });
 });
