@@ -11,6 +11,7 @@ test('should open a popup page for terms of service', async ({ page, context }) 
     const newPage = await context.waitForEvent('page');
 
     await expect(newPage).toHaveURL('https://www.kratid.ee/kasutustingimused');
+    await page.waitForTimeout(2000);
     const title = await newPage.title();
     expect(title).toContain('Kasutustingimused');
 })
