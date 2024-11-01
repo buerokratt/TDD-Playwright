@@ -11,7 +11,7 @@
     "grepInvert": null,
     "maxFailures": 0,
     "metadata": {
-      "actualWorkers": 4
+      "actualWorkers": 1
     },
     "preserveOutput": "always",
     "reporter": [
@@ -97,12 +97,12 @@
                 {
                   "workerIndex": 0,
                   "status": "passed",
-                  "duration": 15875,
+                  "duration": 29691,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2024-10-29T14:28:25.875Z",
+                  "startTime": "2024-11-01T09:07:28.017Z",
                   "attachments": [
                     {
                       "name": "trace",
@@ -123,308 +123,55 @@
       ]
     },
     {
-      "title": "admin/landingPage/mainPage/sideBar/administration/demo/chatbot/appearance_and_behavior/visibility.spec.js",
-      "file": "admin/landingPage/mainPage/sideBar/administration/demo/chatbot/appearance_and_behavior/visibility.spec.js",
+      "title": "widget/chatBox/visibility.spec.js",
+      "file": "widget/chatBox/visibility.spec.js",
       "column": 0,
       "line": 0,
       "specs": [],
       "suites": [
         {
-          "title": "Appearance and Behaviour",
-          "file": "admin/landingPage/mainPage/sideBar/administration/demo/chatbot/appearance_and_behavior/visibility.spec.js",
-          "line": 6,
+          "title": "chatbox form visibility",
+          "file": "widget/chatBox/visibility.spec.js",
+          "line": 38,
           "column": 6,
-          "specs": [],
-          "suites": [
+          "specs": [
             {
-              "title": "Heading",
-              "file": "admin/landingPage/mainPage/sideBar/administration/demo/chatbot/appearance_and_behavior/visibility.spec.js",
-              "line": 13,
-              "column": 8,
-              "specs": [
+              "title": "should display the input area",
+              "ok": true,
+              "tags": [],
+              "tests": [
                 {
-                  "title": "should display heading with correct text",
-                  "ok": true,
-                  "tags": [],
-                  "tests": [
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
                     {
-                      "timeout": 30000,
-                      "annotations": [],
-                      "expectedStatus": "passed",
-                      "projectId": "chromium",
-                      "projectName": "chromium",
-                      "results": [
+                      "workerIndex": 1,
+                      "status": "passed",
+                      "duration": 6372,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-11-01T09:08:01.997Z",
+                      "attachments": [
                         {
-                          "workerIndex": 1,
-                          "status": "passed",
-                          "duration": 5895,
-                          "errors": [],
-                          "stdout": [],
-                          "stderr": [],
-                          "retry": 0,
-                          "startTime": "2024-10-29T14:28:42.688Z",
-                          "attachments": [
-                            {
-                              "name": "trace",
-                              "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-e384d-y-heading-with-correct-text-chromium/trace.zip"
-                            }
-                          ]
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/widget-chatBox-visibility--97588-ould-display-the-input-area-chromium/trace.zip"
                         }
-                      ],
-                      "status": "expected"
+                      ]
                     }
                   ],
-                  "id": "de9f858d471e4f9cb1cd-689d51a374cea832ffe5",
-                  "file": "admin/landingPage/mainPage/sideBar/administration/demo/chatbot/appearance_and_behavior/visibility.spec.js",
-                  "line": 14,
-                  "column": 9
+                  "status": "expected"
                 }
-              ]
-            },
-            {
-              "title": "Card Body",
-              "file": "admin/landingPage/mainPage/sideBar/administration/demo/chatbot/appearance_and_behavior/visibility.spec.js",
-              "line": 20,
-              "column": 8,
-              "specs": [
-                {
-                  "title": "should display proactive seconds input and bubble message text switch",
-                  "ok": true,
-                  "tags": [],
-                  "tests": [
-                    {
-                      "timeout": 30000,
-                      "annotations": [],
-                      "expectedStatus": "passed",
-                      "projectId": "chromium",
-                      "projectName": "chromium",
-                      "results": [
-                        {
-                          "workerIndex": 2,
-                          "status": "passed",
-                          "duration": 5644,
-                          "errors": [],
-                          "stdout": [],
-                          "stderr": [],
-                          "retry": 0,
-                          "startTime": "2024-10-29T14:28:42.715Z",
-                          "attachments": [
-                            {
-                              "name": "trace",
-                              "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-da8a9--bubble-message-text-switch-chromium/trace.zip"
-                            }
-                          ]
-                        }
-                      ],
-                      "status": "expected"
-                    }
-                  ],
-                  "id": "de9f858d471e4f9cb1cd-4ddcc7b856f6ac4f1e24",
-                  "file": "admin/landingPage/mainPage/sideBar/administration/demo/chatbot/appearance_and_behavior/visibility.spec.js",
-                  "line": 21,
-                  "column": 9
-                },
-                {
-                  "title": "should display bubble message seconds input",
-                  "ok": true,
-                  "tags": [],
-                  "tests": [
-                    {
-                      "timeout": 30000,
-                      "annotations": [],
-                      "expectedStatus": "passed",
-                      "projectId": "chromium",
-                      "projectName": "chromium",
-                      "results": [
-                        {
-                          "workerIndex": 3,
-                          "status": "passed",
-                          "duration": 5753,
-                          "errors": [],
-                          "stdout": [],
-                          "stderr": [],
-                          "retry": 0,
-                          "startTime": "2024-10-29T14:28:42.698Z",
-                          "attachments": [
-                            {
-                              "name": "trace",
-                              "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-eb838-ubble-message-seconds-input-chromium/trace.zip"
-                            }
-                          ]
-                        }
-                      ],
-                      "status": "expected"
-                    }
-                  ],
-                  "id": "de9f858d471e4f9cb1cd-59028a1eed7a1e848dc7",
-                  "file": "admin/landingPage/mainPage/sideBar/administration/demo/chatbot/appearance_and_behavior/visibility.spec.js",
-                  "line": 28,
-                  "column": 9
-                },
-                {
-                  "title": "should display widget bubble message text input",
-                  "ok": true,
-                  "tags": [],
-                  "tests": [
-                    {
-                      "timeout": 30000,
-                      "annotations": [],
-                      "expectedStatus": "passed",
-                      "projectId": "chromium",
-                      "projectName": "chromium",
-                      "results": [
-                        {
-                          "workerIndex": 4,
-                          "status": "passed",
-                          "duration": 5914,
-                          "errors": [],
-                          "stdout": [],
-                          "stderr": [],
-                          "retry": 0,
-                          "startTime": "2024-10-29T14:28:42.708Z",
-                          "attachments": [
-                            {
-                              "name": "trace",
-                              "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-d9a1a-t-bubble-message-text-input-chromium/trace.zip"
-                            }
-                          ]
-                        }
-                      ],
-                      "status": "expected"
-                    }
-                  ],
-                  "id": "de9f858d471e4f9cb1cd-bd90b0bcb420f54bfd6a",
-                  "file": "admin/landingPage/mainPage/sideBar/administration/demo/chatbot/appearance_and_behavior/visibility.spec.js",
-                  "line": 33,
-                  "column": 9
-                },
-                {
-                  "title": "should display widget color input with color picker button",
-                  "ok": true,
-                  "tags": [],
-                  "tests": [
-                    {
-                      "timeout": 30000,
-                      "annotations": [],
-                      "expectedStatus": "passed",
-                      "projectId": "chromium",
-                      "projectName": "chromium",
-                      "results": [
-                        {
-                          "workerIndex": 3,
-                          "status": "passed",
-                          "duration": 5134,
-                          "errors": [],
-                          "stdout": [],
-                          "stderr": [],
-                          "retry": 0,
-                          "startTime": "2024-10-29T14:28:48.937Z",
-                          "attachments": [
-                            {
-                              "name": "trace",
-                              "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-e2381-ut-with-color-picker-button-chromium/trace.zip"
-                            }
-                          ]
-                        }
-                      ],
-                      "status": "expected"
-                    }
-                  ],
-                  "id": "de9f858d471e4f9cb1cd-7ad79fa3e1c79bc6499d",
-                  "file": "admin/landingPage/mainPage/sideBar/administration/demo/chatbot/appearance_and_behavior/visibility.spec.js",
-                  "line": 38,
-                  "column": 9
-                },
-                {
-                  "title": "should display animation dropdown with correct options",
-                  "ok": true,
-                  "tags": [],
-                  "tests": [
-                    {
-                      "timeout": 30000,
-                      "annotations": [],
-                      "expectedStatus": "passed",
-                      "projectId": "chromium",
-                      "projectName": "chromium",
-                      "results": [
-                        {
-                          "workerIndex": 2,
-                          "status": "passed",
-                          "duration": 5148,
-                          "errors": [],
-                          "stdout": [],
-                          "stderr": [],
-                          "retry": 0,
-                          "startTime": "2024-10-29T14:28:48.941Z",
-                          "attachments": [
-                            {
-                              "name": "trace",
-                              "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-4e068-opdown-with-correct-options-chromium/trace.zip"
-                            }
-                          ]
-                        }
-                      ],
-                      "status": "expected"
-                    }
-                  ],
-                  "id": "de9f858d471e4f9cb1cd-b3d55e68f8699c683410",
-                  "file": "admin/landingPage/mainPage/sideBar/administration/demo/chatbot/appearance_and_behavior/visibility.spec.js",
-                  "line": 43,
-                  "column": 9
-                }
-              ]
-            },
-            {
-              "title": "Card Footer",
-              "file": "admin/landingPage/mainPage/sideBar/administration/demo/chatbot/appearance_and_behavior/visibility.spec.js",
-              "line": 49,
-              "column": 8,
-              "specs": [
-                {
-                  "title": "should display Save and Preview buttons",
-                  "ok": true,
-                  "tags": [],
-                  "tests": [
-                    {
-                      "timeout": 30000,
-                      "annotations": [],
-                      "expectedStatus": "passed",
-                      "projectId": "chromium",
-                      "projectName": "chromium",
-                      "results": [
-                        {
-                          "workerIndex": 1,
-                          "status": "passed",
-                          "duration": 5273,
-                          "errors": [],
-                          "stdout": [],
-                          "stderr": [],
-                          "retry": 0,
-                          "startTime": "2024-10-29T14:28:49.076Z",
-                          "attachments": [
-                            {
-                              "name": "trace",
-                              "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-1cc48-ay-Save-and-Preview-buttons-chromium/trace.zip"
-                            }
-                          ]
-                        }
-                      ],
-                      "status": "expected"
-                    }
-                  ],
-                  "id": "de9f858d471e4f9cb1cd-a19d01eacf851da3a0f0",
-                  "file": "admin/landingPage/mainPage/sideBar/administration/demo/chatbot/appearance_and_behavior/visibility.spec.js",
-                  "line": 50,
-                  "column": 9
-                }
-              ]
+              ],
+              "id": "498c013c075d335b2698-d060fe9ea31f15c08136",
+              "file": "widget/chatBox/visibility.spec.js",
+              "line": 39,
+              "column": 10
             }
           ]
         }
@@ -433,9 +180,9 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2024-10-29T14:28:25.284Z",
-    "duration": 29157.913,
-    "expected": 8,
+    "startTime": "2024-11-01T09:07:25.585Z",
+    "duration": 44581.087999999996,
+    "expected": 2,
     "skipped": 0,
     "unexpected": 0,
     "flaky": 0

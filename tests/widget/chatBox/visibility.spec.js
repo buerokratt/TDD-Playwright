@@ -37,7 +37,7 @@ test.describe('chatbox robot visibility', () => {
 
 test.describe('chatbox form visibility', () => {
     test('should display the input area', async ({ page }) => {
-        await expect(page.locator('input[aria-label="Sisesta tekst"]')).toBeVisible();
+        await expect(page.locator('textarea[aria-label="Sisesta tekst"]')).toBeVisible();
     });
 
     test('should display the placeholder text', async ({ page }) => {
