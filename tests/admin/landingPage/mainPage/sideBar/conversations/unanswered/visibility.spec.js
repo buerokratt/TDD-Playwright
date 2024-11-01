@@ -1,12 +1,12 @@
 import { test, expect } from '@playwright/test';
 import { openDialog, selectFirstChat, takeOverFirstChat } from '../unanswered/helper';
-const { getTranslations } = require('../../../../../../translations/languageDetector');
-
+import { getTranslations } from '@translation/languageDetector.js';
 
 test.describe('"Vastamata" page visibility', async () => {
     let translation;
 
     test.beforeEach(async ({ page }) => {
+        test.info().annotations.push({ type: 'repository', description: 'Buerokratt-Chatbot' });
         await page.goto('https://admin.prod.buerokratt.ee/chat/unanswered');
         await page.waitForTimeout(4000);
         translation = await getTranslations(page);
@@ -55,6 +55,7 @@ test.describe('"Vastamata" page visibility', async () => {
 test.describe('Selected conversation open chat visibility tests', () => {
     let translation;
     test.beforeEach(async ({ page }) => {
+        test.info().annotations.push({ type: 'repository', description: 'Buerokratt-Chatbot' });
         await page.goto('https://admin.prod.buerokratt.ee/chat/unanswered');
         await page.waitForTimeout(4000);
         const switchButton = await page.locator('.switch__button');
@@ -159,6 +160,7 @@ test.describe('Selected conversation open chat visibility tests', () => {
 test.describe('"Vali vestluse staatus" dialog visibility', async () => {
     let translation;
     test.beforeEach(async ({ page }) => {
+        test.info().annotations.push({ type: 'repository', description: 'Buerokratt-Chatbot' });
         await page.goto('https://admin.prod.buerokratt.ee/chat/unanswered');
         await page.waitForTimeout(4000);
 
@@ -222,7 +224,7 @@ test.describe('"Suuna kolleegile" active chat actions dialog visibility', () => 
     let translation;
     let headers;
     test.beforeEach(async ({ page }) => {
-
+        test.info().annotations.push({ type: 'repository', description: 'Buerokratt-Chatbot' });
         await page.goto('https://admin.prod.buerokratt.ee/chat/unanswered');
         await page.waitForTimeout(4000);
 

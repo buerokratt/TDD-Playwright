@@ -8,6 +8,8 @@ test.describe.serial('Visibility tests for pending page', () => {
     test.describe('Visibility Tests for "Ootel" / "Pending" Page', () => {
 
         test.beforeEach(async ({ page }) => {
+            test.info().annotations.push({ type: 'repository', description: 'Buerokratt-Chatbot' });
+
             await page.goto('https://admin.prod.buerokratt.ee/chat/pending');
             translation = await getTranslations(page)
         });
@@ -31,18 +33,6 @@ test.describe.serial('Visibility tests for pending page', () => {
             await expect(unansweredConversationsSection).toBeVisible();
         })
 
-
-        // test('should have "kustutamiseks" title', async ({ page }) => {
-        //     // Should mark active status, after that chat becomes visible.
-        //     const button = page.locator('.switch__button');
-        //     button.click();
-
-        //     const divElement = page.locator('.vertical-tabs__sub-group-header');
-
-        //     const pText = divElement.locator('p').nth(0);
-        //     await expect(pText).toHaveText(new RegExp(`${translation.toDelete}\\s*\\(\\d+\\)`, 'i'));
-        // });
-
         test('should have unanswered conversations main chat window', async ({ page }) => {
             const divElement = page.locator('div.vertical-tabs__body-placeholder');
 
@@ -61,14 +51,9 @@ test.describe.serial('Visibility tests for pending page', () => {
 
     test.describe.skip('"Pending" tab body visibility ### Check issue inside ', () => {
 
-         /* test.info().annotations.push({
-                type: 'Known bug',
-                description: 'This cannot be tested reliably as the pending tab is not working properly at the moment.',
-            }) */
-
         test.beforeEach('test', async ({ page }) => {
 
-           
+
 
             await page.goto('https://admin.prod.buerokratt.ee/chat/pending', { waitUntil: 'networkidle' });
 

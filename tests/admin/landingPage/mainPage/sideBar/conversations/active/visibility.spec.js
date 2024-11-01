@@ -1,11 +1,10 @@
 import { test, expect, request } from '@playwright/test';
 import { openDialog, selectFirstChat, takeOverFirstChat } from '../unanswered/helper';
-// todo: cleaner path
-import { getTranslations } from '../../../../../../translations/languageDetector'
+import { getTranslations } from '@translation/languageDetector.js';
 
 test.beforeEach('test', async ({ page }) => {
+    test.info().annotations.push({ type: 'repository', description: 'Buerokratt-Chatbot' });
     await page.goto('https://admin.prod.buerokratt.ee/chat/active');
-    // page is authenticated
     const translation = await getTranslations(page);
 });
 

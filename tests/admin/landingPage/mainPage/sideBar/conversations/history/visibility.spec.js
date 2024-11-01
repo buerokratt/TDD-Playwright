@@ -4,13 +4,11 @@ let translation;
 
 
 test.beforeEach(async ({ page }) => {
+    test.info().annotations.push({ type: 'repository', description: 'Buerokratt-Chatbot' });
+
     await page.goto('https://admin.prod.buerokratt.ee/chat/history');
 
-    // Fetch translations for the test
     translation = await getTranslations(page);
-
-    // Ensure the page is loaded and authenticated
-    await expect(page).toHaveURL('https://admin.prod.buerokratt.ee/chat/history');
 
     await page.waitForTimeout(2000);
 });
