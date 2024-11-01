@@ -41,9 +41,14 @@ Translations should be defined as:
   let translation;
 
 And in beforeEach:
-translation = await getTranslations(page);
-Translation should be after the playwright test has gone to the page to avoid security error.
-Include a 3000ms timeout in the beforeEach to ensure all elements load properly.
+a. Each test should have annotation. So lets add in beforeEach: test.info().annotations.push({ type: 'repository', description: '<description>' });
+   where instead of <description> should take value from BusinessDSL description: value. 
+
+b. translation = await getTranslations(page);
+   Translation should be after the playwright test has gone to the page to avoid security error.
+
+c. Include a 3000ms timeout in the beforeEach to ensure all elements load properly.
+
 
 6. Logical grouping:
 Group tests using test.describe() by logical parts (e.g., headings, card body, footer).

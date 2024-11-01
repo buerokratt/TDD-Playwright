@@ -1,5 +1,5 @@
 resource: chat/working-time
-description: "Working time"
+description: "Buerokratt-Chatbot"
 test:
   main:
   heading:

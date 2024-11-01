@@ -1,5 +1,5 @@
 resource: chat/users
-description: "Users"
+description: "Buerokratt-Chatbot"
 test:
   main:
   heading:
