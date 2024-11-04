@@ -58,12 +58,12 @@
     "m-s": "E-P",
     "m-f": "E-R",
     "yes": "Jah",
-    "averageChatsPerDayMonth": "Keskmine vestluste arv päevas: kuu / eelmine",
-    "averageChatsPerDayWeek": "Keskmine vestluste arv päevas: nädal / eelmine",
-    "numberOfChatsPerMonth": "Vestluste arv: kuu / eelmine",
-    "averageNumberOfChatsAnsweredByBürokrattWeek": "Keskmine Bürokrati vastatud: nädal / eelmine",
-    "averageNumberOfChatsAnsweredByBürokrattMonth":  "Keskmine Bürokrati vastatud: kuu / eelmine",
-    "answeredByBürokrattToday": "Bürokrati vastatud: täna / eile",
+    "averageChatsPerDayMonthPrevious": "Keskmine vestluste arv päevas: kuu / eelmine",
+    "averageChatsPerDayWeekPrevious": "Keskmine vestluste arv päevas: nädal / eelmine",
+    "numberOfChatsMonthPrevious": "Vestluste arv: kuu / eelmine",
+    "averageChatsAnsweredByBuerokratWeekPrevious": "Keskmine Bürokrati vastatud: nädal / eelmine",
+    "averageChatsAnsweredByBuerokratMonthPrevious":  "Keskmine Bürokrati vastatud: kuu / eelmine",
+    "answeredByBuerokratTodayYesterday": "Bürokrati vastatud: täna / eile",
     "numberOfChatsToday": "Vestluste arv: täna / eile",
     "forwardedChatsYesterday": "Suunatud vestluse eile: sisesed / välised",
     "forwarded": "Suunatud",
@@ -224,5 +224,7 @@
     "trainNow": "Treeni kohe",
     "view": "Vaata",
     "firstAndLastName2": "Ees- ja perekonnanimi",
-    "csv": "CSV"
+    "csv": "CSV",
+    "overview": "Ülevaade",
+    "openSearchDashboardOSD": "OpenSearch Dashboard (OSD)"
 }

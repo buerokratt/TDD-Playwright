@@ -58,7 +58,14 @@ The output should be a valid Playwright test file, ready for copy-pasting and ru
 7. Exact match for similar elements:
 Add { exact: true } to all locators.
 
-8. When multiple elements have the same text, locate the target element by specifying its container (e.g., .card) 
-   or section using .first() or .nth(index). Use page.locator() to narrow the search scope within the container, ensuring only the intended element is selected without conflicts from similar elements elsewhere on the page.
-   Example:
+8. Handling multiple elements with the same text within specific containers: 
+   If multiple elements share the same text, locate the target element by specifying its container (e.g., .card) or section to narrow the search scope.
+   or section using .first() or .nth(index). Use page.locator(container).filter({ hasText: ... }).getByRole(...) or page.locator(container).filter({ hasText: ... }).getByText(...) to precisely target the element within the desired section.
+   This ensures only the intended element is selected without conflicts from similar elements elsewhere on the page.
+
+   Examples:
+   // Target the checkbox within a specific card container
    const onlyBuerokrattCheckbox = page.locator('.card').first().getByText(`${translation.onlyBuerokrattInvolved}`, { exact: true });
+
+   // Target an h2 heading within a specific card container based on surrounding text
+   const headingWithinCard = page.locator('.card').filter({ hasText: `${translation.averageChatsPerDayMonthPrevious}` }).getByRole('heading', { level: 2 });

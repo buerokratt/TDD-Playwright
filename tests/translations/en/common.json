@@ -57,12 +57,12 @@
     "m-s": "M-S",
     "m-f": "M-F",
     "yes": "Yes",
-    "averageChatsPerDayMonth": "Average chats per day: month / previous",
-    "averageChatsPerDayWeek": "Average chats per day: week / previous",
-    "numberOfChatsPerMonth": "Number of chats: month / previous",
-    "averageNumberOfChatsAnsweredByBürokrattWeek": "Average chats answered by Bürokrat: week / previous",
-    "averageNumberOfChatsAnsweredByBürokrattMonth":  "Average chats answered by Bürokrat: month / previous",
-    "answeredByBürokrattToday": "Answered by Bürokrat: today / yesterday",
+    "averageChatsPerDayMonthPrevious": "Average chats per day: month / previous",
+    "averageChatsPerDayWeekPrevious": "Average chats per day: week / previous",
+    "numberOfChatsMonthPrevious": "Number of chats: month / previous",
+    "averageChatsAnsweredByBuerokratWeekPrevious": "Average chats answered by Bürokrat: week / previous",
+    "averageChatsAnsweredByBuerokratMonthPrevious":  "Average chats answered by Bürokrat: month / previous",
+    "answeredByBuerokratTodayYesterday": "Answered by Bürokrat: today / yesterday",
     "numberOfChatsToday": "Number of chats: today / previous",
     "forwardedChatsYesterday": "Forwarded chats yesterday: internal / external",
     "forwarded": "Forwarded",
@@ -223,6 +223,8 @@
     "trainNow": "Train now",
     "view": "View",
     "firstAndLastName2": "First- and lastname",
-    "csv": "CSV"
+    "csv": "CSV",
+    "overview": "Overview",
+    "openSearchDashboardOSD": "OpenSearch Dashboard (OSD)"
     
 }
