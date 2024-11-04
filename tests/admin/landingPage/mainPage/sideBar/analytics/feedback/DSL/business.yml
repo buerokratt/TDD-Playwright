@@ -1,11 +1,11 @@
 resource: analytics/feedback
-description: "Analytics feedback"
+description: "Analytics-Module"
 test:
   main:
   heading:
       args:
           - type: text
-          - value: Feedback
+          - value: "Feedback"
           - style: h1
 
   card:
@@ -83,41 +83,41 @@ test:
            - value: Additional Options
            - style: label
 
-    switch:
+    checkbox:
        args:
            - type: checkbox
            - value: Bureaucrat - the client left with an answer
-           - style: switch
-    switch:
+           - style: checkbox
+    checkbox:
        args:
            - type: checkbox
            - value: Bureaucrat - the customer left without an answer
-           - style: switch
-    switch:
+           - style: checkbox
+    checkbox:
        args:
            - type: checkbox
            - value: Bureaucrat - terminated for an unspecified reason
-           - style: switch
-    switch:
+           - style: checkbox
+    checkbox:
        args:
            - type: checkbox
            - value: Advisor - accepted answer
-           - style: switch
-    switch:
+           - style: checkbox
+    checkbox:
        args:
            - type: checkbox
            - value: Advisor - signs of hate speech
-           - style: switch
-    switch:
+           - style: checkbox
+    checkbox:
        args:
            - type: checkbox
            - value: Advisor - other reasons
-           - style: switch
-    switch:
+           - style: checkbox
+    checkbox:
        args:
            - type: checkbox
            - value: Advisor - answered in another channel
-           - style: switch
+           - style: checkbox
 
   card:
     name: card__header
