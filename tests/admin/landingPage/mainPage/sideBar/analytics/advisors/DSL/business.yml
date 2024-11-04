@@ -83,21 +83,21 @@ test:
           - value: Additional Options
           - style: label
 
-    switch:
+    checkbox:
        args:
            - type: checkbox
            - value: Number of conversations directed from the advisor
-           - style: switch
-    switch:
+           - style: checkbox
+    checkbox:
        args:
            - type: checkbox
            - value: Counselor directed conversations
-           - style: switch
-    switch:
+           - style: checkbox
+    checkbox:
        args:
            - type: checkbox
            - value: Out-of-facility forwards
-           - style: switch
+           - style: checkbox
 
   card:
     name: card__header

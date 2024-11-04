@@ -2,53 +2,42 @@ resource: analytics/chats
 description: "Analytics chats"
 test:
   main:
-    heading:
-      name: title
-      templates:
-        - heading:
-            heading:
-              args:
-                - type: text
-                - value: Chats
-                - style: h1
+  heading:
+      args:
+          - type: text
+          - value: Chats
+          - style: h1
 
     card:
-      templates:
         - name: card__body
         - name: section
         - label:
-            label:
               args:
                 - type: text
                 - value: Period
                 - style: label
 
         - button:
-            button:
               args:
                 - type: button
                 - value: Today
                 - style: button
         - button:
-            button:
               args:
                 - type: button
                 - value: Yesterday
                 - style: button
         - button:
-            button:
               args:
                 - type: button
                 - value: Last 30 Days
                 - style: button
         - button:
-            button:
               args:
                 - type: button
                 - value: Selected Months
                 - style: button
         - button:
-            button:
               args:
                 - type: button
                 - value: Selected Period
@@ -56,44 +45,37 @@ test:
 
         - name: section
         - label:
-            label:
               args:
                 - type: text
                 - value: Choose a metric
                 - style: label
 
         - button:
-            button:
               args:
                 - type: button
                 - value: Total number of chats
                 - style: button
         - button:
-            button:
               args:
                 - type: button
                 - value: Contact information provided
                 - style: button
         - button:
-            button:
               args:
                 - type: button
                 - value: Average conversation time (min)
                 - style: button
         - button:
-            button:
               args:
                 - type: button
                 - value: Average waiting time (min)
                 - style: button
         - button:
-            button:
               args:
                 - type: button
                 - value: Average number of messages in a chat
                 - style: button
         - button:
-            button:
               args:
                 - type: button
                 - value: Count of idle chats ended by Bürokratt
@@ -106,47 +88,42 @@ test:
                 - value: Additional Options
                 - style: label
 
-        - multipleChoices:
-            switch:
+            checkbox:
               args:
                 - type: checkbox
                 - value: Only Bürokratt involved
-                - style: switch
-            switch:
+                - style: checkbox
+            checkbox:
               args:
                 - type: checkbox
                 - value: CSA involved
-                - style: switch
-            switch:
+                - style: checkbox
+            checkbox:
               args:
                 - type: checkbox
                 - value: Total
-                - style: switch
+                - style: checkbox
 
     card:
-      templates:
         - name: card__header
-        - header:
-            header:
+        - heading:
               args:
                 - type: text
                 - value: Total number of chats
                 - style: header
 
-        - name: other_content
-        - dropdown:
-            select:
-              args:
-                - type: dropdown
-                - options:
-                  - value: Bar Chart
-                  - value: Pie Chart
-                  - value: Line Chart
-        - button:
-            button:
-              args:
-                - type: button
-                - value: CSV
-                - style: button
+        name: other_content
+        button:
+        args:
+            - type: button
+            - value: CSV
+            - style: button
+        select:
+        args:
+            - type: dropdown
+            - options:
+                - value: Bar Chart
+                - value: Pie Chart
+                - value: Line Chart
         - name: card__body
           has_chart: true
