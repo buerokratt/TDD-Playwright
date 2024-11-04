@@ -89,6 +89,7 @@ test:
           - style: h3
     name: card__body
     has_chart: true
+    chart_class: "recharts_wrapper"
 
   card: 
     name: card__header

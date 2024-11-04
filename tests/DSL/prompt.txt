@@ -61,11 +61,15 @@ Add { exact: true } to all locators.
 8. Handling multiple elements with the same text within specific containers: 
    If multiple elements share the same text but represent different roles (e.g., button and heading), use .getByRole() to specify the intended role within the container.
    Specify the container (e.g., .card) or section to narrow the search scope and avoid conflicts with similar elements elsewhere on the page.
-
+   Use .first() or .nth(index) as needed to select a specific instance of an element when it appears multiple times within the same container.
+   
    Examples:
    // Target the checkbox within a specific card container
    const onlyBuerokrattCheckbox = page.locator('.card').first().getByText(`${translation.onlyBuerokrattInvolved}`, { exact: true });
    
+   // Select the first instance of an element if multiples are found
+   const csaInvolvedCheckbox = page.getByText(`${translation.csaInvolved}`, { exact: true }).first();
+
    // Target the "Forwarding" button specifically within a .card container
    const forwardingButton = page.locator('.card').filter({ hasText: `${translation.forwarding}` }).getByRole('button', { name: `${translation.forwarding}`, exact: true });
    

@@ -97,12 +97,12 @@
                 {
                   "workerIndex": 0,
                   "status": "passed",
-                  "duration": 10038,
+                  "duration": 21034,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2024-11-04T11:58:01.903Z",
+                  "startTime": "2024-11-04T12:34:02.027Z",
                   "attachments": [
                     {
                       "name": "trace",
@@ -123,27 +123,27 @@
       ]
     },
     {
-      "title": "admin/landingPage/mainPage/sideBar/analytics/advisors/generated.spec.js",
-      "file": "admin/landingPage/mainPage/sideBar/analytics/advisors/generated.spec.js",
+      "title": "admin/landingPage/mainPage/sideBar/analytics/overview/DSL/generated.spec.js",
+      "file": "admin/landingPage/mainPage/sideBar/analytics/overview/DSL/generated.spec.js",
       "column": 0,
       "line": 0,
       "specs": [],
       "suites": [
         {
           "title": "Analytics-Module",
-          "file": "admin/landingPage/mainPage/sideBar/analytics/advisors/generated.spec.js",
+          "file": "admin/landingPage/mainPage/sideBar/analytics/overview/DSL/generated.spec.js",
           "line": 6,
           "column": 6,
           "specs": [],
           "suites": [
             {
-              "title": "Main Heading",
-              "file": "admin/landingPage/mainPage/sideBar/analytics/advisors/generated.spec.js",
+              "title": "Main Heading and Button",
+              "file": "admin/landingPage/mainPage/sideBar/analytics/overview/DSL/generated.spec.js",
               "line": 14,
               "column": 8,
               "specs": [
                 {
-                  "title": "should display main heading",
+                  "title": "should display main heading and Edit button",
                   "ok": true,
                   "tags": [],
                   "tests": [
@@ -162,17 +162,17 @@
                         {
                           "workerIndex": 1,
                           "status": "passed",
-                          "duration": 7214,
+                          "duration": 7199,
                           "errors": [],
                           "stdout": [],
                           "stderr": [],
                           "retry": 0,
-                          "startTime": "2024-11-04T11:58:13.318Z",
+                          "startTime": "2024-11-04T12:34:24.370Z",
                           "attachments": [
                             {
                               "name": "trace",
                               "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-4a24e-should-display-main-heading-chromium/trace.zip"
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-1a844-ain-heading-and-Edit-button-chromium/trace.zip"
                             }
                           ]
                         }
@@ -180,21 +180,21 @@
                       "status": "expected"
                     }
                   ],
-                  "id": "6ef1e3a80ceffc9b7618-506cad18e7f08e480fd9",
-                  "file": "admin/landingPage/mainPage/sideBar/analytics/advisors/generated.spec.js",
+                  "id": "01e4841efd34dbe23cc3-511dfcdc313db67092e1",
+                  "file": "admin/landingPage/mainPage/sideBar/analytics/overview/DSL/generated.spec.js",
                   "line": 15,
                   "column": 9
                 }
               ]
             },
             {
-              "title": "Card Body",
-              "file": "admin/landingPage/mainPage/sideBar/analytics/advisors/generated.spec.js",
-              "line": 21,
+              "title": "Main Metrics Area",
+              "file": "admin/landingPage/mainPage/sideBar/analytics/overview/DSL/generated.spec.js",
+              "line": 24,
               "column": 8,
               "specs": [
                 {
-                  "title": "should display label for Period",
+                  "title": "should display draggable card headings with values",
                   "ok": true,
                   "tags": [],
                   "tests": [
@@ -213,17 +213,17 @@
                         {
                           "workerIndex": 2,
                           "status": "passed",
-                          "duration": 5891,
+                          "duration": 7486,
                           "errors": [],
                           "stdout": [],
                           "stderr": [],
                           "retry": 0,
-                          "startTime": "2024-11-04T11:58:13.425Z",
+                          "startTime": "2024-11-04T12:34:24.391Z",
                           "attachments": [
                             {
                               "name": "trace",
                               "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-77005-ld-display-label-for-Period-chromium/trace.zip"
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-9633f-e-card-headings-with-values-chromium/trace.zip"
                             }
                           ]
                         }
@@ -231,236 +231,64 @@
                       "status": "expected"
                     }
                   ],
-                  "id": "6ef1e3a80ceffc9b7618-8c3e3e9cfac8ad772204",
-                  "file": "admin/landingPage/mainPage/sideBar/analytics/advisors/generated.spec.js",
-                  "line": 22,
-                  "column": 9
-                },
-                {
-                  "title": "should display Period buttons",
-                  "ok": true,
-                  "tags": [],
-                  "tests": [
-                    {
-                      "timeout": 30000,
-                      "annotations": [
-                        {
-                          "type": "repository",
-                          "description": "Analytics-Module"
-                        }
-                      ],
-                      "expectedStatus": "passed",
-                      "projectId": "chromium",
-                      "projectName": "chromium",
-                      "results": [
-                        {
-                          "workerIndex": 3,
-                          "status": "passed",
-                          "duration": 7268,
-                          "errors": [],
-                          "stdout": [],
-                          "stderr": [],
-                          "retry": 0,
-                          "startTime": "2024-11-04T11:58:13.374Z",
-                          "attachments": [
-                            {
-                              "name": "trace",
-                              "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-61b5f-ould-display-Period-buttons-chromium/trace.zip"
-                            }
-                          ]
-                        }
-                      ],
-                      "status": "expected"
-                    }
-                  ],
-                  "id": "6ef1e3a80ceffc9b7618-3535b4d33f9052b2883d",
-                  "file": "admin/landingPage/mainPage/sideBar/analytics/advisors/generated.spec.js",
-                  "line": 27,
-                  "column": 9
-                },
-                {
-                  "title": "should display label for Choose a metric",
-                  "ok": true,
-                  "tags": [],
-                  "tests": [
-                    {
-                      "timeout": 30000,
-                      "annotations": [
-                        {
-                          "type": "repository",
-                          "description": "Analytics-Module"
-                        }
-                      ],
-                      "expectedStatus": "passed",
-                      "projectId": "chromium",
-                      "projectName": "chromium",
-                      "results": [
-                        {
-                          "workerIndex": 4,
-                          "status": "passed",
-                          "duration": 7580,
-                          "errors": [],
-                          "stdout": [],
-                          "stderr": [],
-                          "retry": 0,
-                          "startTime": "2024-11-04T11:58:13.376Z",
-                          "attachments": [
-                            {
-                              "name": "trace",
-                              "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-f045f-y-label-for-Choose-a-metric-chromium/trace.zip"
-                            }
-                          ]
-                        }
-                      ],
-                      "status": "expected"
-                    }
-                  ],
-                  "id": "6ef1e3a80ceffc9b7618-342aec994a01ff9f6bb6",
-                  "file": "admin/landingPage/mainPage/sideBar/analytics/advisors/generated.spec.js",
-                  "line": 41,
-                  "column": 9
-                },
-                {
-                  "title": "should display metric buttons",
-                  "ok": true,
-                  "tags": [],
-                  "tests": [
-                    {
-                      "timeout": 30000,
-                      "annotations": [
-                        {
-                          "type": "repository",
-                          "description": "Analytics-Module"
-                        }
-                      ],
-                      "expectedStatus": "passed",
-                      "projectId": "chromium",
-                      "projectName": "chromium",
-                      "results": [
-                        {
-                          "workerIndex": 2,
-                          "status": "passed",
-                          "duration": 5009,
-                          "errors": [],
-                          "stdout": [],
-                          "stderr": [],
-                          "retry": 0,
-                          "startTime": "2024-11-04T11:58:20.178Z",
-                          "attachments": [
-                            {
-                              "name": "trace",
-                              "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-fffa7-ould-display-metric-buttons-chromium/trace.zip"
-                            }
-                          ]
-                        }
-                      ],
-                      "status": "expected"
-                    }
-                  ],
-                  "id": "6ef1e3a80ceffc9b7618-f191ceeb79fd5f55303d",
-                  "file": "admin/landingPage/mainPage/sideBar/analytics/advisors/generated.spec.js",
-                  "line": 46,
-                  "column": 9
-                },
-                {
-                  "title": "should display label for Additional Options",
-                  "ok": true,
-                  "tags": [],
-                  "tests": [
-                    {
-                      "timeout": 30000,
-                      "annotations": [
-                        {
-                          "type": "repository",
-                          "description": "Analytics-Module"
-                        }
-                      ],
-                      "expectedStatus": "passed",
-                      "projectId": "chromium",
-                      "projectName": "chromium",
-                      "results": [
-                        {
-                          "workerIndex": 1,
-                          "status": "passed",
-                          "duration": 5553,
-                          "errors": [],
-                          "stdout": [],
-                          "stderr": [],
-                          "retry": 0,
-                          "startTime": "2024-11-04T11:58:21.235Z",
-                          "attachments": [
-                            {
-                              "name": "trace",
-                              "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-f69fa-abel-for-Additional-Options-chromium/trace.zip"
-                            }
-                          ]
-                        }
-                      ],
-                      "status": "expected"
-                    }
-                  ],
-                  "id": "6ef1e3a80ceffc9b7618-0504f235b9429c088f74",
-                  "file": "admin/landingPage/mainPage/sideBar/analytics/advisors/generated.spec.js",
-                  "line": 60,
-                  "column": 9
-                },
-                {
-                  "title": "should display checkbox options",
-                  "ok": true,
-                  "tags": [],
-                  "tests": [
-                    {
-                      "timeout": 30000,
-                      "annotations": [
-                        {
-                          "type": "repository",
-                          "description": "Analytics-Module"
-                        }
-                      ],
-                      "expectedStatus": "passed",
-                      "projectId": "chromium",
-                      "projectName": "chromium",
-                      "results": [
-                        {
-                          "workerIndex": 3,
-                          "status": "passed",
-                          "duration": 5720,
-                          "errors": [],
-                          "stdout": [],
-                          "stderr": [],
-                          "retry": 0,
-                          "startTime": "2024-11-04T11:58:21.630Z",
-                          "attachments": [
-                            {
-                              "name": "trace",
-                              "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-7c900-ld-display-checkbox-options-chromium/trace.zip"
-                            }
-                          ]
-                        }
-                      ],
-                      "status": "expected"
-                    }
-                  ],
-                  "id": "6ef1e3a80ceffc9b7618-f75c2f8af75c557d46d8",
-                  "file": "admin/landingPage/mainPage/sideBar/analytics/advisors/generated.spec.js",
-                  "line": 65,
+                  "id": "01e4841efd34dbe23cc3-c311abaa88b8f3d6cbfa",
+                  "file": "admin/landingPage/mainPage/sideBar/analytics/overview/DSL/generated.spec.js",
+                  "line": 25,
                   "column": 9
                 }
               ]
             },
             {
-              "title": "Card Header",
-              "file": "admin/landingPage/mainPage/sideBar/analytics/advisors/generated.spec.js",
-              "line": 76,
+              "title": "Card Header with Charts",
+              "file": "admin/landingPage/mainPage/sideBar/analytics/overview/DSL/generated.spec.js",
+              "line": 42,
               "column": 8,
               "specs": [
                 {
-                  "title": "should display Forwarding heading",
+                  "title": "should display Total number of chats heading and chart",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [
+                        {
+                          "type": "repository",
+                          "description": "Analytics-Module"
+                        }
+                      ],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 3,
+                          "status": "passed",
+                          "duration": 7487,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-11-04T12:34:24.402Z",
+                          "attachments": [
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-5a064--of-chats-heading-and-chart-chromium/trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "01e4841efd34dbe23cc3-4ce08372c75c35a790b0",
+                  "file": "admin/landingPage/mainPage/sideBar/analytics/overview/DSL/generated.spec.js",
+                  "line": 43,
+                  "column": 9
+                },
+                {
+                  "title": "should display OpenSearch Dashboard header and Open OpenSearch button",
                   "ok": true,
                   "tags": [],
                   "tests": [
@@ -479,17 +307,17 @@
                         {
                           "workerIndex": 4,
                           "status": "passed",
-                          "duration": 5390,
+                          "duration": 7590,
                           "errors": [],
                           "stdout": [],
                           "stderr": [],
                           "retry": 0,
-                          "startTime": "2024-11-04T11:58:22.003Z",
+                          "startTime": "2024-11-04T12:34:24.373Z",
                           "attachments": [
                             {
                               "name": "trace",
                               "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-26a4d--display-Forwarding-heading-chromium/trace.zip"
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-d6cd8--and-Open-OpenSearch-button-chromium/trace.zip"
                             }
                           ]
                         }
@@ -497,52 +325,9 @@
                       "status": "expected"
                     }
                   ],
-                  "id": "6ef1e3a80ceffc9b7618-bd1c781405f196fd893e",
-                  "file": "admin/landingPage/mainPage/sideBar/analytics/advisors/generated.spec.js",
-                  "line": 77,
-                  "column": 9
-                },
-                {
-                  "title": "should display CSV button and dropdown",
-                  "ok": true,
-                  "tags": [],
-                  "tests": [
-                    {
-                      "timeout": 30000,
-                      "annotations": [
-                        {
-                          "type": "repository",
-                          "description": "Analytics-Module"
-                        }
-                      ],
-                      "expectedStatus": "passed",
-                      "projectId": "chromium",
-                      "projectName": "chromium",
-                      "results": [
-                        {
-                          "workerIndex": 2,
-                          "status": "passed",
-                          "duration": 4585,
-                          "errors": [],
-                          "stdout": [],
-                          "stderr": [],
-                          "retry": 0,
-                          "startTime": "2024-11-04T11:58:25.278Z",
-                          "attachments": [
-                            {
-                              "name": "trace",
-                              "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-a483f-lay-CSV-button-and-dropdown-chromium/trace.zip"
-                            }
-                          ]
-                        }
-                      ],
-                      "status": "expected"
-                    }
-                  ],
-                  "id": "6ef1e3a80ceffc9b7618-1f362961c3a3230efbbb",
-                  "file": "admin/landingPage/mainPage/sideBar/analytics/advisors/generated.spec.js",
-                  "line": 82,
+                  "id": "01e4841efd34dbe23cc3-6ca74e23a84c5f394fd6",
+                  "file": "admin/landingPage/mainPage/sideBar/analytics/overview/DSL/generated.spec.js",
+                  "line": 51,
                   "column": 9
                 }
               ]
@@ -554,9 +339,9 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2024-11-04T11:58:00.950Z",
-    "duration": 29027.434999999998,
-    "expected": 10,
+    "startTime": "2024-11-04T12:34:01.415Z",
+    "duration": 31578.639,
+    "expected": 5,
     "skipped": 0,
     "unexpected": 0,
     "flaky": 0
