@@ -133,7 +133,7 @@
     "averagePresenceOfCounselors": "Keskmine nõustajate kohalolu",
     "numberOfConversationsByAdviser": "Vestluste arv nõustaja lõikes",
     "conversationTimeByAdvisor": "Vestluse aeg (min) nõustaja lõikes",
-    "numberOfConversationsDirectedFromAdvisor": "Nüustajalt suunatud vestluste arv",
+    "numberOfConversationsDirectedFromTheAdvisor": "Nüustajalt suunatud vestluste arv",
     "counselorDirectedConversations": "Nõustajale suunatud vestluste arv",
     "outOfFacilityForwards": "Suunamised asutusest välja",
     "chatsStarted": "Alustatud vestlused",
@@ -223,5 +223,6 @@
     "trainingTime": "Treenimise kellaaeg",
     "trainNow": "Treeni kohe",
     "view": "Vaata",
-    "firstAndLastName2": "Ees- ja perekonnanimi"
+    "firstAndLastName2": "Ees- ja perekonnanimi",
+    "csv": "CSV"
 }

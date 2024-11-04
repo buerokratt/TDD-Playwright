@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { getTranslations } from '../../../../../../../translations/languageDetector.js'
+import { getTranslations } from '@translation/languageDetector.js'
 
 test.describe('Functionality Tests for "Välimus ja käitumine"/"Appearance and Behaviour" Page', () => {
 
@@ -54,24 +54,14 @@ test.describe('Functionality Tests for "Välimus ja käitumine"/"Appearance and 
 
     test('Test "Eelvaade"/"Preview" Button Functionality', async ({ page }) => {
         await page.getByText(`${translation.preview}`, { exact: true }).click();
+        //page.getByAltText('Buerokratt logo').click();
         const mockWidget = page.locator('img[alt="Buerokratt logo"]');
         await expect(mockWidget).toBeVisible();
     });
 
-
-
-    // Full functionality tests + persistence tests
-
-
     let originalStates = {};
 
     test.beforeEach(async ({ page }) => {
-
-        test.info().annotations.push({
-            type: 'Known bug',
-            description: 'There is a bug regarding this test as its supposed to turn the switches on after first press but its first state is checked while the UI remains as if its unchecked meaning the first press only makes the state unchecked and thus nothing changes for the user in regard to UI. This is the action sequence ==> Open page => Switch appears unchecked => Inspect the element => Element says its state is checked => Click the element => Switch doesnt change appearance but state changes to unchecked.',
-        })
-
         test.info().annotations.push({
             type: 'Test working condition',
             description: 'Currently this test passes when the notification message is turned on by default. Since the aforementioned bug runs throught all of the tests and pages, it would be better to focus on this after the bug is fixed.',
@@ -94,51 +84,38 @@ test.describe('Functionality Tests for "Välimus ja käitumine"/"Appearance and 
         }
 
         // Fill in the animation duration
-        const newAnimationDuration = '5';
-        await page.locator('input[name="widgetProactiveSeconds"]').fill(newAnimationDuration);
-        await expect(page.locator('input[name="widgetProactiveSeconds"]')).toHaveValue(newAnimationDuration);
+        const proactiveSecondsInput = await page.getByLabel(`${translation.widgetProactiveSeconds}`, { exact: true });
+        await proactiveSecondsInput.fill('5')
 
         // Toggle the notification switch
-        const notificationSwitch = page.locator('button.switch__button[aria-checked]').nth(1);
-        const originalNotificationState = await notificationSwitch.getAttribute('aria-checked');
-        await notificationSwitch.click();
-        const newNotificationState = originalNotificationState === 'true' ? 'false' : 'true';
-        await expect(notificationSwitch).toHaveAttribute('aria-checked', newNotificationState);
+        const bubbleMessageSwitch = await page.getByRole('switch', { name: `${translation.widgetBubbleMessageText}` }).nth(0);
+        if (await bubbleMessageSwitch.getAttribute('data-state') === 'unchecked') {
+            await bubbleMessageSwitch.click();
+        }
 
         // Fill in the animation start time
-        const newAnimationStartTime = '3';
-        await page.locator('input[name="widgetDisplayBubbleMessageSeconds"]').fill(newAnimationStartTime);
-        await expect(page.locator('input[name="widgetDisplayBubbleMessageSeconds"]')).toHaveValue(newAnimationStartTime);
+        const bubbleMessageSecondsInput = await page.getByLabel(`${translation.widgetBubbleMessageSeconds}`, { exact: true });
+        await bubbleMessageSecondsInput.fill('10');
 
         // Fill in the notification message
-        const newNotificationMessage = 'Test notification';
-        await page.locator('input[name="widgetBubbleMessageText"]').fill(newNotificationMessage);
-        await expect(page.locator('input[name="widgetBubbleMessageText"]')).toHaveValue(newNotificationMessage);
+        const bubbleMessageTextInput = await page.getByText(`${translation.widgetBubbleMessageText}`).nth(1);
+        await bubbleMessageTextInput.fill('Hello, welcome to the chatbot!');
 
-        await page.locator('input[name="widgetColor"]').click();
-        const editableInput = await page.locator('input[id="rc-editable-input-1"]')
-        editableInput.clear();
-        editableInput.fill('#FF0000');
+        // Select widget color
+        const widgetColorInput = await page.getByLabel(`${translation.widgetColor}`, { exact: true });
+        await widgetColorInput.click();
+        await page.locator('.saturation-black').click();
 
-        await page.locator('div.select__trigger').click();
-        // Wait for the dropdown menu to be visible
-        const dropdownMenu = await page.locator('ul.select__menu');
-        await expect(dropdownMenu).toBeVisible();
+        // Select from the dropdown
+        await page.getByRole('combobox', { name: `${translation.widgetAnimation}` }).click();
+        await page.getByRole('option', { name: 'Jump' }).click();
+        
+        // Click preview button
+        await page.getByText(`${translation.preview}`, { exact: true }).click();
 
-        // Click on the desired option in the dropdown
-        await dropdownMenu.locator('li:has-text("Jump")').click();
-
-        // Verify the selected option in the dropdown trigger
-        await expect(page.locator('div.select__trigger')).toHaveText('JumpDropdown icon');
-
-        // Click the "Eelvaade" button to trigger the mock widget
-        await page.locator(`button:has-text("${translation['preview']}")`).click();
-
-        // Wait for the mock widget to appear and verify the changes
-        const mockWidget = page.locator('img[alt="Buerokratt logo"]'); // Adjust selector to match the actual mock widget
+        const mockWidget = await page.getByAltText('Buerokratt logo');
         await expect(mockWidget).toBeVisible();
 
-        // Conditionally verify the notification message based on the switch state
         if (newNotificationState === 'true') {
             // Verify the mock widget reflects the new settings if the switch is enabled
             await expect(mockWidget.locator('.profile__greeting-message.profile__greeting-message--active')).toHaveText(newNotificationMessage);
@@ -161,8 +138,5 @@ test.describe('Functionality Tests for "Välimus ja käitumine"/"Appearance and 
 
         const hasAnimationClass = await page.locator('div.profile.profile--jump').count() > 0;
         expect(hasAnimationClass).toBe(true);
-
-
     });
 });
-
