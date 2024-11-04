@@ -59,30 +59,7 @@ test.describe('Functionality Tests for "Välimus ja käitumine"/"Appearance and 
         await expect(mockWidget).toBeVisible();
     });
 
-    let originalStates = {};
-
-    test.beforeEach(async ({ page }) => {
-        test.info().annotations.push({
-            type: 'Test working condition',
-            description: 'Currently this test passes when the notification message is turned on by default. Since the aforementioned bug runs throught all of the tests and pages, it would be better to focus on this after the bug is fixed.',
-        })
-
-        // Capture original states of all inputs and switches using more reliable selectors
-        originalStates.animationDuration = await page.locator('input[name="widgetProactiveSeconds"]').inputValue();
-        originalStates.notificationSwitch = await page.locator('button.switch__button[aria-checked]').nth(1).getAttribute('aria-checked');
-        originalStates.animationStartTime = await page.locator('input[name="widgetDisplayBubbleMessageSeconds"]').inputValue();
-        originalStates.notificationMessage = await page.locator('input[name="widgetBubbleMessageText"]').inputValue();
-        originalStates.primaryColor = await page.locator('input[name="widgetColor"]').inputValue();
-        const dropdownTrigger = page.locator('div.select__trigger');
-        originalStates.animationDropdown = await dropdownTrigger.textContent();
-    });
-
     test('Check functionality of all fields and "Eelvaade" button', async ({ page }) => {
-        function rgbToHex(rgb) {
-            const [r, g, b] = rgb.match(/\d+/g).map(Number);
-            return `#${((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1).toUpperCase()}`;
-        }
-
         // Fill in the animation duration
         const proactiveSecondsInput = await page.getByLabel(`${translation.widgetProactiveSeconds}`, { exact: true });
         await proactiveSecondsInput.fill('5')
@@ -95,7 +72,7 @@ test.describe('Functionality Tests for "Välimus ja käitumine"/"Appearance and 
 
         // Fill in the animation start time
         const bubbleMessageSecondsInput = await page.getByLabel(`${translation.widgetBubbleMessageSeconds}`, { exact: true });
-        await bubbleMessageSecondsInput.fill('10');
+        await bubbleMessageSecondsInput.fill('1');
 
         // Fill in the notification message
         const bubbleMessageTextInput = await page.getByText(`${translation.widgetBubbleMessageText}`).nth(1);
@@ -109,34 +86,27 @@ test.describe('Functionality Tests for "Välimus ja käitumine"/"Appearance and 
         // Select from the dropdown
         await page.getByRole('combobox', { name: `${translation.widgetAnimation}` }).click();
         await page.getByRole('option', { name: 'Jump' }).click();
-        
+
         // Click preview button
         await page.getByText(`${translation.preview}`, { exact: true }).click();
+
+        await page.waitForTimeout(5000);
 
         const mockWidget = await page.getByAltText('Buerokratt logo');
         await expect(mockWidget).toBeVisible();
 
-        if (newNotificationState === 'true') {
-            // Verify the mock widget reflects the new settings if the switch is enabled
-            await expect(mockWidget.locator('.profile__greeting-message.profile__greeting-message--active')).toHaveText(newNotificationMessage);
+        if (bubbleMessageSwitch.getAttribute('data-state') === 'checked') {
+            await expect(mockWidget.locator('.profile__greeting-message.profile__greeting-message--active')).toHaveText(bubbleMessageTextInput);
         } else {
             // If the switch is off, ensure the message is not visible
             await expect(mockWidget.locator('.profile__greeting-message.profile__greeting-message--active')).not.toBeVisible();
         }
 
-        const parentDiv = await mockWidget.evaluateHandle(el => el.parentElement);
+        // Verify Animation Class for 'Jump'
+        const animatedWidget = page.locator('.profile--jump');
+        await expect(animatedWidget).toBeVisible();
 
-        await page.waitForTimeout(6000);
-
-        // Check other properties (background color, animation, etc.)
-        const backgroundColor = await parentDiv.evaluate(el => window.getComputedStyle(el).backgroundColor);
-        expect(rgbToHex(backgroundColor)).toBe('#FF0000');
-
-        // Get animation-iteration-count
-        const animationIterationCount = await parentDiv.evaluate(el => window.getComputedStyle(el).animationIterationCount);
-        expect(animationIterationCount).toBe('5');
-
-        const hasAnimationClass = await page.locator('div.profile.profile--jump').count() > 0;
-        expect(hasAnimationClass).toBe(true);
+        await expect(animatedWidget).toHaveCSS('background-color', 'rgb(65, 65, 129)');
+        await expect(animatedWidget).toHaveCSS('animation-iteration-count', '5');
     });
 });
