@@ -1,5 +1,5 @@
 const { test, expect } = require('@playwright/test');
-const { getTranslations } = require('../../../../../../translations/languageDetector');
+import { getTranslations } from '@translation/languageDetector.js';
 
 test.describe('Metrics Cards Visibility Test', () => {
   let translation;

@@ -59,9 +59,8 @@ The output should be a valid Playwright test file, ready for copy-pasting and ru
 Add { exact: true } to all locators.
 
 8. Handling multiple elements with the same text within specific containers: 
-   If multiple elements share the same text, locate the target element by specifying its container (e.g., .card) or section to narrow the search scope.
-   or section using .first() or .nth(index). Use page.locator(container).filter({ hasText: ... }).getByRole(...) or page.locator(container).filter({ hasText: ... }).getByText(...) to precisely target the element within the desired section.
-   This ensures only the intended element is selected without conflicts from similar elements elsewhere on the page.
+   If multiple elements share the same text but represent different roles (e.g., button and heading), use .getByRole() to specify the intended role within the container.
+   Specify the container (e.g., .card) or section to narrow the search scope and avoid conflicts with similar elements elsewhere on the page.
 
    Examples:
    // Target the checkbox within a specific card container
