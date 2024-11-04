@@ -1,5 +1,5 @@
 resource: analytics/chats
-description: "Analytics chats"
+description: "Analytics-Module"
 test:
   main:
   heading:

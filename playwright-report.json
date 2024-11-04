@@ -97,12 +97,12 @@
                 {
                   "workerIndex": 0,
                   "status": "passed",
-                  "duration": 16572,
+                  "duration": 15541,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2024-11-04T10:30:46.878Z",
+                  "startTime": "2024-11-04T10:57:44.109Z",
                   "attachments": [
                     {
                       "name": "trace",
@@ -123,24 +123,24 @@
       ]
     },
     {
-      "title": "admin/landingPage/mainPage/sideBar/analytics/feedback/DSL/generated.spec.js",
-      "file": "admin/landingPage/mainPage/sideBar/analytics/feedback/DSL/generated.spec.js",
+      "title": "admin/landingPage/mainPage/sideBar/analytics/chats/DSL/generated.spec.js",
+      "file": "admin/landingPage/mainPage/sideBar/analytics/chats/DSL/generated.spec.js",
       "column": 0,
       "line": 0,
       "specs": [],
       "suites": [
         {
           "title": "Analytics-Module",
-          "file": "admin/landingPage/mainPage/sideBar/analytics/feedback/DSL/generated.spec.js",
+          "file": "admin/landingPage/mainPage/sideBar/analytics/chats/DSL/generated.spec.js",
           "line": 6,
           "column": 6,
           "specs": [],
           "suites": [
             {
               "title": "Main Heading",
-              "file": "admin/landingPage/mainPage/sideBar/analytics/feedback/DSL/generated.spec.js",
+              "file": "admin/landingPage/mainPage/sideBar/analytics/chats/DSL/generated.spec.js",
               "line": 14,
-              "column": 8,
+              "column": 10,
               "specs": [
                 {
                   "title": "should display main heading",
@@ -162,17 +162,17 @@
                         {
                           "workerIndex": 1,
                           "status": "passed",
-                          "duration": 6535,
+                          "duration": 5717,
                           "errors": [],
                           "stdout": [],
                           "stderr": [],
                           "retry": 0,
-                          "startTime": "2024-11-04T10:31:04.533Z",
+                          "startTime": "2024-11-04T10:58:00.908Z",
                           "attachments": [
                             {
                               "name": "trace",
                               "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-ec03e-should-display-main-heading-chromium/trace.zip"
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-e6358-should-display-main-heading-chromium/trace.zip"
                             }
                           ]
                         }
@@ -180,18 +180,18 @@
                       "status": "expected"
                     }
                   ],
-                  "id": "7ab117f54642fdfcd318-c11087aab74a26ecf488",
-                  "file": "admin/landingPage/mainPage/sideBar/analytics/feedback/DSL/generated.spec.js",
+                  "id": "8742b0c1925dde666472-ef3cd9959a71c055fe86",
+                  "file": "admin/landingPage/mainPage/sideBar/analytics/chats/DSL/generated.spec.js",
                   "line": 15,
-                  "column": 9
+                  "column": 13
                 }
               ]
             },
             {
               "title": "Card Body",
-              "file": "admin/landingPage/mainPage/sideBar/analytics/feedback/DSL/generated.spec.js",
+              "file": "admin/landingPage/mainPage/sideBar/analytics/chats/DSL/generated.spec.js",
               "line": 21,
-              "column": 8,
+              "column": 10,
               "specs": [
                 {
                   "title": "should display label for Period",
@@ -213,17 +213,17 @@
                         {
                           "workerIndex": 2,
                           "status": "passed",
-                          "duration": 6129,
+                          "duration": 6341,
                           "errors": [],
                           "stdout": [],
                           "stderr": [],
                           "retry": 0,
-                          "startTime": "2024-11-04T10:31:04.506Z",
+                          "startTime": "2024-11-04T10:58:00.944Z",
                           "attachments": [
                             {
                               "name": "trace",
                               "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-e7ed0-ld-display-label-for-Period-chromium/trace.zip"
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-d2c14-ld-display-label-for-Period-chromium/trace.zip"
                             }
                           ]
                         }
@@ -231,10 +231,10 @@
                       "status": "expected"
                     }
                   ],
-                  "id": "7ab117f54642fdfcd318-c28a46ae90b238b7b550",
-                  "file": "admin/landingPage/mainPage/sideBar/analytics/feedback/DSL/generated.spec.js",
+                  "id": "8742b0c1925dde666472-5045d58c068693300f81",
+                  "file": "admin/landingPage/mainPage/sideBar/analytics/chats/DSL/generated.spec.js",
                   "line": 22,
-                  "column": 9
+                  "column": 13
                 },
                 {
                   "title": "should display Period buttons",
@@ -256,17 +256,17 @@
                         {
                           "workerIndex": 3,
                           "status": "passed",
-                          "duration": 5685,
+                          "duration": 6316,
                           "errors": [],
                           "stdout": [],
                           "stderr": [],
                           "retry": 0,
-                          "startTime": "2024-11-04T10:31:04.472Z",
+                          "startTime": "2024-11-04T10:58:00.941Z",
                           "attachments": [
                             {
                               "name": "trace",
                               "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-65cdc-ould-display-Period-buttons-chromium/trace.zip"
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-64f77-ould-display-Period-buttons-chromium/trace.zip"
                             }
                           ]
                         }
@@ -274,10 +274,10 @@
                       "status": "expected"
                     }
                   ],
-                  "id": "7ab117f54642fdfcd318-c7da03c063256d087ad5",
-                  "file": "admin/landingPage/mainPage/sideBar/analytics/feedback/DSL/generated.spec.js",
+                  "id": "8742b0c1925dde666472-cb128bc318e3b1fbc0ab",
+                  "file": "admin/landingPage/mainPage/sideBar/analytics/chats/DSL/generated.spec.js",
                   "line": 27,
-                  "column": 9
+                  "column": 13
                 },
                 {
                   "title": "should display label for Choose a metric",
@@ -299,17 +299,17 @@
                         {
                           "workerIndex": 4,
                           "status": "passed",
-                          "duration": 5726,
+                          "duration": 7675,
                           "errors": [],
                           "stdout": [],
                           "stderr": [],
                           "retry": 0,
-                          "startTime": "2024-11-04T10:31:04.456Z",
+                          "startTime": "2024-11-04T10:58:00.981Z",
                           "attachments": [
                             {
                               "name": "trace",
                               "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-74690-y-label-for-Choose-a-metric-chromium/trace.zip"
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-edecd-y-label-for-Choose-a-metric-chromium/trace.zip"
                             }
                           ]
                         }
@@ -317,10 +317,10 @@
                       "status": "expected"
                     }
                   ],
-                  "id": "7ab117f54642fdfcd318-9ef5eb4c1e614751fad8",
-                  "file": "admin/landingPage/mainPage/sideBar/analytics/feedback/DSL/generated.spec.js",
+                  "id": "8742b0c1925dde666472-bf432b65593539b6725c",
+                  "file": "admin/landingPage/mainPage/sideBar/analytics/chats/DSL/generated.spec.js",
                   "line": 41,
-                  "column": 9
+                  "column": 13
                 },
                 {
                   "title": "should display metric buttons",
@@ -340,19 +340,19 @@
                       "projectName": "chromium",
                       "results": [
                         {
-                          "workerIndex": 3,
+                          "workerIndex": 1,
                           "status": "passed",
-                          "duration": 5862,
+                          "duration": 5510,
                           "errors": [],
                           "stdout": [],
                           "stderr": [],
                           "retry": 0,
-                          "startTime": "2024-11-04T10:31:10.760Z",
+                          "startTime": "2024-11-04T10:58:07.374Z",
                           "attachments": [
                             {
                               "name": "trace",
                               "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-1194c-ould-display-metric-buttons-chromium/trace.zip"
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-32d8c-ould-display-metric-buttons-chromium/trace.zip"
                             }
                           ]
                         }
@@ -360,10 +360,10 @@
                       "status": "expected"
                     }
                   ],
-                  "id": "7ab117f54642fdfcd318-d0e4417c22525ab3cd51",
-                  "file": "admin/landingPage/mainPage/sideBar/analytics/feedback/DSL/generated.spec.js",
+                  "id": "8742b0c1925dde666472-01871c99f35a5e4e639c",
+                  "file": "admin/landingPage/mainPage/sideBar/analytics/chats/DSL/generated.spec.js",
                   "line": 46,
-                  "column": 9
+                  "column": 13
                 },
                 {
                   "title": "should display label for Additional Options",
@@ -383,19 +383,19 @@
                       "projectName": "chromium",
                       "results": [
                         {
-                          "workerIndex": 4,
+                          "workerIndex": 2,
                           "status": "passed",
-                          "duration": 4968,
+                          "duration": 5906,
                           "errors": [],
                           "stdout": [],
                           "stderr": [],
                           "retry": 0,
-                          "startTime": "2024-11-04T10:31:10.803Z",
+                          "startTime": "2024-11-04T10:58:08.186Z",
                           "attachments": [
                             {
                               "name": "trace",
                               "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-d2f02-abel-for-Additional-Options-chromium/trace.zip"
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-0bafe-abel-for-Additional-Options-chromium/trace.zip"
                             }
                           ]
                         }
@@ -403,10 +403,10 @@
                       "status": "expected"
                     }
                   ],
-                  "id": "7ab117f54642fdfcd318-0ea39a383f3f3300b1b6",
-                  "file": "admin/landingPage/mainPage/sideBar/analytics/feedback/DSL/generated.spec.js",
-                  "line": 60,
-                  "column": 9
+                  "id": "8742b0c1925dde666472-e2348f4576398492ed24",
+                  "file": "admin/landingPage/mainPage/sideBar/analytics/chats/DSL/generated.spec.js",
+                  "line": 62,
+                  "column": 13
                 },
                 {
                   "title": "should display checkbox options",
@@ -426,19 +426,19 @@
                       "projectName": "chromium",
                       "results": [
                         {
-                          "workerIndex": 2,
+                          "workerIndex": 3,
                           "status": "passed",
-                          "duration": 5864,
+                          "duration": 6424,
                           "errors": [],
                           "stdout": [],
                           "stderr": [],
                           "retry": 0,
-                          "startTime": "2024-11-04T10:31:11.333Z",
+                          "startTime": "2024-11-04T10:58:08.236Z",
                           "attachments": [
                             {
                               "name": "trace",
                               "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-0dab8-ld-display-checkbox-options-chromium/trace.zip"
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-e63d6-ld-display-checkbox-options-chromium/trace.zip"
                             }
                           ]
                         }
@@ -446,21 +446,21 @@
                       "status": "expected"
                     }
                   ],
-                  "id": "7ab117f54642fdfcd318-b308e1f7297203380a1c",
-                  "file": "admin/landingPage/mainPage/sideBar/analytics/feedback/DSL/generated.spec.js",
-                  "line": 65,
-                  "column": 9
+                  "id": "8742b0c1925dde666472-556ffa67a4b09abaf719",
+                  "file": "admin/landingPage/mainPage/sideBar/analytics/chats/DSL/generated.spec.js",
+                  "line": 67,
+                  "column": 13
                 }
               ]
             },
             {
               "title": "Card Header",
-              "file": "admin/landingPage/mainPage/sideBar/analytics/feedback/DSL/generated.spec.js",
-              "line": 84,
-              "column": 8,
+              "file": "admin/landingPage/mainPage/sideBar/analytics/chats/DSL/generated.spec.js",
+              "line": 78,
+              "column": 10,
               "specs": [
                 {
-                  "title": "should display heading for Completed statuses",
+                  "title": "should display heading for Total number of chats",
                   "ok": true,
                   "tags": [],
                   "tests": [
@@ -477,19 +477,19 @@
                       "projectName": "chromium",
                       "results": [
                         {
-                          "workerIndex": 1,
+                          "workerIndex": 4,
                           "status": "passed",
-                          "duration": 5472,
+                          "duration": 5690,
                           "errors": [],
                           "stdout": [],
                           "stderr": [],
                           "retry": 0,
-                          "startTime": "2024-11-04T10:31:11.782Z",
+                          "startTime": "2024-11-04T10:58:09.682Z",
                           "attachments": [
                             {
                               "name": "trace",
                               "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-cc0e9-ding-for-Completed-statuses-chromium/trace.zip"
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-f3858-g-for-Total-number-of-chats-chromium/trace.zip"
                             }
                           ]
                         }
@@ -497,10 +497,10 @@
                       "status": "expected"
                     }
                   ],
-                  "id": "7ab117f54642fdfcd318-e01062d8e089f56afea7",
-                  "file": "admin/landingPage/mainPage/sideBar/analytics/feedback/DSL/generated.spec.js",
-                  "line": 85,
-                  "column": 9
+                  "id": "8742b0c1925dde666472-3aebf8d033a4d6237283",
+                  "file": "admin/landingPage/mainPage/sideBar/analytics/chats/DSL/generated.spec.js",
+                  "line": 79,
+                  "column": 13
                 },
                 {
                   "title": "should display CSV button and dropdown",
@@ -520,19 +520,19 @@
                       "projectName": "chromium",
                       "results": [
                         {
-                          "workerIndex": 4,
+                          "workerIndex": 1,
                           "status": "passed",
-                          "duration": 4514,
+                          "duration": 5316,
                           "errors": [],
                           "stdout": [],
                           "stderr": [],
                           "retry": 0,
-                          "startTime": "2024-11-04T10:31:15.907Z",
+                          "startTime": "2024-11-04T10:58:13.109Z",
                           "attachments": [
                             {
                               "name": "trace",
                               "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-afcd5-lay-CSV-button-and-dropdown-chromium/trace.zip"
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-b4908-lay-CSV-button-and-dropdown-chromium/trace.zip"
                             }
                           ]
                         }
@@ -540,10 +540,10 @@
                       "status": "expected"
                     }
                   ],
-                  "id": "7ab117f54642fdfcd318-c1b5cd8a035896e3d547",
-                  "file": "admin/landingPage/mainPage/sideBar/analytics/feedback/DSL/generated.spec.js",
-                  "line": 90,
-                  "column": 9
+                  "id": "8742b0c1925dde666472-919dcb17235425b815b7",
+                  "file": "admin/landingPage/mainPage/sideBar/analytics/chats/DSL/generated.spec.js",
+                  "line": 84,
+                  "column": 13
                 }
               ]
             }
@@ -554,8 +554,8 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2024-11-04T10:30:46.397Z",
-    "duration": 34114.972,
+    "startTime": "2024-11-04T10:57:43.041Z",
+    "duration": 35547.714,
     "expected": 10,
     "skipped": 0,
     "unexpected": 0,
