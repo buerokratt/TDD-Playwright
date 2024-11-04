@@ -65,6 +65,9 @@ Add { exact: true } to all locators.
    Examples:
    // Target the checkbox within a specific card container
    const onlyBuerokrattCheckbox = page.locator('.card').first().getByText(`${translation.onlyBuerokrattInvolved}`, { exact: true });
-
+   
+   // Target the "Forwarding" button specifically within a .card container
+   const forwardingButton = page.locator('.card').filter({ hasText: `${translation.forwarding}` }).getByRole('button', { name: `${translation.forwarding}`, exact: true });
+   
    // Target an h2 heading within a specific card container based on surrounding text
    const headingWithinCard = page.locator('.card').filter({ hasText: `${translation.averageChatsPerDayMonthPrevious}` }).getByRole('heading', { level: 2 });
