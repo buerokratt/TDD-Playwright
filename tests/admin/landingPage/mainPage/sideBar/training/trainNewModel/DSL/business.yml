@@ -1,5 +1,5 @@
 resource: training/train-new-model
-description: "Train new model"
+description: "Training-Module"
 
 test:
   main:

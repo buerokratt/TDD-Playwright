@@ -1,5 +1,5 @@
 resource: training/training/stories
-description: "Rules Section"
+description: "Training-Module"
 
 test:
   main:
@@ -17,7 +17,6 @@ test:
     selectedTab:
       - name: vertical-tabs__body
       - name: vertical-tabs__content-header
-        track:
           input:
             args:
               - type: text
@@ -29,7 +28,6 @@ test:
               - value: "Add"
               - style: button
 
-      - name: vertical-tabs__content
         table:
           headers:
             - args:

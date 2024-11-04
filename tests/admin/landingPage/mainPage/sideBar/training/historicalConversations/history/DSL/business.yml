@@ -1,5 +1,5 @@
 resource: training/history/history
-description: "History"
+description: "Training-Module"
 test:
   main:
   heading:

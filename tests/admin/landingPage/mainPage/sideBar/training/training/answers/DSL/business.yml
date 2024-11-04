@@ -1,5 +1,5 @@
 resource: training/training/responses
-description: "Responses"
+description: "Training-Module"
 test:
   main:
   heading:

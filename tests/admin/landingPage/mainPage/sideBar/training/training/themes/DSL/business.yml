@@ -1,5 +1,5 @@
 resource: training/training/intents
-description: "Intents Section"
+description: "Training-Module"
 
 test:
   main:
@@ -13,8 +13,6 @@ test:
       - name: vertical-tabs
 
       - name: vertical-tabs__list
-    
-      # Search Input Field
       - name: vertical-tabs__list-search
         track:
           input:
