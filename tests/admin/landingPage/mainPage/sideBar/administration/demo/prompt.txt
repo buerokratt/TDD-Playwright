@@ -46,8 +46,13 @@
 
 4. Table handling: 
    Consider only first row when checking data persistence. For example when checking edit and delete buttons in table data.
+   When checking data by cells, use getByRole('cell'). This works for headers aswell.
    For example: const editButton = container.getByRole('button', { name: `${translation.edit}` }).first();
                 const deleteButton = container.getByRole('button', { name: `${translation.delete}` }).first();
+
+5. Search handling:
+   When locating search input, use getByPlaceholder:
+      const searchInput = page.getByPlaceholder(`${translation.search}`);
 
 5. Test setup:
 Include navigation and fetching translations in a beforeEach hook to ensure the page and translations are ready before running each test.
