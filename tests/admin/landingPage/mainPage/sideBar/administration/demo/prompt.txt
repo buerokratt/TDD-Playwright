@@ -46,6 +46,7 @@
 
 4. Table handling: 
    Consider only first row when checking data persistence. For example when checking edit and delete buttons in table data.
+   When checking data by cells, use getByRole('cell')
    For example: const editButton = container.getByRole('button', { name: `${translation.edit}` }).first();
                 const deleteButton = container.getByRole('button', { name: `${translation.delete}` }).first();
 
