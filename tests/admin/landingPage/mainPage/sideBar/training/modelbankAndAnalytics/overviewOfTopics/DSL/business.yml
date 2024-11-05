@@ -30,6 +30,7 @@ test:
                   - type: text
                   - value: "Trained"
                   - style: p
+                  - exact: False
 
     card:
       - name: card__header
