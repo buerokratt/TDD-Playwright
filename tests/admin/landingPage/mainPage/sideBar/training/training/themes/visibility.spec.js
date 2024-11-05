@@ -107,8 +107,6 @@ test.describe('Visibility Tests for "Themes"/"Teemad" right vertical tab', async
             await expect(button).toBeVisible();
             await expect(button).toBeDisabled();
         }
-
-
     })
 
     test('should have in vertical tab data-table enabled add button if text area is not empty', async ({ page }) => {

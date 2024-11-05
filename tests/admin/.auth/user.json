@@ -1,0 +1,114 @@
+{
+  "cookies": [
+    {
+      "name": "__Host-ory_hydra_login_csrf_3295957845",
+      "value": "MTczMDgxMzg3OHx6M2tSdXdqTXBOTEp3TWpBSlljS21UeElaMHFRUmZ3RmVRdDRyUElZM3luMkRuTk5Bd01VS0tRNW1sQmxoZDRUZkdBZmhfR3FfMUR1MkYtQmhZMENpb3dRSGl0UzlpODdJdWQ3T3liNmJZZ0dmUUVaVThJbGNabjl6T21oaFE9PXza9evANXtZfVyp6Zqz3RZi7E0oifuc7TcOkxzAKItHJg==",
+      "domain": "tara-test.ria.ee",
+      "path": "/",
+      "expires": 1730817478.25121,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "Strict"
+    },
+    {
+      "name": "__cf_bm",
+      "value": "nY4Euk82i56zhkeVynx.EyHUpCNwjpIq98nq5eKII7A-1730813878-1.0.1.1-En11AoEjxQtoV30Acg.Ibuh7t6KN6W_SsKM7zVGhJZrNzgcm2ORyoouWKn0bq8uieiYoGcCjMdyBOib6eel_5jiiQEr_mq8S8.DHHl_1xt8",
+      "domain": ".tara-test.ria.ee",
+      "path": "/",
+      "expires": 1730815678.251321,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "__Host-LOCALE",
+      "value": "et",
+      "domain": "tara-test.ria.ee",
+      "path": "/",
+      "expires": 1762349878.446185,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "_cfuvid",
+      "value": "7LEzxNxvrFDQPn7TCOfqBMrMHkNaa7oDqZpymE0tBu8-1730813878451-0.0.1.1-604800000",
+      "domain": ".tara-test.ria.ee",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "cf_clearance",
+      "value": "5_83inpnACeT7n7e2xcP_L8rdGFgSvaAwWz7yVBkC_8-1730813878-1.2.1.1-MCwFjcfC.XmVpg1efTj27Uso1yZ6u1dUmbq6Hi4Jc0hft3C.k0Bndqfy28.7o8ZuGcdLYXqesBtHhIOG3fR3ej0iMVKNxXLFuV_qD9QHGIm6ONSsiC.2768_xo24y8zpdqNOrzzO1Ji_oFf5h6LC.PR9Fz.jNzsYLg8dMDONuASaG7QXp.lW4m.xKzl1.YJjl0ic5VgWjHIk7uBG0ffauWHt_quaSuRddw3ub9kXMg2iAbTqMF0ta4EGJn2yGSAovguo9jHkR83C6y5.KCOpOvbLPekG.dTInW3B5RFGjpZVQObQe_s7K63wrQPwCOLiWwf936jk3PGCEL7REb36t2XVFbGBMdGkfALU6M63kxOjFfFEHiyF_YlgtOoP4umws5WzG_92aUxAyP4tiOzWjA",
+      "domain": ".tara-test.ria.ee",
+      "path": "/",
+      "expires": 1762349878.904051,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "__Host-ory_hydra_consent_csrf_3295957845",
+      "value": "MTczMDgxMzg5NHxOcW1ValNaZ0NOWHo2WUpmMnppb1J1d0Vwc2Q3aGRnMUVJRzAtdUd6YkUwUEpaUDNjX1E4UjZ2MzF6alhjVG1nSV9Ia0xpaHM4Zk8tMEpuZGhCWUpYQ2NfS0hBVXNRSFZxR1hMc0w3b3pWbURVY25oUXNZQmMxakFHVGdXUFE9PXzOZAIHDxBwKnaRAopU_NC5cx7sUwR0WLhpHZCt4QiSHw==",
+      "domain": "tara-test.ria.ee",
+      "path": "/",
+      "expires": 1730817494.827185,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "Strict"
+    },
+    {
+      "name": "JSESSIONID",
+      "value": "3BF447AAD1947DF3FF3629F418225D12",
+      "domain": "tim.prod.buerokratt.ee",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "JWTTOKEN",
+      "value": "eyJhbGciOiJSUzI1NiJ9.eyJwZXJzb25hbENvZGUiOiJFRTMwMzAzMDM5OTE0Iiwic3ViIjoiRUUzMDMwMzAzOTkxNCIsImZpcnN0TmFtZSI6Ik9LIiwibGFzdE5hbWUiOiJURVNUTlVNQkVSIiwiYXV0aGVudGljYXRlZEFzIjoiRUUzMDMwMzAzOTkxNCIsImlzcyI6InByb2QuYnVlcm9rcmF0dC5lZSIsImV4cCI6MTczMDgxNTY5NSwiYXV0aE1ldGhvZCI6InNtYXJ0aWQiLCJpYXQiOjE3MzA4MTM4OTUsImp0aSI6Ijg0OTVhZGMyLThmZGEtNDNiYi05NWIyLWI2ZTFlMDQ1ZWRjMyIsImhhc2giOiJhMDIzYzI2MWQ0Njg0ZGU3YjVkMzhmNmRlYTIxZDAzODhmOWY3ZWRjYTA2YzQ5NmI5NWUzNzc4MDkzZWZmOWE0In0.ZtSVZT88NjI6mXga23BSvvelIuLaW1ESHMC_NZDYYslOFE9pWRXvYeNI6vahXmhm0kUyY_hKg9h0vWzWlqii_sLbC-4CYazuPLt34GMOSPFyyoiU_CFCZ6-_Cvl8GseXCoCK0k8X0yJofNsckaoUHxmUNLP9rl5ouKBqRVM-cQnIjJkIqOq46Ak6K9FcfcfKOr--QojRqu5stxgLJZoIXteOXshV_8_z4X_Z8SFN_anqu4ncE1tFGsVv2z3N1uYZIErQxxVhvQLW9QaKUbuYF4YRz_znrH_qMCIjdEZpxmXGhVO2f_zC4qe1IukXm8FmPXa3_1XuTFEh8H0YqHPZ-w",
+      "domain": ".buerokratt.ee",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "customJwtCookie",
+      "value": "eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiIiLCJsYXN0TmFtZSI6Ikthc3V0YWphIiwiaWRDb2RlIjoiRUUzMDMwMzAzOTkxNCIsImRpc3BsYXlOYW1lIjoiS3VzdHV0YW1pc2VrcyIsImlzcyI6InByb2QuYnVlcm9rcmF0dC5lZSIsImZ1bGxOYW1lIjoiT0sgVEVTVE5VTUJFUiIsImxvZ2luIjoiRUUzMDMwMzAzOTkxNCIsImNzYUVtYWlsIjoia3VzdHV0YW1pbmRAbWFpbC5lZSIsImF1dGhvcml0aWVzIjpbIlJPTEVfQURNSU5JU1RSQVRPUiJdLCJmaXJzdE5hbWUiOiJLdXN0dXRhIiwiZXhwIjoxNzMwODMwNjk1LCJhdXRoTWV0aG9kIjoic21hcnRpZCIsImlhdCI6MTczMDgxMzg5NSwianRpIjoiMTMwMTdiODEtYmFiYS00ZDA1LWI4ZWEtY2I4ZGJkMGEyNmRhIiwiY3NhVGl0bGUiOiJOw7V1c3RhamEifQ.TZ0WGDv-SCBlnxJUuMHXi3N0Z5tNWlIQaUpAV0poajY1HYtInJcYFZ4hTNQvO28PCoQQgMRg71DJq_kIA4j9r4KWJuJPHRfTohK1Cpk3Ze4PfWOkU23XUMQlFFKq5BgPAc1DrXmrEhA2Vq7HlxBVvEqxugKUeg1fFiFskc7Kt-jzsQJfXVbeAx8cHyxtKhSkx6G86ltjZP61j618AvCefef9VDOsXXD0h7vx1xKgvt8S4LDVj1_Bwho9Iy10N0fdxEsSIa3Ir4u2snzTfBaTnS9uNMphtfwiGPfHJSUqw67XugroU7v8rRgZFh0WmgTAhO61n07Ik7mvrASwUpBX2Q",
+      "domain": ".prod.buerokratt.ee",
+      "path": "/",
+      "expires": 1730842695.8304,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    }
+  ],
+  "origins": [
+    {
+      "origin": "https://admin.prod.buerokratt.ee",
+      "localStorage": [
+        {
+          "name": "i18nextLng",
+          "value": "en"
+        }
+      ]
+    },
+    {
+      "origin": "https://tara-test.ria.ee",
+      "localStorage": [
+        {
+          "name": "active-tab",
+          "value": "smart-id"
+        }
+      ]
+    }
+  ]
+}

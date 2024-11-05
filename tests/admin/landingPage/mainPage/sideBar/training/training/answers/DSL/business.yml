@@ -13,7 +13,7 @@ test:
       input: 
         args:
             - type: text
-            - value: "Search response..."
+            - placeholder: "Search response..."
             - style: input
       
       button:
@@ -29,6 +29,7 @@ test:
         args:
             - type: text
             - value: "Response" 
+            - sortable: true
     body:
       row:
       data:

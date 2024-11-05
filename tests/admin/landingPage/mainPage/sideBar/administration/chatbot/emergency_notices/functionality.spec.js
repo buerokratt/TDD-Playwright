@@ -26,9 +26,27 @@ test.describe('Erakorralised Teated/Emergency notices Functionality Tests', () =
   test('Fill in "Notice" text area', async ({ page }) => {
     const noticeTextarea = page.getByLabel(`${translation.notice}`, { exact: true });
     const noticeText = 'This is a test emergency notice.';
-    
+
     await noticeTextarea.fill(noticeText);
     await expect(noticeTextarea).toHaveValue(noticeText);
+  });
+
+  test('Open and verify "Display Period From" date picker', async ({ page }) => {
+    const displayPeriodFromInput = page.getByLabel(`${translation.displayPeriod}`, { exact: true });
+
+    await displayPeriodFromInput.click();
+
+    const datePicker = page.locator('.react-datepicker__month-container'); 
+    await expect(datePicker).toBeVisible();
+  });
+
+  test('Open and verify "Display Period To" date picker', async ({ page }) => {
+    const displayPeriodToInput = page.getByLabel(`${translation.to}`, { exact: true });
+    
+    await displayPeriodToInput.click();
+    
+    const datePicker = page.locator('.react-datepicker__month-container');
+    await expect(datePicker).toBeVisible();
   });
 
   test.skip('Check if "Kuvamisperiood" date inputs can be changed ### Look issues inside', async ({ page }) => {

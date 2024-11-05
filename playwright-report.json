@@ -1,7 +1,7 @@
 {
   "config": {
-    "configFile": "/home/markusm/buerokratt_testing_env/TDD-Playwright/playwright.config.js",
-    "rootDir": "/home/markusm/buerokratt_testing_env/TDD-Playwright/tests",
+    "configFile": "/home/danyilk/tdd/master/TDD-Playwright/playwright.config.js",
+    "rootDir": "/home/danyilk/tdd/master/TDD-Playwright/tests",
     "forbidOnly": false,
     "fullyParallel": true,
     "globalSetup": null,
@@ -41,13 +41,13 @@
     "quiet": false,
     "projects": [
       {
-        "outputDir": "/home/markusm/buerokratt_testing_env/TDD-Playwright/test-results",
+        "outputDir": "/home/danyilk/tdd/master/TDD-Playwright/test-results",
         "repeatEach": 1,
         "retries": 1,
         "metadata": {},
         "id": "setup",
         "name": "setup",
-        "testDir": "/home/markusm/buerokratt_testing_env/TDD-Playwright/tests",
+        "testDir": "/home/danyilk/tdd/master/TDD-Playwright/tests",
         "testIgnore": [],
         "testMatch": [
           "/.*\\.setup\\.js/"
@@ -55,13 +55,13 @@
         "timeout": 30000
       },
       {
-        "outputDir": "/home/markusm/buerokratt_testing_env/TDD-Playwright/test-results",
+        "outputDir": "/home/danyilk/tdd/master/TDD-Playwright/test-results",
         "repeatEach": 1,
         "retries": 1,
         "metadata": {},
         "id": "chromium",
         "name": "chromium",
-        "testDir": "/home/markusm/buerokratt_testing_env/TDD-Playwright/tests",
+        "testDir": "/home/danyilk/tdd/master/TDD-Playwright/tests",
         "testIgnore": [],
         "testMatch": [
           "**/*.@(spec|test).?(c|m)[jt]s?(x)"
@@ -71,7 +71,7 @@
     ],
     "shard": null,
     "updateSnapshots": "missing",
-    "version": "1.46.0",
+    "version": "1.48.2",
     "workers": 4,
     "webServer": null
   },
@@ -97,22 +97,17 @@
                 {
                   "workerIndex": 0,
                   "status": "passed",
-                  "duration": 16601,
+                  "duration": 19981,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2024-11-05T09:12:24.474Z",
+                  "startTime": "2024-11-05T13:37:56.979Z",
                   "attachments": [
-                    {
-                      "name": "video",
-                      "contentType": "video/webm",
-                      "path": "/home/markusm/buerokratt_testing_env/TDD-Playwright/test-results/admin-.auth-auth.setup.js-authenticate-setup/video.webm"
-                    },
                     {
                       "name": "trace",
                       "contentType": "application/zip",
-                      "path": "/home/markusm/buerokratt_testing_env/TDD-Playwright/test-results/admin-.auth-auth.setup.js-authenticate-setup/trace.zip"
+                      "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-.auth-auth.setup.js-authenticate-setup/trace.zip"
                     }
                   ]
                 }
@@ -128,29 +123,27 @@
       ]
     },
     {
-      "title": "admin/landingPage/mainPage/sideBar/training/historicalConversations/history/DSL/generated.spec.js",
-      "file": "admin/landingPage/mainPage/sideBar/training/historicalConversations/history/DSL/generated.spec.js",
+      "title": "admin/landingPage/mainPage/sideBar/training/training/answers/DSL/generated.spec.js",
+      "file": "admin/landingPage/mainPage/sideBar/training/training/answers/DSL/generated.spec.js",
       "column": 0,
       "line": 0,
       "specs": [],
       "suites": [
         {
-          "title": "Training-Module",
-          "file": "admin/landingPage/mainPage/sideBar/training/historicalConversations/history/DSL/generated.spec.js",
+          "title": "Training Module - Responses",
+          "file": "admin/landingPage/mainPage/sideBar/training/training/answers/DSL/generated.spec.js",
           "line": 6,
           "column": 6,
           "specs": [],
           "suites": [
-          "specs": [],
-          "suites": [
             {
-              "title": "Main Heading",
-              "file": "admin/landingPage/mainPage/sideBar/training/historicalConversations/history/DSL/generated.spec.js",
-              "line": 14,
-              "column": 10,
+              "title": "Heading and Card Section",
+              "file": "admin/landingPage/mainPage/sideBar/training/training/answers/DSL/generated.spec.js",
+              "line": 21,
+              "column": 8,
               "specs": [
                 {
-                  "title": "should display main heading",
+                  "title": "should display the main heading",
                   "ok": true,
                   "tags": [],
                   "tests": [
@@ -169,17 +162,17 @@
                         {
                           "workerIndex": 1,
                           "status": "passed",
-                          "duration": 5278,
+                          "duration": 6637,
                           "errors": [],
                           "stdout": [],
                           "stderr": [],
                           "retry": 0,
-                          "startTime": "2024-11-05T09:12:41.982Z",
+                          "startTime": "2024-11-05T13:38:18.176Z",
                           "attachments": [
                             {
                               "name": "trace",
                               "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-d4c23-should-display-main-heading-chromium/trace.zip"
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-1b1e4-ld-display-the-main-heading-chromium/trace.zip"
                             }
                           ]
                         }
@@ -187,21 +180,13 @@
                       "status": "expected"
                     }
                   ],
-                  "id": "f5a8ef5625abf62aed47-482a499b80685c1a0def",
-                  "file": "admin/landingPage/mainPage/sideBar/training/historicalConversations/history/DSL/generated.spec.js",
-                  "line": 15,
-                  "column": 13
-                }
-              ]
-            },
-            {
-              "title": "Card Body - Search and Filter Options",
-              "file": "admin/landingPage/mainPage/sideBar/training/historicalConversations/history/DSL/generated.spec.js",
-              "line": 21,
-              "column": 10,
-              "specs": [
+                  "id": "f0b091872ae2c25defdf-665e09176c76fbca035f",
+                  "file": "admin/landingPage/mainPage/sideBar/training/training/answers/DSL/generated.spec.js",
+                  "line": 22,
+                  "column": 9
+                },
                 {
-                  "title": "should display search input, date pickers, and multi-select dropdown",
+                  "title": "should display search input and add button in card body",
                   "ok": true,
                   "tags": [],
                   "tests": [
@@ -220,17 +205,17 @@
                         {
                           "workerIndex": 2,
                           "status": "passed",
-                          "duration": 6321,
+                          "duration": 7632,
                           "errors": [],
                           "stdout": [],
                           "stderr": [],
                           "retry": 0,
-                          "startTime": "2024-11-05T09:12:42.007Z",
+                          "startTime": "2024-11-05T13:38:18.211Z",
                           "attachments": [
                             {
                               "name": "trace",
                               "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-8b114-s-and-multi-select-dropdown-chromium/trace.zip"
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-43770-and-add-button-in-card-body-chromium/trace.zip"
                             }
                           ]
                         }
@@ -238,21 +223,21 @@
                       "status": "expected"
                     }
                   ],
-                  "id": "f5a8ef5625abf62aed47-9c48faca0086a45421b1",
-                  "file": "admin/landingPage/mainPage/sideBar/training/historicalConversations/history/DSL/generated.spec.js",
-                  "line": 22,
-                  "column": 13
+                  "id": "f0b091872ae2c25defdf-26589253c67c7f32fa36",
+                  "file": "admin/landingPage/mainPage/sideBar/training/training/answers/DSL/generated.spec.js",
+                  "line": 27,
+                  "column": 9
                 }
               ]
             },
             {
-              "title": "Card Body - Table Headers and Data",
-              "file": "admin/landingPage/mainPage/sideBar/training/historicalConversations/history/DSL/generated.spec.js",
-              "line": 39,
-              "column": 10,
+              "title": "Table Section",
+              "file": "admin/landingPage/mainPage/sideBar/training/training/answers/DSL/generated.spec.js",
+              "line": 36,
+              "column": 8,
               "specs": [
                 {
-                  "title": "should display table headers",
+                  "title": "should display sortable \"Response\" header",
                   "ok": true,
                   "tags": [],
                   "tests": [
@@ -271,17 +256,17 @@
                         {
                           "workerIndex": 3,
                           "status": "passed",
-                          "duration": 6413,
+                          "duration": 7115,
                           "errors": [],
                           "stdout": [],
                           "stderr": [],
                           "retry": 0,
-                          "startTime": "2024-11-05T09:12:41.992Z",
+                          "startTime": "2024-11-05T13:38:18.278Z",
                           "attachments": [
                             {
                               "name": "trace",
                               "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-18d92-hould-display-table-headers-chromium/trace.zip"
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-a9b09-ay-sortable-Response-header-chromium/trace.zip"
                             }
                           ]
                         }
@@ -289,13 +274,13 @@
                       "status": "expected"
                     }
                   ],
-                  "id": "f5a8ef5625abf62aed47-c375ece66f166e0d5618",
-                  "file": "admin/landingPage/mainPage/sideBar/training/historicalConversations/history/DSL/generated.spec.js",
-                  "line": 40,
-                  "column": 13
+                  "id": "f0b091872ae2c25defdf-5474203c9633594c1382",
+                  "file": "admin/landingPage/mainPage/sideBar/training/training/answers/DSL/generated.spec.js",
+                  "line": 37,
+                  "column": 9
                 },
                 {
-                  "title": "should display table data row and View button",
+                  "title": "should display edit and delete buttons in the first row of the table",
                   "ok": true,
                   "tags": [],
                   "tests": [
@@ -314,17 +299,17 @@
                         {
                           "workerIndex": 4,
                           "status": "passed",
-                          "duration": 5739,
+                          "duration": 6593,
                           "errors": [],
                           "stdout": [],
                           "stderr": [],
                           "retry": 0,
-                          "startTime": "2024-11-05T09:12:42.011Z",
+                          "startTime": "2024-11-05T13:38:18.298Z",
                           "attachments": [
                             {
                               "name": "trace",
                               "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-fb299-le-data-row-and-View-button-chromium/trace.zip"
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-b81e6--the-first-row-of-the-table-chromium/trace.zip"
                             }
                           ]
                         }
@@ -332,112 +317,10 @@
                       "status": "expected"
                     }
                   ],
-                  "id": "f5a8ef5625abf62aed47-f50025c1034bc174b25b",
-                  "file": "admin/landingPage/mainPage/sideBar/training/historicalConversations/history/DSL/generated.spec.js",
-                  "line": 60,
-                  "column": 13
-                }
-              ]
-            },
-            {
-              "title": "Drawer Component",
-              "file": "admin/landingPage/mainPage/sideBar/training/historicalConversations/history/DSL/generated.spec.js",
-              "line": 69,
-              "column": 10,
-              "specs": [
-                {
-                  "title": "should open drawer and display header, title, body, and messages",
-                  "ok": true,
-                  "tags": [],
-                  "tests": [
-                    {
-                      "timeout": 30000,
-                      "annotations": [
-                        {
-                          "type": "repository",
-                          "description": "Training-Module"
-                        }
-                      ],
-                      "expectedStatus": "passed",
-                      "projectId": "chromium",
-                      "projectName": "chromium",
-                      "results": [
-                        {
-                          "workerIndex": 1,
-                          "status": "passed",
-                          "duration": 4957,
-                          "errors": [],
-                          "stdout": [],
-                          "stderr": [],
-                          "retry": 0,
-                          "startTime": "2024-11-05T09:12:47.648Z",
-                          "attachments": [
-                            {
-                              "name": "trace",
-                              "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-f4df2-der-title-body-and-messages-chromium/trace.zip"
-                            }
-                          ]
-                        }
-                      ],
-                      "status": "expected"
-                    }
-                  ],
-                  "id": "f5a8ef5625abf62aed47-e21ff33dae3ab50224c8",
-                  "file": "admin/landingPage/mainPage/sideBar/training/historicalConversations/history/DSL/generated.spec.js",
-                  "line": 70,
-                  "column": 13
-                }
-              ]
-            },
-            {
-              "title": "Pagination Controls",
-              "file": "admin/landingPage/mainPage/sideBar/training/historicalConversations/history/DSL/generated.spec.js",
-              "line": 86,
-              "column": 10,
-              "specs": [
-                {
-                  "title": "should display pagination label and dropdown with options",
-                  "ok": true,
-                  "tags": [],
-                  "tests": [
-                    {
-                      "timeout": 30000,
-                      "annotations": [
-                        {
-                          "type": "repository",
-                          "description": "Training-Module"
-                        }
-                      ],
-                      "expectedStatus": "passed",
-                      "projectId": "chromium",
-                      "projectName": "chromium",
-                      "results": [
-                        {
-                          "workerIndex": 4,
-                          "status": "passed",
-                          "duration": 4826,
-                          "errors": [],
-                          "stdout": [],
-                          "stderr": [],
-                          "retry": 0,
-                          "startTime": "2024-11-05T09:12:48.254Z",
-                          "attachments": [
-                            {
-                              "name": "trace",
-                              "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-de52c-l-and-dropdown-with-options-chromium/trace.zip"
-                            }
-                          ]
-                        }
-                      ],
-                      "status": "expected"
-                    }
-                  ],
-                  "id": "f5a8ef5625abf62aed47-7fc960805078de711f03",
-                  "file": "admin/landingPage/mainPage/sideBar/training/historicalConversations/history/DSL/generated.spec.js",
-                  "line": 87,
-                  "column": 13
+                  "id": "f0b091872ae2c25defdf-25c7361fe4854af5ce1c",
+                  "file": "admin/landingPage/mainPage/sideBar/training/training/answers/DSL/generated.spec.js",
+                  "line": 42,
+                  "column": 9
                 }
               ]
             }
@@ -448,11 +331,11 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2024-11-05T09:12:23.926Z",
-    "duration": 29272.946000000004,
-    "expected": 7,
+    "startTime": "2024-11-05T13:37:56.327Z",
+    "duration": 30103.563,
+    "expected": 5,
     "skipped": 0,
-    "unexpected": 1,
+    "unexpected": 0,
     "flaky": 0
   }
 }
