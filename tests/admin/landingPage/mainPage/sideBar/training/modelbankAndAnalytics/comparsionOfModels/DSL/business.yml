@@ -46,7 +46,7 @@ test:
           args:
             - type: text
             - value: "All models"
-            - style: h2
+            - style: h3
 
       - name: card__body
         table:

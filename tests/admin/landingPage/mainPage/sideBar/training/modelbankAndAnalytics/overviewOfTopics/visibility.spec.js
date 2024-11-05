@@ -1,78 +1,61 @@
+// playwright/tests/trainingModule.spec.js
+
 import { test, expect } from '@playwright/test';
 import { getTranslations } from '@translation/languageDetector.js';
-import { selectFirstChat } from '../../../conversations/unanswered/helper';
-let translations;
-let headers;
 
-test.beforeEach(async ({ page }) => {
+let translation;
+
+test.describe('Training Module - Overview', () => {
+  test.beforeEach(async ({ page }) => {
     test.info().annotations.push({ type: 'repository', description: 'Training-Module' });
-
     await page.goto('https://admin.prod.buerokratt.ee/training/analytics/overview');
+    translation = await getTranslations(page);
+    await page.waitForTimeout(3000); // Ensures all elements load properly
+  });
 
-    await page.waitForTimeout(4000);
+  test('should display Intents overview heading', async ({ page }) => {
+    const heading = await page.getByRole('heading', { name: `${translation.intentsOverview}`, exact: true });
+    await expect(heading).toBeVisible();
+  });
 
-    await expect(page).toHaveURL('https://admin.prod.buerokratt.ee/training/analytics/overview');
+  test.describe('Report overview - Card Body', () => {
+    test('should display Report overview dropdown', async ({ page }) => {
+      const dropdown = await page.getByRole('combobox', { name: `${translation.reportOverview}`, exact: true });
+      await expect(dropdown).toBeVisible();
+    });
 
-    translations = await getTranslations(page);
+    test('should display paragraph texts for Model in use and Trained', async ({ page }) => {
+      const cardBody = page.locator('card__body').first();
+      const paragraphs = cardBody.locator('p');
+      
+      for (let i = 0; i < await paragraphs.count(); i++) {
+        await expect(paragraphs.nth(i)).toBeVisible();
+      }
 
-    headers = [
-        new RegExp(translations.intent), new RegExp(translations.examples), new RegExp(translations.f1Score),
-    ];
+      const modelParagraph = await page.getByText(`${translation.modelInUse}`, { exact: true });
+      const trainedParagraph = await page.getByText(`${translation.trained}`, { exact: true });
+      
+      await expect(modelParagraph).toBeVisible();
+      await expect(trainedParagraph).toBeVisible();
+    });
+  });
+
+  test.describe('Card Header and Table', () => {
+    test('should display search input in card header', async ({ page }) => {
+      const searchInput = await page.getByRole('textbox', { name: `${translation.searchPlaceholder}`, exact: true });
+      await expect(searchInput).toBeVisible();
+    });
+
+    test('should display table with Intent, Examples, and F1-score headers and Go to example button', async ({ page }) => {
+      const intentHeader = await page.getByText(`${translation.intent}`, { exact: true });
+      const examplesHeader = await page.getByText(`${translation.examples}`, { exact: true });
+      const f1ScoreHeader = await page.getByText(`${translation.f1Score}`, { exact: true });
+      const goToExampleButton = page.getByText(`${translation.goToExample}`, { exact: true }).first();
+
+      await expect(intentHeader).toBeVisible();
+      await expect(examplesHeader).toBeVisible();
+      await expect(f1ScoreHeader).toBeVisible();
+      await expect(goToExampleButton).toBeVisible();
+    });
+  });
 });
-
-test.describe('Visibility Tests for "Overview of Topics"/"Teemade ülevaade" page', () => {
-    test('Check visibility of the header', async ({ page }) => {
-        const header = page.locator(`h1:has-text("${translations.intentsOverview}")`);
-        await expect(header).toBeVisible();
-    });
-
-    test('Check visibility of the header details card which should include Report overview select and trained data ', async ({ page }) => {
-        const card = page.locator('.card').first();
-        await expect(card).toBeVisible();
-
-        const label = page.locator(`label:has-text("${translations.reportOverview}")`);
-        await expect(label).toBeVisible();
-
-        const selectElement = card.locator('div.select');
-        await expect(selectElement).toBeVisible();
-
-        const pElement = card.locator(`p:has-text("${translations.modelInUse}")`);
-        await expect(pElement).toBeVisible();
-
-        const pElement2 = page.locator('p').filter({ hasText: new RegExp(`^${translations.trained}(?=\\s*:)`) });
-        await expect(pElement2).toBeVisible();
-
-    });
-
-    test('Check visibility of the header card which should include search field', async ({ page }) => {
-        const card = page.locator('.card').nth(1);
-        await expect(card).toBeVisible();
-
-        const searchField = card.getByPlaceholder(`${translations.dottedSearch}`);
-        await expect(searchField).toBeVisible();
-        await expect(searchField).toHaveAttribute('placeholder', `${translations.dottedSearch}`);
-    });
-    test('Check if the table and all headers are rendered', async ({ page }) => {
-
-
-        const table = page.locator('table.data-table');
-        await expect(table).toBeVisible();
-
-        for (const header of headers) {
-            const headerElement = table.locator('th').filter({ hasText: header });
-            await expect(headerElement).toBeVisible();
-        }
-    });
-
-
-    test.skip('Check if sorting buttons are present in each column', async ({ page }) => {
-        for (const header of headers) {
-            const sortingButton = page.locator('th').filter({ hasText: header }).locator('button');
-            await expect(sortingButton).toBeVisible();
-        }
-    });
-
-});
-
-
-

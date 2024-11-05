@@ -1,5 +1,5 @@
 resource: training/analytics/overview
-description: "Intents Overview"
+description: "Training-Module"
 
 test:
   main:

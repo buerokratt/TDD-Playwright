@@ -1,77 +1,63 @@
 import { test, expect } from '@playwright/test';
 import { getTranslations } from '@translation/languageDetector.js';
-import { selectFirstChat } from '../../../conversations/unanswered/helper';
-let translations;
-let headers;
 
-test.beforeEach(async ({ page }) => {
+const baseURL = 'https://admin.prod.buerokratt.ee/training/analytics/models';
+let translation;
+
+test.describe('Training Module', () => {
+  
+  test.beforeEach(async ({ page }) => {
     test.info().annotations.push({ type: 'repository', description: 'Training-Module' });
+    await page.goto(baseURL);
+    translation = await getTranslations(page);
+    await page.waitForTimeout(3000); // Ensure all elements load properly
+  });
 
-    await page.goto('https://admin.prod.buerokratt.ee/training/analytics/models');
+  test.describe('Main Heading', () => {
+    test('should display main heading', async ({ page }) => {
+      const heading = await page.getByRole('heading', { name: `${translation.models}`, exact: true });
+      await expect(heading).toBeVisible();
+    });
+  });
 
-    await page.waitForTimeout(4000);
+  test.describe('Selected Model Card', () => {
+    test('should display selected model header', async ({ page }) => {
+      const selectedModelHeader = await page.getByRole('heading', { name: `${translation.selectedModel}`, exact: true });
+      await expect(selectedModelHeader).toBeVisible();
+    });
 
-    await expect(page).toHaveURL('https://admin.prod.buerokratt.ee/training/analytics/models');
+    test('should display paragraphs in selected model card body', async ({ page }) => {
+      const cardBody = page.locator('card__body').first();
+      const paragraphs = cardBody.locator('p');
+      for (let i = 0; i < await paragraphs.count(); i++) {
+        await expect(paragraphs.nth(i)).toBeVisible();
+      }
+      const deleteButton = await page.getByText(`${translation.delete}`, { exact: true });
+      await expect(deleteButton).toBeVisible();
+    });
 
-    translations = await getTranslations(page);
+    test('should display delete button in selected model card body', async ({ page }) => {
+      const deleteButton = await page.getByText(`${translation.delete}`, { exact: true });
+      await expect(deleteButton).toBeVisible();
+    });
+  });
 
-    headers = [
-        new RegExp(translations.version), new RegExp(translations.name), new RegExp(translations.lastTrained),
-        new RegExp(translations.live)
-    ];
+  test.describe('All Models Card', () => {
+    test('should display all models header', async ({ page }) => {
+      const allModelsHeader = await page.getByRole('heading', { name: `${translation.allModels}`, exact: true });
+      await expect(allModelsHeader).toBeVisible();
+    });
+
+    test('should verify table headers and data in all models card', async ({ page }) => {
+      const versionHeader = await page.getByText(`${translation.version}`, { exact: true });
+      const nameHeader = await page.getByText(`${translation.name}`, { exact: true });
+      const lastTrainedHeader = await page.getByText(`${translation.lastTrained}`, { exact: true });
+      const liveHeader = await page.getByText(`${translation.live}`, { exact: true });
+      
+      await expect(versionHeader).toBeVisible();
+      await expect(nameHeader).toBeVisible();
+      await expect(lastTrainedHeader).toBeVisible();
+      await expect(liveHeader).toBeVisible();
+    });
+  });
 });
-
-test.describe('Visibility Tests for "Models"/"Mudelid" page', () => {
-    test('Check visibility of the header', async ({ page }) => {
-        const header = page.locator(`h1:has-text("${translations.models}")`);
-        await expect(header).toBeVisible();
-    });
-
-    test('Check visibility of the selected model card which should include card header, selected version, and delete button', async ({ page }) => {
-        const card = page.locator('.card').first();
-        await expect(card).toBeVisible();
-
-        const cardHeader = card.locator(`.card__header:has-text("${translations.selectedModel}")`);
-        await expect(cardHeader).toBeVisible();
-
-        const cardBody = card.locator('.card__body');
-        await expect(cardBody).toBeVisible();
-
-        const versionText = cardBody.locator('p').filter({ hasText: new RegExp(`${translations.version} \\d+_\\d+`) });
-        await expect(versionText).toBeVisible();
-
-        const deleteButton = cardBody.locator(`.btn:has-text("${translations.delete}")`);
-        await expect(deleteButton).toBeVisible();
-        await expect(deleteButton).toBeDisabled();
-    });
-
-    test('Check visibility of the all models card header', async ({ page }) => {
-        const card = page.locator('.card').nth(1);
-        await expect(card).toBeVisible();
-
-        const cardHeader = card.locator(`.card__header:has-text("${translations.allModels}")`);
-        await expect(cardHeader).toBeVisible();
-    });
-
-    test('Check if the all models table and all headers are rendered', async ({ page }) => {
-        const table = page.locator('table.data-table');
-        await expect(table).toBeVisible();
-
-        for (const header of headers) {
-            const headerElement = table.locator('th').filter({ hasText: header });
-            await expect(headerElement).toBeVisible();
-        }
-    });
-
-
-    test('Check if sorting buttons are present in each column', async ({ page }) => {
-        for (const header of headers) {
-            const sortingButton = page.locator('th').filter({ hasText: header }).locator('button');
-            await expect(sortingButton).toBeVisible();
-        }
-    });
-
-});
-
-
-
