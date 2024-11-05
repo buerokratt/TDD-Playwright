@@ -97,12 +97,12 @@
                 {
                   "workerIndex": 0,
                   "status": "passed",
-                  "duration": 19981,
+                  "duration": 19472,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2024-11-05T13:37:56.979Z",
+                  "startTime": "2024-11-05T14:41:47.222Z",
                   "attachments": [
                     {
                       "name": "trace",
@@ -123,206 +123,346 @@
       ]
     },
     {
-      "title": "admin/landingPage/mainPage/sideBar/training/training/answers/DSL/generated.spec.js",
-      "file": "admin/landingPage/mainPage/sideBar/training/training/answers/DSL/generated.spec.js",
+      "title": "admin/landingPage/mainPage/sideBar/training/training/themes/DSL/generated.spec.js",
+      "file": "admin/landingPage/mainPage/sideBar/training/training/themes/DSL/generated.spec.js",
       "column": 0,
       "line": 0,
       "specs": [],
       "suites": [
         {
-          "title": "Training Module - Responses",
-          "file": "admin/landingPage/mainPage/sideBar/training/training/answers/DSL/generated.spec.js",
-          "line": 6,
+          "title": "Training-Module",
+          "file": "admin/landingPage/mainPage/sideBar/training/training/themes/DSL/generated.spec.js",
+          "line": 7,
           "column": 6,
-          "specs": [],
-          "suites": [
+          "specs": [
             {
-              "title": "Heading and Card Section",
-              "file": "admin/landingPage/mainPage/sideBar/training/training/answers/DSL/generated.spec.js",
-              "line": 21,
-              "column": 8,
-              "specs": [
+              "title": "Verify Main Heading",
+              "ok": true,
+              "tags": [],
+              "tests": [
                 {
-                  "title": "should display the main heading",
-                  "ok": true,
-                  "tags": [],
-                  "tests": [
+                  "timeout": 30000,
+                  "annotations": [
                     {
-                      "timeout": 30000,
-                      "annotations": [
-                        {
-                          "type": "repository",
-                          "description": "Training-Module"
-                        }
-                      ],
-                      "expectedStatus": "passed",
-                      "projectId": "chromium",
-                      "projectName": "chromium",
-                      "results": [
-                        {
-                          "workerIndex": 1,
-                          "status": "passed",
-                          "duration": 6637,
-                          "errors": [],
-                          "stdout": [],
-                          "stderr": [],
-                          "retry": 0,
-                          "startTime": "2024-11-05T13:38:18.176Z",
-                          "attachments": [
-                            {
-                              "name": "trace",
-                              "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-1b1e4-ld-display-the-main-heading-chromium/trace.zip"
-                            }
-                          ]
-                        }
-                      ],
-                      "status": "expected"
+                      "type": "repository",
+                      "description": "Training-Module"
+                    },
+                    {
+                      "type": "skip",
+                      "description": "No listing elements found"
                     }
                   ],
-                  "id": "f0b091872ae2c25defdf-665e09176c76fbca035f",
-                  "file": "admin/landingPage/mainPage/sideBar/training/training/answers/DSL/generated.spec.js",
-                  "line": 22,
-                  "column": 9
-                },
-                {
-                  "title": "should display search input and add button in card body",
-                  "ok": true,
-                  "tags": [],
-                  "tests": [
+                  "expectedStatus": "skipped",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
                     {
-                      "timeout": 30000,
-                      "annotations": [
+                      "workerIndex": 1,
+                      "status": "skipped",
+                      "duration": 2700,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-11-05T14:42:07.878Z",
+                      "attachments": [
                         {
-                          "type": "repository",
-                          "description": "Training-Module"
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-77505--Module-Verify-Main-Heading-chromium/trace.zip"
                         }
-                      ],
-                      "expectedStatus": "passed",
-                      "projectId": "chromium",
-                      "projectName": "chromium",
-                      "results": [
-                        {
-                          "workerIndex": 2,
-                          "status": "passed",
-                          "duration": 7632,
-                          "errors": [],
-                          "stdout": [],
-                          "stderr": [],
-                          "retry": 0,
-                          "startTime": "2024-11-05T13:38:18.211Z",
-                          "attachments": [
-                            {
-                              "name": "trace",
-                              "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-43770-and-add-button-in-card-body-chromium/trace.zip"
-                            }
-                          ]
-                        }
-                      ],
-                      "status": "expected"
+                      ]
                     }
                   ],
-                  "id": "f0b091872ae2c25defdf-26589253c67c7f32fa36",
-                  "file": "admin/landingPage/mainPage/sideBar/training/training/answers/DSL/generated.spec.js",
-                  "line": 27,
-                  "column": 9
+                  "status": "skipped"
                 }
-              ]
+              ],
+              "id": "f60cba0e46bfcd96e80e-6a01f6472ddef1126834",
+              "file": "admin/landingPage/mainPage/sideBar/training/training/themes/DSL/generated.spec.js",
+              "line": 26,
+              "column": 7
             },
             {
-              "title": "Table Section",
-              "file": "admin/landingPage/mainPage/sideBar/training/training/answers/DSL/generated.spec.js",
-              "line": 36,
-              "column": 8,
-              "specs": [
+              "title": "Check Search Field and Add Button in Vertical Tabs",
+              "ok": true,
+              "tags": [],
+              "tests": [
                 {
-                  "title": "should display sortable \"Response\" header",
-                  "ok": true,
-                  "tags": [],
-                  "tests": [
+                  "timeout": 30000,
+                  "annotations": [
                     {
-                      "timeout": 30000,
-                      "annotations": [
-                        {
-                          "type": "repository",
-                          "description": "Training-Module"
-                        }
-                      ],
-                      "expectedStatus": "passed",
-                      "projectId": "chromium",
-                      "projectName": "chromium",
-                      "results": [
-                        {
-                          "workerIndex": 3,
-                          "status": "passed",
-                          "duration": 7115,
-                          "errors": [],
-                          "stdout": [],
-                          "stderr": [],
-                          "retry": 0,
-                          "startTime": "2024-11-05T13:38:18.278Z",
-                          "attachments": [
-                            {
-                              "name": "trace",
-                              "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-a9b09-ay-sortable-Response-header-chromium/trace.zip"
-                            }
-                          ]
-                        }
-                      ],
-                      "status": "expected"
+                      "type": "repository",
+                      "description": "Training-Module"
+                    },
+                    {
+                      "type": "skip",
+                      "description": "No listing elements found"
                     }
                   ],
-                  "id": "f0b091872ae2c25defdf-5474203c9633594c1382",
-                  "file": "admin/landingPage/mainPage/sideBar/training/training/answers/DSL/generated.spec.js",
-                  "line": 37,
-                  "column": 9
-                },
-                {
-                  "title": "should display edit and delete buttons in the first row of the table",
-                  "ok": true,
-                  "tags": [],
-                  "tests": [
+                  "expectedStatus": "skipped",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
                     {
-                      "timeout": 30000,
-                      "annotations": [
+                      "workerIndex": 2,
+                      "status": "skipped",
+                      "duration": 2780,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-11-05T14:42:07.893Z",
+                      "attachments": [
                         {
-                          "type": "repository",
-                          "description": "Training-Module"
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-d66ba-Add-Button-in-Vertical-Tabs-chromium/trace.zip"
                         }
-                      ],
-                      "expectedStatus": "passed",
-                      "projectId": "chromium",
-                      "projectName": "chromium",
-                      "results": [
-                        {
-                          "workerIndex": 4,
-                          "status": "passed",
-                          "duration": 6593,
-                          "errors": [],
-                          "stdout": [],
-                          "stderr": [],
-                          "retry": 0,
-                          "startTime": "2024-11-05T13:38:18.298Z",
-                          "attachments": [
-                            {
-                              "name": "trace",
-                              "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-b81e6--the-first-row-of-the-table-chromium/trace.zip"
-                            }
-                          ]
-                        }
-                      ],
-                      "status": "expected"
+                      ]
                     }
                   ],
-                  "id": "f0b091872ae2c25defdf-25c7361fe4854af5ce1c",
-                  "file": "admin/landingPage/mainPage/sideBar/training/training/answers/DSL/generated.spec.js",
-                  "line": 42,
-                  "column": 9
+                  "status": "skipped"
                 }
-              ]
+              ],
+              "id": "f60cba0e46bfcd96e80e-d34e6a09d32215f51665",
+              "file": "admin/landingPage/mainPage/sideBar/training/training/themes/DSL/generated.spec.js",
+              "line": 31,
+              "column": 7
+            },
+            {
+              "title": "Verify Edit and Header in Content Header",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "repository",
+                      "description": "Training-Module"
+                    },
+                    {
+                      "type": "skip",
+                      "description": "No listing elements found"
+                    }
+                  ],
+                  "expectedStatus": "skipped",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "status": "skipped",
+                      "duration": 2624,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-11-05T14:42:07.828Z",
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-c80ad-nd-Header-in-Content-Header-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "f60cba0e46bfcd96e80e-d5a100ac136b0283fd02",
+              "file": "admin/landingPage/mainPage/sideBar/training/training/themes/DSL/generated.spec.js",
+              "line": 40,
+              "column": 7
+            },
+            {
+              "title": "Verify Buttons in Selected Tab",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "repository",
+                      "description": "Training-Module"
+                    },
+                    {
+                      "type": "skip",
+                      "description": "No listing elements found"
+                    }
+                  ],
+                  "expectedStatus": "skipped",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "status": "skipped",
+                      "duration": 2448,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-11-05T14:42:07.857Z",
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-ba42d-ify-Buttons-in-Selected-Tab-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "f60cba0e46bfcd96e80e-0d2be04594271a415c2e",
+              "file": "admin/landingPage/mainPage/sideBar/training/training/themes/DSL/generated.spec.js",
+              "line": 48,
+              "column": 7
+            },
+            {
+              "title": "Check Table Headers and Actions in First Row",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "repository",
+                      "description": "Training-Module"
+                    },
+                    {
+                      "type": "skip",
+                      "description": "No listing elements found"
+                    }
+                  ],
+                  "expectedStatus": "skipped",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "status": "skipped",
+                      "duration": 1826,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-11-05T14:42:10.847Z",
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-f8dec-rs-and-Actions-in-First-Row-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "f60cba0e46bfcd96e80e-43419b7aa8c0b3cbb43d",
+              "file": "admin/landingPage/mainPage/sideBar/training/training/themes/DSL/generated.spec.js",
+              "line": 60,
+              "column": 7
+            },
+            {
+              "title": "Check Add New Textarea and Button in Table",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "repository",
+                      "description": "Training-Module"
+                    },
+                    {
+                      "type": "skip",
+                      "description": "No listing elements found"
+                    }
+                  ],
+                  "expectedStatus": "skipped",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "status": "skipped",
+                      "duration": 1937,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-11-05T14:42:10.999Z",
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-463b0-extarea-and-Button-in-Table-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "f60cba0e46bfcd96e80e-aa27e9df987185bbe19c",
+              "file": "admin/landingPage/mainPage/sideBar/training/training/themes/DSL/generated.spec.js",
+              "line": 75,
+              "column": 7
+            },
+            {
+              "title": "Verify Sorting Buttons for Headers in Table",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "repository",
+                      "description": "Training-Module"
+                    },
+                    {
+                      "type": "skip",
+                      "description": "No listing elements found"
+                    }
+                  ],
+                  "expectedStatus": "skipped",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "status": "skipped",
+                      "duration": 1814,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-11-05T14:42:11.269Z",
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-f7a65-uttons-for-Headers-in-Table-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "f60cba0e46bfcd96e80e-8b693fa12e418d4f2888",
+              "file": "admin/landingPage/mainPage/sideBar/training/training/themes/DSL/generated.spec.js",
+              "line": 83,
+              "column": 7
             }
           ]
         }
@@ -331,10 +471,10 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2024-11-05T13:37:56.327Z",
-    "duration": 30103.563,
-    "expected": 5,
-    "skipped": 0,
+    "startTime": "2024-11-05T14:41:46.644Z",
+    "duration": 26592.113,
+    "expected": 1,
+    "skipped": 7,
     "unexpected": 0,
     "flaky": 0
   }

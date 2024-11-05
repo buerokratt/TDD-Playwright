@@ -1,4 +1,4 @@
-import {getTranslations} from '../../../../../../translations/languageDetector'
+import { getTranslations } from '@translation/languageDetector.js';
 
 // Function to open dialog
 export async function openDialog(page, buttonText) {
@@ -16,6 +16,17 @@ export async function selectFirstChat(page) {
     const buttonCount = await buttons.count();
     if (buttonCount === 0) {
         //console.log('No unanswered chats available');
+        return false;
+    }
+    await page.waitForTimeout(2000);
+    await buttons.first().click();
+    return true;
+}
+
+export async function selectFirstItem(page) {
+    const buttons = await page.locator('.vertical-tabs__trigger');
+    const buttonCount = await buttons.count();
+    if (buttonCount === 0) {
         return false;
     }
     await page.waitForTimeout(2000);

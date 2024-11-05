@@ -3,7 +3,7 @@
       nth-instance: Indicates the exact matching instance of a repeated element. If present, apply .nth() in the Playwright locator with the provided index.
 2. Text-based locators: 
   All locators for text-based elements (labels, buttons, headers) must use translation keys. Translations are fetched using the getTranslations function and should be integrated into the locators as `${translation.key}`. key's first letter is lowercase. 
-  
+  Use page.getByPlaceholder() for elements with placeholders.
   Use page.getByText() for labels, buttons, checkboxes or any other text-based elements.
   Use page.getByLabel() for elements that are associated with a label.
   Use page.getByRole() for headings.
@@ -84,3 +84,13 @@ Add { exact: true } to all locators.
    
    // Target an h2 heading within a specific card container based on surrounding text
    const headingWithinCard = page.locator('.card').filter({ hasText: `${translation.averageChatsPerDayMonthPrevious}` }).getByRole('heading', { level: 2 });
+
+
+9. Conditional Selection for Tabs:
+   If vertical-tabs__list is specified in the DSL, add a conditional selection step in beforeEach using:
+   hasElements = await selectFirstChat(page);
+   test.skip(!hasElements, 'No listing elements found');
+
+   And import this: 
+   import { selectFirstChat } from '../../../conversations/unanswered/helper';
+   Ensure that content only visible after selecting an item (e.g., right vertical tab) is included within this conditional structure.

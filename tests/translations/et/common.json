@@ -226,5 +226,6 @@
     "view": "Vaata",
     "firstAndLastName2": "Ees- ja perekonnanimi",
     "csv": "CSV",
-    "openSearchDashboardOSD": "OpenSearch Dashboard (OSD)"
+    "openSearchDashboardOSD": "OpenSearch Dashboard (OSD)",
+    "searchForIntent": "Otsi teemat..."
 }
