@@ -1,7 +1,7 @@
 {
   "config": {
-    "configFile": "/home/danyilk/tdd/master/TDD-Playwright/playwright.config.js",
-    "rootDir": "/home/danyilk/tdd/master/TDD-Playwright/tests",
+    "configFile": "/home/markusm/buerokratt_testing_env/TDD-Playwright/playwright.config.js",
+    "rootDir": "/home/markusm/buerokratt_testing_env/TDD-Playwright/tests",
     "forbidOnly": false,
     "fullyParallel": true,
     "globalSetup": null,
@@ -11,7 +11,7 @@
     "grepInvert": null,
     "maxFailures": 0,
     "metadata": {
-      "actualWorkers": 1
+      "actualWorkers": 3
     },
     "preserveOutput": "always",
     "reporter": [
@@ -41,13 +41,13 @@
     "quiet": false,
     "projects": [
       {
-        "outputDir": "/home/danyilk/tdd/master/TDD-Playwright/test-results",
+        "outputDir": "/home/markusm/buerokratt_testing_env/TDD-Playwright/test-results",
         "repeatEach": 1,
         "retries": 1,
         "metadata": {},
         "id": "setup",
         "name": "setup",
-        "testDir": "/home/danyilk/tdd/master/TDD-Playwright/tests",
+        "testDir": "/home/markusm/buerokratt_testing_env/TDD-Playwright/tests",
         "testIgnore": [],
         "testMatch": [
           "/.*\\.setup\\.js/"
@@ -55,13 +55,13 @@
         "timeout": 30000
       },
       {
-        "outputDir": "/home/danyilk/tdd/master/TDD-Playwright/test-results",
+        "outputDir": "/home/markusm/buerokratt_testing_env/TDD-Playwright/test-results",
         "repeatEach": 1,
         "retries": 1,
         "metadata": {},
         "id": "chromium",
         "name": "chromium",
-        "testDir": "/home/danyilk/tdd/master/TDD-Playwright/tests",
+        "testDir": "/home/markusm/buerokratt_testing_env/TDD-Playwright/tests",
         "testIgnore": [],
         "testMatch": [
           "**/*.@(spec|test).?(c|m)[jt]s?(x)"
@@ -97,17 +97,22 @@
                 {
                   "workerIndex": 0,
                   "status": "passed",
-                  "duration": 21539,
+                  "duration": 16487,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2024-11-04T18:11:30.013Z",
+                  "startTime": "2024-10-28T13:20:48.798Z",
                   "attachments": [
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "/home/markusm/buerokratt_testing_env/TDD-Playwright/test-results/admin-.auth-auth.setup.js-authenticate-setup/video.webm"
+                    },
                     {
                       "name": "trace",
                       "contentType": "application/zip",
-                      "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-.auth-auth.setup.js-authenticate-setup/trace.zip"
+                      "path": "/home/markusm/buerokratt_testing_env/TDD-Playwright/test-results/admin-.auth-auth.setup.js-authenticate-setup/trace.zip"
                     }
                   ]
                 }
@@ -123,55 +128,251 @@
       ]
     },
     {
-      "title": "admin/landingPage/mainPage/sideBar/administration/chatbot/appearance_and_behavior/functionality.spec.js",
-      "file": "admin/landingPage/mainPage/sideBar/administration/chatbot/appearance_and_behavior/functionality.spec.js",
+      "title": "admin/landingPage/mainPage/sideBar/administration/demo/sessionLength/visibility.spec.js",
+      "file": "admin/landingPage/mainPage/sideBar/administration/demo/sessionLength/visibility.spec.js",
       "column": 0,
       "line": 0,
       "specs": [],
       "suites": [
         {
-          "title": "Functionality Tests for \"Välimus ja käitumine\"/\"Appearance and Behaviour\" Page",
-          "file": "admin/landingPage/mainPage/sideBar/administration/chatbot/appearance_and_behavior/functionality.spec.js",
-          "line": 4,
+          "title": "Session Length Page",
+          "file": "admin/landingPage/mainPage/sideBar/administration/demo/sessionLength/visibility.spec.js",
+          "line": 8,
           "column": 6,
-          "specs": [
+          "specs": [],
+          "suites": [
             {
-              "title": "Check functionality of all fields and \"Eelvaade\" button",
-              "ok": true,
-              "tags": [],
-              "tests": [
+              "title": "Heading",
+              "file": "admin/landingPage/mainPage/sideBar/administration/demo/sessionLength/visibility.spec.js",
+              "line": 16,
+              "column": 8,
+              "specs": [
                 {
-                  "timeout": 30000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "chromium",
-                  "projectName": "chromium",
-                  "results": [
+                  "title": "should display correct heading",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
                     {
-                      "workerIndex": 1,
-                      "status": "passed",
-                      "duration": 11839,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2024-11-04T18:11:52.380Z",
-                      "attachments": [
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
                         {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-0eb7d--fields-and-Eelvaade-button-chromium/trace.zip"
+                          "workerIndex": 1,
+                          "status": "passed",
+                          "duration": 5098,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-10-28T13:21:06.278Z",
+                          "attachments": [
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "/home/markusm/buerokratt_testing_env/TDD-Playwright/test-results/admin-landingPage-mainPage-296fa-uld-display-correct-heading-chromium/video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/markusm/buerokratt_testing_env/TDD-Playwright/test-results/admin-landingPage-mainPage-296fa-uld-display-correct-heading-chromium/trace.zip"
+                            }
+                          ]
                         }
-                      ]
+                      ],
+                      "status": "expected"
                     }
                   ],
-                  "status": "expected"
+                  "id": "d40a78b4f2ab41db5f0c-5a6d9f8db6e4ef493ef7",
+                  "file": "admin/landingPage/mainPage/sideBar/administration/demo/sessionLength/visibility.spec.js",
+                  "line": 17,
+                  "column": 9
                 }
-              ],
-              "id": "d892447a55004d62c9b8-c12729e0f83ae2b46ae7",
-              "file": "admin/landingPage/mainPage/sideBar/administration/chatbot/appearance_and_behavior/functionality.spec.js",
-              "line": 62,
-              "column": 10
+              ]
+            },
+            {
+              "title": "Card Body",
+              "file": "admin/landingPage/mainPage/sideBar/administration/demo/sessionLength/visibility.spec.js",
+              "line": 23,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "should display the \"Session Length\" input field",
+                  "ok": false,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 2,
+                          "status": "failed",
+                          "duration": 10060,
+                          "error": {
+                            "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: getByLabel('.input__wrapper Session length\"')\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByLabel('.input__wrapper Session length\"')\u001b[22m\n",
+                            "stack": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: getByLabel('.input__wrapper Session length\"')\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByLabel('.input__wrapper Session length\"')\u001b[22m\n\n    at /home/markusm/buerokratt_testing_env/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/demo/sessionLength/visibility.spec.js:30:29",
+                            "location": {
+                              "file": "/home/markusm/buerokratt_testing_env/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/demo/sessionLength/visibility.spec.js",
+                              "column": 29,
+                              "line": 30
+                            },
+                            "snippet": "\u001b[0m \u001b[90m 28 |\u001b[39m\n \u001b[90m 29 |\u001b[39m       \u001b[36mconst\u001b[39m checker \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByLabel(\u001b[32m`.input__wrapper ${translation.sessionLength}\"`\u001b[39m)\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 30 |\u001b[39m       \u001b[36mawait\u001b[39m expect(checker)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 31 |\u001b[39m       \u001b[36mawait\u001b[39m expect(inputLabel)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 32 |\u001b[39m\n \u001b[90m 33 |\u001b[39m     })\u001b[33m;\u001b[39m\u001b[0m"
+                          },
+                          "errors": [
+                            {
+                              "location": {
+                                "file": "/home/markusm/buerokratt_testing_env/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/demo/sessionLength/visibility.spec.js",
+                                "column": 29,
+                                "line": 30
+                              },
+                              "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: getByLabel('.input__wrapper Session length\"')\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByLabel('.input__wrapper Session length\"')\u001b[22m\n\n\n\u001b[0m \u001b[90m 28 |\u001b[39m\n \u001b[90m 29 |\u001b[39m       \u001b[36mconst\u001b[39m checker \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByLabel(\u001b[32m`.input__wrapper ${translation.sessionLength}\"`\u001b[39m)\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 30 |\u001b[39m       \u001b[36mawait\u001b[39m expect(checker)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 31 |\u001b[39m       \u001b[36mawait\u001b[39m expect(inputLabel)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 32 |\u001b[39m\n \u001b[90m 33 |\u001b[39m     })\u001b[33m;\u001b[39m\u001b[0m\n\n\u001b[2m    at /home/markusm/buerokratt_testing_env/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/demo/sessionLength/visibility.spec.js:30:29\u001b[22m"
+                            }
+                          ],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-10-28T13:21:06.285Z",
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "/home/markusm/buerokratt_testing_env/TDD-Playwright/test-results/admin-landingPage-mainPage-e793a--Session-Length-input-field-chromium/test-failed-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "/home/markusm/buerokratt_testing_env/TDD-Playwright/test-results/admin-landingPage-mainPage-e793a--Session-Length-input-field-chromium/video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/markusm/buerokratt_testing_env/TDD-Playwright/test-results/admin-landingPage-mainPage-e793a--Session-Length-input-field-chromium/trace.zip"
+                            }
+                          ],
+                          "errorLocation": {
+                            "file": "/home/markusm/buerokratt_testing_env/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/demo/sessionLength/visibility.spec.js",
+                            "column": 29,
+                            "line": 30
+                          }
+                        },
+                        {
+                          "workerIndex": 4,
+                          "status": "failed",
+                          "duration": 9520,
+                          "error": {
+                            "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: getByLabel('.input__wrapper Session length\"')\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByLabel('.input__wrapper Session length\"')\u001b[22m\n",
+                            "stack": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: getByLabel('.input__wrapper Session length\"')\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByLabel('.input__wrapper Session length\"')\u001b[22m\n\n    at /home/markusm/buerokratt_testing_env/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/demo/sessionLength/visibility.spec.js:30:29",
+                            "location": {
+                              "file": "/home/markusm/buerokratt_testing_env/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/demo/sessionLength/visibility.spec.js",
+                              "column": 29,
+                              "line": 30
+                            },
+                            "snippet": "\u001b[0m \u001b[90m 28 |\u001b[39m\n \u001b[90m 29 |\u001b[39m       \u001b[36mconst\u001b[39m checker \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByLabel(\u001b[32m`${translation.sessionLength}\"`\u001b[39m)\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 30 |\u001b[39m       \u001b[36mawait\u001b[39m expect(checker)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 31 |\u001b[39m       \u001b[36mawait\u001b[39m expect(inputLabel)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 32 |\u001b[39m\n \u001b[90m 33 |\u001b[39m     })\u001b[33m;\u001b[39m\u001b[0m"
+                          },
+                          "errors": [
+                            {
+                              "location": {
+                                "file": "/home/markusm/buerokratt_testing_env/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/demo/sessionLength/visibility.spec.js",
+                                "column": 29,
+                                "line": 30
+                              },
+                              "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: getByLabel('.input__wrapper Session length\"')\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByLabel('.input__wrapper Session length\"')\u001b[22m\n\n\n\u001b[0m \u001b[90m 28 |\u001b[39m\n \u001b[90m 29 |\u001b[39m       \u001b[36mconst\u001b[39m checker \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByLabel(\u001b[32m`${translation.sessionLength}\"`\u001b[39m)\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 30 |\u001b[39m       \u001b[36mawait\u001b[39m expect(checker)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 31 |\u001b[39m       \u001b[36mawait\u001b[39m expect(inputLabel)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 32 |\u001b[39m\n \u001b[90m 33 |\u001b[39m     })\u001b[33m;\u001b[39m\u001b[0m\n\n\u001b[2m    at /home/markusm/buerokratt_testing_env/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/demo/sessionLength/visibility.spec.js:30:29\u001b[22m"
+                            }
+                          ],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 1,
+                          "startTime": "2024-10-28T13:21:17.284Z",
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "/home/markusm/buerokratt_testing_env/TDD-Playwright/test-results/admin-landingPage-mainPage-e793a--Session-Length-input-field-chromium-retry1/test-failed-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "/home/markusm/buerokratt_testing_env/TDD-Playwright/test-results/admin-landingPage-mainPage-e793a--Session-Length-input-field-chromium-retry1/video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/markusm/buerokratt_testing_env/TDD-Playwright/test-results/admin-landingPage-mainPage-e793a--Session-Length-input-field-chromium-retry1/trace.zip"
+                            }
+                          ],
+                          "errorLocation": {
+                            "file": "/home/markusm/buerokratt_testing_env/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/demo/sessionLength/visibility.spec.js",
+                            "column": 29,
+                            "line": 30
+                          }
+                        }
+                      ],
+                      "status": "unexpected"
+                    }
+                  ],
+                  "id": "d40a78b4f2ab41db5f0c-e33cda87640820c82671",
+                  "file": "admin/landingPage/mainPage/sideBar/administration/demo/sessionLength/visibility.spec.js",
+                  "line": 25,
+                  "column": 9
+                }
+              ]
+            },
+            {
+              "title": "Footer",
+              "file": "admin/landingPage/mainPage/sideBar/administration/demo/sessionLength/visibility.spec.js",
+              "line": 37,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "should display Save button",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 3,
+                          "status": "passed",
+                          "duration": 5016,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-10-28T13:21:06.302Z",
+                          "attachments": [
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "/home/markusm/buerokratt_testing_env/TDD-Playwright/test-results/admin-landingPage-mainPage-d8264--should-display-Save-button-chromium/video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/markusm/buerokratt_testing_env/TDD-Playwright/test-results/admin-landingPage-mainPage-d8264--should-display-Save-button-chromium/trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "d40a78b4f2ab41db5f0c-78e515bdf5f23359aaad",
+                  "file": "admin/landingPage/mainPage/sideBar/administration/demo/sessionLength/visibility.spec.js",
+                  "line": 38,
+                  "column": 9
+                }
+              ]
             }
           ]
         }
@@ -180,11 +381,11 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2024-11-04T18:11:29.166Z",
-    "duration": 35429.872,
-    "expected": 2,
+    "startTime": "2024-10-28T13:20:48.073Z",
+    "duration": 38989.419,
+    "expected": 3,
     "skipped": 0,
-    "unexpected": 0,
+    "unexpected": 1,
     "flaky": 0
   }
 }
