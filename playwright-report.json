@@ -11,7 +11,7 @@
     "grepInvert": null,
     "maxFailures": 0,
     "metadata": {
-      "actualWorkers": 1
+      "actualWorkers": 4
     },
     "preserveOutput": "always",
     "reporter": [
@@ -97,12 +97,12 @@
                 {
                   "workerIndex": 0,
                   "status": "passed",
-                  "duration": 21539,
+                  "duration": 16601,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2024-11-04T18:11:30.013Z",
+                  "startTime": "2024-11-05T09:12:24.474Z",
                   "attachments": [
                     {
                       "name": "trace",
@@ -123,55 +123,316 @@
       ]
     },
     {
-      "title": "admin/landingPage/mainPage/sideBar/administration/chatbot/appearance_and_behavior/functionality.spec.js",
-      "file": "admin/landingPage/mainPage/sideBar/administration/chatbot/appearance_and_behavior/functionality.spec.js",
+      "title": "admin/landingPage/mainPage/sideBar/training/historicalConversations/history/DSL/generated.spec.js",
+      "file": "admin/landingPage/mainPage/sideBar/training/historicalConversations/history/DSL/generated.spec.js",
       "column": 0,
       "line": 0,
       "specs": [],
       "suites": [
         {
-          "title": "Functionality Tests for \"Välimus ja käitumine\"/\"Appearance and Behaviour\" Page",
-          "file": "admin/landingPage/mainPage/sideBar/administration/chatbot/appearance_and_behavior/functionality.spec.js",
-          "line": 4,
+          "title": "Training-Module",
+          "file": "admin/landingPage/mainPage/sideBar/training/historicalConversations/history/DSL/generated.spec.js",
+          "line": 6,
           "column": 6,
-          "specs": [
+          "specs": [],
+          "suites": [
             {
-              "title": "Check functionality of all fields and \"Eelvaade\" button",
-              "ok": true,
-              "tags": [],
-              "tests": [
+              "title": "Main Heading",
+              "file": "admin/landingPage/mainPage/sideBar/training/historicalConversations/history/DSL/generated.spec.js",
+              "line": 14,
+              "column": 10,
+              "specs": [
                 {
-                  "timeout": 30000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "chromium",
-                  "projectName": "chromium",
-                  "results": [
+                  "title": "should display main heading",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
                     {
-                      "workerIndex": 1,
-                      "status": "passed",
-                      "duration": 11839,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2024-11-04T18:11:52.380Z",
-                      "attachments": [
+                      "timeout": 30000,
+                      "annotations": [
                         {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-0eb7d--fields-and-Eelvaade-button-chromium/trace.zip"
+                          "type": "repository",
+                          "description": "Training-Module"
                         }
-                      ]
+                      ],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 1,
+                          "status": "passed",
+                          "duration": 5278,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-11-05T09:12:41.982Z",
+                          "attachments": [
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-d4c23-should-display-main-heading-chromium/trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
                     }
                   ],
-                  "status": "expected"
+                  "id": "f5a8ef5625abf62aed47-482a499b80685c1a0def",
+                  "file": "admin/landingPage/mainPage/sideBar/training/historicalConversations/history/DSL/generated.spec.js",
+                  "line": 15,
+                  "column": 13
                 }
-              ],
-              "id": "d892447a55004d62c9b8-c12729e0f83ae2b46ae7",
-              "file": "admin/landingPage/mainPage/sideBar/administration/chatbot/appearance_and_behavior/functionality.spec.js",
-              "line": 62,
-              "column": 10
+              ]
+            },
+            {
+              "title": "Card Body - Search and Filter Options",
+              "file": "admin/landingPage/mainPage/sideBar/training/historicalConversations/history/DSL/generated.spec.js",
+              "line": 21,
+              "column": 10,
+              "specs": [
+                {
+                  "title": "should display search input, date pickers, and multi-select dropdown",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [
+                        {
+                          "type": "repository",
+                          "description": "Training-Module"
+                        }
+                      ],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 2,
+                          "status": "passed",
+                          "duration": 6321,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-11-05T09:12:42.007Z",
+                          "attachments": [
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-8b114-s-and-multi-select-dropdown-chromium/trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "f5a8ef5625abf62aed47-9c48faca0086a45421b1",
+                  "file": "admin/landingPage/mainPage/sideBar/training/historicalConversations/history/DSL/generated.spec.js",
+                  "line": 22,
+                  "column": 13
+                }
+              ]
+            },
+            {
+              "title": "Card Body - Table Headers and Data",
+              "file": "admin/landingPage/mainPage/sideBar/training/historicalConversations/history/DSL/generated.spec.js",
+              "line": 39,
+              "column": 10,
+              "specs": [
+                {
+                  "title": "should display table headers",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [
+                        {
+                          "type": "repository",
+                          "description": "Training-Module"
+                        }
+                      ],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 3,
+                          "status": "passed",
+                          "duration": 6413,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-11-05T09:12:41.992Z",
+                          "attachments": [
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-18d92-hould-display-table-headers-chromium/trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "f5a8ef5625abf62aed47-c375ece66f166e0d5618",
+                  "file": "admin/landingPage/mainPage/sideBar/training/historicalConversations/history/DSL/generated.spec.js",
+                  "line": 40,
+                  "column": 13
+                },
+                {
+                  "title": "should display table data row and View button",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [
+                        {
+                          "type": "repository",
+                          "description": "Training-Module"
+                        }
+                      ],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 4,
+                          "status": "passed",
+                          "duration": 5739,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-11-05T09:12:42.011Z",
+                          "attachments": [
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-fb299-le-data-row-and-View-button-chromium/trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "f5a8ef5625abf62aed47-f50025c1034bc174b25b",
+                  "file": "admin/landingPage/mainPage/sideBar/training/historicalConversations/history/DSL/generated.spec.js",
+                  "line": 60,
+                  "column": 13
+                }
+              ]
+            },
+            {
+              "title": "Drawer Component",
+              "file": "admin/landingPage/mainPage/sideBar/training/historicalConversations/history/DSL/generated.spec.js",
+              "line": 69,
+              "column": 10,
+              "specs": [
+                {
+                  "title": "should open drawer and display header, title, body, and messages",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [
+                        {
+                          "type": "repository",
+                          "description": "Training-Module"
+                        }
+                      ],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 1,
+                          "status": "passed",
+                          "duration": 4957,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-11-05T09:12:47.648Z",
+                          "attachments": [
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-f4df2-der-title-body-and-messages-chromium/trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "f5a8ef5625abf62aed47-e21ff33dae3ab50224c8",
+                  "file": "admin/landingPage/mainPage/sideBar/training/historicalConversations/history/DSL/generated.spec.js",
+                  "line": 70,
+                  "column": 13
+                }
+              ]
+            },
+            {
+              "title": "Pagination Controls",
+              "file": "admin/landingPage/mainPage/sideBar/training/historicalConversations/history/DSL/generated.spec.js",
+              "line": 86,
+              "column": 10,
+              "specs": [
+                {
+                  "title": "should display pagination label and dropdown with options",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [
+                        {
+                          "type": "repository",
+                          "description": "Training-Module"
+                        }
+                      ],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 4,
+                          "status": "passed",
+                          "duration": 4826,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-11-05T09:12:48.254Z",
+                          "attachments": [
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-de52c-l-and-dropdown-with-options-chromium/trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "f5a8ef5625abf62aed47-7fc960805078de711f03",
+                  "file": "admin/landingPage/mainPage/sideBar/training/historicalConversations/history/DSL/generated.spec.js",
+                  "line": 87,
+                  "column": 13
+                }
+              ]
             }
           ]
         }
@@ -180,9 +441,9 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2024-11-04T18:11:29.166Z",
-    "duration": 35429.872,
-    "expected": 2,
+    "startTime": "2024-11-05T09:12:23.926Z",
+    "duration": 29272.946000000004,
+    "expected": 7,
     "skipped": 0,
     "unexpected": 0,
     "flaky": 0

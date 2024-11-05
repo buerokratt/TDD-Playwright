@@ -23,7 +23,7 @@ test.describe('Visibility Tests for "Historical Conversations" / "Ajaloolised ve
         const card = page.locator('.card').first();
         await expect(card).toBeVisible();
 
-        const searchField =  page.getByPlaceholder(`${translation.searchChats}`);
+        const searchField = page.getByPlaceholder(`${translation.searchChats}`);
         await expect(searchField).toBeVisible();
         await expect(searchField).toHaveAttribute('placeholder', `${translation.searchChats}`);
 
@@ -95,7 +95,7 @@ test.describe('Data Table Tests', () => {
             const viewButton = tableRows.first().locator(`td button:has-text("${translation.view}")`);
             await expect(viewButton).toBeVisible();
             await viewButton.click();
-            
+
             // Verify the drawer is opened and visible
             const drawer = page.locator('div.drawer');
             await expect(drawer).toBeVisible();
@@ -113,12 +113,8 @@ test.describe('Data Table Tests', () => {
             // Check if the drawer contains historical chat messages
             const chatMessages = drawer.locator('.historical-chat__messages');
             // Ensure there are messages visible in the drawer
-            await expect(chatMessages).not.toHaveCount(0); 
+            await expect(chatMessages).not.toHaveCount(0);
         }
-        
-        
-        
-
     });
 
 

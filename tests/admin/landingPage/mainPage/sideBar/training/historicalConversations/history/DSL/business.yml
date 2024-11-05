@@ -2,32 +2,44 @@ resource: training/history/history
 description: "Training-Module"
 test:
   main:
-  heading:
+    heading:
       args:
-          - type: text
-          - value: "History"
-          - style: h1
+        - type: text
+        - value: "History"
+        - style: h1
+
   card:
     name: card__body
     track:
-        input: 
-        args:
+      input:
+        - args:
             - type: text
             - value: "Search chats..."
             - style: input
-        input:
-        args:
+      paragraph:
+        - args:
+            - type: text
+            - value: "From"
+            - style: label
+      input:
+        - args:
+            - type: date
+            - opens_datePicker: true
+      paragraph:
+        - args:
+            - type: text
+            - value: "To"
+            - style: label
+      input:
+        - args:
             - type: input
-            - style: datepicker
-        input:
-        args:
-            - type: input
-            - style: datepicker
-        select:
-        args:
+            - opens_datePicker: true
+      select:
+        - args:
             - type: text
             - style: dropdown
             - multipleChoice: true
+            - placeholder: "Choose"
             - options:
                 - value: "Start time"
                 - value: "End time"
@@ -43,59 +55,87 @@ test:
   card:
     name: card__body
     table:
-    headers:
-        args:
+      headers:
+        - args:
             - type: text
             - value: "Start time"
-        args:
+            - has_sort_button: true
+        - args:
             - type: text
             - value: "End time"
-        args:
+            - has_sort_button: true
+        - args:
             - type: text
             - value: "Customer support name"
-        args:
+            - has_sort_button: true
+        - args:
             - type: text
             - value: "Name"
-        args:
+            - has_sort_button: true
+        - args:
             - type: text
             - value: "ID code"
-        args:
+            - has_sort_button: true
+        - args:
             - type: text
             - value: "Contact"
-        args:
+            - has_sort_button: true
+        - args:
             - type: text
             - value: "Comment"
-        args:
+            - has_sort_button: true
+        - args:
             - type: text
             - value: "Label"
-        args:
+            - has_sort_button: true
+        - args:
             - type: text
             - value: "Status"
-        args:
+            - has_sort_button: true
+        - args:
             - type: text
-            - value: "ID"    
-    body:
-      row:
-      data:
-         has_data: true
-      button:
-         args:
-             - type: button
-             - value: "View"
-             - style: button
+            - value: "ID"
+            - has_sort_button: true
+      body:
+        row:
+          data:
+            has_data: true
+          button:
+            args:
+              - type: button
+              - value: "View"
+              - style: button
+
+    drawer:
+      name: drawer__title   
+      title:
+        args:
+          - type: text
+          - style: title
+      name: drawer__body
+      body:
+        args:
+          - type: container
+          - style: container
+      historical_chat_messages:
+        args:
+          - type: text
+          - style: messages
+        has_data: true
+
     pagination:
       label:
         args:
-            - type: text
-            - value: "Result count"
-            - style: label
+          - type: text
+          - value: "Result count"
+          - style: label
       select:
-         args:
-             - type: dropdown
-             - style: select
-             - options:
-               - value: "10"
-               - value: "20"
-               - value: "30"
-               - value: "40"
-               - value: "50"
+        args:
+          - type: dropdown
+          - style: select
+          - options:
+              - value: "10"
+              - value: "20"
+              - value: "30"
+              - value: "40"
+              - value: "50"

@@ -34,7 +34,7 @@
     "settings": "Settings",
     "chatbotActive": "Chatbot active",
     "showSupportName": "Show support name",
-    "supportName": "Customer support name",
+    "customerSupportName": "Customer support name",
     "showSupportTitle": "Show support title",
     "welcomeMessage": "Welcome Message",
     "greetingActive": "Greeting Active",
