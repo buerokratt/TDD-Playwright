@@ -27,6 +27,7 @@
 3. Dropdown handling: 
    Use the following format for dropdown (select) elements:
    const select = await page.getByRole('combobox', { name: `${translation.widgetAnimation}` });
+   When checking for the options in the dropdown (select), click on the element and then look for the options.
 
 4. Paragraph handling: 
    When an element has only paragraphs in it and no labels, dropdowns etc, use the following format and handle the other elements like labels, dropdowns, button separately.: 
@@ -49,6 +50,10 @@
    When checking data by cells, use getByRole('cell'). This works for headers aswell.
    For example: const editButton = container.getByRole('button', { name: `${translation.edit}` }).first();
                 const deleteButton = container.getByRole('button', { name: `${translation.delete}` }).first();
+   When checking for the first row use this format:
+      const tableBody = page.getByRole('table').locator('tbody');
+      const firstRow = tableBody.getByRole('row').first();
+      await expect(firstRow).toBeVisible();
 
 5. Search handling:
    When locating search input, use getByPlaceholder:
