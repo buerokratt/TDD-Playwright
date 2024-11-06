@@ -1,0 +1,91 @@
+resource: 
+description: "Buerokratt-Chatbot"
+test:
+  drawer:
+  name: drawer__header
+  heading:
+      args:
+          - type: text
+          - value: ""
+          - style: h1
+  drawer:
+    name: drawer__body
+        section:
+        paragraph:
+          args: 
+            - type: text
+            - value: "Display name"
+            - style: paragraph
+        
+        paragraph:
+          args:
+            - type: text
+            - value: "User roles"
+            - style: paragraph
+        paragraph: 
+          args:
+            - type: text
+            - value: "User title"
+            - style: paragraph
+        paragraph: 
+          args:
+            - type: text
+            - value: "Email"
+            - style: paragraph
+        section:
+        paragraph: 
+          - type: text
+          - class: h6
+          - value: "Autocorrect"
+          - style: paragraph
+        switch: 
+          label: "Text autocorrect"
+          args:
+          - type: button
+          - style: switch
+        section:
+        paragraph: 
+          - type: text
+          - class: h6
+          - value: "Email notifcations"
+          - style: paragraph
+        switch: 
+          label: "New forwarded chat"
+          args:
+          - type: button
+          - style: switch
+        switch: 
+          label: "New unanswered chat"
+          args:
+          - type: button
+          - style: switch
+        paragraph: 
+          - type: text
+          - class: h6
+          - value: "Sound notifcations"
+          - style: paragraph
+        switch: 
+          label: "New forwarded chat"
+          args:
+          - type: button
+          - style: switch
+        switch: 
+          label: "New unanswered chat"
+          args:
+          - type: button
+          - style: switch
+        paragraph: 
+          - type: text
+          - class: h6
+          - value: "Popup notifcations"
+          - style: paragraph
+        switch: 
+          label: "New forwarded chat"
+          args:
+          - type: button
+          - style: switch
+        switch: 
+          label: "New unanswered chat"
+          args:
+          - type: button
+          - style: switch
