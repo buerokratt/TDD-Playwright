@@ -3,7 +3,7 @@ description: "Header"
 test:
   main:
   header:
-  - name: track
+  track:
   svg: 
     args:
         - type: logo

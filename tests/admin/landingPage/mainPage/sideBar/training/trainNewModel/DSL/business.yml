@@ -3,27 +3,21 @@ description: "Training-Module"
 
 test:
   main:
-    container:
-      top_section:
-        heading:
-          args:
-            - type: text
-            - value: "Training and test"
-        paragraph:
-          args:
-            - type: text
-
-        button:
-          args:
-            - type: button
-            - value: "Train"
-            - style: button
+    heading:
+      args:
+        - type: text
+        - value: "Training and test"
+      button:
+        args:
+          - type: button
+          - value: "Train"
+          - style: button
         
-        button:
-          args:
-            - type: button
-            - value: "Train and test"
-            - style: button
+      button:
+        args:
+          - type: button
+          - value: "Train and test"
+          - style: button
             
       card:
         - name: card__header
@@ -55,18 +49,18 @@ test:
               - style: timepicker
 
           select: 
-            span: "days"
+            span: "Days"
             args:
               - type: checkbox
               options:
                 options:
-                - name: "monday"
-                - name: "tuesday"
-                - name: "wednesday"
-                - name: "thursday"
-                - name: "friday"
-                - name: "saturday"
-                - name: "sunday"
+                - name: "Monday"
+                - name: "Tuesday"
+                - name: "Wednesday"
+                - name: "Thursday"
+                - name: "Friday"
+                - name: "Saturday"
+                - name: "Sunday"
 
 
           input:
