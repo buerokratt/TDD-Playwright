@@ -150,7 +150,10 @@
     "reset": "Lähtesta",
     "back": "Tagasi",
     "resultCount": "Kuvan korraga",
-     "search": "Search...",
+    "search": "Search...",
+    "trainingAndTest": "Treeni ja testi",
+    "startingFrom": "Alates",
+    "train": "Treeni",
 
 
     "askAuthentication": "Küsi autentimist",

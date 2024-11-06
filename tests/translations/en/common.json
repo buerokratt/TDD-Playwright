@@ -148,6 +148,9 @@
     "reset": "Reset",
     "back": "Back",
     "resultCount": "Result count",
+    "startingFrom": "Starting from",
+    "train": "Train",
+    
 
 
     "askAuthentication": "Ask for authentication",
@@ -227,6 +230,7 @@
     "csv": "CSV",
     "openSearchDashboardOSD": "OpenSearch Dashboard (OSD)",
     "searchForIntent": "Search for intent...",
-    "search": "Search..."
+    "search": "Search...",
+    "trainingAndTest": "Training and test"
     
 }
