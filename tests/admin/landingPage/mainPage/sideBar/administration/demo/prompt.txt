@@ -83,3 +83,9 @@ The output should be a valid Playwright test file, ready for copy-pasting and ru
 
 7. Exact match for similar elements:
 Add { exact: true } to all locators.
+
+8. Functionality testing.
+
+Default testing is meant to be visibility. So unless explicitly specified, always test visibility unless otherwise mentioned in some cases.
+When the prompt mentions to test functionality, test all eligble functionality and save and after return them to their original values. 
+This means that you should capture the values for the inputs first and reset them at the end.
