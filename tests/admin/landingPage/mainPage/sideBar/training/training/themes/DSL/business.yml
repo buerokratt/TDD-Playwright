@@ -11,7 +11,6 @@ test:
 
     verticalTabs:
       - name: vertical-tabs
-
       - name: vertical-tabs__list
       - name: vertical-tabs__list-search
         track:
@@ -20,8 +19,6 @@ test:
               - type: text
               - placeholder: "Search for intent..."
               - style: input
-
-          
           button:
             args:
               - type: button

@@ -1,5 +1,5 @@
 resource: chat/history
-description: "History"
+description: "Buerokratt-Chatbot"
 test:
   main:
   heading:

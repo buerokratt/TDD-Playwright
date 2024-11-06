@@ -226,6 +226,7 @@
     "firstAndLastName2": "First- and lastname",
     "csv": "CSV",
     "openSearchDashboardOSD": "OpenSearch Dashboard (OSD)",
-    "searchForIntent": "Search for intent..."
+    "searchForIntent": "Search for intent...",
+    "search": "Search..."
     
 }
