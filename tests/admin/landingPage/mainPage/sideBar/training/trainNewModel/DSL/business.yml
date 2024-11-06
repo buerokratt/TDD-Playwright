@@ -16,7 +16,13 @@ test:
         button:
           args:
             - type: button
-            - value: "Train now"
+            - value: "Train"
+            - style: button
+        
+        button:
+          args:
+            - type: button
+            - value: "Train and test"
             - style: button
             
       card:
@@ -47,6 +53,21 @@ test:
             args:
               - type: input
               - style: timepicker
+
+          select: 
+            span: "days"
+            args:
+              - type: checkbox
+              options:
+                options:
+                - name: "monday"
+                - name: "tuesday"
+                - name: "wednesday"
+                - name: "thursday"
+                - name: "friday"
+                - name: "saturday"
+                - name: "sunday"
+
 
           input:
             label: "Training time"  
