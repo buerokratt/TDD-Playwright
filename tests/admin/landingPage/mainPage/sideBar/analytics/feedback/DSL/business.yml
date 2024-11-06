@@ -10,7 +10,7 @@ test:
 
   card:
     name: card__body
-    name: section 
+    section:
     label:
        args:
            - type: text
@@ -43,7 +43,7 @@ test:
            - value: Selected Period
            - style: button
 
-    name: section
+    section:
     label:
        args:
            - type: text
@@ -76,7 +76,7 @@ test:
            - value: Conversations with negative feedback
            - style: button
 
-    name: section
+    section:
     label:
       args:
            - type: text
