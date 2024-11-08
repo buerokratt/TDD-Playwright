@@ -96,23 +96,6 @@ test:
               - value: "View"
               - style: button
 
-    drawer:
-      name: drawer__title   
-      title:
-        args:
-          - type: text
-          - style: title
-      name: drawer__body
-      body:
-        args:
-          - type: container
-          - style: container
-      historical_chat_messages:
-        args:
-          - type: text
-          - style: messages
-        has_data: true
-
     pagination:
       label:
         args:
@@ -129,3 +112,20 @@ test:
               - value: "30"
               - value: "40"
               - value: "50"
+
+    drawer:
+      name: drawer__title   
+      title:
+        args:
+          - type: text
+          - style: title
+      name: drawer__body
+      body:
+        args:
+          - type: container
+          - style: container
+      historical_chat_messages:
+        args:
+          - type: text
+          - style: messages
+        has_data: true

@@ -4,7 +4,7 @@
 2. Text-based locators: 
   All locators for text-based elements (labels, buttons, headers) must use translation keys. Translations are fetched using the getTranslations function and should be integrated into the locators as `${translation.key}`. key's first letter is lowercase. 
   Use page.getByPlaceholder() for elements with placeholders.
-  Use page.getByText() for labels, buttons, checkboxes or any other text-based elements.
+  Use page.getByText() for labels, buttons, checkboxes, radios or any other text-based elements.
   Use page.getByLabel() for elements that are associated with a label.
   Use page.getByRole() for headings.
   Examples: 
@@ -12,6 +12,7 @@
          const switchLabel = await page.getByText(`${translation.showSupportName}`, { exact: true });
          const saveButton = await page.getByText(`${translation.save}`, {exact: true });
          const heading = await page.getByRole('heading', { name: `${translation.settings}`, exact: true });
+         const radioOption = await page.getByText(`${translation.radioText}`, {exact: true})
 
   Using getByText() and there's extra argument in the .yml file nth-matching-element the value is a locator to the n-th matching element. This is important. 
   Example:
@@ -29,11 +30,12 @@
    const select = await page.getByRole('combobox', { name: `${translation.widgetAnimation}` });
 
 4. Table handling: 
-   a. Consider only first row when checking data persistence. For example when checking edit and delete buttons in table data. PS! Don't use here exact: true, because it will cause errors.
+   a. Consider only first row when checking data persistence. For example when checking edit, delete, forward buttons in table data. PS! Don't use here exact: true, because it will cause errors.
       For example: 
-      const container = page.locator('.data-table');
-      const editButton = container.getByRole('button', { name: `${translation.edit}` }).first();
-      const deleteButton = container.getByRole('button', { name: `${translation.delete}` }).first();
+      const dataRow = page.locator('.data-table');
+      const editButton = dataRow.getByRole('button', { name: `${translation.edit}`, exact: true}).first();
+      const deleteButton = dataRow.getByRole('button', { name: `${translation.delete}`, exact: true }).first();
+      const forwardButton = dataRow.getByRole('button', { name: `${translation.forward}`, exact: true }).first();
       
    b. If DSL includes table and has 'sortable: true' field then should check for sorting button persistence.
       For example: 
@@ -85,12 +87,3 @@ Add { exact: true } to all locators.
    // Target an h2 heading within a specific card container based on surrounding text
    const headingWithinCard = page.locator('.card').filter({ hasText: `${translation.averageChatsPerDayMonthPrevious}` }).getByRole('heading', { level: 2 });
 
-
-9. Conditional Selection for Tabs:
-   If vertical-tabs__list is specified in the DSL, add a conditional selection step in beforeEach using:
-   hasElements = await selectFirstChat(page);
-   test.skip(!hasElements, 'No listing elements found');
-
-   And import this: 
-   import { selectFirstChat } from '../../../conversations/unanswered/helper';
-   Ensure that content only visible after selecting an item (e.g., right vertical tab) is included within this conditional structure.

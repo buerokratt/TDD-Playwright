@@ -97,12 +97,12 @@
                 {
                   "workerIndex": 0,
                   "status": "passed",
-                  "duration": 19472,
+                  "duration": 18715,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2024-11-05T14:41:47.222Z",
+                  "startTime": "2024-11-08T12:43:49.088Z",
                   "attachments": [
                     {
                       "name": "trace",
@@ -123,346 +123,461 @@
       ]
     },
     {
-      "title": "admin/landingPage/mainPage/sideBar/training/training/themes/DSL/generated.spec.js",
-      "file": "admin/landingPage/mainPage/sideBar/training/training/themes/DSL/generated.spec.js",
+      "title": "admin/landingPage/mainPage/sideBar/conversations/unanswered/DSL/generatedTests.spec.js",
+      "file": "admin/landingPage/mainPage/sideBar/conversations/unanswered/DSL/generatedTests.spec.js",
       "column": 0,
       "line": 0,
       "specs": [],
       "suites": [
         {
-          "title": "Training-Module",
-          "file": "admin/landingPage/mainPage/sideBar/training/training/themes/DSL/generated.spec.js",
-          "line": 7,
+          "title": "Buerokratt-Chatbot",
+          "file": "admin/landingPage/mainPage/sideBar/conversations/unanswered/DSL/generatedTests.spec.js",
+          "line": 12,
           "column": 6,
-          "specs": [
+          "specs": [],
+          "suites": [
             {
-              "title": "Verify Main Heading",
-              "ok": true,
-              "tags": [],
-              "tests": [
+              "title": "Vertical Tabs",
+              "file": "admin/landingPage/mainPage/sideBar/conversations/unanswered/DSL/generatedTests.spec.js",
+              "line": 25,
+              "column": 10,
+              "specs": [
                 {
-                  "timeout": 30000,
-                  "annotations": [
+                  "title": "should display unanswered chats count in group header",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
                     {
-                      "type": "repository",
-                      "description": "Training-Module"
-                    },
-                    {
-                      "type": "skip",
-                      "description": "No listing elements found"
-                    }
-                  ],
-                  "expectedStatus": "skipped",
-                  "projectId": "chromium",
-                  "projectName": "chromium",
-                  "results": [
-                    {
-                      "workerIndex": 1,
-                      "status": "skipped",
-                      "duration": 2700,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2024-11-05T14:42:07.878Z",
-                      "attachments": [
+                      "timeout": 30000,
+                      "annotations": [
                         {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-77505--Module-Verify-Main-Heading-chromium/trace.zip"
+                          "type": "repository",
+                          "description": "Buerokratt-Chatbot"
                         }
-                      ]
+                      ],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 1,
+                          "status": "passed",
+                          "duration": 14514,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-11-08T12:44:08.865Z",
+                          "attachments": [
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-9ee7e-chats-count-in-group-header-chromium/trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
                     }
                   ],
-                  "status": "skipped"
+                  "id": "20b58c729748b63d59c8-c2871b4f0351d6a70d9c",
+                  "file": "admin/landingPage/mainPage/sideBar/conversations/unanswered/DSL/generatedTests.spec.js",
+                  "line": 26,
+                  "column": 13
                 }
-              ],
-              "id": "f60cba0e46bfcd96e80e-6a01f6472ddef1126834",
-              "file": "admin/landingPage/mainPage/sideBar/training/training/themes/DSL/generated.spec.js",
-              "line": 26,
-              "column": 7
+              ]
             },
             {
-              "title": "Check Search Field and Add Button in Vertical Tabs",
-              "ok": true,
-              "tags": [],
-              "tests": [
+              "title": "Selected Chat Section",
+              "file": "admin/landingPage/mainPage/sideBar/conversations/unanswered/DSL/generatedTests.spec.js",
+              "line": 32,
+              "column": 10,
+              "specs": [
                 {
-                  "timeout": 30000,
-                  "annotations": [
+                  "title": "should display anonymous user in active chat header",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
                     {
-                      "type": "repository",
-                      "description": "Training-Module"
-                    },
-                    {
-                      "type": "skip",
-                      "description": "No listing elements found"
-                    }
-                  ],
-                  "expectedStatus": "skipped",
-                  "projectId": "chromium",
-                  "projectName": "chromium",
-                  "results": [
-                    {
-                      "workerIndex": 2,
-                      "status": "skipped",
-                      "duration": 2780,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2024-11-05T14:42:07.893Z",
-                      "attachments": [
+                      "timeout": 30000,
+                      "annotations": [
                         {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-d66ba-Add-Button-in-Vertical-Tabs-chromium/trace.zip"
+                          "type": "repository",
+                          "description": "Buerokratt-Chatbot"
                         }
-                      ]
+                      ],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 2,
+                          "status": "passed",
+                          "duration": 14220,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-11-08T12:44:08.871Z",
+                          "attachments": [
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-e31e1--user-in-active-chat-header-chromium/trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
                     }
                   ],
-                  "status": "skipped"
+                  "id": "20b58c729748b63d59c8-d020462aab175cf5f1b0",
+                  "file": "admin/landingPage/mainPage/sideBar/conversations/unanswered/DSL/generatedTests.spec.js",
+                  "line": 33,
+                  "column": 13
+                },
+                {
+                  "title": "should display Take Over button in active chat toolbar",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [
+                        {
+                          "type": "repository",
+                          "description": "Buerokratt-Chatbot"
+                        }
+                      ],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 3,
+                          "status": "passed",
+                          "duration": 14333,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-11-08T12:44:08.872Z",
+                          "attachments": [
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-62568-tton-in-active-chat-toolbar-chromium/trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "20b58c729748b63d59c8-1d6206dd54fa71f0a898",
+                  "file": "admin/landingPage/mainPage/sideBar/conversations/unanswered/DSL/generatedTests.spec.js",
+                  "line": 38,
+                  "column": 13
                 }
-              ],
-              "id": "f60cba0e46bfcd96e80e-d34e6a09d32215f51665",
-              "file": "admin/landingPage/mainPage/sideBar/training/training/themes/DSL/generated.spec.js",
-              "line": 31,
-              "column": 7
+              ]
             },
             {
-              "title": "Verify Edit and Header in Content Header",
-              "ok": true,
-              "tags": [],
-              "tests": [
+              "title": "Side Actions",
+              "file": "admin/landingPage/mainPage/sideBar/conversations/unanswered/DSL/generatedTests.spec.js",
+              "line": 44,
+              "column": 10,
+              "specs": [
                 {
-                  "timeout": 30000,
-                  "annotations": [
+                  "title": "should have End chat button enabled and other buttons disabled as specified",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
                     {
-                      "type": "repository",
-                      "description": "Training-Module"
-                    },
-                    {
-                      "type": "skip",
-                      "description": "No listing elements found"
-                    }
-                  ],
-                  "expectedStatus": "skipped",
-                  "projectId": "chromium",
-                  "projectName": "chromium",
-                  "results": [
-                    {
-                      "workerIndex": 3,
-                      "status": "skipped",
-                      "duration": 2624,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2024-11-05T14:42:07.828Z",
-                      "attachments": [
+                      "timeout": 30000,
+                      "annotations": [
                         {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-c80ad-nd-Header-in-Content-Header-chromium/trace.zip"
+                          "type": "repository",
+                          "description": "Buerokratt-Chatbot"
                         }
-                      ]
+                      ],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 4,
+                          "status": "passed",
+                          "duration": 13328,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-11-08T12:44:08.852Z",
+                          "attachments": [
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-a2e0d-ttons-disabled-as-specified-chromium/trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
                     }
                   ],
-                  "status": "skipped"
+                  "id": "20b58c729748b63d59c8-f712f87cbd3eefc4bedf",
+                  "file": "admin/landingPage/mainPage/sideBar/conversations/unanswered/DSL/generatedTests.spec.js",
+                  "line": 45,
+                  "column": 13
                 }
-              ],
-              "id": "f60cba0e46bfcd96e80e-d5a100ac136b0283fd02",
-              "file": "admin/landingPage/mainPage/sideBar/training/training/themes/DSL/generated.spec.js",
-              "line": 40,
-              "column": 7
+              ]
             },
             {
-              "title": "Verify Buttons in Selected Tab",
-              "ok": true,
-              "tags": [],
-              "tests": [
+              "title": "Chat Metadata",
+              "file": "admin/landingPage/mainPage/sideBar/conversations/unanswered/DSL/generatedTests.spec.js",
+              "line": 55,
+              "column": 10,
+              "specs": [
                 {
-                  "timeout": 30000,
-                  "annotations": [
+                  "title": "should display metadata fields correctly",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
                     {
-                      "type": "repository",
-                      "description": "Training-Module"
-                    },
-                    {
-                      "type": "skip",
-                      "description": "No listing elements found"
-                    }
-                  ],
-                  "expectedStatus": "skipped",
-                  "projectId": "chromium",
-                  "projectName": "chromium",
-                  "results": [
-                    {
-                      "workerIndex": 4,
-                      "status": "skipped",
-                      "duration": 2448,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2024-11-05T14:42:07.857Z",
-                      "attachments": [
+                      "timeout": 30000,
+                      "annotations": [
                         {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-ba42d-ify-Buttons-in-Selected-Tab-chromium/trace.zip"
+                          "type": "repository",
+                          "description": "Buerokratt-Chatbot"
                         }
-                      ]
+                      ],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 4,
+                          "status": "passed",
+                          "duration": 11257,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-11-08T12:44:22.821Z",
+                          "attachments": [
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-019f3-y-metadata-fields-correctly-chromium/trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
                     }
                   ],
-                  "status": "skipped"
+                  "id": "20b58c729748b63d59c8-b5259ed4e3e548fa829a",
+                  "file": "admin/landingPage/mainPage/sideBar/conversations/unanswered/DSL/generatedTests.spec.js",
+                  "line": 56,
+                  "column": 13
                 }
-              ],
-              "id": "f60cba0e46bfcd96e80e-0d2be04594271a415c2e",
-              "file": "admin/landingPage/mainPage/sideBar/training/training/themes/DSL/generated.spec.js",
-              "line": 48,
-              "column": 7
+              ]
             },
             {
-              "title": "Check Table Headers and Actions in First Row",
-              "ok": true,
-              "tags": [],
-              "tests": [
+              "title": "End Chat Dialog",
+              "file": "admin/landingPage/mainPage/sideBar/conversations/unanswered/DSL/generatedTests.spec.js",
+              "line": 66,
+              "column": 10,
+              "specs": [
                 {
-                  "timeout": 30000,
-                  "annotations": [
+                  "title": "should open dialog with chat status options after clicking End chat button",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
                     {
-                      "type": "repository",
-                      "description": "Training-Module"
-                    },
-                    {
-                      "type": "skip",
-                      "description": "No listing elements found"
-                    }
-                  ],
-                  "expectedStatus": "skipped",
-                  "projectId": "chromium",
-                  "projectName": "chromium",
-                  "results": [
-                    {
-                      "workerIndex": 4,
-                      "status": "skipped",
-                      "duration": 1826,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2024-11-05T14:42:10.847Z",
-                      "attachments": [
+                      "timeout": 30000,
+                      "annotations": [
                         {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-f8dec-rs-and-Actions-in-First-Row-chromium/trace.zip"
+                          "type": "repository",
+                          "description": "Buerokratt-Chatbot"
                         }
-                      ]
+                      ],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 2,
+                          "status": "passed",
+                          "duration": 12425,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-11-08T12:44:23.828Z",
+                          "attachments": [
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-a508c-er-clicking-End-chat-button-chromium/trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
                     }
                   ],
-                  "status": "skipped"
+                  "id": "20b58c729748b63d59c8-bb25e3a16b089f2a1cf3",
+                  "file": "admin/landingPage/mainPage/sideBar/conversations/unanswered/DSL/generatedTests.spec.js",
+                  "line": 67,
+                  "column": 13
                 }
-              ],
-              "id": "f60cba0e46bfcd96e80e-43419b7aa8c0b3cbb43d",
-              "file": "admin/landingPage/mainPage/sideBar/training/training/themes/DSL/generated.spec.js",
-              "line": 60,
-              "column": 7
+              ]
             },
             {
-              "title": "Check Add New Textarea and Button in Table",
-              "ok": true,
-              "tags": [],
-              "tests": [
+              "title": "Forward to Colleague Dialog",
+              "file": "admin/landingPage/mainPage/sideBar/conversations/unanswered/DSL/generatedTests.spec.js",
+              "line": 85,
+              "column": 10,
+              "specs": [
                 {
-                  "timeout": 30000,
-                  "annotations": [
+                  "title": "should open forward dialog with search and filtering options",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
                     {
-                      "type": "repository",
-                      "description": "Training-Module"
-                    },
-                    {
-                      "type": "skip",
-                      "description": "No listing elements found"
-                    }
-                  ],
-                  "expectedStatus": "skipped",
-                  "projectId": "chromium",
-                  "projectName": "chromium",
-                  "results": [
-                    {
-                      "workerIndex": 3,
-                      "status": "skipped",
-                      "duration": 1937,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2024-11-05T14:42:10.999Z",
-                      "attachments": [
+                      "timeout": 30000,
+                      "annotations": [
                         {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-463b0-extarea-and-Button-in-Table-chromium/trace.zip"
+                          "type": "repository",
+                          "description": "Buerokratt-Chatbot"
                         }
-                      ]
+                      ],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 3,
+                          "status": "passed",
+                          "duration": 12790,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-11-08T12:44:23.937Z",
+                          "attachments": [
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-3927f-earch-and-filtering-options-chromium/trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
                     }
                   ],
-                  "status": "skipped"
+                  "id": "20b58c729748b63d59c8-bd94f5d650c22606d612",
+                  "file": "admin/landingPage/mainPage/sideBar/conversations/unanswered/DSL/generatedTests.spec.js",
+                  "line": 86,
+                  "column": 13
+                },
+                {
+                  "title": "should display forward option for each agent in forward dialog",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [
+                        {
+                          "type": "repository",
+                          "description": "Buerokratt-Chatbot"
+                        }
+                      ],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 1,
+                          "status": "passed",
+                          "duration": 11822,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-11-08T12:44:24.217Z",
+                          "attachments": [
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-fdad1-ach-agent-in-forward-dialog-chromium/trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "20b58c729748b63d59c8-b972a7a2be7d4f4ab8fd",
+                  "file": "admin/landingPage/mainPage/sideBar/conversations/unanswered/DSL/generatedTests.spec.js",
+                  "line": 98,
+                  "column": 13
                 }
-              ],
-              "id": "f60cba0e46bfcd96e80e-aa27e9df987185bbe19c",
-              "file": "admin/landingPage/mainPage/sideBar/training/training/themes/DSL/generated.spec.js",
-              "line": 75,
-              "column": 7
+              ]
             },
             {
-              "title": "Verify Sorting Buttons for Headers in Table",
-              "ok": true,
-              "tags": [],
-              "tests": [
+              "title": "Pagination Controls",
+              "file": "admin/landingPage/mainPage/sideBar/conversations/unanswered/DSL/generatedTests.spec.js",
+              "line": 106,
+              "column": 10,
+              "specs": [
                 {
-                  "timeout": 30000,
-                  "annotations": [
+                  "title": "should display pagination label and select for result count",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
                     {
-                      "type": "repository",
-                      "description": "Training-Module"
-                    },
-                    {
-                      "type": "skip",
-                      "description": "No listing elements found"
-                    }
-                  ],
-                  "expectedStatus": "skipped",
-                  "projectId": "chromium",
-                  "projectName": "chromium",
-                  "results": [
-                    {
-                      "workerIndex": 1,
-                      "status": "skipped",
-                      "duration": 1814,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2024-11-05T14:42:11.269Z",
-                      "attachments": [
+                      "timeout": 30000,
+                      "annotations": [
                         {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-f7a65-uttons-for-Headers-in-Table-chromium/trace.zip"
+                          "type": "repository",
+                          "description": "Buerokratt-Chatbot"
                         }
-                      ]
+                      ],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 4,
+                          "status": "passed",
+                          "duration": 8682,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-11-08T12:44:34.947Z",
+                          "attachments": [
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-40ae3-and-select-for-result-count-chromium/trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
                     }
                   ],
-                  "status": "skipped"
+                  "id": "20b58c729748b63d59c8-c42c08ae8d00c349e206",
+                  "file": "admin/landingPage/mainPage/sideBar/conversations/unanswered/DSL/generatedTests.spec.js",
+                  "line": 107,
+                  "column": 13
                 }
-              ],
-              "id": "f60cba0e46bfcd96e80e-8b693fa12e418d4f2888",
-              "file": "admin/landingPage/mainPage/sideBar/training/training/themes/DSL/generated.spec.js",
-              "line": 83,
-              "column": 7
+              ]
             }
           ]
         }
@@ -471,10 +586,10 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2024-11-05T14:41:46.644Z",
-    "duration": 26592.113,
-    "expected": 1,
-    "skipped": 7,
+    "startTime": "2024-11-08T12:43:48.508Z",
+    "duration": 55279.219,
+    "expected": 10,
+    "skipped": 0,
     "unexpected": 0,
     "flaky": 0
   }

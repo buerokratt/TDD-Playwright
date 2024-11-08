@@ -164,7 +164,7 @@
     "takeOver": "Take Over",
     "unanswered": "Unanswered",
     "unansweredChats": "Unanswered chats",
-    "chooseChatToBegin": "Choose a chat to begin",
+    "chooseAChatToBegin": "Choose a chat to begin",
     "forwardToColleague": "Forward to colleague",
     "id": "ID",
     "endUserName": "End user name",
@@ -174,9 +174,9 @@
     "acceptedResponse": "Accepted response",
     "hateSpeech": "Hate speech",
     "otherReasons": "Other reasons",
-    "responseSentToClient": "Response was sent to client email",
-    "whoToForward": "Who to forward the chat?",
-    "showOnlyActiveAgents": "Show only active client support agents",
+    "responseWasSentToClientEmail": "Response was sent to client email",
+    "whoToForwardTheChat": "Who to forward the chat?",
+    "showOnlyActiveClientSupportAgents": "Show only active client support agents",
     "startTime": "Start time",
     "endTime": "End time",
     "comment": "Comment",
@@ -231,6 +231,9 @@
     "openSearchDashboardOSD": "OpenSearch Dashboard (OSD)",
     "searchForIntent": "Search for intent...",
     "search": "Search...",
-    "trainingAndTest": "Training and test"
+    "trainingAndTest": "Training and test",
+    "anonymous": "Anonymous",
+    "chooseChatStatus": "Choose chat status",
+    "forward": "Forward"
     
 }

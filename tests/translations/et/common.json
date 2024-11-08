@@ -167,7 +167,7 @@
     "takeOver": "Võta üle",
     "unanswered": "Vastamata",
     "unansweredChats": "Vastamata vestlused",
-    "chooseChatToBegin": "Alustamiseks vali vestlus",
+    "chooseAChatToBegin": "Alustamiseks vali vestlus",
     "forwardToColleague": "Suuna kolleegile",
     "id": "ID",
     "endUserName": "Vestleja nimi",
@@ -177,9 +177,9 @@
     "acceptedResponse": "Aktsepteeritud",
     "hateSpeech": "Vihakõne",
     "otherReasons": "Muud põhjused",
-    "responseSentToClient": "Kliendile vastati tema jäetud kontaktile",
-    "whoToForward": "Kellele vestlus suunata?",
-    "showOnlyActiveAgents": "Näita ainult kohal olevaid nõustajaid",
+    "responseWasSentToClientEmail": "Kliendile vastati tema jäetud kontaktile",
+    "whoToForwardTheChat": "Kellele vestlus suunata?",
+    "showOnlyActiveClientSupportAgents": "Näita ainult kohal olevaid nõustajaid",
     "startTime": "Algusaeg",
     "endTime": "Lõppaeg",
     "comment": "Kommentaar",
@@ -231,5 +231,8 @@
     "firstAndLastName2": "Ees- ja perekonnanimi",
     "csv": "CSV",
     "openSearchDashboardOSD": "OpenSearch Dashboard (OSD)",
-    "searchForIntent": "Otsi teemat..."
+    "searchForIntent": "Otsi teemat...",
+    "anonymous": "Anonüümne",
+    "chooseChatStatus": "Vali vestluse staatus",
+    "forward": "Suuna"
 }
