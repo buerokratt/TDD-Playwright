@@ -37,12 +37,18 @@
       const deleteButton = dataRow.getByRole('button', { name: `${translation.delete}`, exact: true }).first();
       const forwardButton = dataRow.getByRole('button', { name: `${translation.forward}`, exact: true }).first();
       
-   b. If DSL includes table and has 'sortable: true' field then should check for sorting button persistence.
+   b. Checking headers
       For example: 
-      for (const header of headers) {
-            const sortingButton = page.locator('th').filter({ hasText: header }).locator('button');
-            await expect(sortingButton).toBeVisible();
-      }
+      const container = page.locator('.data-table');
+      const nameHeader = container.getByText(`${translation.name}`)
+      await expect(nameHeader).toBeVisible();
+
+   c. Checking pagination
+      For example:
+      const resultCountLabel = await page.getByText(`${translation.resultCount}`);
+      const resultCountDropdown = await page.getByRole('combobox', { name: `${translation.resultCount}` });
+      await expect(resultCountLabel).toBeVisible();
+      await expect(resultCountDropdown).toBeVisible();
 
 5. Test setup:
 Include navigation and fetching translations in a beforeEach hook to ensure the page and translations are ready before running each test.

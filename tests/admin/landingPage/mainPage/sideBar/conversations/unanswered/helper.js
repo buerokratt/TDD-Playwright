@@ -1,16 +1,5 @@
 import { request } from '@playwright/test';
 import { getTranslations } from '@translation/languageDetector.js';
-
-// Function to open dialog
-export async function openDialog(page, buttonText) {
-    await page.waitForTimeout(2000);
-    const button = await page.locator(`button:has-text("${buttonText}")`);
-    await button.click();
-    await page.waitForTimeout(2000);
-    const dialog = await page.locator('.dialog--default');
-    return await dialog.isVisible();
-}
-
 export async function selectFirstItem(page) {
     const buttons = await page.locator('.vertical-tabs__trigger');
     const buttonCount = await buttons.count();

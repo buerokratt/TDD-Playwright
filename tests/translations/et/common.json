@@ -156,7 +156,7 @@
     "train": "Treeni",
 
 
-    "askAuthentication": "Küsi autentimist",
+    "askForAuthentication": "Küsi autentimist",
     "askedAuthentication": "Küsiti autentimist",
     "askPermission": "Küsi nõusolekut",
     "askedPermission": "Küsiti nõusolekut",

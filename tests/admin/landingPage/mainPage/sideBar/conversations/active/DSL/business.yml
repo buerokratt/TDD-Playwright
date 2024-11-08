@@ -4,17 +4,12 @@ test:
   main:
     verticalTabs:
       - name: vertical-tabs
+      - name: vertical-tabs__list
       - name: vertical-tabs__group-header
         paragraph:
           args:
             - type: text
-            - value: "My chats"
-            - style: paragraph
-      - name: vertical-tabs__body-placeholder
-        paragraph:
-          args:
-            - type: text
-            - value: "Choose a chat to begin"
+            - value: "My chats ({count})"
             - style: paragraph
 
     selectedChat:
@@ -23,22 +18,60 @@ test:
         paragraph:
           args:
             - type: text
-            - value: "Header paragraph"
+            - value: "Anonymous"
             - style: p
 
         heading:
           args:
             - type: text
-            - value: "Header title"
+            - value: "Anonymous"
             - style: h3
 
       - name: active-chat__group-wrapper
         hasChat : true
 
       - name: active-chat__toolbar
+        track:
+          textarea:
+                  args:
+                    - type: text
+                    - style: textarea
+                    - placeholder: "Reply..."
+      - name: active-chat__toolbar-actions
+        button:
+          args:
+            - type: button
+            - style: button
+
 
       - name: active-chat__side
       - name: active-chat__side-actions
+        button:
+          args:
+            - type: button
+            - value: "End chat"
+            - style: button
+        button:
+          args:
+            - type: button
+            - value: "Ask for authentication"
+            - style: button
+        button:
+          args:
+            - type: button
+            - value: "Ask for contact"
+            - style: button
+        button:
+          args:
+            - type: button
+            - value: "Ask permission"
+            - style: button
+        button:
+          args:
+            - type: button
+            - value: "Forward to colleague"
+            - style: button
+
       - name: active-chat__side-meta
         paragraph:
           args:
@@ -75,4 +108,119 @@ test:
             - type: text
             - value: "Location"
             - style: p
-            
+
+    endChatDialog:
+    - name: dialog__header
+      heading:
+          args:
+            - type: text
+            - value: "Choose chat status"
+            - style: h2
+      button:
+      - name: dialog__close
+        args:
+          - type: button
+          - style: button
+
+    - name: dialog__body
+      input:
+        args:
+          - type: radio
+          - style: radio
+          - text: "Accepted response"
+    
+      input:
+        args:
+          - type: radio
+          - style: radio
+          - text: "Hate speech"
+
+      input:
+        args:
+          - type: radio
+          - style: radio
+          - text: "Other reasons"
+      input:
+        args:
+          - type: radio
+          - style: radio
+          - text: "Response was sent to client email"
+    
+    - name: dialog__footer
+      button:
+        args:
+          - type: button
+          - value: "Cancel"
+          - style: button
+      
+      button:
+        args:
+          - type: button
+          - value: "End chat"
+          - style: button
+
+    forwawrdToColleagueDialog:
+    - name: dialog__header
+      heading:
+          args:
+            - type: text
+            - value: "Who to forward the chat?"
+            - style: h2
+      button:
+      - name: dialog__close
+        args:
+          - type: button
+          - style: button
+
+    - name: dialog__body
+      track:
+        input:
+          args:
+              - type: text
+              - placeholder: "Search by name..."
+              - style: input
+        
+        checkbox:
+          args:
+            - type: checkbox
+            - value: Show only active client support agents
+            - style: checkbox
+
+    
+      table:
+      headers:
+        - args:
+            - type: text
+            - value: "Name"
+        - args:
+            - type: text
+            - value: "Display name"
+        - args:
+            - type: text
+            - value: "Status"
+      body:
+        row:
+          data:
+            has_data: true
+          button:
+            args:
+              - type: button
+              - value: "Forward"
+              - style: button
+
+    pagination:
+      label:
+        args:
+          - type: text
+          - value: "Result count"
+          - style: label
+      select:
+        args:
+          - type: dropdown
+          - style: select
+          - options:
+              - value: "10"
+              - value: "20"
+              - value: "30"
+              - value: "40"
+              - value: "50"    
