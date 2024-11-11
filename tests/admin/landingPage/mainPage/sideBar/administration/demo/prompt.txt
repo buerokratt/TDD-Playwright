@@ -44,6 +44,14 @@
    Use the following format for dropdown elements:
    const datepickerStart = await page.locator(`.datepicker`, { exact: true });
    When there are multiple elements mentioned in the DSL, use nth()
+   If the focus is functionality testing, just fill the datepicker with the date in dd.mm.yyyy format 
+   Use the example below to get the input of the datepicker. 
+   const datepickerStart = await page.locator('.datepicker', { exact: true }).nth(0);
+   const datepickerEnd = await page.locator('.datepicker', { exact: true }).nth(1);
+   const datepickerStartInput = await datepickerStart.locator('input').first();
+    const datepickerEndInput = await datepickerEnd.locator('input').first();
+   const initialStartDate = await datepickerStartInput.getAttribute('value');
+   const initialEndDate = await datepickerEndInput.getAttribute('value');
 
 4. Table handling: 
    Consider only first row when checking data persistence. For example when checking edit and delete buttons in table data.
@@ -89,3 +97,6 @@ Add { exact: true } to all locators.
 Default testing is meant to be visibility. So unless explicitly specified, always test visibility unless otherwise mentioned in some cases.
 When the prompt mentions to test functionality, test all eligble functionality and save and after return them to their original values. 
 This means that you should capture the values for the inputs first and reset them at the end.
+
+This means that if there is a save button in the DSL you should capture and click it at the end of each test, refresh the page and check if your input value is there. 
+At the end of a each test it should be reset to the original value.

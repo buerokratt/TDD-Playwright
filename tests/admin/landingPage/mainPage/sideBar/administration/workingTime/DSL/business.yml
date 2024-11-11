@@ -10,6 +10,13 @@ test:
   card:
     name: card__header
     switch:
+      label: "Working hours are 24/7"
+      args:
+           - type: button
+           - style: switch
+           - adjacentTo: label
+           - checkState: unchecked
+    switch:
       label: "Consider public holidays"
       args:
            - type: button
@@ -22,6 +29,7 @@ test:
            - type: button
            - style: switch
            - adjacentTo: label
+           - checkState: unchecked
 
     switch:
        label: "The same on all working days"
@@ -29,6 +37,7 @@ test:
            - type: button
            - style: switch
            - adjacentTo: label
+           - checkState: unchecked
 
     name: card__body divided
     label:
@@ -156,6 +165,22 @@ test:
       args:
           - type: input
           - style: timepicker
+
+    switch:
+     label: "Send a notification of absence to the client" 
+      args:
+          - type: switch
+          
+    switch:
+     label: "Send a notification of absence to the client with a contact request"
+      args:
+          - type: switch
+
+    input:
+      label: "No CSA available message"
+      args:
+       - type: textarea
+       - style: textarea
 
     name: card__footer
     button:
