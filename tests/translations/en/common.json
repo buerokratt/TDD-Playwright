@@ -211,6 +211,7 @@
     "trained": "Trained",
     "examples": "Examples",
     "intent": "Intent",
+    "goToExample": "Go to example",
     "f1Score": "F1-score",
     "models": "Models",
     "version": "Version",
