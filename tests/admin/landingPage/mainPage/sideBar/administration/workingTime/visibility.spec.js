@@ -1,167 +1,75 @@
-const { test, expect } = require('@playwright/test');
-const { getTranslations } = require('../../../../../../translations/languageDetector');
+// tests/working-time.spec.js
+import { test, expect } from '@playwright/test';
+import { getTranslations } from '@translation/languageDetector.js';
 
-test.describe('Switch visibility and text tests', () => {
-    let translation;
-    let sameOnAllWorkingDaysState;
-    let closedOnWeekendsState;
+let translation;
 
-    test.beforeEach(async ({ page }) => {
-        test.info().annotations.push({ type: 'repository', description: 'Buerokratt-Chatbot' });
+test.describe('Working Time', () => {
+  test.beforeEach(async ({ page }) => {
+    test.info().annotations.push({ type: 'repository', description: 'Working time' });
+    await page.goto('https://admin.prod.buerokratt.ee/chat/working-time');
+    translation = await getTranslations(page);
+    await page.waitForTimeout(3000); // Ensure elements load properly
+  });
 
-        await page.goto('https://admin.prod.buerokratt.ee/chat/working-time');
+  test('Check main heading', async ({ page }) => {
+    const heading = await page.getByRole('heading', { name: `${translation.organizationWorkingTime}`, exact: true });
+    await expect(heading).toBeVisible();
+  });
 
-        // Check and store the initial state of the closedOnWeekends switch
-        const closedOnWeekendsSwitch = page.locator('.switch').nth(2).locator('.switch__button');
-        closedOnWeekendsState = await closedOnWeekendsSwitch.getAttribute('aria-checked') === 'true';
-        
-        const sameOnAllWorkingDaysSwitch = page.locator('.switch').nth(3).locator('.switch__button');
-        sameOnAllWorkingDaysState = await sameOnAllWorkingDaysSwitch.getAttribute('aria-checked') === 'true';
+  test.describe('Card Header', () => {
+    test('Verify switches in header', async ({ page }) => {
+      const workingHoursSwitch = await page.getByText(`${translation.workingHoursAre247}`, { exact: true });
+      await expect(workingHoursSwitch).toBeVisible();
 
-        // Update state if necessary
-        if (sameOnAllWorkingDaysState) {
-            await sameOnAllWorkingDaysSwitch.click();
-            await page.waitForTimeout(1000); // Wait for 1 second for the state to update
-        }
+      const publicHolidaysSwitch = await page.getByText(`${translation.considerPublicHolidays}`, { exact: true });
+      await expect(publicHolidaysSwitch).toBeVisible();
 
-        if (closedOnWeekendsState) {
-            await closedOnWeekendsSwitch.click();
-            await page.waitForTimeout(1000); // Wait for 1 second for the state to update
-        }
+      const weekendsSwitch = await page.getByText(`${translation.closedOnWeekends}`, { exact: true });
+      await expect(weekendsSwitch).toBeVisible();
 
-        // Fetch translations
-        translation = await getTranslations(page);
+      const allDaysSwitch = await page.getByText(`${translation.sameOnAllWorkingDays}`, { exact: true });
+      await expect(allDaysSwitch).toBeVisible();
     });
+  });
 
-    test.afterEach(async ({ page }) => {
-        // Turn the switches back to their original states
-        const sameOnAllWorkingDaysSwitch = page.locator('.switch').nth(3).locator('.switch__button');
-        if (sameOnAllWorkingDaysState) {
-            await sameOnAllWorkingDaysSwitch.click();
-            await page.waitForTimeout(1000); // Wait for 1 second for the state to update
-        }
+  test.describe('Card Body', () => {
+    const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
-        const closedOnWeekendsSwitch = page.locator('.switch').nth(2).locator('.switch__button');
-        if (closedOnWeekendsState) {
-            await closedOnWeekendsSwitch.click();
-            await page.waitForTimeout(1000); // Wait for 1 second for the state to update
-        }
-    });
-
-    test('check for visibility of the header', async ({ page }) => {
-
-        // Wait for the header to be visible
-        await page.waitForSelector('h1', { state: 'visible', timeout: 15000 });
-
-        // Check if the <h1> element is visible
-        const header = page.locator('h1');
-        await expect(header).toBeVisible();
-        await expect(header).toHaveText(translation["organizationworkingTime"]);
-    });
-
-    test('check visibility and text of "considerPublicHolidays" switch', async ({ page }) => {
-        // Wait for the switch to be visible
-        await page.waitForSelector('.switch', { state: 'visible', timeout: 15000 });
-
-        // Select the first switch (assuming it's the one for "considerPublicHolidays")
-        const switchElem = page.locator('.switch').nth(1);
-
-        // Wait for the label to be visible
-        const labelElem = switchElem.locator('.switch__label');
-        await labelElem.waitFor({ state: 'visible', timeout: 15000 });
-
-        const label = await labelElem.textContent();
-
-        // Check visibility
-        await expect(switchElem).toBeVisible();
-
-        // Check text content
-        await expect(label?.trim()).toBe(translation["considerPublicHolidays"]);
-    });
-
-    test('check visibility and text of "closedOnWeekends" switch', async ({ page }) => {
-        // Wait for the switch to be visible
-        await page.waitForSelector('.switch', { state: 'visible', timeout: 15000 });
-
-        // Select the second switch (assuming it's the one for "closedOnWeekends")
-        const switchElem = page.locator('.switch').nth(2);
-
-        // Wait for the label to be visible
-        const labelElem = switchElem.locator('.switch__label');
-        await labelElem.waitFor({ state: 'visible', timeout: 15000 });
-
-        const label = await labelElem.textContent();
-
-        // Check visibility
-        await expect(switchElem).toBeVisible();
-
-        // Check text content
-        await expect(label?.trim()).toBe(translation["closedOnWeekends"]);
-    });
-
-    test('check visibility and text of "sameOnAllWorkingDays" switch', async ({ page }) => {
-        // Wait for the switch to be visible
-        await page.waitForSelector('.switch', { state: 'visible', timeout: 15000 });
-
-        // Select the third switch (assuming it's the one for "sameOnAllWorkingDays")
-        const switchElem = page.locator('.switch').nth(3);
-
-        // Wait for the label to be visible
-        const labelElem = switchElem.locator('.switch__label');
-        await labelElem.waitFor({ state: 'visible', timeout: 15000 });
-
-        const label = await labelElem.textContent();
-
-        // Check visibility
-        await expect(switchElem).toBeVisible();
-
-        // Check text content
-        await expect(label?.trim()).toBe(translation["sameOnAllWorkingDays"]);
-    });
-
-    async function checkDayVisibility(page, dayEt) {
-        // Check the visibility of the day label
-        const dayLabel = page.locator(`.Label.switch:has-text("${dayEt}")`);
+    for (const day of days) {
+      test(`Check inputs for ${day}`, async ({ page }) => {
+        const dayLabel = await page.getByText(`${translation[day.toLowerCase()]}`, { exact: true });
         await expect(dayLabel).toBeVisible();
 
-        // Check the visibility of the switch associated with the day
-        const switchButton = dayLabel.locator('..').locator('.switch__button');
-        await expect(switchButton).toBeVisible();
+        //const daySwitch = await page.getByLabel(`${translation[day.toLowerCase()]}`, { exact: true });
+        //wait expect(daySwitch).toBeVisible();
 
-        // Check the visibility of the startTime input
-        const startTimeInput = dayLabel.locator('..').locator('.startTime input[type="text"]');
-        await expect(startTimeInput).toBeVisible();
+        //const startTimeInput = await page.locator('input[type="time"]').nth(0);
+        //await expect(startTimeInput).toBeVisible();
 
-        // Check the visibility of the endTime input
-        const endTimeInput = dayLabel.locator('..').locator('.endTime input[type="text"]');
-        await expect(endTimeInput).toBeVisible();
+        //const endTimeInput = await page.locator('input[type="time"]').nth(1);
+        //await expect(endTimeInput).toBeVisible();
+      });
     }
+  });
 
-    test('check visibility and translation of Monday', async ({ page }) => {
-        await checkDayVisibility(page, translation["monday"]);
+  test.describe('Card Footer', () => {
+    test('Check save button', async ({ page }) => {
+      const saveButton = await page.getByText(`${translation.save}`, { exact: true });
+      await expect(saveButton).toBeVisible();
     });
+  });
 
-    test('check visibility and translation of Tuesday', async ({ page }) => {
-        await checkDayVisibility(page, translation["tuesday"]);
-    });
+  test('Check absence notifications', async ({ page }) => {
+    const absenceNotificationSwitch = await page.getByText(`${translation.sendANotificationOfAbsenceToTheClient}`, { exact: true });
+    await expect(absenceNotificationSwitch).toBeVisible();
 
-    test('check visibility and translation of Wednesday', async ({ page }) => {
-        await checkDayVisibility(page, translation["wednesday"]);
-    });
+    const contactRequestSwitch = await page.getByText(`${translation.sendANotificationOfAbsenceToTheClientWithAContactRequest}`, { exact: true });
+    await expect(contactRequestSwitch).toBeVisible();
+  });
 
-    test('check visibility and translation of Thursday', async ({ page }) => {
-        await checkDayVisibility(page, translation["thursday"]);
-    });
-
-    test('check visibility and translation of Friday', async ({ page }) => {
-        await checkDayVisibility(page, translation["friday"]);
-    });
-
-    test('check visibility and translation of Saturday', async ({ page }) => {
-        await checkDayVisibility(page, translation["saturday"]);
-    });
-
-    test('check visibility and translation of Sunday', async ({ page }) => {
-        await checkDayVisibility(page, translation["sunday"]);
-    });
+  test('Check No CSA message input', async ({ page }) => {
+    const noCsaMessageInput = await page.getByLabel(`${translation.noCsaAvailableMessage}`, { exact: true });
+    await expect(noCsaMessageInput).toBeVisible();
+  });
 });

@@ -1,5 +1,5 @@
 resource: chat/chatbot/settings
-description: "Settings"
+description: "Buerokratt-Chatbot"
 test:
   main:
   heading:
