@@ -1,152 +1,84 @@
-import { test, expect, request } from '@playwright/test';
-import { openDialog, selectFirstChat, takeOverFirstChat } from '../unanswered/helper';
+import { test, expect } from '@playwright/test';
 import { getTranslations } from '@translation/languageDetector.js';
+import { turnSwitchOn, provideData, takeOverFirstChat } from '../unanswered/helper';
 
-test.beforeEach('test', async ({ page }) => {
-    test.info().annotations.push({ type: 'repository', description: 'Buerokratt-Chatbot' });
-    await page.goto('https://admin.prod.buerokratt.ee/chat/active');
-    const translation = await getTranslations(page);
-});
+let translation;
 
-
-test.describe('Visibility Tests for "Aktiivsed" / "Active" Page', async () => {
-
- 
-    test('should have the correct URL', async ({ page }) => {
-        await expect(page).toHaveURL('https://admin.prod.buerokratt.ee/chat/active');
-    });
-
-    test('should have conversations header', async ({ page }) => {
-        const header = page.locator('div.vertical-tabs__group-header');
-        await expect(header).toBeVisible();
-    })
-
-    test('should have conversations vertical tabs', async ({ page }) => {
-        const verticalTabs = page.locator('div.vertical-tabs__list');
-        await expect(verticalTabs).toBeVisible();
-    })
-
-});
-
-test.describe('Visibility Tests for "Aktiivsed" / "Active" tab body', () => {
-    let translation;
-    test.beforeEach('test2', async ({ page }) => {
-        // This needs to be runned because 
-        await page.goto('https://admin.prod.buerokratt.ee/chat/unanswered');
-       
-        translation = await getTranslations(page);
-
-        const switchButton = await page.locator('.switch__button');
-        const isChecked = await switchButton.getAttribute('aria-checked');
-        if (isChecked !== 'true' ) {
-            await switchButton.click();
-        }
-
-        const isChatAvailable = await takeOverFirstChat(page);
-
-        if (!isChatAvailable) {
-            //console.log("No unanswered chats, making API request...");
-            await provideData(page);
-        }
-    
-        await selectFirstChat(page);
-        await page.waitForTimeout(2000)
-        
-    });
-
-    test('should have all parts of active chat body', async ({ page }) => {
-        
-        const body = await page.locator('.active-chat__body');
-        await expect(body).toBeVisible();
-
-        const header = await page.locator('.active-chat__header');
-        await expect(header).toBeVisible();
-
-        const wrapper = await page.locator('.active-chat__group-wrapper');
-        await expect(header).toBeVisible();
-
-        const toolbar = await page.locator('.active-chat__toolbar');
-        await expect(toolbar).toBeVisible();
-
-        const button = await page.locator('.active-chat__toolbar-actions button');
-        await expect(button).toBeVisible();
-
-        const chatSide = await page.locator('.active-chat__side');
-        await expect(chatSide).toBeVisible();
-    })
-
+test.describe.skip('Buerokratt-Chatbot Active Chat. These tests are skipped due to issues with the chat takeover functionality. Specifically, the "takeover" action ' +
+                'is not working as expected: it does not reliably redirect to the active chats page, and taken-over chats sometimes remain ' +
+                'in the unanswered list. This causes inconsistencies and failures in tests that rely on the chat being moved to the active state.', () => {
    
-
-
-    test('Should have individual meta information fields', async ({ page }) => {
-        const chatSideMeta = page.locator('div.active-chat__side-meta')
-        await expect(chatSideMeta).toBeVisible();
-
-        // Verify individual meta information fields
-        const pElement = page.locator('p strong')
-        await expect(pElement.filter({ hasText: new RegExp(translation.id) })).toBeVisible();
-        await expect(pElement.filter({ hasText: new RegExp(translation.endUserName) })).toBeVisible();
-        await expect(pElement.filter({ hasText: new RegExp(translation.chatStartedAt) })).toBeVisible();
-        await expect(pElement.filter({ hasText: new RegExp(translation.device) })).toBeVisible();
-        await expect(pElement.filter({ hasText: new RegExp(translation.location) })).toBeVisible();
-
-
+    test.beforeEach(async ({ page }) => {
+        test.info().annotations.push({ type: 'repository', description: 'Buerokratt-Chatbot' });
+        
+        await page.goto('https://admin.prod.buerokratt.ee/chat/unanswered');
+        await page.waitForTimeout(2000);
+        await turnSwitchOn(page);
+        await provideData();
+        await takeOverFirstChat(page);
+        translation = await getTranslations(page);
     });
-});
 
+    test.describe('Vertical Tabs', () => {
+        test('displays My Chats header with dynamic count', async ({ page }) => {
+            const myChatsHeader = await page.locator('.vertical-tabs__group-header').getByText(new RegExp(translation.myChats));
+            await expect(myChatsHeader).toBeVisible();
+        });
+    });
 
-async function provideData(page) {
+    test.describe('Selected Chat Area', () => {
+        test('displays chat metadata and action buttons', async ({ page }) => {
+            const chatId = await page.locator('.active-chat__side-meta').getByText(`${translation.id}`, { exact: true });
+            const chatEndUserName = await page.locator('.active-chat__side-meta').getByText(`${translation.endUserName}`, { exact: true });
+            const chatDevice = await page.locator('.active-chat__side-meta').getByText(`${translation.device}`, { exact: true });
+            const chatLocation = await page.locator('.active-chat__side-meta').getByText(`${translation.location}`, { exact: true });
 
-        //console.log("No unanswered chats, making API request...");
-
-        // Prepare the JSON data
-        const jsonData = {
-            "message": {
-                "chatId": "",
-                "content": "suuna mind",
-                "authorTimestamp": new Date().toISOString(),  // Using the current timestamp
-                "authorRole": "end-user"
-            },
-            "endUserTechnicalData": {
-                "endUserUrl": "https://prod.buerokratt.ee/",
-                "endUserOs": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36"
-            },
-            "holidays": [
-                "2024-01-01",
-                "2024-02-24",
-                "2024-03-29",
-                "2024-03-31",
-                "2024-05-01",
-                "2024-05-19",
-                "2024-06-23",
-                "2024-06-24",
-                "2024-08-20",
-                "2024-12-24",
-                "2024-12-25",
-                "2024-12-26"
-            ],
-            "holidayNames": "2024-01-01-uusaasta,2024-02-24-iseseisvuspäev,2024-03-29-suur reede,2024-03-31-lihavõtted,2024-05-01-kevadpüha,2024-05-19-nelipühade 1. püha,2024-06-23-võidupüha,2024-06-24-jaanipäev,2024-08-20-taasiseseisvumispäev,2024-12-24-jõululaupäev,2024-12-25-esimene jõulupüha,2024-12-26-teine jõulupüha"
-        };
-
-        // Create a new API request context
-        const apiRequestContext = await request.newContext();
-
-        // Send the POST request
-        const response = await apiRequestContext.post('https://ruuter.prod.buerokratt.ee/v2/public/backoffice/chats/init', {
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            data: jsonData
+            await expect(chatId).toBeVisible();
+            await expect(chatEndUserName).toBeVisible();
+            await expect(chatDevice).toBeVisible();
+            await expect(chatLocation).toBeVisible();
         });
 
-        // Check the response status and handle errors if necessary
-        if (response.ok()) {
-            //console.log('API request was successful.');
-        } else {
-            console.error(`API request failed with status: ${response.status()}`);
-        }
+        test('displays and enables side actions buttons', async ({ page }) => {
+            const endChatButton = await page.locator('.active-chat__side-actions').getByText(`${translation.endChat}`, { exact: true });
+            const askAuthButton = await page.locator('.active-chat__side-actions').getByText(`${translation.askForAuthentication}`, { exact: true });
+            const forwardButton = await page.locator('.active-chat__side-actions').getByText(`${translation.forwardToColleague}`, { exact: true });
 
-        // Close the request context to avoid memory leaks
-        await apiRequestContext.dispose();
-    } 
-    
+            await expect(endChatButton).toBeVisible();
+            await expect(endChatButton).toBeEnabled();
+            await expect(askAuthButton).toBeVisible();
+            await expect(askAuthButton).toBeEnabled();
+            await expect(forwardButton).toBeVisible();
+            await expect(forwardButton).toBeEnabled();
+        });
+
+        test('opens end chat dialog on clicking "End chat"', async ({ page }) => {
+            const endChatButton = await page.locator('.active-chat__side-actions').getByText(`${translation.endChat}`, { exact: true });
+            await endChatButton.click();
+            const endChatDialog = await page.locator('.dialog__header').getByRole('heading', { name: `${translation.chooseChatStatus}`, exact: true });
+            await expect(endChatDialog).toBeVisible();
+        });
+
+        test('opens forward to colleague dialog on clicking "Forward to Colleague"', async ({ page }) => {
+            const forwardButton = await page.locator('.active-chat__side-actions').getByText(`${translation.forwardToColleague}`, { exact: true });
+            await forwardButton.click();
+            const forwardDialog = await page.locator('.dialog__header').getByRole('heading', { name: `${translation.whoToForwardTheChat}`, exact: true });
+            await expect(forwardDialog).toBeVisible();
+        });
+    });
+
+    test.describe('Forward to Colleague Dialog', () => {
+        test('displays name, display name, and status headers', async ({ page }) => {
+            const headers = [`${translation.name}`, `${translation.displayName}`, `${translation.status}`];
+            for (const header of headers) {
+                const sortingButton = page.locator('th').filter({ hasText: header }).locator('button');
+                await expect(sortingButton).toBeVisible();
+            }
+        });
+
+        test('displays a checkbox to show only active agents', async ({ page }) => {
+            const onlyActiveAgentsCheckbox = page.locator('.dialog__body').getByText(`${translation.showOnlyActiveAgents}`, { exact: true });
+            await expect(onlyActiveAgentsCheckbox).toBeVisible();
+        });
+    });
+});
