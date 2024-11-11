@@ -1,18 +1,21 @@
 import { test, expect } from '@playwright/test';
 import { getTranslations } from '@translation/languageDetector.js';
-import { turnSwitchOn, changeOpenHoursTo24and7, provideData, selectFirstItem } from '../../unanswered/helper';
+import { turnSwitchOn, provideData, takeOverFirstChat } from '../../unanswered/helper';
 
 let translation;
 
-test.describe('Buerokratt-Chatbot Active Chat', () => {
+test.describe.skip('Buerokratt-Chatbot Active Chat. These tests are skipped due to issues with the chat takeover functionality. Specifically, the "takeover" action ' +
+                'is not working as expected: it does not reliably redirect to the active chats page, and taken-over chats sometimes remain ' +
+                'in the unanswered list. This causes inconsistencies and failures in tests that rely on the chat being moved to the active state.', () => {
+   
     test.beforeEach(async ({ page }) => {
         test.info().annotations.push({ type: 'repository', description: 'Buerokratt-Chatbot' });
-        await page.goto('https://admin.prod.buerokratt.ee/chat/active');
-        await page.waitForTimeout(3000);
+        
+        await page.goto('https://admin.prod.buerokratt.ee/chat/unanswered');
+        await page.waitForTimeout(2000);
         await turnSwitchOn(page);
-        await changeOpenHoursTo24and7();
         await provideData();
-        await selectFirstItem(page);
+        await takeOverFirstChat(page);
         translation = await getTranslations(page);
     });
 

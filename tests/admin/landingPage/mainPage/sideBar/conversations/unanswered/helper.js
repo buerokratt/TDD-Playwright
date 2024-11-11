@@ -119,27 +119,11 @@ export async function changeOpenHoursTo24and7() {
 }
 
 export async function takeOverFirstChat(page) {
-    // Get translations for the buttons and labels
-    const translations = await getTranslations(page);
-    await page.waitForTimeout(2000);
-    // Attempt to select the first chat
-    const chatOpened = await selectFirstChat(page);
-    if (!chatOpened) {
-        //console.log("No chat was opened.");
-        return false;  // No chat found or opened
-    }
-    await page.waitForTimeout(2000);
-    // Click the "Võta üle" (take over) button
-    const takeOverButton = await page.locator(`button:has-text("${translations.takeOver}")`);
-    await page.waitForTimeout(2000);
-    // Check if the "Võta üle" button is visible and enabled before clicking
-    if (await takeOverButton.isVisible() && await takeOverButton.isEnabled()) {
-        await takeOverButton.click();
-        //console.log("Chat taken over successfully.");
-        return true;  // Chat taken over successfully
-    } else {
-        //console.log("Take over button not visible or not enabled.");
-        return false;  // Take over failed
-    }
+    const translation = await getTranslations(page);
+    const chatOpened = await selectFirstItem(page);
+
+    const takeOverButton = await page.locator(`button:has-text("${translation.takeOver}")`);
+
+    return await takeOverButton.isVisible() ? (await takeOverButton.click(), true) : false;
 }
 

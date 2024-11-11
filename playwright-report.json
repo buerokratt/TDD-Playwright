@@ -97,12 +97,12 @@
                 {
                   "workerIndex": 0,
                   "status": "passed",
-                  "duration": 13840,
+                  "duration": 14265,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2024-11-08T13:12:31.759Z",
+                  "startTime": "2024-11-11T09:38:25.750Z",
                   "attachments": [
                     {
                       "name": "trace",
@@ -130,16 +130,16 @@
       "specs": [],
       "suites": [
         {
-          "title": "Buerokratt-Chatbot Active Chat",
+          "title": "Buerokratt-Chatbot Active Chat. These tests are skipped due to issues with the chat takeover functionality. Specifically, the \"takeover\" action is not working as expected: it does not reliably redirect to the active chats page, and taken-over chats sometimes remain in the unanswered list. This causes inconsistencies and failures in tests that rely on the chat being moved to the active state.",
           "file": "admin/landingPage/mainPage/sideBar/conversations/active/DSL/generated.spec.js",
           "line": 7,
-          "column": 6,
+          "column": 15,
           "specs": [],
           "suites": [
             {
               "title": "Vertical Tabs",
               "file": "admin/landingPage/mainPage/sideBar/conversations/active/DSL/generated.spec.js",
-              "line": 19,
+              "line": 22,
               "column": 10,
               "specs": [
                 {
@@ -151,38 +151,31 @@
                       "timeout": 30000,
                       "annotations": [
                         {
-                          "type": "repository",
-                          "description": "Buerokratt-Chatbot"
+                          "type": "skip"
                         }
                       ],
-                      "expectedStatus": "passed",
+                      "expectedStatus": "skipped",
                       "projectId": "chromium",
                       "projectName": "chromium",
                       "results": [
                         {
-                          "workerIndex": 1,
-                          "status": "passed",
-                          "duration": 17515,
+                          "workerIndex": -1,
+                          "status": "skipped",
+                          "duration": 0,
                           "errors": [],
                           "stdout": [],
                           "stderr": [],
                           "retry": 0,
-                          "startTime": "2024-11-08T13:12:46.633Z",
-                          "attachments": [
-                            {
-                              "name": "trace",
-                              "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-932aa-s-header-with-dynamic-count-chromium/trace.zip"
-                            }
-                          ]
+                          "startTime": "2024-11-11T09:38:40.484Z",
+                          "attachments": []
                         }
                       ],
-                      "status": "expected"
+                      "status": "skipped"
                     }
                   ],
-                  "id": "102051f1dbe18f84b238-cbaa3e97250ef5c3a7f4",
+                  "id": "102051f1dbe18f84b238-4c114602762685d55d8d",
                   "file": "admin/landingPage/mainPage/sideBar/conversations/active/DSL/generated.spec.js",
-                  "line": 20,
+                  "line": 23,
                   "column": 13
                 }
               ]
@@ -190,7 +183,7 @@
             {
               "title": "Selected Chat Area",
               "file": "admin/landingPage/mainPage/sideBar/conversations/active/DSL/generated.spec.js",
-              "line": 26,
+              "line": 29,
               "column": 10,
               "specs": [
                 {
@@ -202,38 +195,31 @@
                       "timeout": 30000,
                       "annotations": [
                         {
-                          "type": "repository",
-                          "description": "Buerokratt-Chatbot"
+                          "type": "skip"
                         }
                       ],
-                      "expectedStatus": "passed",
+                      "expectedStatus": "skipped",
                       "projectId": "chromium",
                       "projectName": "chromium",
                       "results": [
                         {
-                          "workerIndex": 2,
-                          "status": "passed",
-                          "duration": 17559,
+                          "workerIndex": -1,
+                          "status": "skipped",
+                          "duration": 0,
                           "errors": [],
                           "stdout": [],
                           "stderr": [],
                           "retry": 0,
-                          "startTime": "2024-11-08T13:12:46.630Z",
-                          "attachments": [
-                            {
-                              "name": "trace",
-                              "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-70d0b-metadata-and-action-buttons-chromium/trace.zip"
-                            }
-                          ]
+                          "startTime": "2024-11-11T09:38:40.485Z",
+                          "attachments": []
                         }
                       ],
-                      "status": "expected"
+                      "status": "skipped"
                     }
                   ],
-                  "id": "102051f1dbe18f84b238-76d7d504d5f3b64a553d",
+                  "id": "102051f1dbe18f84b238-917f566106f72dcbde62",
                   "file": "admin/landingPage/mainPage/sideBar/conversations/active/DSL/generated.spec.js",
-                  "line": 27,
+                  "line": 30,
                   "column": 13
                 },
                 {
@@ -245,38 +231,31 @@
                       "timeout": 30000,
                       "annotations": [
                         {
-                          "type": "repository",
-                          "description": "Buerokratt-Chatbot"
+                          "type": "skip"
                         }
                       ],
-                      "expectedStatus": "passed",
+                      "expectedStatus": "skipped",
                       "projectId": "chromium",
                       "projectName": "chromium",
                       "results": [
                         {
-                          "workerIndex": 3,
-                          "status": "passed",
-                          "duration": 17141,
+                          "workerIndex": -1,
+                          "status": "skipped",
+                          "duration": 0,
                           "errors": [],
                           "stdout": [],
                           "stderr": [],
                           "retry": 0,
-                          "startTime": "2024-11-08T13:12:46.649Z",
-                          "attachments": [
-                            {
-                              "name": "trace",
-                              "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-f8628-nables-side-actions-buttons-chromium/trace.zip"
-                            }
-                          ]
+                          "startTime": "2024-11-11T09:38:40.485Z",
+                          "attachments": []
                         }
                       ],
-                      "status": "expected"
+                      "status": "skipped"
                     }
                   ],
-                  "id": "102051f1dbe18f84b238-9d8a5a563425a6e563f9",
+                  "id": "102051f1dbe18f84b238-abc6cc018c30bf5e904f",
                   "file": "admin/landingPage/mainPage/sideBar/conversations/active/DSL/generated.spec.js",
-                  "line": 39,
+                  "line": 42,
                   "column": 13
                 },
                 {
@@ -288,38 +267,31 @@
                       "timeout": 30000,
                       "annotations": [
                         {
-                          "type": "repository",
-                          "description": "Buerokratt-Chatbot"
+                          "type": "skip"
                         }
                       ],
-                      "expectedStatus": "passed",
+                      "expectedStatus": "skipped",
                       "projectId": "chromium",
                       "projectName": "chromium",
                       "results": [
                         {
-                          "workerIndex": 4,
-                          "status": "passed",
-                          "duration": 17080,
+                          "workerIndex": -1,
+                          "status": "skipped",
+                          "duration": 0,
                           "errors": [],
                           "stdout": [],
                           "stderr": [],
                           "retry": 0,
-                          "startTime": "2024-11-08T13:12:46.644Z",
-                          "attachments": [
-                            {
-                              "name": "trace",
-                              "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-43998-ialog-on-clicking-End-chat--chromium/trace.zip"
-                            }
-                          ]
+                          "startTime": "2024-11-11T09:38:40.485Z",
+                          "attachments": []
                         }
                       ],
-                      "status": "expected"
+                      "status": "skipped"
                     }
                   ],
-                  "id": "102051f1dbe18f84b238-78acf2149730f44e9899",
+                  "id": "102051f1dbe18f84b238-0c346a2fc6a73bb8823a",
                   "file": "admin/landingPage/mainPage/sideBar/conversations/active/DSL/generated.spec.js",
-                  "line": 52,
+                  "line": 55,
                   "column": 13
                 },
                 {
@@ -331,38 +303,31 @@
                       "timeout": 30000,
                       "annotations": [
                         {
-                          "type": "repository",
-                          "description": "Buerokratt-Chatbot"
+                          "type": "skip"
                         }
                       ],
-                      "expectedStatus": "passed",
+                      "expectedStatus": "skipped",
                       "projectId": "chromium",
                       "projectName": "chromium",
                       "results": [
                         {
-                          "workerIndex": 4,
-                          "status": "passed",
-                          "duration": 12063,
+                          "workerIndex": -1,
+                          "status": "skipped",
+                          "duration": 0,
                           "errors": [],
                           "stdout": [],
                           "stderr": [],
                           "retry": 0,
-                          "startTime": "2024-11-08T13:13:04.420Z",
-                          "attachments": [
-                            {
-                              "name": "trace",
-                              "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-940ff-cking-Forward-to-Colleague--chromium/trace.zip"
-                            }
-                          ]
+                          "startTime": "2024-11-11T09:38:40.486Z",
+                          "attachments": []
                         }
                       ],
-                      "status": "expected"
+                      "status": "skipped"
                     }
                   ],
-                  "id": "102051f1dbe18f84b238-f446fd6cf42d119377dd",
+                  "id": "102051f1dbe18f84b238-d2566d4123646426f262",
                   "file": "admin/landingPage/mainPage/sideBar/conversations/active/DSL/generated.spec.js",
-                  "line": 59,
+                  "line": 62,
                   "column": 13
                 }
               ]
@@ -370,263 +335,79 @@
             {
               "title": "Forward to Colleague Dialog",
               "file": "admin/landingPage/mainPage/sideBar/conversations/active/DSL/generated.spec.js",
-              "line": 67,
+              "line": 70,
               "column": 10,
               "specs": [
                 {
                   "title": "displays name, display name, and status headers",
-                  "ok": false,
+                  "ok": true,
                   "tags": [],
                   "tests": [
                     {
                       "timeout": 30000,
                       "annotations": [
                         {
-                          "type": "repository",
-                          "description": "Buerokratt-Chatbot"
+                          "type": "skip"
                         }
                       ],
-                      "expectedStatus": "passed",
+                      "expectedStatus": "skipped",
                       "projectId": "chromium",
                       "projectName": "chromium",
                       "results": [
                         {
-                          "workerIndex": 3,
-                          "status": "failed",
-                          "duration": 15776,
-                          "error": {
-                            "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('th').filter({ hasText: 'Name' }).locator('button')\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('th').filter({ hasText: 'Name' }).locator('button')\u001b[22m\n",
-                            "stack": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('th').filter({ hasText: 'Name' }).locator('button')\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('th').filter({ hasText: 'Name' }).locator('button')\u001b[22m\n\n    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/active/DSL/generated.spec.js:72:45",
-                            "location": {
-                              "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/active/DSL/generated.spec.js",
-                              "column": 45,
-                              "line": 72
-                            },
-                            "snippet": "\u001b[0m \u001b[90m 70 |\u001b[39m             \u001b[36mfor\u001b[39m (\u001b[36mconst\u001b[39m header \u001b[36mof\u001b[39m headers) {\n \u001b[90m 71 |\u001b[39m                 \u001b[36mconst\u001b[39m sortingButton \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'th'\u001b[39m)\u001b[33m.\u001b[39mfilter({ hasText\u001b[33m:\u001b[39m header })\u001b[33m.\u001b[39mlocator(\u001b[32m'button'\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 72 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(sortingButton)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 73 |\u001b[39m             }\n \u001b[90m 74 |\u001b[39m         })\u001b[33m;\u001b[39m\n \u001b[90m 75 |\u001b[39m\u001b[0m"
-                          },
-                          "errors": [
-                            {
-                              "location": {
-                                "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/active/DSL/generated.spec.js",
-                                "column": 45,
-                                "line": 72
-                              },
-                              "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('th').filter({ hasText: 'Name' }).locator('button')\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('th').filter({ hasText: 'Name' }).locator('button')\u001b[22m\n\n\n\u001b[0m \u001b[90m 70 |\u001b[39m             \u001b[36mfor\u001b[39m (\u001b[36mconst\u001b[39m header \u001b[36mof\u001b[39m headers) {\n \u001b[90m 71 |\u001b[39m                 \u001b[36mconst\u001b[39m sortingButton \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'th'\u001b[39m)\u001b[33m.\u001b[39mfilter({ hasText\u001b[33m:\u001b[39m header })\u001b[33m.\u001b[39mlocator(\u001b[32m'button'\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 72 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(sortingButton)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 73 |\u001b[39m             }\n \u001b[90m 74 |\u001b[39m         })\u001b[33m;\u001b[39m\n \u001b[90m 75 |\u001b[39m\u001b[0m\n\n\u001b[2m    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/active/DSL/generated.spec.js:72:45\u001b[22m"
-                            }
-                          ],
+                          "workerIndex": -1,
+                          "status": "skipped",
+                          "duration": 0,
+                          "errors": [],
                           "stdout": [],
                           "stderr": [],
                           "retry": 0,
-                          "startTime": "2024-11-08T13:13:04.496Z",
-                          "attachments": [
-                            {
-                              "name": "screenshot",
-                              "contentType": "image/png",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-20c52-lay-name-and-status-headers-chromium/test-failed-1.png"
-                            },
-                            {
-                              "name": "video",
-                              "contentType": "video/webm",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-20c52-lay-name-and-status-headers-chromium/video.webm"
-                            },
-                            {
-                              "name": "trace",
-                              "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-20c52-lay-name-and-status-headers-chromium/trace.zip"
-                            }
-                          ],
-                          "errorLocation": {
-                            "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/active/DSL/generated.spec.js",
-                            "column": 45,
-                            "line": 72
-                          }
-                        },
-                        {
-                          "workerIndex": 5,
-                          "status": "interrupted",
-                          "duration": 2959,
-                          "error": {
-                            "message": "Error: page.waitForTimeout: Test ended.",
-                            "stack": "Error: page.waitForTimeout: Test ended.\n    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/active/DSL/generated.spec.js:11:20",
-                            "location": {
-                              "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/active/DSL/generated.spec.js",
-                              "column": 20,
-                              "line": 11
-                            },
-                            "snippet": "\u001b[0m \u001b[90m  9 |\u001b[39m         test\u001b[33m.\u001b[39minfo()\u001b[33m.\u001b[39mannotations\u001b[33m.\u001b[39mpush({ type\u001b[33m:\u001b[39m \u001b[32m'repository'\u001b[39m\u001b[33m,\u001b[39m description\u001b[33m:\u001b[39m \u001b[32m'Buerokratt-Chatbot'\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m 10 |\u001b[39m         \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m'https://admin.prod.buerokratt.ee/chat/active'\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 11 |\u001b[39m         \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForTimeout(\u001b[35m3000\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                    \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 12 |\u001b[39m         \u001b[36mawait\u001b[39m turnSwitchOn(page)\u001b[33m;\u001b[39m\n \u001b[90m 13 |\u001b[39m         \u001b[36mawait\u001b[39m changeOpenHoursTo24and7()\u001b[33m;\u001b[39m\n \u001b[90m 14 |\u001b[39m         \u001b[36mawait\u001b[39m provideData()\u001b[33m;\u001b[39m\u001b[0m"
-                          },
-                          "errors": [
-                            {
-                              "location": {
-                                "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/active/DSL/generated.spec.js",
-                                "column": 20,
-                                "line": 11
-                              },
-                              "message": "Error: page.waitForTimeout: Test ended.\n\n\u001b[0m \u001b[90m  9 |\u001b[39m         test\u001b[33m.\u001b[39minfo()\u001b[33m.\u001b[39mannotations\u001b[33m.\u001b[39mpush({ type\u001b[33m:\u001b[39m \u001b[32m'repository'\u001b[39m\u001b[33m,\u001b[39m description\u001b[33m:\u001b[39m \u001b[32m'Buerokratt-Chatbot'\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m 10 |\u001b[39m         \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m'https://admin.prod.buerokratt.ee/chat/active'\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 11 |\u001b[39m         \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForTimeout(\u001b[35m3000\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                    \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 12 |\u001b[39m         \u001b[36mawait\u001b[39m turnSwitchOn(page)\u001b[33m;\u001b[39m\n \u001b[90m 13 |\u001b[39m         \u001b[36mawait\u001b[39m changeOpenHoursTo24and7()\u001b[33m;\u001b[39m\n \u001b[90m 14 |\u001b[39m         \u001b[36mawait\u001b[39m provideData()\u001b[33m;\u001b[39m\u001b[0m\n\n\u001b[2m    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/active/DSL/generated.spec.js:11:20\u001b[22m"
-                            }
-                          ],
-                          "stdout": [],
-                          "stderr": [],
-                          "retry": 1,
-                          "startTime": "2024-11-08T13:13:21.430Z",
-                          "attachments": [
-                            {
-                              "name": "screenshot",
-                              "contentType": "image/png",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-20c52-lay-name-and-status-headers-chromium-retry1/test-failed-1.png"
-                            },
-                            {
-                              "name": "video",
-                              "contentType": "video/webm",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-20c52-lay-name-and-status-headers-chromium-retry1/video.webm"
-                            },
-                            {
-                              "name": "trace",
-                              "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-20c52-lay-name-and-status-headers-chromium-retry1/trace.zip"
-                            }
-                          ],
-                          "errorLocation": {
-                            "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/active/DSL/generated.spec.js",
-                            "column": 20,
-                            "line": 11
-                          }
+                          "startTime": "2024-11-11T09:38:40.486Z",
+                          "attachments": []
                         }
                       ],
-                      "status": "unexpected"
+                      "status": "skipped"
                     }
                   ],
-                  "id": "102051f1dbe18f84b238-6aaaad984df970d28fbd",
+                  "id": "102051f1dbe18f84b238-bf2d72893ca1b171d548",
                   "file": "admin/landingPage/mainPage/sideBar/conversations/active/DSL/generated.spec.js",
-                  "line": 68,
+                  "line": 71,
                   "column": 13
                 },
                 {
                   "title": "displays a checkbox to show only active agents",
-                  "ok": false,
+                  "ok": true,
                   "tags": [],
                   "tests": [
                     {
                       "timeout": 30000,
                       "annotations": [
                         {
-                          "type": "repository",
-                          "description": "Buerokratt-Chatbot"
+                          "type": "skip"
                         }
                       ],
-                      "expectedStatus": "passed",
+                      "expectedStatus": "skipped",
                       "projectId": "chromium",
                       "projectName": "chromium",
                       "results": [
                         {
-                          "workerIndex": 1,
-                          "status": "failed",
-                          "duration": 16316,
-                          "error": {
-                            "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('.dialog__body').getByText('undefined', { exact: true })\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.dialog__body').getByText('undefined', { exact: true })\u001b[22m\n",
-                            "stack": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('.dialog__body').getByText('undefined', { exact: true })\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.dialog__body').getByText('undefined', { exact: true })\u001b[22m\n\n    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/active/DSL/generated.spec.js:78:52",
-                            "location": {
-                              "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/active/DSL/generated.spec.js",
-                              "column": 52,
-                              "line": 78
-                            },
-                            "snippet": "\u001b[0m \u001b[90m 76 |\u001b[39m         test(\u001b[32m'displays a checkbox to show only active agents'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\n \u001b[90m 77 |\u001b[39m             \u001b[36mconst\u001b[39m onlyActiveAgentsCheckbox \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'.dialog__body'\u001b[39m)\u001b[33m.\u001b[39mgetByText(\u001b[32m`${translation.showOnlyActiveAgents}`\u001b[39m\u001b[33m,\u001b[39m { exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 78 |\u001b[39m             \u001b[36mawait\u001b[39m expect(onlyActiveAgentsCheckbox)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                    \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 79 |\u001b[39m         })\u001b[33m;\u001b[39m\n \u001b[90m 80 |\u001b[39m     })\u001b[33m;\u001b[39m\n \u001b[90m 81 |\u001b[39m })\u001b[33m;\u001b[39m\u001b[0m"
-                          },
-                          "errors": [
-                            {
-                              "location": {
-                                "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/active/DSL/generated.spec.js",
-                                "column": 52,
-                                "line": 78
-                              },
-                              "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('.dialog__body').getByText('undefined', { exact: true })\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.dialog__body').getByText('undefined', { exact: true })\u001b[22m\n\n\n\u001b[0m \u001b[90m 76 |\u001b[39m         test(\u001b[32m'displays a checkbox to show only active agents'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\n \u001b[90m 77 |\u001b[39m             \u001b[36mconst\u001b[39m onlyActiveAgentsCheckbox \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'.dialog__body'\u001b[39m)\u001b[33m.\u001b[39mgetByText(\u001b[32m`${translation.showOnlyActiveAgents}`\u001b[39m\u001b[33m,\u001b[39m { exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 78 |\u001b[39m             \u001b[36mawait\u001b[39m expect(onlyActiveAgentsCheckbox)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                    \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 79 |\u001b[39m         })\u001b[33m;\u001b[39m\n \u001b[90m 80 |\u001b[39m     })\u001b[33m;\u001b[39m\n \u001b[90m 81 |\u001b[39m })\u001b[33m;\u001b[39m\u001b[0m\n\n\u001b[2m    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/active/DSL/generated.spec.js:78:52\u001b[22m"
-                            }
-                          ],
+                          "workerIndex": -1,
+                          "status": "skipped",
+                          "duration": 0,
+                          "errors": [],
                           "stdout": [],
                           "stderr": [],
                           "retry": 0,
-                          "startTime": "2024-11-08T13:13:04.733Z",
-                          "attachments": [
-                            {
-                              "name": "screenshot",
-                              "contentType": "image/png",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-fb5d9--to-show-only-active-agents-chromium/test-failed-1.png"
-                            },
-                            {
-                              "name": "video",
-                              "contentType": "video/webm",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-fb5d9--to-show-only-active-agents-chromium/video.webm"
-                            },
-                            {
-                              "name": "trace",
-                              "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-fb5d9--to-show-only-active-agents-chromium/trace.zip"
-                            }
-                          ],
-                          "errorLocation": {
-                            "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/active/DSL/generated.spec.js",
-                            "column": 52,
-                            "line": 78
-                          }
-                        },
-                        {
-                          "workerIndex": 6,
-                          "status": "interrupted",
-                          "duration": 2029,
-                          "error": {
-                            "message": "Error: page.waitForTimeout: Test ended.",
-                            "stack": "Error: page.waitForTimeout: Test ended.\n    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/active/DSL/generated.spec.js:11:20",
-                            "location": {
-                              "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/active/DSL/generated.spec.js",
-                              "column": 20,
-                              "line": 11
-                            },
-                            "snippet": "\u001b[0m \u001b[90m  9 |\u001b[39m         test\u001b[33m.\u001b[39minfo()\u001b[33m.\u001b[39mannotations\u001b[33m.\u001b[39mpush({ type\u001b[33m:\u001b[39m \u001b[32m'repository'\u001b[39m\u001b[33m,\u001b[39m description\u001b[33m:\u001b[39m \u001b[32m'Buerokratt-Chatbot'\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m 10 |\u001b[39m         \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m'https://admin.prod.buerokratt.ee/chat/active'\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 11 |\u001b[39m         \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForTimeout(\u001b[35m3000\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                    \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 12 |\u001b[39m         \u001b[36mawait\u001b[39m turnSwitchOn(page)\u001b[33m;\u001b[39m\n \u001b[90m 13 |\u001b[39m         \u001b[36mawait\u001b[39m changeOpenHoursTo24and7()\u001b[33m;\u001b[39m\n \u001b[90m 14 |\u001b[39m         \u001b[36mawait\u001b[39m provideData()\u001b[33m;\u001b[39m\u001b[0m"
-                          },
-                          "errors": [
-                            {
-                              "location": {
-                                "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/active/DSL/generated.spec.js",
-                                "column": 20,
-                                "line": 11
-                              },
-                              "message": "Error: page.waitForTimeout: Test ended.\n\n\u001b[0m \u001b[90m  9 |\u001b[39m         test\u001b[33m.\u001b[39minfo()\u001b[33m.\u001b[39mannotations\u001b[33m.\u001b[39mpush({ type\u001b[33m:\u001b[39m \u001b[32m'repository'\u001b[39m\u001b[33m,\u001b[39m description\u001b[33m:\u001b[39m \u001b[32m'Buerokratt-Chatbot'\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m 10 |\u001b[39m         \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m'https://admin.prod.buerokratt.ee/chat/active'\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 11 |\u001b[39m         \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForTimeout(\u001b[35m3000\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                    \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 12 |\u001b[39m         \u001b[36mawait\u001b[39m turnSwitchOn(page)\u001b[33m;\u001b[39m\n \u001b[90m 13 |\u001b[39m         \u001b[36mawait\u001b[39m changeOpenHoursTo24and7()\u001b[33m;\u001b[39m\n \u001b[90m 14 |\u001b[39m         \u001b[36mawait\u001b[39m provideData()\u001b[33m;\u001b[39m\u001b[0m\n\n\u001b[2m    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/active/DSL/generated.spec.js:11:20\u001b[22m"
-                            }
-                          ],
-                          "stdout": [],
-                          "stderr": [],
-                          "retry": 1,
-                          "startTime": "2024-11-08T13:13:22.318Z",
-                          "attachments": [
-                            {
-                              "name": "screenshot",
-                              "contentType": "image/png",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-fb5d9--to-show-only-active-agents-chromium-retry1/test-failed-1.png"
-                            },
-                            {
-                              "name": "video",
-                              "contentType": "video/webm",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-fb5d9--to-show-only-active-agents-chromium-retry1/video.webm"
-                            },
-                            {
-                              "name": "trace",
-                              "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-fb5d9--to-show-only-active-agents-chromium-retry1/trace.zip"
-                            }
-                          ],
-                          "errorLocation": {
-                            "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/active/DSL/generated.spec.js",
-                            "column": 20,
-                            "line": 11
-                          }
+                          "startTime": "2024-11-11T09:38:40.486Z",
+                          "attachments": []
                         }
                       ],
-                      "status": "unexpected"
+                      "status": "skipped"
                     }
                   ],
-                  "id": "102051f1dbe18f84b238-f3e22cd54b0c909853f5",
+                  "id": "102051f1dbe18f84b238-590a7d65635c9e5a2965",
                   "file": "admin/landingPage/mainPage/sideBar/conversations/active/DSL/generated.spec.js",
-                  "line": 76,
+                  "line": 79,
                   "column": 13
                 }
               ]
@@ -638,11 +419,11 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2024-11-08T13:12:31.154Z",
-    "duration": 53795.842,
-    "expected": 6,
-    "skipped": 0,
-    "unexpected": 2,
+    "startTime": "2024-11-11T09:38:25.034Z",
+    "duration": 15453.24,
+    "expected": 1,
+    "skipped": 7,
+    "unexpected": 0,
     "flaky": 0
   }
 }

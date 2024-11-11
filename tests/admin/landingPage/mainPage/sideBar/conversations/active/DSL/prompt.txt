@@ -12,14 +12,13 @@
     Ensure that the Present/Away switch is in an active state to indicate the user is available.
 
 3. Setup Steps in beforeEach Hook:
-    After navigating to the page (page.goto) and waiting for elements to load, call specific helper functions to prepare the page for testing:
+    After navigating to the Unanswered chats page (page.goto) and waiting for elements to load, call specific helper functions to prepare the page for testing:
     await turnSwitchOn(page);: Activates the Present/Away switch.
-    await changeOpenHoursTo24and7();: Configures the chat availability to 24/7.
-    await provideData();: Supplies necessary data for the tests.
-    await selectFirstItem(page);: Selects the first available item in the list, ensuring content is loaded for the test.
+    await provideData();        
+    await takeOverFirstChat(page);
 
 4. Helper Functions:
-    These helper functions—turnSwitchOn, changeOpenHoursTo24and7, provideData, and selectFirstItem—are located in the helper.js file within the answered directory. They prepare the environment and handle preconditions required for unanswered chats tests.
+    These helper functions—turnSwitchOn, provideData, and takeOverFirstChat are located in the helper.js file within the active directory. They prepare the environment and handle preconditions required for active chats tests.
 
 5. Text that is dynamic should use regExp. For example if some text consist of static text + dynamic number then should get like this:
     await expect(pText).toHaveText(new RegExp(translation.answeredChats));
@@ -29,4 +28,3 @@
 7. End chat dialog opens after clicking on End chat button in active-chat__side-actions
 
 8. Forward to colleague dialog opens after clicking on Forward to colleague button in active-chat__side-actions
-
