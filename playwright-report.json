@@ -1,7 +1,7 @@
 {
   "config": {
-    "configFile": "/home/markusm/buerokratt_testing_env/TDD-Playwright/playwright.config.js",
-    "rootDir": "/home/markusm/buerokratt_testing_env/TDD-Playwright/tests",
+    "configFile": "/home/danyilk/tdd/master/TDD-Playwright/playwright.config.js",
+    "rootDir": "/home/danyilk/tdd/master/TDD-Playwright/tests",
     "forbidOnly": false,
     "fullyParallel": true,
     "globalSetup": null,
@@ -41,13 +41,13 @@
     "quiet": false,
     "projects": [
       {
-        "outputDir": "/home/markusm/buerokratt_testing_env/TDD-Playwright/test-results",
+        "outputDir": "/home/danyilk/tdd/master/TDD-Playwright/test-results",
         "repeatEach": 1,
         "retries": 1,
         "metadata": {},
         "id": "setup",
         "name": "setup",
-        "testDir": "/home/markusm/buerokratt_testing_env/TDD-Playwright/tests",
+        "testDir": "/home/danyilk/tdd/master/TDD-Playwright/tests",
         "testIgnore": [],
         "testMatch": [
           "/.*\\.setup\\.js/"
@@ -55,13 +55,13 @@
         "timeout": 30000
       },
       {
-        "outputDir": "/home/markusm/buerokratt_testing_env/TDD-Playwright/test-results",
+        "outputDir": "/home/danyilk/tdd/master/TDD-Playwright/test-results",
         "repeatEach": 1,
         "retries": 1,
         "metadata": {},
         "id": "chromium",
         "name": "chromium",
-        "testDir": "/home/markusm/buerokratt_testing_env/TDD-Playwright/tests",
+        "testDir": "/home/danyilk/tdd/master/TDD-Playwright/tests",
         "testIgnore": [],
         "testMatch": [
           "**/*.@(spec|test).?(c|m)[jt]s?(x)"
@@ -71,7 +71,7 @@
     ],
     "shard": null,
     "updateSnapshots": "missing",
-    "version": "1.46.0",
+    "version": "1.48.2",
     "workers": 4,
     "webServer": null
   },
@@ -97,17 +97,17 @@
                 {
                   "workerIndex": 0,
                   "status": "passed",
-                  "duration": 14265,
+                  "duration": 9156,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2024-11-11T09:38:25.750Z",
+                  "startTime": "2024-11-11T11:47:21.907Z",
                   "attachments": [
                     {
                       "name": "trace",
                       "contentType": "application/zip",
-                      "path": "/home/markusm/buerokratt_testing_env/TDD-Playwright/test-results/admin-.auth-auth.setup.js-authenticate-setup/trace.zip"
+                      "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-.auth-auth.setup.js-authenticate-setup/trace.zip"
                     }
                   ]
                 }
@@ -123,297 +123,268 @@
       ]
     },
     {
-      "title": "admin/landingPage/mainPage/sideBar/conversations/active/DSL/generated.spec.js",
-      "file": "admin/landingPage/mainPage/sideBar/conversations/active/DSL/generated.spec.js",
+      "title": "admin/landingPage/mainPage/sideBar/administration/chatbot/emergency_notices/visibility.spec.js",
+      "file": "admin/landingPage/mainPage/sideBar/administration/chatbot/emergency_notices/visibility.spec.js",
       "column": 0,
       "line": 0,
       "specs": [],
       "suites": [
         {
-          "title": "Buerokratt-Chatbot Active Chat. These tests are skipped due to issues with the chat takeover functionality. Specifically, the \"takeover\" action is not working as expected: it does not reliably redirect to the active chats page, and taken-over chats sometimes remain in the unanswered list. This causes inconsistencies and failures in tests that rely on the chat being moved to the active state.",
-          "file": "admin/landingPage/mainPage/sideBar/conversations/active/DSL/generated.spec.js",
-          "line": 7,
-          "column": 15,
+          "title": "Emergency Notices",
+          "file": "admin/landingPage/mainPage/sideBar/administration/chatbot/emergency_notices/visibility.spec.js",
+          "line": 6,
+          "column": 6,
           "specs": [],
           "suites": [
             {
-              "title": "Vertical Tabs",
-              "file": "admin/landingPage/mainPage/sideBar/conversations/active/DSL/generated.spec.js",
-              "line": 22,
-              "column": 10,
+              "title": "Main Heading",
+              "file": "admin/landingPage/mainPage/sideBar/administration/chatbot/emergency_notices/visibility.spec.js",
+              "line": 13,
+              "column": 8,
               "specs": [
                 {
-                  "title": "displays My Chats header with dynamic count",
+                  "title": "should display main heading",
                   "ok": true,
                   "tags": [],
                   "tests": [
                     {
                       "timeout": 30000,
-                      "annotations": [
-                        {
-                          "type": "repository",
-                          "description": "Buerokratt-Chatbot"
-                        }
-                      ],
+                      "annotations": [],
                       "expectedStatus": "passed",
                       "projectId": "chromium",
                       "projectName": "chromium",
                       "results": [
                         {
-                          "workerIndex": -1,
-                          "status": "skipped",
-                          "duration": 0,
+                          "workerIndex": 1,
+                          "status": "passed",
+                          "duration": 5378,
                           "errors": [],
                           "stdout": [],
                           "stderr": [],
                           "retry": 0,
-                          "startTime": "2024-11-11T09:38:40.484Z",
-                          "attachments": []
+                          "startTime": "2024-11-11T11:47:32.105Z",
+                          "attachments": [
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-a731a-should-display-main-heading-chromium/trace.zip"
+                            }
+                          ]
                         }
                       ],
                       "status": "expected"
                     }
                   ],
-                  "id": "102051f1dbe18f84b238-4c114602762685d55d8d",
-                  "file": "admin/landingPage/mainPage/sideBar/conversations/active/DSL/generated.spec.js",
-                  "line": 23,
-                  "column": 13
+                  "id": "5b34e01b0bf1b5ffbb71-b9314386c22a9892d56d",
+                  "file": "admin/landingPage/mainPage/sideBar/administration/chatbot/emergency_notices/visibility.spec.js",
+                  "line": 14,
+                  "column": 9
                 }
               ]
             },
             {
-              "title": "Selected Chat Area",
-              "file": "admin/landingPage/mainPage/sideBar/conversations/active/DSL/generated.spec.js",
-              "line": 29,
-              "column": 10,
+              "title": "Card Body",
+              "file": "admin/landingPage/mainPage/sideBar/administration/chatbot/emergency_notices/visibility.spec.js",
+              "line": 20,
+              "column": 8,
               "specs": [
                 {
-                  "title": "displays chat metadata and action buttons",
+                  "title": "should display and interact with notice active switch",
                   "ok": true,
                   "tags": [],
                   "tests": [
                     {
                       "timeout": 30000,
-                      "annotations": [
-                        {
-                          "type": "repository",
-                          "description": "Buerokratt-Chatbot"
-                        }
-                      ],
+                      "annotations": [],
                       "expectedStatus": "passed",
                       "projectId": "chromium",
                       "projectName": "chromium",
                       "results": [
                         {
-                          "workerIndex": -1,
-                          "status": "skipped",
-                          "duration": 0,
+                          "workerIndex": 2,
+                          "status": "passed",
+                          "duration": 6506,
                           "errors": [],
                           "stdout": [],
                           "stderr": [],
                           "retry": 0,
-                          "startTime": "2024-11-11T09:38:40.485Z",
-                          "attachments": []
+                          "startTime": "2024-11-11T11:47:32.176Z",
+                          "attachments": [
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-6513b-t-with-notice-active-switch-chromium/trace.zip"
+                            }
+                          ]
                         }
                       ],
                       "status": "expected"
                     }
                   ],
-                  "id": "102051f1dbe18f84b238-917f566106f72dcbde62",
-                  "file": "admin/landingPage/mainPage/sideBar/conversations/active/DSL/generated.spec.js",
-                  "line": 30,
-                  "column": 13
+                  "id": "5b34e01b0bf1b5ffbb71-6ec3edfc8f619246b171",
+                  "file": "admin/landingPage/mainPage/sideBar/administration/chatbot/emergency_notices/visibility.spec.js",
+                  "line": 21,
+                  "column": 9
                 },
                 {
-                  "title": "displays and enables side actions buttons",
+                  "title": "should display and interact with notice textarea",
                   "ok": true,
                   "tags": [],
                   "tests": [
                     {
                       "timeout": 30000,
-                      "annotations": [
-                        {
-                          "type": "repository",
-                          "description": "Buerokratt-Chatbot"
-                        }
-                      ],
+                      "annotations": [],
                       "expectedStatus": "passed",
                       "projectId": "chromium",
                       "projectName": "chromium",
                       "results": [
                         {
-                          "workerIndex": -1,
-                          "status": "skipped",
-                          "duration": 0,
+                          "workerIndex": 3,
+                          "status": "passed",
+                          "duration": 6919,
                           "errors": [],
                           "stdout": [],
                           "stderr": [],
                           "retry": 0,
-                          "startTime": "2024-11-11T09:38:40.485Z",
-                          "attachments": []
+                          "startTime": "2024-11-11T11:47:32.207Z",
+                          "attachments": [
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-c239a-teract-with-notice-textarea-chromium/trace.zip"
+                            }
+                          ]
                         }
                       ],
                       "status": "expected"
                     }
                   ],
-                  "id": "102051f1dbe18f84b238-abc6cc018c30bf5e904f",
-                  "file": "admin/landingPage/mainPage/sideBar/conversations/active/DSL/generated.spec.js",
-                  "line": 42,
-                  "column": 13
+                  "id": "5b34e01b0bf1b5ffbb71-c874279e2af8f140f2e7",
+                  "file": "admin/landingPage/mainPage/sideBar/administration/chatbot/emergency_notices/visibility.spec.js",
+                  "line": 26,
+                  "column": 9
                 },
                 {
-                  "title": "opens end chat dialog on clicking \"End chat\"",
+                  "title": "should display and interact with display period input",
                   "ok": true,
                   "tags": [],
                   "tests": [
                     {
                       "timeout": 30000,
-                      "annotations": [
-                        {
-                          "type": "repository",
-                          "description": "Buerokratt-Chatbot"
-                        }
-                      ],
+                      "annotations": [],
                       "expectedStatus": "passed",
                       "projectId": "chromium",
                       "projectName": "chromium",
                       "results": [
                         {
-                          "workerIndex": -1,
-                          "status": "skipped",
-                          "duration": 0,
+                          "workerIndex": 4,
+                          "status": "passed",
+                          "duration": 4736,
                           "errors": [],
                           "stdout": [],
                           "stderr": [],
                           "retry": 0,
-                          "startTime": "2024-11-11T09:38:40.485Z",
-                          "attachments": []
+                          "startTime": "2024-11-11T11:47:32.191Z",
+                          "attachments": [
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-9930e-t-with-display-period-input-chromium/trace.zip"
+                            }
+                          ]
                         }
                       ],
-                      "status": "skipped"
+                      "status": "expected"
                     }
                   ],
-                  "id": "102051f1dbe18f84b238-0c346a2fc6a73bb8823a",
-                  "file": "admin/landingPage/mainPage/sideBar/conversations/active/DSL/generated.spec.js",
-                  "line": 55,
-                  "column": 13
+                  "id": "5b34e01b0bf1b5ffbb71-336ce50e2a6f6a0de395",
+                  "file": "admin/landingPage/mainPage/sideBar/administration/chatbot/emergency_notices/visibility.spec.js",
+                  "line": 33,
+                  "column": 9
                 },
                 {
-                  "title": "opens forward to colleague dialog on clicking \"Forward to Colleague\"",
+                  "title": "should display and interact with display period to input",
                   "ok": true,
                   "tags": [],
                   "tests": [
                     {
                       "timeout": 30000,
-                      "annotations": [
-                        {
-                          "type": "skip"
-                        }
-                      ],
-                      "expectedStatus": "skipped",
+                      "annotations": [],
+                      "expectedStatus": "passed",
                       "projectId": "chromium",
                       "projectName": "chromium",
                       "results": [
                         {
-                          "workerIndex": -1,
-                          "status": "skipped",
-                          "duration": 0,
+                          "workerIndex": 4,
+                          "status": "passed",
+                          "duration": 4448,
                           "errors": [],
                           "stdout": [],
                           "stderr": [],
                           "retry": 0,
-                          "startTime": "2024-11-11T09:38:40.486Z",
-                          "attachments": []
+                          "startTime": "2024-11-11T11:47:37.450Z",
+                          "attachments": [
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-a331d-ith-display-period-to-input-chromium/trace.zip"
+                            }
+                          ]
                         }
                       ],
-                      "status": "flaky"
+                      "status": "expected"
                     }
                   ],
-                  "id": "102051f1dbe18f84b238-d2566d4123646426f262",
-                  "file": "admin/landingPage/mainPage/sideBar/conversations/active/DSL/generated.spec.js",
-                  "line": 62,
-                  "column": 13
+                  "id": "5b34e01b0bf1b5ffbb71-e04a5cc1521f705c627f",
+                  "file": "admin/landingPage/mainPage/sideBar/administration/chatbot/emergency_notices/visibility.spec.js",
+                  "line": 40,
+                  "column": 9
                 }
               ]
             },
             {
-              "title": "Forward to Colleague Dialog",
-              "file": "admin/landingPage/mainPage/sideBar/conversations/active/DSL/generated.spec.js",
-              "line": 70,
-              "column": 10,
+              "title": "Card Footer",
+              "file": "admin/landingPage/mainPage/sideBar/administration/chatbot/emergency_notices/visibility.spec.js",
+              "line": 48,
+              "column": 8,
               "specs": [
                 {
-                  "title": "displays name, display name, and status headers",
+                  "title": "should display Save button",
                   "ok": true,
                   "tags": [],
                   "tests": [
                     {
                       "timeout": 30000,
-                      "annotations": [
-                        {
-                          "type": "repository",
-                          "description": "Buerokratt-Chatbot"
-                        }
-                      ],
+                      "annotations": [],
                       "expectedStatus": "passed",
                       "projectId": "chromium",
                       "projectName": "chromium",
                       "results": [
                         {
-                          "workerIndex": -1,
-                          "status": "skipped",
-                          "duration": 0,
+                          "workerIndex": 1,
+                          "status": "passed",
+                          "duration": 4805,
                           "errors": [],
                           "stdout": [],
                           "stderr": [],
                           "retry": 0,
-                          "startTime": "2024-11-11T09:38:40.486Z",
-                          "attachments": []
+                          "startTime": "2024-11-11T11:47:38.042Z",
+                          "attachments": [
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-ca93c--should-display-Save-button-chromium/trace.zip"
+                            }
+                          ]
                         }
                       ],
-                      "status": "skipped"
+                      "status": "expected"
                     }
                   ],
-                  "id": "102051f1dbe18f84b238-bf2d72893ca1b171d548",
-                  "file": "admin/landingPage/mainPage/sideBar/conversations/active/DSL/generated.spec.js",
-                  "line": 71,
-                  "column": 13
-                },
-                {
-                  "title": "displays a checkbox to show only active agents",
-                  "ok": true,
-                  "tags": [],
-                  "tests": [
-                    {
-                      "timeout": 30000,
-                      "annotations": [
-                        {
-                          "type": "skip"
-                        }
-                      ],
-                      "expectedStatus": "skipped",
-                      "projectId": "chromium",
-                      "projectName": "chromium",
-                      "results": [
-                        {
-                          "workerIndex": -1,
-                          "status": "skipped",
-                          "duration": 0,
-                          "errors": [],
-                          "stdout": [],
-                          "stderr": [],
-                          "retry": 0,
-                          "startTime": "2024-11-11T09:38:40.486Z",
-                          "attachments": []
-                        }
-                      ],
-                      "status": "skipped"
-                    }
-                  ],
-                  "id": "102051f1dbe18f84b238-590a7d65635c9e5a2965",
-                  "file": "admin/landingPage/mainPage/sideBar/conversations/active/DSL/generated.spec.js",
-                  "line": 79,
-                  "column": 13
+                  "id": "5b34e01b0bf1b5ffbb71-2aa6d740cdb78f5db723",
+                  "file": "admin/landingPage/mainPage/sideBar/administration/chatbot/emergency_notices/visibility.spec.js",
+                  "line": 49,
+                  "column": 9
                 }
               ]
             }
@@ -424,10 +395,10 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2024-11-11T09:38:25.034Z",
-    "duration": 15453.24,
-    "expected": 1,
-    "skipped": 7,
+    "startTime": "2024-11-11T11:47:21.451Z",
+    "duration": 21486.011000000002,
+    "expected": 7,
+    "skipped": 0,
     "unexpected": 0,
     "flaky": 0
   }

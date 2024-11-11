@@ -188,7 +188,7 @@
     "status" : "Status",
     "history" : "History",
     "from" : "From",
-    "to" : "To",
+    "to" : "to",
     "new": "New",
     "inProcess": "In Process",
     "toDelete": "To Delete",

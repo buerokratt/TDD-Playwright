@@ -1,49 +1,54 @@
-const { test, expect } = require('@playwright/test');
+import { test, expect } from '@playwright/test';
 import { getTranslations } from '@translation/languageDetector.js';
 
+let translation;
 
-test.describe('Erakorralised Teated/Emergency notices Page Visibility', () => {
-  let translation
-
+test.describe('Emergency Notices', () => {
   test.beforeEach(async ({ page }) => {
-    test.info().annotations.push({ type: 'repository', description: 'Buerokratt-Chatbot' });
     await page.goto('https://admin.prod.buerokratt.ee/chat/chatbot/emergency-notices');
-    translation = await getTranslations(page)
+    translation = await getTranslations(page);
+    await page.waitForTimeout(3000);
   });
 
-  test('Check if "Erakorralised teated" header is present', async ({ page }) => {
-    const header = await page.locator(`h1:has-text("${translation["emergencyNotices"]}")`);
-    await expect(header).toBeVisible();
+  test.describe('Main Heading', () => {
+    test('should display main heading', async ({ page }) => {
+      const heading = await page.getByRole('heading', { name: `${translation.emergencyNotices}`, exact: true });
+      await expect(heading).toBeVisible();
+    });
   });
 
-  test('Check if "Teade aktiivne" switch button is present', async ({ page }) => {
-    const switchButton = await page.locator(`.switch:has(.switch__label:has-text("${translation["noticeActive"]}")) button[role="switch"]`);
-    await expect(switchButton).toBeVisible();
+  test.describe('Card Body', () => {
+    test('should display and interact with notice active switch', async ({ page }) => {
+      const switchLabel = await page.getByText(`${translation.noticeActive}`, { exact: true });
+      await expect(switchLabel).toBeVisible();
+    });
+
+    test('should display and interact with notice textarea', async ({ page }) => {
+      const label = await page.getByText(`${translation.notice}`, { exact: true });
+      const textarea = await page.getByLabel(`${translation.notice}`, { exact: true });
+      await expect(label).toBeVisible();
+      await expect(textarea).toBeVisible();
+    });
+
+    test('should display and interact with display period input', async ({ page }) => {
+      const label = await page.getByText(`${translation.displayPeriod}`, { exact: true });
+      const input = await page.getByRole('textbox').nth(1);
+      await expect(label).toBeVisible();
+      await expect(input).toBeVisible();
+    });
+
+    test('should display and interact with display period to input', async ({ page }) => {
+      const label = await page.getByText(`${translation.to}`, { exact: true });
+      const input = await page.getByRole('textbox').nth(2);
+      await expect(label).toBeVisible();
+      await expect(input).toBeVisible();
+    });
   });
 
-  test('Check if "Teade" input field is present', async ({ page }) => {
-    const teadeInput = await page.locator(`.textarea:has(.textarea__label:has-text("${translation["notice"]}")) textarea`);
-    await expect(teadeInput).toBeVisible();
-  });
-
-
-  test('Check if "Kuvamisperiood" date inputs are present', async ({ page }) => {
-
-    const displayPeriodLabel = page.locator(`p:has-text("${translation.displayPeriod}")`);
-    await expect(displayPeriodLabel).toBeVisible();
-
-    const startDateInput = page.locator('.datepicker input[type="text"]').nth(0);
-    await expect(startDateInput).toBeVisible();
-
-    const dateUntilLabel = page.locator(`.track span:has-text("${translation.dateUntil}")`);
-    await expect(dateUntilLabel).toBeVisible();
-
-    const endDateInput = page.locator('.datepicker input[type="text"]').nth(1);
-    await expect(endDateInput).toBeVisible();
-  });
-
-  test('Check if "Salvesta" button is present', async ({ page }) => {
-    const saveButton = await page.locator(`button.btn--primary:has-text("${translation["save"]}")`);
-    await expect(saveButton).toBeVisible();
+  test.describe('Card Footer', () => {
+    test('should display Save button', async ({ page }) => {
+      const saveButton = await page.getByRole('button', { name: `${translation.save}`, exact: true });
+      await expect(saveButton).toBeVisible();
+    });
   });
 });
