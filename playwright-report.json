@@ -1,7 +1,7 @@
 {
   "config": {
-    "configFile": "/home/danyilk/tdd/master/TDD-Playwright/playwright.config.js",
-    "rootDir": "/home/danyilk/tdd/master/TDD-Playwright/tests",
+    "configFile": "/home/markusm/buerokratt_testing_env/TDD-Playwright/playwright.config.js",
+    "rootDir": "/home/markusm/buerokratt_testing_env/TDD-Playwright/tests",
     "forbidOnly": false,
     "fullyParallel": true,
     "globalSetup": null,
@@ -41,13 +41,13 @@
     "quiet": false,
     "projects": [
       {
-        "outputDir": "/home/danyilk/tdd/master/TDD-Playwright/test-results",
+        "outputDir": "/home/markusm/buerokratt_testing_env/TDD-Playwright/test-results",
         "repeatEach": 1,
         "retries": 1,
         "metadata": {},
         "id": "setup",
         "name": "setup",
-        "testDir": "/home/danyilk/tdd/master/TDD-Playwright/tests",
+        "testDir": "/home/markusm/buerokratt_testing_env/TDD-Playwright/tests",
         "testIgnore": [],
         "testMatch": [
           "/.*\\.setup\\.js/"
@@ -55,13 +55,13 @@
         "timeout": 30000
       },
       {
-        "outputDir": "/home/danyilk/tdd/master/TDD-Playwright/test-results",
+        "outputDir": "/home/markusm/buerokratt_testing_env/TDD-Playwright/test-results",
         "repeatEach": 1,
         "retries": 1,
         "metadata": {},
         "id": "chromium",
         "name": "chromium",
-        "testDir": "/home/danyilk/tdd/master/TDD-Playwright/tests",
+        "testDir": "/home/markusm/buerokratt_testing_env/TDD-Playwright/tests",
         "testIgnore": [],
         "testMatch": [
           "**/*.@(spec|test).?(c|m)[jt]s?(x)"
@@ -71,7 +71,7 @@
     ],
     "shard": null,
     "updateSnapshots": "missing",
-    "version": "1.48.2",
+    "version": "1.46.0",
     "workers": 4,
     "webServer": null
   },
@@ -97,17 +97,17 @@
                 {
                   "workerIndex": 0,
                   "status": "passed",
-                  "duration": 14265,
+                  "duration": 14459,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2024-11-11T09:38:25.750Z",
+                  "startTime": "2024-11-11T10:01:16.295Z",
                   "attachments": [
                     {
                       "name": "trace",
                       "contentType": "application/zip",
-                      "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-.auth-auth.setup.js-authenticate-setup/trace.zip"
+                      "path": "/home/markusm/buerokratt_testing_env/TDD-Playwright/test-results/admin-.auth-auth.setup.js-authenticate-setup/trace.zip"
                     }
                   ]
                 }
@@ -123,27 +123,71 @@
       ]
     },
     {
-      "title": "admin/landingPage/mainPage/sideBar/conversations/active/DSL/generated.spec.js",
-      "file": "admin/landingPage/mainPage/sideBar/conversations/active/DSL/generated.spec.js",
+      "title": "admin/landingPage/mainPage/sideBar/administration/chatbot/appearance_and_behavior/functionality.spec.js",
+      "file": "admin/landingPage/mainPage/sideBar/administration/chatbot/appearance_and_behavior/functionality.spec.js",
       "column": 0,
       "line": 0,
       "specs": [],
       "suites": [
         {
-          "title": "Buerokratt-Chatbot Active Chat. These tests are skipped due to issues with the chat takeover functionality. Specifically, the \"takeover\" action is not working as expected: it does not reliably redirect to the active chats page, and taken-over chats sometimes remain in the unanswered list. This causes inconsistencies and failures in tests that rely on the chat being moved to the active state.",
-          "file": "admin/landingPage/mainPage/sideBar/conversations/active/DSL/generated.spec.js",
+          "title": "Buerokratt-Chatbot Appearance and Behaviour",
+          "file": "admin/landingPage/mainPage/sideBar/administration/chatbot/appearance_and_behavior/functionality.spec.js",
           "line": 7,
-          "column": 15,
-          "specs": [],
+          "column": 6,
+          "specs": [
+            {
+              "title": "Verify heading visibility",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "repository",
+                      "description": "Buerokratt-Chatbot"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "status": "passed",
+                      "duration": 5183,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-11-11T10:01:31.788Z",
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/markusm/buerokratt_testing_env/TDD-Playwright/test-results/admin-landingPage-mainPage-8e9fe-r-Verify-heading-visibility-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d892447a55004d62c9b8-216e8f61c9718adb028d",
+              "file": "admin/landingPage/mainPage/sideBar/administration/chatbot/appearance_and_behavior/functionality.spec.js",
+              "line": 15,
+              "column": 7
+            }
+          ],
           "suites": [
             {
-              "title": "Vertical Tabs",
-              "file": "admin/landingPage/mainPage/sideBar/conversations/active/DSL/generated.spec.js",
-              "line": 22,
-              "column": 10,
+              "title": "Card body - Input and switch functionality",
+              "file": "admin/landingPage/mainPage/sideBar/administration/chatbot/appearance_and_behavior/functionality.spec.js",
+              "line": 20,
+              "column": 8,
               "specs": [
                 {
-                  "title": "displays My Chats header with dynamic count",
+                  "title": "Verify input: \"Widget proactive seconds\"",
                   "ok": true,
                   "tags": [],
                   "tests": [
@@ -159,71 +203,33 @@
                       "projectName": "chromium",
                       "results": [
                         {
-                          "workerIndex": -1,
-                          "status": "skipped",
-                          "duration": 0,
+                          "workerIndex": 2,
+                          "status": "passed",
+                          "duration": 5549,
                           "errors": [],
                           "stdout": [],
                           "stderr": [],
                           "retry": 0,
-                          "startTime": "2024-11-11T09:38:40.484Z",
-                          "attachments": []
+                          "startTime": "2024-11-11T10:01:31.806Z",
+                          "attachments": [
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/markusm/buerokratt_testing_env/TDD-Playwright/test-results/admin-landingPage-mainPage-099a5-t-Widget-proactive-seconds--chromium/trace.zip"
+                            }
+                          ]
                         }
                       ],
                       "status": "skipped"
                     }
                   ],
-                  "id": "102051f1dbe18f84b238-4c114602762685d55d8d",
-                  "file": "admin/landingPage/mainPage/sideBar/conversations/active/DSL/generated.spec.js",
-                  "line": 23,
-                  "column": 13
-                }
-              ]
-            },
-            {
-              "title": "Selected Chat Area",
-              "file": "admin/landingPage/mainPage/sideBar/conversations/active/DSL/generated.spec.js",
-              "line": 29,
-              "column": 10,
-              "specs": [
-                {
-                  "title": "displays chat metadata and action buttons",
-                  "ok": true,
-                  "tags": [],
-                  "tests": [
-                    {
-                      "timeout": 30000,
-                      "annotations": [
-                        {
-                          "type": "skip"
-                        }
-                      ],
-                      "expectedStatus": "skipped",
-                      "projectId": "chromium",
-                      "projectName": "chromium",
-                      "results": [
-                        {
-                          "workerIndex": -1,
-                          "status": "skipped",
-                          "duration": 0,
-                          "errors": [],
-                          "stdout": [],
-                          "stderr": [],
-                          "retry": 0,
-                          "startTime": "2024-11-11T09:38:40.485Z",
-                          "attachments": []
-                        }
-                      ],
-                      "status": "skipped"
-                    }
-                  ],
-                  "id": "102051f1dbe18f84b238-917f566106f72dcbde62",
-                  "file": "admin/landingPage/mainPage/sideBar/conversations/active/DSL/generated.spec.js",
-                  "line": 30,
-                  "column": 13
+                  "id": "d892447a55004d62c9b8-90a8f057a68ea4613615",
+                  "file": "admin/landingPage/mainPage/sideBar/administration/chatbot/appearance_and_behavior/functionality.spec.js",
+                  "line": 21,
+                  "column": 9
                 },
                 {
-                  "title": "displays and enables side actions buttons",
+                  "title": "Verify switch: \"Widget bubble message text\"",
                   "ok": true,
                   "tags": [],
                   "tests": [
@@ -239,27 +245,33 @@
                       "projectName": "chromium",
                       "results": [
                         {
-                          "workerIndex": -1,
-                          "status": "skipped",
-                          "duration": 0,
+                          "workerIndex": 3,
+                          "status": "passed",
+                          "duration": 4813,
                           "errors": [],
                           "stdout": [],
                           "stderr": [],
                           "retry": 0,
-                          "startTime": "2024-11-11T09:38:40.485Z",
-                          "attachments": []
+                          "startTime": "2024-11-11T10:01:31.722Z",
+                          "attachments": [
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/markusm/buerokratt_testing_env/TDD-Playwright/test-results/admin-landingPage-mainPage-b818e-Widget-bubble-message-text--chromium/trace.zip"
+                            }
+                          ]
                         }
                       ],
                       "status": "skipped"
                     }
                   ],
-                  "id": "102051f1dbe18f84b238-abc6cc018c30bf5e904f",
-                  "file": "admin/landingPage/mainPage/sideBar/conversations/active/DSL/generated.spec.js",
-                  "line": 42,
-                  "column": 13
+                  "id": "d892447a55004d62c9b8-decdf67e6203ead5c915",
+                  "file": "admin/landingPage/mainPage/sideBar/administration/chatbot/appearance_and_behavior/functionality.spec.js",
+                  "line": 31,
+                  "column": 9
                 },
                 {
-                  "title": "opens end chat dialog on clicking \"End chat\"",
+                  "title": "Verify input: \"Widget bubble message seconds\"",
                   "ok": true,
                   "tags": [],
                   "tests": [
@@ -275,27 +287,33 @@
                       "projectName": "chromium",
                       "results": [
                         {
-                          "workerIndex": -1,
-                          "status": "skipped",
-                          "duration": 0,
+                          "workerIndex": 4,
+                          "status": "passed",
+                          "duration": 4637,
                           "errors": [],
                           "stdout": [],
                           "stderr": [],
                           "retry": 0,
-                          "startTime": "2024-11-11T09:38:40.485Z",
-                          "attachments": []
+                          "startTime": "2024-11-11T10:01:31.684Z",
+                          "attachments": [
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/markusm/buerokratt_testing_env/TDD-Playwright/test-results/admin-landingPage-mainPage-0519c-get-bubble-message-seconds--chromium/trace.zip"
+                            }
+                          ]
                         }
                       ],
                       "status": "skipped"
                     }
                   ],
-                  "id": "102051f1dbe18f84b238-0c346a2fc6a73bb8823a",
-                  "file": "admin/landingPage/mainPage/sideBar/conversations/active/DSL/generated.spec.js",
-                  "line": 55,
-                  "column": 13
+                  "id": "d892447a55004d62c9b8-07607b85523adef0b77f",
+                  "file": "admin/landingPage/mainPage/sideBar/administration/chatbot/appearance_and_behavior/functionality.spec.js",
+                  "line": 51,
+                  "column": 9
                 },
                 {
-                  "title": "opens forward to colleague dialog on clicking \"Forward to Colleague\"",
+                  "title": "Verify input: \"Widget bubble message text\"",
                   "ok": true,
                   "tags": [],
                   "tests": [
@@ -311,35 +329,33 @@
                       "projectName": "chromium",
                       "results": [
                         {
-                          "workerIndex": -1,
-                          "status": "skipped",
-                          "duration": 0,
+                          "workerIndex": 4,
+                          "status": "passed",
+                          "duration": 4671,
                           "errors": [],
                           "stdout": [],
                           "stderr": [],
                           "retry": 0,
-                          "startTime": "2024-11-11T09:38:40.486Z",
-                          "attachments": []
+                          "startTime": "2024-11-11T10:01:36.620Z",
+                          "attachments": [
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/markusm/buerokratt_testing_env/TDD-Playwright/test-results/admin-landingPage-mainPage-23da7-Widget-bubble-message-text--chromium/trace.zip"
+                            }
+                          ]
                         }
                       ],
                       "status": "skipped"
                     }
                   ],
-                  "id": "102051f1dbe18f84b238-d2566d4123646426f262",
-                  "file": "admin/landingPage/mainPage/sideBar/conversations/active/DSL/generated.spec.js",
-                  "line": 62,
-                  "column": 13
-                }
-              ]
-            },
-            {
-              "title": "Forward to Colleague Dialog",
-              "file": "admin/landingPage/mainPage/sideBar/conversations/active/DSL/generated.spec.js",
-              "line": 70,
-              "column": 10,
-              "specs": [
+                  "id": "d892447a55004d62c9b8-cc461bb0f5c192074b91",
+                  "file": "admin/landingPage/mainPage/sideBar/administration/chatbot/appearance_and_behavior/functionality.spec.js",
+                  "line": 61,
+                  "column": 9
+                },
                 {
-                  "title": "displays name, display name, and status headers",
+                  "title": "Verify input: \"Widget color\"",
                   "ok": true,
                   "tags": [],
                   "tests": [
@@ -355,27 +371,33 @@
                       "projectName": "chromium",
                       "results": [
                         {
-                          "workerIndex": -1,
-                          "status": "skipped",
-                          "duration": 0,
+                          "workerIndex": 3,
+                          "status": "passed",
+                          "duration": 4597,
                           "errors": [],
                           "stdout": [],
                           "stderr": [],
                           "retry": 0,
-                          "startTime": "2024-11-11T09:38:40.486Z",
-                          "attachments": []
+                          "startTime": "2024-11-11T10:01:36.922Z",
+                          "attachments": [
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/markusm/buerokratt_testing_env/TDD-Playwright/test-results/admin-landingPage-mainPage-ececf--Verify-input-Widget-color--chromium/trace.zip"
+                            }
+                          ]
                         }
                       ],
                       "status": "skipped"
                     }
                   ],
-                  "id": "102051f1dbe18f84b238-bf2d72893ca1b171d548",
-                  "file": "admin/landingPage/mainPage/sideBar/conversations/active/DSL/generated.spec.js",
+                  "id": "d892447a55004d62c9b8-db5d5ed57f4bfbe79e20",
+                  "file": "admin/landingPage/mainPage/sideBar/administration/chatbot/appearance_and_behavior/functionality.spec.js",
                   "line": 71,
-                  "column": 13
+                  "column": 9
                 },
                 {
-                  "title": "displays a checkbox to show only active agents",
+                  "title": "Verify select: \"Widget animation\"",
                   "ok": true,
                   "tags": [],
                   "tests": [
@@ -391,24 +413,123 @@
                       "projectName": "chromium",
                       "results": [
                         {
-                          "workerIndex": -1,
-                          "status": "skipped",
-                          "duration": 0,
+                          "workerIndex": 1,
+                          "status": "passed",
+                          "duration": 4926,
                           "errors": [],
                           "stdout": [],
                           "stderr": [],
                           "retry": 0,
-                          "startTime": "2024-11-11T09:38:40.486Z",
-                          "attachments": []
+                          "startTime": "2024-11-11T10:01:37.405Z",
+                          "attachments": [
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/markusm/buerokratt_testing_env/TDD-Playwright/test-results/admin-landingPage-mainPage-75df4-fy-select-Widget-animation--chromium/trace.zip"
+                            }
+                          ]
                         }
                       ],
-                      "status": "skipped"
+                      "status": "expected"
                     }
                   ],
-                  "id": "102051f1dbe18f84b238-590a7d65635c9e5a2965",
-                  "file": "admin/landingPage/mainPage/sideBar/conversations/active/DSL/generated.spec.js",
+                  "id": "d892447a55004d62c9b8-a6e4ef7c34ae39f30469",
+                  "file": "admin/landingPage/mainPage/sideBar/administration/chatbot/appearance_and_behavior/functionality.spec.js",
                   "line": 79,
-                  "column": 13
+                  "column": 9
+                }
+              ]
+            },
+            {
+              "title": "Card footer - Button functionality",
+              "file": "admin/landingPage/mainPage/sideBar/administration/chatbot/appearance_and_behavior/functionality.spec.js",
+              "line": 104,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "Verify Save button functionality",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [
+                        {
+                          "type": "repository",
+                          "description": "Buerokratt-Chatbot"
+                        }
+                      ],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 2,
+                          "status": "passed",
+                          "duration": 4644,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-11-11T10:01:37.854Z",
+                          "attachments": [
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/markusm/buerokratt_testing_env/TDD-Playwright/test-results/admin-landingPage-mainPage-6df23-y-Save-button-functionality-chromium/trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "d892447a55004d62c9b8-5993b8466eae2032168c",
+                  "file": "admin/landingPage/mainPage/sideBar/administration/chatbot/appearance_and_behavior/functionality.spec.js",
+                  "line": 105,
+                  "column": 9
+                },
+                {
+                  "title": "Verify Preview button functionality",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [
+                        {
+                          "type": "skip"
+                        }
+                      ],
+                      "expectedStatus": "skipped",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 4,
+                          "status": "passed",
+                          "duration": 3890,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-11-11T10:01:41.351Z",
+                          "attachments": [
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/markusm/buerokratt_testing_env/TDD-Playwright/test-results/admin-landingPage-mainPage-00453-review-button-functionality-chromium/trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "d892447a55004d62c9b8-5b7627d03b887f4a83d3",
+                  "file": "admin/landingPage/mainPage/sideBar/administration/chatbot/appearance_and_behavior/functionality.spec.js",
+                  "line": 110,
+                  "column": 9
                 }
               ]
             }
@@ -419,10 +540,10 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2024-11-11T09:38:25.034Z",
-    "duration": 15453.24,
-    "expected": 1,
-    "skipped": 7,
+    "startTime": "2024-11-11T10:01:15.597Z",
+    "duration": 29711.356,
+    "expected": 10,
+    "skipped": 0,
     "unexpected": 0,
     "flaky": 0
   }
