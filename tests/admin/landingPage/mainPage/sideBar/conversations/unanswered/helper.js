@@ -19,6 +19,15 @@ export async function turnSwitchOn(page) {
     }
 }
 
+
+export async function turnSwitchOff(page) {
+    const switchButton = await page.locator('.switch__button');
+    const isChecked = await switchButton.getAttribute('aria-checked');
+    if (isChecked === 'true') {
+        await switchButton.click();
+    }
+}
+
 export async function letQuestion(page) {
     await page.goto('https://prod.buerokratt.ee');
     await page.getByLabel('Ava vestlus').click();

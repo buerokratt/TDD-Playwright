@@ -1,59 +1,41 @@
 import { test, expect } from '@playwright/test';
-import { getTranslations } from '../../../../../translations/languageDetector';
-
+import { getTranslations } from '@translation/languageDetector.js';
+import {
+    turnSwitchOn,
+    turnSwitchOff
+} from '../../sideBar/conversations/unanswered/helper';
 
 let translation;
 
-test.beforeEach(async ({ page }) => {
-    await page.goto('https://admin.prod.buerokratt.ee/chat/active');
-    await page.waitForTimeout(1000);
-    await page.getByRole('button', { name: 'Kustutamiseks' }).click();
-    
-    await expect(page.locator('.drawer')).toBeVisible();
-    translation = await getTranslations(page)
-});
-
 test.describe("user profile/drawer visibility", () => {
+    test.beforeEach(async ({ page }) => {
+        await page.goto('https://admin.prod.buerokratt.ee/chat/active');
+        await page.waitForTimeout(1000);
+        await page.getByRole('button', { name: "Ajutine" }).click();
+
+        await expect(page.locator('.drawer')).toBeVisible();
+        translation = await getTranslations(page)
+    });
+
     test("should diplay red status indicator if switch is not active (user is not present)", async ({ page }) => {
-        const switchButton = await page.locator('.switch__button');
-        const isChecked = await switchButton.getAttribute('aria-checked');
-        if (isChecked === 'true') {
-            await switchButton.click();
-        }
+        await turnSwitchOff(page);
 
-        await expect(switchButton).toHaveAttribute('aria-checked', 'false');
+        await page.waitForTimeout(1000);
 
-        await page.waitForTimeout(1000); 
-
-        const button = await page.getByRole('button', { name: 'Kustutamiseks' })
+        const button = await page.getByRole('button', { name: 'Ajutine' })
         const redSpan = await button.locator('span').first();
 
-        const backgroundColor = await redSpan.evaluate(el => getComputedStyle(el).backgroundColor);
-
-        await expect(backgroundColor).toBe('rgb(215, 62, 62)');
-
+        await expect(redSpan).toHaveCSS('background-color', 'rgb(215, 62, 62)');
     });
 
     test("should diplay green status indicator if switch is active (user is present)", async ({ page }) => {
-        const switchButton = await page.locator('.switch__button');
-        const isChecked = await switchButton.getAttribute('aria-checked');
-        if (isChecked !== 'true') {
-            await switchButton.click();
-        }
+        await turnSwitchOn(page);
 
-        await expect(switchButton).toHaveAttribute('aria-checked', 'true');
+        await page.waitForTimeout(1000);
 
-        await page.waitForTimeout(1000); 
-
-        const button = await page.getByRole('button', { name: 'Kustutamiseks' })
-        const redSpan = await button.locator('span').first();
-
-        const backgroundColor = await redSpan.evaluate(el => getComputedStyle(el).backgroundColor);
-
-        await expect(backgroundColor).toBe('rgb(48, 134, 83)');
-
-        
-
+        const button = await page.getByRole('button', { name: 'Ajutine' })
+        const greenSpan = await button.locator('span').first();
+        await expect(greenSpan).toHaveCSS('background-color', 'rgb(48, 134, 83)');
     });
 
     test("should display user profile/drawer", async ({ page }) => {
@@ -68,15 +50,14 @@ test.describe("user profile/drawer visibility", () => {
 
         // This takes the Kusutamiseks kasutaja as the testable user
         const userInfo = [
-            { label: translation.displayName, value: 'Kustutamiseks' },
-            { label: translation.userRoles, value: 'Administraator' },
-            { label: translation.userTitle, value: 'sir' },
-            { label: translation.email, value: 'kustutamind@mail.ee' }
+            { label: translation.displayName, value: 'Ajutine' },
+            { label: translation.userRoles, value: 'Administrator' },
+            { label: translation.userTitle, value: '' },
+            { label: translation.email, value: 'email@mail.ee' }
         ];
 
         for (const { label, value } of userInfo) {
             await expect(drawerBody.locator(`text=${label}`)).toBeVisible();
-            // await expect(drawerBody.locator(`text=${value}`)).toBeVisible();
         }
     });
 

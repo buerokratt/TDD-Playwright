@@ -7,7 +7,7 @@ test.describe('Session Length/Sessiooni pikkus Visibility Tests', () => {
 
     test.beforeEach(async ({ page }) => {
         test.info().annotations.push({ type: 'repository', description: 'Buerokratt-Chatbot' });   
-        await page.goto('https://admin.prod.buerokratt.ee/chat/session-length'); // Replace with your actual URL
+        await page.goto('https://admin.prod.buerokratt.ee/chat/session-length');
         translation = getTranslations(page)
     });
 

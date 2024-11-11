@@ -97,12 +97,12 @@
                 {
                   "workerIndex": 0,
                   "status": "passed",
-                  "duration": 19528,
+                  "duration": 9442,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2024-11-11T11:49:09.215Z",
+                  "startTime": "2024-11-11T12:31:21.622Z",
                   "attachments": [
                     {
                       "name": "trace",
@@ -123,240 +123,207 @@
       ]
     },
     {
-      "title": "admin/landingPage/mainPage/sideBar/administration/chatbot/settings/visibility.spec.js",
-      "file": "admin/landingPage/mainPage/sideBar/administration/chatbot/settings/visibility.spec.js",
+      "title": "admin/landingPage/mainPage/header/userProfile/visibility.spec.js",
+      "file": "admin/landingPage/mainPage/header/userProfile/visibility.spec.js",
       "column": 0,
       "line": 0,
       "specs": [],
       "suites": [
         {
-          "title": "Settings",
-          "file": "admin/landingPage/mainPage/sideBar/administration/chatbot/settings/visibility.spec.js",
-          "line": 6,
+          "title": "user profile/drawer visibility",
+          "file": "admin/landingPage/mainPage/header/userProfile/visibility.spec.js",
+          "line": 10,
           "column": 6,
-          "specs": [],
-          "suites": [
+          "specs": [
             {
-              "title": "Main Heading",
-              "file": "admin/landingPage/mainPage/sideBar/administration/chatbot/settings/visibility.spec.js",
-              "line": 13,
-              "column": 8,
-              "specs": [
+              "title": "should diplay red status indicator if switch is not active (user is not present)",
+              "ok": true,
+              "tags": [],
+              "tests": [
                 {
-                  "title": "should display main heading",
-                  "ok": true,
-                  "tags": [],
-                  "tests": [
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
                     {
-                      "timeout": 30000,
-                      "annotations": [],
-                      "expectedStatus": "passed",
-                      "projectId": "chromium",
-                      "projectName": "chromium",
-                      "results": [
+                      "workerIndex": 1,
+                      "status": "passed",
+                      "duration": 7240,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-11-11T12:31:32.092Z",
+                      "attachments": [
                         {
-                          "workerIndex": 1,
-                          "status": "passed",
-                          "duration": 4637,
-                          "errors": [],
-                          "stdout": [],
-                          "stderr": [],
-                          "retry": 0,
-                          "startTime": "2024-11-11T11:49:29.788Z",
-                          "attachments": [
-                            {
-                              "name": "trace",
-                              "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-684dd-should-display-main-heading-chromium/trace.zip"
-                            }
-                          ]
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-3e166-active-user-is-not-present--chromium/trace.zip"
                         }
-                      ],
-                      "status": "expected"
+                      ]
                     }
                   ],
-                  "id": "6323ee8afad56d483dc9-4853041828e7d2659e15",
-                  "file": "admin/landingPage/mainPage/sideBar/administration/chatbot/settings/visibility.spec.js",
-                  "line": 14,
-                  "column": 9
+                  "status": "expected"
                 }
-              ]
-            },
-            {
-              "title": "Card Header",
-              "file": "admin/landingPage/mainPage/sideBar/administration/chatbot/settings/visibility.spec.js",
+              ],
+              "id": "037c08b2cd36a25ad2e7-38627779a5cd5660848e",
+              "file": "admin/landingPage/mainPage/header/userProfile/visibility.spec.js",
               "line": 20,
-              "column": 8,
-              "specs": [
-                {
-                  "title": "should display and interact with chatbot active switch",
-                  "ok": true,
-                  "tags": [],
-                  "tests": [
-                    {
-                      "timeout": 30000,
-                      "annotations": [],
-                      "expectedStatus": "passed",
-                      "projectId": "chromium",
-                      "projectName": "chromium",
-                      "results": [
-                        {
-                          "workerIndex": 2,
-                          "status": "passed",
-                          "duration": 5936,
-                          "errors": [],
-                          "stdout": [],
-                          "stderr": [],
-                          "retry": 0,
-                          "startTime": "2024-11-11T11:49:29.796Z",
-                          "attachments": [
-                            {
-                              "name": "trace",
-                              "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-76068--with-chatbot-active-switch-chromium/trace.zip"
-                            }
-                          ]
-                        }
-                      ],
-                      "status": "expected"
-                    }
-                  ],
-                  "id": "6323ee8afad56d483dc9-c0a4a5d0728040c4ac94",
-                  "file": "admin/landingPage/mainPage/sideBar/administration/chatbot/settings/visibility.spec.js",
-                  "line": 21,
-                  "column": 9
-                }
-              ]
+              "column": 9
             },
             {
-              "title": "Card Body",
-              "file": "admin/landingPage/mainPage/sideBar/administration/chatbot/settings/visibility.spec.js",
-              "line": 29,
-              "column": 8,
-              "specs": [
+              "title": "should diplay green status indicator if switch is active (user is present)",
+              "ok": true,
+              "tags": [],
+              "tests": [
                 {
-                  "title": "should display and interact with show support name switch",
-                  "ok": true,
-                  "tags": [],
-                  "tests": [
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
                     {
-                      "timeout": 30000,
-                      "annotations": [],
-                      "expectedStatus": "passed",
-                      "projectId": "chromium",
-                      "projectName": "chromium",
-                      "results": [
+                      "workerIndex": 2,
+                      "status": "passed",
+                      "duration": 6310,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-11-11T12:31:32.075Z",
+                      "attachments": [
                         {
-                          "workerIndex": 3,
-                          "status": "passed",
-                          "duration": 6374,
-                          "errors": [],
-                          "stdout": [],
-                          "stderr": [],
-                          "retry": 0,
-                          "startTime": "2024-11-11T11:49:29.786Z",
-                          "attachments": [
-                            {
-                              "name": "trace",
-                              "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-97e65-th-show-support-name-switch-chromium/trace.zip"
-                            }
-                          ]
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-d8448--is-active-user-is-present--chromium/trace.zip"
                         }
-                      ],
-                      "status": "expected"
+                      ]
                     }
                   ],
-                  "id": "6323ee8afad56d483dc9-67466ff22268dc3efa39",
-                  "file": "admin/landingPage/mainPage/sideBar/administration/chatbot/settings/visibility.spec.js",
-                  "line": 30,
-                  "column": 9
-                },
-                {
-                  "title": "should display and interact with show support title switch",
-                  "ok": true,
-                  "tags": [],
-                  "tests": [
-                    {
-                      "timeout": 30000,
-                      "annotations": [],
-                      "expectedStatus": "passed",
-                      "projectId": "chromium",
-                      "projectName": "chromium",
-                      "results": [
-                        {
-                          "workerIndex": 4,
-                          "status": "passed",
-                          "duration": 6437,
-                          "errors": [],
-                          "stdout": [],
-                          "stderr": [],
-                          "retry": 0,
-                          "startTime": "2024-11-11T11:49:29.783Z",
-                          "attachments": [
-                            {
-                              "name": "trace",
-                              "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-186d4-h-show-support-title-switch-chromium/trace.zip"
-                            }
-                          ]
-                        }
-                      ],
-                      "status": "expected"
-                    }
-                  ],
-                  "id": "6323ee8afad56d483dc9-fb1be096e315fe85e219",
-                  "file": "admin/landingPage/mainPage/sideBar/administration/chatbot/settings/visibility.spec.js",
-                  "line": 37,
-                  "column": 9
+                  "status": "expected"
                 }
-              ]
+              ],
+              "id": "037c08b2cd36a25ad2e7-a97ac286b2fd3be53338",
+              "file": "admin/landingPage/mainPage/header/userProfile/visibility.spec.js",
+              "line": 31,
+              "column": 9
             },
             {
-              "title": "Card Footer",
-              "file": "admin/landingPage/mainPage/sideBar/administration/chatbot/settings/visibility.spec.js",
-              "line": 45,
-              "column": 8,
-              "specs": [
+              "title": "should display user profile/drawer",
+              "ok": true,
+              "tags": [],
+              "tests": [
                 {
-                  "title": "should display Save button",
-                  "ok": true,
-                  "tags": [],
-                  "tests": [
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
                     {
-                      "timeout": 30000,
-                      "annotations": [],
-                      "expectedStatus": "passed",
-                      "projectId": "chromium",
-                      "projectName": "chromium",
-                      "results": [
+                      "workerIndex": 3,
+                      "status": "passed",
+                      "duration": 6414,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-11-11T12:31:32.066Z",
+                      "attachments": [
                         {
-                          "workerIndex": 1,
-                          "status": "passed",
-                          "duration": 3932,
-                          "errors": [],
-                          "stdout": [],
-                          "stderr": [],
-                          "retry": 0,
-                          "startTime": "2024-11-11T11:49:34.789Z",
-                          "attachments": [
-                            {
-                              "name": "trace",
-                              "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-4f52d--should-display-Save-button-chromium/trace.zip"
-                            }
-                          ]
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-69f8d-display-user-profile-drawer-chromium/trace.zip"
                         }
-                      ],
-                      "status": "expected"
+                      ]
                     }
                   ],
-                  "id": "6323ee8afad56d483dc9-51204bfeae0fa67e3ac5",
-                  "file": "admin/landingPage/mainPage/sideBar/administration/chatbot/settings/visibility.spec.js",
-                  "line": 46,
-                  "column": 9
+                  "status": "expected"
                 }
-              ]
+              ],
+              "id": "037c08b2cd36a25ad2e7-28d643db4ff0e1de7011",
+              "file": "admin/landingPage/mainPage/header/userProfile/visibility.spec.js",
+              "line": 41,
+              "column": 9
+            },
+            {
+              "title": "should display user details in the drawer",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "status": "passed",
+                      "duration": 6366,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-11-11T12:31:32.099Z",
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-9afb2--user-details-in-the-drawer-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "037c08b2cd36a25ad2e7-5351594bc325b3a6d081",
+              "file": "admin/landingPage/mainPage/header/userProfile/visibility.spec.js",
+              "line": 46,
+              "column": 9
+            },
+            {
+              "title": "should display switch elements",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "status": "passed",
+                      "duration": 2731,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-11-11T12:31:39.058Z",
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-69189-uld-display-switch-elements-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "037c08b2cd36a25ad2e7-e6360f6662fd2fc4e37a",
+              "file": "admin/landingPage/mainPage/header/userProfile/visibility.spec.js",
+              "line": 64,
+              "column": 9
             }
           ]
         }
@@ -365,8 +332,8 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2024-11-11T11:49:08.671Z",
-    "duration": 30137.358,
+    "startTime": "2024-11-11T12:31:21.063Z",
+    "duration": 20906.654000000002,
     "expected": 6,
     "skipped": 0,
     "unexpected": 0,

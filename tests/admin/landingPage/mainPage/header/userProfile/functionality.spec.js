@@ -3,8 +3,9 @@ import { test, expect } from '@playwright/test';
 test.beforeEach(async ({ page }) => {
     // Navigate to the page where switches are located
     await page.goto('https://admin.prod.buerokratt.ee/chat/active');
-    await page.getByRole('button', { name: 'Kustutamiseks' }).click();
-    await expect(page.locator('.drawer')).toBeVisible({ timeout: 5000 });
+    await page.getByRole('button', { name: 'Ajutine' }).click();
+    await page.waitForTimeout(1000);
+    await expect(page.locator('.drawer')).toBeVisible();
 });
 
 test.describe('Switch button functionality', () => {
