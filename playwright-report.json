@@ -97,12 +97,12 @@
                 {
                   "workerIndex": 0,
                   "status": "passed",
-                  "duration": 14265,
+                  "duration": 13922,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2024-11-11T09:38:25.750Z",
+                  "startTime": "2024-11-11T11:13:37.059Z",
                   "attachments": [
                     {
                       "name": "trace",
@@ -123,27 +123,27 @@
       ]
     },
     {
-      "title": "admin/landingPage/mainPage/sideBar/conversations/active/DSL/generated.spec.js",
-      "file": "admin/landingPage/mainPage/sideBar/conversations/active/DSL/generated.spec.js",
+      "title": "admin/landingPage/mainPage/sideBar/conversations/pending/DSL/generated.spec.js",
+      "file": "admin/landingPage/mainPage/sideBar/conversations/pending/DSL/generated.spec.js",
       "column": 0,
       "line": 0,
       "specs": [],
       "suites": [
         {
-          "title": "Buerokratt-Chatbot Active Chat. These tests are skipped due to issues with the chat takeover functionality. Specifically, the \"takeover\" action is not working as expected: it does not reliably redirect to the active chats page, and taken-over chats sometimes remain in the unanswered list. This causes inconsistencies and failures in tests that rely on the chat being moved to the active state.",
-          "file": "admin/landingPage/mainPage/sideBar/conversations/active/DSL/generated.spec.js",
-          "line": 7,
-          "column": 15,
+          "title": "Buerokratt-Chatbot",
+          "file": "admin/landingPage/mainPage/sideBar/conversations/pending/DSL/generated.spec.js",
+          "line": 12,
+          "column": 6,
           "specs": [],
           "suites": [
             {
               "title": "Vertical Tabs",
-              "file": "admin/landingPage/mainPage/sideBar/conversations/active/DSL/generated.spec.js",
-              "line": 22,
+              "file": "admin/landingPage/mainPage/sideBar/conversations/pending/DSL/generated.spec.js",
+              "line": 27,
               "column": 10,
               "specs": [
                 {
-                  "title": "displays My Chats header with dynamic count",
+                  "title": "should display header1",
                   "ok": true,
                   "tags": [],
                   "tests": [
@@ -151,43 +151,93 @@
                       "timeout": 30000,
                       "annotations": [
                         {
-                          "type": "skip"
+                          "type": "repository",
+                          "description": "Buerokratt-Chatbot"
                         }
                       ],
-                      "expectedStatus": "skipped",
+                      "expectedStatus": "passed",
                       "projectId": "chromium",
                       "projectName": "chromium",
                       "results": [
                         {
-                          "workerIndex": -1,
-                          "status": "skipped",
-                          "duration": 0,
+                          "workerIndex": 1,
+                          "status": "passed",
+                          "duration": 20661,
                           "errors": [],
                           "stdout": [],
                           "stderr": [],
                           "retry": 0,
-                          "startTime": "2024-11-11T09:38:40.484Z",
-                          "attachments": []
+                          "startTime": "2024-11-11T11:13:52.031Z",
+                          "attachments": [
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-67b1f-Tabs-should-display-header1-chromium/trace.zip"
+                            }
+                          ]
                         }
                       ],
-                      "status": "skipped"
+                      "status": "expected"
                     }
                   ],
-                  "id": "102051f1dbe18f84b238-4c114602762685d55d8d",
-                  "file": "admin/landingPage/mainPage/sideBar/conversations/active/DSL/generated.spec.js",
-                  "line": 23,
+                  "id": "82d48e68874fa73d629a-7d3990029e250bd23f1b",
+                  "file": "admin/landingPage/mainPage/sideBar/conversations/pending/DSL/generated.spec.js",
+                  "line": 28,
+                  "column": 13
+                },
+                {
+                  "title": "should display header2",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [
+                        {
+                          "type": "repository",
+                          "description": "Buerokratt-Chatbot"
+                        }
+                      ],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 2,
+                          "status": "passed",
+                          "duration": 24939,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-11-11T11:13:52.021Z",
+                          "attachments": [
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-7e97b-Tabs-should-display-header2-chromium/trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "82d48e68874fa73d629a-3b7f9a445fbc6cea8c83",
+                  "file": "admin/landingPage/mainPage/sideBar/conversations/pending/DSL/generated.spec.js",
+                  "line": 33,
                   "column": 13
                 }
               ]
             },
             {
-              "title": "Selected Chat Area",
-              "file": "admin/landingPage/mainPage/sideBar/conversations/active/DSL/generated.spec.js",
-              "line": 29,
+              "title": "Selected Chat Section",
+              "file": "admin/landingPage/mainPage/sideBar/conversations/pending/DSL/generated.spec.js",
+              "line": 39,
               "column": 10,
               "specs": [
                 {
-                  "title": "displays chat metadata and action buttons",
+                  "title": "should display anonymous user in active chat header",
                   "ok": true,
                   "tags": [],
                   "tests": [
@@ -195,35 +245,42 @@
                       "timeout": 30000,
                       "annotations": [
                         {
-                          "type": "skip"
+                          "type": "repository",
+                          "description": "Buerokratt-Chatbot"
                         }
                       ],
-                      "expectedStatus": "skipped",
+                      "expectedStatus": "passed",
                       "projectId": "chromium",
                       "projectName": "chromium",
                       "results": [
                         {
-                          "workerIndex": -1,
-                          "status": "skipped",
-                          "duration": 0,
+                          "workerIndex": 3,
+                          "status": "passed",
+                          "duration": 24141,
                           "errors": [],
                           "stdout": [],
                           "stderr": [],
                           "retry": 0,
-                          "startTime": "2024-11-11T09:38:40.485Z",
-                          "attachments": []
+                          "startTime": "2024-11-11T11:13:52.047Z",
+                          "attachments": [
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-71ee1--user-in-active-chat-header-chromium/trace.zip"
+                            }
+                          ]
                         }
                       ],
-                      "status": "skipped"
+                      "status": "expected"
                     }
                   ],
-                  "id": "102051f1dbe18f84b238-917f566106f72dcbde62",
-                  "file": "admin/landingPage/mainPage/sideBar/conversations/active/DSL/generated.spec.js",
-                  "line": 30,
+                  "id": "82d48e68874fa73d629a-7a833bfdab0a929290e5",
+                  "file": "admin/landingPage/mainPage/sideBar/conversations/pending/DSL/generated.spec.js",
+                  "line": 40,
                   "column": 13
                 },
                 {
-                  "title": "displays and enables side actions buttons",
+                  "title": "should display Take Over button in active chat toolbar",
                   "ok": true,
                   "tags": [],
                   "tests": [
@@ -231,183 +288,225 @@
                       "timeout": 30000,
                       "annotations": [
                         {
-                          "type": "skip"
+                          "type": "repository",
+                          "description": "Buerokratt-Chatbot"
                         }
                       ],
-                      "expectedStatus": "skipped",
+                      "expectedStatus": "passed",
                       "projectId": "chromium",
                       "projectName": "chromium",
                       "results": [
                         {
-                          "workerIndex": -1,
-                          "status": "skipped",
-                          "duration": 0,
-                          "errors": [],
+                          "workerIndex": 4,
+                          "status": "failed",
+                          "duration": 23058,
+                          "error": {
+                            "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('.active-chat__toolbar').getByText('Take Over', { exact: true })\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.active-chat__toolbar').getByText('Take Over', { exact: true })\u001b[22m\n",
+                            "stack": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('.active-chat__toolbar').getByText('Take Over', { exact: true })\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.active-chat__toolbar').getByText('Take Over', { exact: true })\u001b[22m\n\n    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/pending/DSL/generated.spec.js:47:42",
+                            "location": {
+                              "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/pending/DSL/generated.spec.js",
+                              "column": 42,
+                              "line": 47
+                            },
+                            "snippet": "\u001b[0m \u001b[90m 45 |\u001b[39m         test(\u001b[32m'should display Take Over button in active chat toolbar'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\n \u001b[90m 46 |\u001b[39m             \u001b[36mconst\u001b[39m takeOverButton \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'.active-chat__toolbar'\u001b[39m)\u001b[33m.\u001b[39mgetByText(\u001b[32m`${translation.takeOver}`\u001b[39m\u001b[33m,\u001b[39m { exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 47 |\u001b[39m             \u001b[36mawait\u001b[39m expect(takeOverButton)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                          \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 48 |\u001b[39m         })\u001b[33m;\u001b[39m\n \u001b[90m 49 |\u001b[39m     })\u001b[33m;\u001b[39m\n \u001b[90m 50 |\u001b[39m\u001b[0m"
+                          },
+                          "errors": [
+                            {
+                              "location": {
+                                "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/pending/DSL/generated.spec.js",
+                                "column": 42,
+                                "line": 47
+                              },
+                              "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('.active-chat__toolbar').getByText('Take Over', { exact: true })\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.active-chat__toolbar').getByText('Take Over', { exact: true })\u001b[22m\n\n\n\u001b[0m \u001b[90m 45 |\u001b[39m         test(\u001b[32m'should display Take Over button in active chat toolbar'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\n \u001b[90m 46 |\u001b[39m             \u001b[36mconst\u001b[39m takeOverButton \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'.active-chat__toolbar'\u001b[39m)\u001b[33m.\u001b[39mgetByText(\u001b[32m`${translation.takeOver}`\u001b[39m\u001b[33m,\u001b[39m { exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 47 |\u001b[39m             \u001b[36mawait\u001b[39m expect(takeOverButton)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                          \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 48 |\u001b[39m         })\u001b[33m;\u001b[39m\n \u001b[90m 49 |\u001b[39m     })\u001b[33m;\u001b[39m\n \u001b[90m 50 |\u001b[39m\u001b[0m\n\n\u001b[2m    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/pending/DSL/generated.spec.js:47:42\u001b[22m"
+                            }
+                          ],
                           "stdout": [],
                           "stderr": [],
                           "retry": 0,
-                          "startTime": "2024-11-11T09:38:40.485Z",
-                          "attachments": []
-                        }
-                      ],
-                      "status": "skipped"
-                    }
-                  ],
-                  "id": "102051f1dbe18f84b238-abc6cc018c30bf5e904f",
-                  "file": "admin/landingPage/mainPage/sideBar/conversations/active/DSL/generated.spec.js",
-                  "line": 42,
-                  "column": 13
-                },
-                {
-                  "title": "opens end chat dialog on clicking \"End chat\"",
-                  "ok": true,
-                  "tags": [],
-                  "tests": [
-                    {
-                      "timeout": 30000,
-                      "annotations": [
+                          "startTime": "2024-11-11T11:13:52.028Z",
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-177f8-tton-in-active-chat-toolbar-chromium/test-failed-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-177f8-tton-in-active-chat-toolbar-chromium/video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-177f8-tton-in-active-chat-toolbar-chromium/trace.zip"
+                            }
+                          ],
+                          "errorLocation": {
+                            "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/pending/DSL/generated.spec.js",
+                            "column": 42,
+                            "line": 47
+                          }
+                        },
                         {
-                          "type": "skip"
-                        }
-                      ],
-                      "expectedStatus": "skipped",
-                      "projectId": "chromium",
-                      "projectName": "chromium",
-                      "results": [
-                        {
-                          "workerIndex": -1,
-                          "status": "skipped",
-                          "duration": 0,
+                          "workerIndex": 5,
+                          "status": "passed",
+                          "duration": 17270,
                           "errors": [],
                           "stdout": [],
                           "stderr": [],
-                          "retry": 0,
-                          "startTime": "2024-11-11T09:38:40.485Z",
-                          "attachments": []
+                          "retry": 1,
+                          "startTime": "2024-11-11T11:14:18.412Z",
+                          "attachments": [
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-177f8-tton-in-active-chat-toolbar-chromium-retry1/trace.zip"
+                            }
+                          ]
                         }
                       ],
-                      "status": "skipped"
+                      "status": "flaky"
                     }
                   ],
-                  "id": "102051f1dbe18f84b238-0c346a2fc6a73bb8823a",
-                  "file": "admin/landingPage/mainPage/sideBar/conversations/active/DSL/generated.spec.js",
-                  "line": 55,
-                  "column": 13
-                },
-                {
-                  "title": "opens forward to colleague dialog on clicking \"Forward to Colleague\"",
-                  "ok": true,
-                  "tags": [],
-                  "tests": [
-                    {
-                      "timeout": 30000,
-                      "annotations": [
-                        {
-                          "type": "skip"
-                        }
-                      ],
-                      "expectedStatus": "skipped",
-                      "projectId": "chromium",
-                      "projectName": "chromium",
-                      "results": [
-                        {
-                          "workerIndex": -1,
-                          "status": "skipped",
-                          "duration": 0,
-                          "errors": [],
-                          "stdout": [],
-                          "stderr": [],
-                          "retry": 0,
-                          "startTime": "2024-11-11T09:38:40.486Z",
-                          "attachments": []
-                        }
-                      ],
-                      "status": "skipped"
-                    }
-                  ],
-                  "id": "102051f1dbe18f84b238-d2566d4123646426f262",
-                  "file": "admin/landingPage/mainPage/sideBar/conversations/active/DSL/generated.spec.js",
-                  "line": 62,
+                  "id": "82d48e68874fa73d629a-5f2058dabf77d5e8b583",
+                  "file": "admin/landingPage/mainPage/sideBar/conversations/pending/DSL/generated.spec.js",
+                  "line": 45,
                   "column": 13
                 }
               ]
             },
             {
-              "title": "Forward to Colleague Dialog",
-              "file": "admin/landingPage/mainPage/sideBar/conversations/active/DSL/generated.spec.js",
-              "line": 70,
+              "title": "Chat Metadata",
+              "file": "admin/landingPage/mainPage/sideBar/conversations/pending/DSL/generated.spec.js",
+              "line": 52,
               "column": 10,
               "specs": [
                 {
-                  "title": "displays name, display name, and status headers",
-                  "ok": true,
+                  "title": "should display metadata fields correctly",
+                  "ok": false,
                   "tags": [],
                   "tests": [
                     {
                       "timeout": 30000,
                       "annotations": [
                         {
-                          "type": "skip"
+                          "type": "repository",
+                          "description": "Buerokratt-Chatbot"
                         }
                       ],
-                      "expectedStatus": "skipped",
+                      "expectedStatus": "passed",
                       "projectId": "chromium",
                       "projectName": "chromium",
                       "results": [
                         {
-                          "workerIndex": -1,
-                          "status": "skipped",
-                          "duration": 0,
-                          "errors": [],
+                          "workerIndex": 1,
+                          "status": "failed",
+                          "duration": 23375,
+                          "error": {
+                            "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('.active-chat__side-meta').getByText('End user email', { exact: true })\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.active-chat__side-meta').getByText('End user email', { exact: true })\u001b[22m\n",
+                            "stack": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('.active-chat__side-meta').getByText('End user email', { exact: true })\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.active-chat__side-meta').getByText('End user email', { exact: true })\u001b[22m\n\n    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/pending/DSL/generated.spec.js:57:94",
+                            "location": {
+                              "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/pending/DSL/generated.spec.js",
+                              "column": 94,
+                              "line": 57
+                            },
+                            "snippet": "\u001b[0m \u001b[90m 55 |\u001b[39m             \u001b[36mawait\u001b[39m expect(chatMeta\u001b[33m.\u001b[39mgetByText(\u001b[32m`${translation.id}`\u001b[39m\u001b[33m,\u001b[39m { exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m }))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 56 |\u001b[39m             \u001b[36mawait\u001b[39m expect(chatMeta\u001b[33m.\u001b[39mgetByText(\u001b[32m`${translation.endUserName}`\u001b[39m\u001b[33m,\u001b[39m { exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m }))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 57 |\u001b[39m             \u001b[36mawait\u001b[39m expect(chatMeta\u001b[33m.\u001b[39mgetByText(\u001b[32m`${translation.endUserEmail}`\u001b[39m\u001b[33m,\u001b[39m { exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m }))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                                                              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 58 |\u001b[39m             \u001b[36mawait\u001b[39m expect(chatMeta\u001b[33m.\u001b[39mgetByText(\u001b[32m`${translation.endUserPhone}`\u001b[39m\u001b[33m,\u001b[39m { exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m }))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 59 |\u001b[39m             \u001b[36mawait\u001b[39m expect(chatMeta\u001b[33m.\u001b[39mgetByText(\u001b[32m`${translation.clientSupportName}`\u001b[39m\u001b[33m,\u001b[39m { exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m }))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 60 |\u001b[39m             \u001b[36mawait\u001b[39m expect(chatMeta\u001b[33m.\u001b[39mgetByText(\u001b[32m`${translation.chatStartedAt}`\u001b[39m\u001b[33m,\u001b[39m { exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m }))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\u001b[0m"
+                          },
+                          "errors": [
+                            {
+                              "location": {
+                                "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/pending/DSL/generated.spec.js",
+                                "column": 94,
+                                "line": 57
+                              },
+                              "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('.active-chat__side-meta').getByText('End user email', { exact: true })\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.active-chat__side-meta').getByText('End user email', { exact: true })\u001b[22m\n\n\n\u001b[0m \u001b[90m 55 |\u001b[39m             \u001b[36mawait\u001b[39m expect(chatMeta\u001b[33m.\u001b[39mgetByText(\u001b[32m`${translation.id}`\u001b[39m\u001b[33m,\u001b[39m { exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m }))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 56 |\u001b[39m             \u001b[36mawait\u001b[39m expect(chatMeta\u001b[33m.\u001b[39mgetByText(\u001b[32m`${translation.endUserName}`\u001b[39m\u001b[33m,\u001b[39m { exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m }))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 57 |\u001b[39m             \u001b[36mawait\u001b[39m expect(chatMeta\u001b[33m.\u001b[39mgetByText(\u001b[32m`${translation.endUserEmail}`\u001b[39m\u001b[33m,\u001b[39m { exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m }))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                                                              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 58 |\u001b[39m             \u001b[36mawait\u001b[39m expect(chatMeta\u001b[33m.\u001b[39mgetByText(\u001b[32m`${translation.endUserPhone}`\u001b[39m\u001b[33m,\u001b[39m { exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m }))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 59 |\u001b[39m             \u001b[36mawait\u001b[39m expect(chatMeta\u001b[33m.\u001b[39mgetByText(\u001b[32m`${translation.clientSupportName}`\u001b[39m\u001b[33m,\u001b[39m { exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m }))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 60 |\u001b[39m             \u001b[36mawait\u001b[39m expect(chatMeta\u001b[33m.\u001b[39mgetByText(\u001b[32m`${translation.chatStartedAt}`\u001b[39m\u001b[33m,\u001b[39m { exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m }))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\u001b[0m\n\n\u001b[2m    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/pending/DSL/generated.spec.js:57:94\u001b[22m"
+                            }
+                          ],
                           "stdout": [],
                           "stderr": [],
                           "retry": 0,
-                          "startTime": "2024-11-11T09:38:40.486Z",
-                          "attachments": []
-                        }
-                      ],
-                      "status": "skipped"
-                    }
-                  ],
-                  "id": "102051f1dbe18f84b238-bf2d72893ca1b171d548",
-                  "file": "admin/landingPage/mainPage/sideBar/conversations/active/DSL/generated.spec.js",
-                  "line": 71,
-                  "column": 13
-                },
-                {
-                  "title": "displays a checkbox to show only active agents",
-                  "ok": true,
-                  "tags": [],
-                  "tests": [
-                    {
-                      "timeout": 30000,
-                      "annotations": [
+                          "startTime": "2024-11-11T11:14:13.357Z",
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-0e318-y-metadata-fields-correctly-chromium/test-failed-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-0e318-y-metadata-fields-correctly-chromium/video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-0e318-y-metadata-fields-correctly-chromium/trace.zip"
+                            }
+                          ],
+                          "errorLocation": {
+                            "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/pending/DSL/generated.spec.js",
+                            "column": 94,
+                            "line": 57
+                          }
+                        },
                         {
-                          "type": "skip"
-                        }
-                      ],
-                      "expectedStatus": "skipped",
-                      "projectId": "chromium",
-                      "projectName": "chromium",
-                      "results": [
-                        {
-                          "workerIndex": -1,
-                          "status": "skipped",
-                          "duration": 0,
-                          "errors": [],
+                          "workerIndex": 6,
+                          "status": "interrupted",
+                          "duration": 4715,
+                          "error": {
+                            "message": "Error: page.waitForTimeout: Test ended.",
+                            "stack": "Error: page.waitForTimeout: Test ended.\n    at letQuestion (/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/unanswered/helper.js:29:16)\n    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/pending/DSL/generated.spec.js:17:9",
+                            "location": {
+                              "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/unanswered/helper.js",
+                              "column": 16,
+                              "line": 29
+                            },
+                            "snippet": "\u001b[90m   at \u001b[39madmin/landingPage/mainPage/sideBar/conversations/unanswered/helper.js:29\n\n\u001b[0m \u001b[90m 27 |\u001b[39m     \u001b[36mconst\u001b[39m sendButton \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mgetByLabel(\u001b[32m'Saada'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 28 |\u001b[39m     \u001b[36mawait\u001b[39m sendButton\u001b[33m.\u001b[39mclick()\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 29 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForTimeout(\u001b[35m6000\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 30 |\u001b[39m\n \u001b[90m 31 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByPlaceholder(\u001b[32m'nimi@email.ee'\u001b[39m)\u001b[33m.\u001b[39mfill(\u001b[32m'asd@gmail.com'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 32 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByPlaceholder(\u001b[32m'+372 123 456'\u001b[39m)\u001b[33m.\u001b[39mfill(\u001b[32m'55675567'\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m"
+                          },
+                          "errors": [
+                            {
+                              "location": {
+                                "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/unanswered/helper.js",
+                                "column": 16,
+                                "line": 29
+                              },
+                              "message": "Error: page.waitForTimeout: Test ended.\n\n\u001b[90m   at \u001b[39madmin/landingPage/mainPage/sideBar/conversations/unanswered/helper.js:29\n\n\u001b[0m \u001b[90m 27 |\u001b[39m     \u001b[36mconst\u001b[39m sendButton \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mgetByLabel(\u001b[32m'Saada'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 28 |\u001b[39m     \u001b[36mawait\u001b[39m sendButton\u001b[33m.\u001b[39mclick()\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 29 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForTimeout(\u001b[35m6000\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 30 |\u001b[39m\n \u001b[90m 31 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByPlaceholder(\u001b[32m'nimi@email.ee'\u001b[39m)\u001b[33m.\u001b[39mfill(\u001b[32m'asd@gmail.com'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 32 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByPlaceholder(\u001b[32m'+372 123 456'\u001b[39m)\u001b[33m.\u001b[39mfill(\u001b[32m'55675567'\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\n\u001b[2m    at letQuestion (/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/unanswered/helper.js:29:16)\u001b[22m\n\u001b[2m    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/pending/DSL/generated.spec.js:17:9\u001b[22m"
+                            }
+                          ],
                           "stdout": [],
                           "stderr": [],
-                          "retry": 0,
-                          "startTime": "2024-11-11T09:38:40.486Z",
-                          "attachments": []
+                          "retry": 1,
+                          "startTime": "2024-11-11T11:14:37.575Z",
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-0e318-y-metadata-fields-correctly-chromium-retry1/test-failed-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-0e318-y-metadata-fields-correctly-chromium-retry1/video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-0e318-y-metadata-fields-correctly-chromium-retry1/trace.zip"
+                            }
+                          ],
+                          "errorLocation": {
+                            "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/unanswered/helper.js",
+                            "column": 16,
+                            "line": 29
+                          }
                         }
                       ],
-                      "status": "skipped"
+                      "status": "unexpected"
                     }
                   ],
-                  "id": "102051f1dbe18f84b238-590a7d65635c9e5a2965",
-                  "file": "admin/landingPage/mainPage/sideBar/conversations/active/DSL/generated.spec.js",
-                  "line": 79,
+                  "id": "82d48e68874fa73d629a-e8bdfb1a7389354eca6a",
+                  "file": "admin/landingPage/mainPage/sideBar/conversations/pending/DSL/generated.spec.js",
+                  "line": 53,
                   "column": 13
                 }
               ]
@@ -419,11 +518,11 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2024-11-11T09:38:25.034Z",
-    "duration": 15453.24,
-    "expected": 1,
-    "skipped": 7,
-    "unexpected": 0,
-    "flaky": 0
+    "startTime": "2024-11-11T11:13:36.506Z",
+    "duration": 66277.898,
+    "expected": 4,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 1
   }
 }

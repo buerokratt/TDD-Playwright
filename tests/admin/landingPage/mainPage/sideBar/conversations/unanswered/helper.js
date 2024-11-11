@@ -11,12 +11,27 @@ export async function selectFirstItem(page) {
     return true;
 }
 
-export async function turnSwitchOn(page){
+export async function turnSwitchOn(page) {
     const switchButton = await page.locator('.switch__button');
     const isChecked = await switchButton.getAttribute('aria-checked');
     if (isChecked !== 'true') {
         await switchButton.click();
     }
+}
+
+export async function letQuestion(page) {
+    await page.goto('https://prod.buerokratt.ee');
+    await page.getByLabel('Ava vestlus').click();
+
+    await page.getByPlaceholder('Kirjutage oma sõnum...').fill('Suuna mind');
+    const sendButton = page.getByLabel('Saada');
+    await sendButton.click();
+    await page.waitForTimeout(6000);
+
+    await page.getByPlaceholder('nimi@email.ee').fill('asd@gmail.com');
+    await page.getByPlaceholder('+372 123 456').fill('55675567');
+    await page.getByPlaceholder('Täpsustage siin oma küsimust').fill('Kui suur on tulumaks?');
+    await page.getByText('Kinnita').click();
 }
 
 export async function provideData() {
@@ -51,7 +66,7 @@ export async function provideData() {
         ],
         "holidayNames": "2024-01-01-uusaasta,2024-02-24-iseseisvuspäev,2024-03-29-suur reede,2024-03-31-lihavõtted,2024-05-01-kevadpüha,2024-05-19-nelipühade 1. püha,2024-06-23-võidupüha,2024-06-24-jaanipäev,2024-08-20-taasiseseisvumispäev,2024-12-24-jõululaupäev,2024-12-25-esimene jõulupüha,2024-12-26-teine jõulupüha"
     };
-    
+
 
     // Create a new API request context
     const apiRequestContext = await request.newContext();
@@ -73,36 +88,36 @@ export async function provideData() {
 
     // Close the request context to avoid memory leaks
     await apiRequestContext.dispose();
-} 
+}
 
 export async function changeOpenHoursTo24and7() {
-    const jsonData = 
-        {
-            "organizationMondayWorkingTimeStartISO": "2023-10-22T09:00:00.000Z",
-            "organizationMondayWorkingTimeEndISO": "2023-10-22T17:00:00.000Z",
-            "organizationTuesdayWorkingTimeStartISO": "2023-10-22T09:00:00.000Z",
-            "organizationTuesdayWorkingTimeEndISO": "2023-10-22T17:00:00.000Z",
-            "organizationWednesdayWorkingTimeStartISO": "2023-10-22T09:00:00.000Z",
-            "organizationWednesdayWorkingTimeEndISO": "2023-10-22T17:00:00.000Z",
-            "organizationThursdayWorkingTimeStartISO": "2023-10-22T09:00:00.000Z",
-            "organizationThursdayWorkingTimeEndISO": "2023-10-22T17:00:00.000Z",
-            "organizationFridayWorkingTimeStartISO": "2023-10-22T09:00:00.000Z",
-            "organizationFridayWorkingTimeEndISO": "2023-10-22T17:00:00.000Z",
-            "organizationSaturdayWorkingTimeStartISO": "2023-10-22T09:00:00.000Z",
-            "organizationSaturdayWorkingTimeEndISO": "2023-10-22T17:00:00.000Z",
-            "organizationSundayWorkingTimeStartISO": "2023-10-22T09:00:00.000Z",
-            "organizationSundayWorkingTimeEndISO": "2023-10-22T17:00:00.000Z",
-            "organizationAllWeekdaysTimeStartISO": "2023-10-22T09:00:00.000Z",
-            "organizationAllWeekdaysTimeEndISO": "2023-10-22T17:00:00.000Z",
-            "organizationClosedOnWeekEnds": "false",
-            "organizationTheSameOnAllWorkingDays": "false",
-            "organizationWorkingTimeNationalHolidays": "true",
-            "organizationWorkingTimeWeekdays": "monday,tuesday,wednesday,thursday,friday,saturday,sunday",
-            "organizationWorkingAllTime": "true",
-            "organizationNoCsaAskForContacts": "true",
-            "organizationNoCsaAvailableMessage": "Hetkel ei ole ühtegi vaba klienditeenindajat, palun proovige mõne aja pärast uuesti"
-        }
-    
+    const jsonData =
+    {
+        "organizationMondayWorkingTimeStartISO": "2023-10-22T09:00:00.000Z",
+        "organizationMondayWorkingTimeEndISO": "2023-10-22T17:00:00.000Z",
+        "organizationTuesdayWorkingTimeStartISO": "2023-10-22T09:00:00.000Z",
+        "organizationTuesdayWorkingTimeEndISO": "2023-10-22T17:00:00.000Z",
+        "organizationWednesdayWorkingTimeStartISO": "2023-10-22T09:00:00.000Z",
+        "organizationWednesdayWorkingTimeEndISO": "2023-10-22T17:00:00.000Z",
+        "organizationThursdayWorkingTimeStartISO": "2023-10-22T09:00:00.000Z",
+        "organizationThursdayWorkingTimeEndISO": "2023-10-22T17:00:00.000Z",
+        "organizationFridayWorkingTimeStartISO": "2023-10-22T09:00:00.000Z",
+        "organizationFridayWorkingTimeEndISO": "2023-10-22T17:00:00.000Z",
+        "organizationSaturdayWorkingTimeStartISO": "2023-10-22T09:00:00.000Z",
+        "organizationSaturdayWorkingTimeEndISO": "2023-10-22T17:00:00.000Z",
+        "organizationSundayWorkingTimeStartISO": "2023-10-22T09:00:00.000Z",
+        "organizationSundayWorkingTimeEndISO": "2023-10-22T17:00:00.000Z",
+        "organizationAllWeekdaysTimeStartISO": "2023-10-22T09:00:00.000Z",
+        "organizationAllWeekdaysTimeEndISO": "2023-10-22T17:00:00.000Z",
+        "organizationClosedOnWeekEnds": "false",
+        "organizationTheSameOnAllWorkingDays": "false",
+        "organizationWorkingTimeNationalHolidays": "true",
+        "organizationWorkingTimeWeekdays": "monday,tuesday,wednesday,thursday,friday,saturday,sunday",
+        "organizationWorkingAllTime": "true",
+        "organizationNoCsaAskForContacts": "true",
+        "organizationNoCsaAvailableMessage": "Hetkel ei ole ühtegi vaba klienditeenindajat, palun proovige mõne aja pärast uuesti"
+    }
+
     const apiRequestContext = await request.newContext();
     const response = await apiRequestContext.post('https://ruuter.prod.buerokratt.ee/v2/private/backoffice/configs/organization-working-time', {
         headers: {
@@ -117,6 +132,51 @@ export async function changeOpenHoursTo24and7() {
     }
     await apiRequestContext.dispose();
 }
+
+
+export async function changeOpenHoursToClosed() {
+    const jsonData =
+    {
+        "organizationMondayWorkingTimeStartISO": "2023-10-22T09:00:00.000Z",
+        "organizationMondayWorkingTimeEndISO": "2023-10-22T17:00:00.000Z",
+        "organizationTuesdayWorkingTimeStartISO": "2023-10-22T09:00:00.000Z",
+        "organizationTuesdayWorkingTimeEndISO": "2023-10-22T17:00:00.000Z",
+        "organizationWednesdayWorkingTimeStartISO": "2023-10-22T09:00:00.000Z",
+        "organizationWednesdayWorkingTimeEndISO": "2023-10-22T17:00:00.000Z",
+        "organizationThursdayWorkingTimeStartISO": "2023-10-22T09:00:00.000Z",
+        "organizationThursdayWorkingTimeEndISO": "2023-10-22T17:00:00.000Z",
+        "organizationFridayWorkingTimeStartISO": "2023-10-22T09:00:00.000Z",
+        "organizationFridayWorkingTimeEndISO": "2023-10-22T17:00:00.000Z",
+        "organizationSaturdayWorkingTimeStartISO": "2023-10-22T09:00:00.000Z",
+        "organizationSaturdayWorkingTimeEndISO": "2023-10-22T17:00:00.000Z",
+        "organizationSundayWorkingTimeStartISO": "2023-10-22T09:00:00.000Z",
+        "organizationSundayWorkingTimeEndISO": "2023-10-22T17:00:00.000Z",
+        "organizationAllWeekdaysTimeStartISO": "2023-10-22T09:00:00.000Z",
+        "organizationAllWeekdaysTimeEndISO": "2023-10-22T17:00:00.000Z",
+        "organizationClosedOnWeekEnds": "false",
+        "organizationTheSameOnAllWorkingDays": "false",
+        "organizationWorkingTimeNationalHolidays": "true",
+        "organizationWorkingTimeWeekdays": "",
+        "organizationWorkingAllTime": "false",
+        "organizationNoCsaAskForContacts": "true",
+        "organizationNoCsaAvailableMessage": "Hetkel ei ole ühtegi vaba klienditeenindajat, palun proovige mõne aja pärast uuesti"
+    }
+
+    const apiRequestContext = await request.newContext();
+    const response = await apiRequestContext.post('https://ruuter.prod.buerokratt.ee/v2/private/backoffice/configs/organization-working-time', {
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        data: jsonData
+    });
+
+    if (response.ok()) {
+    } else {
+        console.error(`API request failed with status: ${response.status()}`);
+    }
+    await apiRequestContext.dispose();
+}
+
 
 export async function takeOverFirstChat(page) {
     const translation = await getTranslations(page);

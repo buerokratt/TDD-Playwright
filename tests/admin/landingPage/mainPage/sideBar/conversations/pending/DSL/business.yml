@@ -1,0 +1,94 @@
+resource: chat/pending
+description: "Buerokratt-Chatbot"
+test:
+  main:
+    verticalTabs:
+      - name: vertical-tabs
+      - name: vertical-tabs__list
+      - name: vertical-tabs__group-header
+        paragraph:
+          args:
+            - type: text
+            - value: "New ({count})"
+            - style: paragraph
+
+        paragraph:
+          args:
+            - type: text
+            - value: "In Process ({count})"
+            - style: paragraph
+
+    selectedChat:
+      - name: active-chat__body
+      - name: active-chat__header
+        heading:
+          args:
+            - type: text
+            - value: "Anonymous"
+            - style: h3
+
+
+      - name: active-chat__group-wrapper
+        hasChat : true
+
+      - name: active-chat__toolbar
+        button:
+          args:
+            - type: button
+            - value: "Take Over"
+            - style: button
+
+      - name: active-chat__side
+
+      - name: active-chat__side-meta
+        paragraph:
+          args:
+            - type: text
+            - value: "Id"
+            - style: p
+
+        paragraph:
+          args:
+            - type: text
+            - value: "End user name"
+            - style: p
+
+        paragraph:
+          args:
+            - type: text
+            - value: "End user email"
+            - style: p
+
+        paragraph:
+          args:
+            - type: text
+            - value: "End user phone"
+            - style: p
+
+        paragraph:
+          args:
+            - type: text
+            - value: "Client support name"
+            - style: p
+
+
+        paragraph:
+          args:
+            - type: text
+            - value: "Chat started at"
+            - style: p
+
+        paragraph:
+          args:
+            - type: text
+            - value: "Device"
+            - style: p
+
+        paragraph:
+          args:
+            - type: text
+            - value: "Location"
+            - style: p
+
+
+    
