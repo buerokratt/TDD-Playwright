@@ -5,28 +5,22 @@ test.describe('Header Functionality Tests', () => {
     let translations;
 
     test.beforeEach(async ({ page }) => {
-        // Load page and fetch translations
         await page.goto('https://admin.prod.buerokratt.ee/chat/active');
         translations = await getTranslations(page);
         await page.waitForTimeout(2000);
     });
 
-
-
-    // Test to check the visibility of the top banner
     test('Check top banner visibility', async ({ page }) => {
         const header = page.locator('header');
         const isVisible = await header.isVisible();
         expect(isVisible).toBe(true, 'Top banner is not visible');
     });
 
-    // Test to check the bürokratt logo visibility
     test('Check logo visibility', async ({ page }) => {
         const logo = page.locator('header').getByRole('img');
         await expect(logo).toBeVisible();
     });
 
-    // Test to check unanswered/forwarded text in the top banner
     test('Check unanswered/forwarded text in top banner', async ({ page }) => {
         const regexPattern = new RegExp(`\\b\\d+\\b\\s+${translations.unanswered}\\s+\\b\\d+\\b\\s+${translations.forwarded}\\s+\\b\\d+\\b\\s+${translations.pending}`, 'i');
     
@@ -38,14 +32,12 @@ test.describe('Header Functionality Tests', () => {
         expect(regexPattern.test(text)).toBe(true, 'Text format does not match the expected unanswered/forwarded/pending format');
     });
 
-    // Test to check profile settings and info button visibility
     test('Check profile settings and info button visibility', async ({ page }) => {
         const button = page.locator('header').locator('button.btn.btn--text.btn--m').first();
         const isVisible = await button.isVisible();
         expect(isVisible).toBe(true, 'Profile settings and info button is not visible');
     });
 
-    // Test to check logout button visibility
     test('Check logout button visibility', async ({ page }) => {
         const logoutButton = page.locator('header').getByRole('button', { name: translations.logout });
         const isVisible = await logoutButton.isVisible();

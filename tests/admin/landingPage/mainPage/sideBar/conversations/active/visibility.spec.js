@@ -9,7 +9,7 @@ test.describe('Active Chats', () => {
   test.beforeEach(async ({ page }) => {
     test.info().annotations.push({ type: 'repository', description: 'Active chats' });
     await page.goto('https://admin.prod.buerokratt.ee/chat/active');
-    await page.waitForTimeout(3000); // Ensure all elements load properly
+    await page.waitForTimeout(3000); 
     translation = await getTranslations(page);
   });
 

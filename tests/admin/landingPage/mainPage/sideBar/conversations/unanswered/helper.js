@@ -196,3 +196,13 @@ export async function takeOverFirstChat(page) {
     return await takeOverButton.isVisible() ? (await takeOverButton.click(), true) : false;
 }
 
+
+export function formatDate(date) {
+    return date.toLocaleDateString('et-EE', {
+      weekday: 'long',
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    });
+  }
+
