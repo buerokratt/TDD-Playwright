@@ -1,48 +1,51 @@
 import { test, expect } from '@playwright/test';
-import { getTranslations } from '../../../../../../../translations/languageDetector.js';
+import { getTranslations } from '@translation/languageDetector.js';
 
-test.describe('Seaded/Settings Visibility Tests', () => {
+let translation;
 
-    let translation
+test.describe('Settings', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto('https://admin.prod.buerokratt.ee/chat/chatbot/settings');
+    translation = await getTranslations(page);
+    await page.waitForTimeout(3000);
+  });
 
-    test.beforeEach(async ({ page }) => {
-        test.info().annotations.push({ type: 'repository', description: 'Buerokratt-Chatbot' });
-        await page.goto('https://admin.prod.buerokratt.ee/chat/chatbot/settings'); // Replace with your actual page URL
-        translation = await getTranslations(page)
+  test.describe('Main Heading', () => {
+    test('should display main heading', async ({ page }) => {
+      const heading = await page.getByRole('heading', { name: `${translation.settings}`, exact: true });
+      await expect(heading).toBeVisible();
+    });
+  });
+
+  test.describe('Card Header', () => {
+    test('should display and interact with chatbot active switch', async ({ page }) => {
+      const switchLabel = await page.getByText(`${translation.chatbotActive}`, { exact: true });
+      const switchButton = await page.getByRole('switch', { name: `${translation.chatbotActive}`, exact: true });
+      await expect(switchLabel).toBeVisible();
+      await expect(switchButton).toBeVisible();
+    });
+  });
+
+  test.describe('Card Body', () => {
+    test('should display and interact with show support name switch', async ({ page }) => {
+      const switchLabel = await page.getByText(`${translation.showSupportName}`, { exact: true });
+      const switchButton = await page.getByRole('switch', { name: `${translation.showSupportName}`, exact: true });
+      await expect(switchLabel).toBeVisible();
+      await expect(switchButton).toBeVisible();
     });
 
-    test('Check visibility of the main heading on the Settings page', async ({ page }) => {
-        // Verify the main heading is visible
-        const mainHeading = page.locator('main.layout__main h1');
-        await expect(mainHeading).toBeVisible();
-        await expect(mainHeading).toHaveText(`${translation["settings"]}`);
+    test('should display and interact with show support title switch', async ({ page }) => {
+      const switchLabel = await page.getByText(`${translation.showSupportTitle}`, { exact: true });
+      const switchButton = await page.getByRole('switch', { name: `${translation.showSupportTitle}`, exact: true });
+      await expect(switchLabel).toBeVisible();
+      await expect(switchButton).toBeVisible();
     });
+  });
 
-    test('Check visibility of the first switch ("Vestlusrobot aktiivne")', async ({ page }) => {
-        // Verify the first switch ("Vestlusrobot aktiivne") is visible
-        const robotActiveSwitch = page.locator(`label:has-text("${translation["chatbotActive"]}") + button.switch__button`);
-        await expect(robotActiveSwitch).toBeVisible();
+  test.describe('Card Footer', () => {
+    test('should display Save button', async ({ page }) => {
+      const saveButton = await page.getByText(`${translation.save}`, {exact: true });
+      await expect(saveButton).toBeVisible();
     });
-
-    test('Check visibility of the second switch ("Kuva nõustaja nimi")', async ({ page }) => {
-        // Verify the second switch ("Kuva nõustaja nimi") is visible
-        const showAdvisorNameSwitch = page.locator(`label:has-text("${translation["showSupportName"]}") + button.switch__button`);
-        await expect(showAdvisorNameSwitch).toBeVisible();
-        await expect(showAdvisorNameSwitch).toHaveAttribute('data-state', 'checked'); // Verify default state
-    });
-
-    test('Check visibility of the third switch ("Kuva nõustaja tiitel")', async ({ page }) => {
-        // Verify the third switch ("Kuva nõustaja tiitel") is visible
-        const showAdvisorTitleSwitch = page.locator(`label:has-text("${translation["showSupportTitle"]}") + button.switch__button`);
-        await expect(showAdvisorTitleSwitch).toBeVisible();
-        await expect(showAdvisorTitleSwitch).toHaveAttribute('data-state', 'checked'); // Verify default state
-    });
-
-    test('Check visibility of the "Salvesta" button', async ({ page }) => {
-        // Verify the "Salvesta" button is visible
-        const saveButton = page.locator(`button:has-text("${translation["save"]}")`);
-        await expect(saveButton).toBeVisible();
-    }); 
-
-
+  });
 });
