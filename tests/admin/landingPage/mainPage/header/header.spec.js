@@ -11,7 +11,7 @@ test.describe('Header Functionality Tests', () => {
         await page.waitForTimeout(2000);
     });
 
- 
+
 
     // Test to check the visibility of the top banner
     test('Check top banner visibility', async ({ page }) => {
@@ -23,19 +23,19 @@ test.describe('Header Functionality Tests', () => {
     // Test to check the bürokratt logo visibility
     test('Check logo visibility', async ({ page }) => {
         const logo = page.locator('header').getByRole('img');
-        const isVisible = await logo.isVisible();
-        expect(isVisible).toBe(true, 'Bürokratt logo is not visible');
+        await expect(logo).toBeVisible();
     });
 
     // Test to check unanswered/forwarded text in the top banner
     test('Check unanswered/forwarded text in top banner', async ({ page }) => {
-        const regexPattern = new RegExp(`\\d+ ${translations.unanswered} \\d+ ${translations.forwarded}`);
-        const p = page.locator('header').locator('.track p');
-        const isVisible = await p.isVisible();
-        expect(isVisible).toBe(true, 'Unanswered/Forwarded text is not visible');
+        const regexPattern = new RegExp(`\\b\\d+\\b\\s+${translations.unanswered}\\s+\\b\\d+\\b\\s+${translations.forwarded}\\s+\\b\\d+\\b\\s+${translations.pending}`, 'i');
+    
+        const p = page.locator('header .track p');
+        await expect(p).toBeVisible();
 
         const text = await p.textContent();
-        expect(regexPattern.test(text)).toBe(true, 'Text format does not match the expected unanswered/forwarded format');
+
+        expect(regexPattern.test(text)).toBe(true, 'Text format does not match the expected unanswered/forwarded/pending format');
     });
 
     // Test to check profile settings and info button visibility
