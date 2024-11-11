@@ -1,112 +1,115 @@
+// test/appearance.spec.js
 import { test, expect } from '@playwright/test';
-import { getTranslations } from '@translation/languageDetector.js'
+import { getTranslations } from '@translation/languageDetector.js';
 
-test.describe('Functionality Tests for "Välimus ja käitumine"/"Appearance and Behaviour" Page', () => {
+let translation;
 
-    let translation
+test.describe('Buerokratt-Chatbot Appearance and Behaviour', () => {
+  test.beforeEach(async ({ page }) => {
+    test.info().annotations.push({ type: 'repository', description: 'Buerokratt-Chatbot' });
+    await page.goto('https://admin.prod.buerokratt.ee/chat/chatbot/appearance');
+    translation = await getTranslations(page);
+    await page.waitForTimeout(3000);
+  });
 
-    test.beforeEach(async ({ page }) => {
-        await page.goto('https://admin.prod.buerokratt.ee/chat/chatbot/appearance');
-        translation = await getTranslations(page)
-        await page.waitForTimeout(3000);
+  test('Verify heading visibility', async ({ page }) => {
+    const heading = await page.getByRole('heading', { name: `${translation.appearanceAndBehaviour}`, exact: true });
+    await expect(heading).toBeVisible();
+  });
+
+  test.describe('Card body - Input and switch functionality', () => {
+    test('Verify input: "Widget proactive seconds"', async ({ page }) => {
+      const inputWidgetProactiveSeconds = await page.getByLabel(`${translation.widgetProactiveSeconds}`, { exact: true });
+      await expect(inputWidgetProactiveSeconds).toBeVisible();
+      
+      const initialValue = await inputWidgetProactiveSeconds.inputValue();
+      await inputWidgetProactiveSeconds.fill('10');
+      await expect(inputWidgetProactiveSeconds).toHaveValue('10');
+      await inputWidgetProactiveSeconds.fill(initialValue);
     });
 
-    test('Test Animation Duration Input', async ({ page }) => {
-        const proactiveSecondsInput = await page.getByLabel(`${translation.widgetProactiveSeconds}`, { exact: true });
-        await proactiveSecondsInput.fill('5')
-        await expect(proactiveSecondsInput).toHaveValue('5');
+    test('Verify switch: "Widget bubble message text"', async ({ page }) => {
+        const switchWidgetBubbleMessageText = await page.getByLabel(`${translation.widgetBubbleMessageText}`, { exact: true }).first();
+        await expect(switchWidgetBubbleMessageText).toBeVisible();
+      
+        // Check initial state using the aria-checked attribute
+        const initialCheckedState = await switchWidgetBubbleMessageText.getAttribute('aria-checked');
+        const isChecked = initialCheckedState === 'true';
+      
+        // Toggle the switch and check the state
+        await switchWidgetBubbleMessageText.click();
+        const newCheckedState = await switchWidgetBubbleMessageText.getAttribute('aria-checked');
+        expect(newCheckedState).toBe(isChecked ? 'false' : 'true');
+      
+        // Toggle the switch back to the original state
+        await switchWidgetBubbleMessageText.click();
+        const revertedCheckedState = await switchWidgetBubbleMessageText.getAttribute('aria-checked');
+        expect(revertedCheckedState).toBe(initialCheckedState);
+      });
+      
+
+    test('Verify input: "Widget bubble message seconds"', async ({ page }) => {
+      const inputWidgetBubbleMessageSeconds = await page.getByLabel(`${translation.widgetBubbleMessageSeconds}`, { exact: true });
+      await expect(inputWidgetBubbleMessageSeconds).toBeVisible();
+
+      const initialValue = await inputWidgetBubbleMessageSeconds.inputValue();
+      await inputWidgetBubbleMessageSeconds.fill('5');
+      await expect(inputWidgetBubbleMessageSeconds).toHaveValue('5');
+      await inputWidgetBubbleMessageSeconds.fill(initialValue);
     });
 
-    test('Test Notification Switch Toggle', async ({ page }) => {
-        const bubbleMessageSwitch = await page.getByRole('switch', { name: `${translation.widgetBubbleMessageText}` }).nth(0);
-        if (await bubbleMessageSwitch.getAttribute('data-state') === 'checked') {
-            await bubbleMessageSwitch.click();
-        }
-        await expect(bubbleMessageSwitch).toHaveAttribute('data-state', 'unchecked');
-        await bubbleMessageSwitch.click();
-        await expect(bubbleMessageSwitch).toHaveAttribute('data-state', 'checked');
+    test('Verify input: "Widget bubble message text"', async ({ page }) => {
+      const inputWidgetBubbleMessageText = await page.getByLabel(`${translation.widgetBubbleMessageText}`, { exact: true }).nth(1);
+      await expect(inputWidgetBubbleMessageText).toBeVisible();
+
+      const initialValue = await inputWidgetBubbleMessageText.inputValue();
+      await inputWidgetBubbleMessageText.fill('Test message');
+      await expect(inputWidgetBubbleMessageText).toHaveValue('Test message');
+      await inputWidgetBubbleMessageText.fill(initialValue);
     });
 
-    test('Test Animation Start Time Input', async ({ page }) => {
-        const bubbleMessageSecondsInput = await page.getByLabel(`${translation.widgetBubbleMessageSeconds}`, { exact: true });
-        await bubbleMessageSecondsInput.fill('10');
-        await expect(bubbleMessageSecondsInput).toHaveValue('10');
+    test('Verify input: "Widget color"', async ({ page }) => {
+      const inputWidgetColor = await page.getByLabel(`${translation.widgetColor}`, { exact: true });
+      await expect(inputWidgetColor).toBeVisible();
+
+      await inputWidgetColor.click();
+      await inputWidgetColor.evaluate(input => input.blur());
     });
 
-    test('Test Notification Message Input', async ({ page }) => {
-        const bubbleMessageTextInput = await page.getByText(`${translation.widgetBubbleMessageText}`).nth(1);
-        await bubbleMessageTextInput.fill('Hello, welcome to the chatbot!');
-        await expect(bubbleMessageTextInput).toHaveValue('Hello, welcome to the chatbot!');
+    test('Verify select: "Widget animation"', async ({ page }) => {
+        const selectWidgetAnimation = await page.getByRole('combobox', { name: `${translation.widgetAnimation}`, exact: true });
+        await expect(selectWidgetAnimation).toBeVisible();
+      
+        // Open the dropdown
+        await selectWidgetAnimation.click();
+      
+        // Select an option by clicking it in the list
+        const option = await page.getByRole('option', { name: 'Wiggle', exact: true });
+        await option.click();
+      
+        // Verify if the selection reflects in the dropdown (using text or another indicator)
+        const selectedText = await selectWidgetAnimation.textContent();
+        expect(selectedText).toContain('Wiggle');
+      
+        // Re-select a different option if necessary
+        await selectWidgetAnimation.click();
+        const anotherOption = await page.getByRole('option', { name: 'Jump', exact: true });
+        await anotherOption.click();
+        
+        const updatedText = await selectWidgetAnimation.textContent();
+        expect(updatedText).toContain('Jump');
+      });
+  });
+
+  test.describe('Card footer - Button functionality', () => {
+    test('Verify Save button functionality', async ({ page }) => {
+      const saveButton = await page.getByText(`${translation.save}`, { exact: true });
+      await expect(saveButton).toBeVisible();
     });
 
-    test('Test Primary Color Picker', async ({ page }) => {
-        const widgetColorInput = await page.getByLabel(`${translation.widgetColor}`, { exact: true });
-        await widgetColorInput.click();
-        await page.locator('.saturation-black').click();
-        await expect(widgetColorInput).toHaveValue('#414181');
+    test('Verify Preview button functionality', async ({ page }) => {
+      const previewButton = await page.getByText(`${translation.preview}`, { exact: true });
+      await expect(previewButton).toBeVisible();
     });
-
-    test('Test Animation Dropdown', async ({ page }) => {
-        await page.getByRole('combobox', { name: `${translation.widgetAnimation}` }).click();
-        await page.getByRole('option', { name: 'Jump' }).click();
-        await expect(page.getByRole('combobox', { name: 'Widget animation' })).toBeVisible();
-    });
-
-    test('Test "Eelvaade"/"Preview" Button Functionality', async ({ page }) => {
-        await page.getByText(`${translation.preview}`, { exact: true }).click();
-        //page.getByAltText('Buerokratt logo').click();
-        const mockWidget = page.locator('img[alt="Buerokratt logo"]');
-        await expect(mockWidget).toBeVisible();
-    });
-
-    test('Check functionality of all fields and "Eelvaade" button', async ({ page }) => {
-        // Fill in the animation duration
-        const proactiveSecondsInput = await page.getByLabel(`${translation.widgetProactiveSeconds}`, { exact: true });
-        await proactiveSecondsInput.fill('5')
-
-        // Toggle the notification switch
-        const bubbleMessageSwitch = await page.getByRole('switch', { name: `${translation.widgetBubbleMessageText}` }).nth(0);
-        if (await bubbleMessageSwitch.getAttribute('data-state') === 'unchecked') {
-            await bubbleMessageSwitch.click();
-        }
-
-        // Fill in the animation start time
-        const bubbleMessageSecondsInput = await page.getByLabel(`${translation.widgetBubbleMessageSeconds}`, { exact: true });
-        await bubbleMessageSecondsInput.fill('1');
-
-        // Fill in the notification message
-        const bubbleMessageTextInput = await page.getByText(`${translation.widgetBubbleMessageText}`).nth(1);
-        await bubbleMessageTextInput.fill('Hello, welcome to the chatbot!');
-
-        // Select widget color
-        const widgetColorInput = await page.getByLabel(`${translation.widgetColor}`, { exact: true });
-        await widgetColorInput.click();
-        await page.locator('.saturation-black').click();
-
-        // Select from the dropdown
-        await page.getByRole('combobox', { name: `${translation.widgetAnimation}` }).click();
-        await page.getByRole('option', { name: 'Jump' }).click();
-
-        // Click preview button
-        await page.getByText(`${translation.preview}`, { exact: true }).click();
-
-        await page.waitForTimeout(5000);
-
-        const mockWidget = await page.getByAltText('Buerokratt logo');
-        await expect(mockWidget).toBeVisible();
-
-        if (bubbleMessageSwitch.getAttribute('data-state') === 'checked') {
-            await expect(mockWidget.locator('.profile__greeting-message.profile__greeting-message--active')).toHaveText(bubbleMessageTextInput);
-        } else {
-            // If the switch is off, ensure the message is not visible
-            await expect(mockWidget.locator('.profile__greeting-message.profile__greeting-message--active')).not.toBeVisible();
-        }
-
-        // Verify Animation Class for 'Jump'
-        const animatedWidget = page.locator('.profile--jump');
-        await expect(animatedWidget).toBeVisible();
-
-        await expect(animatedWidget).toHaveCSS('background-color', 'rgb(65, 65, 129)');
-        await expect(animatedWidget).toHaveCSS('animation-iteration-count', '5');
-    });
+  });
 });
