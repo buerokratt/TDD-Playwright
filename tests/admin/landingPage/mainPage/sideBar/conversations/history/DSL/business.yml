@@ -14,20 +14,20 @@ test:
         input:
             args:
                 - type: text
-                - value: "Search chats..."
+                - value: "Search chats"
                 - style: input
         
         input:
-            label: "From"
             args:
             - type: input
             - style: datepicker
+            - class: datepicker
 
         input:
-            label: "To"
             args:
             - type: input
             - style: datepicker
+            - class: datepicker
 
         select:
             args:
