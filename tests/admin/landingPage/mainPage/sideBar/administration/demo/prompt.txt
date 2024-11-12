@@ -24,8 +24,12 @@
     await expect(label).toBeVisible();
     await expect(input).toBeVisible();
 
+ When parent element is defined i.e card__body first select this and then the underlying elements i.e
+      const card = page.locator('.card__body');
+      const element = card.locator()
+
 3. Dropdown handling: 
-   Use the following format for dropdown (select) elements:
+   Use the following format for dropdown (select) elements FOR EXAMPLE:
    const select = await page.getByRole('combobox', { name: `${translation.widgetAnimation}` });
    When checking for the options in the dropdown (select), click on the element and then look for the options.
 
@@ -62,6 +66,8 @@
       const tableBody = page.getByRole('table').locator('tbody');
       const firstRow = tableBody.getByRole('row').first();
       await expect(firstRow).toBeVisible();
+   When checking table headers use the following syntax:
+      const tableBody = page.getByRole('table').locator('thead').locator('${translation.name}');;
 
 5. Search handling:
    When locating search input, use getByPlaceholder:
@@ -100,4 +106,4 @@ This means that you should capture the values for the inputs first and reset the
 
 This means that if there is a save button in the DSL you should capture and click it at the end of each test, refresh the page and check if your input value is there. 
 At the end of a each test it should be reset to the original value. If an element has a parent element defined i.e card then capture it first and then search within that. 
-Wnen it comes to saving the values, wait 3 seconds after saving to ensure the values are saved.
+When it comes to saving the values, wait 3 seconds after saving to ensure the values are saved.
