@@ -100,3 +100,4 @@ This means that you should capture the values for the inputs first and reset the
 
 This means that if there is a save button in the DSL you should capture and click it at the end of each test, refresh the page and check if your input value is there. 
 At the end of a each test it should be reset to the original value. If an element has a parent element defined i.e card then capture it first and then search within that. 
+Wnen it comes to saving the values, wait 3 seconds after saving to ensure the values are saved.
