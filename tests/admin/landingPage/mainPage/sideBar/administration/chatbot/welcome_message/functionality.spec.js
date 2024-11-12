@@ -46,7 +46,7 @@ test.describe('Buerokratt-Chatbot', () => {
       await textarea.fill('Updated Welcome Message');
       const saveButton = await page.getByText(`${translation.save}`, { exact: true });
       await saveButton.click();
-
+      await page.waitForTimeout(1000);
       // Refresh page and verify
       await page.reload();
       await expect(textarea).toHaveValue('Updated Welcome Message');

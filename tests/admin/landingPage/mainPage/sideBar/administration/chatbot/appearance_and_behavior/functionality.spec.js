@@ -42,7 +42,8 @@ test.describe('Functionality Tests for "Välimus ja käitumine"/"Appearance and 
     test('Test Primary Color Picker', async ({ page }) => {
         const widgetColorInput = await page.getByLabel(`${translation.widgetColor}`, { exact: true });
         await widgetColorInput.click();
-        await page.locator('.saturation-black').click();
+        const colorPickerInput = await page.getByLabel('hex');
+        colorPickerInput.fill('#414181');
         await expect(widgetColorInput).toHaveValue('#414181');
     });
 
@@ -54,12 +55,11 @@ test.describe('Functionality Tests for "Välimus ja käitumine"/"Appearance and 
 
     test('Test "Eelvaade"/"Preview" Button Functionality', async ({ page }) => {
         await page.getByText(`${translation.preview}`, { exact: true }).click();
-        //page.getByAltText('Buerokratt logo').click();
         const mockWidget = page.locator('img[alt="Buerokratt logo"]');
         await expect(mockWidget).toBeVisible();
     });
 
-    test.only('Check functionality of all fields and "Eelvaade" button', async ({ page }) => {
+    test('Check functionality of all fields and "Eelvaade" button', async ({ page }) => {
         // Fill in the animation duration
         const proactiveSecondsInput = await page.getByLabel(`${translation.widgetProactiveSeconds}`, { exact: true });
         await proactiveSecondsInput.fill('5')

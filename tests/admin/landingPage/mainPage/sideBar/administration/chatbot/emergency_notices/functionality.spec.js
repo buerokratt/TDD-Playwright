@@ -46,7 +46,7 @@ test.describe('Buerokratt-Chatbot', () => {
       await textarea.fill('Updated Notice Message');
       const saveButton = await page.getByText(`${translation.save}`, { exact: true });
       await saveButton.click();
-      await page.waitForTimeout(3000); // Ensure values are saved
+      await page.waitForTimeout(3000); 
 
       // Refresh page and verify persistence
       await page.reload();
@@ -77,7 +77,7 @@ test.describe('Buerokratt-Chatbot', () => {
       await datepickerEndInput.fill('31.12.2024');
       const saveButton = await page.getByText(`${translation.save}`, { exact: true });
       await saveButton.click();
-      await page.waitForTimeout(3000); // Ensure values are saved
+      await page.waitForTimeout(3000); 
 
       // Refresh page and verify persistence
       await page.reload();

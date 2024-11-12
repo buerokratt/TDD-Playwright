@@ -11,7 +11,7 @@
     "grepInvert": null,
     "maxFailures": 0,
     "metadata": {
-      "actualWorkers": 1
+      "actualWorkers": 3
     },
     "preserveOutput": "always",
     "reporter": [
@@ -97,12 +97,12 @@
                 {
                   "workerIndex": 0,
                   "status": "passed",
-                  "duration": 21202,
+                  "duration": 17107,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2024-11-12T12:27:39.202Z",
+                  "startTime": "2024-11-12T12:52:15.543Z",
                   "attachments": [
                     {
                       "name": "trace",
@@ -123,26 +123,31 @@
       ]
     },
     {
-      "title": "admin/landingPage/mainPage/sideBar/administration/chatbot/appearance_and_behavior/functionality.spec.js",
-      "file": "admin/landingPage/mainPage/sideBar/administration/chatbot/appearance_and_behavior/functionality.spec.js",
+      "title": "admin/landingPage/mainPage/sideBar/administration/chatbot/welcome_message/functionality.spec.js",
+      "file": "admin/landingPage/mainPage/sideBar/administration/chatbot/welcome_message/functionality.spec.js",
       "column": 0,
       "line": 0,
       "specs": [],
       "suites": [
         {
-          "title": "Functionality Tests for \"Välimus ja käitumine\"/\"Appearance and Behaviour\" Page",
-          "file": "admin/landingPage/mainPage/sideBar/administration/chatbot/appearance_and_behavior/functionality.spec.js",
-          "line": 4,
+          "title": "Buerokratt-Chatbot",
+          "file": "admin/landingPage/mainPage/sideBar/administration/chatbot/welcome_message/functionality.spec.js",
+          "line": 5,
           "column": 6,
           "specs": [
             {
-              "title": "Check functionality of all fields and \"Eelvaade\" button",
+              "title": "should display heading",
               "ok": true,
               "tags": [],
               "tests": [
                 {
                   "timeout": 30000,
-                  "annotations": [],
+                  "annotations": [
+                    {
+                      "type": "repository",
+                      "description": "Buerokratt-Chatbot"
+                    }
+                  ],
                   "expectedStatus": "passed",
                   "projectId": "chromium",
                   "projectName": "chromium",
@@ -150,17 +155,17 @@
                     {
                       "workerIndex": 1,
                       "status": "passed",
-                      "duration": 10487,
+                      "duration": 5157,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2024-11-12T12:28:01.184Z",
+                      "startTime": "2024-11-12T12:52:33.576Z",
                       "attachments": [
                         {
                           "name": "trace",
                           "contentType": "application/zip",
-                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-0eb7d--fields-and-Eelvaade-button-chromium/trace.zip"
+                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-b9970-tbot-should-display-heading-chromium/trace.zip"
                         }
                       ]
                     }
@@ -168,10 +173,114 @@
                   "status": "expected"
                 }
               ],
-              "id": "d892447a55004d62c9b8-c12729e0f83ae2b46ae7",
-              "file": "admin/landingPage/mainPage/sideBar/administration/chatbot/appearance_and_behavior/functionality.spec.js",
-              "line": 62,
-              "column": 10
+              "id": "508d9f79f02fd36d9f80-9bcc4712b0d17b1f8b94",
+              "file": "admin/landingPage/mainPage/sideBar/administration/chatbot/welcome_message/functionality.spec.js",
+              "line": 13,
+              "column": 7
+            }
+          ],
+          "suites": [
+            {
+              "title": "Card Body - Greeting Active Switch",
+              "file": "admin/landingPage/mainPage/sideBar/administration/chatbot/welcome_message/functionality.spec.js",
+              "line": 18,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "should display and toggle the Greeting Active switch",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [
+                        {
+                          "type": "repository",
+                          "description": "Buerokratt-Chatbot"
+                        }
+                      ],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 2,
+                          "status": "passed",
+                          "duration": 4824,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-11-12T12:52:33.580Z",
+                          "attachments": [
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-b2f17--the-Greeting-Active-switch-chromium/trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "508d9f79f02fd36d9f80-af9b848dca8fd02a0881",
+                  "file": "admin/landingPage/mainPage/sideBar/administration/chatbot/welcome_message/functionality.spec.js",
+                  "line": 19,
+                  "column": 9
+                }
+              ]
+            },
+            {
+              "title": "Card Body - Welcome Message Textarea",
+              "file": "admin/landingPage/mainPage/sideBar/administration/chatbot/welcome_message/functionality.spec.js",
+              "line": 36,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "should display and update the Welcome Message textarea",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [
+                        {
+                          "type": "repository",
+                          "description": "Buerokratt-Chatbot"
+                        }
+                      ],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 3,
+                          "status": "passed",
+                          "duration": 7811,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-11-12T12:52:33.583Z",
+                          "attachments": [
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-a5b96-he-Welcome-Message-textarea-chromium/trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "508d9f79f02fd36d9f80-b812f62f3da9a5fbf0bb",
+                  "file": "admin/landingPage/mainPage/sideBar/administration/chatbot/welcome_message/functionality.spec.js",
+                  "line": 37,
+                  "column": 9
+                }
+              ]
             }
           ]
         }
@@ -180,9 +289,9 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2024-11-12T12:27:38.520Z",
-    "duration": 33481.488,
-    "expected": 2,
+    "startTime": "2024-11-12T12:52:14.952Z",
+    "duration": 26875.143,
+    "expected": 4,
     "skipped": 0,
     "unexpected": 0,
     "flaky": 0
