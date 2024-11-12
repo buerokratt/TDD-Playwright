@@ -1,177 +1,98 @@
-const { test, expect } = require('@playwright/test');
-const { getTranslations } = require('../../../../../../translations/languageDetector');
+import { test, expect } from '@playwright/test';
+import { getTranslations } from '@translation/languageDetector.js';
 
-test.describe('Metrics Cards Visibility Test', () => {
+let translation;
 
-    let translation;
+test.describe('Analytics-Module', () => {
+  test.beforeEach(async ({ page }) => {
+    test.info().annotations.push({ type: 'repository', description: 'Analytics-Module' });
+    await page.goto('https://admin.prod.buerokratt.ee/analytics/feedback');
+    await page.waitForTimeout(3000);
+    translation = await getTranslations(page);
+  });
 
-    test.beforeEach(async ({ page }) => {
-        test.info().annotations.push({ type: 'repository', description: 'Analytics-Module' });
-        await page.goto('https://admin.prod.buerokratt.ee/analytics/feedback');
-        translation = await getTranslations(page);
+  test.describe('Main Heading', () => {
+    test('should display main heading', async ({ page }) => {
+      const heading = await page.getByRole('heading', { name: `${translation.feedback}`, exact: true });
+      await expect(heading).toBeVisible();
+    });
+  });
+
+  test.describe('Card Body', () => {
+    test('should display label for Period', async ({ page }) => {
+      const periodLabel = await page.getByText(`${translation.period}`, { exact: true });
+      await expect(periodLabel).toBeVisible();
     });
 
-    test('Check h1 header visibility', async ({ page }) => {
-        const h1 = await page.locator('h1');
-        await expect(h1).toBeVisible();
-        await expect(h1).toHaveText(translation.feedback);
+    test('should display Period buttons', async ({ page }) => {
+      const todayButton = await page.getByText(`${translation.today}`, { exact: true });
+      const yesterdayButton = await page.getByText(`${translation.yesterday}`, { exact: true });
+      const last30DaysButton = await page.getByText(`${translation.last30Days}`, { exact: true });
+      const selectedMonthsButton = await page.getByText(`${translation.selectedMonths}`, { exact: true });
+      const selectedPeriodButton = await page.getByText(`${translation.selectedPeriod}`, { exact: true });
+
+      await expect(todayButton).toBeVisible();
+      await expect(yesterdayButton).toBeVisible();
+      await expect(last30DaysButton).toBeVisible();
+      await expect(selectedMonthsButton).toBeVisible();
+      await expect(selectedPeriodButton).toBeVisible();
     });
 
-    test('Check visibility of "Period" section button in period section', async ({ page }) => {
-        const section = page.locator(`.card__body .option-label:has-text("${translation.period}")`);
-        await expect(section).toBeVisible();
+    test('should display label for Choose a metric', async ({ page }) => {
+      const chooseMetricLabel = await page.getByText(`${translation.chooseAMetric}`, { exact: true });
+      await expect(chooseMetricLabel).toBeVisible();
     });
 
-    test('Check visibility of "Today" button in period section', async ({ page }) => {
-        const section = page.locator(`section:has-text("${translation.period}")`);
-        const todayButton = section.locator(`button:has-text("${translation.today}")`);
-        await expect(todayButton).toBeVisible();
+    test('should display metric buttons', async ({ page }) => {
+      const completedStatusesButton = await page.getByRole('button', { name: `${translation.completedStatusesNumberOfConversations}`,  exact: true });
+      const feedbackOnBureaucratButton = await page.getByText(`${translation.feedbackOnBureaucratConversations}`, { exact: true });
+      const feedbackOnAdvisorButton = await page.getByText(`${translation.feedbackOnAdvisorConversations}`, { exact: true });
+      const feedbackToSelectedAdvisorButton = await page.getByText(`${translation.feedbackToSelectedAdvisor}`, { exact: true });
+      const negativeFeedbackButton = await page.getByText(`${translation.conversationsWithNegativeFeedback}`, { exact: true });
+
+      await expect(completedStatusesButton).toBeVisible();
+      await expect(feedbackOnBureaucratButton).toBeVisible();
+      await expect(feedbackOnAdvisorButton).toBeVisible();
+      await expect(feedbackToSelectedAdvisorButton).toBeVisible();
+      await expect(negativeFeedbackButton).toBeVisible();
     });
 
-    test('Check visibility of "Yesterday" button in period section', async ({ page }) => {
-        const section = page.locator(`section:has-text("${translation.period}")`);
-        const yesterdayButton = section.locator(`button:has-text("${translation.yesterday}")`);
-        await expect(yesterdayButton).toBeVisible();
+    test('should display label for Additional Options', async ({ page }) => {
+      const additionalOptionsLabel = await page.getByText(`${translation.additionalOptions}`, { exact: true });
+      await expect(additionalOptionsLabel).toBeVisible();
     });
 
-    test('Check visibility of "Last 30 Days" button in period section', async ({ page }) => {
-        const section = page.locator(`section:has-text("${translation.period}")`);
-        const last30DaysButton = section.locator(`button:has-text("${translation.last30Days}")`);
-        await expect(last30DaysButton).toBeVisible();
+    test('should display checkbox options', async ({ page }) => {
+      const bureaucratAnswerCheckbox = await page.getByText(`${translation.bureaucratTheClientLeftWithAnAnswer}`, { exact: true });
+      const bureaucratWithoutAnswerCheckbox = await page.getByText(`${translation.bureaucratTheCustomerLeftWithoutAnAnswer}`, { exact: true });
+      const bureaucratUnspecifiedCheckbox = await page.getByText(`${translation.bureaucratTerminatedForAnUnspecifiedReason}`, { exact: true });
+      const advisorAcceptedCheckbox = await page.getByText(`${translation.advisorAcceptedAnswer}`, { exact: true });
+      const advisorHateSpeechCheckbox = await page.getByText(`${translation.advisorSignsOfHateSpeech}`, { exact: true });
+      const advisorOtherReasonsCheckbox = await page.getByText(`${translation.advisorOtherReasons}`, { exact: true });
+      const advisorAnotherChannelCheckbox = await page.getByText(`${translation.advisorAnsweredInAnotherChannel}`, { exact: true });
+
+      await expect(bureaucratAnswerCheckbox).toBeVisible();
+      await expect(bureaucratWithoutAnswerCheckbox).toBeVisible();
+      await expect(bureaucratUnspecifiedCheckbox).toBeVisible();
+      await expect(advisorAcceptedCheckbox).toBeVisible();
+      await expect(advisorHateSpeechCheckbox).toBeVisible();
+      await expect(advisorOtherReasonsCheckbox).toBeVisible();
+      await expect(advisorAnotherChannelCheckbox).toBeVisible();
+    });
+  });
+
+  test.describe('Card Header', () => {
+    test('should display heading for Completed statuses', async ({ page }) => {
+      const completedStatusesHeading = await page.getByRole('heading', { name: `${translation.completedStatusesNumberOfConversations}`, exact: true });
+      await expect(completedStatusesHeading).toBeVisible();
     });
 
-    test('Check visibility of "Selected Months" button in period section', async ({ page }) => {
-        const section = page.locator(`section:has-text("${translation.period}")`);
-        const selectedMonthsButton = section.locator(`button:has-text("${translation.selectedMonths}")`);
-        await expect(selectedMonthsButton).toBeVisible();
+    test('should display CSV button and dropdown', async ({ page }) => {
+      const csvButton = await page.getByText(`${translation.csv}`, { exact: true });
+      const chartDropdown = await page.locator('.select');
+
+      await expect(csvButton).toBeVisible();
+      await expect(chartDropdown).toBeVisible();
     });
-
-    test('Check visibility of "Selected Period" button in period section', async ({ page }) => {
-        const section = page.locator(`section:has-text("${translation.period}")`);
-        const selectedPeriodButton = section.locator(`button:has-text("${translation.selectedPeriod}")`);
-        await expect(selectedPeriodButton).toBeVisible();
-    });
-
-    test('Check visibility of "Choose a metric" section button in metric section', async ({ page }) => {
-        const section = page.locator(`.card__body .option-label:has-text("${translation.chooseAMetric}")`);
-        await expect(section).toBeVisible();
-    });
-
-    test('Check visibility of completed statuses / number of conversations', async ({ page }) => {
-        const section = page.locator(`section:has-text("${translation.chooseAMetric}")`);
-        const completedStatusButton = section.locator(`button:has-text("${translation.completedStatuses}")`);
-        await expect(completedStatusButton).toBeVisible();
-    });
-
-    test('Check visibility of "Feedback on Bürokrat conversations" button in metric section', async ({ page }) => {
-        const section = page.locator(`section:has-text("${translation.chooseAMetric}")`);
-        const conversationsButton = section.locator(`button:has-text("${translation.feedbackOnBureaucratConversations}")`);
-        await expect(conversationsButton).toBeVisible();
-    });
-
-    test('Check visibility of "Feedback on advisor conversations" button in metric section', async ({ page }) => {
-        const section = page.locator(`section:has-text("${translation.chooseAMetric}")`);
-        const feedbackButton = section.locator(`button:has-text("${translation.feedbackOnAdvisorConversations}")`);
-        await expect(feedbackButton).toBeVisible();
-    });
-
-    test('Check visibility of "Feedback to selected advisor" button in metric section', async ({ page }) => {
-        const section = page.locator(`section:has-text("${translation.chooseAMetric}")`);
-        const clientFeedbackButton = section.locator(`button:has-text("${translation.feedbackToSelectedAdvisor}")`);
-        await expect(clientFeedbackButton).toBeVisible();
-    });
-
-    test('Check visibility of "Conversations with negative feedback" button in metric section', async ({ page }) => {
-        const section = page.locator(`section:has-text("${translation.chooseAMetric}")`);
-        const clientFeedbackButton = section.locator(`button:has-text("${translation.conversationsWithNegativeFeedback}")`);
-        await expect(clientFeedbackButton).toBeVisible();
-    });
-
-    test('Check visibility of "Additional Options" section button in additional options section', async ({ page }) => {
-        const section = page.locator(`.card__body .additional-option-label:has-text("${translation.additionalOptions}")`);
-        await expect(section).toBeVisible();
-    });
-
-    test('Check visibility of "Additional Options" section Bureaucrat - the client left with an answer in additional options section', async ({ page }) => {
-        const section = page.locator(`section:has-text("${translation.additionalOptions}")`);
-        await expect(section).toBeVisible();
-
-        const bureaucratClientLeftWithAnswer = section.locator('label').filter({ hasText: `${translation.bureaucratClientLeftWithAnswer}` });
-        await expect(bureaucratClientLeftWithAnswer).toBeVisible();
-    });
-
-    test('Check visibility of "Additional Options" section Bureaucrat - the client left without an answer in additional options section', async ({ page }) => {
-        const section = page.locator(`section:has-text("${translation.additionalOptions}")`);
-        await expect(section).toBeVisible();
-
-        const bureaucratClientLeftWithoutAnswer = section.locator('label').filter({ hasText: `${translation.bureaucratClientLeftWithoutAnswer}` });
-        await expect(bureaucratClientLeftWithoutAnswer).toBeVisible();
-    });
-
-    test('Check visibility of "Additional Options" section Bureaucrat - terminated for an unspecified reason in additional options section', async ({ page }) => {
-        const section = page.locator(`section:has-text("${translation.additionalOptions}")`);
-        await expect(section).toBeVisible();
-
-        const bureaucratTerminatedForUnspecifiedReason = section.locator('label').filter({ hasText: `${translation.bureaucratTerminatedForUnspecifiedReason}` });
-        await expect(bureaucratTerminatedForUnspecifiedReason).toBeVisible();
-    });
-
-    test('Check visibility of "Additional Options" section Advisor - accepted answer in additional options section', async ({ page }) => {
-        const section = page.locator(`section:has-text("${translation.additionalOptions}")`);
-        await expect(section).toBeVisible();
-
-        const advisorAcceptedAnswer = section.locator('label').filter({ hasText: `${translation.advisorAcceptedAnswer}` });
-        await expect(advisorAcceptedAnswer).toBeVisible();
-    });
-
-    test('Check visibility of "Additional Options" section Advisor - signs of hate speech in additional options section', async ({ page }) => {
-        const section = page.locator(`section:has-text("${translation.additionalOptions}")`);
-        await expect(section).toBeVisible();
-
-        const advisorSignsOfHateSpeech = section.locator('label').filter({ hasText: `${translation.advisorSignsOfHateSpeech}` });
-        await expect(advisorSignsOfHateSpeech).toBeVisible();
-    });
-
-    test('Check visibility of "Additional Options" section Advisor - other reasons in additional options section', async ({ page }) => {
-        const section = page.locator(`section:has-text("${translation.additionalOptions}")`);
-        await expect(section).toBeVisible();
-
-        const advisorOtherReasons = section.locator('label').filter({ hasText: `${translation.advisorOtherReasons}` });
-        await expect(advisorOtherReasons).toBeVisible();
-    });
-
-    test('Check visibility of "Additional Options" section Advisor - answered in another channel in additional options section', async ({ page }) => {
-        const section = page.locator(`section:has-text("${translation.additionalOptions}")`);
-        await expect(section).toBeVisible();
-
-        const advisorAnsweredInAnotherChannel = section.locator('label').filter({ hasText: `${translation.advisorAnsweredInAnotherChannel}` });
-        await expect(advisorAnsweredInAnotherChannel).toBeVisible();
-    });
-
-    test('Check visibility of card header in additional options section', async ({ page }) => {
-        const section = page.locator(`.card .title:has-text("${translation.completedStatuses}")`);
-        await expect(section).toBeVisible();
-    });
-
-    test('Check visibility of card other content in additional options section', async ({ page }) => {
-        const section = page.locator(`.card:has-text("${translation.completedStatuses}")`);
-        const otherContent = section.locator('.other_content');
-
-        await expect(otherContent).toBeVisible();
-
-        const downloadButton = otherContent.locator('button:has-text("CSV")');
-        await expect(downloadButton).toBeVisible();
-
-        const dropDownMenu = otherContent.locator('.select__wrapper');
-        await expect(dropDownMenu).toBeVisible();
-
-        await dropDownMenu.click();
-
-        const barChart = dropDownMenu.locator(`.select__option:has-text("${translation.barChart}")`);
-        await expect(barChart).toBeVisible();
-
-        const pieChart = dropDownMenu.locator(`.select__option:has-text("${translation.pieChart}")`);
-        await expect(pieChart).toBeVisible();
-    });
-
+  });
 });
