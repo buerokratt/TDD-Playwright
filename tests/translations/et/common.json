@@ -6,6 +6,7 @@
     "name": "Nimi",
     "idCode": "Isikukood",
     "role": "Roll",
+    "title": "Tiitel",
     "displayName": "Kuvatav nimi",
     "userTitle": "Tiitel",
     "email": "E-post",

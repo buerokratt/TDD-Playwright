@@ -19,21 +19,27 @@ test:
           args:
               - type: text
               - value: "Name"
+              - sortable: true
           args:
               - type: text
               - value: "Id Code"
+              - sortable: true
           args:
               - type: text
               - value: "Role"
+              - sortable: true
           args:
               - type: text
               - value: "Display name"
+              - sortable: true
           args:
               - type: text
-              - value: "Title"
+              - value: "User Title"
+              - sortable: true
           args:
               - type: text
               - value: "Email"
+              - sortable: true
       body:
         row:
         data:

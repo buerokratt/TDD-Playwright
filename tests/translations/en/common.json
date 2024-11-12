@@ -5,6 +5,7 @@
     "name": "Name",
     "idCode": "ID code",
     "role": "Role",
+    "titel": "Title",
     "displayName": "Display Name",
     "userTitle": "User title",
     "email": "E-mail",

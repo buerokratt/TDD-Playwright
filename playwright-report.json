@@ -11,7 +11,7 @@
     "grepInvert": null,
     "maxFailures": 0,
     "metadata": {
-      "actualWorkers": 3
+      "actualWorkers": 2
     },
     "preserveOutput": "always",
     "reporter": [
@@ -97,12 +97,12 @@
                 {
                   "workerIndex": 0,
                   "status": "passed",
-                  "duration": 17107,
+                  "duration": 10822,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2024-11-12T12:52:15.543Z",
+                  "startTime": "2024-11-12T13:32:26.258Z",
                   "attachments": [
                     {
                       "name": "trace",
@@ -123,20 +123,20 @@
       ]
     },
     {
-      "title": "admin/landingPage/mainPage/sideBar/administration/chatbot/welcome_message/functionality.spec.js",
-      "file": "admin/landingPage/mainPage/sideBar/administration/chatbot/welcome_message/functionality.spec.js",
+      "title": "admin/landingPage/mainPage/sideBar/administration/users/visbility.spec.js",
+      "file": "admin/landingPage/mainPage/sideBar/administration/users/visbility.spec.js",
       "column": 0,
       "line": 0,
       "specs": [],
       "suites": [
         {
-          "title": "Buerokratt-Chatbot",
-          "file": "admin/landingPage/mainPage/sideBar/administration/chatbot/welcome_message/functionality.spec.js",
+          "title": "Full Visibility Test for User Management Page",
+          "file": "admin/landingPage/mainPage/sideBar/administration/users/visbility.spec.js",
           "line": 5,
           "column": 6,
           "specs": [
             {
-              "title": "should display heading",
+              "title": "Check row actions (Edit and Delete)",
               "ok": true,
               "tags": [],
               "tests": [
@@ -155,17 +155,17 @@
                     {
                       "workerIndex": 1,
                       "status": "passed",
-                      "duration": 5157,
+                      "duration": 3342,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2024-11-12T12:52:33.576Z",
+                      "startTime": "2024-11-12T13:32:38.048Z",
                       "attachments": [
                         {
                           "name": "trace",
                           "contentType": "application/zip",
-                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-b9970-tbot-should-display-heading-chromium/trace.zip"
+                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-b0169-ow-actions-Edit-and-Delete--chromium/trace.zip"
                         }
                       ]
                     }
@@ -173,114 +173,53 @@
                   "status": "expected"
                 }
               ],
-              "id": "508d9f79f02fd36d9f80-9bcc4712b0d17b1f8b94",
-              "file": "admin/landingPage/mainPage/sideBar/administration/chatbot/welcome_message/functionality.spec.js",
-              "line": 13,
-              "column": 7
-            }
-          ],
-          "suites": [
-            {
-              "title": "Card Body - Greeting Active Switch",
-              "file": "admin/landingPage/mainPage/sideBar/administration/chatbot/welcome_message/functionality.spec.js",
-              "line": 18,
-              "column": 8,
-              "specs": [
-                {
-                  "title": "should display and toggle the Greeting Active switch",
-                  "ok": true,
-                  "tags": [],
-                  "tests": [
-                    {
-                      "timeout": 30000,
-                      "annotations": [
-                        {
-                          "type": "repository",
-                          "description": "Buerokratt-Chatbot"
-                        }
-                      ],
-                      "expectedStatus": "passed",
-                      "projectId": "chromium",
-                      "projectName": "chromium",
-                      "results": [
-                        {
-                          "workerIndex": 2,
-                          "status": "passed",
-                          "duration": 4824,
-                          "errors": [],
-                          "stdout": [],
-                          "stderr": [],
-                          "retry": 0,
-                          "startTime": "2024-11-12T12:52:33.580Z",
-                          "attachments": [
-                            {
-                              "name": "trace",
-                              "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-b2f17--the-Greeting-Active-switch-chromium/trace.zip"
-                            }
-                          ]
-                        }
-                      ],
-                      "status": "expected"
-                    }
-                  ],
-                  "id": "508d9f79f02fd36d9f80-af9b848dca8fd02a0881",
-                  "file": "admin/landingPage/mainPage/sideBar/administration/chatbot/welcome_message/functionality.spec.js",
-                  "line": 19,
-                  "column": 9
-                }
-              ]
+              "id": "504fe613e87061efc1ee-1d8e4fe9efb57d507353",
+              "file": "admin/landingPage/mainPage/sideBar/administration/users/visbility.spec.js",
+              "line": 51,
+              "column": 10
             },
             {
-              "title": "Card Body - Welcome Message Textarea",
-              "file": "admin/landingPage/mainPage/sideBar/administration/chatbot/welcome_message/functionality.spec.js",
-              "line": 36,
-              "column": 8,
-              "specs": [
+              "title": "Verify pagination controls",
+              "ok": true,
+              "tags": [],
+              "tests": [
                 {
-                  "title": "should display and update the Welcome Message textarea",
-                  "ok": true,
-                  "tags": [],
-                  "tests": [
+                  "timeout": 30000,
+                  "annotations": [
                     {
-                      "timeout": 30000,
-                      "annotations": [
-                        {
-                          "type": "repository",
-                          "description": "Buerokratt-Chatbot"
-                        }
-                      ],
-                      "expectedStatus": "passed",
-                      "projectId": "chromium",
-                      "projectName": "chromium",
-                      "results": [
-                        {
-                          "workerIndex": 3,
-                          "status": "passed",
-                          "duration": 7811,
-                          "errors": [],
-                          "stdout": [],
-                          "stderr": [],
-                          "retry": 0,
-                          "startTime": "2024-11-12T12:52:33.583Z",
-                          "attachments": [
-                            {
-                              "name": "trace",
-                              "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-a5b96-he-Welcome-Message-textarea-chromium/trace.zip"
-                            }
-                          ]
-                        }
-                      ],
-                      "status": "expected"
+                      "type": "repository",
+                      "description": "Buerokratt-Chatbot"
                     }
                   ],
-                  "id": "508d9f79f02fd36d9f80-b812f62f3da9a5fbf0bb",
-                  "file": "admin/landingPage/mainPage/sideBar/administration/chatbot/welcome_message/functionality.spec.js",
-                  "line": 37,
-                  "column": 9
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "status": "passed",
+                      "duration": 3717,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-11-12T13:32:38.065Z",
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-bed44--Verify-pagination-controls-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
                 }
-              ]
+              ],
+              "id": "504fe613e87061efc1ee-eaf87822fba5534c3d06",
+              "file": "admin/landingPage/mainPage/sideBar/administration/users/visbility.spec.js",
+              "line": 61,
+              "column": 10
             }
           ]
         }
@@ -289,9 +228,9 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2024-11-12T12:52:14.952Z",
-    "duration": 26875.143,
-    "expected": 4,
+    "startTime": "2024-11-12T13:32:25.565Z",
+    "duration": 16535.198,
+    "expected": 3,
     "skipped": 0,
     "unexpected": 0,
     "flaky": 0

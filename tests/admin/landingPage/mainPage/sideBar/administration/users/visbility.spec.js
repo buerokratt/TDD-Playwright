@@ -9,78 +9,59 @@ test.describe('Full Visibility Test for User Management Page', () => {
     // Navigate to the page before each test
     test.beforeEach(async ({ page }) => {
         test.info().annotations.push({ type: 'repository', description: 'Buerokratt-Chatbot' });
-        await page.goto('https://admin.prod.buerokratt.ee/chat/users'); 
+        await page.goto('https://admin.prod.buerokratt.ee/chat/users');
         translation = await getTranslations(page)
 
     });
 
-    test('should display the "Kasutajad" / "Users" heading', async ({ page }) => {
-        const heading = await page.locator(`h1:has-text("${translation["users"]}")`);
+    test('Check main heading and Add User button', async ({ page }) => {
+        const heading = await page.getByRole('heading', { name: `${translation.users}`, exact: true });
         await expect(heading).toBeVisible();
-    });
 
-    test('should display the "Lisa kasutaja"/ "Add user" button', async ({ page }) => {
-        const addButton = await page.locator(`button.btn--primary:has-text("${translation["addUser"]}")`);
-        await expect(addButton).toBeVisible();
-    });
-
-    test('should display the user data table', async ({ page }) => {
-        const table = await page.locator('table.data-table');
-        await expect(table).toBeVisible();
-    });
-
-    test('should display the table headers', async ({ page }) => {
-
-        const headers = await page.locator('table.data-table thead tr th');
-        await expect(headers).toHaveCount(8);
-
-        const headerTexts = [`${translation["name"]}`, `${translation["idCode"]}`, `${translation["role"]}`, `${translation["displayName"]}`, `${translation["userTitle"]}`, `${translation["email"]}`]; // Adjust as needed
-        for (let i = 0; i < headerTexts.length; i++) {
-            await expect(headers.nth(i)).toHaveText(headerTexts[i]);
-            await expect(headers.nth(i)).toBeVisible();
-        }
+        const addUserButton = await page.getByText(`${translation.addUser}`, { exact: true });
+        await expect(addUserButton).toBeVisible();
     });
 
 
+    test('Verify table headers', async ({ page }) => {
+        const tableContainer = page.locator('.card__body');
+
+        const nameHeader = await tableContainer.getByText(`${translation.name}`, { exact: true });
+        await expect(nameHeader).toBeVisible();
+
+        const idCodeHeader = await tableContainer.getByText(`${translation.idCode}`);
+        await expect(idCodeHeader).toBeVisible();
+
+        const roleHeader = await tableContainer.getByText(`${translation.role}`);
+        await expect(roleHeader).toBeVisible();
+
+        const displayNameHeader = await tableContainer.getByText(`${translation.displayName}`, { exact: true });
+        await expect(displayNameHeader).toBeVisible();
+
+        const titleHeader = await tableContainer.getByText(`${translation.userTitle}`);
+        await expect(titleHeader).toBeVisible();
+
+        const emailHeader = await tableContainer.getByText(`${translation.email}`);
+        await expect(emailHeader).toBeVisible();
+    });
 
 
-    test('should have one Edit and one Delete button per row', async ({ page }) => {
-        // Wait for the table to be visible
-        await page.waitForSelector('.data-table'); 
-        const table = page.locator('.data-table');
+    test('Check row actions (Edit and Delete)', async ({ page }) => {
+        const dataRow = page.locator('.data-table');
 
-        // Check for tbody if it's a separate element
-        const body = table.locator('tbody'); // Ensure this is the correct selector for tbody
-        const rows = body.locator('tr');
-        const rowCount = await rows.count();
+        const editButton = dataRow.getByRole('button', { name: `${translation.edit}` }).first();
+        await expect(editButton).toBeVisible();
 
-        // Ensure there are rows in the table
-        expect(rowCount).toBeGreaterThan(0);
+        const deleteButton = dataRow.getByRole('button', { name: `${translation.delete}` }).first();
+        await expect(deleteButton).toBeVisible();
+    });
 
-        // Initialize flags for checking button counts
-        let editButtonsCount = 0;
-        let deleteButtonsCount = 0;
+    test('Verify pagination controls', async ({ page }) => {
+        const resultCountLabel = await page.getByText(`${translation.resultCount}`);
+        const resultCountDropdown = await page.getByRole('combobox', { name: `${translation.resultCount}` });
 
-        // Iterate through each row to count Edit and Delete buttons
-        for (let i = 0; i < rowCount; i++) {
-            const row = rows.nth(i);
-
-            // Count Edit buttons in the current row
-            const editButtons = row.locator(`button.btn--text:has-text("${translation["edit"]}")`);
-            const editButtonCount = await editButtons.count();
-            expect(editButtonCount).toBe(1); // Ensure exactly one Edit button per row
-            editButtonsCount += editButtonCount;
-
-            // Count Delete buttons in the current row
-            const deleteButtons = row.locator(`button.btn--text:has-text("${translation["delete"]}")`);
-            const deleteButtonCount = await deleteButtons.count();
-            expect(deleteButtonCount).toBe(1); // Ensure exactly one Delete button per row
-            deleteButtonsCount += deleteButtonCount;
-        }
-
-        // Ensure the total count of Edit and Delete buttons matches the row count
-        expect(editButtonsCount).toBe(rowCount);
-        expect(deleteButtonsCount).toBe(rowCount);
+        await expect(resultCountLabel).toBeVisible();
+        await expect(resultCountDropdown).toBeVisible();
     });
 
 });

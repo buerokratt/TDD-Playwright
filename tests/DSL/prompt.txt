@@ -32,10 +32,10 @@
 4. Table handling: 
    a. Consider only first row when checking data persistence. For example when checking edit, delete, forward buttons in table data. PS! Don't use here exact: true, because it will cause errors.
       For example: 
-      const dataRow = page.locator('.data-table');
-      const editButton = dataRow.getByRole('button', { name: `${translation.edit}`, exact: true}).first();
-      const deleteButton = dataRow.getByRole('button', { name: `${translation.delete}`, exact: true }).first();
-      const forwardButton = dataRow.getByRole('button', { name: `${translation.forward}`, exact: true }).first();
+      const dataTable = page.locator('.data-table');
+      const editButton = dataTable.getByRole('button', { name: `${translation.edit}`, exact: true}).first();
+      const deleteButton = dataTable.getByRole('button', { name: `${translation.delete}`, exact: true }).first();
+      const forwardButton = dataTable.getByRole('button', { name: `${translation.forward}`, exact: true }).first();
       
    b. Checking headers
       For example: 
@@ -49,6 +49,13 @@
       const resultCountDropdown = await page.getByRole('combobox', { name: `${translation.resultCount}` });
       await expect(resultCountLabel).toBeVisible();
       await expect(resultCountDropdown).toBeVisible();
+   
+   d. If DSL has table and table has 'sortable: true' field then should check for sorting button persistence.
+      For example: 
+      for (const header of headers) {
+            const sortingButton = page.locator('th').filter({ hasText: header }).locator('button');
+            await expect(sortingButton).toBeVisible();
+      }
 
 5. Test setup:
 Include navigation and fetching translations in a beforeEach hook to ensure the page and translations are ready before running each test.

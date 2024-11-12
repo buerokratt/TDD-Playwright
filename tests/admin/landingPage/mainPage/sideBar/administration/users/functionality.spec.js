@@ -79,11 +79,7 @@ test.describe('Complete User Management Functionality Tests', () => {
             await testSearching({ page }, 'idCode');
         });
 
-        test.skip('Sort and Search by Roĺl/Role ### CHECK ISSUE INSIDE', async ({ page }) => {
-            test.info().annotations.push({
-                type: 'Known bug',
-                description: 'The sorting is starts from Z-A for some reason instead of A-Z as with other sortings.',
-            });
+        test('Sort and Search by Roĺl/Role ### CHECK ISSUE INSIDE', async ({ page }) => {
             await testSorting({ page }, 'role');
             await testSearching({ page }, 'role');
         });
