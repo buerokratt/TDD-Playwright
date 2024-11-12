@@ -1,5 +1,5 @@
 resource: chat/chatbot/welcome-message
-description: "Settings"
+description: "Buerokratt-Chatbot"
 test:
   main:
   heading:

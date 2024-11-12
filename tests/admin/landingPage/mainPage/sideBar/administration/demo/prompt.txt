@@ -99,4 +99,4 @@ When the prompt mentions to test functionality, test all eligble functionality a
 This means that you should capture the values for the inputs first and reset them at the end.
 
 This means that if there is a save button in the DSL you should capture and click it at the end of each test, refresh the page and check if your input value is there. 
-At the end of a each test it should be reset to the original value.
+At the end of a each test it should be reset to the original value. 
