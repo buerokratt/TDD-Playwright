@@ -58,6 +58,12 @@ test.describe('Working Time', () => {
         const daySwitch = track.getByRole('switch')
         expect(daySwitch).toBeVisible();
 
+        
+        const isDaySwitchChecked = await daySwitch.getAttribute('aria-checked');
+        if (isDaySwitchChecked !== 'true') {
+          await daySwitch.click();
+        }
+
         const startTimeInput = track.locator('input[type="text"]').nth(0);  
         const endTimeInput = track.locator('input[type="text"]').nth(1);     
 

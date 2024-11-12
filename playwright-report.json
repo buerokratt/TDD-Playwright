@@ -11,7 +11,7 @@
     "grepInvert": null,
     "maxFailures": 0,
     "metadata": {
-      "actualWorkers": 4
+      "actualWorkers": 1
     },
     "preserveOutput": "always",
     "reporter": [
@@ -96,66 +96,23 @@
               "results": [
                 {
                   "workerIndex": 0,
-                  "status": "timedOut",
-                  "duration": 31470,
-                  "error": {
-                    "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
-                    "stack": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
-                  },
-                  "errors": [
-                    {
-                      "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
-                    },
-                    {
-                      "location": {
-                        "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/.auth/auth.setup.js",
-                        "column": 16,
-                        "line": 28
-                      },
-                      "message": "Error: page.waitForURL: Test timeout of 30000ms exceeded.\n=========================== logs ===========================\nwaiting for navigation to \"https://admin.prod.buerokratt.ee/chat/active\" until \"load\"\n============================================================\n\n\u001b[0m \u001b[90m 26 |\u001b[39m\n \u001b[90m 27 |\u001b[39m     \u001b[90m// Wait for the navigation to the authenticated page\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 28 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForURL(\u001b[32m'https://admin.prod.buerokratt.ee/chat/active'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 29 |\u001b[39m\n \u001b[90m 30 |\u001b[39m     \u001b[90m// Save the authentication state\u001b[39m\n \u001b[90m 31 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mcontext()\u001b[33m.\u001b[39mstorageState({ path\u001b[33m:\u001b[39m authFile })\u001b[33m;\u001b[39m\u001b[0m\n\n\u001b[2m    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/.auth/auth.setup.js:28:16\u001b[22m"
-                    }
-                  ],
+                  "status": "passed",
+                  "duration": 21202,
+                  "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2024-11-12T09:50:05.802Z",
+                  "startTime": "2024-11-12T12:27:39.202Z",
                   "attachments": [
-                    {
-                      "name": "screenshot",
-                      "contentType": "image/png",
-                      "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-.auth-auth.setup.js-authenticate-setup/test-failed-1.png"
-                    },
-                    {
-                      "name": "video",
-                      "contentType": "video/webm",
-                      "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-.auth-auth.setup.js-authenticate-setup/video.webm"
-                    },
                     {
                       "name": "trace",
                       "contentType": "application/zip",
                       "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-.auth-auth.setup.js-authenticate-setup/trace.zip"
                     }
                   ]
-                },
-                {
-                  "workerIndex": 1,
-                  "status": "passed",
-                  "duration": 21855,
-                  "errors": [],
-                  "stdout": [],
-                  "stderr": [],
-                  "retry": 1,
-                  "startTime": "2024-11-12T09:50:38.032Z",
-                  "attachments": [
-                    {
-                      "name": "trace",
-                      "contentType": "application/zip",
-                      "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-.auth-auth.setup.js-authenticate-setup-retry1/trace.zip"
-                    }
-                  ]
                 }
               ],
-              "status": "flaky"
+              "status": "expected"
             }
           ],
           "id": "f503efbbcff5c6fe97f9-912a85e5e9ef7f60a698",
@@ -166,49 +123,44 @@
       ]
     },
     {
-      "title": "admin/landingPage/mainPage/sideBar/administration/workingTime/visibility.spec.js",
-      "file": "admin/landingPage/mainPage/sideBar/administration/workingTime/visibility.spec.js",
+      "title": "admin/landingPage/mainPage/sideBar/administration/chatbot/appearance_and_behavior/functionality.spec.js",
+      "file": "admin/landingPage/mainPage/sideBar/administration/chatbot/appearance_and_behavior/functionality.spec.js",
       "column": 0,
       "line": 0,
       "specs": [],
       "suites": [
         {
-          "title": "Working Time",
-          "file": "admin/landingPage/mainPage/sideBar/administration/workingTime/visibility.spec.js",
-          "line": 8,
+          "title": "Functionality Tests for \"Välimus ja käitumine\"/\"Appearance and Behaviour\" Page",
+          "file": "admin/landingPage/mainPage/sideBar/administration/chatbot/appearance_and_behavior/functionality.spec.js",
+          "line": 4,
           "column": 6,
           "specs": [
             {
-              "title": "Check main heading",
+              "title": "Check functionality of all fields and \"Eelvaade\" button",
               "ok": true,
               "tags": [],
               "tests": [
                 {
                   "timeout": 30000,
-                  "annotations": [
-                    {
-                      "type": "repository",
-                      "description": "Working time"
-                    }
-                  ],
+                  "annotations": [],
                   "expectedStatus": "passed",
                   "projectId": "chromium",
                   "projectName": "chromium",
                   "results": [
                     {
-                      "workerIndex": 2,
+                      "workerIndex": 1,
                       "status": "passed",
-                      "duration": 5296,
+                      "duration": 10487,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2024-11-12T09:51:00.913Z",
+                      "startTime": "2024-11-12T12:28:01.184Z",
                       "attachments": [
                         {
                           "name": "trace",
                           "contentType": "application/zip",
-                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-d6de1-ing-Time-Check-main-heading-chromium/trace.zip"
+                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-0eb7d--fields-and-Eelvaade-button-chromium/trace.zip"
                         }
                       ]
                     }
@@ -216,509 +168,10 @@
                   "status": "expected"
                 }
               ],
-              "id": "c999d60ee0d244c8b7f5-9ff6aa0e934360740610",
-              "file": "admin/landingPage/mainPage/sideBar/administration/workingTime/visibility.spec.js",
-              "line": 16,
-              "column": 7
-            },
-            {
-              "title": "Check absence notifications",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 30000,
-                  "annotations": [
-                    {
-                      "type": "repository",
-                      "description": "Working time"
-                    }
-                  ],
-                  "expectedStatus": "passed",
-                  "projectId": "chromium",
-                  "projectName": "chromium",
-                  "results": [
-                    {
-                      "workerIndex": 5,
-                      "status": "passed",
-                      "duration": 5273,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2024-11-12T09:51:14.853Z",
-                      "attachments": [
-                        {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-e2c50-Check-absence-notifications-chromium/trace.zip"
-                        }
-                      ]
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "c999d60ee0d244c8b7f5-0a22ff6921856b7ab619",
-              "file": "admin/landingPage/mainPage/sideBar/administration/workingTime/visibility.spec.js",
-              "line": 79,
-              "column": 7
-            },
-            {
-              "title": "Check No CSA message input",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 30000,
-                  "annotations": [
-                    {
-                      "type": "repository",
-                      "description": "Working time"
-                    }
-                  ],
-                  "expectedStatus": "passed",
-                  "projectId": "chromium",
-                  "projectName": "chromium",
-                  "results": [
-                    {
-                      "workerIndex": 3,
-                      "status": "passed",
-                      "duration": 5143,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2024-11-12T09:51:15.327Z",
-                      "attachments": [
-                        {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-548a3--Check-No-CSA-message-input-chromium/trace.zip"
-                        }
-                      ]
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "c999d60ee0d244c8b7f5-facf116d4f55cd5385e4",
-              "file": "admin/landingPage/mainPage/sideBar/administration/workingTime/visibility.spec.js",
-              "line": 87,
-              "column": 7
-            }
-          ],
-          "suites": [
-            {
-              "title": "Card Header",
-              "file": "admin/landingPage/mainPage/sideBar/administration/workingTime/visibility.spec.js",
-              "line": 21,
-              "column": 8,
-              "specs": [
-                {
-                  "title": "Verify switches in header",
-                  "ok": true,
-                  "tags": [],
-                  "tests": [
-                    {
-                      "timeout": 30000,
-                      "annotations": [
-                        {
-                          "type": "repository",
-                          "description": "Working time"
-                        }
-                      ],
-                      "expectedStatus": "passed",
-                      "projectId": "chromium",
-                      "projectName": "chromium",
-                      "results": [
-                        {
-                          "workerIndex": 3,
-                          "status": "passed",
-                          "duration": 7383,
-                          "errors": [],
-                          "stdout": [],
-                          "stderr": [],
-                          "retry": 0,
-                          "startTime": "2024-11-12T09:51:00.920Z",
-                          "attachments": [
-                            {
-                              "name": "trace",
-                              "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-2f53c-r-Verify-switches-in-header-chromium/trace.zip"
-                            }
-                          ]
-                        }
-                      ],
-                      "status": "expected"
-                    }
-                  ],
-                  "id": "c999d60ee0d244c8b7f5-65254716ae5f9fb612c6",
-                  "file": "admin/landingPage/mainPage/sideBar/administration/workingTime/visibility.spec.js",
-                  "line": 22,
-                  "column": 9
-                }
-              ]
-            },
-            {
-              "title": "Card Body",
-              "file": "admin/landingPage/mainPage/sideBar/administration/workingTime/visibility.spec.js",
-              "line": 42,
-              "column": 8,
-              "specs": [
-                {
-                  "title": "Check inputs for Monday",
-                  "ok": true,
-                  "tags": [],
-                  "tests": [
-                    {
-                      "timeout": 30000,
-                      "annotations": [
-                        {
-                          "type": "repository",
-                          "description": "Working time"
-                        }
-                      ],
-                      "expectedStatus": "passed",
-                      "projectId": "chromium",
-                      "projectName": "chromium",
-                      "results": [
-                        {
-                          "workerIndex": 4,
-                          "status": "passed",
-                          "duration": 6364,
-                          "errors": [],
-                          "stdout": [],
-                          "stderr": [],
-                          "retry": 0,
-                          "startTime": "2024-11-12T09:51:00.894Z",
-                          "attachments": [
-                            {
-                              "name": "trace",
-                              "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-53a59-ody-Check-inputs-for-Monday-chromium/trace.zip"
-                            }
-                          ]
-                        }
-                      ],
-                      "status": "expected"
-                    }
-                  ],
-                  "id": "c999d60ee0d244c8b7f5-de1f544546560f9785ad",
-                  "file": "admin/landingPage/mainPage/sideBar/administration/workingTime/visibility.spec.js",
-                  "line": 46,
-                  "column": 11
-                },
-                {
-                  "title": "Check inputs for Tuesday",
-                  "ok": true,
-                  "tags": [],
-                  "tests": [
-                    {
-                      "timeout": 30000,
-                      "annotations": [
-                        {
-                          "type": "repository",
-                          "description": "Working time"
-                        }
-                      ],
-                      "expectedStatus": "passed",
-                      "projectId": "chromium",
-                      "projectName": "chromium",
-                      "results": [
-                        {
-                          "workerIndex": 5,
-                          "status": "passed",
-                          "duration": 6738,
-                          "errors": [],
-                          "stdout": [],
-                          "stderr": [],
-                          "retry": 0,
-                          "startTime": "2024-11-12T09:51:00.895Z",
-                          "attachments": [
-                            {
-                              "name": "trace",
-                              "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-63607-dy-Check-inputs-for-Tuesday-chromium/trace.zip"
-                            }
-                          ]
-                        }
-                      ],
-                      "status": "expected"
-                    }
-                  ],
-                  "id": "c999d60ee0d244c8b7f5-1763600d37dc0bfaab9e",
-                  "file": "admin/landingPage/mainPage/sideBar/administration/workingTime/visibility.spec.js",
-                  "line": 46,
-                  "column": 11
-                },
-                {
-                  "title": "Check inputs for Wednesday",
-                  "ok": true,
-                  "tags": [],
-                  "tests": [
-                    {
-                      "timeout": 30000,
-                      "annotations": [
-                        {
-                          "type": "repository",
-                          "description": "Working time"
-                        }
-                      ],
-                      "expectedStatus": "passed",
-                      "projectId": "chromium",
-                      "projectName": "chromium",
-                      "results": [
-                        {
-                          "workerIndex": 2,
-                          "status": "passed",
-                          "duration": 5436,
-                          "errors": [],
-                          "stdout": [],
-                          "stderr": [],
-                          "retry": 0,
-                          "startTime": "2024-11-12T09:51:06.723Z",
-                          "attachments": [
-                            {
-                              "name": "trace",
-                              "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-3e552--Check-inputs-for-Wednesday-chromium/trace.zip"
-                            }
-                          ]
-                        }
-                      ],
-                      "status": "expected"
-                    }
-                  ],
-                  "id": "c999d60ee0d244c8b7f5-714c058d27eb8ad7104a",
-                  "file": "admin/landingPage/mainPage/sideBar/administration/workingTime/visibility.spec.js",
-                  "line": 46,
-                  "column": 11
-                },
-                {
-                  "title": "Check inputs for Thursday",
-                  "ok": true,
-                  "tags": [],
-                  "tests": [
-                    {
-                      "timeout": 30000,
-                      "annotations": [
-                        {
-                          "type": "repository",
-                          "description": "Working time"
-                        }
-                      ],
-                      "expectedStatus": "passed",
-                      "projectId": "chromium",
-                      "projectName": "chromium",
-                      "results": [
-                        {
-                          "workerIndex": 4,
-                          "status": "passed",
-                          "duration": 5780,
-                          "errors": [],
-                          "stdout": [],
-                          "stderr": [],
-                          "retry": 0,
-                          "startTime": "2024-11-12T09:51:07.989Z",
-                          "attachments": [
-                            {
-                              "name": "trace",
-                              "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-5737a-y-Check-inputs-for-Thursday-chromium/trace.zip"
-                            }
-                          ]
-                        }
-                      ],
-                      "status": "expected"
-                    }
-                  ],
-                  "id": "c999d60ee0d244c8b7f5-af0a1e26688ca0e4d7e1",
-                  "file": "admin/landingPage/mainPage/sideBar/administration/workingTime/visibility.spec.js",
-                  "line": 46,
-                  "column": 11
-                },
-                {
-                  "title": "Check inputs for Friday",
-                  "ok": true,
-                  "tags": [],
-                  "tests": [
-                    {
-                      "timeout": 30000,
-                      "annotations": [
-                        {
-                          "type": "repository",
-                          "description": "Working time"
-                        }
-                      ],
-                      "expectedStatus": "passed",
-                      "projectId": "chromium",
-                      "projectName": "chromium",
-                      "results": [
-                        {
-                          "workerIndex": 5,
-                          "status": "passed",
-                          "duration": 6238,
-                          "errors": [],
-                          "stdout": [],
-                          "stderr": [],
-                          "retry": 0,
-                          "startTime": "2024-11-12T09:51:08.248Z",
-                          "attachments": [
-                            {
-                              "name": "trace",
-                              "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-c334b-ody-Check-inputs-for-Friday-chromium/trace.zip"
-                            }
-                          ]
-                        }
-                      ],
-                      "status": "expected"
-                    }
-                  ],
-                  "id": "c999d60ee0d244c8b7f5-3f33cc415096b9b2c251",
-                  "file": "admin/landingPage/mainPage/sideBar/administration/workingTime/visibility.spec.js",
-                  "line": 46,
-                  "column": 11
-                },
-                {
-                  "title": "Check inputs for Saturday",
-                  "ok": true,
-                  "tags": [],
-                  "tests": [
-                    {
-                      "timeout": 30000,
-                      "annotations": [
-                        {
-                          "type": "repository",
-                          "description": "Working time"
-                        }
-                      ],
-                      "expectedStatus": "passed",
-                      "projectId": "chromium",
-                      "projectName": "chromium",
-                      "results": [
-                        {
-                          "workerIndex": 3,
-                          "status": "passed",
-                          "duration": 6116,
-                          "errors": [],
-                          "stdout": [],
-                          "stderr": [],
-                          "retry": 0,
-                          "startTime": "2024-11-12T09:51:09.011Z",
-                          "attachments": [
-                            {
-                              "name": "trace",
-                              "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-85426-y-Check-inputs-for-Saturday-chromium/trace.zip"
-                            }
-                          ]
-                        }
-                      ],
-                      "status": "expected"
-                    }
-                  ],
-                  "id": "c999d60ee0d244c8b7f5-94adf7ceb1349eee2b79",
-                  "file": "admin/landingPage/mainPage/sideBar/administration/workingTime/visibility.spec.js",
-                  "line": 46,
-                  "column": 11
-                },
-                {
-                  "title": "Check inputs for Sunday",
-                  "ok": true,
-                  "tags": [],
-                  "tests": [
-                    {
-                      "timeout": 30000,
-                      "annotations": [
-                        {
-                          "type": "repository",
-                          "description": "Working time"
-                        }
-                      ],
-                      "expectedStatus": "passed",
-                      "projectId": "chromium",
-                      "projectName": "chromium",
-                      "results": [
-                        {
-                          "workerIndex": 2,
-                          "status": "passed",
-                          "duration": 6111,
-                          "errors": [],
-                          "stdout": [],
-                          "stderr": [],
-                          "retry": 0,
-                          "startTime": "2024-11-12T09:51:12.246Z",
-                          "attachments": [
-                            {
-                              "name": "trace",
-                              "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-95586-ody-Check-inputs-for-Sunday-chromium/trace.zip"
-                            }
-                          ]
-                        }
-                      ],
-                      "status": "expected"
-                    }
-                  ],
-                  "id": "c999d60ee0d244c8b7f5-01b16070d9eba25484a2",
-                  "file": "admin/landingPage/mainPage/sideBar/administration/workingTime/visibility.spec.js",
-                  "line": 46,
-                  "column": 11
-                }
-              ]
-            },
-            {
-              "title": "Card Footer",
-              "file": "admin/landingPage/mainPage/sideBar/administration/workingTime/visibility.spec.js",
-              "line": 72,
-              "column": 8,
-              "specs": [
-                {
-                  "title": "Check save button",
-                  "ok": true,
-                  "tags": [],
-                  "tests": [
-                    {
-                      "timeout": 30000,
-                      "annotations": [
-                        {
-                          "type": "repository",
-                          "description": "Working time"
-                        }
-                      ],
-                      "expectedStatus": "passed",
-                      "projectId": "chromium",
-                      "projectName": "chromium",
-                      "results": [
-                        {
-                          "workerIndex": 4,
-                          "status": "passed",
-                          "duration": 5047,
-                          "errors": [],
-                          "stdout": [],
-                          "stderr": [],
-                          "retry": 0,
-                          "startTime": "2024-11-12T09:51:14.115Z",
-                          "attachments": [
-                            {
-                              "name": "trace",
-                              "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-e7fb5-rd-Footer-Check-save-button-chromium/trace.zip"
-                            }
-                          ]
-                        }
-                      ],
-                      "status": "expected"
-                    }
-                  ],
-                  "id": "c999d60ee0d244c8b7f5-4aadf067add155a89a91",
-                  "file": "admin/landingPage/mainPage/sideBar/administration/workingTime/visibility.spec.js",
-                  "line": 73,
-                  "column": 9
-                }
-              ]
+              "id": "d892447a55004d62c9b8-c12729e0f83ae2b46ae7",
+              "file": "admin/landingPage/mainPage/sideBar/administration/chatbot/appearance_and_behavior/functionality.spec.js",
+              "line": 62,
+              "column": 10
             }
           ]
         }
@@ -727,11 +180,11 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2024-11-12T09:50:05.233Z",
-    "duration": 75327.755,
-    "expected": 12,
+    "startTime": "2024-11-12T12:27:38.520Z",
+    "duration": 33481.488,
+    "expected": 2,
     "skipped": 0,
     "unexpected": 0,
-    "flaky": 1
+    "flaky": 0
   }
 }

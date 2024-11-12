@@ -67,7 +67,7 @@ test.describe('Buerokratt-Chatbot', () => {
     });
   });
 
-  test.describe.only('Card Footer - Save Button', () => {
+  test.describe('Card Footer - Save Button', () => {
     test('should save changes and verify persistence', async ({ page }) => {
       const cardBody = page.locator('.card__body').first();
       const nameSwitchButton = await cardBody.getByLabel(`${translation.showSupportName}`, { exact: true });
