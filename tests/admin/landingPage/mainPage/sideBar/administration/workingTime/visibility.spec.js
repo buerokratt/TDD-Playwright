@@ -9,7 +9,7 @@ test.describe('Working Time', () => {
     test.info().annotations.push({ type: 'repository', description: 'Working time' });
     await page.goto('https://admin.prod.buerokratt.ee/chat/working-time');
     translation = await getTranslations(page);
-    await page.waitForTimeout(3000); // Ensure elements load properly
+    await page.waitForTimeout(3000);
   });
 
   test('Check main heading', async ({ page }) => {
@@ -19,8 +19,13 @@ test.describe('Working Time', () => {
 
   test.describe('Card Header', () => {
     test('Verify switches in header', async ({ page }) => {
-      const workingHoursSwitch = await page.getByText(`${translation.workingHoursAre247}`, { exact: true });
+      const workingHoursSwitch = await page.getByLabel(`${translation.workingHoursAre247}`, { exact: true });
       await expect(workingHoursSwitch).toBeVisible();
+
+      const isChecked = await workingHoursSwitch.getAttribute('aria-checked');
+      if (isChecked === 'true') {
+        await workingHoursSwitch.click();
+      }
 
       const publicHolidaysSwitch = await page.getByText(`${translation.considerPublicHolidays}`, { exact: true });
       await expect(publicHolidaysSwitch).toBeVisible();
@@ -38,6 +43,11 @@ test.describe('Working Time', () => {
 
     for (const day of days) {
       test(`Check inputs for ${day}`, async ({ page }) => {
+        const workingHoursSwitch = await page.getByLabel(`${translation.workingHoursAre247}`, { exact: true });
+        const isChecked = await workingHoursSwitch.getAttribute('aria-checked');
+        if (isChecked === 'true') {
+          await workingHoursSwitch.click();
+        }
         const dayLabel = await page.getByText(`${translation[day.toLowerCase()]}`, { exact: true });
         await expect(dayLabel).toBeVisible();
 
