@@ -22,6 +22,7 @@ test:
           - type: button
           - style: switch
           - adjacentTo: label
+          - selector: nth(0)
 
       input:
         label: "Widget bubble message seconds"
@@ -35,6 +36,7 @@ test:
         args:
           - type: text
           - style: input
+          - selector: nth(1)
 
       input:
         label: "Widget color"
