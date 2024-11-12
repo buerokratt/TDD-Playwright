@@ -74,7 +74,7 @@ test.describe('Erakorralised Teated/Emergency notices Functionality Tests', () =
   });
 
 
-  test.only('Check if "Kuvamisperiood"/"Display period" dates can be changed by choosing a date', async ({ page }) => {
+  test('Check if "Kuvamisperiood"/"Display period" dates can be changed by choosing a date', async ({ page }) => {
 
     test.info().annotations.push({
       type: 'bug',
