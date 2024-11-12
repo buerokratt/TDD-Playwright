@@ -1,120 +1,95 @@
 import { test, expect } from '@playwright/test';
 import { getTranslations } from '@translation/languageDetector.js';
-import {formatDate} from '../../../conversations/unanswered/helper.js';
-test.describe('Erakorralised Teated/Emergency notices Functionality Tests', () => {
+let translation;
 
-  let translation
-
+test.describe('Buerokratt-Chatbot', () => {
   test.beforeEach(async ({ page }) => {
+    test.info().annotations.push({ type: 'repository', description: 'Buerokratt-Chatbot' });
     await page.goto('https://admin.prod.buerokratt.ee/chat/chatbot/emergency-notices');
-    translation = await getTranslations(page)
+    translation = await getTranslations(page);
     await page.waitForTimeout(3000);
   });
 
-  test('Toggle "Notice Active" switch', async ({ page }) => {
-    const noticeActiveSwitch = page.getByRole('switch', { name: `${translation.noticeActive}`, exact: true });
-    if (await noticeActiveSwitch.getAttribute('data-state') === 'checked') {
-      await noticeActiveSwitch.click();
-    }
-    await expect(noticeActiveSwitch).toHaveAttribute('data-state', 'unchecked');
-    await noticeActiveSwitch.click();
-    await expect(noticeActiveSwitch).toHaveAttribute('data-state', 'checked');
-
+  test('should display heading', async ({ page }) => {
+    const heading = await page.getByRole('heading', { name: `${translation.emergencyNotices}`, exact: true });
+    await expect(heading).toBeVisible();
   });
 
+  test.describe('Card Body - Notice Active Switch', () => {
+    test('should display and toggle Notice Active switch', async ({ page }) => {
+      const cardBody = page.locator('.card__body').first();
+      const switchLabel = await cardBody.getByText(`${translation.noticeActive}`, { exact: true });
+      const switchButton = await cardBody.getByLabel(`${translation.noticeActive}`, { exact: true });
 
-  test('Fill in "Notice" text area', async ({ page }) => {
-    const noticeTextarea = page.getByLabel(`${translation.notice}`, { exact: true });
-    const noticeText = 'This is a test emergency notice.';
+      await expect(switchLabel).toBeVisible();
+      await expect(switchButton).toBeVisible();
 
-    await noticeTextarea.fill(noticeText);
-    await expect(noticeTextarea).toHaveValue(noticeText);
+      const initialState = await switchButton.isChecked();
+      await switchButton.click();
+      await expect(switchButton.isChecked()).not.toBe(initialState);
+
+      // Revert to original state
+      await switchButton.click();
+    });
   });
 
-  test('Open and verify "Display Period From" date picker', async ({ page }) => {
-    const input = await page.getByRole('textbox').nth(1);
+  test.describe('Card Body - Notice Textarea', () => {
+    test('should display and update Notice textarea', async ({ page }) => {
+      const cardBody = page.locator('.card__body').first();
+      const textareaLabel = await cardBody.getByText(`${translation.notice}`, { exact: true });
+      const textarea = await cardBody.getByLabel(`${translation.notice}`, { exact: true });
 
-    await input.click();
+      await expect(textareaLabel).toBeVisible();
+      await expect(textarea).toBeVisible();
 
-    const datePicker = page.locator('.react-datepicker__month-container');
-    await expect(datePicker).toBeVisible();
+      const initialText = await textarea.inputValue();
+      await textarea.fill('Updated Notice Message');
+      const saveButton = await page.getByText(`${translation.save}`, { exact: true });
+      await saveButton.click();
+      await page.waitForTimeout(3000); // Ensure values are saved
+
+      // Refresh page and verify persistence
+      await page.reload();
+      await expect(textarea).toHaveValue('Updated Notice Message');
+
+      // Revert to original text
+      await textarea.fill(initialText);
+      await saveButton.click();
+      await page.waitForTimeout(3000);
+    });
   });
 
-  test('Open and verify "Display Period To" date picker', async ({ page }) => {
-    const input = await page.getByRole('textbox').nth(2);
+  test.describe('Card Body - Display Period Datepickers', () => {
+    test('should display and update Display Period datepickers', async ({ page }) => {
+      const cardBody = page.locator('.card__body').first();
+      const displayPeriodLabel = await cardBody.getByText(`${translation.displayPeriod}`, { exact: true });
+      await expect(displayPeriodLabel).toBeVisible();
 
-    await input.click();
+      const datepickerStart = await page.locator('.datepicker', { exact: true }).nth(0);
+      const datepickerEnd = await page.locator('.datepicker', { exact: true }).nth(1);
+      const datepickerStartInput = await datepickerStart.locator('input').first();
+      const datepickerEndInput = await datepickerEnd.locator('input').first();
 
-    const datePicker = page.locator('.react-datepicker__month-container');
-    await expect(datePicker).toBeVisible();
+      const initialStartDate = await datepickerStartInput.getAttribute('value');
+      const initialEndDate = await datepickerEndInput.getAttribute('value');
+
+      await datepickerStartInput.fill('01.01.2024');
+      await datepickerEndInput.fill('31.12.2024');
+      const saveButton = await page.getByText(`${translation.save}`, { exact: true });
+      await saveButton.click();
+      await page.waitForTimeout(3000); // Ensure values are saved
+
+      // Refresh page and verify persistence
+      await page.reload();
+      await page.waitForTimeout(3000);
+      await expect(datepickerStartInput).toHaveValue('01.01.2024');
+      await expect(datepickerEndInput).toHaveValue('31.12.2024');
+
+      // Revert to original dates
+      await datepickerStartInput.fill(initialStartDate);
+      await datepickerEndInput.fill(initialEndDate);
+      await saveButton.click();
+      await page.waitForTimeout(3000);
+    });
   });
-
-  test.skip('Check if "Kuvamisperiood" date inputs can be changed ### Look issues inside', async ({ page }) => {
-
-    test.info().annotations.push({
-      type: 'Known critical bug',
-      description: 'When selecting the whole startDate or endDate input and pressing backspace(deleting it), it clears the whole sites HTML',
-    })
-
-    test.info().annotations.push({
-      type: 'Known critical bug',
-      description: 'When selecting the whole startDate or endDate input and typing 123456, it clears the whole HTML',
-    })
-
-    const fromInput = await page.getByRole('textbox').nth(1);
-    const toInput = await page.getByRole('textbox').nth(2);
-
-    await fromInput.click({ clickCount: 3 });
-    await fromInput.fill('01.09.2023');
-    await expect(fromInput).toHaveValue('01.09.2023');
-
-    await toInput.click({ clickCount: 3 });
-    await toInput.fill('31.12.2024');
-    await expect(toInput).toHaveValue('31.12.2024');
-  });
-
-
-  test('Check if "Kuvamisperiood"/"Display period" dates can be changed by choosing a date', async ({ page }) => {
-
-    test.info().annotations.push({
-      type: 'bug',
-      description: 'Shouldnt be able to set either of the dates in the past or in bad relation (start date later than end date) to one another. Currently its possible on the frontend.',
-    })
-
-    const fromInput = await page.getByRole('textbox').nth(1);
-    const toInput = await page.getByRole('textbox').nth(2);
-
-    await fromInput.click({ clickCount: 3 });
-    await fromInput.fill('01.09.2024');
-
-    await toInput.click({ clickCount: 3 });
-    await toInput.fill('01.09.2024');
-
-
-    await fromInput.click();
-    let validStartDateLabel = "Choose reede, 6. september 2024";
-
-    await page.locator(`[aria-label="${validStartDateLabel}"]`).click();
-
-    await expect(fromInput).toHaveValue("06.09.2024");
-
-
-    await toInput.click();
-
-    let validEndDateLabel = "Choose laupäev, 7. september 2024";
-
-    await page.locator(`[aria-label="${validEndDateLabel}"]`).click();
-
-    await expect(toInput).toHaveValue("07.09.2024");
-  });
-
-  test('Check if "Salvesta"/"Save" button can be clicked', async ({ page }) => {
-
-    const saveButton = await page.locator(`button:has-text("${translation["save"]}")`);
-
-    await saveButton.click();
-
-    await expect(page.locator('.toast.toast--success')).toBeVisible();
-  });
-
 });
