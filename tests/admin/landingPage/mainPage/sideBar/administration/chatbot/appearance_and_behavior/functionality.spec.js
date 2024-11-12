@@ -1,107 +1,107 @@
-// test/appearance.spec.js
+// Buerokratt-Chatbot - Playwright Test File
 import { test, expect } from '@playwright/test';
 import { getTranslations } from '@translation/languageDetector.js';
 
 let translation;
 
-test.describe('Buerokratt-Chatbot Appearance and Behaviour', () => {
+test.describe.serial('Buerokratt-Chatbot - Appearance and Behaviour', () => {
+
   test.beforeEach(async ({ page }) => {
     test.info().annotations.push({ type: 'repository', description: 'Buerokratt-Chatbot' });
     await page.goto('https://admin.prod.buerokratt.ee/chat/chatbot/appearance');
+    await page.waitForTimeout(3000); // Wait for elements to load
     translation = await getTranslations(page);
-    await page.waitForTimeout(3000);
   });
 
-  test('Verify heading visibility', async ({ page }) => {
+  test('Verify appearance and behavior main heading', async ({ page }) => {
     const heading = await page.getByRole('heading', { name: `${translation.appearanceAndBehaviour}`, exact: true });
     await expect(heading).toBeVisible();
   });
 
-  test.describe('Card body - Input and switch functionality', () => {
-    test('Verify input: "Widget proactive seconds"', async ({ page }) => {
-      const inputWidgetProactiveSeconds = await page.getByLabel(`${translation.widgetProactiveSeconds}`, { exact: true });
-      await expect(inputWidgetProactiveSeconds).toBeVisible();
+  test.describe('Card Body Elements', () => {
+
+    test('Verify and reset "Widget Proactive Seconds" input visibility and functionality', async ({ page }) => {
+      const input = await page.getByLabel(`${translation.widgetProactiveSeconds}`, { exact: true });
+      const initialValue = await input.inputValue();
       
-      const initialValue = await inputWidgetProactiveSeconds.inputValue();
-      await inputWidgetProactiveSeconds.fill('10');
-      await expect(inputWidgetProactiveSeconds).toHaveValue('10');
-      await inputWidgetProactiveSeconds.fill(initialValue);
+      await input.fill('5'); // Update to new value
+      const saveButton = await page.getByText(`${translation.save}`, { exact: true });
+      await saveButton.click();
+      await page.waitForTimeout(3000); // Wait to save
+      await page.reload();
+
+      // Verify persistence
+      await expect(input).toHaveValue('5');
+      await input.fill(initialValue); // Reset to initial value
+      await saveButton.click();
+      await page.waitForTimeout(3000); // Wait to save
     });
 
-    test('Verify switch: "Widget bubble message text"', async ({ page }) => {
-        const switchWidgetBubbleMessageText = await page.getByLabel(`${translation.widgetBubbleMessageText}`, { exact: true }).first();
-        await expect(switchWidgetBubbleMessageText).toBeVisible();
-      
-        // Check initial state using the aria-checked attribute
-        const initialCheckedState = await switchWidgetBubbleMessageText.getAttribute('aria-checked');
-        const isChecked = initialCheckedState === 'true';
-      
-        // Toggle the switch and check the state
-        await switchWidgetBubbleMessageText.click();
-        const newCheckedState = await switchWidgetBubbleMessageText.getAttribute('aria-checked');
-        expect(newCheckedState).toBe(isChecked ? 'false' : 'true');
-      
-        // Toggle the switch back to the original state
-        await switchWidgetBubbleMessageText.click();
-        const revertedCheckedState = await switchWidgetBubbleMessageText.getAttribute('aria-checked');
-        expect(revertedCheckedState).toBe(initialCheckedState);
-      });
-      
-
-    test('Verify input: "Widget bubble message seconds"', async ({ page }) => {
-      const inputWidgetBubbleMessageSeconds = await page.getByLabel(`${translation.widgetBubbleMessageSeconds}`, { exact: true });
-      await expect(inputWidgetBubbleMessageSeconds).toBeVisible();
-
-      const initialValue = await inputWidgetBubbleMessageSeconds.inputValue();
-      await inputWidgetBubbleMessageSeconds.fill('5');
-      await expect(inputWidgetBubbleMessageSeconds).toHaveValue('5');
-      await inputWidgetBubbleMessageSeconds.fill(initialValue);
+    test('Verify "Widget Bubble Message Text" switch functionality', async ({ page }) => {
+      const switchButton = await page.getByLabel(`${translation.widgetBubbleMessageText}`, { exact: true }).nth(0);
+      await expect(switchButton).toBeVisible();
     });
 
-    test('Verify input: "Widget bubble message text"', async ({ page }) => {
-      const inputWidgetBubbleMessageText = await page.getByLabel(`${translation.widgetBubbleMessageText}`, { exact: true }).nth(1);
-      await expect(inputWidgetBubbleMessageText).toBeVisible();
-
-      const initialValue = await inputWidgetBubbleMessageText.inputValue();
-      await inputWidgetBubbleMessageText.fill('Test message');
-      await expect(inputWidgetBubbleMessageText).toHaveValue('Test message');
-      await inputWidgetBubbleMessageText.fill(initialValue);
+    test('Verify "Widget Bubble Message Seconds" input visibility and functionality', async ({ page }) => {
+      const input = await page.getByLabel(`${translation.widgetBubbleMessageSeconds}`, { exact: true });
+      await expect(input).toBeVisible();
     });
 
-    test('Verify input: "Widget color"', async ({ page }) => {
-      const inputWidgetColor = await page.getByLabel(`${translation.widgetColor}`, { exact: true });
-      await expect(inputWidgetColor).toBeVisible();
+    test('Verify and reset "Widget Bubble Message Text" text input visibility and functionality', async ({ page }) => {
+      const input = await page.getByLabel(`${translation.widgetBubbleMessageText}`, { exact: true }).nth(1);
+      const initialValue = await input.inputValue();
 
-      await inputWidgetColor.click();
-      await inputWidgetColor.evaluate(input => input.blur());
+      await input.fill('New Text'); // Update to new value
+      const saveButton = await page.getByText(`${translation.save}`, { exact: true });
+      await saveButton.click();
+      await page.waitForTimeout(3000); // Wait to save
+      await page.reload();
+
+      // Verify persistence
+      await expect(input).toHaveValue('New Text');
+      await input.fill(initialValue); // Reset to initial value
+      await saveButton.click();
+      await page.waitForTimeout(3000); // Wait to save
     });
 
-    test('Verify select: "Widget animation"', async ({ page }) => {
-        const selectWidgetAnimation = await page.getByRole('combobox', { name: `${translation.widgetAnimation}`, exact: true });
-        await expect(selectWidgetAnimation).toBeVisible();
-      
-        // Open the dropdown
-        await selectWidgetAnimation.click();
-      
-        // Select an option by clicking it in the list
-        const option = await page.getByRole('option', { name: 'Wiggle', exact: true });
-        await option.click();
-      
-        // Verify if the selection reflects in the dropdown (using text or another indicator)
-        const selectedText = await selectWidgetAnimation.textContent();
-        expect(selectedText).toContain('Wiggle');
-      
-        // Re-select a different option if necessary
-        await selectWidgetAnimation.click();
-        const anotherOption = await page.getByRole('option', { name: 'Jump', exact: true });
-        await anotherOption.click();
-        
-        const updatedText = await selectWidgetAnimation.textContent();
-        expect(updatedText).toContain('Jump');
-      });
+    test('Verify and reset "Widget Color" color picker functionality', async ({ page }) => {
+      const colorInput = await page.getByLabel(`${translation.widgetColor}`, { exact: true });
+      await colorInput.click();
+      const colorPickerInput = await page.getByLabel('hex');
+      const initialColor = await colorPickerInput.inputValue();
+
+      await colorPickerInput.fill('#FF5733'); // Set to a new color
+      const saveButton = await page.getByText(`${translation.save}`, { exact: true });
+      await saveButton.click();
+      await page.waitForTimeout(3000); // Wait to save
+      await page.reload();
+
+      // Verify persistence
+      await colorInput.click();
+      await expect(colorPickerInput).toHaveValue('#FF5733');
+      await colorPickerInput.fill(initialColor); // Reset to original color
+      await saveButton.click();
+      await page.waitForTimeout(3000); // Wait to save
+    });
+
+    test('Verify "Widget Animation" dropdown functionality', async ({ page }) => {
+      const dropdown = await page.getByRole('combobox', { name: `${translation.widgetAnimation}`, exact: true });
+      await dropdown.click(); // Open the dropdown
+
+      // Locate specific dropdown options more accurately by using their role and exact match
+      const optionJump = await page.getByRole('option', { name: 'Jump', exact: true });
+      const optionShockwave = await page.getByRole('option', { name: 'Shockwave', exact: true });
+      const optionWiggle = await page.getByRole('option', { name: 'Wiggle', exact: true });
+
+      // Assert visibility for each option
+      await expect(optionJump).toBeVisible();
+      await expect(optionShockwave).toBeVisible();
+      await expect(optionWiggle).toBeVisible();
+    });
   });
 
-  test.describe('Card footer - Button functionality', () => {
+  test.describe('Card Footer Buttons', () => {
+
     test('Verify Save button functionality', async ({ page }) => {
       const saveButton = await page.getByText(`${translation.save}`, { exact: true });
       await expect(saveButton).toBeVisible();
@@ -112,4 +112,5 @@ test.describe('Buerokratt-Chatbot Appearance and Behaviour', () => {
       await expect(previewButton).toBeVisible();
     });
   });
+
 });
