@@ -1,6 +1,7 @@
 // tests/working-time.spec.js
 import { test, expect } from '@playwright/test';
 import { getTranslations } from '@translation/languageDetector.js';
+import exp from 'constants';
 
 let translation;
 
@@ -48,17 +49,22 @@ test.describe('Working Time', () => {
         if (isChecked === 'true') {
           await workingHoursSwitch.click();
         }
+
+
         const dayLabel = await page.getByText(`${translation[day.toLowerCase()]}`, { exact: true });
         await expect(dayLabel).toBeVisible();
 
-        //const daySwitch = await page.getByLabel(`${translation[day.toLowerCase()]}`, { exact: true });
-        //wait expect(daySwitch).toBeVisible();
+        const track = page.locator(`.track:has-text("${translation[day.toLowerCase()]}")`);
+        const daySwitch = track.getByRole('switch')
+        expect(daySwitch).toBeVisible();
 
-        //const startTimeInput = await page.locator('input[type="time"]').nth(0);
-        //await expect(startTimeInput).toBeVisible();
+        const startTimeInput = track.locator('input[type="text"]').nth(0);  
+        const endTimeInput = track.locator('input[type="text"]').nth(1);     
 
-        //const endTimeInput = await page.locator('input[type="time"]').nth(1);
-        //await expect(endTimeInput).toBeVisible();
+        await expect(startTimeInput).toBeVisible();
+        await expect(endTimeInput).toBeVisible();
+
+
       });
     }
   });

@@ -96,23 +96,66 @@
               "results": [
                 {
                   "workerIndex": 0,
-                  "status": "passed",
-                  "duration": 21042,
-                  "errors": [],
+                  "status": "timedOut",
+                  "duration": 31470,
+                  "error": {
+                    "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
+                    "stack": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+                  },
+                  "errors": [
+                    {
+                      "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+                    },
+                    {
+                      "location": {
+                        "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/.auth/auth.setup.js",
+                        "column": 16,
+                        "line": 28
+                      },
+                      "message": "Error: page.waitForURL: Test timeout of 30000ms exceeded.\n=========================== logs ===========================\nwaiting for navigation to \"https://admin.prod.buerokratt.ee/chat/active\" until \"load\"\n============================================================\n\n\u001b[0m \u001b[90m 26 |\u001b[39m\n \u001b[90m 27 |\u001b[39m     \u001b[90m// Wait for the navigation to the authenticated page\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 28 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForURL(\u001b[32m'https://admin.prod.buerokratt.ee/chat/active'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 29 |\u001b[39m\n \u001b[90m 30 |\u001b[39m     \u001b[90m// Save the authentication state\u001b[39m\n \u001b[90m 31 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mcontext()\u001b[33m.\u001b[39mstorageState({ path\u001b[33m:\u001b[39m authFile })\u001b[33m;\u001b[39m\u001b[0m\n\n\u001b[2m    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/.auth/auth.setup.js:28:16\u001b[22m"
+                    }
+                  ],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2024-11-12T09:02:22.171Z",
+                  "startTime": "2024-11-12T09:50:05.802Z",
                   "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-.auth-auth.setup.js-authenticate-setup/test-failed-1.png"
+                    },
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-.auth-auth.setup.js-authenticate-setup/video.webm"
+                    },
                     {
                       "name": "trace",
                       "contentType": "application/zip",
                       "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-.auth-auth.setup.js-authenticate-setup/trace.zip"
                     }
                   ]
+                },
+                {
+                  "workerIndex": 1,
+                  "status": "passed",
+                  "duration": 21855,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 1,
+                  "startTime": "2024-11-12T09:50:38.032Z",
+                  "attachments": [
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-.auth-auth.setup.js-authenticate-setup-retry1/trace.zip"
+                    }
+                  ]
                 }
               ],
-              "status": "expected"
+              "status": "flaky"
             }
           ],
           "id": "f503efbbcff5c6fe97f9-912a85e5e9ef7f60a698",
@@ -132,7 +175,7 @@
         {
           "title": "Working Time",
           "file": "admin/landingPage/mainPage/sideBar/administration/workingTime/visibility.spec.js",
-          "line": 7,
+          "line": 8,
           "column": 6,
           "specs": [
             {
@@ -153,14 +196,14 @@
                   "projectName": "chromium",
                   "results": [
                     {
-                      "workerIndex": 1,
+                      "workerIndex": 2,
                       "status": "passed",
-                      "duration": 5760,
+                      "duration": 5296,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2024-11-12T09:02:44.146Z",
+                      "startTime": "2024-11-12T09:51:00.913Z",
                       "attachments": [
                         {
                           "name": "trace",
@@ -175,7 +218,7 @@
               ],
               "id": "c999d60ee0d244c8b7f5-9ff6aa0e934360740610",
               "file": "admin/landingPage/mainPage/sideBar/administration/workingTime/visibility.spec.js",
-              "line": 15,
+              "line": 16,
               "column": 7
             },
             {
@@ -196,14 +239,14 @@
                   "projectName": "chromium",
                   "results": [
                     {
-                      "workerIndex": 3,
+                      "workerIndex": 5,
                       "status": "passed",
-                      "duration": 5165,
+                      "duration": 5273,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2024-11-12T09:02:57.544Z",
+                      "startTime": "2024-11-12T09:51:14.853Z",
                       "attachments": [
                         {
                           "name": "trace",
@@ -218,7 +261,7 @@
               ],
               "id": "c999d60ee0d244c8b7f5-0a22ff6921856b7ab619",
               "file": "admin/landingPage/mainPage/sideBar/administration/workingTime/visibility.spec.js",
-              "line": 73,
+              "line": 79,
               "column": 7
             },
             {
@@ -239,14 +282,14 @@
                   "projectName": "chromium",
                   "results": [
                     {
-                      "workerIndex": 2,
+                      "workerIndex": 3,
                       "status": "passed",
-                      "duration": 4929,
+                      "duration": 5143,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2024-11-12T09:02:58.234Z",
+                      "startTime": "2024-11-12T09:51:15.327Z",
                       "attachments": [
                         {
                           "name": "trace",
@@ -261,7 +304,7 @@
               ],
               "id": "c999d60ee0d244c8b7f5-facf116d4f55cd5385e4",
               "file": "admin/landingPage/mainPage/sideBar/administration/workingTime/visibility.spec.js",
-              "line": 81,
+              "line": 87,
               "column": 7
             }
           ],
@@ -269,7 +312,7 @@
             {
               "title": "Card Header",
               "file": "admin/landingPage/mainPage/sideBar/administration/workingTime/visibility.spec.js",
-              "line": 20,
+              "line": 21,
               "column": 8,
               "specs": [
                 {
@@ -290,14 +333,14 @@
                       "projectName": "chromium",
                       "results": [
                         {
-                          "workerIndex": 2,
+                          "workerIndex": 3,
                           "status": "passed",
-                          "duration": 7402,
+                          "duration": 7383,
                           "errors": [],
                           "stdout": [],
                           "stderr": [],
                           "retry": 0,
-                          "startTime": "2024-11-12T09:02:44.154Z",
+                          "startTime": "2024-11-12T09:51:00.920Z",
                           "attachments": [
                             {
                               "name": "trace",
@@ -312,7 +355,7 @@
                   ],
                   "id": "c999d60ee0d244c8b7f5-65254716ae5f9fb612c6",
                   "file": "admin/landingPage/mainPage/sideBar/administration/workingTime/visibility.spec.js",
-                  "line": 21,
+                  "line": 22,
                   "column": 9
                 }
               ]
@@ -320,7 +363,7 @@
             {
               "title": "Card Body",
               "file": "admin/landingPage/mainPage/sideBar/administration/workingTime/visibility.spec.js",
-              "line": 41,
+              "line": 42,
               "column": 8,
               "specs": [
                 {
@@ -341,14 +384,14 @@
                       "projectName": "chromium",
                       "results": [
                         {
-                          "workerIndex": 3,
+                          "workerIndex": 4,
                           "status": "passed",
-                          "duration": 6865,
+                          "duration": 6364,
                           "errors": [],
                           "stdout": [],
                           "stderr": [],
                           "retry": 0,
-                          "startTime": "2024-11-12T09:02:44.175Z",
+                          "startTime": "2024-11-12T09:51:00.894Z",
                           "attachments": [
                             {
                               "name": "trace",
@@ -363,7 +406,7 @@
                   ],
                   "id": "c999d60ee0d244c8b7f5-de1f544546560f9785ad",
                   "file": "admin/landingPage/mainPage/sideBar/administration/workingTime/visibility.spec.js",
-                  "line": 45,
+                  "line": 46,
                   "column": 11
                 },
                 {
@@ -384,14 +427,14 @@
                       "projectName": "chromium",
                       "results": [
                         {
-                          "workerIndex": 4,
+                          "workerIndex": 5,
                           "status": "passed",
-                          "duration": 5952,
+                          "duration": 6738,
                           "errors": [],
                           "stdout": [],
                           "stderr": [],
                           "retry": 0,
-                          "startTime": "2024-11-12T09:02:44.166Z",
+                          "startTime": "2024-11-12T09:51:00.895Z",
                           "attachments": [
                             {
                               "name": "trace",
@@ -406,7 +449,7 @@
                   ],
                   "id": "c999d60ee0d244c8b7f5-1763600d37dc0bfaab9e",
                   "file": "admin/landingPage/mainPage/sideBar/administration/workingTime/visibility.spec.js",
-                  "line": 45,
+                  "line": 46,
                   "column": 11
                 },
                 {
@@ -427,14 +470,14 @@
                       "projectName": "chromium",
                       "results": [
                         {
-                          "workerIndex": 1,
+                          "workerIndex": 2,
                           "status": "passed",
-                          "duration": 5188,
+                          "duration": 5436,
                           "errors": [],
                           "stdout": [],
                           "stderr": [],
                           "retry": 0,
-                          "startTime": "2024-11-12T09:02:50.324Z",
+                          "startTime": "2024-11-12T09:51:06.723Z",
                           "attachments": [
                             {
                               "name": "trace",
@@ -449,7 +492,7 @@
                   ],
                   "id": "c999d60ee0d244c8b7f5-714c058d27eb8ad7104a",
                   "file": "admin/landingPage/mainPage/sideBar/administration/workingTime/visibility.spec.js",
-                  "line": 45,
+                  "line": 46,
                   "column": 11
                 },
                 {
@@ -472,12 +515,12 @@
                         {
                           "workerIndex": 4,
                           "status": "passed",
-                          "duration": 5746,
+                          "duration": 5780,
                           "errors": [],
                           "stdout": [],
                           "stderr": [],
                           "retry": 0,
-                          "startTime": "2024-11-12T09:02:50.637Z",
+                          "startTime": "2024-11-12T09:51:07.989Z",
                           "attachments": [
                             {
                               "name": "trace",
@@ -492,7 +535,7 @@
                   ],
                   "id": "c999d60ee0d244c8b7f5-af0a1e26688ca0e4d7e1",
                   "file": "admin/landingPage/mainPage/sideBar/administration/workingTime/visibility.spec.js",
-                  "line": 45,
+                  "line": 46,
                   "column": 11
                 },
                 {
@@ -513,14 +556,14 @@
                       "projectName": "chromium",
                       "results": [
                         {
-                          "workerIndex": 3,
+                          "workerIndex": 5,
                           "status": "passed",
-                          "duration": 5736,
+                          "duration": 6238,
                           "errors": [],
                           "stdout": [],
                           "stderr": [],
                           "retry": 0,
-                          "startTime": "2024-11-12T09:02:51.561Z",
+                          "startTime": "2024-11-12T09:51:08.248Z",
                           "attachments": [
                             {
                               "name": "trace",
@@ -535,7 +578,7 @@
                   ],
                   "id": "c999d60ee0d244c8b7f5-3f33cc415096b9b2c251",
                   "file": "admin/landingPage/mainPage/sideBar/administration/workingTime/visibility.spec.js",
-                  "line": 45,
+                  "line": 46,
                   "column": 11
                 },
                 {
@@ -556,14 +599,14 @@
                       "projectName": "chromium",
                       "results": [
                         {
-                          "workerIndex": 2,
+                          "workerIndex": 3,
                           "status": "passed",
-                          "duration": 5978,
+                          "duration": 6116,
                           "errors": [],
                           "stdout": [],
                           "stderr": [],
                           "retry": 0,
-                          "startTime": "2024-11-12T09:02:52.022Z",
+                          "startTime": "2024-11-12T09:51:09.011Z",
                           "attachments": [
                             {
                               "name": "trace",
@@ -578,7 +621,7 @@
                   ],
                   "id": "c999d60ee0d244c8b7f5-94adf7ceb1349eee2b79",
                   "file": "admin/landingPage/mainPage/sideBar/administration/workingTime/visibility.spec.js",
-                  "line": 45,
+                  "line": 46,
                   "column": 11
                 },
                 {
@@ -599,14 +642,14 @@
                       "projectName": "chromium",
                       "results": [
                         {
-                          "workerIndex": 1,
+                          "workerIndex": 2,
                           "status": "passed",
-                          "duration": 5517,
+                          "duration": 6111,
                           "errors": [],
                           "stdout": [],
                           "stderr": [],
                           "retry": 0,
-                          "startTime": "2024-11-12T09:02:55.584Z",
+                          "startTime": "2024-11-12T09:51:12.246Z",
                           "attachments": [
                             {
                               "name": "trace",
@@ -621,7 +664,7 @@
                   ],
                   "id": "c999d60ee0d244c8b7f5-01b16070d9eba25484a2",
                   "file": "admin/landingPage/mainPage/sideBar/administration/workingTime/visibility.spec.js",
-                  "line": 45,
+                  "line": 46,
                   "column": 11
                 }
               ]
@@ -629,7 +672,7 @@
             {
               "title": "Card Footer",
               "file": "admin/landingPage/mainPage/sideBar/administration/workingTime/visibility.spec.js",
-              "line": 66,
+              "line": 72,
               "column": 8,
               "specs": [
                 {
@@ -652,12 +695,12 @@
                         {
                           "workerIndex": 4,
                           "status": "passed",
-                          "duration": 5113,
+                          "duration": 5047,
                           "errors": [],
                           "stdout": [],
                           "stderr": [],
                           "retry": 0,
-                          "startTime": "2024-11-12T09:02:56.467Z",
+                          "startTime": "2024-11-12T09:51:14.115Z",
                           "attachments": [
                             {
                               "name": "trace",
@@ -672,7 +715,7 @@
                   ],
                   "id": "c999d60ee0d244c8b7f5-4aadf067add155a89a91",
                   "file": "admin/landingPage/mainPage/sideBar/administration/workingTime/visibility.spec.js",
-                  "line": 67,
+                  "line": 73,
                   "column": 9
                 }
               ]
@@ -684,11 +727,11 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2024-11-12T09:02:21.603Z",
-    "duration": 41664.590000000004,
-    "expected": 13,
+    "startTime": "2024-11-12T09:50:05.233Z",
+    "duration": 75327.755,
+    "expected": 12,
     "skipped": 0,
     "unexpected": 0,
-    "flaky": 0
+    "flaky": 1
   }
 }

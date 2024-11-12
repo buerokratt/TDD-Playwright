@@ -1,0 +1,7 @@
+Before checking inputs for some day, should consider WorkingHours are 24/7 switch to be turned off. 
+This can be done by adding before actual input tests this part of code:
+    const workingHoursSwitch = await page.getByLabel(`${translation.workingHoursAre247}`, { exact: true });
+    const isChecked = await workingHoursSwitch.getAttribute('aria-checked');
+    if (isChecked === 'true') {
+        await workingHoursSwitch.click();
+    }
