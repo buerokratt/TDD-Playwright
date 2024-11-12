@@ -97,12 +97,12 @@
                 {
                   "workerIndex": 0,
                   "status": "passed",
-                  "duration": 26325,
+                  "duration": 17156,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2024-11-12T07:35:22.100Z",
+                  "startTime": "2024-11-12T07:44:20.274Z",
                   "attachments": [
                     {
                       "name": "trace",
@@ -123,24 +123,24 @@
       ]
     },
     {
-      "title": "admin/landingPage/mainPage/sideBar/analytics/feedback/visbility.spec.js",
-      "file": "admin/landingPage/mainPage/sideBar/analytics/feedback/visbility.spec.js",
+      "title": "admin/landingPage/mainPage/sideBar/training/historicalConversations/history/visibility.spec.js",
+      "file": "admin/landingPage/mainPage/sideBar/training/historicalConversations/history/visibility.spec.js",
       "column": 0,
       "line": 0,
       "specs": [],
       "suites": [
         {
-          "title": "Analytics-Module",
-          "file": "admin/landingPage/mainPage/sideBar/analytics/feedback/visbility.spec.js",
+          "title": "Training-Module",
+          "file": "admin/landingPage/mainPage/sideBar/training/historicalConversations/history/visibility.spec.js",
           "line": 6,
           "column": 6,
           "specs": [],
           "suites": [
             {
               "title": "Main Heading",
-              "file": "admin/landingPage/mainPage/sideBar/analytics/feedback/visbility.spec.js",
+              "file": "admin/landingPage/mainPage/sideBar/training/historicalConversations/history/visibility.spec.js",
               "line": 14,
-              "column": 8,
+              "column": 10,
               "specs": [
                 {
                   "title": "should display main heading",
@@ -152,7 +152,7 @@
                       "annotations": [
                         {
                           "type": "repository",
-                          "description": "Analytics-Module"
+                          "description": "Training-Module"
                         }
                       ],
                       "expectedStatus": "passed",
@@ -162,17 +162,17 @@
                         {
                           "workerIndex": 1,
                           "status": "passed",
-                          "duration": 5810,
+                          "duration": 5952,
                           "errors": [],
                           "stdout": [],
                           "stderr": [],
                           "retry": 0,
-                          "startTime": "2024-11-12T07:35:49.305Z",
+                          "startTime": "2024-11-12T07:44:38.498Z",
                           "attachments": [
                             {
                               "name": "trace",
                               "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-a7b05-should-display-main-heading-chromium/trace.zip"
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-1baa2-should-display-main-heading-chromium/trace.zip"
                             }
                           ]
                         }
@@ -180,22 +180,22 @@
                       "status": "expected"
                     }
                   ],
-                  "id": "726a23d8a280368e21eb-5bd16c282e354f40043f",
-                  "file": "admin/landingPage/mainPage/sideBar/analytics/feedback/visbility.spec.js",
+                  "id": "1b9b36f4e3727b1b4915-1008aa3acb202e084994",
+                  "file": "admin/landingPage/mainPage/sideBar/training/historicalConversations/history/visibility.spec.js",
                   "line": 15,
-                  "column": 9
+                  "column": 13
                 }
               ]
             },
             {
-              "title": "Card Body",
-              "file": "admin/landingPage/mainPage/sideBar/analytics/feedback/visbility.spec.js",
+              "title": "Card Body - Search and Filter Options",
+              "file": "admin/landingPage/mainPage/sideBar/training/historicalConversations/history/visibility.spec.js",
               "line": 21,
-              "column": 8,
+              "column": 10,
               "specs": [
                 {
-                  "title": "should display label for Period",
-                  "ok": true,
+                  "title": "should display search input, date pickers, and multi-select dropdown",
+                  "ok": false,
                   "tags": [],
                   "tests": [
                     {
@@ -203,7 +203,7 @@
                       "annotations": [
                         {
                           "type": "repository",
-                          "description": "Analytics-Module"
+                          "description": "Training-Module"
                         }
                       ],
                       "expectedStatus": "passed",
@@ -212,33 +212,126 @@
                       "results": [
                         {
                           "workerIndex": 2,
-                          "status": "passed",
-                          "duration": 6638,
-                          "errors": [],
+                          "status": "failed",
+                          "duration": 11437,
+                          "error": {
+                            "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('.card__body').getByText('to', { exact: true })\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.card__body').getByText('to', { exact: true })\u001b[22m\n",
+                            "stack": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('.card__body').getByText('to', { exact: true })\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.card__body').getByText('to', { exact: true })\u001b[22m\n\n    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/training/historicalConversations/history/visibility.spec.js:33:35",
+                            "location": {
+                              "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/training/historicalConversations/history/visibility.spec.js",
+                              "column": 35,
+                              "line": 33
+                            },
+                            "snippet": "\u001b[0m \u001b[90m 31 |\u001b[39m             \u001b[36mawait\u001b[39m expect(fromLabel)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 32 |\u001b[39m             \u001b[36mawait\u001b[39m expect(startDatePicker)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 33 |\u001b[39m             \u001b[36mawait\u001b[39m expect(toLabel)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                   \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 34 |\u001b[39m             \u001b[36mawait\u001b[39m expect(endDatePicker)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 35 |\u001b[39m             \u001b[36mawait\u001b[39m expect(filterDropdown)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 36 |\u001b[39m         })\u001b[33m;\u001b[39m\u001b[0m"
+                          },
+                          "errors": [
+                            {
+                              "location": {
+                                "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/training/historicalConversations/history/visibility.spec.js",
+                                "column": 35,
+                                "line": 33
+                              },
+                              "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('.card__body').getByText('to', { exact: true })\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.card__body').getByText('to', { exact: true })\u001b[22m\n\n\n\u001b[0m \u001b[90m 31 |\u001b[39m             \u001b[36mawait\u001b[39m expect(fromLabel)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 32 |\u001b[39m             \u001b[36mawait\u001b[39m expect(startDatePicker)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 33 |\u001b[39m             \u001b[36mawait\u001b[39m expect(toLabel)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                   \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 34 |\u001b[39m             \u001b[36mawait\u001b[39m expect(endDatePicker)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 35 |\u001b[39m             \u001b[36mawait\u001b[39m expect(filterDropdown)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 36 |\u001b[39m         })\u001b[33m;\u001b[39m\u001b[0m\n\n\u001b[2m    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/training/historicalConversations/history/visibility.spec.js:33:35\u001b[22m"
+                            }
+                          ],
                           "stdout": [],
                           "stderr": [],
                           "retry": 0,
-                          "startTime": "2024-11-12T07:35:49.324Z",
+                          "startTime": "2024-11-12T07:44:38.488Z",
                           "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-7ea8f-s-and-multi-select-dropdown-chromium/test-failed-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-7ea8f-s-and-multi-select-dropdown-chromium/video.webm"
+                            },
                             {
                               "name": "trace",
                               "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-88ea4-ld-display-label-for-Period-chromium/trace.zip"
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-7ea8f-s-and-multi-select-dropdown-chromium/trace.zip"
                             }
-                          ]
+                          ],
+                          "errorLocation": {
+                            "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/training/historicalConversations/history/visibility.spec.js",
+                            "column": 35,
+                            "line": 33
+                          }
+                        },
+                        {
+                          "workerIndex": 5,
+                          "status": "failed",
+                          "duration": 13027,
+                          "error": {
+                            "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('.card__body').getByText('to', { exact: true })\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.card__body').getByText('to', { exact: true })\u001b[22m\n",
+                            "stack": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('.card__body').getByText('to', { exact: true })\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.card__body').getByText('to', { exact: true })\u001b[22m\n\n    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/training/historicalConversations/history/visibility.spec.js:33:35",
+                            "location": {
+                              "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/training/historicalConversations/history/visibility.spec.js",
+                              "column": 35,
+                              "line": 33
+                            },
+                            "snippet": "\u001b[0m \u001b[90m 31 |\u001b[39m             \u001b[36mawait\u001b[39m expect(fromLabel)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 32 |\u001b[39m             \u001b[36mawait\u001b[39m expect(startDatePicker)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 33 |\u001b[39m             \u001b[36mawait\u001b[39m expect(toLabel)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                   \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 34 |\u001b[39m             \u001b[36mawait\u001b[39m expect(endDatePicker)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 35 |\u001b[39m             \u001b[36mawait\u001b[39m expect(filterDropdown)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 36 |\u001b[39m         })\u001b[33m;\u001b[39m\u001b[0m"
+                          },
+                          "errors": [
+                            {
+                              "location": {
+                                "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/training/historicalConversations/history/visibility.spec.js",
+                                "column": 35,
+                                "line": 33
+                              },
+                              "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('.card__body').getByText('to', { exact: true })\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.card__body').getByText('to', { exact: true })\u001b[22m\n\n\n\u001b[0m \u001b[90m 31 |\u001b[39m             \u001b[36mawait\u001b[39m expect(fromLabel)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 32 |\u001b[39m             \u001b[36mawait\u001b[39m expect(startDatePicker)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 33 |\u001b[39m             \u001b[36mawait\u001b[39m expect(toLabel)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                   \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 34 |\u001b[39m             \u001b[36mawait\u001b[39m expect(endDatePicker)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 35 |\u001b[39m             \u001b[36mawait\u001b[39m expect(filterDropdown)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 36 |\u001b[39m         })\u001b[33m;\u001b[39m\u001b[0m\n\n\u001b[2m    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/training/historicalConversations/history/visibility.spec.js:33:35\u001b[22m"
+                            }
+                          ],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 1,
+                          "startTime": "2024-11-12T07:44:51.574Z",
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-7ea8f-s-and-multi-select-dropdown-chromium-retry1/test-failed-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-7ea8f-s-and-multi-select-dropdown-chromium-retry1/video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-7ea8f-s-and-multi-select-dropdown-chromium-retry1/trace.zip"
+                            }
+                          ],
+                          "errorLocation": {
+                            "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/training/historicalConversations/history/visibility.spec.js",
+                            "column": 35,
+                            "line": 33
+                          }
                         }
                       ],
-                      "status": "expected"
+                      "status": "unexpected"
                     }
                   ],
-                  "id": "726a23d8a280368e21eb-99bf18396a6e678a593a",
-                  "file": "admin/landingPage/mainPage/sideBar/analytics/feedback/visbility.spec.js",
+                  "id": "1b9b36f4e3727b1b4915-72a860787b35f8c8af62",
+                  "file": "admin/landingPage/mainPage/sideBar/training/historicalConversations/history/visibility.spec.js",
                   "line": 22,
-                  "column": 9
-                },
+                  "column": 13
+                }
+              ]
+            },
+            {
+              "title": "Card Body - Table Headers and Data",
+              "file": "admin/landingPage/mainPage/sideBar/training/historicalConversations/history/visibility.spec.js",
+              "line": 39,
+              "column": 10,
+              "specs": [
                 {
-                  "title": "should display Period buttons",
-                  "ok": true,
+                  "title": "should display table headers",
+                  "ok": false,
                   "tags": [],
                   "tests": [
                     {
@@ -246,7 +339,7 @@
                       "annotations": [
                         {
                           "type": "repository",
-                          "description": "Analytics-Module"
+                          "description": "Training-Module"
                         }
                       ],
                       "expectedStatus": "passed",
@@ -255,32 +348,117 @@
                       "results": [
                         {
                           "workerIndex": 3,
-                          "status": "passed",
-                          "duration": 6041,
-                          "errors": [],
+                          "status": "failed",
+                          "duration": 11675,
+                          "error": {
+                            "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('.card__body').getByText('Label', { exact: true })\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.card__body').getByText('Label', { exact: true })\u001b[22m\n",
+                            "stack": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('.card__body').getByText('Label', { exact: true })\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.card__body').getByText('Label', { exact: true })\u001b[22m\n\n    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/training/historicalConversations/history/visibility.spec.js:56:43",
+                            "location": {
+                              "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/training/historicalConversations/history/visibility.spec.js",
+                              "column": 43,
+                              "line": 56
+                            },
+                            "snippet": "\u001b[0m \u001b[90m 54 |\u001b[39m             \u001b[36mfor\u001b[39m (\u001b[36mconst\u001b[39m header \u001b[36mof\u001b[39m headers) {\n \u001b[90m 55 |\u001b[39m                 \u001b[36mconst\u001b[39m tableHeader \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'.card__body'\u001b[39m)\u001b[33m.\u001b[39mgetByText(\u001b[32m`${header}`\u001b[39m\u001b[33m,\u001b[39m { exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 56 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(tableHeader)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                           \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 57 |\u001b[39m             }\n \u001b[90m 58 |\u001b[39m         })\u001b[33m;\u001b[39m\n \u001b[90m 59 |\u001b[39m\u001b[0m"
+                          },
+                          "errors": [
+                            {
+                              "location": {
+                                "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/training/historicalConversations/history/visibility.spec.js",
+                                "column": 43,
+                                "line": 56
+                              },
+                              "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('.card__body').getByText('Label', { exact: true })\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.card__body').getByText('Label', { exact: true })\u001b[22m\n\n\n\u001b[0m \u001b[90m 54 |\u001b[39m             \u001b[36mfor\u001b[39m (\u001b[36mconst\u001b[39m header \u001b[36mof\u001b[39m headers) {\n \u001b[90m 55 |\u001b[39m                 \u001b[36mconst\u001b[39m tableHeader \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'.card__body'\u001b[39m)\u001b[33m.\u001b[39mgetByText(\u001b[32m`${header}`\u001b[39m\u001b[33m,\u001b[39m { exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 56 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(tableHeader)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                           \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 57 |\u001b[39m             }\n \u001b[90m 58 |\u001b[39m         })\u001b[33m;\u001b[39m\n \u001b[90m 59 |\u001b[39m\u001b[0m\n\n\u001b[2m    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/training/historicalConversations/history/visibility.spec.js:56:43\u001b[22m"
+                            }
+                          ],
                           "stdout": [],
                           "stderr": [],
                           "retry": 0,
-                          "startTime": "2024-11-12T07:35:49.387Z",
+                          "startTime": "2024-11-12T07:44:38.507Z",
                           "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-8cf16-hould-display-table-headers-chromium/test-failed-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-8cf16-hould-display-table-headers-chromium/video.webm"
+                            },
                             {
                               "name": "trace",
                               "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-152c9-ould-display-Period-buttons-chromium/trace.zip"
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-8cf16-hould-display-table-headers-chromium/trace.zip"
                             }
-                          ]
+                          ],
+                          "errorLocation": {
+                            "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/training/historicalConversations/history/visibility.spec.js",
+                            "column": 43,
+                            "line": 56
+                          }
+                        },
+                        {
+                          "workerIndex": 6,
+                          "status": "failed",
+                          "duration": 13596,
+                          "error": {
+                            "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('.card__body').getByText('Label', { exact: true })\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.card__body').getByText('Label', { exact: true })\u001b[22m\n",
+                            "stack": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('.card__body').getByText('Label', { exact: true })\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.card__body').getByText('Label', { exact: true })\u001b[22m\n\n    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/training/historicalConversations/history/visibility.spec.js:56:43",
+                            "location": {
+                              "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/training/historicalConversations/history/visibility.spec.js",
+                              "column": 43,
+                              "line": 56
+                            },
+                            "snippet": "\u001b[0m \u001b[90m 54 |\u001b[39m             \u001b[36mfor\u001b[39m (\u001b[36mconst\u001b[39m header \u001b[36mof\u001b[39m headers) {\n \u001b[90m 55 |\u001b[39m                 \u001b[36mconst\u001b[39m tableHeader \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'.card__body'\u001b[39m)\u001b[33m.\u001b[39mgetByText(\u001b[32m`${header}`\u001b[39m\u001b[33m,\u001b[39m { exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 56 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(tableHeader)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                           \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 57 |\u001b[39m             }\n \u001b[90m 58 |\u001b[39m         })\u001b[33m;\u001b[39m\n \u001b[90m 59 |\u001b[39m\u001b[0m"
+                          },
+                          "errors": [
+                            {
+                              "location": {
+                                "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/training/historicalConversations/history/visibility.spec.js",
+                                "column": 43,
+                                "line": 56
+                              },
+                              "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('.card__body').getByText('Label', { exact: true })\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.card__body').getByText('Label', { exact: true })\u001b[22m\n\n\n\u001b[0m \u001b[90m 54 |\u001b[39m             \u001b[36mfor\u001b[39m (\u001b[36mconst\u001b[39m header \u001b[36mof\u001b[39m headers) {\n \u001b[90m 55 |\u001b[39m                 \u001b[36mconst\u001b[39m tableHeader \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'.card__body'\u001b[39m)\u001b[33m.\u001b[39mgetByText(\u001b[32m`${header}`\u001b[39m\u001b[33m,\u001b[39m { exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 56 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(tableHeader)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                           \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 57 |\u001b[39m             }\n \u001b[90m 58 |\u001b[39m         })\u001b[33m;\u001b[39m\n \u001b[90m 59 |\u001b[39m\u001b[0m\n\n\u001b[2m    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/training/historicalConversations/history/visibility.spec.js:56:43\u001b[22m"
+                            }
+                          ],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 1,
+                          "startTime": "2024-11-12T07:44:51.807Z",
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-8cf16-hould-display-table-headers-chromium-retry1/test-failed-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-8cf16-hould-display-table-headers-chromium-retry1/video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-8cf16-hould-display-table-headers-chromium-retry1/trace.zip"
+                            }
+                          ],
+                          "errorLocation": {
+                            "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/training/historicalConversations/history/visibility.spec.js",
+                            "column": 43,
+                            "line": 56
+                          }
                         }
                       ],
-                      "status": "expected"
+                      "status": "unexpected"
                     }
                   ],
-                  "id": "726a23d8a280368e21eb-4b6fe81262046a90ed6f",
-                  "file": "admin/landingPage/mainPage/sideBar/analytics/feedback/visbility.spec.js",
-                  "line": 27,
-                  "column": 9
+                  "id": "1b9b36f4e3727b1b4915-6f706a016621b0b3767a",
+                  "file": "admin/landingPage/mainPage/sideBar/training/historicalConversations/history/visibility.spec.js",
+                  "line": 40,
+                  "column": 13
                 },
                 {
-                  "title": "should display label for Choose a metric",
+                  "title": "should display table data row and View button",
                   "ok": true,
                   "tags": [],
                   "tests": [
@@ -289,7 +467,7 @@
                       "annotations": [
                         {
                           "type": "repository",
-                          "description": "Analytics-Module"
+                          "description": "Training-Module"
                         }
                       ],
                       "expectedStatus": "passed",
@@ -299,17 +477,17 @@
                         {
                           "workerIndex": 4,
                           "status": "passed",
-                          "duration": 5294,
+                          "duration": 6432,
                           "errors": [],
                           "stdout": [],
                           "stderr": [],
                           "retry": 0,
-                          "startTime": "2024-11-12T07:35:49.380Z",
+                          "startTime": "2024-11-12T07:44:38.505Z",
                           "attachments": [
                             {
                               "name": "trace",
                               "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-aa030-y-label-for-Choose-a-metric-chromium/trace.zip"
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-97a88-le-data-row-and-View-button-chromium/trace.zip"
                             }
                           ]
                         }
@@ -317,13 +495,21 @@
                       "status": "expected"
                     }
                   ],
-                  "id": "726a23d8a280368e21eb-739834cda6a52e485d03",
-                  "file": "admin/landingPage/mainPage/sideBar/analytics/feedback/visbility.spec.js",
-                  "line": 41,
-                  "column": 9
-                },
+                  "id": "1b9b36f4e3727b1b4915-134170b44b2987ac6b3c",
+                  "file": "admin/landingPage/mainPage/sideBar/training/historicalConversations/history/visibility.spec.js",
+                  "line": 60,
+                  "column": 13
+                }
+              ]
+            },
+            {
+              "title": "Drawer Component",
+              "file": "admin/landingPage/mainPage/sideBar/training/historicalConversations/history/visibility.spec.js",
+              "line": 69,
+              "column": 10,
+              "specs": [
                 {
-                  "title": "should display metric buttons",
+                  "title": "should open drawer and display header, title, body, and messages",
                   "ok": true,
                   "tags": [],
                   "tests": [
@@ -332,50 +518,7 @@
                       "annotations": [
                         {
                           "type": "repository",
-                          "description": "Analytics-Module"
-                        }
-                      ],
-                      "expectedStatus": "passed",
-                      "projectId": "chromium",
-                      "projectName": "chromium",
-                      "results": [
-                        {
-                          "workerIndex": 4,
-                          "status": "passed",
-                          "duration": 5083,
-                          "errors": [],
-                          "stdout": [],
-                          "stderr": [],
-                          "retry": 0,
-                          "startTime": "2024-11-12T07:35:55.171Z",
-                          "attachments": [
-                            {
-                              "name": "trace",
-                              "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-ed154-ould-display-metric-buttons-chromium/trace.zip"
-                            }
-                          ]
-                        }
-                      ],
-                      "status": "expected"
-                    }
-                  ],
-                  "id": "726a23d8a280368e21eb-55679ba9c772ca731517",
-                  "file": "admin/landingPage/mainPage/sideBar/analytics/feedback/visbility.spec.js",
-                  "line": 46,
-                  "column": 9
-                },
-                {
-                  "title": "should display label for Additional Options",
-                  "ok": true,
-                  "tags": [],
-                  "tests": [
-                    {
-                      "timeout": 30000,
-                      "annotations": [
-                        {
-                          "type": "repository",
-                          "description": "Analytics-Module"
+                          "description": "Training-Module"
                         }
                       ],
                       "expectedStatus": "passed",
@@ -385,17 +528,17 @@
                         {
                           "workerIndex": 1,
                           "status": "passed",
-                          "duration": 5184,
+                          "duration": 5855,
                           "errors": [],
                           "stdout": [],
                           "stderr": [],
                           "retry": 0,
-                          "startTime": "2024-11-12T07:35:55.518Z",
+                          "startTime": "2024-11-12T07:44:44.871Z",
                           "attachments": [
                             {
                               "name": "trace",
                               "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-8c5d9-abel-for-Additional-Options-chromium/trace.zip"
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-3f1eb-der-title-body-and-messages-chromium/trace.zip"
                             }
                           ]
                         }
@@ -403,64 +546,21 @@
                       "status": "expected"
                     }
                   ],
-                  "id": "726a23d8a280368e21eb-29b64c16f8bf6ba863a6",
-                  "file": "admin/landingPage/mainPage/sideBar/analytics/feedback/visbility.spec.js",
-                  "line": 60,
-                  "column": 9
-                },
-                {
-                  "title": "should display checkbox options",
-                  "ok": true,
-                  "tags": [],
-                  "tests": [
-                    {
-                      "timeout": 30000,
-                      "annotations": [
-                        {
-                          "type": "repository",
-                          "description": "Analytics-Module"
-                        }
-                      ],
-                      "expectedStatus": "passed",
-                      "projectId": "chromium",
-                      "projectName": "chromium",
-                      "results": [
-                        {
-                          "workerIndex": 3,
-                          "status": "passed",
-                          "duration": 5719,
-                          "errors": [],
-                          "stdout": [],
-                          "stderr": [],
-                          "retry": 0,
-                          "startTime": "2024-11-12T07:35:56.061Z",
-                          "attachments": [
-                            {
-                              "name": "trace",
-                              "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-1c0d0-ld-display-checkbox-options-chromium/trace.zip"
-                            }
-                          ]
-                        }
-                      ],
-                      "status": "expected"
-                    }
-                  ],
-                  "id": "726a23d8a280368e21eb-ef4477affee326638d26",
-                  "file": "admin/landingPage/mainPage/sideBar/analytics/feedback/visbility.spec.js",
-                  "line": 65,
-                  "column": 9
+                  "id": "1b9b36f4e3727b1b4915-309a861ab82ca582c306",
+                  "file": "admin/landingPage/mainPage/sideBar/training/historicalConversations/history/visibility.spec.js",
+                  "line": 70,
+                  "column": 13
                 }
               ]
             },
             {
-              "title": "Card Header",
-              "file": "admin/landingPage/mainPage/sideBar/analytics/feedback/visbility.spec.js",
-              "line": 84,
-              "column": 8,
+              "title": "Pagination Controls",
+              "file": "admin/landingPage/mainPage/sideBar/training/historicalConversations/history/visibility.spec.js",
+              "line": 86,
+              "column": 10,
               "specs": [
                 {
-                  "title": "should display heading for Completed statuses",
+                  "title": "should display pagination label and dropdown with options",
                   "ok": true,
                   "tags": [],
                   "tests": [
@@ -469,50 +569,7 @@
                       "annotations": [
                         {
                           "type": "repository",
-                          "description": "Analytics-Module"
-                        }
-                      ],
-                      "expectedStatus": "passed",
-                      "projectId": "chromium",
-                      "projectName": "chromium",
-                      "results": [
-                        {
-                          "workerIndex": 2,
-                          "status": "passed",
-                          "duration": 5381,
-                          "errors": [],
-                          "stdout": [],
-                          "stderr": [],
-                          "retry": 0,
-                          "startTime": "2024-11-12T07:35:56.478Z",
-                          "attachments": [
-                            {
-                              "name": "trace",
-                              "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-3ba78-ding-for-Completed-statuses-chromium/trace.zip"
-                            }
-                          ]
-                        }
-                      ],
-                      "status": "expected"
-                    }
-                  ],
-                  "id": "726a23d8a280368e21eb-3bfa47713a8fa843b277",
-                  "file": "admin/landingPage/mainPage/sideBar/analytics/feedback/visbility.spec.js",
-                  "line": 85,
-                  "column": 9
-                },
-                {
-                  "title": "should display CSV button and dropdown",
-                  "ok": true,
-                  "tags": [],
-                  "tests": [
-                    {
-                      "timeout": 30000,
-                      "annotations": [
-                        {
-                          "type": "repository",
-                          "description": "Analytics-Module"
+                          "description": "Training-Module"
                         }
                       ],
                       "expectedStatus": "passed",
@@ -522,17 +579,17 @@
                         {
                           "workerIndex": 4,
                           "status": "passed",
-                          "duration": 4869,
+                          "duration": 6021,
                           "errors": [],
                           "stdout": [],
                           "stderr": [],
                           "retry": 0,
-                          "startTime": "2024-11-12T07:36:00.325Z",
+                          "startTime": "2024-11-12T07:44:45.359Z",
                           "attachments": [
                             {
                               "name": "trace",
                               "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-8ca77-lay-CSV-button-and-dropdown-chromium/trace.zip"
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-12f02-l-and-dropdown-with-options-chromium/trace.zip"
                             }
                           ]
                         }
@@ -540,10 +597,10 @@
                       "status": "expected"
                     }
                   ],
-                  "id": "726a23d8a280368e21eb-0b1feccc0defc8925f83",
-                  "file": "admin/landingPage/mainPage/sideBar/analytics/feedback/visbility.spec.js",
-                  "line": 90,
-                  "column": 9
+                  "id": "1b9b36f4e3727b1b4915-e5849a59c822bac96b95",
+                  "file": "admin/landingPage/mainPage/sideBar/training/historicalConversations/history/visibility.spec.js",
+                  "line": 87,
+                  "column": 13
                 }
               ]
             }
@@ -554,11 +611,11 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2024-11-12T07:35:21.458Z",
-    "duration": 43870.257,
-    "expected": 10,
+    "startTime": "2024-11-12T07:44:19.603Z",
+    "duration": 46185.228,
+    "expected": 5,
     "skipped": 0,
-    "unexpected": 0,
+    "unexpected": 2,
     "flaky": 0
   }
 }
