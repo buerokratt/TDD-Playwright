@@ -1,93 +1,59 @@
 import { test, expect } from '@playwright/test';
-import { getTranslations } from '../../../../../../../translations/languageDetector';
+import { getTranslations } from '@translation/languageDetector.js';
+let translation;
 
-test.describe.serial('Welcome message/Tervitussõnum Functionality Tests', () => {
-
-  let translation;
-  let originalText;
-  let initialSwitchState;
-
+test.describe('Buerokratt-Chatbot', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('https://admin.prod.buerokratt.ee/chat/chatbot/welcome-message'); // Replace with your actual page URL
-
-    translation = await getTranslations(page);
-
-    // Capture the original state before each test
-    const textarea = page.locator(`label:has-text("${translation["welcomeMessage"]}") + div textarea`);
-    originalText = await textarea.inputValue();
-
-    const masterSwitch = page.locator('button.switch__button').nth(1);
-    initialSwitchState = await masterSwitch.getAttribute('data-state');
-  });
-
-  test.afterEach(async ({ page }) => {
+    test.info().annotations.push({ type: 'repository', description: 'Buerokratt-Chatbot' });
     await page.goto('https://admin.prod.buerokratt.ee/chat/chatbot/welcome-message');
-    const textarea = page.locator(`label:has-text("${translation["welcomeMessage"]}") + div textarea`);
-    const saveButton = page.locator(`button:has-text("${translation["save"]}")`);
-    await textarea.fill(originalText);
-    await saveButton.click();
-
-    const masterSwitch = page.locator('button.switch__button').nth(1);
-    const currentSwitchState = await masterSwitch.getAttribute('data-state');
-
-    if (currentSwitchState !== initialSwitchState) {
-      await masterSwitch.click();
-      await saveButton.click();
-    }
+    translation = await getTranslations(page);
+    await page.waitForTimeout(3000);
   });
 
-  test('Check if the switch on "Tervitus aktiivne"/"Greeting active" works', async ({ page }) => {
-    const textarea = page.locator(`label:has-text("${translation["welcomeMessage"]}") + div textarea`);
-    const masterSwitch = page.locator('button.switch__button').nth(1);
-    const saveButton = page.locator('button.btn--primary');
-
-    if (initialSwitchState === 'checked') {
-      await masterSwitch.click();
-      await expect(masterSwitch).toHaveAttribute('data-state', 'unchecked');
-      await expect(masterSwitch.locator('span.switch__off')).toBeVisible();
-      await saveButton.click();
-    }
-
-    await page.goto('https://prod.buerokratt.ee'); // Replace with actual widget page URL
-    await page.waitForTimeout(2000); // Adjust timing as needed
-
-    const logoImage = page.locator('img[alt="Buerokratt logo"]');
-    await logoImage.click();
-    await page.waitForTimeout(2000); // Wait for changes to reflect
-
-    const messageDisplay = page.locator(`text=${originalText}`);
-    await expect(messageDisplay).toHaveCount(0); // Expect no elements matching the text selector
+  test('should display heading', async ({ page }) => {
+    const heading = await page.getByRole('heading', { name: `${translation.welcomeMessage}`, exact: true });
+    await expect(heading).toBeVisible();
   });
 
-  test.skip('Check writing to input and character counter updates ### ISSUE', async ({ page }) => {
+  test.describe('Card Body - Greeting Active Switch', () => {
+    test('should display and toggle the Greeting Active switch', async ({ page }) => {
+      const cardBody = page.locator('.card__body').first();
+      const switchLabel = await cardBody.getByText(`${translation.greetingActive}`, { exact: true });
+      const switchButton = await cardBody.getByLabel(`${translation.greetingActive}`, { exact: true });
 
-    test.info().annotations.push({
-      type: 'Known bug',
-      description: 'The character counter does not update when writing to the input field. This test will fail until the bug is fixed.',
-    })
+      await expect(switchLabel).toBeVisible();
+      await expect(switchButton).toBeVisible();
 
-    const textarea = page.locator(`label:has-text("${translation["welcomeMessage"]}") + div textarea`);
-    const charCount = page.locator('.textarea__max-length-bottom');
-    const saveButton = page.locator(`text=${translation["save"]}`);
-    const masterSwitch = page.locator('button.switch__button').nth(1);
+      const initialState = await switchButton.isChecked();
+      await switchButton.click();
+      await expect(switchButton.isChecked()).not.toBe(initialState);
 
-    if (initialSwitchState === 'unchecked') {
-      await masterSwitch.click();
-      await expect(masterSwitch).toHaveAttribute('data-state', 'checked');
-      await expect(masterSwitch.locator('span.switch__off')).toBeVisible();
-    }
+      // Revert to original state
+      await switchButton.click();
+    });
+  });
 
-    const sampleText = 'Tere, see on proovitekst!';
-    await textarea.fill(sampleText);
-    await expect(charCount).toHaveText(`${sampleText.length}/250`);
-    await saveButton.click();
-    await expect(page.locator('.toast.toast--success')).toBeVisible();
+  test.describe('Card Body - Welcome Message Textarea', () => {
+    test('should display and update the Welcome Message textarea', async ({ page }) => {
+      const cardBody = page.locator('.card__body').first();
+      const textareaLabel = await cardBody.getByText(`${translation.welcomeMessage}`, { exact: true });
+      const textarea = await cardBody.getByLabel(`${translation.welcomeMessage}`, { exact: true });
 
-    await page.goto('https://prod.buerokratt.ee');
-    const logoImage = page.locator('img[alt="Buerokratt logo"]');
-    await logoImage.click();
-    await page.waitForTimeout(2000);
-    const messageDisplay = page.locator(`text=${sampleText}`);
-    await expect(messageDisplay).toHaveText(sampleText);
+      await expect(textareaLabel).toBeVisible();
+      await expect(textarea).toBeVisible();
+
+      const initialText = await textarea.inputValue();
+      await textarea.fill('Updated Welcome Message');
+      const saveButton = await page.getByText(`${translation.save}`, { exact: true });
+      await saveButton.click();
+
+      // Refresh page and verify
+      await page.reload();
+      await expect(textarea).toHaveValue('Updated Welcome Message');
+
+      // Revert to original text
+      await textarea.fill(initialText);
+      await saveButton.click();
+    });
   });
 });

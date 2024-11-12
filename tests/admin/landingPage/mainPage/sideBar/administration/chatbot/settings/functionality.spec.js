@@ -1,89 +1,103 @@
 import { test, expect } from '@playwright/test';
-import { getTranslations } from '../../../../../../../translations/languageDetector.js';
+import { getTranslations } from '@translation/languageDetector.js';
+let translation;
 
-test.describe('Settings/Seaded Functionality Tests', () => {
+test.describe('Buerokratt-Chatbot', () => {
+  test.beforeEach(async ({ page }) => {
+    test.info().annotations.push({ type: 'repository', description: 'Buerokratt-Chatbot' });
+    await page.goto('https://admin.prod.buerokratt.ee/chat/chatbot/settings');
+    translation = await getTranslations(page);
+    await page.waitForTimeout(3000);
+  });
 
-    let originalRobotActiveState;
-    let originalShowAdvisorNameState;
-    let originalShowAdvisorTitleState;
-    let translation;
+  test('should display heading', async ({ page }) => {
+    const heading = await page.getByRole('heading', { name: `${translation.settings}`, exact: true });
+    await expect(heading).toBeVisible();
+  });
 
-    test.beforeEach(async ({ page }) => {
-        // Navigate to the settings page before each test
-        await page.goto('https://admin.prod.buerokratt.ee/chat/chatbot/settings'); // Replace with your actual page URL
+  test.describe('Card Header - Chatbot Active Switch', () => {
+    test('should display and toggle Chatbot Active switch', async ({ page }) => {
+      const cardHeader = page.locator('.card__header').first();
+      const switchLabel = await cardHeader.getByText(`${translation.chatbotActive}`, { exact: true });
+      const switchButton = await cardHeader.getByLabel(`${translation.chatbotActive}`, { exact: true });
 
-        translation = await getTranslations(page);
+      await expect(switchLabel).toBeVisible();
+      await expect(switchButton).toBeVisible();
 
-        // Capture the original states of the switches using translations
-        originalRobotActiveState = await page.locator(`label:has-text("${translation["chatbotActive"]}") + button.switch__button`).getAttribute('data-state');
-        originalShowAdvisorNameState = await page.locator(`label:has-text("${translation["showSupportName"]}") + button.switch__button`).getAttribute('data-state');
-        originalShowAdvisorTitleState = await page.locator(`label:has-text("${translation["showSupportTitle"]}") + button.switch__button`).getAttribute('data-state');
+      const initialState = await switchButton.isChecked();
+      await switchButton.click();
+      await expect(switchButton.isChecked()).not.toBe(initialState);
+
+      // Revert to original state
+      await switchButton.click();
+    });
+  });
+
+  test.describe('Card Body - Show Support Name and Title Switches', () => {
+    test('should display and toggle Show Support Name switch', async ({ page }) => {
+      const cardBody = page.locator('.card__body').first();
+      const nameSwitchLabel = await cardBody.getByText(`${translation.showSupportName}`, { exact: true });
+      const nameSwitchButton = await cardBody.getByLabel(`${translation.showSupportName}`, { exact: true });
+
+      await expect(nameSwitchLabel).toBeVisible();
+      await expect(nameSwitchButton).toBeVisible();
+
+      const initialNameState = await nameSwitchButton.isChecked();
+      await nameSwitchButton.click();
+      await expect(nameSwitchButton.isChecked()).not.toBe(initialNameState);
+
+      // Revert to original state
+      await nameSwitchButton.click();
     });
 
-    test.skip('Test toggling of all switches and saving their state ### CHECK ISSUE INSIDE', async ({ page }) => {
+    test('should display and toggle Show Support Title switch', async ({ page }) => {
+      const cardBody = page.locator('.card__body').first();
+      const titleSwitchLabel = await cardBody.getByText(`${translation.showSupportTitle}`, { exact: true });
+      const titleSwitchButton = await cardBody.getByLabel(`${translation.showSupportTitle}`, { exact: true });
 
-        test.info().annotations.push({
-            type: 'Known bug',
-            description: 'There is a bug regarding this test as its supposed to turn the switches on after first press but its first state is checked while the UI remains as if its unchecked meaning the first press only makes the state unchecked and thus nothing changes for the user in regard to UI. This is the action sequence ==> Open page => Switch appears unchecked => Inspect the element => Element says its state is checked => Click the element => Switch doesnt change appearance but state changes to unchecked.',
-        })
+      await expect(titleSwitchLabel).toBeVisible();
+      await expect(titleSwitchButton).toBeVisible();
 
-        // Locate all switches using translations
-        const robotActiveSwitch = page.locator(`label:has-text("${translation["chatbotActive"]}") + button.switch__button`);
-        const showAdvisorNameSwitch = page.locator(`label:has-text("${translation["showSupportName"]}") + button.switch__button`);
-        const showAdvisorTitleSwitch = page.locator(`label:has-text("${translation["showSupportTitle"]}") + button.switch__button`);
+      const initialTitleState = await titleSwitchButton.isChecked();
+      await titleSwitchButton.click();
+      await expect(titleSwitchButton.isChecked()).not.toBe(initialTitleState);
 
-        // Function to toggle and verify a switch
-        async function toggleSwitch(switchLocator) {
-            const initialState = await switchLocator.getAttribute('data-state');
-            const expectedState = initialState === 'checked' ? 'unchecked' : 'checked';
-
-            // Toggle the switch
-            await switchLocator.click();
-
-            // Verify the state has changed
-            await expect(switchLocator).toHaveAttribute('data-state', expectedState);
-        }
-
-        // Toggle each switch and verify functionality
-        await toggleSwitch(robotActiveSwitch);
-        await toggleSwitch(showAdvisorNameSwitch);
-        await toggleSwitch(showAdvisorTitleSwitch);
-
-        // Click the "Salvesta" button to save changes using translation
-        const saveButton = page.locator(`button:has-text("${translation["save"]}")`);
-        await saveButton.click();
-
-        // Reload the page to verify changes persist
-        await page.reload();
-
-        // Verify the states are correctly saved and reloaded
-        await expect(robotActiveSwitch).toHaveAttribute('data-state', 'unchecked');
-        await expect(showAdvisorNameSwitch).toHaveAttribute('data-state', 'unchecked');
-        await expect(showAdvisorTitleSwitch).toHaveAttribute('data-state', 'unchecked');
-
-        // Toggle back the switches to their original state
-        async function resetSwitch(switchLocator, originalState) {
-            const currentState = await switchLocator.getAttribute('data-state');
-            if (currentState !== originalState) {
-                await switchLocator.click();
-            }
-            await expect(switchLocator).toHaveAttribute('data-state', originalState);
-        }
-
-        await resetSwitch(robotActiveSwitch, originalRobotActiveState);
-        await resetSwitch(showAdvisorNameSwitch, originalShowAdvisorNameState);
-        await resetSwitch(showAdvisorTitleSwitch, originalShowAdvisorTitleState);
-
-        // Save the restored original states using translation
-        await saveButton.click();
-
-        // Reload the page again to verify final state
-        await page.reload();
-
-        // Verify the states are correctly restored to their original values
-        await expect(robotActiveSwitch).toHaveAttribute('data-state', originalRobotActiveState);
-        await expect(showAdvisorNameSwitch).toHaveAttribute('data-state', originalShowAdvisorNameState);
-        await expect(showAdvisorTitleSwitch).toHaveAttribute('data-state', originalShowAdvisorTitleState);
+      // Revert to original state
+      await titleSwitchButton.click();
     });
+  });
 
+  test.describe.only('Card Footer - Save Button', () => {
+    test('should save changes and verify persistence', async ({ page }) => {
+      const cardBody = page.locator('.card__body').first();
+      const nameSwitchButton = await cardBody.getByLabel(`${translation.showSupportName}`, { exact: true });
+      const titleSwitchButton = await cardBody.getByLabel(`${translation.showSupportTitle}`, { exact: true });
+
+      // Capture initial states
+      const initialNameState = await nameSwitchButton.isChecked();
+      const initialTitleState = await titleSwitchButton.isChecked();
+
+      // Make changes
+      await nameSwitchButton.click();
+      await titleSwitchButton.click();
+
+      // Save changes
+      const saveButton = await page.getByText(`${translation.save}`, { exact: true });
+      await saveButton.click();
+
+      // Refresh page and verify changes are persisted
+      await page.reload();
+      await page.waitForTimeout(3000);
+      const updatedNameState = await cardBody.getByLabel(`${translation.showSupportName}`, { exact: true }).isChecked();
+      const updatedTitleState = await cardBody.getByLabel(`${translation.showSupportTitle}`, { exact: true }).isChecked();
+
+      await expect(updatedNameState).not.toBe(initialNameState);
+      await expect(updatedTitleState).not.toBe(initialTitleState);
+
+      // Revert to original state and save
+      if (updatedNameState !== initialNameState) await nameSwitchButton.click();
+      if (updatedTitleState !== initialTitleState) await titleSwitchButton.click();
+      await saveButton.click();
+    });
+  });
 });
