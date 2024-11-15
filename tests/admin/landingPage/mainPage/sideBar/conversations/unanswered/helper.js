@@ -199,10 +199,27 @@ export async function takeOverFirstChat(page) {
 
 export function formatDate(date) {
     return date.toLocaleDateString('et-EE', {
-      weekday: 'long',
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric'
+        weekday: 'long',
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
     });
-  }
+}
+
+/**
+* Helper function to get all values from a specific column
+* @param {Locator} rows - Locator for the table rows
+* @param {number} columnIndex - Index of the column to extract
+* @returns {Promise<string[]>} - Array of column values
+*/
+export async function getColumnValues(rows, columnIndex) {
+    const rowCount = await rows.count();
+    const columnValues = [];
+
+    for (let i = 0; i < rowCount; i++) {
+        const cellText = await rows.nth(i).locator('td').nth(columnIndex).textContent();
+        columnValues.push(cellText ? cellText.trim() : '');
+    }
+    return columnValues;
+}
 

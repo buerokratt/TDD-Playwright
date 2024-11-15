@@ -11,7 +11,7 @@
     "grepInvert": null,
     "maxFailures": 0,
     "metadata": {
-      "actualWorkers": 1
+      "actualWorkers": 4
     },
     "preserveOutput": "always",
     "reporter": [
@@ -97,12 +97,12 @@
                 {
                   "workerIndex": 0,
                   "status": "passed",
-                  "duration": 18465,
+                  "duration": 18662,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2024-11-15T11:30:52.396Z",
+                  "startTime": "2024-11-15T12:53:43.854Z",
                   "attachments": [
                     {
                       "name": "trace",
@@ -134,7 +134,51 @@
           "file": "admin/landingPage/mainPage/sideBar/training/historicalConversations/history/functionality.spec.js",
           "line": 5,
           "column": 6,
-          "specs": [],
+          "specs": [
+            {
+              "title": "Test Dropdown render table based on selected option/options",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "repository",
+                      "description": "Training-Module"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "status": "passed",
+                      "duration": 7648,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-11-15T12:54:03.778Z",
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-a1499--on-selected-option-options-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "ffdfea1c074b703db3bf-650f72f0e8bc0bdfc3a1",
+              "file": "admin/landingPage/mainPage/sideBar/training/historicalConversations/history/functionality.spec.js",
+              "line": 88,
+              "column": 3
+            }
+          ],
           "suites": [
             {
               "title": "Search functionality",
@@ -143,7 +187,7 @@
               "column": 8,
               "specs": [
                 {
-                  "title": "should filter results using date pickers",
+                  "title": "should filter results based on search input 1",
                   "ok": true,
                   "tags": [],
                   "tests": [
@@ -162,12 +206,98 @@
                         {
                           "workerIndex": 1,
                           "status": "passed",
-                          "duration": 7359,
+                          "duration": 7885,
                           "errors": [],
                           "stdout": [],
                           "stderr": [],
                           "retry": 0,
-                          "startTime": "2024-11-15T11:31:11.704Z",
+                          "startTime": "2024-11-15T12:54:03.750Z",
+                          "attachments": [
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-f4591-lts-based-on-search-input-1-chromium/trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "ffdfea1c074b703db3bf-bcce8ea1777d18769cbb",
+                  "file": "admin/landingPage/mainPage/sideBar/training/historicalConversations/history/functionality.spec.js",
+                  "line": 15,
+                  "column": 5
+                },
+                {
+                  "title": "should filter results based on search input 2",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [
+                        {
+                          "type": "repository",
+                          "description": "Training-Module"
+                        }
+                      ],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 2,
+                          "status": "passed",
+                          "duration": 7756,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-11-15T12:54:03.810Z",
+                          "attachments": [
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-45a0e-lts-based-on-search-input-2-chromium/trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "ffdfea1c074b703db3bf-930cc480c04b59bec4e6",
+                  "file": "admin/landingPage/mainPage/sideBar/training/historicalConversations/history/functionality.spec.js",
+                  "line": 28,
+                  "column": 5
+                },
+                {
+                  "title": "should filter results using date pickers",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [
+                        {
+                          "type": "repository",
+                          "description": "Training-Module"
+                        }
+                      ],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 3,
+                          "status": "passed",
+                          "duration": 9289,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-11-15T12:54:03.814Z",
                           "attachments": [
                             {
                               "name": "trace",
@@ -183,7 +313,101 @@
                   "id": "ffdfea1c074b703db3bf-187562a83452c59bcf40",
                   "file": "admin/landingPage/mainPage/sideBar/training/historicalConversations/history/functionality.spec.js",
                   "line": 51,
-                  "column": 10
+                  "column": 5
+                }
+              ]
+            },
+            {
+              "title": "Sorting Tests",
+              "file": "admin/landingPage/mainPage/sideBar/training/historicalConversations/history/functionality.spec.js",
+              "line": 110,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "Ascending sort",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [
+                        {
+                          "type": "repository",
+                          "description": "Training-Module"
+                        }
+                      ],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 4,
+                          "status": "passed",
+                          "duration": 19022,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-11-15T12:54:12.115Z",
+                          "attachments": [
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-1eb6f-orting-Tests-Ascending-sort-chromium/trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "ffdfea1c074b703db3bf-cdab6a944490d18d7691",
+                  "file": "admin/landingPage/mainPage/sideBar/training/historicalConversations/history/functionality.spec.js",
+                  "line": 111,
+                  "column": 5
+                },
+                {
+                  "title": "Descending sort",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [
+                        {
+                          "type": "repository",
+                          "description": "Training-Module"
+                        }
+                      ],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 1,
+                          "status": "passed",
+                          "duration": 18718,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-11-15T12:54:12.317Z",
+                          "attachments": [
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-57bbf-rting-Tests-Descending-sort-chromium/trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "ffdfea1c074b703db3bf-0574f7cbb5a721fd1619",
+                  "file": "admin/landingPage/mainPage/sideBar/training/historicalConversations/history/functionality.spec.js",
+                  "line": 128,
+                  "column": 5
                 }
               ]
             }
@@ -194,9 +418,9 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2024-11-15T11:30:51.547Z",
-    "duration": 27883.25,
-    "expected": 2,
+    "startTime": "2024-11-15T12:53:43.113Z",
+    "duration": 48306.806,
+    "expected": 7,
     "skipped": 0,
     "unexpected": 0,
     "flaky": 0
