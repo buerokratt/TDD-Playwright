@@ -1,64 +1,117 @@
 const { test, expect } = require('@playwright/test');
 const { getTranslations } = require('@translation/languageDetector');
 
-test.describe('Table Sorting and Searching Automation', () => {
-  let translation;
+let translation;
+test.describe('Training-Module', () => {
 
   test.beforeEach(async ({ page }) => {
+    test.info().annotations.push({ type: 'repository', description: 'Training-Module' });
     await page.goto('https://admin.prod.buerokratt.ee/training/history/history');
     translation = await getTranslations(page);
-    await page.locator('table').waitFor({ state: 'visible' });
+    await page.waitForTimeout(3000);
+  });
+
+  test.describe('Search functionality', () => {
+    test('should filter results based on search input', async ({ page }) => {
+      const rows = page.locator('table tbody tr');
+      await expect(await rows.count()).toBeGreaterThan(0);
+
+      const searchInput = await page.getByPlaceholder(`${translation.searchChats}`, { exact: true });
+      const searchText = "Random@Text.!And+More...///Probs$%^&*";
+
+      await searchInput.fill(searchText);
+      await page.waitForTimeout(1000);
+
+      await expect(await rows.count()).toBe(0);
+    });
+
+    test('should filter results based on valid search input', async ({ page }) => {
+      const rows = page.locator('table tbody tr');
+      await expect(await rows.count()).toBeGreaterThan(0);
+
+      const idRowCell = rows.first().locator('td').nth(10);
+      const searchText = await idRowCell.textContent();
+      expect(searchText).toBeTruthy();
+
+      const searchInput = await page.getByPlaceholder(`${translation.searchChats}`, { exact: true });
+      await searchInput.fill(searchText);
+      await expect(searchInput).toHaveValue(searchText);
+      await page.waitForTimeout(1000);
+
+      // Verify filtered results
+      const filteredRows = rows;
+      const resultsCount = await filteredRows.count();
+      await expect(resultsCount).toBeGreaterThan(0);
+
+      // Validate each filtered row
+      for (let i = 0; i < resultsCount; i++) {
+        const cellText = await filteredRows.nth(i).locator('td').nth(10).textContent();
+        expect(cellText).toContain(searchText);
+      }
+    });
+
+    test.only('should filter results using date pickers', async ({ page }) => {
+      const datepickerStart = await page.locator(`.datepicker`).nth(0);
+      const datepickerEnd = await page.locator(`.datepicker`).nth(1);
+
+      await datepickerStart.fill('2023-01-01');
+      await datepickerEnd.fill('2023-12-31');
+      await datepickerEnd.press('Enter');
+
+      const results = await page.locator('.card__body table tbody tr');
+      await expect(results).toHaveCountGreaterThan(0); // Ensure rows are displayed
+    });
   });
 
   async function testSortingWorks({ page }, translationKey) {
-  
+
     await page.waitForTimeout(2000);
     const columnName = translation[translationKey];
-  
+
     // Get the column index based on the translated column name
     const headers = await page.locator('//table//thead//th').allTextContents();
     const columnIndex = headers.indexOf(columnName) + 1;
-  
+
     // Get all values in the column before sorting
     const columnCells = await page.locator(`xpath=//table//tr/td[${columnIndex}]`);
     const unsortedValues = (await columnCells.allTextContents()).map(val => val.trim());
-  
+
     // Handle empty or uniform data
     const uniqueValues = [...new Set(unsortedValues)];
     if (uniqueValues.length <= 1) {
       return;
     }
-  
+
     // Click to sort ascending
     await page.getByRole('cell', { name: columnName, exact: true }).getByRole('button').first().click();
     await page.waitForTimeout(2000); // Adjust timeout based on actual need
-  
+
     // Capture values after ascending sort
     const sortedAscValues = (await columnCells.allTextContents()).map(val => val.trim());
 
-  
+
     // Check that the values have changed after sorting ascending
     expect(sortedAscValues).not.toEqual(unsortedValues);
-  
+
     // Click again to sort descending
     await page.getByRole('cell', { name: columnName, exact: true }).getByRole('button').first().click();
     await page.waitForTimeout(2000); // Adjust timeout based on actual need
-  
+
     // Capture values after descending sort
     const sortedDescValues = (await columnCells.allTextContents()).map(val => val.trim());
-  
 
-  
+
+
     // Check if sorted values are the same
     const isSameAfterSort = (sortedAscValues.length === sortedDescValues.length) &&
-                            sortedAscValues.every((val, index) => val === sortedDescValues[index]);
-  
+      sortedAscValues.every((val, index) => val === sortedDescValues[index]);
+
     if (!isSameAfterSort) {
-        // Check that the values have changed again after sorting descending
-        expect(sortedDescValues).not.toEqual(sortedAscValues);
+      // Check that the values have changed again after sorting descending
+      expect(sortedDescValues).not.toEqual(sortedAscValues);
     }
   }
-  
+
 
   async function searchInTableWithDropdown({ page }, column) {
     const columnName = translation[column]; // Get the translated column name
@@ -220,7 +273,7 @@ test.describe('Table Sorting and Searching Automation', () => {
       await selectDate(startDateInput, '01.09.2024', { page });
       await selectDate(endDateInput, '31.12.2024', { page }); */
     });
-  
+
 
     test('Sort by endTime', async ({ page }) => {
       await testSortingWorks({ page }, 'endTime');

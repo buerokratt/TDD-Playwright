@@ -11,7 +11,7 @@
     "grepInvert": null,
     "maxFailures": 0,
     "metadata": {
-      "actualWorkers": 4
+      "actualWorkers": 1
     },
     "preserveOutput": "always",
     "reporter": [
@@ -97,7 +97,7 @@
                 {
                   "workerIndex": 0,
                   "status": "timedOut",
-                  "duration": 31235,
+                  "duration": 31435,
                   "error": {
                     "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
                     "stack": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
@@ -118,7 +118,7 @@
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2024-11-15T07:57:30.879Z",
+                  "startTime": "2024-11-15T10:50:00.816Z",
                   "attachments": [
                     {
                       "name": "screenshot",
@@ -140,12 +140,12 @@
                 {
                   "workerIndex": 1,
                   "status": "passed",
-                  "duration": 12468,
+                  "duration": 22602,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 1,
-                  "startTime": "2024-11-15T07:58:02.838Z",
+                  "startTime": "2024-11-15T10:50:33.111Z",
                   "attachments": [
                     {
                       "name": "trace",
@@ -166,584 +166,154 @@
       ]
     },
     {
-      "title": "admin/landingPage/mainPage/sideBar/training/training/themes/visibility.spec.js",
-      "file": "admin/landingPage/mainPage/sideBar/training/training/themes/visibility.spec.js",
+      "title": "admin/landingPage/mainPage/sideBar/training/historicalConversations/history/functionality.spec.js",
+      "file": "admin/landingPage/mainPage/sideBar/training/historicalConversations/history/functionality.spec.js",
       "column": 0,
       "line": 0,
       "specs": [],
       "suites": [
         {
-          "title": "Visibility Tests for \"Themes\"/\"Teemad\" left vertical tab",
-          "file": "admin/landingPage/mainPage/sideBar/training/training/themes/visibility.spec.js",
-          "line": 19,
+          "title": "Training-Module",
+          "file": "admin/landingPage/mainPage/sideBar/training/historicalConversations/history/functionality.spec.js",
+          "line": 5,
           "column": 6,
-          "specs": [
+          "specs": [],
+          "suites": [
             {
-              "title": "should have themes vertical listing tab",
-              "ok": true,
-              "tags": [],
-              "tests": [
+              "title": "Search functionality",
+              "file": "admin/landingPage/mainPage/sideBar/training/historicalConversations/history/functionality.spec.js",
+              "line": 14,
+              "column": 8,
+              "specs": [
                 {
-                  "timeout": 30000,
-                  "annotations": [
+                  "title": "should filter results using date pickers",
+                  "ok": false,
+                  "tags": [],
+                  "tests": [
                     {
-                      "type": "repository",
-                      "description": "Training-Module"
-                    }
-                  ],
-                  "expectedStatus": "passed",
-                  "projectId": "chromium",
-                  "projectName": "chromium",
-                  "results": [
-                    {
-                      "workerIndex": 2,
-                      "status": "passed",
-                      "duration": 8432,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2024-11-15T07:58:16.391Z",
-                      "attachments": [
+                      "timeout": 30000,
+                      "annotations": [
                         {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-bf9ca-themes-vertical-listing-tab-chromium/trace.zip"
+                          "type": "repository",
+                          "description": "Training-Module"
                         }
-                      ]
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "33e677ed388400f9a95e-f7431e13562b054d0a63",
-              "file": "admin/landingPage/mainPage/sideBar/training/training/themes/visibility.spec.js",
-              "line": 20,
-              "column": 9
-            },
-            {
-              "title": "Check visibility of the header",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 30000,
-                  "annotations": [
-                    {
-                      "type": "repository",
-                      "description": "Training-Module"
-                    }
-                  ],
-                  "expectedStatus": "passed",
-                  "projectId": "chromium",
-                  "projectName": "chromium",
-                  "results": [
-                    {
-                      "workerIndex": 3,
-                      "status": "passed",
-                      "duration": 7851,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2024-11-15T07:58:16.371Z",
-                      "attachments": [
+                      ],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
                         {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-fbb72-ck-visibility-of-the-header-chromium/trace.zip"
-                        }
-                      ]
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "33e677ed388400f9a95e-b717daeed61703150f04",
-              "file": "admin/landingPage/mainPage/sideBar/training/training/themes/visibility.spec.js",
-              "line": 25,
-              "column": 9
-            },
-            {
-              "title": "should have vertical tabs - navigation list and result selected element description",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 30000,
-                  "annotations": [
-                    {
-                      "type": "repository",
-                      "description": "Training-Module"
-                    }
-                  ],
-                  "expectedStatus": "passed",
-                  "projectId": "chromium",
-                  "projectName": "chromium",
-                  "results": [
-                    {
-                      "workerIndex": 4,
-                      "status": "passed",
-                      "duration": 7174,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2024-11-15T07:58:16.389Z",
-                      "attachments": [
+                          "workerIndex": 2,
+                          "status": "failed",
+                          "duration": 5920,
+                          "error": {
+                            "message": "Error: locator.fill: Error: Element is not an <input>, <textarea> or [contenteditable] element\nCall log:\n  \u001b[2m- waiting for locator('.datepicker').first()\u001b[22m\n\u001b[2m  -   locator resolved to <div class=\"datepicker\">…</div>\u001b[22m\n\u001b[2m  -   fill(\"2023-01-01\")\u001b[22m\n\u001b[2m  - attempting fill action\u001b[22m\n\u001b[2m  -   waiting for element to be visible, enabled and editable\u001b[22m\n",
+                            "stack": "Error: locator.fill: Error: Element is not an <input>, <textarea> or [contenteditable] element\nCall log:\n  \u001b[2m- waiting for locator('.datepicker').first()\u001b[22m\n\u001b[2m  -   locator resolved to <div class=\"datepicker\">…</div>\u001b[22m\n\u001b[2m  -   fill(\"2023-01-01\")\u001b[22m\n\u001b[2m  - attempting fill action\u001b[22m\n\u001b[2m  -   waiting for element to be visible, enabled and editable\u001b[22m\n\n    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/training/historicalConversations/history/functionality.spec.js:57:29",
+                            "location": {
+                              "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/training/historicalConversations/history/functionality.spec.js",
+                              "column": 29,
+                              "line": 57
+                            },
+                            "snippet": "\u001b[0m \u001b[90m 55 |\u001b[39m       \u001b[36mconst\u001b[39m datepickerEnd \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m`.datepicker`\u001b[39m)\u001b[33m.\u001b[39mnth(\u001b[35m1\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 56 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 57 |\u001b[39m       \u001b[36mawait\u001b[39m datepickerStart\u001b[33m.\u001b[39mfill(\u001b[32m'2023-01-01'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 58 |\u001b[39m       \u001b[36mawait\u001b[39m datepickerEnd\u001b[33m.\u001b[39mfill(\u001b[32m'2023-12-31'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 59 |\u001b[39m       \u001b[36mawait\u001b[39m datepickerEnd\u001b[33m.\u001b[39mpress(\u001b[32m'Enter'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 60 |\u001b[39m\u001b[0m"
+                          },
+                          "errors": [
+                            {
+                              "location": {
+                                "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/training/historicalConversations/history/functionality.spec.js",
+                                "column": 29,
+                                "line": 57
+                              },
+                              "message": "Error: locator.fill: Error: Element is not an <input>, <textarea> or [contenteditable] element\nCall log:\n  \u001b[2m- waiting for locator('.datepicker').first()\u001b[22m\n\u001b[2m  -   locator resolved to <div class=\"datepicker\">…</div>\u001b[22m\n\u001b[2m  -   fill(\"2023-01-01\")\u001b[22m\n\u001b[2m  - attempting fill action\u001b[22m\n\u001b[2m  -   waiting for element to be visible, enabled and editable\u001b[22m\n\n\n\u001b[0m \u001b[90m 55 |\u001b[39m       \u001b[36mconst\u001b[39m datepickerEnd \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m`.datepicker`\u001b[39m)\u001b[33m.\u001b[39mnth(\u001b[35m1\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 56 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 57 |\u001b[39m       \u001b[36mawait\u001b[39m datepickerStart\u001b[33m.\u001b[39mfill(\u001b[32m'2023-01-01'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 58 |\u001b[39m       \u001b[36mawait\u001b[39m datepickerEnd\u001b[33m.\u001b[39mfill(\u001b[32m'2023-12-31'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 59 |\u001b[39m       \u001b[36mawait\u001b[39m datepickerEnd\u001b[33m.\u001b[39mpress(\u001b[32m'Enter'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 60 |\u001b[39m\u001b[0m\n\n\u001b[2m    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/training/historicalConversations/history/functionality.spec.js:57:29\u001b[22m"
+                            }
+                          ],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-11-15T10:50:56.562Z",
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-6f140--results-using-date-pickers-chromium/test-failed-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-6f140--results-using-date-pickers-chromium/video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-6f140--results-using-date-pickers-chromium/trace.zip"
+                            }
+                          ],
+                          "errorLocation": {
+                            "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/training/historicalConversations/history/functionality.spec.js",
+                            "column": 29,
+                            "line": 57
+                          }
+                        },
                         {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-7edb0-elected-element-description-chromium/trace.zip"
+                          "workerIndex": 3,
+                          "status": "failed",
+                          "duration": 5463,
+                          "error": {
+                            "message": "Error: locator.fill: Error: Element is not an <input>, <textarea> or [contenteditable] element\nCall log:\n  \u001b[2m- waiting for locator('.datepicker').first()\u001b[22m\n\u001b[2m  -   locator resolved to <div class=\"datepicker\">…</div>\u001b[22m\n\u001b[2m  -   fill(\"2023-01-01\")\u001b[22m\n\u001b[2m  - attempting fill action\u001b[22m\n\u001b[2m  -   waiting for element to be visible, enabled and editable\u001b[22m\n",
+                            "stack": "Error: locator.fill: Error: Element is not an <input>, <textarea> or [contenteditable] element\nCall log:\n  \u001b[2m- waiting for locator('.datepicker').first()\u001b[22m\n\u001b[2m  -   locator resolved to <div class=\"datepicker\">…</div>\u001b[22m\n\u001b[2m  -   fill(\"2023-01-01\")\u001b[22m\n\u001b[2m  - attempting fill action\u001b[22m\n\u001b[2m  -   waiting for element to be visible, enabled and editable\u001b[22m\n\n    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/training/historicalConversations/history/functionality.spec.js:57:29",
+                            "location": {
+                              "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/training/historicalConversations/history/functionality.spec.js",
+                              "column": 29,
+                              "line": 57
+                            },
+                            "snippet": "\u001b[0m \u001b[90m 55 |\u001b[39m       \u001b[36mconst\u001b[39m datepickerEnd \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m`.datepicker`\u001b[39m)\u001b[33m.\u001b[39mnth(\u001b[35m1\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 56 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 57 |\u001b[39m       \u001b[36mawait\u001b[39m datepickerStart\u001b[33m.\u001b[39mfill(\u001b[32m'2023-01-01'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 58 |\u001b[39m       \u001b[36mawait\u001b[39m datepickerEnd\u001b[33m.\u001b[39mfill(\u001b[32m'2023-12-31'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 59 |\u001b[39m       \u001b[36mawait\u001b[39m datepickerEnd\u001b[33m.\u001b[39mpress(\u001b[32m'Enter'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 60 |\u001b[39m\u001b[0m"
+                          },
+                          "errors": [
+                            {
+                              "location": {
+                                "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/training/historicalConversations/history/functionality.spec.js",
+                                "column": 29,
+                                "line": 57
+                              },
+                              "message": "Error: locator.fill: Error: Element is not an <input>, <textarea> or [contenteditable] element\nCall log:\n  \u001b[2m- waiting for locator('.datepicker').first()\u001b[22m\n\u001b[2m  -   locator resolved to <div class=\"datepicker\">…</div>\u001b[22m\n\u001b[2m  -   fill(\"2023-01-01\")\u001b[22m\n\u001b[2m  - attempting fill action\u001b[22m\n\u001b[2m  -   waiting for element to be visible, enabled and editable\u001b[22m\n\n\n\u001b[0m \u001b[90m 55 |\u001b[39m       \u001b[36mconst\u001b[39m datepickerEnd \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m`.datepicker`\u001b[39m)\u001b[33m.\u001b[39mnth(\u001b[35m1\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 56 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 57 |\u001b[39m       \u001b[36mawait\u001b[39m datepickerStart\u001b[33m.\u001b[39mfill(\u001b[32m'2023-01-01'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 58 |\u001b[39m       \u001b[36mawait\u001b[39m datepickerEnd\u001b[33m.\u001b[39mfill(\u001b[32m'2023-12-31'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 59 |\u001b[39m       \u001b[36mawait\u001b[39m datepickerEnd\u001b[33m.\u001b[39mpress(\u001b[32m'Enter'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 60 |\u001b[39m\u001b[0m\n\n\u001b[2m    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/training/historicalConversations/history/functionality.spec.js:57:29\u001b[22m"
+                            }
+                          ],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 1,
+                          "startTime": "2024-11-15T10:51:03.315Z",
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-6f140--results-using-date-pickers-chromium-retry1/test-failed-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-6f140--results-using-date-pickers-chromium-retry1/video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-6f140--results-using-date-pickers-chromium-retry1/trace.zip"
+                            }
+                          ],
+                          "errorLocation": {
+                            "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/training/historicalConversations/history/functionality.spec.js",
+                            "column": 29,
+                            "line": 57
+                          }
                         }
-                      ]
+                      ],
+                      "status": "unexpected"
                     }
                   ],
-                  "status": "expected"
+                  "id": "ffdfea1c074b703db3bf-187562a83452c59bcf40",
+                  "file": "admin/landingPage/mainPage/sideBar/training/historicalConversations/history/functionality.spec.js",
+                  "line": 53,
+                  "column": 10
                 }
-              ],
-              "id": "33e677ed388400f9a95e-b845a3ddf80a10d45fba",
-              "file": "admin/landingPage/mainPage/sideBar/training/training/themes/visibility.spec.js",
-              "line": 30,
-              "column": 9
-            },
-            {
-              "title": "should have in vertical listing tab search input",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 30000,
-                  "annotations": [
-                    {
-                      "type": "repository",
-                      "description": "Training-Module"
-                    }
-                  ],
-                  "expectedStatus": "passed",
-                  "projectId": "chromium",
-                  "projectName": "chromium",
-                  "results": [
-                    {
-                      "workerIndex": 5,
-                      "status": "passed",
-                      "duration": 7819,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2024-11-15T07:58:16.447Z",
-                      "attachments": [
-                        {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-88092-al-listing-tab-search-input-chromium/trace.zip"
-                        }
-                      ]
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "33e677ed388400f9a95e-4f1322e4a961a215a33f",
-              "file": "admin/landingPage/mainPage/sideBar/training/training/themes/visibility.spec.js",
-              "line": 35,
-              "column": 9
-            },
-            {
-              "title": "should have in vertical listing tab add button",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 30000,
-                  "annotations": [
-                    {
-                      "type": "repository",
-                      "description": "Training-Module"
-                    }
-                  ],
-                  "expectedStatus": "passed",
-                  "projectId": "chromium",
-                  "projectName": "chromium",
-                  "results": [
-                    {
-                      "workerIndex": 4,
-                      "status": "passed",
-                      "duration": 6968,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2024-11-15T07:58:23.914Z",
-                      "attachments": [
-                        {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-16fd1-ical-listing-tab-add-button-chromium/trace.zip"
-                        }
-                      ]
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "33e677ed388400f9a95e-ed23a51da185be33ce1b",
-              "file": "admin/landingPage/mainPage/sideBar/training/training/themes/visibility.spec.js",
-              "line": 40,
-              "column": 9
-            }
-          ]
-        },
-        {
-          "title": "Visibility Tests for \"Themes\"/\"Teemad\" right vertical tab",
-          "file": "admin/landingPage/mainPage/sideBar/training/training/themes/visibility.spec.js",
-          "line": 47,
-          "column": 6,
-          "specs": [
-            {
-              "title": "should have vertical tab content header",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 30000,
-                  "annotations": [
-                    {
-                      "type": "repository",
-                      "description": "Training-Module"
-                    }
-                  ],
-                  "expectedStatus": "passed",
-                  "projectId": "chromium",
-                  "projectName": "chromium",
-                  "results": [
-                    {
-                      "workerIndex": 3,
-                      "status": "passed",
-                      "duration": 10343,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2024-11-15T07:58:24.665Z",
-                      "attachments": [
-                        {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-815e3-vertical-tab-content-header-chromium/trace.zip"
-                        }
-                      ]
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "33e677ed388400f9a95e-051c9586cf6fbe7fb91c",
-              "file": "admin/landingPage/mainPage/sideBar/training/training/themes/visibility.spec.js",
-              "line": 53,
-              "column": 9
-            },
-            {
-              "title": "should have vertical tab title (name) and change button",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 30000,
-                  "annotations": [
-                    {
-                      "type": "repository",
-                      "description": "Training-Module"
-                    }
-                  ],
-                  "expectedStatus": "passed",
-                  "projectId": "chromium",
-                  "projectName": "chromium",
-                  "results": [
-                    {
-                      "workerIndex": 5,
-                      "status": "passed",
-                      "duration": 10352,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2024-11-15T07:58:24.699Z",
-                      "attachments": [
-                        {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-4d781-itle-name-and-change-button-chromium/trace.zip"
-                        }
-                      ]
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "33e677ed388400f9a95e-83f9dde35e881f8d502f",
-              "file": "admin/landingPage/mainPage/sideBar/training/training/themes/visibility.spec.js",
-              "line": 59,
-              "column": 9
-            },
-            {
-              "title": "should have vertical tab examples upload examples, download examples, add to model, delete buttons",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 30000,
-                  "annotations": [
-                    {
-                      "type": "repository",
-                      "description": "Training-Module"
-                    }
-                  ],
-                  "expectedStatus": "passed",
-                  "projectId": "chromium",
-                  "projectName": "chromium",
-                  "results": [
-                    {
-                      "workerIndex": 2,
-                      "status": "passed",
-                      "duration": 10199,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2024-11-15T07:58:25.167Z",
-                      "attachments": [
-                        {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-69fa8-add-to-model-delete-buttons-chromium/trace.zip"
-                        }
-                      ]
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "33e677ed388400f9a95e-d494d2ee7dab5601d84b",
-              "file": "admin/landingPage/mainPage/sideBar/training/training/themes/visibility.spec.js",
-              "line": 67,
-              "column": 9
-            },
-            {
-              "title": "should have vertical tab content section",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 30000,
-                  "annotations": [
-                    {
-                      "type": "repository",
-                      "description": "Training-Module"
-                    }
-                  ],
-                  "expectedStatus": "passed",
-                  "projectId": "chromium",
-                  "projectName": "chromium",
-                  "results": [
-                    {
-                      "workerIndex": 4,
-                      "status": "passed",
-                      "duration": 8982,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2024-11-15T07:58:30.925Z",
-                      "attachments": [
-                        {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-33efc-ertical-tab-content-section-chromium/trace.zip"
-                        }
-                      ]
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "33e677ed388400f9a95e-e4a3da4c9bbd8bdd4ec3",
-              "file": "admin/landingPage/mainPage/sideBar/training/training/themes/visibility.spec.js",
-              "line": 82,
-              "column": 9
-            },
-            {
-              "title": "should have vertical tab data-table",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 30000,
-                  "annotations": [
-                    {
-                      "type": "repository",
-                      "description": "Training-Module"
-                    }
-                  ],
-                  "expectedStatus": "passed",
-                  "projectId": "chromium",
-                  "projectName": "chromium",
-                  "results": [
-                    {
-                      "workerIndex": 3,
-                      "status": "passed",
-                      "duration": 9800,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2024-11-15T07:58:35.205Z",
-                      "attachments": [
-                        {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-5b438-ave-vertical-tab-data-table-chromium/trace.zip"
-                        }
-                      ]
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "33e677ed388400f9a95e-a6abbffe29d200d089cd",
-              "file": "admin/landingPage/mainPage/sideBar/training/training/themes/visibility.spec.js",
-              "line": 88,
-              "column": 9
-            },
-            {
-              "title": "should have in vertical tab data-table text area with defined max length",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 30000,
-                  "annotations": [
-                    {
-                      "type": "repository",
-                      "description": "Training-Module"
-                    }
-                  ],
-                  "expectedStatus": "passed",
-                  "projectId": "chromium",
-                  "projectName": "chromium",
-                  "results": [
-                    {
-                      "workerIndex": 5,
-                      "status": "passed",
-                      "duration": 9292,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2024-11-15T07:58:35.248Z",
-                      "attachments": [
-                        {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-a1805-rea-with-defined-max-length-chromium/trace.zip"
-                        }
-                      ]
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "33e677ed388400f9a95e-7130d1cebdfb8b6f0faa",
-              "file": "admin/landingPage/mainPage/sideBar/training/training/themes/visibility.spec.js",
-              "line": 93,
-              "column": 9
-            },
-            {
-              "title": "should have in vertical tab data-table disabled add button if text area is empty",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 30000,
-                  "annotations": [
-                    {
-                      "type": "repository",
-                      "description": "Training-Module"
-                    }
-                  ],
-                  "expectedStatus": "passed",
-                  "projectId": "chromium",
-                  "projectName": "chromium",
-                  "results": [
-                    {
-                      "workerIndex": 2,
-                      "status": "passed",
-                      "duration": 9701,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2024-11-15T07:58:35.558Z",
-                      "attachments": [
-                        {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-3f357-utton-if-text-area-is-empty-chromium/trace.zip"
-                        }
-                      ]
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "33e677ed388400f9a95e-dc50e872aba9cd2c6e3f",
-              "file": "admin/landingPage/mainPage/sideBar/training/training/themes/visibility.spec.js",
-              "line": 100,
-              "column": 9
-            },
-            {
-              "title": "should have in vertical tab data-table enabled add button if text area is not empty",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 30000,
-                  "annotations": [
-                    {
-                      "type": "repository",
-                      "description": "Training-Module"
-                    }
-                  ],
-                  "expectedStatus": "passed",
-                  "projectId": "chromium",
-                  "projectName": "chromium",
-                  "results": [
-                    {
-                      "workerIndex": 4,
-                      "status": "passed",
-                      "duration": 9146,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2024-11-15T07:58:39.981Z",
-                      "attachments": [
-                        {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-32e00-n-if-text-area-is-not-empty-chromium/trace.zip"
-                        }
-                      ]
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "33e677ed388400f9a95e-fd0e37b12c9f94da70a3",
-              "file": "admin/landingPage/mainPage/sideBar/training/training/themes/visibility.spec.js",
-              "line": 112,
-              "column": 9
+              ]
             }
           ]
         }
@@ -752,11 +322,11 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2024-11-15T07:57:30.403Z",
-    "duration": 78860.972,
-    "expected": 13,
+    "startTime": "2024-11-15T10:49:59.961Z",
+    "duration": 69165.97499999999,
+    "expected": 0,
     "skipped": 0,
-    "unexpected": 0,
+    "unexpected": 1,
     "flaky": 1
   }
 }
