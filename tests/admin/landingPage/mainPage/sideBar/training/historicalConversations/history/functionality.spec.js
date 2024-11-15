@@ -145,7 +145,7 @@ test.describe('Training-Module', () => {
   });
 
   test.describe('Drawer tests', () => {
-    test.only('Clicking on view button should open drawer and close button should close it', async ({ page }) => {
+    test('Clicking on view button should open drawer and close button should close it', async ({ page }) => {
       test.fail("This should be improved", 'Add aria-label to close button for better accessibility');
 
       const rows = page.locator('table tbody tr');
