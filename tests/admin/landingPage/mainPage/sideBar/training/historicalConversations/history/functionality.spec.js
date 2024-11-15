@@ -106,7 +106,7 @@ test.describe('Training-Module', () => {
   });
 
 
-  // Sorting test
+  
   test.describe('Sorting Tests', () => {
     test('Ascending sort', async ({ page }) => {
       const tableHeaders = page.locator('table thead tr th');
@@ -142,6 +142,27 @@ test.describe('Training-Module', () => {
         await expect(orderAfterClick).toEqual(sortedDescending);
       }
     });
+  });
+
+  test.describe('Drawer tests', () => {
+    test.only('Clicking on view button should open drawer and close button should close it', async ({ page }) => {
+      test.fail("This should be improved", 'Add aria-label to close button for better accessibility');
+
+      const rows = page.locator('table tbody tr');
+      await expect(await rows.count()).toBeGreaterThan(0);
+      
+      const viewButton = await page.getByText(`${translation.view}`, { exact: true }).first();
+      await viewButton.click();
+
+      const drawer = page.locator('.drawer');
+      await expect(drawer).toBeVisible();
+
+      const closeButton = await page.locator('.drawer__close');
+      await closeButton.click();
+
+      await expect(drawer).not.toBeVisible();
+    })
+
 
   });
 })
