@@ -5,7 +5,7 @@ let translation;
 
 test.describe('Users', () => {
     test.beforeEach(async ({ page }) => {
-        test.info().annotations.push({ type: 'repository', description: 'Users' });
+        test.info().annotations.push({ type: 'repository', description: 'Buerokratt-Chatbot' });
 
         // Navigate to the page
         await page.goto('https://admin.prod.buerokratt.ee/chat/users');
