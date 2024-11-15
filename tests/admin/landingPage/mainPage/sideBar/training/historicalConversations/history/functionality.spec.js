@@ -83,58 +83,64 @@ test.describe('Training-Module', () => {
         expect(toDateCell).toContain(date2);
       }
     });
+
+
+    test('Test Dropdown render table based on selected option/options (1 option selected)', async ({ page }) => {
+      const tableHeaders = page.locator('table thead tr th');
+      await expect(await tableHeaders.count()).toBe(12);
+
+      const dropdown = await page.locator('.select');
+      await expect(dropdown).toBeVisible();
+      await dropdown.click();
+
+      // select option
+      const selectedOption = await page.getByRole('option', { name: `${translation.startTime}` });
+      const selectedOptionText = await selectedOption.textContent();
+      await selectedOption.click();
+
+      const headerCount = await tableHeaders.count();
+      expect(headerCount).toBe(1);
+
+      const renderedHeaderText = await tableHeaders.first().textContent();
+      expect(renderedHeaderText).toBe(selectedOptionText);
+    });
+
+    test('Test Dropdown render table based on selected option/options (2 options selected)', async ({ page }) => {
+      const tableHeaders = page.locator('table thead tr th');
+      await expect(await tableHeaders.count()).toBe(12);
+
+      const dropdown = await page.locator('.select');
+      await expect(dropdown).toBeVisible();
+      await dropdown.click();
+
+      // select options
+      const selectedOptionStartTime = await page.getByRole('option', { name: `${translation.startTime}` });
+      const selectedOptionEndTime = await page.getByRole('option', { name: `${translation.endTime}` });
+
+      const selectedOptionStartTimeText = await selectedOptionStartTime.textContent();
+      const selectedOptionEndTimeText = await selectedOptionEndTime.textContent();
+
+      await selectedOptionStartTime.click();
+      await selectedOptionEndTime.click();
+
+      const headerCount = await tableHeaders.count();
+      expect(headerCount).toBe(2);
+
+      const renderedHeaderStartTimeText = await tableHeaders.first().textContent();
+      expect(renderedHeaderStartTimeText).toBe(selectedOptionStartTimeText);
+
+      const renderedHeaderEndTimeText = await tableHeaders.nth(1).textContent();
+      expect(renderedHeaderEndTimeText).toBe(selectedOptionEndTimeText);
+    });
+
+
+    // test.only('Should show correctly Selected (count) in dropdown based on selected items count', async ({ page }) => {
+    //   const dropdown = await page.locator('.select');
+    //   const text = await dropdown.textContent();
+    // })
   });
 
-  test('Test Dropdown render table based on selected option/options (1 option selected)', async ({ page }) => {
-    const tableHeaders = page.locator('table thead tr th');
-    await expect(await tableHeaders.count()).toBe(12);
 
-    const dropdown = await page.locator('.select');
-    await expect(dropdown).toBeVisible();
-    await dropdown.click();
-
-    // select option
-    const selectedOption = await page.getByRole('option', { name: `${translation.startTime}` });
-    const selectedOptionText = await selectedOption.textContent();
-    await selectedOption.click();
-
-    const headerCount = await tableHeaders.count();
-    expect(headerCount).toBe(1);
-
-    const renderedHeaderText = await tableHeaders.first().textContent();
-    expect(renderedHeaderText).toBe(selectedOptionText);
-  });
-
-  test('Test Dropdown render table based on selected option/options (2 options selected)', async ({ page }) => {
-    const tableHeaders = page.locator('table thead tr th');
-    await expect(await tableHeaders.count()).toBe(12);
-
-    const dropdown = await page.locator('.select');
-    await expect(dropdown).toBeVisible();
-    await dropdown.click();
-
-    // select options
-    const selectedOptionStartTime = await page.getByRole('option', { name: `${translation.startTime}` });
-    const selectedOptionEndTime = await page.getByRole('option', { name: `${translation.endTime}` });
-    
-    const selectedOptionStartTimeText = await selectedOptionStartTime.textContent();
-    const selectedOptionEndTimeText = await selectedOptionEndTime.textContent();
-    
-    await selectedOptionStartTime.click();
-    await selectedOptionEndTime.click();
-
-    const headerCount = await tableHeaders.count();
-    expect(headerCount).toBe(2);
-
-    const renderedHeaderStartTimeText = await tableHeaders.first().textContent();
-    expect(renderedHeaderStartTimeText).toBe(selectedOptionStartTimeText);
-    
-    const renderedHeaderEndTimeText = await tableHeaders.nth(1).textContent();
-    expect(renderedHeaderEndTimeText).toBe(selectedOptionEndTimeText);
-  });
-
-
-  
   test.describe('Sorting Tests', () => {
     test('Ascending sort', async ({ page }) => {
       const tableHeaders = page.locator('table thead tr th');
@@ -178,7 +184,7 @@ test.describe('Training-Module', () => {
 
       const rows = page.locator('table tbody tr');
       await expect(await rows.count()).toBeGreaterThan(0);
-      
+
       const viewButton = await page.getByText(`${translation.view}`, { exact: true }).first();
       await viewButton.click();
 
