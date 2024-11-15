@@ -39,27 +39,49 @@ test.describe('Training-Module', () => {
       await page.waitForTimeout(1000);
 
       // Verify filtered results
-      const filteredRows = rows;
-      const resultsCount = await filteredRows.count();
-      await expect(resultsCount).toBeGreaterThan(0);
+      await expect(await rows.count()).toBeGreaterThan(0);
 
       // Validate each filtered row
-      for (let i = 0; i < resultsCount; i++) {
+      for (let i = 0; i < await rows.count(); i++) {
         const cellText = await filteredRows.nth(i).locator('td').nth(10).textContent();
         expect(cellText).toContain(searchText);
       }
     });
 
     test.only('should filter results using date pickers', async ({ page }) => {
+      const rows = page.locator('table tbody tr');
+      await expect(await rows.count()).toBeGreaterThan(0);
+
+      const fromDateRowCell = rows.first().locator('td').nth(0);
+      const dateTime1 = await fromDateRowCell.textContent();
+      expect(dateTime1).toBeTruthy();
+
+      const toDateRowCell = rows.first().locator('td').nth(1);
+      const dateTime2 = await toDateRowCell.textContent();
+      expect(dateTime2).toBeTruthy();
+
+      const date1 = dateTime1.split(' ')[0];
+      const date2 = dateTime2.split(' ')[0];
+
       const datepickerStart = await page.locator(`.datepicker`).nth(0);
       const datepickerEnd = await page.locator(`.datepicker`).nth(1);
 
-      await datepickerStart.fill('2023-01-01');
-      await datepickerEnd.fill('2023-12-31');
-      await datepickerEnd.press('Enter');
+      const datepickerStartInput = await datepickerStart.locator('input').first();
+      const datepickerEndInput = await datepickerEnd.locator('input').first();
+      await datepickerStartInput.fill(date1);
+      await datepickerEndInput.fill(date2);
+      await page.waitForTimeout(1000);
 
-      const results = await page.locator('.card__body table tbody tr');
-      await expect(results).toHaveCountGreaterThan(0); // Ensure rows are displayed
+      // Verify filtered results
+      await expect(await rows.count()).toBeGreaterThan(0);
+
+      // Validate each filtered row
+      for (let i = 0; i < await rows.count(); i++) {
+        const fromDateCell = await rows.nth(i).locator('td').nth(0).textContent();
+        const toDateCell = await rows.nth(i).locator('td').nth(1).textContent();
+        expect(fromDateCell).toContain(date1);
+        expect(toDateCell).toContain(date2);
+      }
     });
   });
 

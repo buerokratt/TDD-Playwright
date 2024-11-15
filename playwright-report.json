@@ -96,66 +96,23 @@
               "results": [
                 {
                   "workerIndex": 0,
-                  "status": "timedOut",
-                  "duration": 31435,
-                  "error": {
-                    "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
-                    "stack": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
-                  },
-                  "errors": [
-                    {
-                      "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
-                    },
-                    {
-                      "location": {
-                        "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/.auth/auth.setup.js",
-                        "column": 60,
-                        "line": 23
-                      },
-                      "message": "Error: locator.click: Test timeout of 30000ms exceeded.\nCall log:\n  \u001b[2m- waiting for getByRole('textbox', { name: 'Isikukood' })\u001b[22m\n\n\n\u001b[0m \u001b[90m 21 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m'link'\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m'Smart-ID'\u001b[39m\u001b[33m,\u001b[39m exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m.\u001b[39mclick()\u001b[33m;\u001b[39m\n \u001b[90m 22 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'.c-tab-login__nav-item'\u001b[39m)\u001b[33m.\u001b[39mnth(\u001b[35m2\u001b[39m)\u001b[33m.\u001b[39mclick()\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 23 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m'textbox'\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m'Isikukood'\u001b[39m })\u001b[33m.\u001b[39mclick()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                            \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 24 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m'textbox'\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m'Isikukood'\u001b[39m })\u001b[33m.\u001b[39mfill(\u001b[32m'30303039914'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 25 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m'button'\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m'Jätka'\u001b[39m })\u001b[33m.\u001b[39mclick()\u001b[33m;\u001b[39m\n \u001b[90m 26 |\u001b[39m\u001b[0m\n\n\u001b[2m    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/.auth/auth.setup.js:23:60\u001b[22m"
-                    }
-                  ],
+                  "status": "passed",
+                  "duration": 18465,
+                  "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2024-11-15T10:50:00.816Z",
+                  "startTime": "2024-11-15T11:30:52.396Z",
                   "attachments": [
-                    {
-                      "name": "screenshot",
-                      "contentType": "image/png",
-                      "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-.auth-auth.setup.js-authenticate-setup/test-failed-1.png"
-                    },
-                    {
-                      "name": "video",
-                      "contentType": "video/webm",
-                      "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-.auth-auth.setup.js-authenticate-setup/video.webm"
-                    },
                     {
                       "name": "trace",
                       "contentType": "application/zip",
                       "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-.auth-auth.setup.js-authenticate-setup/trace.zip"
                     }
                   ]
-                },
-                {
-                  "workerIndex": 1,
-                  "status": "passed",
-                  "duration": 22602,
-                  "errors": [],
-                  "stdout": [],
-                  "stderr": [],
-                  "retry": 1,
-                  "startTime": "2024-11-15T10:50:33.111Z",
-                  "attachments": [
-                    {
-                      "name": "trace",
-                      "contentType": "application/zip",
-                      "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-.auth-auth.setup.js-authenticate-setup-retry1/trace.zip"
-                    }
-                  ]
                 }
               ],
-              "status": "flaky"
+              "status": "expected"
             }
           ],
           "id": "f503efbbcff5c6fe97f9-912a85e5e9ef7f60a698",
@@ -187,7 +144,7 @@
               "specs": [
                 {
                   "title": "should filter results using date pickers",
-                  "ok": false,
+                  "ok": true,
                   "tags": [],
                   "tests": [
                     {
@@ -203,114 +160,29 @@
                       "projectName": "chromium",
                       "results": [
                         {
-                          "workerIndex": 2,
-                          "status": "failed",
-                          "duration": 5920,
-                          "error": {
-                            "message": "Error: locator.fill: Error: Element is not an <input>, <textarea> or [contenteditable] element\nCall log:\n  \u001b[2m- waiting for locator('.datepicker').first()\u001b[22m\n\u001b[2m  -   locator resolved to <div class=\"datepicker\">…</div>\u001b[22m\n\u001b[2m  -   fill(\"2023-01-01\")\u001b[22m\n\u001b[2m  - attempting fill action\u001b[22m\n\u001b[2m  -   waiting for element to be visible, enabled and editable\u001b[22m\n",
-                            "stack": "Error: locator.fill: Error: Element is not an <input>, <textarea> or [contenteditable] element\nCall log:\n  \u001b[2m- waiting for locator('.datepicker').first()\u001b[22m\n\u001b[2m  -   locator resolved to <div class=\"datepicker\">…</div>\u001b[22m\n\u001b[2m  -   fill(\"2023-01-01\")\u001b[22m\n\u001b[2m  - attempting fill action\u001b[22m\n\u001b[2m  -   waiting for element to be visible, enabled and editable\u001b[22m\n\n    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/training/historicalConversations/history/functionality.spec.js:57:29",
-                            "location": {
-                              "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/training/historicalConversations/history/functionality.spec.js",
-                              "column": 29,
-                              "line": 57
-                            },
-                            "snippet": "\u001b[0m \u001b[90m 55 |\u001b[39m       \u001b[36mconst\u001b[39m datepickerEnd \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m`.datepicker`\u001b[39m)\u001b[33m.\u001b[39mnth(\u001b[35m1\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 56 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 57 |\u001b[39m       \u001b[36mawait\u001b[39m datepickerStart\u001b[33m.\u001b[39mfill(\u001b[32m'2023-01-01'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 58 |\u001b[39m       \u001b[36mawait\u001b[39m datepickerEnd\u001b[33m.\u001b[39mfill(\u001b[32m'2023-12-31'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 59 |\u001b[39m       \u001b[36mawait\u001b[39m datepickerEnd\u001b[33m.\u001b[39mpress(\u001b[32m'Enter'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 60 |\u001b[39m\u001b[0m"
-                          },
-                          "errors": [
-                            {
-                              "location": {
-                                "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/training/historicalConversations/history/functionality.spec.js",
-                                "column": 29,
-                                "line": 57
-                              },
-                              "message": "Error: locator.fill: Error: Element is not an <input>, <textarea> or [contenteditable] element\nCall log:\n  \u001b[2m- waiting for locator('.datepicker').first()\u001b[22m\n\u001b[2m  -   locator resolved to <div class=\"datepicker\">…</div>\u001b[22m\n\u001b[2m  -   fill(\"2023-01-01\")\u001b[22m\n\u001b[2m  - attempting fill action\u001b[22m\n\u001b[2m  -   waiting for element to be visible, enabled and editable\u001b[22m\n\n\n\u001b[0m \u001b[90m 55 |\u001b[39m       \u001b[36mconst\u001b[39m datepickerEnd \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m`.datepicker`\u001b[39m)\u001b[33m.\u001b[39mnth(\u001b[35m1\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 56 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 57 |\u001b[39m       \u001b[36mawait\u001b[39m datepickerStart\u001b[33m.\u001b[39mfill(\u001b[32m'2023-01-01'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 58 |\u001b[39m       \u001b[36mawait\u001b[39m datepickerEnd\u001b[33m.\u001b[39mfill(\u001b[32m'2023-12-31'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 59 |\u001b[39m       \u001b[36mawait\u001b[39m datepickerEnd\u001b[33m.\u001b[39mpress(\u001b[32m'Enter'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 60 |\u001b[39m\u001b[0m\n\n\u001b[2m    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/training/historicalConversations/history/functionality.spec.js:57:29\u001b[22m"
-                            }
-                          ],
+                          "workerIndex": 1,
+                          "status": "passed",
+                          "duration": 7359,
+                          "errors": [],
                           "stdout": [],
                           "stderr": [],
                           "retry": 0,
-                          "startTime": "2024-11-15T10:50:56.562Z",
+                          "startTime": "2024-11-15T11:31:11.704Z",
                           "attachments": [
-                            {
-                              "name": "screenshot",
-                              "contentType": "image/png",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-6f140--results-using-date-pickers-chromium/test-failed-1.png"
-                            },
-                            {
-                              "name": "video",
-                              "contentType": "video/webm",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-6f140--results-using-date-pickers-chromium/video.webm"
-                            },
                             {
                               "name": "trace",
                               "contentType": "application/zip",
                               "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-6f140--results-using-date-pickers-chromium/trace.zip"
                             }
-                          ],
-                          "errorLocation": {
-                            "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/training/historicalConversations/history/functionality.spec.js",
-                            "column": 29,
-                            "line": 57
-                          }
-                        },
-                        {
-                          "workerIndex": 3,
-                          "status": "failed",
-                          "duration": 5463,
-                          "error": {
-                            "message": "Error: locator.fill: Error: Element is not an <input>, <textarea> or [contenteditable] element\nCall log:\n  \u001b[2m- waiting for locator('.datepicker').first()\u001b[22m\n\u001b[2m  -   locator resolved to <div class=\"datepicker\">…</div>\u001b[22m\n\u001b[2m  -   fill(\"2023-01-01\")\u001b[22m\n\u001b[2m  - attempting fill action\u001b[22m\n\u001b[2m  -   waiting for element to be visible, enabled and editable\u001b[22m\n",
-                            "stack": "Error: locator.fill: Error: Element is not an <input>, <textarea> or [contenteditable] element\nCall log:\n  \u001b[2m- waiting for locator('.datepicker').first()\u001b[22m\n\u001b[2m  -   locator resolved to <div class=\"datepicker\">…</div>\u001b[22m\n\u001b[2m  -   fill(\"2023-01-01\")\u001b[22m\n\u001b[2m  - attempting fill action\u001b[22m\n\u001b[2m  -   waiting for element to be visible, enabled and editable\u001b[22m\n\n    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/training/historicalConversations/history/functionality.spec.js:57:29",
-                            "location": {
-                              "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/training/historicalConversations/history/functionality.spec.js",
-                              "column": 29,
-                              "line": 57
-                            },
-                            "snippet": "\u001b[0m \u001b[90m 55 |\u001b[39m       \u001b[36mconst\u001b[39m datepickerEnd \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m`.datepicker`\u001b[39m)\u001b[33m.\u001b[39mnth(\u001b[35m1\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 56 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 57 |\u001b[39m       \u001b[36mawait\u001b[39m datepickerStart\u001b[33m.\u001b[39mfill(\u001b[32m'2023-01-01'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 58 |\u001b[39m       \u001b[36mawait\u001b[39m datepickerEnd\u001b[33m.\u001b[39mfill(\u001b[32m'2023-12-31'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 59 |\u001b[39m       \u001b[36mawait\u001b[39m datepickerEnd\u001b[33m.\u001b[39mpress(\u001b[32m'Enter'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 60 |\u001b[39m\u001b[0m"
-                          },
-                          "errors": [
-                            {
-                              "location": {
-                                "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/training/historicalConversations/history/functionality.spec.js",
-                                "column": 29,
-                                "line": 57
-                              },
-                              "message": "Error: locator.fill: Error: Element is not an <input>, <textarea> or [contenteditable] element\nCall log:\n  \u001b[2m- waiting for locator('.datepicker').first()\u001b[22m\n\u001b[2m  -   locator resolved to <div class=\"datepicker\">…</div>\u001b[22m\n\u001b[2m  -   fill(\"2023-01-01\")\u001b[22m\n\u001b[2m  - attempting fill action\u001b[22m\n\u001b[2m  -   waiting for element to be visible, enabled and editable\u001b[22m\n\n\n\u001b[0m \u001b[90m 55 |\u001b[39m       \u001b[36mconst\u001b[39m datepickerEnd \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m`.datepicker`\u001b[39m)\u001b[33m.\u001b[39mnth(\u001b[35m1\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 56 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 57 |\u001b[39m       \u001b[36mawait\u001b[39m datepickerStart\u001b[33m.\u001b[39mfill(\u001b[32m'2023-01-01'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 58 |\u001b[39m       \u001b[36mawait\u001b[39m datepickerEnd\u001b[33m.\u001b[39mfill(\u001b[32m'2023-12-31'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 59 |\u001b[39m       \u001b[36mawait\u001b[39m datepickerEnd\u001b[33m.\u001b[39mpress(\u001b[32m'Enter'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 60 |\u001b[39m\u001b[0m\n\n\u001b[2m    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/training/historicalConversations/history/functionality.spec.js:57:29\u001b[22m"
-                            }
-                          ],
-                          "stdout": [],
-                          "stderr": [],
-                          "retry": 1,
-                          "startTime": "2024-11-15T10:51:03.315Z",
-                          "attachments": [
-                            {
-                              "name": "screenshot",
-                              "contentType": "image/png",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-6f140--results-using-date-pickers-chromium-retry1/test-failed-1.png"
-                            },
-                            {
-                              "name": "video",
-                              "contentType": "video/webm",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-6f140--results-using-date-pickers-chromium-retry1/video.webm"
-                            },
-                            {
-                              "name": "trace",
-                              "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-6f140--results-using-date-pickers-chromium-retry1/trace.zip"
-                            }
-                          ],
-                          "errorLocation": {
-                            "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/training/historicalConversations/history/functionality.spec.js",
-                            "column": 29,
-                            "line": 57
-                          }
+                          ]
                         }
                       ],
-                      "status": "unexpected"
+                      "status": "expected"
                     }
                   ],
                   "id": "ffdfea1c074b703db3bf-187562a83452c59bcf40",
                   "file": "admin/landingPage/mainPage/sideBar/training/historicalConversations/history/functionality.spec.js",
-                  "line": 53,
+                  "line": 51,
                   "column": 10
                 }
               ]
@@ -322,11 +194,11 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2024-11-15T10:49:59.961Z",
-    "duration": 69165.97499999999,
-    "expected": 0,
+    "startTime": "2024-11-15T11:30:51.547Z",
+    "duration": 27883.25,
+    "expected": 2,
     "skipped": 0,
-    "unexpected": 1,
-    "flaky": 1
+    "unexpected": 0,
+    "flaky": 0
   }
 }
