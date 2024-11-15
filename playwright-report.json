@@ -11,7 +11,7 @@
     "grepInvert": null,
     "maxFailures": 0,
     "metadata": {
-      "actualWorkers": 2
+      "actualWorkers": 4
     },
     "preserveOutput": "always",
     "reporter": [
@@ -96,23 +96,66 @@
               "results": [
                 {
                   "workerIndex": 0,
-                  "status": "passed",
-                  "duration": 10822,
-                  "errors": [],
+                  "status": "timedOut",
+                  "duration": 31235,
+                  "error": {
+                    "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
+                    "stack": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+                  },
+                  "errors": [
+                    {
+                      "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+                    },
+                    {
+                      "location": {
+                        "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/.auth/auth.setup.js",
+                        "column": 60,
+                        "line": 23
+                      },
+                      "message": "Error: locator.click: Test timeout of 30000ms exceeded.\nCall log:\n  \u001b[2m- waiting for getByRole('textbox', { name: 'Isikukood' })\u001b[22m\n\n\n\u001b[0m \u001b[90m 21 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m'link'\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m'Smart-ID'\u001b[39m\u001b[33m,\u001b[39m exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m.\u001b[39mclick()\u001b[33m;\u001b[39m\n \u001b[90m 22 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'.c-tab-login__nav-item'\u001b[39m)\u001b[33m.\u001b[39mnth(\u001b[35m2\u001b[39m)\u001b[33m.\u001b[39mclick()\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 23 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m'textbox'\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m'Isikukood'\u001b[39m })\u001b[33m.\u001b[39mclick()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                            \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 24 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m'textbox'\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m'Isikukood'\u001b[39m })\u001b[33m.\u001b[39mfill(\u001b[32m'30303039914'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 25 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m'button'\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m'Jätka'\u001b[39m })\u001b[33m.\u001b[39mclick()\u001b[33m;\u001b[39m\n \u001b[90m 26 |\u001b[39m\u001b[0m\n\n\u001b[2m    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/.auth/auth.setup.js:23:60\u001b[22m"
+                    }
+                  ],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2024-11-12T13:32:26.258Z",
+                  "startTime": "2024-11-15T07:57:30.879Z",
                   "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-.auth-auth.setup.js-authenticate-setup/test-failed-1.png"
+                    },
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-.auth-auth.setup.js-authenticate-setup/video.webm"
+                    },
                     {
                       "name": "trace",
                       "contentType": "application/zip",
                       "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-.auth-auth.setup.js-authenticate-setup/trace.zip"
                     }
                   ]
+                },
+                {
+                  "workerIndex": 1,
+                  "status": "passed",
+                  "duration": 12468,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 1,
+                  "startTime": "2024-11-15T07:58:02.838Z",
+                  "attachments": [
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-.auth-auth.setup.js-authenticate-setup-retry1/trace.zip"
+                    }
+                  ]
                 }
               ],
-              "status": "expected"
+              "status": "flaky"
             }
           ],
           "id": "f503efbbcff5c6fe97f9-912a85e5e9ef7f60a698",
@@ -123,20 +166,20 @@
       ]
     },
     {
-      "title": "admin/landingPage/mainPage/sideBar/administration/users/visbility.spec.js",
-      "file": "admin/landingPage/mainPage/sideBar/administration/users/visbility.spec.js",
+      "title": "admin/landingPage/mainPage/sideBar/training/training/themes/visibility.spec.js",
+      "file": "admin/landingPage/mainPage/sideBar/training/training/themes/visibility.spec.js",
       "column": 0,
       "line": 0,
       "specs": [],
       "suites": [
         {
-          "title": "Full Visibility Test for User Management Page",
-          "file": "admin/landingPage/mainPage/sideBar/administration/users/visbility.spec.js",
-          "line": 5,
+          "title": "Visibility Tests for \"Themes\"/\"Teemad\" left vertical tab",
+          "file": "admin/landingPage/mainPage/sideBar/training/training/themes/visibility.spec.js",
+          "line": 19,
           "column": 6,
           "specs": [
             {
-              "title": "Check row actions (Edit and Delete)",
+              "title": "should have themes vertical listing tab",
               "ok": true,
               "tags": [],
               "tests": [
@@ -145,50 +188,7 @@
                   "annotations": [
                     {
                       "type": "repository",
-                      "description": "Buerokratt-Chatbot"
-                    }
-                  ],
-                  "expectedStatus": "passed",
-                  "projectId": "chromium",
-                  "projectName": "chromium",
-                  "results": [
-                    {
-                      "workerIndex": 1,
-                      "status": "passed",
-                      "duration": 3342,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2024-11-12T13:32:38.048Z",
-                      "attachments": [
-                        {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-b0169-ow-actions-Edit-and-Delete--chromium/trace.zip"
-                        }
-                      ]
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "504fe613e87061efc1ee-1d8e4fe9efb57d507353",
-              "file": "admin/landingPage/mainPage/sideBar/administration/users/visbility.spec.js",
-              "line": 51,
-              "column": 10
-            },
-            {
-              "title": "Verify pagination controls",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 30000,
-                  "annotations": [
-                    {
-                      "type": "repository",
-                      "description": "Buerokratt-Chatbot"
+                      "description": "Training-Module"
                     }
                   ],
                   "expectedStatus": "passed",
@@ -198,17 +198,17 @@
                     {
                       "workerIndex": 2,
                       "status": "passed",
-                      "duration": 3717,
+                      "duration": 8432,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2024-11-12T13:32:38.065Z",
+                      "startTime": "2024-11-15T07:58:16.391Z",
                       "attachments": [
                         {
                           "name": "trace",
                           "contentType": "application/zip",
-                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-bed44--Verify-pagination-controls-chromium/trace.zip"
+                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-bf9ca-themes-vertical-listing-tab-chromium/trace.zip"
                         }
                       ]
                     }
@@ -216,10 +216,534 @@
                   "status": "expected"
                 }
               ],
-              "id": "504fe613e87061efc1ee-eaf87822fba5534c3d06",
-              "file": "admin/landingPage/mainPage/sideBar/administration/users/visbility.spec.js",
-              "line": 61,
-              "column": 10
+              "id": "33e677ed388400f9a95e-f7431e13562b054d0a63",
+              "file": "admin/landingPage/mainPage/sideBar/training/training/themes/visibility.spec.js",
+              "line": 20,
+              "column": 9
+            },
+            {
+              "title": "Check visibility of the header",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "repository",
+                      "description": "Training-Module"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "status": "passed",
+                      "duration": 7851,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-11-15T07:58:16.371Z",
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-fbb72-ck-visibility-of-the-header-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "33e677ed388400f9a95e-b717daeed61703150f04",
+              "file": "admin/landingPage/mainPage/sideBar/training/training/themes/visibility.spec.js",
+              "line": 25,
+              "column": 9
+            },
+            {
+              "title": "should have vertical tabs - navigation list and result selected element description",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "repository",
+                      "description": "Training-Module"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "status": "passed",
+                      "duration": 7174,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-11-15T07:58:16.389Z",
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-7edb0-elected-element-description-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "33e677ed388400f9a95e-b845a3ddf80a10d45fba",
+              "file": "admin/landingPage/mainPage/sideBar/training/training/themes/visibility.spec.js",
+              "line": 30,
+              "column": 9
+            },
+            {
+              "title": "should have in vertical listing tab search input",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "repository",
+                      "description": "Training-Module"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 5,
+                      "status": "passed",
+                      "duration": 7819,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-11-15T07:58:16.447Z",
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-88092-al-listing-tab-search-input-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "33e677ed388400f9a95e-4f1322e4a961a215a33f",
+              "file": "admin/landingPage/mainPage/sideBar/training/training/themes/visibility.spec.js",
+              "line": 35,
+              "column": 9
+            },
+            {
+              "title": "should have in vertical listing tab add button",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "repository",
+                      "description": "Training-Module"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "status": "passed",
+                      "duration": 6968,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-11-15T07:58:23.914Z",
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-16fd1-ical-listing-tab-add-button-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "33e677ed388400f9a95e-ed23a51da185be33ce1b",
+              "file": "admin/landingPage/mainPage/sideBar/training/training/themes/visibility.spec.js",
+              "line": 40,
+              "column": 9
+            }
+          ]
+        },
+        {
+          "title": "Visibility Tests for \"Themes\"/\"Teemad\" right vertical tab",
+          "file": "admin/landingPage/mainPage/sideBar/training/training/themes/visibility.spec.js",
+          "line": 47,
+          "column": 6,
+          "specs": [
+            {
+              "title": "should have vertical tab content header",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "repository",
+                      "description": "Training-Module"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "status": "passed",
+                      "duration": 10343,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-11-15T07:58:24.665Z",
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-815e3-vertical-tab-content-header-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "33e677ed388400f9a95e-051c9586cf6fbe7fb91c",
+              "file": "admin/landingPage/mainPage/sideBar/training/training/themes/visibility.spec.js",
+              "line": 53,
+              "column": 9
+            },
+            {
+              "title": "should have vertical tab title (name) and change button",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "repository",
+                      "description": "Training-Module"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 5,
+                      "status": "passed",
+                      "duration": 10352,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-11-15T07:58:24.699Z",
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-4d781-itle-name-and-change-button-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "33e677ed388400f9a95e-83f9dde35e881f8d502f",
+              "file": "admin/landingPage/mainPage/sideBar/training/training/themes/visibility.spec.js",
+              "line": 59,
+              "column": 9
+            },
+            {
+              "title": "should have vertical tab examples upload examples, download examples, add to model, delete buttons",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "repository",
+                      "description": "Training-Module"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "status": "passed",
+                      "duration": 10199,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-11-15T07:58:25.167Z",
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-69fa8-add-to-model-delete-buttons-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "33e677ed388400f9a95e-d494d2ee7dab5601d84b",
+              "file": "admin/landingPage/mainPage/sideBar/training/training/themes/visibility.spec.js",
+              "line": 67,
+              "column": 9
+            },
+            {
+              "title": "should have vertical tab content section",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "repository",
+                      "description": "Training-Module"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "status": "passed",
+                      "duration": 8982,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-11-15T07:58:30.925Z",
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-33efc-ertical-tab-content-section-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "33e677ed388400f9a95e-e4a3da4c9bbd8bdd4ec3",
+              "file": "admin/landingPage/mainPage/sideBar/training/training/themes/visibility.spec.js",
+              "line": 82,
+              "column": 9
+            },
+            {
+              "title": "should have vertical tab data-table",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "repository",
+                      "description": "Training-Module"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "status": "passed",
+                      "duration": 9800,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-11-15T07:58:35.205Z",
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-5b438-ave-vertical-tab-data-table-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "33e677ed388400f9a95e-a6abbffe29d200d089cd",
+              "file": "admin/landingPage/mainPage/sideBar/training/training/themes/visibility.spec.js",
+              "line": 88,
+              "column": 9
+            },
+            {
+              "title": "should have in vertical tab data-table text area with defined max length",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "repository",
+                      "description": "Training-Module"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 5,
+                      "status": "passed",
+                      "duration": 9292,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-11-15T07:58:35.248Z",
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-a1805-rea-with-defined-max-length-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "33e677ed388400f9a95e-7130d1cebdfb8b6f0faa",
+              "file": "admin/landingPage/mainPage/sideBar/training/training/themes/visibility.spec.js",
+              "line": 93,
+              "column": 9
+            },
+            {
+              "title": "should have in vertical tab data-table disabled add button if text area is empty",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "repository",
+                      "description": "Training-Module"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "status": "passed",
+                      "duration": 9701,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-11-15T07:58:35.558Z",
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-3f357-utton-if-text-area-is-empty-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "33e677ed388400f9a95e-dc50e872aba9cd2c6e3f",
+              "file": "admin/landingPage/mainPage/sideBar/training/training/themes/visibility.spec.js",
+              "line": 100,
+              "column": 9
+            },
+            {
+              "title": "should have in vertical tab data-table enabled add button if text area is not empty",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "repository",
+                      "description": "Training-Module"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "status": "passed",
+                      "duration": 9146,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-11-15T07:58:39.981Z",
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-32e00-n-if-text-area-is-not-empty-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "33e677ed388400f9a95e-fd0e37b12c9f94da70a3",
+              "file": "admin/landingPage/mainPage/sideBar/training/training/themes/visibility.spec.js",
+              "line": 112,
+              "column": 9
             }
           ]
         }
@@ -228,11 +752,11 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2024-11-12T13:32:25.565Z",
-    "duration": 16535.198,
-    "expected": 3,
+    "startTime": "2024-11-15T07:57:30.403Z",
+    "duration": 78860.972,
+    "expected": 13,
     "skipped": 0,
     "unexpected": 0,
-    "flaky": 0
+    "flaky": 1
   }
 }

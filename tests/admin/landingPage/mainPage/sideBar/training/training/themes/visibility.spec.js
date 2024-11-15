@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { getTranslations } from '@translation/languageDetector.js';
-import { selectFirstChat } from '../../../conversations/unanswered/helper';
+import { selectFirstItem } from '../../../conversations/unanswered/helper';
 let translations;
 let hasElements = false;
 
@@ -46,7 +46,7 @@ test.describe('Visibility Tests for "Themes"/"Teemad" left vertical tab', () => 
 
 test.describe('Visibility Tests for "Themes"/"Teemad" right vertical tab', async () => {
     test.beforeEach(async ({ page }) => {
-        hasElements = await selectFirstChat(page);
+        hasElements = await selectFirstItem(page);
         test.skip(!hasElements, 'No listing elements found');
     });
 
@@ -60,21 +60,21 @@ test.describe('Visibility Tests for "Themes"/"Teemad" right vertical tab', async
         const title = page.locator('.track h3');
         await expect(title).toBeVisible();
 
-        const editButton = page.locator(`.track .btn:has-text("${translations.edit}")`);
+        const editButton = page.getByRole('button', { name: `${translations.edit}`, exact: true });
         await expect(editButton).toBeVisible();
     })
 
     test('should have vertical tab examples upload examples, download examples, add to model, delete buttons', async ({ page }) => {
-        const uploadExamplesButton = page.locator(`.track .btn:has-text("${translations.uploadExamples}")`);
+        const uploadExamplesButton = page.getByRole('button', { name: `${translations.uploadExamples}`, exact: true });
         await expect(uploadExamplesButton).toBeVisible();
 
-        const downloadExamplesButton = page.locator(`.track .btn:has-text("${translations.downloadExamples}")`);
+        const downloadExamplesButton = page.getByRole('button', { name: `${translations.downloadExamples}`, exact: true });
         await expect(downloadExamplesButton).toBeVisible();
 
-        //const addToModelButton = page.locator(`.track .btn:has-text("${translations.addToModel}")`);
-        //await expect(addToModelButton).toBeVisible();
+        const addToModelButton = page.getByRole('button', { name: `${translations.removeFromModel}`, exact: true });
+        await expect(addToModelButton).toBeVisible();
 
-        const deleteButton = page.locator(`.track .btn:has-text("${translations.delete}")`);
+        const deleteButton = page.getByRole('button', { name: `${translations.delete}`, exact: true });
         await expect(deleteButton).toBeVisible();
     })
 

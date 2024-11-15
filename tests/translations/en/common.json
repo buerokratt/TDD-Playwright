@@ -205,6 +205,7 @@
     "uploadExamples": "Upload examples",
     "downloadExamples": "Download examples",
     "addToModel": "Add to model",
+    "removeFromModel": "Remove from model",
     "addNew": "Add new...",
     "responses": "Responses",
     "response" : "Response",
