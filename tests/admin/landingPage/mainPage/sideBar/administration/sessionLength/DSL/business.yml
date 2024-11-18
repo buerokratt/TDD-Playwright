@@ -10,14 +10,11 @@ test:
 
     card:
       name: card__body
-
-
-    label: 
-     args:
-      - type: text
-      - value: "Session length"
-      - style: label
-      - selector: nth(2)
+      label: 
+      args:
+        - type: text
+        - value: "Session length"
+        - style: label
 
       input:
         label: "Session length"
