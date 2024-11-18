@@ -1,337 +1,235 @@
-import { test, expect } from '@playwright/test';
-import { getTranslations } from '../../../../../../translations/languageDetector'
 
+const { test, expect } = require('@playwright/test');
+const { getTranslations } = require('@translation/languageDetector');
+import { getColumnValues } from '../unanswered/helper';
 let translation;
-test.beforeEach('test', async ({ page }) => {
+test.describe('Training-Module', () => {
+
+  test.beforeEach(async ({ page }) => {
+    test.info().annotations.push({ type: 'repository', description: 'Training-Module' });
     await page.goto('https://admin.prod.buerokratt.ee/chat/history');
-
-    // page is authenticated
-    await expect(page).toHaveURL('https://admin.prod.buerokratt.ee/chat/history');
-});
-
-
-test('Check if the table is horizontally scrollable', async ({ page }) => {
-    // Locate the scroll wrapper
-    const scrollWrapper = page.locator('.data-table__scrollWrapper');
-
-    // Verify that the scroll wrapper is scrollable (by checking overflow)
-    const overflowX = await scrollWrapper.evaluate(node => window.getComputedStyle(node).overflowX);
-    expect(overflowX).toBe('auto' || 'scroll');
-});
-
-
-
-test('Check if date inputs can be changed', async ({ page }) => {
-
-    await page.waitForTimeout(2000)
-
-    const container = page.locator('.card__body');
-
-    const dateInputs = container.locator('input');
-
-    // Access the first two inputs which are assumed to be the date inputs
-    const startDateInput = dateInputs.nth(1);
-    const endDateInput = dateInputs.nth(2);
-
-    // Clear and set the start date
-    await startDateInput.click({ clickCount: 3 }); // Select all text
-    await startDateInput.fill('01.09.2023');
-    await expect(startDateInput).toHaveValue('01.09.2023');
-
-    // Clear and set the end date
-    await endDateInput.click({ clickCount: 3 });
-    await endDateInput.fill('31.12.2024');
-    await expect(endDateInput).toHaveValue('31.12.2024');
-});
-
-
-test.skip('Date FROM input field should reject invalid date formats ### Check issue inside', async ({ page }) => {
-    test.info().annotations.push({
-        type: 'Error',
-        description: 'Should throw an error. Currently it has not any data validation.',
-    })
-    await page.waitForTimeout(2000);
-
-    const container = page.locator('.card__body');
-
-    const dateInputs = container.locator('input');
-
-    // Access the first two inputs which are assumed to be the date inputs
-    const startDateInput = dateInputs.nth(1);
-
-    // Clear and set the start date
-    await startDateInput.click({ clickCount: 3 }); // Select all text
-    await startDateInput.fill('01.09.12345');
-
-    // Trigger any validation mechanism if necessary (e.g., blur event)
-    await startDateInput.blur();
-
-    // This could be a message or some form of UI feedback
-    const validationMessage = page.locator('.validation-error-message'); // Adjust selector as needed
-    await validationMessage.waitFor({ state: 'visible', timeout: 5000 }); // Adjust timeout as needed
-
-    // Verify that the validation message is displayed
-    const isValidationMessageVisible = await validationMessage.isVisible();
-    expect(isValidationMessageVisible).toBe(true);
-
-    // Optionally, check the content of the validation message
-    const validationMessageText = await validationMessage.textContent();
-    expect(validationMessageText).toContain('Invalid date format'); // Adjust text as needed
-
-    // Optionally, you may also verify the input field's value remains unchanged or cleared
-    const inputValue = await datepickerInput.inputValue();
-    expect(inputValue).toBe(''); // Assuming invalid input should clear the field or leave it unchanged
-});
-
-
-test.skip('Date TO input field should reject invalid date formats ### Check issue inside', async ({ page }) => {
-    test.info().annotations.push({
-        type: 'Error',
-        description: 'Should throw an error. Currently it has not any data validation.',
-    })
-    await page.waitForTimeout(2000);
-    const container = page.locator('.card__body');
-
-    const dateInputs = container.locator('input');
-
-    // Access the first two inputs which are assumed to be the date inputs
-    const endDateInput = dateInputs.nth(2);
-
-    // Clear and set the start date
-    await endDateInput.click({ clickCount: 3 }); // Select all text
-    await endDateInput.fill('01.09.12345');
-
-    // Trigger any validation mechanism if necessary (e.g., blur event)
-    await endDateInput.blur();
-
-    // This could be a message or some form of UI feedback
-    const validationMessage = page.locator('.validation-error-message'); // Adjust selector as needed
-    await validationMessage.waitFor({ state: 'visible', timeout: 5000 }); // Adjust timeout as needed
-
-    // Verify that the validation message is displayed
-    const isValidationMessageVisible = await validationMessage.isVisible();
-    expect(isValidationMessageVisible).toBe(true);
-
-    // Optionally, check the content of the validation message
-    const validationMessageText = await validationMessage.textContent();
-    expect(validationMessageText).toContain('Invalid date format'); // Adjust text as needed
-
-    // Optionally, you may also verify the input field's value remains unchanged or cleared
-    const inputValue = await datepickerInput.inputValue();
-    expect(inputValue).toBe(''); // Assuming invalid input should clear the field or leave it unchanged
-});
-
-
-test('Check if "Ajalugu" date inputs accept only valid date formats', async ({ page }) => {
-
-    await page.waitForLoadState('networkidle');
-
-    const container = page.locator('.card__body');
-
-    const dateInputs = container.locator('input');
-
-    // Access the first two inputs which are assumed to be the date inputs
-    const startDateInput = dateInputs.nth(0);
-    const endDateInput = dateInputs.nth(1);
-
-    // Clear and set the start date
-    await startDateInput.click({ clickCount: 3 }); // Select all text
-    await startDateInput.fill('01.09.2023');
-    await expect(startDateInput).toHaveValue('01.09.2023');
-
-    // Clear and set the end date
-    await endDateInput.click({ clickCount: 3 });
-    await endDateInput.fill('31.12.2024');
-    await expect(endDateInput).toHaveValue('31.12.2024');
-});
-
-
-test('Dropdown menu should expand, displaying the available options, and allow the user to select a different option.', async ({ page }) => {
-    translation = await getTranslations(page)
-    // Locate the table rows to check if there is any data
-    await page.waitForTimeout(2000);
-    const card = page.locator('.card').first();
-
-    const dropdown = await card.locator(`div.select__trigger:has-text("${translation.choose}")`)
-
-    dropdown.click();
-
-    const dropdownMenu = card.locator('.select__menu');
-    await expect(dropdownMenu).toBeVisible();
-
-    await dropdownMenu.waitFor({ state: 'visible', timeout: 5000 }); // Adjust timeout as needed
-
-    const optionToSelect = dropdownMenu.locator(`li.select__option:has-text("${translation.startTime}") input[type="checkbox"]`);
-
-    await optionToSelect.check();
-
-    const isChecked = await optionToSelect.isChecked();
-
-    expect(isChecked).toBe(true);
-});
-
-
-test('Dropdown menu should expand, displaying the available options, and allow the user to select a different option. Should show corresponding columns in table.', async ({ page }) => {
-    // Locate the table rows to check if there is any data
     translation = await getTranslations(page);
+    await page.waitForTimeout(3000);
+  });
 
-    const card = page.locator('.card').first();
+  test.describe('Search functionality', () => {
+    test('should filter results based on search input 1', async ({ page }) => {
+      const rows = page.locator('table tbody tr');
+      await expect(await rows.count()).toBeGreaterThan(0);
 
-    const dropdown = card.locator(`div.select__trigger:has-text("${translation.choose}")`)
+      const searchInput = await page.getByPlaceholder(`${translation.searchChats}`, { exact: true });
+      const searchText = "Random@Text.!And+More...///Probs$%^&*";
 
-    await dropdown.click();
+      await searchInput.fill(searchText);
+      await page.waitForTimeout(1000);
 
-    const dropdownMenu = card.locator('.select__menu');
-    await expect(dropdownMenu).toBeVisible();
+      await expect(await rows.count()).toBe(0);
+    });
 
-    await dropdownMenu.waitFor({ state: 'visible', timeout: 5000 }); // Adjust timeout as needed
+    test('should filter results based on search input 2', async ({ page }) => {
+      const rows = page.locator('table tbody tr');
+      await expect(await rows.count()).toBeGreaterThan(0);
 
-    // select algusaeg from dropdown
-    const optionToSelect = dropdownMenu.locator(`li.select__option:has-text("${translation.startTime}") input[type="checkbox"]`);
+      const idRowCell = rows.first().locator('td').nth(10);
+      const searchText = await idRowCell.textContent();
+      expect(searchText).toBeTruthy();
 
-    await optionToSelect.check()
+      const searchInput = await page.getByPlaceholder(`${translation.searchChats}`, { exact: true });
+      await searchInput.fill(searchText);
+      await expect(searchInput).toHaveValue(searchText);
+      await page.waitForTimeout(1000);
 
-    const isChecked = await optionToSelect.isChecked();
+      // Verify filtered results
+      await expect(await rows.count()).toBeGreaterThan(0);
 
-    expect(isChecked).toBe(true);
+      // Validate each filtered row
+      for (let i = 0; i < await rows.count(); i++) {
+        const cellText = await rows.nth(i).locator('td').nth(10).textContent();
+        expect(cellText).toContain(searchText);
+      }
+    });
 
-    const table = page.locator('table.data-table');
-    const columns = table.locator('th')
+    test('should filter results using date pickers', async ({ page }) => {
+      const rows = page.locator('table tbody tr');
+      await expect(await rows.count()).toBeGreaterThan(0);
 
-    // Check for the count of headers
-    const headerCount = await columns.count()
-    // 2 because second table head is to see the details of each row.
-    expect(headerCount).toBe(2)
+      const fromDateRowCell = rows.first().locator('td').nth(0);
+      const dateTime1 = await fromDateRowCell.textContent();
+      expect(dateTime1).toBeTruthy();
 
-    // Verify that the single column header is "Algusaeg"
-    const columnHeader = columns.first();
-    const columnText = await columnHeader.innerText();
-    expect(columnText).toBe(translation.startTime);
+      const toDateRowCell = rows.first().locator('td').nth(1);
+      const dateTime2 = await toDateRowCell.textContent();
+      expect(dateTime2).toBeTruthy();
 
+      const date1 = dateTime1.split(' ')[0];
+      const date2 = dateTime2.split(' ')[0];
 
-});
+      const datepickerStart = await page.locator(`.datepicker`).nth(0);
+      const datepickerEnd = await page.locator(`.datepicker`).nth(1);
 
+      const datepickerStartInput = await datepickerStart.locator('input').first();
+      const datepickerEndInput = await datepickerEnd.locator('input').first();
+      await datepickerStartInput.fill(date1);
+      await datepickerEndInput.fill(date2);
+      await page.waitForTimeout(1000);
 
+      // Verify filtered results
+      await expect(await rows.count()).toBeGreaterThan(0);
 
-test('Search input field accepts text input and triggers search', async ({ page }) => {
-    // Locate the table rows to check if there is any data
-    translation = await getTranslations(page);
-    await page.waitForTimeout(2000);
-    const initialRows = page.locator('table.data-table tbody tr');
+      // Validate each filtered row
+      for (let i = 0; i < await rows.count(); i++) {
+        const fromDateCell = await rows.nth(i).locator('td').nth(0).textContent();
+        const toDateCell = await rows.nth(i).locator('td').nth(1).textContent();
+        expect(fromDateCell).toContain(date1);
+        expect(toDateCell).toContain(date2);
+      }
+    });
 
-    const initialRowCount = await initialRows.count();
-
-    if (initialRowCount > 0) {
-        // Locate the search input field using the placeholder text
-        const searchInput = page.locator(`input[placeholder="${translation.searchChats}"]`);
-
-        // Type random input value into the search input field to expect 0 matching and ensure that input field is working as expected
-        await searchInput.fill('abcdefgh12345jklmnop678999001122ghdsa');
-
-        await expect(searchInput).toHaveValue('abcdefgh12345jklmnop678999001122ghdsa');
-
-        // Wait for search results to be updated
+    test.skip('Date FROM input field should reject invalid date formats ### Check issue inside', async ({ page }) => {
+        test.info().annotations.push({
+            type: 'Error',
+            description: 'Should throw an error. Currently it has not any data validation.',
+        })
         await page.waitForTimeout(2000);
+    
+        const container = page.locator('.card__body');
+    
+        const dateInputs = container.locator('input');
+    
+        const startDateInput = dateInputs.nth(1);
+    
+        await startDateInput.click({ clickCount: 3 }); 
+        await startDateInput.fill('01.09.12345');
+    
+        await startDateInput.blur();
+    
+        const validationMessage = page.locator('.validation-error-message'); 
+        await validationMessage.waitFor({ state: 'visible', timeout: 5000 }); 
+    
+        const isValidationMessageVisible = await validationMessage.isVisible();
+        expect(isValidationMessageVisible).toBe(true);
+    
+        const validationMessageText = await validationMessage.textContent();
+        expect(validationMessageText).toContain('Invalid date format'); 
+    
+        const inputValue = await datepickerInput.inputValue();
+        expect(inputValue).toBe(''); 
+    });
+    
 
-        const searchResultsRows = page.locator('table.data-table tbody tr');
+    test('Test Dropdown render table based on selected option/options (1 option selected)', async ({ page }) => {
+      const tableHeaders = page.locator('table thead tr th');
+      await expect(await tableHeaders.count()).toBe(12);
 
-        const resultsCount = await searchResultsRows.count();
+      const dropdown = await page.locator('.select');
+      await expect(dropdown).toBeVisible();
+      await dropdown.click();
 
-        expect(resultsCount).toBe(0);
+      // select option
+      const selectedOption = await page.getByRole('option', { name: `${translation.startTime}` });
+      const selectedOptionText = await selectedOption.textContent();
+      await selectedOption.click();
 
-    } else {
-        return;
-    }
-});
+      const headerCount = await tableHeaders.count();
+      // 2 because view is also always present
+      expect(headerCount).toBe(2);
+      
 
-
-test('Table columns should be sortable by clicking on the column headers. Sort by From date', async ({ page }) => {
-    await page.waitForTimeout(2000);
-    translation = await getTranslations(page);
-    // Locate the card element and the table inside it
-    const table = page.locator('table.data-table');
-
-    // Ensure the table is visible
-    await expect(table).toBeVisible();
-
-    // Locate the "Algusaeg" column header
-    const algusaegSortingButton = table.locator(`th:has-text("${translation.startTime}")`).locator('button');
-
-    // Click on the "Algusaeg" column header to sort the table
-    await algusaegSortingButton.click();
-
-    // Wait for the table to sort (adjust timeout if necessary)
-    await page.waitForTimeout(1000); // or use a more specific wait if you know what triggers the sort
-
-    // Get the sorted values from the column "Algusaeg"
-    const sortedValuesAsc = await table.locator('tbody tr').evaluateAll(rows => {
-        return rows.map(row => row.querySelector('td:nth-of-type(1)').textContent.trim());
+      const renderedHeaderText = await tableHeaders.first().textContent();
+      expect(renderedHeaderText).toBe(selectedOptionText);
     });
 
-    // Click again to sort in descending order
-    await algusaegSortingButton.click();
+    test('Test Dropdown render table based on selected option/options (2 options selected)', async ({ page }) => {
+      const tableHeaders = page.locator('table thead tr th');
+      await expect(await tableHeaders.count()).toBe(12);
 
-    // Log the sorted values to the terminal
-    //console.log('Sorted Values Ascending:', sortedValuesAsc);
+      const dropdown = await page.locator('.select');
+      await expect(dropdown).toBeVisible();
+      await dropdown.click();
 
-    // Wait for the table to sort again
-    await page.waitForTimeout(1000);
+      // select options
+      const selectedOptionStartTime = await page.getByRole('option', { name: `${translation.startTime}` });
+      const selectedOptionEndTime = await page.getByRole('option', { name: `${translation.endTime}` });
 
-    // Get the sorted values from the column "Algusaeg" after descending sort
-    const sortedValuesDesc = await table.locator('tbody tr').evaluateAll(rows => {
-        return rows.map(row => row.querySelector('td:nth-of-type(1)').textContent.trim());
-    });
+      const selectedOptionStartTimeText = await selectedOptionStartTime.textContent();
+      const selectedOptionEndTimeText = await selectedOptionEndTime.textContent();
 
+      await selectedOptionStartTime.click();
+      await selectedOptionEndTime.click();
 
-    // Verify that the values are sorted in ascending or descending order
-    const isSortedAsc = sortedValuesAsc.every((val, i, arr) => !i || arr[i - 1] <= val);
-    const isSortedDesc = sortedValuesDesc.every((val, i, arr) => !i || arr[i - 1] >= val);
+      const headerCount = await tableHeaders.count();
+      // 3 because view is also always present. It means 2 + 1 (view) = 3 headers
+      expect(headerCount).toBe(3);
 
-    expect(isSortedAsc || isSortedDesc).toBe(true);
-});
+      const renderedHeaderStartTimeText = await tableHeaders.first().textContent();
+      expect(renderedHeaderStartTimeText).toBe(selectedOptionStartTimeText);
 
-
-test('Table columns should be sortable by clicking on the column headers. Sort by To date', async ({ page }) => {
-    await page.waitForTimeout(2000);
-    translation = await getTranslations(page);
-    // Locate the card element and the table inside it
-    const table = page.locator('table.data-table');
-
-    // Ensure the table is visible
-    await expect(table).toBeVisible();
-
-    // Locate the "Algusaeg" column header
-    const algusaegSortingButton = table.locator(`th:has-text("${translation.endTime}")`).locator('button');
-
-    // Click on the "Algusaeg" column header to sort the table
-    await algusaegSortingButton.click();
-
-    // Wait for the table to sort (adjust timeout if necessary)
-    await page.waitForTimeout(1000); // or use a more specific wait if you know what triggers the sort
-
-    // Get the sorted values from the column "Algusaeg"
-    const sortedValuesAsc = await table.locator('tbody tr').evaluateAll(rows => {
-        return rows.map(row => row.querySelector('td:nth-of-type(2)').textContent.trim());
-    });
-
-    // Click again to sort in descending order
-    await algusaegSortingButton.click();
-
-    // Log the sorted values to the terminal
-    //console.log('Sorted Values Ascending:', sortedValuesAsc);
-
-    // Wait for the table to sort again
-    await page.waitForTimeout(1000);
-
-    // Get the sorted values from the column "Algusaeg" after descending sort
-    const sortedValuesDesc = await table.locator('tbody tr').evaluateAll(rows => {
-        return rows.map(row => row.querySelector('td:nth-of-type(2)').textContent.trim());
+      const renderedHeaderEndTimeText = await tableHeaders.nth(1).textContent();
+      expect(renderedHeaderEndTimeText).toBe(selectedOptionEndTimeText);
     });
 
 
-    // Verify that the values are sorted in ascending or descending order
-    const isSortedAsc = sortedValuesAsc.every((val, i, arr) => !i || arr[i - 1] <= val);
-    const isSortedDesc = sortedValuesDesc.every((val, i, arr) => !i || arr[i - 1] >= val);
+    // test.only('Should show correctly Selected (count) in dropdown based on selected items count', async ({ page }) => {
+    //   const dropdown = await page.locator('.select');
+    //   const text = await dropdown.textContent();
+    // })
+  });
 
-    expect(isSortedAsc || isSortedDesc).toBe(true);
-});
+
+  test.describe('Sorting Tests', () => {
+    test('Ascending sort', async ({ page }) => {
+      const tableHeaders = page.locator('table thead tr th');
+      const headerCount = await tableHeaders.count();
+      const rows = page.locator('table tbody tr');
+
+      for (let i = 0; i < headerCount - 1; i++) {
+        const header = await tableHeaders.nth(i);
+        const button = await header.locator('button');
+        await button.click();
+        await page.waitForTimeout(1000);
+        const orderAfterClick = await getColumnValues(rows, i);
+        const sortedAscending = [...orderAfterClick].sort((a, b) => a.localeCompare(b));
+
+        await expect(orderAfterClick).toEqual(sortedAscending);
+      }
+    });
+
+    test('Descending sort', async ({ page }) => {
+      const tableHeaders = page.locator('table thead tr th');
+      const headerCount = await tableHeaders.count();
+      const rows = page.locator('table tbody tr');
+
+      for (let i = 0; i < headerCount - 1; i++) {
+        const header = await tableHeaders.nth(i);
+        const button = await header.locator('button');
+        await button.click();
+        await button.click();
+        await page.waitForTimeout(1000);
+
+        const orderAfterClick = await getColumnValues(rows, i);
+        const sortedDescending = [...orderAfterClick].sort((a, b) => b.localeCompare(a));
+        await expect(orderAfterClick).toEqual(sortedDescending);
+      }
+    });
+  });
+
+  test.describe('Drawer tests', () => {
+    test('Clicking on view button should open drawer and close button should close it', async ({ page }) => {
+      test.fail("This should be improved", 'Add aria-label to close button for better accessibility');
+
+      const rows = page.locator('table tbody tr');
+      await expect(await rows.count()).toBeGreaterThan(0);
+
+      const viewButton = await page.getByText(`${translation.view}`, { exact: true }).first();
+      await viewButton.click();
+
+      const drawer = page.locator('.drawer');
+      await expect(drawer).toBeVisible();
+
+      const closeButton = await page.locator('.drawer__close');
+      await closeButton.click();
+
+      await expect(drawer).not.toBeVisible();
+    })
+  });
+})

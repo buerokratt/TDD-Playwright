@@ -97,12 +97,12 @@
                 {
                   "workerIndex": 0,
                   "status": "passed",
-                  "duration": 23439,
+                  "duration": 12834,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2024-11-15T14:16:27.034Z",
+                  "startTime": "2024-11-18T09:49:00.330Z",
                   "attachments": [
                     {
                       "name": "trace",
@@ -123,27 +123,27 @@
       ]
     },
     {
-      "title": "admin/landingPage/mainPage/sideBar/training/historicalConversations/history/functionality.spec.js",
-      "file": "admin/landingPage/mainPage/sideBar/training/historicalConversations/history/functionality.spec.js",
+      "title": "admin/landingPage/mainPage/sideBar/conversations/history/functionality.spec.js",
+      "file": "admin/landingPage/mainPage/sideBar/conversations/history/functionality.spec.js",
       "column": 0,
       "line": 0,
       "specs": [],
       "suites": [
         {
           "title": "Training-Module",
-          "file": "admin/landingPage/mainPage/sideBar/training/historicalConversations/history/functionality.spec.js",
-          "line": 5,
+          "file": "admin/landingPage/mainPage/sideBar/conversations/history/functionality.spec.js",
+          "line": 6,
           "column": 6,
           "specs": [],
           "suites": [
             {
-              "title": "Search functionality",
-              "file": "admin/landingPage/mainPage/sideBar/training/historicalConversations/history/functionality.spec.js",
-              "line": 14,
+              "title": "Sorting Tests",
+              "file": "admin/landingPage/mainPage/sideBar/conversations/history/functionality.spec.js",
+              "line": 179,
               "column": 8,
               "specs": [
                 {
-                  "title": "Should show correctly Selected (count) in dropdown based on selected items count",
+                  "title": "Ascending sort",
                   "ok": true,
                   "tags": [],
                   "tests": [
@@ -162,21 +162,117 @@
                         {
                           "workerIndex": 1,
                           "status": "passed",
-                          "duration": 5651,
+                          "duration": 18456,
                           "errors": [],
                           "stdout": [
                             {
-                              "text": "ChooseDropdown icon\n"
+                              "text": "[\n  \u001b[32m'18.11.2024 02:57:18'\u001b[39m,\n  \u001b[32m'18.11.2024 02:57:30'\u001b[39m,\n  \u001b[32m'18.11.2024 02:57:42'\u001b[39m,\n  \u001b[32m'18.11.2024 02:57:54'\u001b[39m,\n  \u001b[32m'18.11.2024 03:04:57'\u001b[39m,\n  \u001b[32m'18.11.2024 03:05:01'\u001b[39m,\n  \u001b[32m'18.11.2024 03:05:09'\u001b[39m,\n  \u001b[32m'18.11.2024 03:05:14'\u001b[39m\n]\n"
+                            },
+                            {
+                              "text": "should be like that:::\n"
+                            },
+                            {
+                              "text": "[\n  \u001b[32m'18.11.2024 02:57:18'\u001b[39m,\n  \u001b[32m'18.11.2024 02:57:30'\u001b[39m,\n  \u001b[32m'18.11.2024 02:57:42'\u001b[39m,\n  \u001b[32m'18.11.2024 02:57:54'\u001b[39m,\n  \u001b[32m'18.11.2024 03:04:57'\u001b[39m,\n  \u001b[32m'18.11.2024 03:05:01'\u001b[39m,\n  \u001b[32m'18.11.2024 03:05:09'\u001b[39m,\n  \u001b[32m'18.11.2024 03:05:14'\u001b[39m\n]\n"
+                            },
+                            {
+                              "text": "[\n  \u001b[32m'18.11.2024 02:57:25'\u001b[39m,\n  \u001b[32m'18.11.2024 02:57:37'\u001b[39m,\n  \u001b[32m'18.11.2024 02:57:49'\u001b[39m,\n  \u001b[32m'18.11.2024 02:58:01'\u001b[39m,\n  \u001b[32m'18.11.2024 03:05:04'\u001b[39m,\n  \u001b[32m'18.11.2024 03:05:08'\u001b[39m,\n  \u001b[32m'18.11.2024 03:05:16'\u001b[39m,\n  \u001b[32m'18.11.2024 03:05:20'\u001b[39m\n]\n"
+                            },
+                            {
+                              "text": "should be like that:::\n"
+                            },
+                            {
+                              "text": "[\n  \u001b[32m'18.11.2024 02:57:25'\u001b[39m,\n  \u001b[32m'18.11.2024 02:57:37'\u001b[39m,\n  \u001b[32m'18.11.2024 02:57:49'\u001b[39m,\n  \u001b[32m'18.11.2024 02:58:01'\u001b[39m,\n  \u001b[32m'18.11.2024 03:05:04'\u001b[39m,\n  \u001b[32m'18.11.2024 03:05:08'\u001b[39m,\n  \u001b[32m'18.11.2024 03:05:16'\u001b[39m,\n  \u001b[32m'18.11.2024 03:05:20'\u001b[39m\n]\n"
+                            },
+                            {
+                              "text": "[\n  \u001b[32m'Bürokratt'\u001b[39m,\n  \u001b[32m'Bürokratt'\u001b[39m,\n  \u001b[32m'Bürokratt'\u001b[39m,\n  \u001b[32m'Bürokratt'\u001b[39m,\n  \u001b[32m'Bürokratt'\u001b[39m,\n  \u001b[32m'Bürokratt'\u001b[39m,\n  \u001b[32m'Bürokratt'\u001b[39m,\n  \u001b[32m'Bürokratt'\u001b[39m\n]\n"
+                            },
+                            {
+                              "text": "should be like that:::\n"
+                            },
+                            {
+                              "text": "[\n  \u001b[32m'Bürokratt'\u001b[39m,\n  \u001b[32m'Bürokratt'\u001b[39m,\n  \u001b[32m'Bürokratt'\u001b[39m,\n  \u001b[32m'Bürokratt'\u001b[39m,\n  \u001b[32m'Bürokratt'\u001b[39m,\n  \u001b[32m'Bürokratt'\u001b[39m,\n  \u001b[32m'Bürokratt'\u001b[39m,\n  \u001b[32m'Bürokratt'\u001b[39m\n]\n"
+                            },
+                            {
+                              "text": "[\n  \u001b[32m''\u001b[39m, \u001b[32m''\u001b[39m, \u001b[32m''\u001b[39m, \u001b[32m''\u001b[39m,\n  \u001b[32m''\u001b[39m, \u001b[32m''\u001b[39m, \u001b[32m''\u001b[39m, \u001b[32m''\u001b[39m\n]\n"
+                            },
+                            {
+                              "text": "should be like that:::\n"
+                            },
+                            {
+                              "text": "[\n  \u001b[32m''\u001b[39m, \u001b[32m''\u001b[39m, \u001b[32m''\u001b[39m, \u001b[32m''\u001b[39m,\n  \u001b[32m''\u001b[39m, \u001b[32m''\u001b[39m, \u001b[32m''\u001b[39m, \u001b[32m''\u001b[39m\n]\n"
+                            },
+                            {
+                              "text": "[\n  \u001b[32m''\u001b[39m, \u001b[32m''\u001b[39m, \u001b[32m''\u001b[39m, \u001b[32m''\u001b[39m,\n  \u001b[32m''\u001b[39m, \u001b[32m''\u001b[39m, \u001b[32m''\u001b[39m, \u001b[32m''\u001b[39m\n]\n"
+                            },
+                            {
+                              "text": "should be like that:::\n"
+                            },
+                            {
+                              "text": "[\n  \u001b[32m''\u001b[39m, \u001b[32m''\u001b[39m, \u001b[32m''\u001b[39m, \u001b[32m''\u001b[39m,\n  \u001b[32m''\u001b[39m, \u001b[32m''\u001b[39m, \u001b[32m''\u001b[39m, \u001b[32m''\u001b[39m\n]\n"
+                            },
+                            {
+                              "text": "[\n  \u001b[32m'No'\u001b[39m, \u001b[32m'No'\u001b[39m, \u001b[32m'No'\u001b[39m,\n  \u001b[32m'No'\u001b[39m, \u001b[32m'No'\u001b[39m, \u001b[32m'No'\u001b[39m,\n  \u001b[32m'No'\u001b[39m, \u001b[32m'No'\u001b[39m\n]\n"
+                            },
+                            {
+                              "text": "should be like that:::\n"
+                            },
+                            {
+                              "text": "[\n  \u001b[32m'No'\u001b[39m, \u001b[32m'No'\u001b[39m, \u001b[32m'No'\u001b[39m,\n  \u001b[32m'No'\u001b[39m, \u001b[32m'No'\u001b[39m, \u001b[32m'No'\u001b[39m,\n  \u001b[32m'No'\u001b[39m, \u001b[32m'No'\u001b[39m\n]\n"
+                            },
+                            {
+                              "text": "[\n  \u001b[32m''\u001b[39m, \u001b[32m''\u001b[39m, \u001b[32m''\u001b[39m, \u001b[32m''\u001b[39m,\n  \u001b[32m''\u001b[39m, \u001b[32m''\u001b[39m, \u001b[32m''\u001b[39m, \u001b[32m''\u001b[39m\n]\n"
+                            },
+                            {
+                              "text": "should be like that:::\n"
+                            },
+                            {
+                              "text": "[\n  \u001b[32m''\u001b[39m, \u001b[32m''\u001b[39m, \u001b[32m''\u001b[39m, \u001b[32m''\u001b[39m,\n  \u001b[32m''\u001b[39m, \u001b[32m''\u001b[39m, \u001b[32m''\u001b[39m, \u001b[32m''\u001b[39m\n]\n"
+                            },
+                            {
+                              "text": "[\n  \u001b[32m''\u001b[39m,      \u001b[32m''\u001b[39m,\n  \u001b[32m''\u001b[39m,      \u001b[32m''\u001b[39m,\n  \u001b[32m'10/10'\u001b[39m, \u001b[32m'10/10'\u001b[39m,\n  \u001b[32m'10/10'\u001b[39m, \u001b[32m'10/10'\u001b[39m\n]\n"
+                            },
+                            {
+                              "text": "should be like that:::\n"
+                            },
+                            {
+                              "text": "[\n  \u001b[32m''\u001b[39m,      \u001b[32m''\u001b[39m,\n  \u001b[32m''\u001b[39m,      \u001b[32m''\u001b[39m,\n  \u001b[32m'10/10'\u001b[39m, \u001b[32m'10/10'\u001b[39m,\n  \u001b[32m'10/10'\u001b[39m, \u001b[32m'10/10'\u001b[39m\n]\n"
+                            },
+                            {
+                              "text": "[\n  \u001b[32m''\u001b[39m,       \u001b[32m''\u001b[39m,\n  \u001b[32m''\u001b[39m,       \u001b[32m''\u001b[39m,\n  \u001b[32m'M/Test'\u001b[39m, \u001b[32m'M/Test'\u001b[39m,\n  \u001b[32m'M/Test'\u001b[39m, \u001b[32m'M/Test'\u001b[39m\n]\n"
+                            },
+                            {
+                              "text": "should be like that:::\n"
+                            },
+                            {
+                              "text": "[\n  \u001b[32m''\u001b[39m,       \u001b[32m''\u001b[39m,\n  \u001b[32m''\u001b[39m,       \u001b[32m''\u001b[39m,\n  \u001b[32m'M/Test'\u001b[39m, \u001b[32m'M/Test'\u001b[39m,\n  \u001b[32m'M/Test'\u001b[39m, \u001b[32m'M/Test'\u001b[39m\n]\n"
+                            },
+                            {
+                              "text": "[\n  \u001b[32m'Client left with accepted response'\u001b[39m,\n  \u001b[32m'Client left with accepted response'\u001b[39m,\n  \u001b[32m'Client left with accepted response'\u001b[39m,\n  \u001b[32m'Client left with accepted response'\u001b[39m,\n  \u001b[32m'Client left with accepted response'\u001b[39m,\n  \u001b[32m'Client left with accepted response'\u001b[39m,\n  \u001b[32m'Client left with accepted response'\u001b[39m,\n  \u001b[32m'Client left with accepted response'\u001b[39m\n]\n"
+                            },
+                            {
+                              "text": "should be like that:::\n"
+                            },
+                            {
+                              "text": "[\n  \u001b[32m'Client left with accepted response'\u001b[39m,\n  \u001b[32m'Client left with accepted response'\u001b[39m,\n  \u001b[32m'Client left with accepted response'\u001b[39m,\n  \u001b[32m'Client left with accepted response'\u001b[39m,\n  \u001b[32m'Client left with accepted response'\u001b[39m,\n  \u001b[32m'Client left with accepted response'\u001b[39m,\n  \u001b[32m'Client left with accepted response'\u001b[39m,\n  \u001b[32m'Client left with accepted response'\u001b[39m\n]\n"
+                            },
+                            {
+                              "text": "[\n  \u001b[32m'314ac46f'\u001b[39m,\n  \u001b[32m'900b2aae'\u001b[39m,\n  \u001b[32m'a0454e71'\u001b[39m,\n  \u001b[32m'a04a2f69'\u001b[39m,\n  \u001b[32m'addcd508'\u001b[39m,\n  \u001b[32m'e31cb7d3'\u001b[39m,\n  \u001b[32m'ec789bbd'\u001b[39m,\n  \u001b[32m'fd6dfc5d'\u001b[39m\n]\n"
+                            },
+                            {
+                              "text": "should be like that:::\n"
+                            },
+                            {
+                              "text": "[\n  \u001b[32m'314ac46f'\u001b[39m,\n  \u001b[32m'900b2aae'\u001b[39m,\n  \u001b[32m'a0454e71'\u001b[39m,\n  \u001b[32m'a04a2f69'\u001b[39m,\n  \u001b[32m'addcd508'\u001b[39m,\n  \u001b[32m'e31cb7d3'\u001b[39m,\n  \u001b[32m'ec789bbd'\u001b[39m,\n  \u001b[32m'fd6dfc5d'\u001b[39m\n]\n"
                             }
                           ],
                           "stderr": [],
                           "retry": 0,
-                          "startTime": "2024-11-15T14:16:51.388Z",
+                          "startTime": "2024-11-18T09:49:14.013Z",
                           "attachments": [
                             {
                               "name": "trace",
                               "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-477ef-sed-on-selected-items-count-chromium/trace.zip"
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-25191-orting-Tests-Ascending-sort-chromium/trace.zip"
                             }
                           ]
                         }
@@ -184,9 +280,9 @@
                       "status": "expected"
                     }
                   ],
-                  "id": "ffdfea1c074b703db3bf-de7cbe249b796097e809",
-                  "file": "admin/landingPage/mainPage/sideBar/training/historicalConversations/history/functionality.spec.js",
-                  "line": 137,
+                  "id": "1a8d286449e509ec0efb-04bf3cd5f358c9d8a800",
+                  "file": "admin/landingPage/mainPage/sideBar/conversations/history/functionality.spec.js",
+                  "line": 180,
                   "column": 10
                 }
               ]
@@ -198,8 +294,8 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2024-11-15T14:16:26.294Z",
-    "duration": 31013.096999999998,
+    "startTime": "2024-11-18T09:48:59.763Z",
+    "duration": 33030.166,
     "expected": 2,
     "skipped": 0,
     "unexpected": 0,
