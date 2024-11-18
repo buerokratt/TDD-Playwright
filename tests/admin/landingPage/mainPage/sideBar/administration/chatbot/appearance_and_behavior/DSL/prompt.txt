@@ -1,4 +1,4 @@
-"I am working on converting a businessDSL into Playwright tests. Provide the test file without any additional information. I will provide you with the businessDSL. Here are the key requirements and you should consider only those rules that are in current DSL needed. It means that if DSL does not have element that is here in the rules, then you should not consider this specific rule. In other cases should consider them:
+I am working on converting a businessDSL into Playwright tests. Provide separate files: visibility and functinality test files without any additional information. I will provide you with the businessDSL. Here are the key requirements and you should consider this rules.
 1. Parse the DSL:
       nth-instance: Indicates the exact matching instance of a repeated element. If present, apply .nth() in the Playwright locator with the provided index.
 2. Text-based locators: 

@@ -1,4 +1,4 @@
-"I am working on converting a businessDSL into Playwright tests. Provide the test file without any additional information. May prefer a detailed, thorough approach when implementing Playwright test cases based on businessDSL specifications. They aim for comprehensive coverage, clear locators, logical grouping, and specific checks in alignment with DSL requirements. I will provide you with the businessDSL. Here are the key requirements and you should consider only those rules that are in current DSL needed. It means that if DSL does not have element that is here in the rules, then you should not consider this specific rule. In other cases should consider them:
+I am working on converting a businessDSL into Playwright tests. Provide separate files: visibility and functinality test files without any additional information or comments in file. I will provide you with the businessDSL. Here are the key requirements and you should consider this rules.
 
 1. Text-based locators: 
   All locators for text-based elements (labels, buttons, headers) must use translation keys. Translations are fetched using the getTranslations function and should be integrated into the locators as `${translation.key}`. key's first letter is lowercase. 
@@ -20,13 +20,16 @@
     await expect(label).toBeVisible();
     await expect(input).toBeVisible();
 
+When parent element is defined i.e card__body first select this and then the underlying elements i.e
+      const card = page.locator('.card__body');
+      const element = card.locator()
 
 2. Test setup:
-Include navigation and fetching translations in a beforeEach hook to ensure the page and translations are ready before running each test.
-Base URL: https://admin.prod.buerokratt.ee. Add this before the url provided in the DSL under resource header.
-Translations should be defined as:
-  import { getTranslations } from '@translation/languageDetector.js';
-  let translation;
+    Include navigation and fetching translations in a beforeEach hook to ensure the page and translations are ready before running each test.
+    Base URL: https://admin.prod.buerokratt.ee. Add this before the url provided in the DSL under resource header.
+    Translations should be defined as:
+        import { getTranslations } from '@translation/languageDetector.js';
+        let translation;
 
 And in beforeEach:
 a. Each test should have annotation. So lets add in beforeEach: test.info().annotations.push({ type: 'repository', description: '<description>' });
@@ -45,3 +48,11 @@ The output should be a valid Playwright test file, ready for copy-pasting and ru
 
 4. Exact match for similar elements:
 Add { exact: true } to all locators.
+
+5. Functionality testing:
+
+Test all eligble functionality and save and after return them to their original values. 
+This means that you should capture the values for the inputs first and reset them at the end.
+
+This means that if there is a save button in the DSL you should capture and click it at the end of each test, refresh the page and check if your input value is there. 
+At the end of a each test it should be reset to the original value. When it comes to saving the values, wait 3 seconds after saving to ensure the values are saved.

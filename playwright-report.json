@@ -97,12 +97,12 @@
                 {
                   "workerIndex": 0,
                   "status": "passed",
-                  "duration": 12834,
+                  "duration": 14403,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2024-11-18T09:49:00.330Z",
+                  "startTime": "2024-11-18T10:30:55.166Z",
                   "attachments": [
                     {
                       "name": "trace",
@@ -123,169 +123,145 @@
       ]
     },
     {
-      "title": "admin/landingPage/mainPage/sideBar/conversations/history/functionality.spec.js",
-      "file": "admin/landingPage/mainPage/sideBar/conversations/history/functionality.spec.js",
+      "title": "admin/landingPage/mainPage/sideBar/administration/chatbot/welcome_message/visibility.spec.js",
+      "file": "admin/landingPage/mainPage/sideBar/administration/chatbot/welcome_message/visibility.spec.js",
       "column": 0,
       "line": 0,
       "specs": [],
       "suites": [
         {
-          "title": "Training-Module",
-          "file": "admin/landingPage/mainPage/sideBar/conversations/history/functionality.spec.js",
-          "line": 6,
+          "title": "Buerokratt-Chatbot",
+          "file": "admin/landingPage/mainPage/sideBar/administration/chatbot/welcome_message/visibility.spec.js",
+          "line": 8,
           "column": 6,
-          "specs": [],
-          "suites": [
+          "specs": [
             {
-              "title": "Sorting Tests",
-              "file": "admin/landingPage/mainPage/sideBar/conversations/history/functionality.spec.js",
-              "line": 179,
-              "column": 8,
-              "specs": [
+              "title": "should display heading and card elements",
+              "ok": false,
+              "tags": [],
+              "tests": [
                 {
-                  "title": "Ascending sort",
-                  "ok": true,
-                  "tags": [],
-                  "tests": [
+                  "timeout": 30000,
+                  "annotations": [
                     {
-                      "timeout": 30000,
-                      "annotations": [
-                        {
-                          "type": "repository",
-                          "description": "Training-Module"
-                        }
-                      ],
-                      "expectedStatus": "passed",
-                      "projectId": "chromium",
-                      "projectName": "chromium",
-                      "results": [
-                        {
-                          "workerIndex": 1,
-                          "status": "passed",
-                          "duration": 18456,
-                          "errors": [],
-                          "stdout": [
-                            {
-                              "text": "[\n  \u001b[32m'18.11.2024 02:57:18'\u001b[39m,\n  \u001b[32m'18.11.2024 02:57:30'\u001b[39m,\n  \u001b[32m'18.11.2024 02:57:42'\u001b[39m,\n  \u001b[32m'18.11.2024 02:57:54'\u001b[39m,\n  \u001b[32m'18.11.2024 03:04:57'\u001b[39m,\n  \u001b[32m'18.11.2024 03:05:01'\u001b[39m,\n  \u001b[32m'18.11.2024 03:05:09'\u001b[39m,\n  \u001b[32m'18.11.2024 03:05:14'\u001b[39m\n]\n"
-                            },
-                            {
-                              "text": "should be like that:::\n"
-                            },
-                            {
-                              "text": "[\n  \u001b[32m'18.11.2024 02:57:18'\u001b[39m,\n  \u001b[32m'18.11.2024 02:57:30'\u001b[39m,\n  \u001b[32m'18.11.2024 02:57:42'\u001b[39m,\n  \u001b[32m'18.11.2024 02:57:54'\u001b[39m,\n  \u001b[32m'18.11.2024 03:04:57'\u001b[39m,\n  \u001b[32m'18.11.2024 03:05:01'\u001b[39m,\n  \u001b[32m'18.11.2024 03:05:09'\u001b[39m,\n  \u001b[32m'18.11.2024 03:05:14'\u001b[39m\n]\n"
-                            },
-                            {
-                              "text": "[\n  \u001b[32m'18.11.2024 02:57:25'\u001b[39m,\n  \u001b[32m'18.11.2024 02:57:37'\u001b[39m,\n  \u001b[32m'18.11.2024 02:57:49'\u001b[39m,\n  \u001b[32m'18.11.2024 02:58:01'\u001b[39m,\n  \u001b[32m'18.11.2024 03:05:04'\u001b[39m,\n  \u001b[32m'18.11.2024 03:05:08'\u001b[39m,\n  \u001b[32m'18.11.2024 03:05:16'\u001b[39m,\n  \u001b[32m'18.11.2024 03:05:20'\u001b[39m\n]\n"
-                            },
-                            {
-                              "text": "should be like that:::\n"
-                            },
-                            {
-                              "text": "[\n  \u001b[32m'18.11.2024 02:57:25'\u001b[39m,\n  \u001b[32m'18.11.2024 02:57:37'\u001b[39m,\n  \u001b[32m'18.11.2024 02:57:49'\u001b[39m,\n  \u001b[32m'18.11.2024 02:58:01'\u001b[39m,\n  \u001b[32m'18.11.2024 03:05:04'\u001b[39m,\n  \u001b[32m'18.11.2024 03:05:08'\u001b[39m,\n  \u001b[32m'18.11.2024 03:05:16'\u001b[39m,\n  \u001b[32m'18.11.2024 03:05:20'\u001b[39m\n]\n"
-                            },
-                            {
-                              "text": "[\n  \u001b[32m'Bürokratt'\u001b[39m,\n  \u001b[32m'Bürokratt'\u001b[39m,\n  \u001b[32m'Bürokratt'\u001b[39m,\n  \u001b[32m'Bürokratt'\u001b[39m,\n  \u001b[32m'Bürokratt'\u001b[39m,\n  \u001b[32m'Bürokratt'\u001b[39m,\n  \u001b[32m'Bürokratt'\u001b[39m,\n  \u001b[32m'Bürokratt'\u001b[39m\n]\n"
-                            },
-                            {
-                              "text": "should be like that:::\n"
-                            },
-                            {
-                              "text": "[\n  \u001b[32m'Bürokratt'\u001b[39m,\n  \u001b[32m'Bürokratt'\u001b[39m,\n  \u001b[32m'Bürokratt'\u001b[39m,\n  \u001b[32m'Bürokratt'\u001b[39m,\n  \u001b[32m'Bürokratt'\u001b[39m,\n  \u001b[32m'Bürokratt'\u001b[39m,\n  \u001b[32m'Bürokratt'\u001b[39m,\n  \u001b[32m'Bürokratt'\u001b[39m\n]\n"
-                            },
-                            {
-                              "text": "[\n  \u001b[32m''\u001b[39m, \u001b[32m''\u001b[39m, \u001b[32m''\u001b[39m, \u001b[32m''\u001b[39m,\n  \u001b[32m''\u001b[39m, \u001b[32m''\u001b[39m, \u001b[32m''\u001b[39m, \u001b[32m''\u001b[39m\n]\n"
-                            },
-                            {
-                              "text": "should be like that:::\n"
-                            },
-                            {
-                              "text": "[\n  \u001b[32m''\u001b[39m, \u001b[32m''\u001b[39m, \u001b[32m''\u001b[39m, \u001b[32m''\u001b[39m,\n  \u001b[32m''\u001b[39m, \u001b[32m''\u001b[39m, \u001b[32m''\u001b[39m, \u001b[32m''\u001b[39m\n]\n"
-                            },
-                            {
-                              "text": "[\n  \u001b[32m''\u001b[39m, \u001b[32m''\u001b[39m, \u001b[32m''\u001b[39m, \u001b[32m''\u001b[39m,\n  \u001b[32m''\u001b[39m, \u001b[32m''\u001b[39m, \u001b[32m''\u001b[39m, \u001b[32m''\u001b[39m\n]\n"
-                            },
-                            {
-                              "text": "should be like that:::\n"
-                            },
-                            {
-                              "text": "[\n  \u001b[32m''\u001b[39m, \u001b[32m''\u001b[39m, \u001b[32m''\u001b[39m, \u001b[32m''\u001b[39m,\n  \u001b[32m''\u001b[39m, \u001b[32m''\u001b[39m, \u001b[32m''\u001b[39m, \u001b[32m''\u001b[39m\n]\n"
-                            },
-                            {
-                              "text": "[\n  \u001b[32m'No'\u001b[39m, \u001b[32m'No'\u001b[39m, \u001b[32m'No'\u001b[39m,\n  \u001b[32m'No'\u001b[39m, \u001b[32m'No'\u001b[39m, \u001b[32m'No'\u001b[39m,\n  \u001b[32m'No'\u001b[39m, \u001b[32m'No'\u001b[39m\n]\n"
-                            },
-                            {
-                              "text": "should be like that:::\n"
-                            },
-                            {
-                              "text": "[\n  \u001b[32m'No'\u001b[39m, \u001b[32m'No'\u001b[39m, \u001b[32m'No'\u001b[39m,\n  \u001b[32m'No'\u001b[39m, \u001b[32m'No'\u001b[39m, \u001b[32m'No'\u001b[39m,\n  \u001b[32m'No'\u001b[39m, \u001b[32m'No'\u001b[39m\n]\n"
-                            },
-                            {
-                              "text": "[\n  \u001b[32m''\u001b[39m, \u001b[32m''\u001b[39m, \u001b[32m''\u001b[39m, \u001b[32m''\u001b[39m,\n  \u001b[32m''\u001b[39m, \u001b[32m''\u001b[39m, \u001b[32m''\u001b[39m, \u001b[32m''\u001b[39m\n]\n"
-                            },
-                            {
-                              "text": "should be like that:::\n"
-                            },
-                            {
-                              "text": "[\n  \u001b[32m''\u001b[39m, \u001b[32m''\u001b[39m, \u001b[32m''\u001b[39m, \u001b[32m''\u001b[39m,\n  \u001b[32m''\u001b[39m, \u001b[32m''\u001b[39m, \u001b[32m''\u001b[39m, \u001b[32m''\u001b[39m\n]\n"
-                            },
-                            {
-                              "text": "[\n  \u001b[32m''\u001b[39m,      \u001b[32m''\u001b[39m,\n  \u001b[32m''\u001b[39m,      \u001b[32m''\u001b[39m,\n  \u001b[32m'10/10'\u001b[39m, \u001b[32m'10/10'\u001b[39m,\n  \u001b[32m'10/10'\u001b[39m, \u001b[32m'10/10'\u001b[39m\n]\n"
-                            },
-                            {
-                              "text": "should be like that:::\n"
-                            },
-                            {
-                              "text": "[\n  \u001b[32m''\u001b[39m,      \u001b[32m''\u001b[39m,\n  \u001b[32m''\u001b[39m,      \u001b[32m''\u001b[39m,\n  \u001b[32m'10/10'\u001b[39m, \u001b[32m'10/10'\u001b[39m,\n  \u001b[32m'10/10'\u001b[39m, \u001b[32m'10/10'\u001b[39m\n]\n"
-                            },
-                            {
-                              "text": "[\n  \u001b[32m''\u001b[39m,       \u001b[32m''\u001b[39m,\n  \u001b[32m''\u001b[39m,       \u001b[32m''\u001b[39m,\n  \u001b[32m'M/Test'\u001b[39m, \u001b[32m'M/Test'\u001b[39m,\n  \u001b[32m'M/Test'\u001b[39m, \u001b[32m'M/Test'\u001b[39m\n]\n"
-                            },
-                            {
-                              "text": "should be like that:::\n"
-                            },
-                            {
-                              "text": "[\n  \u001b[32m''\u001b[39m,       \u001b[32m''\u001b[39m,\n  \u001b[32m''\u001b[39m,       \u001b[32m''\u001b[39m,\n  \u001b[32m'M/Test'\u001b[39m, \u001b[32m'M/Test'\u001b[39m,\n  \u001b[32m'M/Test'\u001b[39m, \u001b[32m'M/Test'\u001b[39m\n]\n"
-                            },
-                            {
-                              "text": "[\n  \u001b[32m'Client left with accepted response'\u001b[39m,\n  \u001b[32m'Client left with accepted response'\u001b[39m,\n  \u001b[32m'Client left with accepted response'\u001b[39m,\n  \u001b[32m'Client left with accepted response'\u001b[39m,\n  \u001b[32m'Client left with accepted response'\u001b[39m,\n  \u001b[32m'Client left with accepted response'\u001b[39m,\n  \u001b[32m'Client left with accepted response'\u001b[39m,\n  \u001b[32m'Client left with accepted response'\u001b[39m\n]\n"
-                            },
-                            {
-                              "text": "should be like that:::\n"
-                            },
-                            {
-                              "text": "[\n  \u001b[32m'Client left with accepted response'\u001b[39m,\n  \u001b[32m'Client left with accepted response'\u001b[39m,\n  \u001b[32m'Client left with accepted response'\u001b[39m,\n  \u001b[32m'Client left with accepted response'\u001b[39m,\n  \u001b[32m'Client left with accepted response'\u001b[39m,\n  \u001b[32m'Client left with accepted response'\u001b[39m,\n  \u001b[32m'Client left with accepted response'\u001b[39m,\n  \u001b[32m'Client left with accepted response'\u001b[39m\n]\n"
-                            },
-                            {
-                              "text": "[\n  \u001b[32m'314ac46f'\u001b[39m,\n  \u001b[32m'900b2aae'\u001b[39m,\n  \u001b[32m'a0454e71'\u001b[39m,\n  \u001b[32m'a04a2f69'\u001b[39m,\n  \u001b[32m'addcd508'\u001b[39m,\n  \u001b[32m'e31cb7d3'\u001b[39m,\n  \u001b[32m'ec789bbd'\u001b[39m,\n  \u001b[32m'fd6dfc5d'\u001b[39m\n]\n"
-                            },
-                            {
-                              "text": "should be like that:::\n"
-                            },
-                            {
-                              "text": "[\n  \u001b[32m'314ac46f'\u001b[39m,\n  \u001b[32m'900b2aae'\u001b[39m,\n  \u001b[32m'a0454e71'\u001b[39m,\n  \u001b[32m'a04a2f69'\u001b[39m,\n  \u001b[32m'addcd508'\u001b[39m,\n  \u001b[32m'e31cb7d3'\u001b[39m,\n  \u001b[32m'ec789bbd'\u001b[39m,\n  \u001b[32m'fd6dfc5d'\u001b[39m\n]\n"
-                            }
-                          ],
-                          "stderr": [],
-                          "retry": 0,
-                          "startTime": "2024-11-18T09:49:14.013Z",
-                          "attachments": [
-                            {
-                              "name": "trace",
-                              "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-25191-orting-Tests-Ascending-sort-chromium/trace.zip"
-                            }
-                          ]
-                        }
-                      ],
-                      "status": "expected"
+                      "type": "repository",
+                      "description": "Buerokratt-Chatbot"
                     }
                   ],
-                  "id": "1a8d286449e509ec0efb-04bf3cd5f358c9d8a800",
-                  "file": "admin/landingPage/mainPage/sideBar/conversations/history/functionality.spec.js",
-                  "line": 180,
-                  "column": 10
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "status": "failed",
+                      "duration": 6362,
+                      "error": {
+                        "message": "Error: expect.toBeVisible: Error: strict mode violation: getByText('Welcome Message', { exact: true }) resolved to 2 elements:\n    1) <h1>Welcome Message</h1> aka getByRole('heading', { name: 'Welcome Message' })\n    2) <label for=\":r2:\" class=\"textarea__label\">Welcome Message</label> aka locator('label').filter({ hasText: 'Welcome Message' })\n\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText('Welcome Message', { exact: true })\u001b[22m\n",
+                        "stack": "Error: expect.toBeVisible: Error: strict mode violation: getByText('Welcome Message', { exact: true }) resolved to 2 elements:\n    1) <h1>Welcome Message</h1> aka getByRole('heading', { name: 'Welcome Message' })\n    2) <label for=\":r2:\" class=\"textarea__label\">Welcome Message</label> aka locator('label').filter({ hasText: 'Welcome Message' })\n\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText('Welcome Message', { exact: true })\u001b[22m\n\n    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/chatbot/welcome_message/visibility.spec.js:27:37",
+                        "location": {
+                          "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/chatbot/welcome_message/visibility.spec.js",
+                          "column": 37,
+                          "line": 27
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 25 |\u001b[39m     \u001b[36mconst\u001b[39m cardTextareaLabel \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByText(\u001b[32m`${translation.welcomeMessage}`\u001b[39m\u001b[33m,\u001b[39m { exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m 26 |\u001b[39m     \u001b[36mconst\u001b[39m cardTextareaInput \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByLabel(\u001b[32m`${translation.welcomeMessage}`\u001b[39m\u001b[33m,\u001b[39m { exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 27 |\u001b[39m     \u001b[36mawait\u001b[39m expect(cardTextareaLabel)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                     \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 28 |\u001b[39m     \u001b[36mawait\u001b[39m expect(cardTextareaInput)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 29 |\u001b[39m\n \u001b[90m 30 |\u001b[39m     \u001b[36mconst\u001b[39m saveButton \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByText(\u001b[32m`${translation.save}`\u001b[39m\u001b[33m,\u001b[39m { exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m;\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/chatbot/welcome_message/visibility.spec.js",
+                            "column": 37,
+                            "line": 27
+                          },
+                          "message": "Error: expect.toBeVisible: Error: strict mode violation: getByText('Welcome Message', { exact: true }) resolved to 2 elements:\n    1) <h1>Welcome Message</h1> aka getByRole('heading', { name: 'Welcome Message' })\n    2) <label for=\":r2:\" class=\"textarea__label\">Welcome Message</label> aka locator('label').filter({ hasText: 'Welcome Message' })\n\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText('Welcome Message', { exact: true })\u001b[22m\n\n\n\u001b[0m \u001b[90m 25 |\u001b[39m     \u001b[36mconst\u001b[39m cardTextareaLabel \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByText(\u001b[32m`${translation.welcomeMessage}`\u001b[39m\u001b[33m,\u001b[39m { exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m 26 |\u001b[39m     \u001b[36mconst\u001b[39m cardTextareaInput \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByLabel(\u001b[32m`${translation.welcomeMessage}`\u001b[39m\u001b[33m,\u001b[39m { exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 27 |\u001b[39m     \u001b[36mawait\u001b[39m expect(cardTextareaLabel)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                     \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 28 |\u001b[39m     \u001b[36mawait\u001b[39m expect(cardTextareaInput)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 29 |\u001b[39m\n \u001b[90m 30 |\u001b[39m     \u001b[36mconst\u001b[39m saveButton \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByText(\u001b[32m`${translation.save}`\u001b[39m\u001b[33m,\u001b[39m { exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m;\u001b[39m\u001b[0m\n\n\u001b[2m    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/chatbot/welcome_message/visibility.spec.js:27:37\u001b[22m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-11-18T10:31:10.338Z",
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-e4fd0-y-heading-and-card-elements-chromium/test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-e4fd0-y-heading-and-card-elements-chromium/video.webm"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-e4fd0-y-heading-and-card-elements-chromium/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/chatbot/welcome_message/visibility.spec.js",
+                        "column": 37,
+                        "line": 27
+                      }
+                    },
+                    {
+                      "workerIndex": 2,
+                      "status": "failed",
+                      "duration": 5819,
+                      "error": {
+                        "message": "Error: expect.toBeVisible: Error: strict mode violation: getByText('Welcome Message', { exact: true }) resolved to 2 elements:\n    1) <h1>Welcome Message</h1> aka getByRole('heading', { name: 'Welcome Message' })\n    2) <label for=\":r2:\" class=\"textarea__label\">Welcome Message</label> aka locator('label').filter({ hasText: 'Welcome Message' })\n\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText('Welcome Message', { exact: true })\u001b[22m\n",
+                        "stack": "Error: expect.toBeVisible: Error: strict mode violation: getByText('Welcome Message', { exact: true }) resolved to 2 elements:\n    1) <h1>Welcome Message</h1> aka getByRole('heading', { name: 'Welcome Message' })\n    2) <label for=\":r2:\" class=\"textarea__label\">Welcome Message</label> aka locator('label').filter({ hasText: 'Welcome Message' })\n\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText('Welcome Message', { exact: true })\u001b[22m\n\n    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/chatbot/welcome_message/visibility.spec.js:27:37",
+                        "location": {
+                          "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/chatbot/welcome_message/visibility.spec.js",
+                          "column": 37,
+                          "line": 27
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 25 |\u001b[39m     \u001b[36mconst\u001b[39m cardTextareaLabel \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByText(\u001b[32m`${translation.welcomeMessage}`\u001b[39m\u001b[33m,\u001b[39m { exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m 26 |\u001b[39m     \u001b[36mconst\u001b[39m cardTextareaInput \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByLabel(\u001b[32m`${translation.welcomeMessage}`\u001b[39m\u001b[33m,\u001b[39m { exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 27 |\u001b[39m     \u001b[36mawait\u001b[39m expect(cardTextareaLabel)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                     \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 28 |\u001b[39m     \u001b[36mawait\u001b[39m expect(cardTextareaInput)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 29 |\u001b[39m\n \u001b[90m 30 |\u001b[39m     \u001b[36mconst\u001b[39m saveButton \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByText(\u001b[32m`${translation.save}`\u001b[39m\u001b[33m,\u001b[39m { exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m;\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/chatbot/welcome_message/visibility.spec.js",
+                            "column": 37,
+                            "line": 27
+                          },
+                          "message": "Error: expect.toBeVisible: Error: strict mode violation: getByText('Welcome Message', { exact: true }) resolved to 2 elements:\n    1) <h1>Welcome Message</h1> aka getByRole('heading', { name: 'Welcome Message' })\n    2) <label for=\":r2:\" class=\"textarea__label\">Welcome Message</label> aka locator('label').filter({ hasText: 'Welcome Message' })\n\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText('Welcome Message', { exact: true })\u001b[22m\n\n\n\u001b[0m \u001b[90m 25 |\u001b[39m     \u001b[36mconst\u001b[39m cardTextareaLabel \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByText(\u001b[32m`${translation.welcomeMessage}`\u001b[39m\u001b[33m,\u001b[39m { exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m 26 |\u001b[39m     \u001b[36mconst\u001b[39m cardTextareaInput \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByLabel(\u001b[32m`${translation.welcomeMessage}`\u001b[39m\u001b[33m,\u001b[39m { exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 27 |\u001b[39m     \u001b[36mawait\u001b[39m expect(cardTextareaLabel)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                     \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 28 |\u001b[39m     \u001b[36mawait\u001b[39m expect(cardTextareaInput)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 29 |\u001b[39m\n \u001b[90m 30 |\u001b[39m     \u001b[36mconst\u001b[39m saveButton \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByText(\u001b[32m`${translation.save}`\u001b[39m\u001b[33m,\u001b[39m { exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m;\u001b[39m\u001b[0m\n\n\u001b[2m    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/chatbot/welcome_message/visibility.spec.js:27:37\u001b[22m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 1,
+                      "startTime": "2024-11-18T10:31:17.436Z",
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-e4fd0-y-heading-and-card-elements-chromium-retry1/test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-e4fd0-y-heading-and-card-elements-chromium-retry1/video.webm"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-e4fd0-y-heading-and-card-elements-chromium-retry1/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/chatbot/welcome_message/visibility.spec.js",
+                        "column": 37,
+                        "line": 27
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
                 }
-              ]
+              ],
+              "id": "2f745d46c4ee8f6e6798-588a9fcd75689ada1f40",
+              "file": "admin/landingPage/mainPage/sideBar/administration/chatbot/welcome_message/visibility.spec.js",
+              "line": 16,
+              "column": 7
             }
           ]
         }
@@ -294,11 +270,11 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2024-11-18T09:48:59.763Z",
-    "duration": 33030.166,
-    "expected": 2,
+    "startTime": "2024-11-18T10:30:54.654Z",
+    "duration": 28899.944,
+    "expected": 1,
     "skipped": 0,
-    "unexpected": 0,
+    "unexpected": 1,
     "flaky": 0
   }
 }
