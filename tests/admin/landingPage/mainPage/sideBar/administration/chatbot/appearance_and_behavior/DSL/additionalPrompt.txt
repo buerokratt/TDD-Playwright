@@ -1,9 +1,0 @@
-When working with colorpicker use this
-
-await colorInput.click();
-const colorPickerInput = await page.getByLabel('hex')
-const initialColor = await colorPickerInput.inputValue();
-
-Make the tests serial so they don't interfere with each other. 
-
-Also when selecting the animation dropdown menu, first click the element, then search for the options.
