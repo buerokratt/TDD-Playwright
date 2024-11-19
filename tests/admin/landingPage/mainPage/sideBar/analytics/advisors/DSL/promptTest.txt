@@ -1,5 +1,5 @@
 The goal is to convert BusinessDSL specifications into Playwright test cases. The output should be a valid, directly executable test file. Focus on comprehensive test coverage, clear locators, logical grouping, and alignment with DSL requirements.
-Give clear testfile without any comments.
+Give clear visibility testfile without any comments.
 
 1. Setup and Initialization:
    - Base URL: Append the DSL's resource URL to https://admin.prod.buerokratt.ee.
@@ -14,9 +14,9 @@ Give clear testfile without any comments.
      test.info().annotations.push({ type: 'repository', description: '<DSL description>' });
 
 2. Locator Rules:
-   - Use translation keys for text-based locators.
+   - Use translation.
    - Translation keys start with a lowercase letter and are integrated like this:
-     `${translation.key}`
+     `${translation.key}`. For example: `${translation.helloWorld}` will get "Hello world!" from translation file.
    - Use exact matching ({ exact: true }) for all locators.
    - Always scope locators to specific parent containers (e.g., card, modal, form, section or table etc.) to ensure precision and avoid ambiguity.
      For example: If a button is within .card__body, use cardBody.getByRole() rather than page.getByRole().
@@ -25,11 +25,10 @@ Give clear testfile without any comments.
      const button = page.locator('.card').filter({ hasText: `${translation.forwarding}` }).getByRole('button', { name: `${translation.forwarding}`, exact: true });
 
    Specific Locators:
-   If DSL has input-hidden:true then check only label visibility.
    - Input fields or textareas with placeholder text: page.getByPlaceholder()
    - Element that is associated with label (in DSL this elements are marked with adjacentTo: label): page.getByLabel()
-   - Interactive elements (buttons, links, checkboxes, headings, dropdowns): page.getByRole()
-   - Any element with visible text and if no previous thing does not fit: page.getByText()
+   - Interactive elements (buttons, links, checkboxes, headings): page.getByRole()
+   - Dropdown, or any element with visible text and if no previous thing does not fit: page.getByText()
    - Datepicker without assosiated label: page.locator()
 
    Examples:
@@ -41,7 +40,7 @@ Give clear testfile without any comments.
    const inputField = await page.getByLabel(`${translation.email}`, { exact: true });
    const radioOption = await page.getByText(`${translation.radioText}`, { exact: true });
    const datepicker = await page.locator('.datepicker')
-   const dropdown = await page.getByRole('combobox', { name: `${translation.someName}`, exact: true });
+   const dropdown = await page.getByText(new RegExp(translation.barChart));
    const switch = await page.getByRole('switch', { name: `${translation.someName}`, exact: true });
    
 

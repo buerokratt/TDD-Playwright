@@ -89,21 +89,19 @@ test:
             - type: checkbox
             - style: checkbox
             - adjacentTo: label
-            - input-hidden: true
+        
     checkbox:
         label: "Counselor directed conversations"
         args:
             - type: checkbox
             - style: checkbox
             - adjacentTo: label
-            - input-hidden: true
     checkbox:
         label: "Out-of-facility forwards"
         args:
             - type: checkbox
             - style: checkbox
             - adjacentTo: label
-            - input-hidden: true
 
   card:
     name: card__header
@@ -122,6 +120,7 @@ test:
     select:
        args:
            - type: dropdown
+           - default: Bar Chart
            - options:
              - value: Bar Chart
              - value: Pie Chart
