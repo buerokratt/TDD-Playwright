@@ -97,7 +97,7 @@
                 {
                   "workerIndex": 0,
                   "status": "timedOut",
-                  "duration": 31489,
+                  "duration": 31752,
                   "error": {
                     "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
                     "stack": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
@@ -109,16 +109,16 @@
                     {
                       "location": {
                         "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/.auth/auth.setup.js",
-                        "column": 60,
-                        "line": 23
+                        "column": 16,
+                        "line": 28
                       },
-                      "message": "Error: locator.click: Test timeout of 30000ms exceeded.\nCall log:\n  \u001b[2m- waiting for getByRole('textbox', { name: 'Isikukood' })\u001b[22m\n\n\n\u001b[0m \u001b[90m 21 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m'link'\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m'Smart-ID'\u001b[39m\u001b[33m,\u001b[39m exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m.\u001b[39mclick()\u001b[33m;\u001b[39m\n \u001b[90m 22 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'.c-tab-login__nav-item'\u001b[39m)\u001b[33m.\u001b[39mnth(\u001b[35m2\u001b[39m)\u001b[33m.\u001b[39mclick()\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 23 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m'textbox'\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m'Isikukood'\u001b[39m })\u001b[33m.\u001b[39mclick()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                            \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 24 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m'textbox'\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m'Isikukood'\u001b[39m })\u001b[33m.\u001b[39mfill(\u001b[32m'30303039914'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 25 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m'button'\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m'Jätka'\u001b[39m })\u001b[33m.\u001b[39mclick()\u001b[33m;\u001b[39m\n \u001b[90m 26 |\u001b[39m\u001b[0m\n\n\u001b[2m    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/.auth/auth.setup.js:23:60\u001b[22m"
+                      "message": "Error: page.waitForURL: Test timeout of 30000ms exceeded.\n=========================== logs ===========================\nwaiting for navigation to \"https://admin.prod.buerokratt.ee/chat/active\" until \"load\"\n============================================================\n\n\u001b[0m \u001b[90m 26 |\u001b[39m\n \u001b[90m 27 |\u001b[39m     \u001b[90m// Wait for the navigation to the authenticated page\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 28 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForURL(\u001b[32m'https://admin.prod.buerokratt.ee/chat/active'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 29 |\u001b[39m\n \u001b[90m 30 |\u001b[39m     \u001b[90m// Save the authentication state\u001b[39m\n \u001b[90m 31 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mcontext()\u001b[33m.\u001b[39mstorageState({ path\u001b[33m:\u001b[39m authFile })\u001b[33m;\u001b[39m\u001b[0m\n\n\u001b[2m    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/.auth/auth.setup.js:28:16\u001b[22m"
                     }
                   ],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2024-11-18T12:53:26.682Z",
+                  "startTime": "2024-11-19T07:49:55.033Z",
                   "attachments": [
                     {
                       "name": "screenshot",
@@ -140,12 +140,12 @@
                 {
                   "workerIndex": 1,
                   "status": "passed",
-                  "duration": 19115,
+                  "duration": 19548,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 1,
-                  "startTime": "2024-11-18T12:53:58.911Z",
+                  "startTime": "2024-11-19T07:50:27.809Z",
                   "attachments": [
                     {
                       "name": "trace",
@@ -166,27 +166,71 @@
       ]
     },
     {
-      "title": "admin/landingPage/mainPage/sideBar/analytics/advisors/DSL/generated.spec.js",
-      "file": "admin/landingPage/mainPage/sideBar/analytics/advisors/DSL/generated.spec.js",
+      "title": "admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
+      "file": "admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
       "column": 0,
       "line": 0,
       "specs": [],
       "suites": [
         {
-          "title": "Analytics Module Tests",
-          "file": "admin/landingPage/mainPage/sideBar/analytics/advisors/DSL/generated.spec.js",
+          "title": "Working time - Visibility Tests",
+          "file": "admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
           "line": 6,
           "column": 6,
-          "specs": [],
+          "specs": [
+            {
+              "title": "Main Heading visibility",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "repository",
+                      "description": "Working time"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "status": "passed",
+                      "duration": 5033,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-11-19T07:50:48.824Z",
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-bd235-sts-Main-Heading-visibility-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "185fc0b3c8bbe92499cb-e48b20bd6aaa95b70529",
+              "file": "admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
+              "line": 14,
+              "column": 9
+            }
+          ],
           "suites": [
             {
-              "title": "Heading Tests",
-              "file": "admin/landingPage/mainPage/sideBar/analytics/advisors/DSL/generated.spec.js",
-              "line": 14,
+              "title": "Card Header visibility",
+              "file": "admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
+              "line": 19,
               "column": 10,
               "specs": [
                 {
-                  "title": "Check main heading",
+                  "title": "Working Hours Are 24/7 toggle",
                   "ok": true,
                   "tags": [],
                   "tests": [
@@ -195,58 +239,7 @@
                       "annotations": [
                         {
                           "type": "repository",
-                          "description": "Analytics-Module"
-                        }
-                      ],
-                      "expectedStatus": "passed",
-                      "projectId": "chromium",
-                      "projectName": "chromium",
-                      "results": [
-                        {
-                          "workerIndex": 2,
-                          "status": "passed",
-                          "duration": 7171,
-                          "errors": [],
-                          "stdout": [],
-                          "stderr": [],
-                          "retry": 0,
-                          "startTime": "2024-11-18T12:54:19.100Z",
-                          "attachments": [
-                            {
-                              "name": "trace",
-                              "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-27180-ng-Tests-Check-main-heading-chromium/trace.zip"
-                            }
-                          ]
-                        }
-                      ],
-                      "status": "expected"
-                    }
-                  ],
-                  "id": "d82840f9760006a2d3d9-1568ec5dfddccf3adbf7",
-                  "file": "admin/landingPage/mainPage/sideBar/analytics/advisors/DSL/generated.spec.js",
-                  "line": 15,
-                  "column": 13
-                }
-              ]
-            },
-            {
-              "title": "Card Section Tests",
-              "file": "admin/landingPage/mainPage/sideBar/analytics/advisors/DSL/generated.spec.js",
-              "line": 21,
-              "column": 10,
-              "specs": [
-                {
-                  "title": "Check Period Section Buttons",
-                  "ok": true,
-                  "tags": [],
-                  "tests": [
-                    {
-                      "timeout": 30000,
-                      "annotations": [
-                        {
-                          "type": "repository",
-                          "description": "Analytics-Module"
+                          "description": "Working time"
                         }
                       ],
                       "expectedStatus": "passed",
@@ -256,17 +249,17 @@
                         {
                           "workerIndex": 3,
                           "status": "passed",
-                          "duration": 6498,
+                          "duration": 5401,
                           "errors": [],
                           "stdout": [],
                           "stderr": [],
                           "retry": 0,
-                          "startTime": "2024-11-18T12:54:19.136Z",
+                          "startTime": "2024-11-19T07:50:48.864Z",
                           "attachments": [
                             {
                               "name": "trace",
                               "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-2e921-heck-Period-Section-Buttons-chromium/trace.zip"
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-4b3a7-rking-Hours-Are-24-7-toggle-chromium/trace.zip"
                             }
                           ]
                         }
@@ -274,193 +267,13 @@
                       "status": "expected"
                     }
                   ],
-                  "id": "d82840f9760006a2d3d9-f42b3f5b2d98987e6b86",
-                  "file": "admin/landingPage/mainPage/sideBar/analytics/advisors/DSL/generated.spec.js",
-                  "line": 22,
+                  "id": "185fc0b3c8bbe92499cb-c7a0af24b4fe4c37a19f",
+                  "file": "admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
+                  "line": 20,
                   "column": 13
                 },
                 {
-                  "title": "should display Choose a metric label and metric buttons",
-                  "ok": true,
-                  "tags": [],
-                  "tests": [
-                    {
-                      "timeout": 30000,
-                      "annotations": [
-                        {
-                          "type": "repository",
-                          "description": "Analytics-Module"
-                        }
-                      ],
-                      "expectedStatus": "passed",
-                      "projectId": "chromium",
-                      "projectName": "chromium",
-                      "results": [
-                        {
-                          "workerIndex": 4,
-                          "status": "passed",
-                          "duration": 7402,
-                          "errors": [],
-                          "stdout": [],
-                          "stderr": [],
-                          "retry": 0,
-                          "startTime": "2024-11-18T12:54:19.201Z",
-                          "attachments": [
-                            {
-                              "name": "trace",
-                              "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-5c695-ic-label-and-metric-buttons-chromium/trace.zip"
-                            }
-                          ]
-                        }
-                      ],
-                      "status": "expected"
-                    }
-                  ],
-                  "id": "d82840f9760006a2d3d9-ff9757c94f4ed5061891",
-                  "file": "admin/landingPage/mainPage/sideBar/analytics/advisors/DSL/generated.spec.js",
-                  "line": 39,
-                  "column": 13
-                },
-                {
-                  "title": "Check Additional Options Checkboxes",
-                  "ok": true,
-                  "tags": [],
-                  "tests": [
-                    {
-                      "timeout": 30000,
-                      "annotations": [
-                        {
-                          "type": "repository",
-                          "description": "Analytics-Module"
-                        }
-                      ],
-                      "expectedStatus": "passed",
-                      "projectId": "chromium",
-                      "projectName": "chromium",
-                      "results": [
-                        {
-                          "workerIndex": 5,
-                          "status": "passed",
-                          "duration": 7412,
-                          "errors": [],
-                          "stdout": [],
-                          "stderr": [],
-                          "retry": 0,
-                          "startTime": "2024-11-18T12:54:19.144Z",
-                          "attachments": [
-                            {
-                              "name": "trace",
-                              "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-43590-ditional-Options-Checkboxes-chromium/trace.zip"
-                            }
-                          ]
-                        }
-                      ],
-                      "status": "expected"
-                    }
-                  ],
-                  "id": "d82840f9760006a2d3d9-03337123f7b563393ed2",
-                  "file": "admin/landingPage/mainPage/sideBar/analytics/advisors/DSL/generated.spec.js",
-                  "line": 55,
-                  "column": 13
-                }
-              ]
-            },
-            {
-              "title": "Card Header Tests",
-              "file": "admin/landingPage/mainPage/sideBar/analytics/advisors/DSL/generated.spec.js",
-              "line": 69,
-              "column": 10,
-              "specs": [
-                {
-                  "title": "Check Forwarding Header",
-                  "ok": true,
-                  "tags": [],
-                  "tests": [
-                    {
-                      "timeout": 30000,
-                      "annotations": [
-                        {
-                          "type": "repository",
-                          "description": "Analytics-Module"
-                        }
-                      ],
-                      "expectedStatus": "passed",
-                      "projectId": "chromium",
-                      "projectName": "chromium",
-                      "results": [
-                        {
-                          "workerIndex": 3,
-                          "status": "passed",
-                          "duration": 6297,
-                          "errors": [],
-                          "stdout": [],
-                          "stderr": [],
-                          "retry": 0,
-                          "startTime": "2024-11-18T12:54:26.205Z",
-                          "attachments": [
-                            {
-                              "name": "trace",
-                              "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-6985f-sts-Check-Forwarding-Header-chromium/trace.zip"
-                            }
-                          ]
-                        }
-                      ],
-                      "status": "expected"
-                    }
-                  ],
-                  "id": "d82840f9760006a2d3d9-3623aecd8da34800ec25",
-                  "file": "admin/landingPage/mainPage/sideBar/analytics/advisors/DSL/generated.spec.js",
-                  "line": 70,
-                  "column": 13
-                },
-                {
-                  "title": "Check CSV Button",
-                  "ok": true,
-                  "tags": [],
-                  "tests": [
-                    {
-                      "timeout": 30000,
-                      "annotations": [
-                        {
-                          "type": "repository",
-                          "description": "Analytics-Module"
-                        }
-                      ],
-                      "expectedStatus": "passed",
-                      "projectId": "chromium",
-                      "projectName": "chromium",
-                      "results": [
-                        {
-                          "workerIndex": 2,
-                          "status": "passed",
-                          "duration": 6243,
-                          "errors": [],
-                          "stdout": [],
-                          "stderr": [],
-                          "retry": 0,
-                          "startTime": "2024-11-18T12:54:26.928Z",
-                          "attachments": [
-                            {
-                              "name": "trace",
-                              "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-da290-ader-Tests-Check-CSV-Button-chromium/trace.zip"
-                            }
-                          ]
-                        }
-                      ],
-                      "status": "expected"
-                    }
-                  ],
-                  "id": "d82840f9760006a2d3d9-2e049f5948b701bc5e99",
-                  "file": "admin/landingPage/mainPage/sideBar/analytics/advisors/DSL/generated.spec.js",
-                  "line": 75,
-                  "column": 13
-                },
-                {
-                  "title": "Check Chart Dropdown",
+                  "title": "Consider Public Holidays toggle",
                   "ok": false,
                   "tags": [],
                   "tests": [
@@ -469,7 +282,7 @@
                       "annotations": [
                         {
                           "type": "repository",
-                          "description": "Analytics-Module"
+                          "description": "Working time"
                         }
                       ],
                       "expectedStatus": "passed",
@@ -477,126 +290,118 @@
                       "projectName": "chromium",
                       "results": [
                         {
-                          "workerIndex": 5,
+                          "workerIndex": 4,
                           "status": "failed",
-                          "duration": 11404,
+                          "duration": 11500,
                           "error": {
-                            "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: getByRole('combobox', { name: 'Bar chart' })\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('combobox', { name: 'Bar chart' })\u001b[22m\n",
-                            "stack": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: getByRole('combobox', { name: 'Bar chart' })\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('combobox', { name: 'Bar chart' })\u001b[22m\n\n    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/analytics/advisors/DSL/generated.spec.js:82:41",
+                            "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: getByLabel('Consider public holidays', { exact: true })\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByLabel('Consider public holidays', { exact: true })\u001b[22m\n",
+                            "stack": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: getByLabel('Consider public holidays', { exact: true })\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByLabel('Consider public holidays', { exact: true })\u001b[22m\n\n    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js:27:34",
                             "location": {
-                              "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/analytics/advisors/DSL/generated.spec.js",
-                              "column": 41,
-                              "line": 82
+                              "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
+                              "column": 34,
+                              "line": 27
                             },
-                            "snippet": "\u001b[0m \u001b[90m 80 |\u001b[39m         test(\u001b[32m'Check Chart Dropdown'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\n \u001b[90m 81 |\u001b[39m             \u001b[36mconst\u001b[39m chartDropdown \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m'combobox'\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m`${translation.barChart}`\u001b[39m })\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 82 |\u001b[39m             \u001b[36mawait\u001b[39m expect(chartDropdown)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                         \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 83 |\u001b[39m         })\u001b[33m;\u001b[39m\n \u001b[90m 84 |\u001b[39m     })\u001b[33m;\u001b[39m\n \u001b[90m 85 |\u001b[39m\u001b[0m"
+                            "snippet": "\u001b[0m \u001b[90m 25 |\u001b[39m         test(\u001b[32m'Consider Public Holidays toggle'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\n \u001b[90m 26 |\u001b[39m             \u001b[36mconst\u001b[39m toggle \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByLabel(\u001b[32m`${translation.considerPublicHolidays}`\u001b[39m\u001b[33m,\u001b[39m { exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 27 |\u001b[39m             \u001b[36mawait\u001b[39m expect(toggle)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                  \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 28 |\u001b[39m         })\u001b[33m;\u001b[39m\n \u001b[90m 29 |\u001b[39m\n \u001b[90m 30 |\u001b[39m         test(\u001b[32m'Closed On Weekends toggle'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\u001b[0m"
                           },
                           "errors": [
                             {
                               "location": {
-                                "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/analytics/advisors/DSL/generated.spec.js",
-                                "column": 41,
-                                "line": 82
+                                "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
+                                "column": 34,
+                                "line": 27
                               },
-                              "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: getByRole('combobox', { name: 'Bar chart' })\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('combobox', { name: 'Bar chart' })\u001b[22m\n\n\n\u001b[0m \u001b[90m 80 |\u001b[39m         test(\u001b[32m'Check Chart Dropdown'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\n \u001b[90m 81 |\u001b[39m             \u001b[36mconst\u001b[39m chartDropdown \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m'combobox'\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m`${translation.barChart}`\u001b[39m })\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 82 |\u001b[39m             \u001b[36mawait\u001b[39m expect(chartDropdown)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                         \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 83 |\u001b[39m         })\u001b[33m;\u001b[39m\n \u001b[90m 84 |\u001b[39m     })\u001b[33m;\u001b[39m\n \u001b[90m 85 |\u001b[39m\u001b[0m\n\n\u001b[2m    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/analytics/advisors/DSL/generated.spec.js:82:41\u001b[22m"
+                              "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: getByLabel('Consider public holidays', { exact: true })\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByLabel('Consider public holidays', { exact: true })\u001b[22m\n\n\n\u001b[0m \u001b[90m 25 |\u001b[39m         test(\u001b[32m'Consider Public Holidays toggle'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\n \u001b[90m 26 |\u001b[39m             \u001b[36mconst\u001b[39m toggle \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByLabel(\u001b[32m`${translation.considerPublicHolidays}`\u001b[39m\u001b[33m,\u001b[39m { exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 27 |\u001b[39m             \u001b[36mawait\u001b[39m expect(toggle)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                  \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 28 |\u001b[39m         })\u001b[33m;\u001b[39m\n \u001b[90m 29 |\u001b[39m\n \u001b[90m 30 |\u001b[39m         test(\u001b[32m'Closed On Weekends toggle'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\u001b[0m\n\n\u001b[2m    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js:27:34\u001b[22m"
                             }
                           ],
                           "stdout": [],
                           "stderr": [],
                           "retry": 0,
-                          "startTime": "2024-11-18T12:54:27.228Z",
+                          "startTime": "2024-11-19T07:50:48.918Z",
                           "attachments": [
                             {
                               "name": "screenshot",
                               "contentType": "image/png",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-42d9e--Tests-Check-Chart-Dropdown-chromium/test-failed-1.png"
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-fd196-ider-Public-Holidays-toggle-chromium/test-failed-1.png"
                             },
                             {
                               "name": "video",
                               "contentType": "video/webm",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-42d9e--Tests-Check-Chart-Dropdown-chromium/video.webm"
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-fd196-ider-Public-Holidays-toggle-chromium/video.webm"
                             },
                             {
                               "name": "trace",
                               "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-42d9e--Tests-Check-Chart-Dropdown-chromium/trace.zip"
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-fd196-ider-Public-Holidays-toggle-chromium/trace.zip"
                             }
                           ],
                           "errorLocation": {
-                            "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/analytics/advisors/DSL/generated.spec.js",
-                            "column": 41,
-                            "line": 82
+                            "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
+                            "column": 34,
+                            "line": 27
                           }
                         },
                         {
                           "workerIndex": 7,
                           "status": "failed",
-                          "duration": 11052,
+                          "duration": 9671,
                           "error": {
-                            "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: getByRole('combobox', { name: 'Bar chart' })\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('combobox', { name: 'Bar chart' })\u001b[22m\n",
-                            "stack": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: getByRole('combobox', { name: 'Bar chart' })\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('combobox', { name: 'Bar chart' })\u001b[22m\n\n    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/analytics/advisors/DSL/generated.spec.js:82:41",
+                            "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: getByLabel('Consider public holidays', { exact: true })\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByLabel('Consider public holidays', { exact: true })\u001b[22m\n",
+                            "stack": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: getByLabel('Consider public holidays', { exact: true })\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByLabel('Consider public holidays', { exact: true })\u001b[22m\n\n    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js:27:34",
                             "location": {
-                              "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/analytics/advisors/DSL/generated.spec.js",
-                              "column": 41,
-                              "line": 82
+                              "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
+                              "column": 34,
+                              "line": 27
                             },
-                            "snippet": "\u001b[0m \u001b[90m 80 |\u001b[39m         test(\u001b[32m'Check Chart Dropdown'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\n \u001b[90m 81 |\u001b[39m             \u001b[36mconst\u001b[39m chartDropdown \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m'combobox'\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m`${translation.barChart}`\u001b[39m })\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 82 |\u001b[39m             \u001b[36mawait\u001b[39m expect(chartDropdown)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                         \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 83 |\u001b[39m         })\u001b[33m;\u001b[39m\n \u001b[90m 84 |\u001b[39m     })\u001b[33m;\u001b[39m\n \u001b[90m 85 |\u001b[39m\u001b[0m"
+                            "snippet": "\u001b[0m \u001b[90m 25 |\u001b[39m         test(\u001b[32m'Consider Public Holidays toggle'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\n \u001b[90m 26 |\u001b[39m             \u001b[36mconst\u001b[39m toggle \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByLabel(\u001b[32m`${translation.considerPublicHolidays}`\u001b[39m\u001b[33m,\u001b[39m { exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 27 |\u001b[39m             \u001b[36mawait\u001b[39m expect(toggle)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                  \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 28 |\u001b[39m         })\u001b[33m;\u001b[39m\n \u001b[90m 29 |\u001b[39m\n \u001b[90m 30 |\u001b[39m         test(\u001b[32m'Closed On Weekends toggle'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\u001b[0m"
                           },
                           "errors": [
                             {
                               "location": {
-                                "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/analytics/advisors/DSL/generated.spec.js",
-                                "column": 41,
-                                "line": 82
+                                "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
+                                "column": 34,
+                                "line": 27
                               },
-                              "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: getByRole('combobox', { name: 'Bar chart' })\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('combobox', { name: 'Bar chart' })\u001b[22m\n\n\n\u001b[0m \u001b[90m 80 |\u001b[39m         test(\u001b[32m'Check Chart Dropdown'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\n \u001b[90m 81 |\u001b[39m             \u001b[36mconst\u001b[39m chartDropdown \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m'combobox'\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m`${translation.barChart}`\u001b[39m })\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 82 |\u001b[39m             \u001b[36mawait\u001b[39m expect(chartDropdown)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                         \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 83 |\u001b[39m         })\u001b[33m;\u001b[39m\n \u001b[90m 84 |\u001b[39m     })\u001b[33m;\u001b[39m\n \u001b[90m 85 |\u001b[39m\u001b[0m\n\n\u001b[2m    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/analytics/advisors/DSL/generated.spec.js:82:41\u001b[22m"
+                              "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: getByLabel('Consider public holidays', { exact: true })\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByLabel('Consider public holidays', { exact: true })\u001b[22m\n\n\n\u001b[0m \u001b[90m 25 |\u001b[39m         test(\u001b[32m'Consider Public Holidays toggle'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\n \u001b[90m 26 |\u001b[39m             \u001b[36mconst\u001b[39m toggle \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByLabel(\u001b[32m`${translation.considerPublicHolidays}`\u001b[39m\u001b[33m,\u001b[39m { exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 27 |\u001b[39m             \u001b[36mawait\u001b[39m expect(toggle)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                  \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 28 |\u001b[39m         })\u001b[33m;\u001b[39m\n \u001b[90m 29 |\u001b[39m\n \u001b[90m 30 |\u001b[39m         test(\u001b[32m'Closed On Weekends toggle'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\u001b[0m\n\n\u001b[2m    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js:27:34\u001b[22m"
                             }
                           ],
                           "stdout": [],
                           "stderr": [],
                           "retry": 1,
-                          "startTime": "2024-11-18T12:54:39.197Z",
+                          "startTime": "2024-11-19T07:51:01.888Z",
                           "attachments": [
                             {
                               "name": "screenshot",
                               "contentType": "image/png",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-42d9e--Tests-Check-Chart-Dropdown-chromium-retry1/test-failed-1.png"
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-fd196-ider-Public-Holidays-toggle-chromium-retry1/test-failed-1.png"
                             },
                             {
                               "name": "video",
                               "contentType": "video/webm",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-42d9e--Tests-Check-Chart-Dropdown-chromium-retry1/video.webm"
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-fd196-ider-Public-Holidays-toggle-chromium-retry1/video.webm"
                             },
                             {
                               "name": "trace",
                               "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-42d9e--Tests-Check-Chart-Dropdown-chromium-retry1/trace.zip"
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-fd196-ider-Public-Holidays-toggle-chromium-retry1/trace.zip"
                             }
                           ],
                           "errorLocation": {
-                            "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/analytics/advisors/DSL/generated.spec.js",
-                            "column": 41,
-                            "line": 82
+                            "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
+                            "column": 34,
+                            "line": 27
                           }
                         }
                       ],
                       "status": "unexpected"
                     }
                   ],
-                  "id": "d82840f9760006a2d3d9-b02240915d2103376619",
-                  "file": "admin/landingPage/mainPage/sideBar/analytics/advisors/DSL/generated.spec.js",
-                  "line": 80,
+                  "id": "185fc0b3c8bbe92499cb-b2d9edbee9bf120f68f4",
+                  "file": "admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
+                  "line": 25,
                   "column": 13
-                }
-              ]
-            },
-            {
-              "title": "Chart Section Tests",
-              "file": "admin/landingPage/mainPage/sideBar/analytics/advisors/DSL/generated.spec.js",
-              "line": 86,
-              "column": 10,
-              "specs": [
+                },
                 {
-                  "title": "Verify Chart Presence in Card Body",
+                  "title": "Closed On Weekends toggle",
                   "ok": false,
                   "tags": [],
                   "tests": [
@@ -605,7 +410,7 @@
                       "annotations": [
                         {
                           "type": "repository",
-                          "description": "Analytics-Module"
+                          "description": "Working time"
                         }
                       ],
                       "expectedStatus": "passed",
@@ -613,114 +418,1283 @@
                       "projectName": "chromium",
                       "results": [
                         {
-                          "workerIndex": 4,
+                          "workerIndex": 5,
                           "status": "failed",
-                          "duration": 6305,
+                          "duration": 10892,
                           "error": {
-                            "message": "Error: expect.toContainText: Error: strict mode violation: locator('.card__body') resolved to 2 elements:\n    1) <div class=\"card__body\">…</div> aka getByText('PeriodTodayYesterdayLast 30 DaysSelected MonthsSelected PeriodChoose a')\n    2) <div class=\"card__body\">…</div> aka getByRole('main').locator('div').filter({ hasText: '02:0001:0003:0004:0005:0006:' }).nth(1)\n\nCall log:\n  \u001b[2m- expect.toContainText with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.card__body')\u001b[22m\n",
-                            "stack": "Error: expect.toContainText: Error: strict mode violation: locator('.card__body') resolved to 2 elements:\n    1) <div class=\"card__body\">…</div> aka getByText('PeriodTodayYesterdayLast 30 DaysSelected MonthsSelected PeriodChoose a')\n    2) <div class=\"card__body\">…</div> aka getByRole('main').locator('div').filter({ hasText: '02:0001:0003:0004:0005:0006:' }).nth(1)\n\nCall log:\n  \u001b[2m- expect.toContainText with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.card__body')\u001b[22m\n\n    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/analytics/advisors/DSL/generated.spec.js:89:36",
+                            "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: getByLabel('Closed on weekends', { exact: true })\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByLabel('Closed on weekends', { exact: true })\u001b[22m\n",
+                            "stack": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: getByLabel('Closed on weekends', { exact: true })\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByLabel('Closed on weekends', { exact: true })\u001b[22m\n\n    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js:32:34",
                             "location": {
-                              "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/analytics/advisors/DSL/generated.spec.js",
-                              "column": 36,
-                              "line": 89
+                              "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
+                              "column": 34,
+                              "line": 32
                             },
-                            "snippet": "\u001b[0m \u001b[90m 87 |\u001b[39m         test(\u001b[32m'Verify Chart Presence in Card Body'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\n \u001b[90m 88 |\u001b[39m             \u001b[36mconst\u001b[39m cardBody \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'.card__body'\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 89 |\u001b[39m             \u001b[36mawait\u001b[39m expect(cardBody)\u001b[33m.\u001b[39mtoContainText(\u001b[32m`${translation.hasChart}`\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                    \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 90 |\u001b[39m         })\u001b[33m;\u001b[39m\n \u001b[90m 91 |\u001b[39m     })\u001b[33m;\u001b[39m\n \u001b[90m 92 |\u001b[39m })\u001b[33m;\u001b[39m\u001b[0m"
+                            "snippet": "\u001b[0m \u001b[90m 30 |\u001b[39m         test(\u001b[32m'Closed On Weekends toggle'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\n \u001b[90m 31 |\u001b[39m             \u001b[36mconst\u001b[39m toggle \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByLabel(\u001b[32m`${translation.closedOnWeekends}`\u001b[39m\u001b[33m,\u001b[39m { exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 32 |\u001b[39m             \u001b[36mawait\u001b[39m expect(toggle)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                  \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 33 |\u001b[39m         })\u001b[33m;\u001b[39m\n \u001b[90m 34 |\u001b[39m\n \u001b[90m 35 |\u001b[39m         test(\u001b[32m'Same On All Working Days toggle'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\u001b[0m"
                           },
                           "errors": [
                             {
                               "location": {
-                                "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/analytics/advisors/DSL/generated.spec.js",
-                                "column": 36,
-                                "line": 89
+                                "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
+                                "column": 34,
+                                "line": 32
                               },
-                              "message": "Error: expect.toContainText: Error: strict mode violation: locator('.card__body') resolved to 2 elements:\n    1) <div class=\"card__body\">…</div> aka getByText('PeriodTodayYesterdayLast 30 DaysSelected MonthsSelected PeriodChoose a')\n    2) <div class=\"card__body\">…</div> aka getByRole('main').locator('div').filter({ hasText: '02:0001:0003:0004:0005:0006:' }).nth(1)\n\nCall log:\n  \u001b[2m- expect.toContainText with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.card__body')\u001b[22m\n\n\n\u001b[0m \u001b[90m 87 |\u001b[39m         test(\u001b[32m'Verify Chart Presence in Card Body'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\n \u001b[90m 88 |\u001b[39m             \u001b[36mconst\u001b[39m cardBody \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'.card__body'\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 89 |\u001b[39m             \u001b[36mawait\u001b[39m expect(cardBody)\u001b[33m.\u001b[39mtoContainText(\u001b[32m`${translation.hasChart}`\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                    \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 90 |\u001b[39m         })\u001b[33m;\u001b[39m\n \u001b[90m 91 |\u001b[39m     })\u001b[33m;\u001b[39m\n \u001b[90m 92 |\u001b[39m })\u001b[33m;\u001b[39m\u001b[0m\n\n\u001b[2m    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/analytics/advisors/DSL/generated.spec.js:89:36\u001b[22m"
+                              "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: getByLabel('Closed on weekends', { exact: true })\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByLabel('Closed on weekends', { exact: true })\u001b[22m\n\n\n\u001b[0m \u001b[90m 30 |\u001b[39m         test(\u001b[32m'Closed On Weekends toggle'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\n \u001b[90m 31 |\u001b[39m             \u001b[36mconst\u001b[39m toggle \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByLabel(\u001b[32m`${translation.closedOnWeekends}`\u001b[39m\u001b[33m,\u001b[39m { exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 32 |\u001b[39m             \u001b[36mawait\u001b[39m expect(toggle)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                  \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 33 |\u001b[39m         })\u001b[33m;\u001b[39m\n \u001b[90m 34 |\u001b[39m\n \u001b[90m 35 |\u001b[39m         test(\u001b[32m'Same On All Working Days toggle'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\u001b[0m\n\n\u001b[2m    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js:32:34\u001b[22m"
                             }
                           ],
                           "stdout": [],
                           "stderr": [],
                           "retry": 0,
-                          "startTime": "2024-11-18T12:54:27.322Z",
+                          "startTime": "2024-11-19T07:50:48.866Z",
                           "attachments": [
                             {
                               "name": "screenshot",
                               "contentType": "image/png",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-cdb61-Chart-Presence-in-Card-Body-chromium/test-failed-1.png"
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-a3fc2-y-Closed-On-Weekends-toggle-chromium/test-failed-1.png"
                             },
                             {
                               "name": "video",
                               "contentType": "video/webm",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-cdb61-Chart-Presence-in-Card-Body-chromium/video.webm"
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-a3fc2-y-Closed-On-Weekends-toggle-chromium/video.webm"
                             },
                             {
                               "name": "trace",
                               "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-cdb61-Chart-Presence-in-Card-Body-chromium/trace.zip"
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-a3fc2-y-Closed-On-Weekends-toggle-chromium/trace.zip"
                             }
                           ],
                           "errorLocation": {
-                            "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/analytics/advisors/DSL/generated.spec.js",
-                            "column": 36,
-                            "line": 89
+                            "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
+                            "column": 34,
+                            "line": 32
                           }
                         },
                         {
                           "workerIndex": 6,
                           "status": "failed",
-                          "duration": 6051,
+                          "duration": 9341,
                           "error": {
-                            "message": "Error: expect.toContainText: Error: strict mode violation: locator('.card__body') resolved to 2 elements:\n    1) <div class=\"card__body\">…</div> aka getByText('PeriodTodayYesterdayLast 30 DaysSelected MonthsSelected PeriodChoose a')\n    2) <div class=\"card__body\">…</div> aka getByRole('main').locator('div').filter({ hasText: '02:0001:0003:0004:0005:0006:' }).nth(1)\n\nCall log:\n  \u001b[2m- expect.toContainText with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.card__body')\u001b[22m\n",
-                            "stack": "Error: expect.toContainText: Error: strict mode violation: locator('.card__body') resolved to 2 elements:\n    1) <div class=\"card__body\">…</div> aka getByText('PeriodTodayYesterdayLast 30 DaysSelected MonthsSelected PeriodChoose a')\n    2) <div class=\"card__body\">…</div> aka getByRole('main').locator('div').filter({ hasText: '02:0001:0003:0004:0005:0006:' }).nth(1)\n\nCall log:\n  \u001b[2m- expect.toContainText with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.card__body')\u001b[22m\n\n    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/analytics/advisors/DSL/generated.spec.js:89:36",
+                            "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: getByLabel('Closed on weekends', { exact: true })\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByLabel('Closed on weekends', { exact: true })\u001b[22m\n",
+                            "stack": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: getByLabel('Closed on weekends', { exact: true })\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByLabel('Closed on weekends', { exact: true })\u001b[22m\n\n    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js:32:34",
                             "location": {
-                              "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/analytics/advisors/DSL/generated.spec.js",
-                              "column": 36,
-                              "line": 89
+                              "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
+                              "column": 34,
+                              "line": 32
                             },
-                            "snippet": "\u001b[0m \u001b[90m 87 |\u001b[39m         test(\u001b[32m'Verify Chart Presence in Card Body'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\n \u001b[90m 88 |\u001b[39m             \u001b[36mconst\u001b[39m cardBody \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'.card__body'\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 89 |\u001b[39m             \u001b[36mawait\u001b[39m expect(cardBody)\u001b[33m.\u001b[39mtoContainText(\u001b[32m`${translation.hasChart}`\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                    \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 90 |\u001b[39m         })\u001b[33m;\u001b[39m\n \u001b[90m 91 |\u001b[39m     })\u001b[33m;\u001b[39m\n \u001b[90m 92 |\u001b[39m })\u001b[33m;\u001b[39m\u001b[0m"
+                            "snippet": "\u001b[0m \u001b[90m 30 |\u001b[39m         test(\u001b[32m'Closed On Weekends toggle'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\n \u001b[90m 31 |\u001b[39m             \u001b[36mconst\u001b[39m toggle \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByLabel(\u001b[32m`${translation.closedOnWeekends}`\u001b[39m\u001b[33m,\u001b[39m { exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 32 |\u001b[39m             \u001b[36mawait\u001b[39m expect(toggle)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                  \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 33 |\u001b[39m         })\u001b[33m;\u001b[39m\n \u001b[90m 34 |\u001b[39m\n \u001b[90m 35 |\u001b[39m         test(\u001b[32m'Same On All Working Days toggle'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\u001b[0m"
                           },
                           "errors": [
                             {
                               "location": {
-                                "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/analytics/advisors/DSL/generated.spec.js",
-                                "column": 36,
-                                "line": 89
+                                "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
+                                "column": 34,
+                                "line": 32
                               },
-                              "message": "Error: expect.toContainText: Error: strict mode violation: locator('.card__body') resolved to 2 elements:\n    1) <div class=\"card__body\">…</div> aka getByText('PeriodTodayYesterdayLast 30 DaysSelected MonthsSelected PeriodChoose a')\n    2) <div class=\"card__body\">…</div> aka getByRole('main').locator('div').filter({ hasText: '02:0001:0003:0004:0005:0006:' }).nth(1)\n\nCall log:\n  \u001b[2m- expect.toContainText with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.card__body')\u001b[22m\n\n\n\u001b[0m \u001b[90m 87 |\u001b[39m         test(\u001b[32m'Verify Chart Presence in Card Body'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\n \u001b[90m 88 |\u001b[39m             \u001b[36mconst\u001b[39m cardBody \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'.card__body'\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 89 |\u001b[39m             \u001b[36mawait\u001b[39m expect(cardBody)\u001b[33m.\u001b[39mtoContainText(\u001b[32m`${translation.hasChart}`\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                    \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 90 |\u001b[39m         })\u001b[33m;\u001b[39m\n \u001b[90m 91 |\u001b[39m     })\u001b[33m;\u001b[39m\n \u001b[90m 92 |\u001b[39m })\u001b[33m;\u001b[39m\u001b[0m\n\n\u001b[2m    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/analytics/advisors/DSL/generated.spec.js:89:36\u001b[22m"
+                              "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: getByLabel('Closed on weekends', { exact: true })\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByLabel('Closed on weekends', { exact: true })\u001b[22m\n\n\n\u001b[0m \u001b[90m 30 |\u001b[39m         test(\u001b[32m'Closed On Weekends toggle'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\n \u001b[90m 31 |\u001b[39m             \u001b[36mconst\u001b[39m toggle \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByLabel(\u001b[32m`${translation.closedOnWeekends}`\u001b[39m\u001b[33m,\u001b[39m { exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 32 |\u001b[39m             \u001b[36mawait\u001b[39m expect(toggle)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                  \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 33 |\u001b[39m         })\u001b[33m;\u001b[39m\n \u001b[90m 34 |\u001b[39m\n \u001b[90m 35 |\u001b[39m         test(\u001b[32m'Same On All Working Days toggle'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\u001b[0m\n\n\u001b[2m    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js:32:34\u001b[22m"
                             }
                           ],
                           "stdout": [],
                           "stderr": [],
                           "retry": 1,
-                          "startTime": "2024-11-18T12:54:34.265Z",
+                          "startTime": "2024-11-19T07:51:01.369Z",
                           "attachments": [
                             {
                               "name": "screenshot",
                               "contentType": "image/png",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-cdb61-Chart-Presence-in-Card-Body-chromium-retry1/test-failed-1.png"
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-a3fc2-y-Closed-On-Weekends-toggle-chromium-retry1/test-failed-1.png"
                             },
                             {
                               "name": "video",
                               "contentType": "video/webm",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-cdb61-Chart-Presence-in-Card-Body-chromium-retry1/video.webm"
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-a3fc2-y-Closed-On-Weekends-toggle-chromium-retry1/video.webm"
                             },
                             {
                               "name": "trace",
                               "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-cdb61-Chart-Presence-in-Card-Body-chromium-retry1/trace.zip"
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-a3fc2-y-Closed-On-Weekends-toggle-chromium-retry1/trace.zip"
                             }
                           ],
                           "errorLocation": {
-                            "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/analytics/advisors/DSL/generated.spec.js",
-                            "column": 36,
-                            "line": 89
+                            "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
+                            "column": 34,
+                            "line": 32
                           }
                         }
                       ],
                       "status": "unexpected"
                     }
                   ],
-                  "id": "d82840f9760006a2d3d9-d591968c705816782df2",
-                  "file": "admin/landingPage/mainPage/sideBar/analytics/advisors/DSL/generated.spec.js",
-                  "line": 87,
+                  "id": "185fc0b3c8bbe92499cb-16b596c8803121b444b9",
+                  "file": "admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
+                  "line": 30,
+                  "column": 13
+                },
+                {
+                  "title": "Same On All Working Days toggle",
+                  "ok": false,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [
+                        {
+                          "type": "repository",
+                          "description": "Working time"
+                        }
+                      ],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 2,
+                          "status": "failed",
+                          "duration": 9810,
+                          "error": {
+                            "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: getByLabel('undefined', { exact: true })\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByLabel('undefined', { exact: true })\u001b[22m\n",
+                            "stack": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: getByLabel('undefined', { exact: true })\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByLabel('undefined', { exact: true })\u001b[22m\n\n    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js:37:34",
+                            "location": {
+                              "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
+                              "column": 34,
+                              "line": 37
+                            },
+                            "snippet": "\u001b[0m \u001b[90m 35 |\u001b[39m         test(\u001b[32m'Same On All Working Days toggle'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\n \u001b[90m 36 |\u001b[39m             \u001b[36mconst\u001b[39m toggle \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByLabel(\u001b[32m`${translation.sameOnAllWorkingDays}`\u001b[39m\u001b[33m,\u001b[39m { exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 37 |\u001b[39m             \u001b[36mawait\u001b[39m expect(toggle)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                  \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 38 |\u001b[39m         })\u001b[33m;\u001b[39m\n \u001b[90m 39 |\u001b[39m     })\u001b[33m;\u001b[39m\n \u001b[90m 40 |\u001b[39m\u001b[0m"
+                          },
+                          "errors": [
+                            {
+                              "location": {
+                                "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
+                                "column": 34,
+                                "line": 37
+                              },
+                              "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: getByLabel('undefined', { exact: true })\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByLabel('undefined', { exact: true })\u001b[22m\n\n\n\u001b[0m \u001b[90m 35 |\u001b[39m         test(\u001b[32m'Same On All Working Days toggle'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\n \u001b[90m 36 |\u001b[39m             \u001b[36mconst\u001b[39m toggle \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByLabel(\u001b[32m`${translation.sameOnAllWorkingDays}`\u001b[39m\u001b[33m,\u001b[39m { exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 37 |\u001b[39m             \u001b[36mawait\u001b[39m expect(toggle)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                  \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 38 |\u001b[39m         })\u001b[33m;\u001b[39m\n \u001b[90m 39 |\u001b[39m     })\u001b[33m;\u001b[39m\n \u001b[90m 40 |\u001b[39m\u001b[0m\n\n\u001b[2m    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js:37:34\u001b[22m"
+                            }
+                          ],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-11-19T07:50:54.596Z",
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-797dc--On-All-Working-Days-toggle-chromium/test-failed-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-797dc--On-All-Working-Days-toggle-chromium/video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-797dc--On-All-Working-Days-toggle-chromium/trace.zip"
+                            }
+                          ],
+                          "errorLocation": {
+                            "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
+                            "column": 34,
+                            "line": 37
+                          }
+                        },
+                        {
+                          "workerIndex": 8,
+                          "status": "failed",
+                          "duration": 9678,
+                          "error": {
+                            "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: getByLabel('undefined', { exact: true })\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByLabel('undefined', { exact: true })\u001b[22m\n",
+                            "stack": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: getByLabel('undefined', { exact: true })\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByLabel('undefined', { exact: true })\u001b[22m\n\n    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js:37:34",
+                            "location": {
+                              "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
+                              "column": 34,
+                              "line": 37
+                            },
+                            "snippet": "\u001b[0m \u001b[90m 35 |\u001b[39m         test(\u001b[32m'Same On All Working Days toggle'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\n \u001b[90m 36 |\u001b[39m             \u001b[36mconst\u001b[39m toggle \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByLabel(\u001b[32m`${translation.sameOnAllWorkingDays}`\u001b[39m\u001b[33m,\u001b[39m { exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 37 |\u001b[39m             \u001b[36mawait\u001b[39m expect(toggle)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                  \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 38 |\u001b[39m         })\u001b[33m;\u001b[39m\n \u001b[90m 39 |\u001b[39m     })\u001b[33m;\u001b[39m\n \u001b[90m 40 |\u001b[39m\u001b[0m"
+                          },
+                          "errors": [
+                            {
+                              "location": {
+                                "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
+                                "column": 34,
+                                "line": 37
+                              },
+                              "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: getByLabel('undefined', { exact: true })\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByLabel('undefined', { exact: true })\u001b[22m\n\n\n\u001b[0m \u001b[90m 35 |\u001b[39m         test(\u001b[32m'Same On All Working Days toggle'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\n \u001b[90m 36 |\u001b[39m             \u001b[36mconst\u001b[39m toggle \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByLabel(\u001b[32m`${translation.sameOnAllWorkingDays}`\u001b[39m\u001b[33m,\u001b[39m { exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 37 |\u001b[39m             \u001b[36mawait\u001b[39m expect(toggle)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                  \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 38 |\u001b[39m         })\u001b[33m;\u001b[39m\n \u001b[90m 39 |\u001b[39m     })\u001b[33m;\u001b[39m\n \u001b[90m 40 |\u001b[39m\u001b[0m\n\n\u001b[2m    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js:37:34\u001b[22m"
+                            }
+                          ],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 1,
+                          "startTime": "2024-11-19T07:51:05.158Z",
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-797dc--On-All-Working-Days-toggle-chromium-retry1/test-failed-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-797dc--On-All-Working-Days-toggle-chromium-retry1/video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-797dc--On-All-Working-Days-toggle-chromium-retry1/trace.zip"
+                            }
+                          ],
+                          "errorLocation": {
+                            "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
+                            "column": 34,
+                            "line": 37
+                          }
+                        }
+                      ],
+                      "status": "unexpected"
+                    }
+                  ],
+                  "id": "185fc0b3c8bbe92499cb-e6028521be2156bb7858",
+                  "file": "admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
+                  "line": 35,
+                  "column": 13
+                }
+              ]
+            },
+            {
+              "title": "Card Body visibility",
+              "file": "admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
+              "line": 41,
+              "column": 10,
+              "specs": [
+                {
+                  "title": "Monday elements visibility",
+                  "ok": false,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [
+                        {
+                          "type": "repository",
+                          "description": "Working time"
+                        }
+                      ],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 3,
+                          "status": "failed",
+                          "duration": 9678,
+                          "error": {
+                            "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('.card__body').locator('Monday')\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.card__body').locator('Monday')\u001b[22m\n",
+                            "stack": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('.card__body').locator('Monday')\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.card__body').locator('Monday')\u001b[22m\n\n    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js:52:37",
+                            "location": {
+                              "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
+                              "column": 37,
+                              "line": 52
+                            },
+                            "snippet": "\u001b[0m \u001b[90m 50 |\u001b[39m                 \u001b[36mconst\u001b[39m endTimeInput \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m card\u001b[33m.\u001b[39mlocator(\u001b[32m`.track`\u001b[39m)\u001b[33m.\u001b[39mlocator(\u001b[32m'nth=2'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 51 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 52 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(label)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                     \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 53 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(toggle)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 54 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(startTimeInput)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 55 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(endTimeInput)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\u001b[0m"
+                          },
+                          "errors": [
+                            {
+                              "location": {
+                                "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
+                                "column": 37,
+                                "line": 52
+                              },
+                              "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('.card__body').locator('Monday')\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.card__body').locator('Monday')\u001b[22m\n\n\n\u001b[0m \u001b[90m 50 |\u001b[39m                 \u001b[36mconst\u001b[39m endTimeInput \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m card\u001b[33m.\u001b[39mlocator(\u001b[32m`.track`\u001b[39m)\u001b[33m.\u001b[39mlocator(\u001b[32m'nth=2'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 51 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 52 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(label)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                     \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 53 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(toggle)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 54 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(startTimeInput)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 55 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(endTimeInput)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\u001b[0m\n\n\u001b[2m    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js:52:37\u001b[22m"
+                            }
+                          ],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-11-19T07:50:55.165Z",
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-6729a--Monday-elements-visibility-chromium/test-failed-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-6729a--Monday-elements-visibility-chromium/video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-6729a--Monday-elements-visibility-chromium/trace.zip"
+                            }
+                          ],
+                          "errorLocation": {
+                            "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
+                            "column": 37,
+                            "line": 52
+                          }
+                        },
+                        {
+                          "workerIndex": 9,
+                          "status": "failed",
+                          "duration": 9930,
+                          "error": {
+                            "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('.card__body').locator('Monday')\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.card__body').locator('Monday')\u001b[22m\n",
+                            "stack": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('.card__body').locator('Monday')\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.card__body').locator('Monday')\u001b[22m\n\n    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js:52:37",
+                            "location": {
+                              "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
+                              "column": 37,
+                              "line": 52
+                            },
+                            "snippet": "\u001b[0m \u001b[90m 50 |\u001b[39m                 \u001b[36mconst\u001b[39m endTimeInput \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m card\u001b[33m.\u001b[39mlocator(\u001b[32m`.track`\u001b[39m)\u001b[33m.\u001b[39mlocator(\u001b[32m'nth=2'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 51 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 52 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(label)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                     \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 53 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(toggle)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 54 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(startTimeInput)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 55 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(endTimeInput)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\u001b[0m"
+                          },
+                          "errors": [
+                            {
+                              "location": {
+                                "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
+                                "column": 37,
+                                "line": 52
+                              },
+                              "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('.card__body').locator('Monday')\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.card__body').locator('Monday')\u001b[22m\n\n\n\u001b[0m \u001b[90m 50 |\u001b[39m                 \u001b[36mconst\u001b[39m endTimeInput \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m card\u001b[33m.\u001b[39mlocator(\u001b[32m`.track`\u001b[39m)\u001b[33m.\u001b[39mlocator(\u001b[32m'nth=2'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 51 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 52 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(label)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                     \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 53 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(toggle)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 54 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(startTimeInput)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 55 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(endTimeInput)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\u001b[0m\n\n\u001b[2m    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js:52:37\u001b[22m"
+                            }
+                          ],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 1,
+                          "startTime": "2024-11-19T07:51:05.609Z",
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-6729a--Monday-elements-visibility-chromium-retry1/test-failed-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-6729a--Monday-elements-visibility-chromium-retry1/video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-6729a--Monday-elements-visibility-chromium-retry1/trace.zip"
+                            }
+                          ],
+                          "errorLocation": {
+                            "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
+                            "column": 37,
+                            "line": 52
+                          }
+                        }
+                      ],
+                      "status": "unexpected"
+                    }
+                  ],
+                  "id": "185fc0b3c8bbe92499cb-0546e1e19ec9cf1a1fe0",
+                  "file": "admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
+                  "line": 45,
+                  "column": 17
+                },
+                {
+                  "title": "Tuesday elements visibility",
+                  "ok": false,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [
+                        {
+                          "type": "repository",
+                          "description": "Working time"
+                        }
+                      ],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 10,
+                          "status": "failed",
+                          "duration": 9378,
+                          "error": {
+                            "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('.card__body').locator('Tuesday')\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.card__body').locator('Tuesday')\u001b[22m\n",
+                            "stack": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('.card__body').locator('Tuesday')\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.card__body').locator('Tuesday')\u001b[22m\n\n    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js:52:37",
+                            "location": {
+                              "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
+                              "column": 37,
+                              "line": 52
+                            },
+                            "snippet": "\u001b[0m \u001b[90m 50 |\u001b[39m                 \u001b[36mconst\u001b[39m endTimeInput \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m card\u001b[33m.\u001b[39mlocator(\u001b[32m`.track`\u001b[39m)\u001b[33m.\u001b[39mlocator(\u001b[32m'nth=2'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 51 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 52 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(label)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                     \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 53 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(toggle)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 54 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(startTimeInput)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 55 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(endTimeInput)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\u001b[0m"
+                          },
+                          "errors": [
+                            {
+                              "location": {
+                                "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
+                                "column": 37,
+                                "line": 52
+                              },
+                              "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('.card__body').locator('Tuesday')\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.card__body').locator('Tuesday')\u001b[22m\n\n\n\u001b[0m \u001b[90m 50 |\u001b[39m                 \u001b[36mconst\u001b[39m endTimeInput \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m card\u001b[33m.\u001b[39mlocator(\u001b[32m`.track`\u001b[39m)\u001b[33m.\u001b[39mlocator(\u001b[32m'nth=2'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 51 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 52 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(label)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                     \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 53 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(toggle)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 54 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(startTimeInput)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 55 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(endTimeInput)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\u001b[0m\n\n\u001b[2m    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js:52:37\u001b[22m"
+                            }
+                          ],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-11-19T07:51:12.007Z",
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-9c56f-Tuesday-elements-visibility-chromium/test-failed-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-9c56f-Tuesday-elements-visibility-chromium/video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-9c56f-Tuesday-elements-visibility-chromium/trace.zip"
+                            }
+                          ],
+                          "errorLocation": {
+                            "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
+                            "column": 37,
+                            "line": 52
+                          }
+                        },
+                        {
+                          "workerIndex": 14,
+                          "status": "failed",
+                          "duration": 9413,
+                          "error": {
+                            "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('.card__body').locator('Tuesday')\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.card__body').locator('Tuesday')\u001b[22m\n",
+                            "stack": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('.card__body').locator('Tuesday')\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.card__body').locator('Tuesday')\u001b[22m\n\n    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js:52:37",
+                            "location": {
+                              "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
+                              "column": 37,
+                              "line": 52
+                            },
+                            "snippet": "\u001b[0m \u001b[90m 50 |\u001b[39m                 \u001b[36mconst\u001b[39m endTimeInput \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m card\u001b[33m.\u001b[39mlocator(\u001b[32m`.track`\u001b[39m)\u001b[33m.\u001b[39mlocator(\u001b[32m'nth=2'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 51 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 52 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(label)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                     \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 53 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(toggle)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 54 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(startTimeInput)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 55 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(endTimeInput)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\u001b[0m"
+                          },
+                          "errors": [
+                            {
+                              "location": {
+                                "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
+                                "column": 37,
+                                "line": 52
+                              },
+                              "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('.card__body').locator('Tuesday')\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.card__body').locator('Tuesday')\u001b[22m\n\n\n\u001b[0m \u001b[90m 50 |\u001b[39m                 \u001b[36mconst\u001b[39m endTimeInput \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m card\u001b[33m.\u001b[39mlocator(\u001b[32m`.track`\u001b[39m)\u001b[33m.\u001b[39mlocator(\u001b[32m'nth=2'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 51 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 52 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(label)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                     \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 53 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(toggle)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 54 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(startTimeInput)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 55 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(endTimeInput)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\u001b[0m\n\n\u001b[2m    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js:52:37\u001b[22m"
+                            }
+                          ],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 1,
+                          "startTime": "2024-11-19T07:51:22.281Z",
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-9c56f-Tuesday-elements-visibility-chromium-retry1/test-failed-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-9c56f-Tuesday-elements-visibility-chromium-retry1/video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-9c56f-Tuesday-elements-visibility-chromium-retry1/trace.zip"
+                            }
+                          ],
+                          "errorLocation": {
+                            "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
+                            "column": 37,
+                            "line": 52
+                          }
+                        }
+                      ],
+                      "status": "unexpected"
+                    }
+                  ],
+                  "id": "185fc0b3c8bbe92499cb-6b21b296e4576ec080a2",
+                  "file": "admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
+                  "line": 45,
+                  "column": 17
+                },
+                {
+                  "title": "Wednesday elements visibility",
+                  "ok": false,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [
+                        {
+                          "type": "repository",
+                          "description": "Working time"
+                        }
+                      ],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 11,
+                          "status": "failed",
+                          "duration": 9796,
+                          "error": {
+                            "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('.card__body').locator('Wednesday')\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.card__body').locator('Wednesday')\u001b[22m\n",
+                            "stack": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('.card__body').locator('Wednesday')\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.card__body').locator('Wednesday')\u001b[22m\n\n    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js:52:37",
+                            "location": {
+                              "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
+                              "column": 37,
+                              "line": 52
+                            },
+                            "snippet": "\u001b[0m \u001b[90m 50 |\u001b[39m                 \u001b[36mconst\u001b[39m endTimeInput \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m card\u001b[33m.\u001b[39mlocator(\u001b[32m`.track`\u001b[39m)\u001b[33m.\u001b[39mlocator(\u001b[32m'nth=2'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 51 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 52 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(label)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                     \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 53 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(toggle)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 54 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(startTimeInput)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 55 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(endTimeInput)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\u001b[0m"
+                          },
+                          "errors": [
+                            {
+                              "location": {
+                                "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
+                                "column": 37,
+                                "line": 52
+                              },
+                              "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('.card__body').locator('Wednesday')\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.card__body').locator('Wednesday')\u001b[22m\n\n\n\u001b[0m \u001b[90m 50 |\u001b[39m                 \u001b[36mconst\u001b[39m endTimeInput \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m card\u001b[33m.\u001b[39mlocator(\u001b[32m`.track`\u001b[39m)\u001b[33m.\u001b[39mlocator(\u001b[32m'nth=2'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 51 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 52 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(label)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                     \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 53 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(toggle)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 54 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(startTimeInput)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 55 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(endTimeInput)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\u001b[0m\n\n\u001b[2m    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js:52:37\u001b[22m"
+                            }
+                          ],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-11-19T07:51:12.496Z",
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-799ee-dnesday-elements-visibility-chromium/test-failed-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-799ee-dnesday-elements-visibility-chromium/video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-799ee-dnesday-elements-visibility-chromium/trace.zip"
+                            }
+                          ],
+                          "errorLocation": {
+                            "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
+                            "column": 37,
+                            "line": 52
+                          }
+                        },
+                        {
+                          "workerIndex": 15,
+                          "status": "failed",
+                          "duration": 10435,
+                          "error": {
+                            "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('.card__body').locator('Wednesday')\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.card__body').locator('Wednesday')\u001b[22m\n",
+                            "stack": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('.card__body').locator('Wednesday')\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.card__body').locator('Wednesday')\u001b[22m\n\n    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js:52:37",
+                            "location": {
+                              "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
+                              "column": 37,
+                              "line": 52
+                            },
+                            "snippet": "\u001b[0m \u001b[90m 50 |\u001b[39m                 \u001b[36mconst\u001b[39m endTimeInput \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m card\u001b[33m.\u001b[39mlocator(\u001b[32m`.track`\u001b[39m)\u001b[33m.\u001b[39mlocator(\u001b[32m'nth=2'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 51 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 52 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(label)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                     \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 53 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(toggle)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 54 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(startTimeInput)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 55 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(endTimeInput)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\u001b[0m"
+                          },
+                          "errors": [
+                            {
+                              "location": {
+                                "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
+                                "column": 37,
+                                "line": 52
+                              },
+                              "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('.card__body').locator('Wednesday')\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.card__body').locator('Wednesday')\u001b[22m\n\n\n\u001b[0m \u001b[90m 50 |\u001b[39m                 \u001b[36mconst\u001b[39m endTimeInput \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m card\u001b[33m.\u001b[39mlocator(\u001b[32m`.track`\u001b[39m)\u001b[33m.\u001b[39mlocator(\u001b[32m'nth=2'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 51 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 52 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(label)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                     \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 53 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(toggle)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 54 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(startTimeInput)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 55 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(endTimeInput)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\u001b[0m\n\n\u001b[2m    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js:52:37\u001b[22m"
+                            }
+                          ],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 1,
+                          "startTime": "2024-11-19T07:51:23.513Z",
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-799ee-dnesday-elements-visibility-chromium-retry1/test-failed-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-799ee-dnesday-elements-visibility-chromium-retry1/video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-799ee-dnesday-elements-visibility-chromium-retry1/trace.zip"
+                            }
+                          ],
+                          "errorLocation": {
+                            "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
+                            "column": 37,
+                            "line": 52
+                          }
+                        }
+                      ],
+                      "status": "unexpected"
+                    }
+                  ],
+                  "id": "185fc0b3c8bbe92499cb-64f0af6f002000bd707a",
+                  "file": "admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
+                  "line": 45,
+                  "column": 17
+                },
+                {
+                  "title": "Thursday elements visibility",
+                  "ok": false,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [
+                        {
+                          "type": "repository",
+                          "description": "Working time"
+                        }
+                      ],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 12,
+                          "status": "failed",
+                          "duration": 9994,
+                          "error": {
+                            "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('.card__body').locator('Thursday')\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.card__body').locator('Thursday')\u001b[22m\n",
+                            "stack": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('.card__body').locator('Thursday')\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.card__body').locator('Thursday')\u001b[22m\n\n    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js:52:37",
+                            "location": {
+                              "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
+                              "column": 37,
+                              "line": 52
+                            },
+                            "snippet": "\u001b[0m \u001b[90m 50 |\u001b[39m                 \u001b[36mconst\u001b[39m endTimeInput \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m card\u001b[33m.\u001b[39mlocator(\u001b[32m`.track`\u001b[39m)\u001b[33m.\u001b[39mlocator(\u001b[32m'nth=2'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 51 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 52 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(label)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                     \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 53 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(toggle)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 54 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(startTimeInput)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 55 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(endTimeInput)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\u001b[0m"
+                          },
+                          "errors": [
+                            {
+                              "location": {
+                                "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
+                                "column": 37,
+                                "line": 52
+                              },
+                              "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('.card__body').locator('Thursday')\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.card__body').locator('Thursday')\u001b[22m\n\n\n\u001b[0m \u001b[90m 50 |\u001b[39m                 \u001b[36mconst\u001b[39m endTimeInput \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m card\u001b[33m.\u001b[39mlocator(\u001b[32m`.track`\u001b[39m)\u001b[33m.\u001b[39mlocator(\u001b[32m'nth=2'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 51 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 52 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(label)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                     \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 53 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(toggle)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 54 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(startTimeInput)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 55 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(endTimeInput)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\u001b[0m\n\n\u001b[2m    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js:52:37\u001b[22m"
+                            }
+                          ],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-11-19T07:51:16.120Z",
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-23500-hursday-elements-visibility-chromium/test-failed-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-23500-hursday-elements-visibility-chromium/video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-23500-hursday-elements-visibility-chromium/trace.zip"
+                            }
+                          ],
+                          "errorLocation": {
+                            "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
+                            "column": 37,
+                            "line": 52
+                          }
+                        },
+                        {
+                          "workerIndex": 16,
+                          "status": "failed",
+                          "duration": 9920,
+                          "error": {
+                            "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('.card__body').locator('Thursday')\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.card__body').locator('Thursday')\u001b[22m\n",
+                            "stack": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('.card__body').locator('Thursday')\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.card__body').locator('Thursday')\u001b[22m\n\n    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js:52:37",
+                            "location": {
+                              "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
+                              "column": 37,
+                              "line": 52
+                            },
+                            "snippet": "\u001b[0m \u001b[90m 50 |\u001b[39m                 \u001b[36mconst\u001b[39m endTimeInput \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m card\u001b[33m.\u001b[39mlocator(\u001b[32m`.track`\u001b[39m)\u001b[33m.\u001b[39mlocator(\u001b[32m'nth=2'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 51 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 52 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(label)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                     \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 53 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(toggle)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 54 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(startTimeInput)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 55 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(endTimeInput)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\u001b[0m"
+                          },
+                          "errors": [
+                            {
+                              "location": {
+                                "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
+                                "column": 37,
+                                "line": 52
+                              },
+                              "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('.card__body').locator('Thursday')\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.card__body').locator('Thursday')\u001b[22m\n\n\n\u001b[0m \u001b[90m 50 |\u001b[39m                 \u001b[36mconst\u001b[39m endTimeInput \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m card\u001b[33m.\u001b[39mlocator(\u001b[32m`.track`\u001b[39m)\u001b[33m.\u001b[39mlocator(\u001b[32m'nth=2'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 51 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 52 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(label)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                     \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 53 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(toggle)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 54 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(startTimeInput)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 55 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(endTimeInput)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\u001b[0m\n\n\u001b[2m    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js:52:37\u001b[22m"
+                            }
+                          ],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 1,
+                          "startTime": "2024-11-19T07:51:27.241Z",
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-23500-hursday-elements-visibility-chromium-retry1/test-failed-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-23500-hursday-elements-visibility-chromium-retry1/video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-23500-hursday-elements-visibility-chromium-retry1/trace.zip"
+                            }
+                          ],
+                          "errorLocation": {
+                            "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
+                            "column": 37,
+                            "line": 52
+                          }
+                        }
+                      ],
+                      "status": "unexpected"
+                    }
+                  ],
+                  "id": "185fc0b3c8bbe92499cb-8c04820ad2209468d301",
+                  "file": "admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
+                  "line": 45,
+                  "column": 17
+                },
+                {
+                  "title": "Friday elements visibility",
+                  "ok": false,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [
+                        {
+                          "type": "repository",
+                          "description": "Working time"
+                        }
+                      ],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 13,
+                          "status": "failed",
+                          "duration": 9780,
+                          "error": {
+                            "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('.card__body').locator('Friday')\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.card__body').locator('Friday')\u001b[22m\n",
+                            "stack": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('.card__body').locator('Friday')\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.card__body').locator('Friday')\u001b[22m\n\n    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js:52:37",
+                            "location": {
+                              "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
+                              "column": 37,
+                              "line": 52
+                            },
+                            "snippet": "\u001b[0m \u001b[90m 50 |\u001b[39m                 \u001b[36mconst\u001b[39m endTimeInput \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m card\u001b[33m.\u001b[39mlocator(\u001b[32m`.track`\u001b[39m)\u001b[33m.\u001b[39mlocator(\u001b[32m'nth=2'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 51 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 52 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(label)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                     \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 53 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(toggle)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 54 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(startTimeInput)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 55 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(endTimeInput)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\u001b[0m"
+                          },
+                          "errors": [
+                            {
+                              "location": {
+                                "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
+                                "column": 37,
+                                "line": 52
+                              },
+                              "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('.card__body').locator('Friday')\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.card__body').locator('Friday')\u001b[22m\n\n\n\u001b[0m \u001b[90m 50 |\u001b[39m                 \u001b[36mconst\u001b[39m endTimeInput \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m card\u001b[33m.\u001b[39mlocator(\u001b[32m`.track`\u001b[39m)\u001b[33m.\u001b[39mlocator(\u001b[32m'nth=2'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 51 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 52 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(label)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                     \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 53 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(toggle)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 54 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(startTimeInput)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 55 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(endTimeInput)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\u001b[0m\n\n\u001b[2m    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js:52:37\u001b[22m"
+                            }
+                          ],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-11-19T07:51:16.544Z",
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-6a7a3--Friday-elements-visibility-chromium/test-failed-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-6a7a3--Friday-elements-visibility-chromium/video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-6a7a3--Friday-elements-visibility-chromium/trace.zip"
+                            }
+                          ],
+                          "errorLocation": {
+                            "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
+                            "column": 37,
+                            "line": 52
+                          }
+                        },
+                        {
+                          "workerIndex": 17,
+                          "status": "failed",
+                          "duration": 9977,
+                          "error": {
+                            "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('.card__body').locator('Friday')\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.card__body').locator('Friday')\u001b[22m\n",
+                            "stack": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('.card__body').locator('Friday')\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.card__body').locator('Friday')\u001b[22m\n\n    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js:52:37",
+                            "location": {
+                              "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
+                              "column": 37,
+                              "line": 52
+                            },
+                            "snippet": "\u001b[0m \u001b[90m 50 |\u001b[39m                 \u001b[36mconst\u001b[39m endTimeInput \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m card\u001b[33m.\u001b[39mlocator(\u001b[32m`.track`\u001b[39m)\u001b[33m.\u001b[39mlocator(\u001b[32m'nth=2'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 51 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 52 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(label)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                     \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 53 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(toggle)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 54 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(startTimeInput)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 55 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(endTimeInput)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\u001b[0m"
+                          },
+                          "errors": [
+                            {
+                              "location": {
+                                "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
+                                "column": 37,
+                                "line": 52
+                              },
+                              "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('.card__body').locator('Friday')\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.card__body').locator('Friday')\u001b[22m\n\n\n\u001b[0m \u001b[90m 50 |\u001b[39m                 \u001b[36mconst\u001b[39m endTimeInput \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m card\u001b[33m.\u001b[39mlocator(\u001b[32m`.track`\u001b[39m)\u001b[33m.\u001b[39mlocator(\u001b[32m'nth=2'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 51 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 52 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(label)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                     \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 53 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(toggle)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 54 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(startTimeInput)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 55 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(endTimeInput)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\u001b[0m\n\n\u001b[2m    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js:52:37\u001b[22m"
+                            }
+                          ],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 1,
+                          "startTime": "2024-11-19T07:51:27.386Z",
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-6a7a3--Friday-elements-visibility-chromium-retry1/test-failed-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-6a7a3--Friday-elements-visibility-chromium-retry1/video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-6a7a3--Friday-elements-visibility-chromium-retry1/trace.zip"
+                            }
+                          ],
+                          "errorLocation": {
+                            "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
+                            "column": 37,
+                            "line": 52
+                          }
+                        }
+                      ],
+                      "status": "unexpected"
+                    }
+                  ],
+                  "id": "185fc0b3c8bbe92499cb-886068fe99d03da04c99",
+                  "file": "admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
+                  "line": 45,
+                  "column": 17
+                },
+                {
+                  "title": "Saturday elements visibility",
+                  "ok": false,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [
+                        {
+                          "type": "repository",
+                          "description": "Working time"
+                        }
+                      ],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 18,
+                          "status": "failed",
+                          "duration": 9625,
+                          "error": {
+                            "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('.card__body').locator('Saturday')\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.card__body').locator('Saturday')\u001b[22m\n",
+                            "stack": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('.card__body').locator('Saturday')\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.card__body').locator('Saturday')\u001b[22m\n\n    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js:52:37",
+                            "location": {
+                              "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
+                              "column": 37,
+                              "line": 52
+                            },
+                            "snippet": "\u001b[0m \u001b[90m 50 |\u001b[39m                 \u001b[36mconst\u001b[39m endTimeInput \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m card\u001b[33m.\u001b[39mlocator(\u001b[32m`.track`\u001b[39m)\u001b[33m.\u001b[39mlocator(\u001b[32m'nth=2'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 51 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 52 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(label)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                     \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 53 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(toggle)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 54 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(startTimeInput)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 55 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(endTimeInput)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\u001b[0m"
+                          },
+                          "errors": [
+                            {
+                              "location": {
+                                "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
+                                "column": 37,
+                                "line": 52
+                              },
+                              "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('.card__body').locator('Saturday')\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.card__body').locator('Saturday')\u001b[22m\n\n\n\u001b[0m \u001b[90m 50 |\u001b[39m                 \u001b[36mconst\u001b[39m endTimeInput \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m card\u001b[33m.\u001b[39mlocator(\u001b[32m`.track`\u001b[39m)\u001b[33m.\u001b[39mlocator(\u001b[32m'nth=2'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 51 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 52 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(label)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                     \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 53 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(toggle)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 54 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(startTimeInput)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 55 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(endTimeInput)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\u001b[0m\n\n\u001b[2m    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js:52:37\u001b[22m"
+                            }
+                          ],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-11-19T07:51:32.528Z",
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-4a892-aturday-elements-visibility-chromium/test-failed-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-4a892-aturday-elements-visibility-chromium/video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-4a892-aturday-elements-visibility-chromium/trace.zip"
+                            }
+                          ],
+                          "errorLocation": {
+                            "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
+                            "column": 37,
+                            "line": 52
+                          }
+                        },
+                        {
+                          "workerIndex": 22,
+                          "status": "interrupted",
+                          "duration": 8199,
+                          "error": {
+                            "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('.card__body').locator('Saturday')\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.card__body').locator('Saturday')\u001b[22m\n",
+                            "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('.card__body').locator('Saturday')\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.card__body').locator('Saturday')\u001b[22m\n\n    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js:52:37",
+                            "location": {
+                              "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
+                              "column": 37,
+                              "line": 52
+                            },
+                            "snippet": "\u001b[0m \u001b[90m 50 |\u001b[39m                 \u001b[36mconst\u001b[39m endTimeInput \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m card\u001b[33m.\u001b[39mlocator(\u001b[32m`.track`\u001b[39m)\u001b[33m.\u001b[39mlocator(\u001b[32m'nth=2'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 51 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 52 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(label)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                     \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 53 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(toggle)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 54 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(startTimeInput)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 55 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(endTimeInput)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\u001b[0m"
+                          },
+                          "errors": [
+                            {
+                              "location": {
+                                "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
+                                "column": 37,
+                                "line": 52
+                              },
+                              "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('.card__body').locator('Saturday')\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.card__body').locator('Saturday')\u001b[22m\n\n\n\u001b[0m \u001b[90m 50 |\u001b[39m                 \u001b[36mconst\u001b[39m endTimeInput \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m card\u001b[33m.\u001b[39mlocator(\u001b[32m`.track`\u001b[39m)\u001b[33m.\u001b[39mlocator(\u001b[32m'nth=2'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 51 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 52 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(label)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                     \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 53 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(toggle)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 54 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(startTimeInput)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 55 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(endTimeInput)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\u001b[0m\n\n\u001b[2m    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js:52:37\u001b[22m"
+                            }
+                          ],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 1,
+                          "startTime": "2024-11-19T07:51:43.275Z",
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-4a892-aturday-elements-visibility-chromium-retry1/test-failed-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-4a892-aturday-elements-visibility-chromium-retry1/video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-4a892-aturday-elements-visibility-chromium-retry1/trace.zip"
+                            }
+                          ],
+                          "errorLocation": {
+                            "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
+                            "column": 37,
+                            "line": 52
+                          }
+                        }
+                      ],
+                      "status": "unexpected"
+                    }
+                  ],
+                  "id": "185fc0b3c8bbe92499cb-c3f8126b30d5f2977145",
+                  "file": "admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
+                  "line": 45,
+                  "column": 17
+                },
+                {
+                  "title": "Sunday elements visibility",
+                  "ok": false,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [
+                        {
+                          "type": "repository",
+                          "description": "Working time"
+                        }
+                      ],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 19,
+                          "status": "failed",
+                          "duration": 9988,
+                          "error": {
+                            "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('.card__body').locator('Sunday')\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.card__body').locator('Sunday')\u001b[22m\n",
+                            "stack": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('.card__body').locator('Sunday')\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.card__body').locator('Sunday')\u001b[22m\n\n    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js:52:37",
+                            "location": {
+                              "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
+                              "column": 37,
+                              "line": 52
+                            },
+                            "snippet": "\u001b[0m \u001b[90m 50 |\u001b[39m                 \u001b[36mconst\u001b[39m endTimeInput \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m card\u001b[33m.\u001b[39mlocator(\u001b[32m`.track`\u001b[39m)\u001b[33m.\u001b[39mlocator(\u001b[32m'nth=2'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 51 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 52 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(label)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                     \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 53 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(toggle)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 54 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(startTimeInput)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 55 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(endTimeInput)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\u001b[0m"
+                          },
+                          "errors": [
+                            {
+                              "location": {
+                                "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
+                                "column": 37,
+                                "line": 52
+                              },
+                              "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('.card__body').locator('Sunday')\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.card__body').locator('Sunday')\u001b[22m\n\n\n\u001b[0m \u001b[90m 50 |\u001b[39m                 \u001b[36mconst\u001b[39m endTimeInput \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m card\u001b[33m.\u001b[39mlocator(\u001b[32m`.track`\u001b[39m)\u001b[33m.\u001b[39mlocator(\u001b[32m'nth=2'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 51 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 52 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(label)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                     \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 53 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(toggle)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 54 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(startTimeInput)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 55 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(endTimeInput)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\u001b[0m\n\n\u001b[2m    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js:52:37\u001b[22m"
+                            }
+                          ],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-11-19T07:51:35.053Z",
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-d32a9--Sunday-elements-visibility-chromium/test-failed-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-d32a9--Sunday-elements-visibility-chromium/video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-d32a9--Sunday-elements-visibility-chromium/trace.zip"
+                            }
+                          ],
+                          "errorLocation": {
+                            "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
+                            "column": 37,
+                            "line": 52
+                          }
+                        },
+                        {
+                          "workerIndex": 23,
+                          "status": "interrupted",
+                          "duration": 5453,
+                          "error": {
+                            "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('.card__body').locator('Sunday')\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.card__body').locator('Sunday')\u001b[22m\n",
+                            "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('.card__body').locator('Sunday')\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.card__body').locator('Sunday')\u001b[22m\n\n    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js:52:37",
+                            "location": {
+                              "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
+                              "column": 37,
+                              "line": 52
+                            },
+                            "snippet": "\u001b[0m \u001b[90m 50 |\u001b[39m                 \u001b[36mconst\u001b[39m endTimeInput \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m card\u001b[33m.\u001b[39mlocator(\u001b[32m`.track`\u001b[39m)\u001b[33m.\u001b[39mlocator(\u001b[32m'nth=2'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 51 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 52 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(label)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                     \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 53 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(toggle)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 54 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(startTimeInput)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 55 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(endTimeInput)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\u001b[0m"
+                          },
+                          "errors": [
+                            {
+                              "location": {
+                                "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
+                                "column": 37,
+                                "line": 52
+                              },
+                              "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('.card__body').locator('Sunday')\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.card__body').locator('Sunday')\u001b[22m\n\n\n\u001b[0m \u001b[90m 50 |\u001b[39m                 \u001b[36mconst\u001b[39m endTimeInput \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m card\u001b[33m.\u001b[39mlocator(\u001b[32m`.track`\u001b[39m)\u001b[33m.\u001b[39mlocator(\u001b[32m'nth=2'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 51 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 52 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(label)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                     \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 53 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(toggle)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 54 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(startTimeInput)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 55 |\u001b[39m                 \u001b[36mawait\u001b[39m expect(endTimeInput)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\u001b[0m\n\n\u001b[2m    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js:52:37\u001b[22m"
+                            }
+                          ],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 1,
+                          "startTime": "2024-11-19T07:51:45.982Z",
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-d32a9--Sunday-elements-visibility-chromium-retry1/test-failed-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-d32a9--Sunday-elements-visibility-chromium-retry1/video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-d32a9--Sunday-elements-visibility-chromium-retry1/trace.zip"
+                            }
+                          ],
+                          "errorLocation": {
+                            "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
+                            "column": 37,
+                            "line": 52
+                          }
+                        }
+                      ],
+                      "status": "unexpected"
+                    }
+                  ],
+                  "id": "185fc0b3c8bbe92499cb-472dbc0ff7ae862ca11f",
+                  "file": "admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
+                  "line": 45,
+                  "column": 17
+                }
+              ]
+            },
+            {
+              "title": "Card Footer visibility",
+              "file": "admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
+              "line": 60,
+              "column": 10,
+              "specs": [
+                {
+                  "title": "Save Button visibility",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [
+                        {
+                          "type": "repository",
+                          "description": "Working time"
+                        }
+                      ],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 20,
+                          "status": "passed",
+                          "duration": 4397,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-11-19T07:51:38.034Z",
+                          "attachments": [
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-973c8-lity-Save-Button-visibility-chromium/trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "185fc0b3c8bbe92499cb-6d944b42dcfe3745944a",
+                  "file": "admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
+                  "line": 61,
+                  "column": 13
+                },
+                {
+                  "title": "Send Notification Of Absence toggles visibility",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [
+                        {
+                          "type": "repository",
+                          "description": "Working time"
+                        }
+                      ],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 21,
+                          "status": "passed",
+                          "duration": 4674,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-11-19T07:51:38.377Z",
+                          "attachments": [
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-d5c5a--Absence-toggles-visibility-chromium/trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "185fc0b3c8bbe92499cb-2d004bf7c1000c61c135",
+                  "file": "admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
+                  "line": 66,
+                  "column": 13
+                },
+                {
+                  "title": "No CSA Available Message textarea visibility",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [
+                        {
+                          "type": "repository",
+                          "description": "Working time"
+                        }
+                      ],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 20,
+                          "status": "passed",
+                          "duration": 4517,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-11-19T07:51:42.779Z",
+                          "attachments": [
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-fa692-Message-textarea-visibility-chromium/trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "185fc0b3c8bbe92499cb-c1b8ec8a0dda90ac1097",
+                  "file": "admin/landingPage/mainPage/sideBar/administration/workingTime/DSL/generated.spec.js",
+                  "line": 74,
                   "column": 13
                 }
               ]
@@ -732,11 +1706,11 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2024-11-18T12:53:26.072Z",
-    "duration": 84453.524,
-    "expected": 6,
+    "startTime": "2024-11-19T07:49:54.340Z",
+    "duration": 117607.29000000001,
+    "expected": 5,
     "skipped": 0,
-    "unexpected": 2,
+    "unexpected": 10,
     "flaky": 1
   }
 }

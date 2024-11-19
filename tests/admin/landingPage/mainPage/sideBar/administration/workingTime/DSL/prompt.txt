@@ -59,7 +59,7 @@ The output should be a valid Playwright test file, ready for copy-pasting and ru
 4. Exact match for similar elements:
 Add { exact: true } to all locators.
 
-5. Page Structure and Grouping:
+5. Page Structure:
 Main Heading: Check visibility of the main organizationWorkingTime heading.
 Header Toggles: Group header switches into a Card Header section, including visibility checks for workingHoursAre247, considerPublicHolidays, closedOnWeekends, and sameOnAllWorkingDays.
 Day-Specific Sections: For each day (Monday to Sunday), group checks under Card Body, ensuring visibility of each day’s label, toggle switch, and time inputs (startTimeInput and endTimeInput).
