@@ -96,6 +96,7 @@ test:
             - type: checkbox
             - style: checkbox
             - adjacentTo: label
+            
     checkbox:
         label: "Out-of-facility forwards"
         args:

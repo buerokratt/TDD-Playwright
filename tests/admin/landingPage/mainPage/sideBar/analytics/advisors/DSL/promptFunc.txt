@@ -1,5 +1,12 @@
 The goal is to convert BusinessDSL specifications into Playwright test cases. The output should be a valid, directly executable test file. Focus on comprehensive test coverage, clear locators, logical grouping, and alignment with DSL requirements.
-Give clear visibility testfile without any comments .
+Give clear functionality testfile without any comments .
+
+Functionality testing.
+
+Test all eligble functionality 
+
+This means that if there is a save button in the DSL you should capture and click it at the end of each test, refresh the page and check if your input value is there. 
+At the end of a each test it should be reset to the original value. When it comes to saving the values, wait 3 seconds after saving to ensure the values are saved.
 
 1. Setup and Initialization:
    - Base URL: Append the DSL's resource URL to https://admin.prod.buerokratt.ee.
@@ -57,40 +64,7 @@ Give clear visibility testfile without any comments .
    - Group related tests using test.describe().
    - Combine related checks (e.g., heading and button visibility) into single tests where possible.
 
-Example Test Structure:
-import { test, expect } from '@playwright/test';
-import { getTranslations } from '@translation/languageDetector.js';
 
-let translation;
-
-test.describe('Sample Test Suite', () => {
-  test.beforeEach(async ({ page }) => {
-    // Navigate to the page
-    await page.goto('https://admin.prod.buerokratt.ee/resource-path');
-
-    // Fetch translations
-    translation = await getTranslations(page);
-
-    // Add annotation
-    test.info().annotations.push({ type: 'repository', description: 'DSL description' });
-
-    // Wait for elements to load
-    await page.waitForTimeout(3000);
-  });
-
-  test('Validate a button and a heading', async ({ page }) => {
-    const heading = await page.getByRole('heading', { name: `${translation.settings}`, exact: true });
-    const saveButton = await page.getByRole('button', `${translation.save}`, { exact: true });
-
-    await expect(heading).toBeVisible();
-    await expect(saveButton).toBeVisible();
-  });
-
-  test('Validate dropdown selection', async ({ page }) => {
-    const dropdown = await page.getByText(new RegExp(translation.barChart));
-    await expect(dropdown).toBeVisible();
-  });
-});
 
 Key Highlights:
 1. Ensure page readiness in beforeEach.

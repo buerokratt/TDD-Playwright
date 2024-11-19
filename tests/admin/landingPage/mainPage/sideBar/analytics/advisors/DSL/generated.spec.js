@@ -3,7 +3,7 @@ import { getTranslations } from '@translation/languageDetector.js';
 
 let translation;
 
-test.describe('Analytics Module - Advisors', () => {
+test.describe('Analytics Module - Advisors Functionality Tests', () => {
     test.beforeEach(async ({ page }) => {
         await page.goto('https://admin.prod.buerokratt.ee/analytics/advisors');
         translation = await getTranslations(page);
@@ -11,84 +11,66 @@ test.describe('Analytics Module - Advisors', () => {
         await page.waitForTimeout(3000);
     });
 
-    test('Validate main heading', async ({ page }) => {
-        const heading = await page.getByRole('heading', { name: `${translation.advisors}`, exact: true });
-        await expect(heading).toBeVisible();
+    test('Verify Period buttons functionality', async ({ page }) => {
+        const cardBody = page.locator('.card__body');
+
+        const todayButton = cardBody.getByRole('button', { name: `${translation.today}`, exact: true });
+        const yesterdayButton = cardBody.getByRole('button', { name: `${translation.yesterday}`, exact: true });
+
+        await todayButton.click();
+        const todayIsActive = await todayButton.getAttribute('class');
+        expect(todayIsActive).toContain('active'); // Assuming active class exists when selected
+
+        await yesterdayButton.click();
+        const yesterdayIsActive = await yesterdayButton.getAttribute('class');
+        expect(yesterdayIsActive).toContain('active');
     });
 
-    test.describe('Period Selection', () => {
-        test('Validate buttons under Period section', async ({ page }) => {
-            const cardBody = page.locator('.card__body');
+    test('Validate metric selection functionality', async ({ page }) => {
+        const cardBody = page.locator('.card__body');
 
-            const todayButton = cardBody.getByRole('button', { name: `${translation.today}`, exact: true });
-            const yesterdayButton = cardBody.getByRole('button', { name: `${translation.yesterday}`, exact: true });
-            const last30DaysButton = cardBody.getByRole('button', { name: `${translation.last30Days}`, exact: true });
-            const selectedMonthsButton = cardBody.getByRole('button', { name: `${translation.selectedMonths}`, exact: true });
-            const selectedPeriodButton = cardBody.getByRole('button', { name: `${translation.selectedPeriod}`, exact: true });
+        const metricButton = cardBody.getByRole('button', { name: `${translation.forwarding}`, exact: true });
+        await metricButton.click();
 
-            await expect(todayButton).toBeVisible();
-            await expect(yesterdayButton).toBeVisible();
-            await expect(last30DaysButton).toBeVisible();
-            await expect(selectedMonthsButton).toBeVisible();
-            await expect(selectedPeriodButton).toBeVisible();
-        });
+        const selectedMetric = page.locator('.selected-metric'); // Assuming selected metric is displayed in this class
+        await expect(selectedMetric).toHaveText(`${translation.forwarding}`);
     });
 
-    test.describe('Metric Selection', () => {
-        test('Validate buttons under Choose a metric section', async ({ page }) => {
-            const cardBody = page.locator('.card__body');
+    test('Verify checkbox toggle functionality', async ({ page }) => {
+        const cardBody = page.locator('.card__body');
 
-            const forwardingButton = cardBody.getByRole('button', { name: `${translation.forwarding}`, exact: true });
-            const avgResponseButton = cardBody.getByRole('button', { name: `${translation.averageResponseSpeedInTheInstitution}`, exact: true });
-            const avgPresenceButton = cardBody.getByRole('button', { name: `${translation.averagePresenceOfCounselors}`, exact: true });
-            const conversationsByAdvisorButton = cardBody.getByRole('button', { name: `${translation.numberOfConversationsByAdvisor}`, exact: true });
-            const conversationTimeButton = cardBody.getByRole('button', { name: `${translation.conversationTimeByAdvisor}`, exact: true });
+        const directedConversationsCheckbox = cardBody.getByLabel(`${translation.numberOfConversationsDirectedFromTheAdvisor}`, { exact: true });
+        await directedConversationsCheckbox.check();
+        await expect(directedConversationsCheckbox).toBeChecked();
 
-            await expect(forwardingButton).toBeVisible();
-            await expect(avgResponseButton).toBeVisible();
-            await expect(avgPresenceButton).toBeVisible();
-            await expect(conversationsByAdvisorButton).toBeVisible();
-            await expect(conversationTimeButton).toBeVisible();
-        });
+        await directedConversationsCheckbox.uncheck();
+        await expect(directedConversationsCheckbox).not.toBeChecked();
     });
 
-    test.describe('Additional Options', () => {
-        test('Validate checkboxes under Additional Options section', async ({ page }) => {
-            const cardBody = page.locator('.card__body');
+    test('Validate chart selection functionality', async ({ page }) => {
+        const dropdown = page.getByText(new RegExp(translation.barChart));
+        await dropdown.click();
 
-            const directedConversationsCheckbox = cardBody.getByLabel(`${translation.numberOfConversationsDirectedFromTheAdvisor}`, { exact: true });
-            const counselorDirectedCheckbox = cardBody.getByLabel(`${translation.counselorDirectedConversations}`, { exact: true });
-            const outOfFacilityCheckbox = cardBody.getByLabel(`${translation.outOfFacilityForwards}`, { exact: true });
+        const barChartOption = page.getByText('Bar Chart', { exact: true });
+        const pieChartOption = page.getByText('Pie Chart', { exact: true });
 
-            await expect(directedConversationsCheckbox).toBeVisible();
-            await expect(counselorDirectedCheckbox).toBeVisible();
-            await expect(outOfFacilityCheckbox).toBeVisible();
-        });
+        await barChartOption.click();
+        const activeChart = page.locator('.active-chart'); // Assuming active chart indicator
+        await expect(activeChart).toHaveText('Bar Chart');
+
+        await pieChartOption.click();
+        await expect(activeChart).toHaveText('Pie Chart');
     });
 
-    test.describe('Forwarding Card', () => {
-        test('Validate heading and buttons under Forwarding card', async ({ page }) => {
-            const cardHeader = page.locator('.card__header');
-            const forwardingHeading = cardHeader.getByRole('heading', { name: `${translation.forwarding}`, exact: true });
-            const csvButton = page.getByRole('button', { name: `${translation.csv}`, exact: true });
+    test('Verify CSV export button functionality', async ({ page }) => {
+        const csvButton = page.getByRole('button', { name: `${translation.csv}`, exact: true });
 
-            await expect(forwardingHeading).toBeVisible();
-            await expect(csvButton).toBeVisible();
-        });
+        const [download] = await Promise.all([
+            page.waitForEvent('download'), // Wait for download to trigger
+            csvButton.click(),
+        ]);
 
-        test('Validate dropdown options', async ({ page }) => {
-            const dropdown = page.getByText(new RegExp(translation.barChart));
-
-            await expect(dropdown).toBeVisible();
-            await dropdown.click();
-
-            const barChartOption = page.getByText('Bar Chart', { exact: true });
-            const pieChartOption = page.getByText('Pie Chart', { exact: true });
-            const lineChartOption = page.getByText('Line Chart', { exact: true });
-
-            await expect(barChartOption).toBeVisible();
-            await expect(pieChartOption).toBeVisible();
-            await expect(lineChartOption).toBeVisible();
-        });
+        const downloadPath = await download.path();
+        expect(downloadPath).toContain('.csv'); // Verify download file is a CSV
     });
 });
