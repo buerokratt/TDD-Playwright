@@ -1,0 +1,104 @@
+resource: analytics/overview
+description: "Analytics-Module"
+test:
+  main:
+  heading:
+      args:
+          - type: text
+          - value: "Overview"
+          - style: h1
+  button:
+      args:
+          - type: button
+          - value: Edit
+          - style: button
+  main-metrics-area:
+    name: draggable-card
+    heading: 
+        args: 
+            - type: text
+            - value: "Average chats per day: month / previous"
+            - style: text
+    heading:
+        args:
+            - type: text
+            - format: integer / integer
+            - style: h2
+    name: draggable-card
+    heading: 
+        args: 
+            - type: text
+            - value: "Average chats per day: week / previous"
+            - style: text
+    heading:
+        args:
+            - type: text
+            - format: integer / integer
+            - style: h2
+    name: draggable-card
+    heading: 
+        args: 
+            - type: text
+            - value: "Average chats answered by Bürokrat: month / previous"
+            - style: text
+    heading:
+        args:
+            - type: text
+            - format: integer / integer
+            - style: h2
+    name: draggable-card
+    heading: 
+        args: 
+            - type: text
+            - value: "Average chats answered by Bürokrat: week / previous"
+            - style: text
+    heading:
+        args:
+            - type: text
+            - format: integer / integer
+            - style: h2
+    name: draggable-card
+    heading: 
+        args: 
+            - type: text
+            - value: "Answered by Bürokrat: today / yesterday"
+            - style: text
+    heading:
+        args:
+            - type: text
+            - format: integer / integer
+            - style: h2
+    name: draggable-card
+    heading: 
+        args: 
+            - type: text
+            - value: "Number of chats: month / previous"
+            - style: text
+    heading:
+        args:
+            - type: text
+            - format: integer / integer
+            - style: h2
+  card: 
+    name: card__header
+    label: 
+      args:
+          - type: text
+          - value: "Total number of chats"
+          - style: h3
+    name: card__body
+    has_chart: true
+    chart_class: "recharts-wrapper"
+  card: 
+    name: card__header
+    label:
+      args:   
+          - type: text
+          - value: "OpenSearch Dashboard (OSD)"
+          - style: h3
+    name: card__body
+    button: 
+       args: 
+          - type: button
+          - value: "Open OpenSearch"
+          - style: button
