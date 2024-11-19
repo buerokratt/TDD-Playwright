@@ -84,20 +84,26 @@ test:
           - style: label
 
     checkbox:
-       args:
-           - type: checkbox
-           - value: Number of conversations directed from the advisor
-           - style: checkbox
+        label: "Number of conversations directed from the advisor"
+        args:
+            - type: checkbox
+            - style: checkbox
+            - adjacentTo: label
+            - input-hidden: true
     checkbox:
-       args:
-           - type: checkbox
-           - value: Counselor directed conversations
-           - style: checkbox
+        label: "Counselor directed conversations"
+        args:
+            - type: checkbox
+            - style: checkbox
+            - adjacentTo: label
+            - input-hidden: true
     checkbox:
-       args:
-           - type: checkbox
-           - value: Out-of-facility forwards
-           - style: checkbox
+        label: "Out-of-facility forwards"
+        args:
+            - type: checkbox
+            - style: checkbox
+            - adjacentTo: label
+            - input-hidden: true
 
   card:
     name: card__header

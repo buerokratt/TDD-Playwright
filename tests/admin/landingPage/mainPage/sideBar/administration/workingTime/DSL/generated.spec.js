@@ -3,77 +3,87 @@ import { getTranslations } from '@translation/languageDetector.js';
 
 let translation;
 
-test.describe('Working time - Visibility Tests', () => {
+test.describe('Working Time Settings Page Validation', () => {
     test.beforeEach(async ({ page }) => {
-        test.info().annotations.push({ type: 'repository', description: 'Working time' });
+        // Navigate to the Working Time page
         await page.goto('https://admin.prod.buerokratt.ee/chat/working-time');
-        await page.waitForTimeout(3000);
+
+        // Load translations
         translation = await getTranslations(page);
+
+        // Ensure the page loads completely
+        await page.waitForTimeout(3000);
     });
 
-    test('Main Heading visibility', async ({ page }) => {
-        const heading = await page.getByRole('heading', { name: `${translation.organizationWorkingTime}`, exact: true });
-        await expect(heading).toBeVisible();
-    });
-
-    test.describe('Card Header visibility', () => {
-        test('Working Hours Are 24/7 toggle', async ({ page }) => {
-            const toggle = await page.getByLabel(`${translation.workingHoursAre247}`, { exact: true });
-            await expect(toggle).toBeVisible();
+    test('Validate Working Time settings page UI and interactions', async ({ page }) => {
+        test.info().annotations.push({
+            description: 'Validate visibility, toggle handling, and inputs for Working Time settings page.',
         });
 
-        test('Consider Public Holidays toggle', async ({ page }) => {
-            const toggle = await page.getByLabel(`${translation.considerPublicHolidays}`, { exact: true });
-            await expect(toggle).toBeVisible();
-        });
+        // Main Heading
+        const mainHeading = await page.getByRole('heading', { name: `${translation.organizationWorkingTime}`, exact: true });
+        await expect(mainHeading).toBeVisible();
 
-        test('Closed On Weekends toggle', async ({ page }) => {
-            const toggle = await page.getByLabel(`${translation.closedOnWeekends}`, { exact: true });
-            await expect(toggle).toBeVisible();
-        });
+        // Card Header Toggles
+        const toggles = [
+            { label: translation.workingHoursAre247, initialState: 'true' },
+            { label: translation.considerPublicHolidays, initialState: null },
+            { label: translation.closedOnWeekends, initialState: 'true' },
+            { label: translation.sameOnAllWorkingDays, initialState: 'true' },
+        ];
 
-        test('Same On All Working Days toggle', async ({ page }) => {
-            const toggle = await page.getByLabel(`${translation.sameOnAllWorkingDays}`, { exact: true });
-            await expect(toggle).toBeVisible();
-        });
-    });
+        for (const toggle of toggles) {
+            const toggleSwitch = await page.getByLabel(`${toggle.label}`, { exact: true });
+            const state = await toggleSwitch.getAttribute('aria-checked');
+            if (state === toggle.initialState) {
+                await toggleSwitch.click();
+            }
+            await expect(toggleSwitch).toBeVisible();
+        }
 
-    test.describe('Card Body visibility', () => {
-        const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+        // Card Body: Day-specific sections
+        const days = [
+            translation.monday,
+            translation.tuesday,
+            translation.wednesday,
+            translation.thursday,
+            translation.friday,
+            translation.saturday,
+            translation.sunday,
+        ];
 
-        days.forEach((day) => {
-            test(`${day} elements visibility`, async ({ page }) => {
-                const card = page.locator('.card__body');
-                const label = await card.locator(`${translation[day.toLowerCase()]}`);
-                const toggle = await card.locator(`.track`).locator('nth=0');
-                const startTimeInput = await card.locator(`.track`).locator('nth=1');
-                const endTimeInput = await card.locator(`.track`).locator('nth=2');
+        for (const day of days) {
+            const container = page.locator('.track', { hasText: day });
 
-                await expect(label).toBeVisible();
-                await expect(toggle).toBeVisible();
-                await expect(startTimeInput).toBeVisible();
-                await expect(endTimeInput).toBeVisible();
-            });
-        });
-    });
+            // Locate child elements within the specific day's track
+            const dayLabel = container.locator('text=' + day);
+            const dayToggle = container.locator('button[role="switch"]');
+            const startTimeInput = container.locator('.startTime input');
+            const endTimeInput = container.locator('.endTime input');
 
-    test.describe('Card Footer visibility', () => {
-        test('Save Button visibility', async ({ page }) => {
-            const saveButton = await page.getByText(`${translation.save}`, { exact: true });
-            await expect(saveButton).toBeVisible();
-        });
+            // Assertions for visibility
+            await expect(dayLabel).toBeVisible();
+            await expect(dayToggle).toBeVisible();
+            await expect(startTimeInput).toBeVisible();
+            await expect(endTimeInput).toBeVisible();
 
-        test('Send Notification Of Absence toggles visibility', async ({ page }) => {
-            const absenceToggle = await page.getByLabel(`${translation.sendANotificationOfAbsenceToTheClient}`, { exact: true });
-            const contactToggle = await page.getByLabel(`${translation.sendANotificationOfAbsenceToTheClientWithAContactRequest}`, { exact: true });
+            // Interact with day toggle if necessary
+            const dayToggleState = await dayToggle.getAttribute('aria-checked');
+            if (dayToggleState === 'true') {
+                await dayToggle.click();
+            }
+        }
 
-            await expect(absenceToggle).toBeVisible();
-            await expect(contactToggle).toBeVisible();
-        });
+        // Card Footer: Footer Elements
+        const saveButton = await page.getByRole('button', { name: `${translation.save}`, exact: true });
+        const absenceNotification = await page.getByLabel(`${translation.sendANotificationOfAbsenceToTheClient}`, { exact: true });
+        const contactNotification = await page.getByLabel(`${translation.sendANotificationOfAbsenceToTheClientWithAContactRequest}`, { exact: true });
+        const noCsaMessage = await page.getByLabel(`${translation.noCsaAvailableMessage}`, { exact: true });
 
-        test('No CSA Available Message textarea visibility', async ({ page }) => {
-            const textArea = await page.getByLabel(`${translation.noCsaAvailableMessage}`, { exact: true });
-            await expect(textArea).toBeVisible();
-        });
+        // Assertions for visibility
+        await expect(saveButton).toBeVisible();
+        await expect(absenceNotification).toBeVisible();
+        await expect(contactNotification).toBeVisible();
+        await expect(noCsaMessage).toBeVisible();
     });
 });
