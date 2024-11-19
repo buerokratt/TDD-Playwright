@@ -29,34 +29,6 @@ I am working on converting a businessDSL into Playwright tests. Provide the test
    Use the following format for dropdown (select) elements:
    const select = await page.getByRole('combobox', { name: `${translation.widgetAnimation}` });
 
-4. Table handling: 
-   a. Consider only first row when checking data persistence. For example when checking edit, delete, forward buttons in table data. PS! Don't use here exact: true, because it will cause errors.
-      For example: 
-      const dataTable = page.locator('.data-table');
-      const editButton = dataTable.getByRole('button', { name: `${translation.edit}`, exact: true}).first();
-      const deleteButton = dataTable.getByRole('button', { name: `${translation.delete}`, exact: true }).first();
-      const forwardButton = dataTable.getByRole('button', { name: `${translation.forward}`, exact: true }).first();
-      
-   b. Checking headers
-      For example: 
-      const container = page.locator('.data-table');
-      const nameHeader = container.getByText(`${translation.name}`)
-      await expect(nameHeader).toBeVisible();
-
-   c. Checking pagination
-      For example:
-      const resultCountLabel = await page.getByText(`${translation.resultCount}`);
-      const resultCountDropdown = await page.getByRole('combobox', { name: `${translation.resultCount}` });
-      await expect(resultCountLabel).toBeVisible();
-      await expect(resultCountDropdown).toBeVisible();
-   
-   d. If DSL has table and table has 'sortable: true' field then should check for sorting button persistence.
-      For example: 
-      for (const header of headers) {
-            const sortingButton = page.locator('th').filter({ hasText: header }).locator('button');
-            await expect(sortingButton).toBeVisible();
-      }
-
 5. Test setup:
 Include navigation and fetching translations in a beforeEach hook to ensure the page and translations are ready before running each test.
 Base URL: https://admin.prod.buerokratt.ee. Add this before the url provided in the DSL under resource header.
@@ -84,7 +56,7 @@ Add { exact: true } to all locators.
 
 8. Handling multiple elements with the same text within specific containers: 
    If multiple elements share the same text but represent different roles (e.g., button and heading), use .getByRole() to specify the intended role within the container.
-   Specify the container (e.g., .card) or section to narrow the search scope and avoid conflicts with similar elements elsewhere on the page.
+   Specify the container (e.g., .card) or section (e.g., .section) to narrow the search scope and avoid conflicts with similar elements elsewhere on the page.
    Use .first() or .nth(index) as needed to select a specific instance of an element when it appears multiple times within the same container.
    
    Examples:
