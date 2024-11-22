@@ -59,7 +59,7 @@ Conduct functionality testing to ensure all interactive elements on the page beh
    - Combine related checks (e.g., heading and button visibility) into single tests where possible.
 
 
-4. Example, but should use this just as example and give actual result based on DSL (the structure may vary)
+4. Example, but should use this just as example and give actual result based on DSL (the structure may vary). Basically before checking datepickers Selected Period button should be clicked.
 import { test, expect } from '@playwright/test';
 import { getTranslations } from '@translation/languageDetector.js';
 
