@@ -1,0 +1,103 @@
+The goal is to convert BusinessDSL specifications into Playwright test cases. The output should be a valid, directly executable test file. Focus on comprehensive test coverage, clear locators, logical grouping, and alignment with DSL requirements.
+Give clear functionality testfile without any comments .
+
+Functionality testing.
+Conduct functionality testing to ensure all interactive elements on the page behave as expected. Validate that buttons, checkboxes, dropdowns, and date pickers are functional and perform their intended actions. Verify the ability to select dropdown options. Ensure correct state persistence and data handling for elements such as checkboxes and date pickers. Test the visibility or changes in UI components triggered by user actions.
+
+1. Setup and Initialization:
+   - Base URL: Append the DSL's resource URL to https://admin.prod.buerokratt.ee.
+   - Translations:
+     Use getTranslations to fetch translation keys:
+     import { getTranslations } from '@translation/languageDetector.js';
+     let translation;
+     Fetch translations after page navigation to avoid security errors:
+     translation = await getTranslations(page);
+   - Timeout: Include a 3000ms timeout in beforeEach for element loading.
+   - Test Annotations: Add annotations using DSL-provided descriptions:
+     test.info().annotations.push({ type: 'repository', description: '<DSL description>' });
+
+2. Locator Rules:
+   - Use translation.
+   - Translation keys start with a lowercase letter and are integrated like this:
+     `${translation.key}`. For example: `${translation.helloWorld}` will get "Hello world!" from translation file.
+   - Use exact matching ({ exact: true }) for all locators.
+   - Always scope locators to specific parent containers (e.g., card, modal, form, section or table etc.) to ensure precision and avoid ambiguity.
+     For example: If a button is within .card__body, use cardBody.getByRole() rather than page.getByRole().
+     More examples:
+     const checkbox = page.locator('.card').first().getByRole('checkbox', `${translation.onlyBuerokrattInvolved}`, { exact: true });
+     const button = page.locator('.card').filter({ hasText: `${translation.forwarding}` }).getByRole('button', { name: `${translation.forwarding}`, exact: true });
+
+   Specific Locators:
+   - Input fields or textareas with placeholder text: page.getByPlaceholder()
+   - Element that is associated with label (in DSL this elements are marked with adjacentTo: label): page.getByLabel()
+   - Interactive elements (buttons, links, checkboxes, headings): page.getByRole()
+   - Dropdown, or any element with visible text and if no previous thing does not fit: page.getByText()
+   - Datepicker without assosiated label: page.locator()
+
+   Examples:
+   const button = await page.getByRole('button', `${translation.save}`, { exact: true });
+   const cell = await row.getByRole('cell', { name: 'John Doe', exact: true });
+   const firstRow = page.locator('table').locator('tbody).getByRole('row').nth(0);
+   const heading = await page.getByRole('heading', { name: `${translation.settings}`, exact: true });
+   const checkBox = await page.getByRole('checkbox', { name: '${translation.rememberMe}', exact: true });
+   const inputField = await page.getByLabel(`${translation.email}`, { exact: true });
+   const radioOption = await page.getByText(`${translation.radioText}`, { exact: true });
+   const datepicker = await page.locator('.datepicker')
+   const dropdown = await page.getByText(new RegExp(translation.barChart));
+   const switch = await page.getByRole('switch', { name: `${translation.someName}`, exact: true });
+   
+
+   nth-instance Handling:
+   If DSL specifies nth-instance, use .nth(index):
+   const label = await page.getByText(`${translation.labelName}`).nth(1);
+
+   Handling Multiple Elements:
+   Use .first() or .nth(index) for specific instances.
+
+3. Test Grouping:
+   - Group related tests using test.describe().
+   - Combine related checks (e.g., heading and button visibility) into single tests where possible.
+
+
+4. Example, but should use this just as example and give actual result based on DSL (the structure may vary). Basically before checking datepickers Selected Period button should be clicked
+import { test, expect } from '@playwright/test';
+import { getTranslations } from '@translation/languageDetector.js';
+
+let translation;
+
+test.describe('Functionality Testing Suite', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto('https://admin.prod.buerokratt.ee/analytics/feedback');
+    translation = await getTranslations(page);
+    test.info().annotations.push({ type: 'repository', description: 'Functionality Testing' });
+    await page.waitForTimeout(3000);
+  });
+
+  test('should display and edit display period date pickers', async ({ page }) => {
+    const label = page.getByText(`${translation.displayPeriod}`, { exact: true });
+    const startDatePicker = page.locator('.datepicker').nth(0);
+    const endDatePicker = page.locator('.datepicker').nth(1);
+
+    await expect(label).toBeVisible();
+    await expect(startDatePicker).toBeVisible();
+    await expect(endDatePicker).toBeVisible();
+
+    const startInput = startDatePicker.locator('input').first();
+    const endInput = endDatePicker.locator('input').first();
+
+    await startInput.fill('01.01.2024');
+    await endInput.fill('31.12.2024');
+
+    const updatedStartValue = await startInput.getAttribute('value');
+    const updatedEndValue = await endInput.getAttribute('value');
+
+    expect(updatedStartValue).toBe('01.01.2024');
+    expect(updatedEndValue).toBe('31.12.2024');
+  });
+})
+
+Key Highlights:
+1. Ensure page readiness in beforeEach.
+2. Use translation keys for dynamic locators.
+3. Group tests logically.
+4. Simplify tests by combining related assertions.

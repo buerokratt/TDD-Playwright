@@ -55,6 +55,14 @@ test.describe('Functionality Testing Suite', () => {
     await expect(checkbox3).toBeChecked();
   });
 
+  test('should test CSV download button', async ({ page }) => {
+    const csvButton = page.getByRole('button', { name: `${translation.csv}`, exact: true });
+    await csvButton.click();
+    const download = await page.waitForEvent('download');
+    expect(download.suggestedFilename()).toMatch(/.*\.csv/);
+  });
+
+
   test('should test dropdown selection', async ({ page }) => {
     const dropdown = page.getByText(new RegExp(translation.barChart));
     await dropdown.click();
