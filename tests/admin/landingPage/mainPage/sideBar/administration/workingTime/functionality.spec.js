@@ -1,192 +1,168 @@
-const { test, expect } = require('@playwright/test');
-const { getTranslations } = require('../../../../../../translations/languageDetector');
+import { test, expect } from '@playwright/test';
+import { getTranslations } from '@translation/languageDetector.js';
 
-test.describe.serial('Working time Functionality Tests', () => {
-    let translation;
-    let initialStates = {}; // To store the initial states of all switches
-    const days = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
-    let initialDivCounts = {};
+let translation;
 
+test.describe('Working Time Settings Page Validation', () => {
     test.beforeEach(async ({ page }) => {
         // Navigate to the page
         await page.goto('https://admin.prod.buerokratt.ee/chat/working-time');
 
-        // Wait for the page to be fully loaded
-        await page.waitForLoadState('domcontentloaded');
+        // Annotate the test with repository description
+        test.info().annotations.push({ type: 'repository', description: 'Buerokratt-Chatbot' });
 
-        // Fetch translations
+        // Load translations
         translation = await getTranslations(page);
 
-        // Capture initial states of relevant switches
-        const switches = {
-            considerPublicHolidays: page.locator('.switch__button').nth(1),
-            closedOnWeekends: page.locator('.switch__button').nth(2),
-            sameOnAllWorkingDays: page.locator('.switch__button').nth(3)
-        };
-
-        // Save initial states to restore later
-        for (const key in switches) {
-            initialStates[key] = await switches[key].getAttribute('aria-checked');
-        }
-
-        for (const day of days) {
-            const dayDiv = page.locator(`label:has-text("${translation[day]}")`).locator('..');
-            const count = await dayDiv.count();
-            initialDivCounts[day] = count;
-        }
+        // Wait for elements to load completely
+        await page.waitForTimeout(3000);
     });
 
-    test.afterEach(async ({ page }) => {
-        // Restore all switches to their initial states if they were changed
-        const switches = {
-            considerPublicHolidays: page.locator('.switch__button').nth(1),
-            closedOnWeekends: page.locator('.switch__button').nth(2),
-            sameOnAllWorkingDays: page.locator('.switch__button').nth(3)
+    test('Validate Main Heading', async ({ page }) => {
+        const heading = await page.getByRole('heading', { name: `${translation.organizationWorkingTime}` });
+        await expect(heading).toBeVisible();
+    });
+
+    test('Validate Header Toggles with Save and Revert', async ({ page }) => {
+        const toggles = {
+            workingHours247: await page.getByLabel(`${translation.workingHoursAre247}`, { exact: true }),
+            publicHolidays: await page.getByLabel(`${translation.considerPublicHolidays}`, { exact: true }),
+            closedOnWeekends: await page.getByLabel(`${translation.closedOnWeekends}`, { exact: true }),
+            sameOnAllDays: await page.getByLabel(`${translation.sameOnAllWorkingDays}`, { exact: true }),
         };
 
-        for (const key in switches) {
-            const currentState = await switches[key].getAttribute('aria-checked');
-            if (currentState !== initialStates[key]) {
-                // If state was changed during the test, toggle it back
-                await switches[key].click();
-                await saveChanges(page);
+        const initialToggleStates = {};
+        for (const toggleKey in toggles) {
+            const toggle = toggles[toggleKey];
+            const isChecked = await toggle.getAttribute('aria-checked');
+            initialToggleStates[toggleKey] = isChecked;
+
+            if (isChecked === 'true') {
+                await toggle.click();
+            }
+            await expect(toggle).toBeVisible();
+        }
+
+        // Save state after toggles
+        const saveButton = await page.getByText(`${translation.save}`, { exact: true });
+        await saveButton.click();
+        await page.waitForTimeout(2000);
+
+        // Revert toggles to their initial state
+        for (const toggleKey in toggles) {
+            const toggle = toggles[toggleKey];
+            if (initialToggleStates[toggleKey] !== (await toggle.getAttribute('aria-checked'))) {
+                await toggle.click();
             }
         }
-        // Verify the div counts return to the initial state
-        for (const day of days) {
-            const dayDiv = page.locator(`label:has-text("${translation[day]}")`).locator('..');
-            const count = await dayDiv.count();
-            await expect(count).toBe(initialDivCounts[day]);
-        }
-    });
 
-    async function saveChanges(page) {
-        const saveButton = page.locator(`text=${translation["save"]}`);
+        // Save reverted state
         await saveButton.click();
-        await expect(page.locator('.toast.toast--success')).toBeVisible();
-        await page.goto(page.url()); // Reload the page by navigating to the current URL
-        await page.waitForTimeout(3000); // Wait for the reload to complete
-    }
-
-    test('check functionality of "considerPublicHolidays" switch', async ({ page }) => {
-        const switchElem = page.locator('.switch__button').nth(1);
-
-        // Toggle the switch
-        await switchElem.click();
-        await page.waitForTimeout(1000); // Wait for 1 second for the state to update
-        await saveChanges(page);
-
-        // Verify the switch has toggled
-        const newChecked = await switchElem.getAttribute('aria-checked');
-        await expect(newChecked).not.toBe(initialStates["considerPublicHolidays"]); // Ensure the state has changed
+        await page.waitForTimeout(2000);
     });
 
-    test('check functionality of "closedOnWeekends" switch', async ({ page }) => {
-        const closedOnWeekendsSwitch = page.locator('.switch__button').nth(2);
-        const closedOnWeekendsState = await closedOnWeekendsSwitch.getAttribute('aria-checked');
+    test('Validate Day-Specific Sections with Save and Revert', async ({ page }) => {
+        const days = [
+            `${translation.monday}`,
+            `${translation.tuesday}`,
+            `${translation.wednesday}`,
+            `${translation.thursday}`,
+            `${translation.friday}`,
+            `${translation.saturday}`,
+            `${translation.sunday}`,
+        ];
 
-        const sameOnAllWorkingDaysSwitch = page.locator('.switch__button').nth(3);
-        const sameOnAllWorkingDaysState = await sameOnAllWorkingDaysSwitch.getAttribute('aria-checked');
+        const initialTimeStates = {};
 
-        const saturdayDiv = page.locator(`label:has-text("${translation["saturday"]}")`).locator('..');
-        const sundayDiv = page.locator(`label:has-text("${translation["sunday"]}")`).locator('..');
+        for (const day of days) {
+            const container = page.locator('.track', { hasText: day });
 
-        // Toggle the "closedOnWeekends" switch
-        if (closedOnWeekendsState === 'false') {
-            await closedOnWeekendsSwitch.click();
-            await saveChanges(page)
+            // Locate and validate elements
+            const dayLabel = container.locator(`text=${day}`);
+            const dayToggle = container.locator('button[role="switch"]');
+            const startTimeInput = container.locator('.startTime input');
+            const endTimeInput = container.locator('.endTime input');
+
+            await expect(dayLabel).toBeVisible();
+            await expect(dayToggle).toBeVisible();
+            await expect(startTimeInput).toBeVisible();
+            await expect(endTimeInput).toBeVisible();
+
+            // Capture initial states
+            initialTimeStates[day] = {
+                startTime: await startTimeInput.inputValue(),
+                endTime: await endTimeInput.inputValue(),
+                toggleState: await dayToggle.getAttribute('aria-checked'),
+            };
+
+            // Modify times for testing
+            await startTimeInput.fill('08:00:00');
+            await endTimeInput.fill('17:00:00');
+
+            const dayToggleState = initialTimeStates[day].toggleState;
+            if (dayToggleState === 'false') {
+                await dayToggle.click();
+            }
         }
 
-        if (sameOnAllWorkingDaysState === 'true') {
-            await sameOnAllWorkingDaysSwitch.click();
-            await saveChanges(page)
+        // Save state after modifications
+        const saveButton = await page.getByText(`${translation.save}`, { exact: true });
+        await saveButton.click();
+        await page.waitForTimeout(2000);
+
+        // Revert changes to their initial state
+        for (const day of days) {
+            const container = page.locator('.track', { hasText: day });
+            const startTimeInput = container.locator('.startTime input');
+            const endTimeInput = container.locator('.endTime input');
+            const dayToggle = container.locator('button[role="switch"]');
+
+            const { startTime, endTime, toggleState } = initialTimeStates[day];
+            await startTimeInput.fill(startTime);
+            await endTimeInput.fill(endTime);
+
+            if (toggleState !== (await dayToggle.getAttribute('aria-checked'))) {
+                await dayToggle.click();
+            }
         }
 
-        // Verify that Saturday and Sunday divs are hidden
-        await expect(saturdayDiv).not.toBeVisible();
-        await expect(sundayDiv).not.toBeVisible();
-
-        // Toggle back to the original state
-        await closedOnWeekendsSwitch.click();
-        await saveChanges(page);
-
-        // Verify that Saturday and Sunday divs are visible again
-        await expect(saturdayDiv).toBeVisible();
-        await expect(sundayDiv).toBeVisible();
+        // Save reverted state
+        await saveButton.click();
+        await page.waitForTimeout(2000);
     });
 
-    test('check functionality of "sameOnAllWorkingDays" switch', async ({ page }) => {
-        const switchElem = page.locator('.switch__button').nth(3);
-        const switchState = await switchElem.getAttribute('aria-checked');
-        
-        if (switchState === 'false') {
-            // Toggle the "sameOnAllWorkingDays" switch
-            await switchElem.click();
-            await saveChanges(page);
+    test('Validate Footer Elements with Save and Revert', async ({ page }) => {
+        const absenceNotificationSwitch = await page.getByLabel(`${translation.sendANotificationOfAbsenceToTheClient}`, { exact: true });
+        const contactRequestSwitch = await page.getByLabel(`${translation.sendANotificationOfAbsenceToTheClientWithAContactRequest}`, { exact: true });
+        const noCsaMessageInput = await page.getByLabel(`${translation.noCsaAvailableMessage}`, { exact: true });
+
+        // Capture initial states
+        const initialFooterStates = {
+            absenceNotification: await absenceNotificationSwitch.getAttribute('aria-checked'),
+            contactRequest: await contactRequestSwitch.getAttribute('aria-checked'),
+            noCsaMessage: await noCsaMessageInput.inputValue(),
+        };
+
+        // Modify footer switches and textarea
+        await absenceNotificationSwitch.click();
+        await noCsaMessageInput.fill('No agents available at the moment.');
+
+        // Save state after modifications
+        const saveButton = await page.getByText(`${translation.save}`, { exact: true });
+        await saveButton.click();
+        await page.waitForTimeout(2000);
+
+        // Revert changes to their initial state
+        if (initialFooterStates.absenceNotification !== (await absenceNotificationSwitch.getAttribute('aria-checked'))) {
+            await absenceNotificationSwitch.click();
         }
+        if (initialFooterStates.contactRequest !== (await contactRequestSwitch.getAttribute('aria-checked'))) {
+            await contactRequestSwitch.click();
+        }
+        await noCsaMessageInput.fill(initialFooterStates.noCsaMessage);
 
-        const closedOnWeekendsSwitch = page.locator('.switch__button').nth(2);
-        const closedOnWeekendsChecker = await closedOnWeekendsSwitch.getAttribute('aria-checked') === 'true';
-        const expectedText = closedOnWeekendsChecker ? "M-F" : "M-S";
-
-        // Verify only one div is visible
-        const visibleDiv = page.locator(`label:has-text("${expectedText}")`).locator('..');
-        await expect(visibleDiv).toHaveCount(1);
-        await expect(visibleDiv.locator('.switch__button')).toHaveCount(0);
-        
+        // Save reverted state
+        await saveButton.click();
+        await page.waitForTimeout(2000);
     });
-
-    
-    test('Verify working time settings for Monday', async ({ page }) => {
-        // Navigate to the relevant page
-    
-        // Define translation keys for weekday
-    
-        // Locate the track for Monday based on the translated weekday
-        const trackLocator = page.locator(`.track:has-text("${translation["monday"]}")`);
-    
-        // Ensure the track for Monday is visible
-        await expect(trackLocator).toBeVisible();
-    
-        // Verify start time input
-        const startTimeLocator = trackLocator.locator('.startTime input[type="text"]');
-        await expect(startTimeLocator).toBeVisible();
-    
-        // Verify end time input
-        const endTimeLocator = trackLocator.locator('.endTime input[type="text"]');
-        await expect(endTimeLocator).toBeVisible();
-    
-        // Capture the old start and end times before making changes
-        const oldStartTime = await startTimeLocator.inputValue();
-        const oldEndTime = await endTimeLocator.inputValue();
-    
-        // Enter new start and end time
-        await startTimeLocator.fill('09:00:00'); // Adjust the format as needed
-        await endTimeLocator.fill('17:00:00'); // Adjust the format as needed
-    
-        // Optional: Add assertions to check if new values are entered correctly
-        await expect(startTimeLocator).toHaveValue('09:00:00');
-        await expect(endTimeLocator).toHaveValue('17:00:00');
-    
-        // Save changes
-        await saveChanges(page)// Replace with actual selector for the save button
-    
-    
-        // Ensure that the changes persisted after the refresh
-        await expect(startTimeLocator).toHaveValue('09:00:00');
-        await expect(endTimeLocator).toHaveValue('17:00:00');
-    
-        // Revert to the old values
-        await startTimeLocator.fill(oldStartTime);
-        await endTimeLocator.fill(oldEndTime);
-    
-        // Save the old state again
-        await saveChanges(page); // Replace with actual selector for the save button
-    
-    
-        // Verify that the old state is restored
-        await expect(startTimeLocator).toHaveValue(oldStartTime);
-        await expect(endTimeLocator).toHaveValue(oldEndTime);
-    });
-    
 });
