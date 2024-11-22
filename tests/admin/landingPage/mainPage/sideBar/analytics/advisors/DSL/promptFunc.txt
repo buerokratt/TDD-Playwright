@@ -2,11 +2,7 @@ The goal is to convert BusinessDSL specifications into Playwright test cases. Th
 Give clear functionality testfile without any comments .
 
 Functionality testing.
-
-Test all eligble functionality 
-
-This means that if there is a save button in the DSL you should capture and click it at the end of each test, refresh the page and check if your input value is there. 
-At the end of a each test it should be reset to the original value. When it comes to saving the values, wait 3 seconds after saving to ensure the values are saved.
+Conduct functionality testing to ensure all interactive elements on the page behave as expected. Validate that buttons, checkboxes, dropdowns, and date pickers are functional and perform their intended actions. Verify the ability to select dropdown options. Ensure correct state persistence and data handling for elements such as checkboxes and date pickers. Test the visibility or changes in UI components triggered by user actions.
 
 1. Setup and Initialization:
    - Base URL: Append the DSL's resource URL to https://admin.prod.buerokratt.ee.
@@ -58,13 +54,47 @@ At the end of a each test it should be reset to the original value. When it come
    Handling Multiple Elements:
    Use .first() or .nth(index) for specific instances.
 
-   
-
 3. Test Grouping:
    - Group related tests using test.describe().
    - Combine related checks (e.g., heading and button visibility) into single tests where possible.
 
 
+4. Example, but should use this just as example and give actual result based on DSL (the structure may vary)
+import { test, expect } from '@playwright/test';
+import { getTranslations } from '@translation/languageDetector.js';
+
+let translation;
+
+test.describe('Functionality Testing Suite', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto('https://admin.prod.buerokratt.ee/analytics/advisors');
+    translation = await getTranslations(page);
+    test.info().annotations.push({ type: 'repository', description: 'Functionality Testing' });
+    await page.waitForTimeout(3000);
+  });
+
+  test('should display and edit display period date pickers', async ({ page }) => {
+    const label = page.getByText(`${translation.displayPeriod}`, { exact: true });
+    const startDatePicker = page.locator('.datepicker').nth(0);
+    const endDatePicker = page.locator('.datepicker').nth(1);
+
+    await expect(label).toBeVisible();
+    await expect(startDatePicker).toBeVisible();
+    await expect(endDatePicker).toBeVisible();
+
+    const startInput = startDatePicker.locator('input').first();
+    const endInput = endDatePicker.locator('input').first();
+
+    await startInput.fill('01.01.2024');
+    await endInput.fill('31.12.2024');
+
+    const updatedStartValue = await startInput.getAttribute('value');
+    const updatedEndValue = await endInput.getAttribute('value');
+
+    expect(updatedStartValue).toBe('01.01.2024');
+    expect(updatedEndValue).toBe('31.12.2024');
+  });
+})
 
 Key Highlights:
 1. Ensure page readiness in beforeEach.

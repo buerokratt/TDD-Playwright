@@ -37,11 +37,21 @@ test:
            - type: button
            - value: Selected Months
            - style: button
+           - action: open-datepicker
+        
     button:
        args:
            - type: button
            - value: Selected Period
            - style: button
+           - action: open-datepickers
+           - adjacentElements:
+                - type: datepicker
+                - selector: nth(0)
+                - type: text
+                - type: datepicker
+                - selector: nth(1)
+                
 
     name: section
     label:
@@ -128,4 +138,5 @@ test:
              - value: Line Chart
     
     name: card__body
+    name: recharts-wrapper
     has_chart: true

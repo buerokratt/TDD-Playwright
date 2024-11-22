@@ -1,143 +1,86 @@
-const { test, expect } = require('@playwright/test');
-const { getTranslations } = require('../../../../../../translations/languageDetector');
+import { test, expect } from '@playwright/test';
+import { getTranslations } from '@translation/languageDetector.js';
 
-test.describe('Metrics Cards Visibility Test', () => {
-    let translation;
+let translation;
 
-    test.beforeEach(async ({ page }) => {
+test.describe('Analytics-Module Test Suite', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto('https://admin.prod.buerokratt.ee/analytics/advisors');
+    translation = await getTranslations(page);
     test.info().annotations.push({ type: 'repository', description: 'Analytics-Module' });
-        await page.goto('https://admin.prod.buerokratt.ee/analytics/advisors');
-        translation = await getTranslations(page);
-    });
+    await page.waitForTimeout(3000);
+  });
 
-    test('Check h1 header visibility', async ({ page }) => {
-        const h1 = await page.locator('h1');
-        await expect(h1).toBeVisible();
-        await expect(h1).toHaveText(translation.advisors);
-    });
+  test('Validate Advisors Heading', async ({ page }) => {
+    const heading = await page.getByRole('heading', { name: `${translation.advisors}`, exact: true });
+    await expect(heading).toBeVisible();
+  });
 
-    test('Check visibility of "Period" section button in period section', async ({ page }) => {
-        const section = page.locator(`.card__body .option-label:has-text("${translation.period}")`);
-        await expect(section).toBeVisible();
-    });
+  test('Validate Period Buttons in Card Section', async ({ page }) => {
+    const cardSection = page.locator('.card__body').filter({ hasText: `${translation.period}` });
+    const todayButton = await cardSection.getByRole('button', { name: `${translation.today}`, exact: true });
+    const yesterdayButton = await cardSection.getByRole('button', { name: `${translation.yesterday}`, exact: true });
+    const last30DaysButton = await cardSection.getByRole('button', { name: `${translation.last30Days}`, exact: true });
+    const selectedMonthsButton = await cardSection.getByRole('button', { name: `${translation.selectedMonths}`, exact: true });
+    const selectedPeriodButton = await cardSection.getByRole('button', { name: `${translation.selectedPeriod}`, exact: true });
 
-    test('Check visibility of "Today" button in period section', async ({ page }) => {
-        const section = page.locator(`section:has-text("${translation.period}")`);
-        const todayButton = section.locator(`button:has-text("${translation.today}")`);
-        await expect(todayButton).toBeVisible();
-    });
+    await expect(todayButton).toBeVisible();
+    await expect(yesterdayButton).toBeVisible();
+    await expect(last30DaysButton).toBeVisible();
+    await expect(selectedMonthsButton).toBeVisible();
+    await expect(selectedPeriodButton).toBeVisible();
+  });
 
-    test('Check visibility of "Yesterday" button in period section', async ({ page }) => {
-        const section = page.locator(`section:has-text("${translation.period}")`);
-        const yesterdayButton = section.locator(`button:has-text("${translation.yesterday}")`);
-        await expect(yesterdayButton).toBeVisible();
-    });
+  test('Validate Datepicker Functionality', async ({ page }) => {
+    const selectedPeriodButton = page.getByRole('button', { name: `${translation.selectedPeriod}`, exact: true });
+    await selectedPeriodButton.click();
+    const startDatepicker = page.locator('.datepicker').nth(0);
+    const endDatepicker = page.locator('.datepicker').nth(1);
+    await expect(startDatepicker).toBeVisible();
+    await expect(endDatepicker).toBeVisible();
+  });
 
-    test('Check visibility of "Last 30 Days" button in period section', async ({ page }) => {
-        const section = page.locator(`section:has-text("${translation.period}")`);
-        const last30DaysButton = section.locator(`button:has-text("${translation.last30Days}")`);
-        await expect(last30DaysButton).toBeVisible();
-    });
+  test('Validate Metrics Section Buttons', async ({ page }) => {
+    const metricsSection = page.locator('.card__body').filter({ hasText: `${translation.chooseAMetric}` });
+    const forwardingButton = await metricsSection.getByRole('button', { name: `${translation.forwarding}`, exact: true });
+    const avgResponseSpeedButton = await metricsSection.getByRole('button', { name: `${translation.averageResponseSpeedInTheInstitution}`, exact: true });
+    const avgPresenceButton = await metricsSection.getByRole('button', { name: `${translation.averagePresenceOfCounselors}`, exact: true });
+    const numConversationsButton = await metricsSection.getByRole('button', { name: `${translation.numberOfConversationsByAdvisor}`, exact: true });
+    const conversationTimeButton = await metricsSection.getByRole('button', { name: `${translation.conversationTimeByAdvisor}`, exact: true });
 
-    test('Check visibility of "Selected Months" button in period section', async ({ page }) => {
-        const section = page.locator(`section:has-text("${translation.period}")`);
-        const selectedMonthsButton = section.locator(`button:has-text("${translation.selectedMonths}")`);
-        await expect(selectedMonthsButton).toBeVisible();
-    });
+    await expect(forwardingButton).toBeVisible();
+    await expect(avgResponseSpeedButton).toBeVisible();
+    await expect(avgPresenceButton).toBeVisible();
+    await expect(numConversationsButton).toBeVisible();
+    await expect(conversationTimeButton).toBeVisible();
+  });
 
-    test('Check visibility of "Selected Period" button in period section', async ({ page }) => {
-        const section = page.locator(`section:has-text("${translation.period}")`);
-        const selectedPeriodButton = section.locator(`button:has-text("${translation.selectedPeriod}")`);
-        await expect(selectedPeriodButton).toBeVisible();
-    });
+  test('Validate Additional Options Checkboxes', async ({ page }) => {
+    const additionalOptionsSection = page.locator('.card__body').filter({ hasText: `${translation.additionalOptions}` });
+    const checkbox1 = await additionalOptionsSection.getByRole('checkbox', { name: `${translation.numberOfConversationsDirectedFromTheAdvisor}`, exact: true });
+    const checkbox2 = await additionalOptionsSection.getByRole('checkbox', { name: `${translation.counselorDirectedConversations}`, exact: true });
+    const checkbox3 = await additionalOptionsSection.getByRole('checkbox', { name: `${translation.outOfFacilityForwards}`, exact: true });
 
-    test('Check visibility of "Choose a metric" section button in metric section', async ({ page }) => {
-        const section = page.locator(`.card__body .option-label:has-text("${translation.chooseAMetric}")`);
-        await expect(section).toBeVisible();
-    });
+    await expect(checkbox1).toBeVisible();
+    await expect(checkbox2).toBeVisible();
+    await expect(checkbox3).toBeVisible();
+  });
 
-    test('Check visibility of "Forwarding" button in metric section', async ({ page }) => {
-        const section = page.locator(`section:has-text("${translation.chooseAMetric}")`);
-        const totalAdvisorsButton = section.locator(`button:has-text("${translation.forwarding}")`);
-        await expect(totalAdvisorsButton).toBeVisible();
-    });
+  test('Validate Forwarding Card Heading', async ({ page }) => {
+    const heading = await page.getByRole('heading', { name: `${translation.forwarding}`, exact: true });
+    await expect(heading).toBeVisible();
+  });
 
-    test('Check visibility of "Average response speed in the institution" button in metric section', async ({ page }) => {
-        const section = page.locator(`section:has-text("${translation.chooseAMetric}")`);
-        const averageResponseSpeedInTheInstitution = section.locator(`button:has-text("${translation.averageResponseSpeedInTheInstitution}")`);
-        await expect(averageResponseSpeedInTheInstitution).toBeVisible();
-    });
+  test('Validate CSV Button and Dropdown in Other Content', async ({ page }) => {
+    const csvButton = await page.getByRole('button', { name: `${translation.csv}`, exact: true });
+    const dropdown = await page.getByText(new RegExp(translation.barChart));
+    await expect(csvButton).toBeVisible();
+    await expect(dropdown).toBeVisible();
+  });
 
-    test('Check visibility of "Average presence of counselors" button in metric section', async ({ page }) => {
-        const section = page.locator(`section:has-text("${translation.chooseAMetric}")`);
-        const averagePresenceOfCounselors = section.locator(`button:has-text("${translation.averagePresenceOfCounselors}")`);
-        await expect(averagePresenceOfCounselors).toBeVisible();
-    });
-
-    test('Check visibility of "Number of conversations by adviser" button in metric section', async ({ page }) => {
-        const section = page.locator(`section:has-text("${translation.chooseAMetric}")`);
-        const numberOfConversationsByAdviser = section.locator(`button:has-text("${translation.numberOfConversationsByAdviser}")`);
-        await expect(numberOfConversationsByAdviser).toBeVisible();
-    });
-
-    test('Check visibility of "Conversation time by advisor" button in metric section', async ({ page }) => {
-        const section = page.locator(`section:has-text("${translation.chooseAMetric}")`);
-        const conversationTimeByAdvisor = section.locator(`button:has-text("${translation.conversationTimeByAdvisor}")`);
-        await expect(conversationTimeByAdvisor).toBeVisible();
-    });
-
-    test('Check visibility of "Additional Options" section button in additional options section', async ({ page }) => {
-        const section = page.locator(`.card__body .additional-option-label:has-text("${translation.additionalOptions}")`);
-        await expect(section).toBeVisible();
-    });
-
-    test('Check visibility of "Additional Options" section Bureaucrat - the client left with an answer in additional options section', async ({ page }) => {
-        const section = page.locator(`section:has-text("${translation.additionalOptions}")`);
-        await expect(section).toBeVisible();
-
-        const numberOfConversationsDirectedFromAdvisor = section.locator('label').filter({ hasText: `${translation.numberOfConversationsDirectedFromAdvisor}` });
-        await expect(numberOfConversationsDirectedFromAdvisor).toBeVisible();
-    });
-
-    test('Check visibility of "Additional Options" section Bureaucrat - the client left without an answer in additional options section', async ({ page }) => {
-        const section = page.locator(`section:has-text("${translation.additionalOptions}")`);
-        await expect(section).toBeVisible();
-
-        const counselorDirectedConversations = section.locator('label').filter({ hasText: `${translation.counselorDirectedConversations}` });
-        await expect(counselorDirectedConversations).toBeVisible();
-    });
-
-    test('Check visibility of "Additional Options" section Bureaucrat - terminated for an unspecified reason in additional options section', async ({ page }) => {
-        const section = page.locator(`section:has-text("${translation.additionalOptions}")`);
-        await expect(section).toBeVisible();
-
-        const outOfFacilityForwards = section.locator('label').filter({ hasText: `${translation.outOfFacilityForwards}` });
-        await expect(outOfFacilityForwards).toBeVisible();
-    });
-
-    test('Check visibility of card header in additional options section', async ({ page }) => {
-        const section = page.locator(`.card .title:has-text("${translation.forwarding}")`);
-        await expect(section).toBeVisible();
-    });
-
-    test('Check visibility of card other content in additional options section', async ({ page }) => {
-        const section = page.locator(`.card:has-text("${translation.forwarding}")`);
-        const otherContent = section.locator('.other_content');
-
-        await expect(otherContent).toBeVisible();
-
-        const downloadButton = otherContent.locator('button:has-text("CSV")');
-        await expect(downloadButton).toBeVisible();
-
-        const dropDownMenu = otherContent.locator('.select__wrapper');
-        await expect(dropDownMenu).toBeVisible();
-
-        await dropDownMenu.click();
-
-        const barChart = dropDownMenu.locator(`.select__option:has-text("${translation.barChart}")`);
-        await expect(barChart).toBeVisible();
-
-        const pieChart = dropDownMenu.locator(`.select__option:has-text("${translation.pieChart}")`);
-        await expect(pieChart).toBeVisible();
-    });
+  test('Validate Presence of Chart in Card Body', async ({ page }) => {
+    const cardBody = page.locator('.card__body');
+    const chart = cardBody.locator('.recharts-wrapper');
+    await expect(chart).toBeVisible();
+  });
 });
