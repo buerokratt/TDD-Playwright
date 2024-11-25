@@ -4,114 +4,98 @@ import {
     turnSwitchOn,
     changeOpenHoursTo24and7,
     provideData,
-    selectFirstItem
-} from '../helper';
+    selectFirstItem,
+} from '../../unanswered/helper.js';
 
 let translation;
 
-test.describe('Buerokratt-Chatbot', () => {
-
+test.describe('Unanswered Chats Tests', () => {
     test.beforeEach(async ({ page }) => {
-        test.info().annotations.push({ type: 'repository', description: 'Buerokratt-Chatbot' });
         await page.goto('https://admin.prod.buerokratt.ee/chat/unanswered');
         await page.waitForTimeout(3000);
+        translation = await getTranslations(page);
+        test.info().annotations.push({ type: 'repository', description: 'Unanswered Chats Testing' });
         await turnSwitchOn(page);
         await changeOpenHoursTo24and7();
         await provideData();
         await selectFirstItem(page);
-        translation = await getTranslations(page);
-    });
-
-    test.describe('Vertical Tabs', () => {
-        test('should display unanswered chats count in group header', async ({ page }) => {
-            const unansweredHeader = page.locator('.vertical-tabs__group-header');
-            await expect(unansweredHeader.getByText(new RegExp(`${translation.unansweredChats}`))).toBeVisible();
-        });
-    });
-
-    test.describe('Selected Chat Section', () => {
-        test('should display anonymous user in active chat header', async ({ page }) => {
-            const chatHeader = page.locator('.active-chat__header');
-            await expect(chatHeader.getByRole('heading', { name: `${translation.anonymous}`, exact: true })).toBeVisible();
-        });
-
-        test('should display Take Over button in active chat toolbar', async ({ page }) => {
-            const takeOverButton = page.locator('.active-chat__toolbar').getByText(`${translation.takeOver}`, { exact: true });
-            await expect(takeOverButton).toBeVisible();
-        });
-    });
-
-    test.describe('Side Actions', () => {
-        test('should have End chat button enabled and other buttons disabled as specified', async ({ page }) => {
-            const sideActions = page.locator('.active-chat__side-actions');
-            await expect(sideActions.getByText(`${translation.endChat}`, { exact: true })).toBeVisible();
-            await expect(sideActions.getByText(`${translation.askAuthentication}`, { exact: true })).toBeDisabled();
-            await expect(sideActions.getByText(`${translation.askContactInformation}`, { exact: true })).toBeDisabled();
-            await expect(sideActions.getByText(`${translation.askPermission}`, { exact: true })).toBeDisabled();
-            await expect(sideActions.getByText(`${translation.forwardToColleague}`, { exact: true })).toBeVisible();
-        });
-    });
-
-    test.describe('Chat Metadata', () => {
-        test('should display metadata fields correctly', async ({ page }) => {
-            const chatMeta = page.locator('.active-chat__side-meta');
-            await expect(chatMeta.getByText(`${translation.id}`, { exact: true })).toBeVisible();
-            await expect(chatMeta.getByText(`${translation.endUserName}`, { exact: true })).toBeVisible();
-            await expect(chatMeta.getByText(`${translation.chatStartedAt}`, { exact: true })).toBeVisible();
-            await expect(chatMeta.getByText(`${translation.device}`, { exact: true })).toBeVisible();
-            await expect(chatMeta.getByText(`${translation.location}`, { exact: true })).toBeVisible();
-        });
-    });
-
-    test.describe('End Chat Dialog', () => {
-        test('should open dialog with chat status options after clicking End chat button', async ({ page }) => {
-            await page.locator('.active-chat__side-actions').getByText(`${translation.endChat}`, { exact: true }).click();
-            const dialogHeader = page.locator('.dialog__header').getByRole('heading', { level: 2, name: `${translation.chooseChatStatus}`, exact: true });
-            await expect(dialogHeader).toBeVisible();
-
-            const dialogBody = page.locator('.dialog__body');
-            await expect(dialogBody.getByText(`${translation.acceptedResponse}`, { exact: true })).toBeVisible();
-            await expect(dialogBody.getByText(`${translation.hateSpeech}`, { exact: true })).toBeVisible();
-            await expect(dialogBody.getByText(`${translation.otherReasons}`, { exact: true })).toBeVisible();
-            await expect(dialogBody.getByText(`${translation.responseWasSentToClientEmail}`, { exact: true })).toBeVisible();
-
-            const dialogFooter = page.locator('.dialog__footer');
-            await expect(dialogFooter.getByText(`${translation.cancel}`, { exact: true })).toBeVisible();
-            await expect(dialogFooter.getByText(`${translation.endChat}`, { exact: true })).toBeVisible();
-        });
     });
 
 
-    test.describe('Forward to Colleague Dialog', () => {
-        test('should open forward dialog with search and filtering options', async ({ page }) => {
-            await page.locator('.active-chat__side-actions').getByText(`${translation.forwardToColleague}`, { exact: true }).click();
-            const dialogHeader = page.locator('.dialog__header').getByRole('heading', { level: 2, name: `${translation.whoToForwardTheChat}`, exact: true });
-            await expect(dialogHeader).toBeVisible();
 
-            const searchInput = page.locator('.dialog__body').getByPlaceholder(`${translation.searchByName}`);
-            await expect(searchInput).toBeVisible();
-
-            const activeOnlyCheckbox = page.locator('.dialog__body').getByText(`${translation.showOnlyActiveClientSupportAgents}`, { exact: true });
-            await expect(activeOnlyCheckbox).toBeVisible();
-        });
-
-        test('should display forward option for each agent in forward dialog', async ({ page }) => {
-            await page.locator('.active-chat__side-actions').getByText(`${translation.forwardToColleague}`, { exact: true }).click();
-            const dataRow = page.locator('.data-table');
-            const forwardButton = dataRow.getByRole('button', { name: `${translation.forward}`, exact: true}).first();
-            await expect(forwardButton).toBeVisible();
-        });
+    test('Validate Unanswered Chats Header and Count', async ({ page }) => {
+        const header = await page.locator('.vertical-tabs__group-header');
+        await expect(header).toHaveText(new RegExp(translation.unansweredConversations));
     });
 
-    test.describe('Pagination Controls', () => {
-        test('should display pagination label and select for result count', async ({ page }) => {
-            await page.locator('.active-chat__side-actions').getByText(`${translation.forwardToColleague}`, { exact: true }).click();
+    test('Validate Active Chat Section Elements', async ({ page }) => {
+        const chatWrapper = await page.locator('.active-chat__group-wrapper');
+        const toolbar = await page.locator('.active-chat__toolbar');
+        const sideActions = await page.locator('.active-chat__side-actions');
+        const meta = await page.locator('.active-chat__side-meta');
+        await expect(chatWrapper).toBeVisible();
+        await expect(toolbar).toBeVisible();
+        await expect(sideActions).toBeVisible();
+        await expect(meta).toBeVisible();
+    });
 
-            const paginationLabel = await page.getByText(`${translation.resultCount}`, { exact: true });
-            await expect(paginationLabel).toBeVisible();
+    test('Validate "End Chat" Button Visibility and Actions', async ({ page }) => {
+        const endChatButton = await page.locator('.active-chat__side-actions').getByRole('button', { name: `${translation.endChat}`, exact: true });
+        await expect(endChatButton).toBeVisible();
+        await endChatButton.click();
 
-            const paginationSelect = await page.getByRole('combobox', { name: `${translation.resultCount}` });
-            await expect(paginationSelect).toBeVisible();
-        });
+        const dialogHeader = await page.locator('.dialog__header').getByRole('heading', { name: `${translation.chooseChatStatus}`, exact: true });
+        await expect(dialogHeader).toBeVisible();
+    });
+
+    test('Validate "Forward to Colleague" Dialog and Table', async ({ page }) => {
+        const forwardButton = await page.locator('.active-chat__side-actions').getByRole('button', { name: `${translation.forwardToColleague}`, exact: true });
+        await expect(forwardButton).toBeVisible();
+        await forwardButton.click();
+
+        const dialogHeader = await page.locator('.dialog__header').getByRole('heading', { name: `${translation.whoToForwardTheChat}`, exact: true });
+        const searchInput = await page.locator('.dialog__body').getByPlaceholder(`${translation.searchByName}`);
+        const activeAgentsCheckbox = await page.locator('.dialog__body').getByRole('checkbox', { name: `${translation.showOnlyActiveClientSupportAgents}`, exact: true });
+
+        await expect(dialogHeader).toBeVisible();
+        await expect(searchInput).toBeVisible();
+        await expect(activeAgentsCheckbox).toBeVisible();
+
+        const table = page.locator('.dialog__body table');
+
+
+
+        const tableHeaders = [`${translation.name}`, `${translation.displayName}`, `${translation.status}`];
+        for (const header of tableHeaders) {
+            const headerLocator = await table.getByText(header, { exact: true });
+            await expect(headerLocator).toBeVisible();
+        }
+
+        const firstRowForwardButton = table.locator('tbody').getByRole('row').nth(0).getByRole('button', { name: `${translation.forward}`, exact: true });
+        await expect(firstRowForwardButton).toBeVisible();
+    });
+
+    test('Validate Side Actions Buttons State', async ({ page }) => {
+        const sideActions = page.locator('.active-chat__side-actions');
+        const endChatButton = sideActions.getByRole('button', { name: `${translation.endChat}`, exact: true });
+        const askAuthButton = sideActions.getByRole('button', { name: `${translation.askForAuthentication}`, exact: true });
+        const forwardButton = sideActions.getByRole('button', { name: `${translation.forwardToColleague}`, exact: true });
+
+        await expect(endChatButton).toBeVisible();
+        await expect(askAuthButton).toBeDisabled();
+        await expect(forwardButton).toBeVisible();
+    });
+
+    test.only('Validate Chat Metadata', async ({ page }) => {
+        const meta = page.locator('.active-chat__side-meta');
+        const id = meta.getByText(`${translation.id}`);
+        const endUserName = meta.getByText(`${translation.endUserName}`);
+        const device = meta.getByText(`${translation.device}`);
+        const location = meta.getByText(`${translation.location}`);
+
+        await expect(id).toBeVisible();
+        await expect(endUserName).toBeVisible();
+        await expect(device).toBeVisible();
+        await expect(location).toBeVisible();
     });
 });

@@ -1,6 +1,5 @@
 1. Locate Elements Using Classes:
     Use the specific classes mentioned in the DSL to find and interact with elements. For example:
-    vertical-tabs__body-placeholder: Represents the placeholder text when no chat is selected.
     vertical-tabs__group-header: Contains the header text for unanswered chats, which may display a dynamic count in parentheses.
     active-chat__group-wrapper Contains just chat.
     active-chat__toolbar: Contains action buttons like "Take Over."
@@ -29,4 +28,3 @@
 7. End chat dialog opens after clicking on End chat button in active-chat__side-actions
 
 8. Forward to colleague dialog opens after clicking on Forward to colleague button in active-chat__side-actions
-

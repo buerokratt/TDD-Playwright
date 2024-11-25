@@ -11,7 +11,7 @@
     "grepInvert": null,
     "maxFailures": 0,
     "metadata": {
-      "actualWorkers": 4
+      "actualWorkers": 2
     },
     "preserveOutput": "always",
     "reporter": [
@@ -97,12 +97,12 @@
                 {
                   "workerIndex": 0,
                   "status": "passed",
-                  "duration": 17810,
+                  "duration": 16263,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2024-11-22T11:11:02.273Z",
+                  "startTime": "2024-11-25T11:13:09.970Z",
                   "attachments": [
                     {
                       "name": "trace",
@@ -123,20 +123,20 @@
       ]
     },
     {
-      "title": "admin/landingPage/mainPage/sideBar/analytics/feedback/functionality.spec.js",
-      "file": "admin/landingPage/mainPage/sideBar/analytics/feedback/functionality.spec.js",
+      "title": "admin/landingPage/mainPage/sideBar/conversations/unanswered/DSL/generatedTests.spec.js",
+      "file": "admin/landingPage/mainPage/sideBar/conversations/unanswered/DSL/generatedTests.spec.js",
       "column": 0,
       "line": 0,
       "specs": [],
       "suites": [
         {
-          "title": "Functionality Testing Suite",
-          "file": "admin/landingPage/mainPage/sideBar/analytics/feedback/functionality.spec.js",
-          "line": 6,
+          "title": "Unanswered Chats Tests",
+          "file": "admin/landingPage/mainPage/sideBar/conversations/unanswered/DSL/generatedTests.spec.js",
+          "line": 12,
           "column": 6,
           "specs": [
             {
-              "title": "should display and edit display period date pickers",
+              "title": "Validate \"Forward to Colleague\" Dialog and Table",
               "ok": true,
               "tags": [],
               "tests": [
@@ -145,7 +145,7 @@
                   "annotations": [
                     {
                       "type": "repository",
-                      "description": "Analytics-Module"
+                      "description": "Unanswered Chats Testing"
                     }
                   ],
                   "expectedStatus": "passed",
@@ -155,17 +155,17 @@
                     {
                       "workerIndex": 1,
                       "status": "passed",
-                      "duration": 9057,
+                      "duration": 26162,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2024-11-22T11:11:21.283Z",
+                      "startTime": "2024-11-25T11:13:27.332Z",
                       "attachments": [
                         {
                           "name": "trace",
                           "contentType": "application/zip",
-                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-16330-display-period-date-pickers-chromium/trace.zip"
+                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-05ac8--Colleague-Dialog-and-Table-chromium/trace.zip"
                         }
                       ]
                     }
@@ -173,13 +173,13 @@
                   "status": "expected"
                 }
               ],
-              "id": "1070804f76c09aa81118-3e60586060cabaa4ce6b",
-              "file": "admin/landingPage/mainPage/sideBar/analytics/feedback/functionality.spec.js",
-              "line": 14,
-              "column": 7
+              "id": "20b58c729748b63d59c8-3d41744ed0682f7fbf4d",
+              "file": "admin/landingPage/mainPage/sideBar/conversations/unanswered/DSL/generatedTests.spec.js",
+              "line": 51,
+              "column": 10
             },
             {
-              "title": "should interact with period buttons",
+              "title": "Validate Chat Metadata",
               "ok": true,
               "tags": [],
               "tests": [
@@ -188,7 +188,7 @@
                   "annotations": [
                     {
                       "type": "repository",
-                      "description": "Analytics-Module"
+                      "description": "Unanswered Chats Testing"
                     }
                   ],
                   "expectedStatus": "passed",
@@ -198,17 +198,17 @@
                     {
                       "workerIndex": 2,
                       "status": "passed",
-                      "duration": 9661,
+                      "duration": 26198,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2024-11-22T11:11:21.296Z",
+                      "startTime": "2024-11-25T11:13:27.331Z",
                       "attachments": [
                         {
                           "name": "trace",
                           "contentType": "application/zip",
-                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-f5a14-nteract-with-period-buttons-chromium/trace.zip"
+                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-ad43c-ests-Validate-Chat-Metadata-chromium/trace.zip"
                         }
                       ]
                     }
@@ -216,302 +216,10 @@
                   "status": "expected"
                 }
               ],
-              "id": "1070804f76c09aa81118-bc380198463d141f4d5d",
-              "file": "admin/landingPage/mainPage/sideBar/analytics/feedback/functionality.spec.js",
-              "line": 37,
-              "column": 7
-            },
-            {
-              "title": "should test metrics buttons functionality",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 30000,
-                  "annotations": [
-                    {
-                      "type": "repository",
-                      "description": "Analytics-Module"
-                    }
-                  ],
-                  "expectedStatus": "passed",
-                  "projectId": "chromium",
-                  "projectName": "chromium",
-                  "results": [
-                    {
-                      "workerIndex": 3,
-                      "status": "passed",
-                      "duration": 9088,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2024-11-22T11:11:21.299Z",
-                      "attachments": [
-                        {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-a1985-trics-buttons-functionality-chromium/trace.zip"
-                        }
-                      ]
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "1070804f76c09aa81118-d1a9ba0069b50f0e4878",
-              "file": "admin/landingPage/mainPage/sideBar/analytics/feedback/functionality.spec.js",
-              "line": 57,
-              "column": 7
-            },
-            {
-              "title": "should toggle additional options checkboxes",
-              "ok": false,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 30000,
-                  "annotations": [
-                    {
-                      "type": "repository",
-                      "description": "Analytics-Module"
-                    }
-                  ],
-                  "expectedStatus": "passed",
-                  "projectId": "chromium",
-                  "projectName": "chromium",
-                  "results": [
-                    {
-                      "workerIndex": 4,
-                      "status": "timedOut",
-                      "duration": 31356,
-                      "error": {
-                        "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
-                        "stack": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
-                      },
-                      "errors": [
-                        {
-                          "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
-                        },
-                        {
-                          "location": {
-                            "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/analytics/feedback/functionality.spec.js",
-                            "column": 21,
-                            "line": 74
-                          },
-                          "message": "Error: locator.check: Test timeout of 30000ms exceeded.\nCall log:\n  \u001b[2m- waiting for locator('.card__body').filter({ hasText: 'Additional Options' }).getByRole('checkbox', { name: 'undefined', exact: true })\u001b[22m\n\n\n\u001b[0m \u001b[90m 72 |\u001b[39m     \u001b[36mconst\u001b[39m checkbox2 \u001b[33m=\u001b[39m additionalOptionsSection\u001b[33m.\u001b[39mgetByRole(\u001b[32m'checkbox'\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m`${translation.advisorSignsOfHateSpeech}`\u001b[39m\u001b[33m,\u001b[39m exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m 73 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 74 |\u001b[39m     \u001b[36mawait\u001b[39m checkbox1\u001b[33m.\u001b[39mcheck()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                     \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 75 |\u001b[39m     \u001b[36mawait\u001b[39m expect(checkbox1)\u001b[33m.\u001b[39mtoBeChecked()\u001b[33m;\u001b[39m\n \u001b[90m 76 |\u001b[39m\n \u001b[90m 77 |\u001b[39m     \u001b[36mawait\u001b[39m checkbox2\u001b[33m.\u001b[39mcheck()\u001b[33m;\u001b[39m\u001b[0m\n\n\u001b[2m    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/analytics/feedback/functionality.spec.js:74:21\u001b[22m"
-                        }
-                      ],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2024-11-22T11:11:21.319Z",
-                      "attachments": [
-                        {
-                          "name": "screenshot",
-                          "contentType": "image/png",
-                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-24782-ditional-options-checkboxes-chromium/test-failed-1.png"
-                        },
-                        {
-                          "name": "video",
-                          "contentType": "video/webm",
-                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-24782-ditional-options-checkboxes-chromium/video.webm"
-                        },
-                        {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-24782-ditional-options-checkboxes-chromium/trace.zip"
-                        }
-                      ]
-                    },
-                    {
-                      "workerIndex": 5,
-                      "status": "interrupted",
-                      "duration": 11060,
-                      "error": {
-                        "message": "Error: locator.check: Test ended.\nCall log:\n  \u001b[2m- waiting for locator('.card__body').filter({ hasText: 'Additional Options' }).getByRole('checkbox', { name: 'undefined', exact: true })\u001b[22m\n",
-                        "stack": "Error: locator.check: Test ended.\nCall log:\n  \u001b[2m- waiting for locator('.card__body').filter({ hasText: 'Additional Options' }).getByRole('checkbox', { name: 'undefined', exact: true })\u001b[22m\n\n    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/analytics/feedback/functionality.spec.js:74:21",
-                        "location": {
-                          "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/analytics/feedback/functionality.spec.js",
-                          "column": 21,
-                          "line": 74
-                        },
-                        "snippet": "\u001b[0m \u001b[90m 72 |\u001b[39m     \u001b[36mconst\u001b[39m checkbox2 \u001b[33m=\u001b[39m additionalOptionsSection\u001b[33m.\u001b[39mgetByRole(\u001b[32m'checkbox'\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m`${translation.advisorSignsOfHateSpeech}`\u001b[39m\u001b[33m,\u001b[39m exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m 73 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 74 |\u001b[39m     \u001b[36mawait\u001b[39m checkbox1\u001b[33m.\u001b[39mcheck()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                     \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 75 |\u001b[39m     \u001b[36mawait\u001b[39m expect(checkbox1)\u001b[33m.\u001b[39mtoBeChecked()\u001b[33m;\u001b[39m\n \u001b[90m 76 |\u001b[39m\n \u001b[90m 77 |\u001b[39m     \u001b[36mawait\u001b[39m checkbox2\u001b[33m.\u001b[39mcheck()\u001b[33m;\u001b[39m\u001b[0m"
-                      },
-                      "errors": [
-                        {
-                          "location": {
-                            "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/analytics/feedback/functionality.spec.js",
-                            "column": 21,
-                            "line": 74
-                          },
-                          "message": "Error: locator.check: Test ended.\nCall log:\n  \u001b[2m- waiting for locator('.card__body').filter({ hasText: 'Additional Options' }).getByRole('checkbox', { name: 'undefined', exact: true })\u001b[22m\n\n\n\u001b[0m \u001b[90m 72 |\u001b[39m     \u001b[36mconst\u001b[39m checkbox2 \u001b[33m=\u001b[39m additionalOptionsSection\u001b[33m.\u001b[39mgetByRole(\u001b[32m'checkbox'\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m`${translation.advisorSignsOfHateSpeech}`\u001b[39m\u001b[33m,\u001b[39m exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m 73 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 74 |\u001b[39m     \u001b[36mawait\u001b[39m checkbox1\u001b[33m.\u001b[39mcheck()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                     \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 75 |\u001b[39m     \u001b[36mawait\u001b[39m expect(checkbox1)\u001b[33m.\u001b[39mtoBeChecked()\u001b[33m;\u001b[39m\n \u001b[90m 76 |\u001b[39m\n \u001b[90m 77 |\u001b[39m     \u001b[36mawait\u001b[39m checkbox2\u001b[33m.\u001b[39mcheck()\u001b[33m;\u001b[39m\u001b[0m\n\n\u001b[2m    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/analytics/feedback/functionality.spec.js:74:21\u001b[22m"
-                        }
-                      ],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 1,
-                      "startTime": "2024-11-22T11:11:54.138Z",
-                      "attachments": [
-                        {
-                          "name": "screenshot",
-                          "contentType": "image/png",
-                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-24782-ditional-options-checkboxes-chromium-retry1/test-failed-1.png"
-                        },
-                        {
-                          "name": "video",
-                          "contentType": "video/webm",
-                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-24782-ditional-options-checkboxes-chromium-retry1/video.webm"
-                        },
-                        {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-24782-ditional-options-checkboxes-chromium-retry1/trace.zip"
-                        }
-                      ],
-                      "errorLocation": {
-                        "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/analytics/feedback/functionality.spec.js",
-                        "column": 21,
-                        "line": 74
-                      }
-                    }
-                  ],
-                  "status": "unexpected"
-                }
-              ],
-              "id": "1070804f76c09aa81118-b1efd4644e1cd51827ce",
-              "file": "admin/landingPage/mainPage/sideBar/analytics/feedback/functionality.spec.js",
-              "line": 69,
-              "column": 7
-            },
-            {
-              "title": "should select dropdown options",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 30000,
-                  "annotations": [
-                    {
-                      "type": "repository",
-                      "description": "Analytics-Module"
-                    }
-                  ],
-                  "expectedStatus": "passed",
-                  "projectId": "chromium",
-                  "projectName": "chromium",
-                  "results": [
-                    {
-                      "workerIndex": 1,
-                      "status": "passed",
-                      "duration": 6441,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2024-11-22T11:11:30.964Z",
-                      "attachments": [
-                        {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-cb28e-uld-select-dropdown-options-chromium/trace.zip"
-                        }
-                      ]
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "1070804f76c09aa81118-7fdbc83e0be32f3514cf",
-              "file": "admin/landingPage/mainPage/sideBar/analytics/feedback/functionality.spec.js",
-              "line": 87,
-              "column": 7
-            },
-            {
-              "title": "should test CSV download button",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 30000,
-                  "annotations": [
-                    {
-                      "type": "repository",
-                      "description": "Analytics-Module"
-                    }
-                  ],
-                  "expectedStatus": "passed",
-                  "projectId": "chromium",
-                  "projectName": "chromium",
-                  "results": [
-                    {
-                      "workerIndex": 3,
-                      "status": "passed",
-                      "duration": 5925,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2024-11-22T11:11:30.989Z",
-                      "attachments": [
-                        {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-5691e-ld-test-CSV-download-button-chromium/trace.zip"
-                        }
-                      ]
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "1070804f76c09aa81118-9748813d580526d8a7ad",
-              "file": "admin/landingPage/mainPage/sideBar/analytics/feedback/functionality.spec.js",
+              "id": "20b58c729748b63d59c8-522e8ba2f0ec5e2b66c0",
+              "file": "admin/landingPage/mainPage/sideBar/conversations/unanswered/DSL/generatedTests.spec.js",
               "line": 95,
-              "column": 7
-            },
-            {
-              "title": "should validate chart visibility in card body",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 30000,
-                  "annotations": [
-                    {
-                      "type": "repository",
-                      "description": "Analytics-Module"
-                    }
-                  ],
-                  "expectedStatus": "passed",
-                  "projectId": "chromium",
-                  "projectName": "chromium",
-                  "results": [
-                    {
-                      "workerIndex": 2,
-                      "status": "passed",
-                      "duration": 5929,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2024-11-22T11:11:31.537Z",
-                      "attachments": [
-                        {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-7384c-art-visibility-in-card-body-chromium/trace.zip"
-                        }
-                      ]
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "1070804f76c09aa81118-be2837c559f409e9e108",
-              "file": "admin/landingPage/mainPage/sideBar/analytics/feedback/functionality.spec.js",
-              "line": 102,
-              "column": 7
+              "column": 10
             }
           ]
         }
@@ -520,11 +228,11 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2024-11-22T11:11:01.527Z",
-    "duration": 64045.613999999994,
-    "expected": 7,
+    "startTime": "2024-11-25T11:13:09.403Z",
+    "duration": 44596.767,
+    "expected": 3,
     "skipped": 0,
-    "unexpected": 1,
+    "unexpected": 0,
     "flaky": 0
   }
 }
