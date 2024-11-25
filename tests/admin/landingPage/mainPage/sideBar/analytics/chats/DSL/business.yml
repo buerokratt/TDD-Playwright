@@ -96,20 +96,23 @@ test:
                 - style: label
 
             checkbox:
+              label: "Only Bürokratt involved"
               args:
                 - type: checkbox
-                - value: Only Bürokratt involved
                 - style: checkbox
+                - adjacentTo: label
             checkbox:
+              label: "CSA involved"
               args:
                 - type: checkbox
-                - value: CSA involved
                 - style: checkbox
+                - adjacentTo: label
             checkbox:
+              label: "Total"
               args:
                 - type: checkbox
-                - value: Total
                 - style: checkbox
+                - adjacentTo: label
 
     card:
         - name: card__header
