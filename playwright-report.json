@@ -97,12 +97,12 @@
                 {
                   "workerIndex": 0,
                   "status": "passed",
-                  "duration": 16724,
+                  "duration": 16252,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2024-11-25T13:56:42.173Z",
+                  "startTime": "2024-11-25T14:23:39.061Z",
                   "attachments": [
                     {
                       "name": "trace",
@@ -130,13 +130,13 @@
       "specs": [],
       "suites": [
         {
-          "title": "Buerokratt Chatbot - History Page",
+          "title": "Functionality Testing Suite",
           "file": "admin/landingPage/mainPage/sideBar/conversations/history/DSL/generated.spec.js",
           "line": 6,
           "column": 6,
           "specs": [
             {
-              "title": "Validate heading and search input visibility",
+              "title": "should display and interact with date pickers",
               "ok": true,
               "tags": [],
               "tests": [
@@ -145,7 +145,7 @@
                   "annotations": [
                     {
                       "type": "repository",
-                      "description": "Buerokratt Chatbot History Page"
+                      "description": "Buerokratt-Chatbot History"
                     }
                   ],
                   "expectedStatus": "passed",
@@ -155,17 +155,17 @@
                     {
                       "workerIndex": 1,
                       "status": "passed",
-                      "duration": 6307,
+                      "duration": 7496,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2024-11-25T13:56:59.890Z",
+                      "startTime": "2024-11-25T14:23:56.347Z",
                       "attachments": [
                         {
                           "name": "trace",
                           "contentType": "application/zip",
-                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-5b336-and-search-input-visibility-chromium/trace.zip"
+                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-27ad0--interact-with-date-pickers-chromium/trace.zip"
                         }
                       ]
                     }
@@ -173,14 +173,14 @@
                   "status": "expected"
                 }
               ],
-              "id": "c38d3b59a803faba734e-7a97eb31beb16688f790",
+              "id": "c38d3b59a803faba734e-367cc4cc207db477c9fc",
               "file": "admin/landingPage/mainPage/sideBar/conversations/history/DSL/generated.spec.js",
               "line": 14,
               "column": 9
             },
             {
-              "title": "Validate datepicker and dropdown selection",
-              "ok": true,
+              "title": "should validate dropdown options",
+              "ok": false,
               "tags": [],
               "tests": [
                 {
@@ -188,7 +188,7 @@
                   "annotations": [
                     {
                       "type": "repository",
-                      "description": "Buerokratt Chatbot History Page"
+                      "description": "Buerokratt-Chatbot History"
                     }
                   ],
                   "expectedStatus": "passed",
@@ -197,32 +197,117 @@
                   "results": [
                     {
                       "workerIndex": 2,
-                      "status": "passed",
-                      "duration": 6179,
-                      "errors": [],
+                      "status": "failed",
+                      "duration": 11641,
+                      "error": {
+                        "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('select__menu').getByText('Start time', { exact: true })\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('select__menu').getByText('Start time', { exact: true })\u001b[22m\n",
+                        "stack": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('select__menu').getByText('Start time', { exact: true })\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('select__menu').getByText('Start time', { exact: true })\u001b[22m\n\n    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/history/DSL/generated.spec.js:42:70",
+                        "location": {
+                          "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/history/DSL/generated.spec.js",
+                          "column": 70,
+                          "line": 42
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 40 |\u001b[39m             \u001b[32m'Contact'\u001b[39m\u001b[33m,\u001b[39m \u001b[32m'Comment'\u001b[39m\u001b[33m,\u001b[39m \u001b[32m'Rating'\u001b[39m\u001b[33m,\u001b[39m \u001b[32m'Feedback'\u001b[39m\u001b[33m,\u001b[39m \u001b[32m'Status'\u001b[39m\u001b[33m,\u001b[39m \u001b[32m'ID'\u001b[39m\n \u001b[90m 41 |\u001b[39m         ]) {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 42 |\u001b[39m             \u001b[36mawait\u001b[39m expect(options\u001b[33m.\u001b[39mgetByText(option\u001b[33m,\u001b[39m { exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m }))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                                      \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 43 |\u001b[39m         }\n \u001b[90m 44 |\u001b[39m     })\u001b[33m;\u001b[39m\n \u001b[90m 45 |\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/history/DSL/generated.spec.js",
+                            "column": 70,
+                            "line": 42
+                          },
+                          "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('select__menu').getByText('Start time', { exact: true })\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('select__menu').getByText('Start time', { exact: true })\u001b[22m\n\n\n\u001b[0m \u001b[90m 40 |\u001b[39m             \u001b[32m'Contact'\u001b[39m\u001b[33m,\u001b[39m \u001b[32m'Comment'\u001b[39m\u001b[33m,\u001b[39m \u001b[32m'Rating'\u001b[39m\u001b[33m,\u001b[39m \u001b[32m'Feedback'\u001b[39m\u001b[33m,\u001b[39m \u001b[32m'Status'\u001b[39m\u001b[33m,\u001b[39m \u001b[32m'ID'\u001b[39m\n \u001b[90m 41 |\u001b[39m         ]) {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 42 |\u001b[39m             \u001b[36mawait\u001b[39m expect(options\u001b[33m.\u001b[39mgetByText(option\u001b[33m,\u001b[39m { exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m }))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                                      \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 43 |\u001b[39m         }\n \u001b[90m 44 |\u001b[39m     })\u001b[33m;\u001b[39m\n \u001b[90m 45 |\u001b[39m\u001b[0m\n\n\u001b[2m    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/history/DSL/generated.spec.js:42:70\u001b[22m"
+                        }
+                      ],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2024-11-25T13:56:59.835Z",
+                      "startTime": "2024-11-25T14:23:56.367Z",
                       "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-2f790-d-validate-dropdown-options-chromium/test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-2f790-d-validate-dropdown-options-chromium/video.webm"
+                        },
                         {
                           "name": "trace",
                           "contentType": "application/zip",
-                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-93783-cker-and-dropdown-selection-chromium/trace.zip"
+                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-2f790-d-validate-dropdown-options-chromium/trace.zip"
                         }
-                      ]
+                      ],
+                      "errorLocation": {
+                        "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/history/DSL/generated.spec.js",
+                        "column": 70,
+                        "line": 42
+                      }
+                    },
+                    {
+                      "workerIndex": 6,
+                      "status": "failed",
+                      "duration": 10061,
+                      "error": {
+                        "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('select__menu').getByText('Start time', { exact: true })\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('select__menu').getByText('Start time', { exact: true })\u001b[22m\n",
+                        "stack": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('select__menu').getByText('Start time', { exact: true })\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('select__menu').getByText('Start time', { exact: true })\u001b[22m\n\n    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/history/DSL/generated.spec.js:42:70",
+                        "location": {
+                          "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/history/DSL/generated.spec.js",
+                          "column": 70,
+                          "line": 42
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 40 |\u001b[39m             \u001b[32m'Contact'\u001b[39m\u001b[33m,\u001b[39m \u001b[32m'Comment'\u001b[39m\u001b[33m,\u001b[39m \u001b[32m'Rating'\u001b[39m\u001b[33m,\u001b[39m \u001b[32m'Feedback'\u001b[39m\u001b[33m,\u001b[39m \u001b[32m'Status'\u001b[39m\u001b[33m,\u001b[39m \u001b[32m'ID'\u001b[39m\n \u001b[90m 41 |\u001b[39m         ]) {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 42 |\u001b[39m             \u001b[36mawait\u001b[39m expect(options\u001b[33m.\u001b[39mgetByText(option\u001b[33m,\u001b[39m { exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m }))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                                      \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 43 |\u001b[39m         }\n \u001b[90m 44 |\u001b[39m     })\u001b[33m;\u001b[39m\n \u001b[90m 45 |\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/history/DSL/generated.spec.js",
+                            "column": 70,
+                            "line": 42
+                          },
+                          "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('select__menu').getByText('Start time', { exact: true })\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('select__menu').getByText('Start time', { exact: true })\u001b[22m\n\n\n\u001b[0m \u001b[90m 40 |\u001b[39m             \u001b[32m'Contact'\u001b[39m\u001b[33m,\u001b[39m \u001b[32m'Comment'\u001b[39m\u001b[33m,\u001b[39m \u001b[32m'Rating'\u001b[39m\u001b[33m,\u001b[39m \u001b[32m'Feedback'\u001b[39m\u001b[33m,\u001b[39m \u001b[32m'Status'\u001b[39m\u001b[33m,\u001b[39m \u001b[32m'ID'\u001b[39m\n \u001b[90m 41 |\u001b[39m         ]) {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 42 |\u001b[39m             \u001b[36mawait\u001b[39m expect(options\u001b[33m.\u001b[39mgetByText(option\u001b[33m,\u001b[39m { exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m }))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                                      \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 43 |\u001b[39m         }\n \u001b[90m 44 |\u001b[39m     })\u001b[33m;\u001b[39m\n \u001b[90m 45 |\u001b[39m\u001b[0m\n\n\u001b[2m    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/history/DSL/generated.spec.js:42:70\u001b[22m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 1,
+                      "startTime": "2024-11-25T14:24:09.108Z",
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-2f790-d-validate-dropdown-options-chromium-retry1/test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-2f790-d-validate-dropdown-options-chromium-retry1/video.webm"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-2f790-d-validate-dropdown-options-chromium-retry1/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/history/DSL/generated.spec.js",
+                        "column": 70,
+                        "line": 42
+                      }
                     }
                   ],
-                  "status": "expected"
+                  "status": "unexpected"
                 }
               ],
-              "id": "c38d3b59a803faba734e-fbc76077b435628e00c3",
+              "id": "c38d3b59a803faba734e-d6186c00b2ab023afdad",
               "file": "admin/landingPage/mainPage/sideBar/conversations/history/DSL/generated.spec.js",
-              "line": 21,
+              "line": 34,
               "column": 9
             },
             {
-              "title": "Validate table headers and actions visibility",
+              "title": "should validate table data and actions",
               "ok": true,
               "tags": [],
               "tests": [
@@ -231,7 +316,7 @@
                   "annotations": [
                     {
                       "type": "repository",
-                      "description": "Buerokratt Chatbot History Page"
+                      "description": "Buerokratt-Chatbot History"
                     }
                   ],
                   "expectedStatus": "passed",
@@ -241,17 +326,17 @@
                     {
                       "workerIndex": 3,
                       "status": "passed",
-                      "duration": 5868,
+                      "duration": 7357,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2024-11-25T13:56:59.870Z",
+                      "startTime": "2024-11-25T14:23:56.400Z",
                       "attachments": [
                         {
                           "name": "trace",
                           "contentType": "application/zip",
-                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-b456f-ders-and-actions-visibility-chromium/trace.zip"
+                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-39950-date-table-data-and-actions-chromium/trace.zip"
                         }
                       ]
                     }
@@ -259,14 +344,14 @@
                   "status": "expected"
                 }
               ],
-              "id": "c38d3b59a803faba734e-cf4f9ab6b2b67cd7a745",
+              "id": "c38d3b59a803faba734e-9b850aaf35066e932a91",
               "file": "admin/landingPage/mainPage/sideBar/conversations/history/DSL/generated.spec.js",
-              "line": 30,
+              "line": 46,
               "column": 9
             },
             {
-              "title": "Validate pagination visibility and options",
-              "ok": true,
+              "title": "should validate pagination controls",
+              "ok": false,
               "tags": [],
               "tests": [
                 {
@@ -274,7 +359,7 @@
                   "annotations": [
                     {
                       "type": "repository",
-                      "description": "Buerokratt Chatbot History Page"
+                      "description": "Buerokratt-Chatbot History"
                     }
                   ],
                   "expectedStatus": "passed",
@@ -283,28 +368,190 @@
                   "results": [
                     {
                       "workerIndex": 4,
-                      "status": "passed",
-                      "duration": 6485,
-                      "errors": [],
+                      "status": "failed",
+                      "duration": 6941,
+                      "error": {
+                        "message": "Error: expect.toBeVisible: Error: strict mode violation: getByText('10', { exact: true }) resolved to 3 elements:\n    1) <strong>10</strong> aka getByText('10').nth(1)\n    2) <strong>10</strong> aka getByText('10').nth(2)\n    3) <option value=\"10\">10</option> aka getByLabel('Result count')\n\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText('10', { exact: true })\u001b[22m\n",
+                        "stack": "Error: expect.toBeVisible: Error: strict mode violation: getByText('10', { exact: true }) resolved to 3 elements:\n    1) <strong>10</strong> aka getByText('10').nth(1)\n    2) <strong>10</strong> aka getByText('10').nth(2)\n    3) <option value=\"10\">10</option> aka getByLabel('Result count')\n\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText('10', { exact: true })\u001b[22m\n\n    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/history/DSL/generated.spec.js:70:67",
+                        "location": {
+                          "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/history/DSL/generated.spec.js",
+                          "column": 67,
+                          "line": 70
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 68 |\u001b[39m\n \u001b[90m 69 |\u001b[39m         \u001b[36mfor\u001b[39m (\u001b[36mconst\u001b[39m option \u001b[36mof\u001b[39m [\u001b[32m'10'\u001b[39m\u001b[33m,\u001b[39m \u001b[32m'20'\u001b[39m\u001b[33m,\u001b[39m \u001b[32m'30'\u001b[39m\u001b[33m,\u001b[39m \u001b[32m'40'\u001b[39m\u001b[33m,\u001b[39m \u001b[32m'50'\u001b[39m]) {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 70 |\u001b[39m             \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByText(option\u001b[33m,\u001b[39m { exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m }))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                                   \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 71 |\u001b[39m         }\n \u001b[90m 72 |\u001b[39m     })\u001b[33m;\u001b[39m\n \u001b[90m 73 |\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/history/DSL/generated.spec.js",
+                            "column": 67,
+                            "line": 70
+                          },
+                          "message": "Error: expect.toBeVisible: Error: strict mode violation: getByText('10', { exact: true }) resolved to 3 elements:\n    1) <strong>10</strong> aka getByText('10').nth(1)\n    2) <strong>10</strong> aka getByText('10').nth(2)\n    3) <option value=\"10\">10</option> aka getByLabel('Result count')\n\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText('10', { exact: true })\u001b[22m\n\n\n\u001b[0m \u001b[90m 68 |\u001b[39m\n \u001b[90m 69 |\u001b[39m         \u001b[36mfor\u001b[39m (\u001b[36mconst\u001b[39m option \u001b[36mof\u001b[39m [\u001b[32m'10'\u001b[39m\u001b[33m,\u001b[39m \u001b[32m'20'\u001b[39m\u001b[33m,\u001b[39m \u001b[32m'30'\u001b[39m\u001b[33m,\u001b[39m \u001b[32m'40'\u001b[39m\u001b[33m,\u001b[39m \u001b[32m'50'\u001b[39m]) {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 70 |\u001b[39m             \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByText(option\u001b[33m,\u001b[39m { exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m }))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                                   \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 71 |\u001b[39m         }\n \u001b[90m 72 |\u001b[39m     })\u001b[33m;\u001b[39m\n \u001b[90m 73 |\u001b[39m\u001b[0m\n\n\u001b[2m    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/history/DSL/generated.spec.js:70:67\u001b[22m"
+                        }
+                      ],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2024-11-25T13:56:59.893Z",
+                      "startTime": "2024-11-25T14:23:56.338Z",
                       "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-7be35-alidate-pagination-controls-chromium/test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-7be35-alidate-pagination-controls-chromium/video.webm"
+                        },
                         {
                           "name": "trace",
                           "contentType": "application/zip",
-                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-2e282-tion-visibility-and-options-chromium/trace.zip"
+                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-7be35-alidate-pagination-controls-chromium/trace.zip"
                         }
-                      ]
+                      ],
+                      "errorLocation": {
+                        "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/history/DSL/generated.spec.js",
+                        "column": 67,
+                        "line": 70
+                      }
+                    },
+                    {
+                      "workerIndex": 5,
+                      "status": "failed",
+                      "duration": 5363,
+                      "error": {
+                        "message": "Error: expect.toBeVisible: Error: strict mode violation: getByText('10', { exact: true }) resolved to 3 elements:\n    1) <strong>10</strong> aka getByText('10').nth(1)\n    2) <strong>10</strong> aka getByText('10').nth(2)\n    3) <option value=\"10\">10</option> aka getByLabel('Result count')\n\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText('10', { exact: true })\u001b[22m\n",
+                        "stack": "Error: expect.toBeVisible: Error: strict mode violation: getByText('10', { exact: true }) resolved to 3 elements:\n    1) <strong>10</strong> aka getByText('10').nth(1)\n    2) <strong>10</strong> aka getByText('10').nth(2)\n    3) <option value=\"10\">10</option> aka getByLabel('Result count')\n\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText('10', { exact: true })\u001b[22m\n\n    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/history/DSL/generated.spec.js:70:67",
+                        "location": {
+                          "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/history/DSL/generated.spec.js",
+                          "column": 67,
+                          "line": 70
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 68 |\u001b[39m\n \u001b[90m 69 |\u001b[39m         \u001b[36mfor\u001b[39m (\u001b[36mconst\u001b[39m option \u001b[36mof\u001b[39m [\u001b[32m'10'\u001b[39m\u001b[33m,\u001b[39m \u001b[32m'20'\u001b[39m\u001b[33m,\u001b[39m \u001b[32m'30'\u001b[39m\u001b[33m,\u001b[39m \u001b[32m'40'\u001b[39m\u001b[33m,\u001b[39m \u001b[32m'50'\u001b[39m]) {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 70 |\u001b[39m             \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByText(option\u001b[33m,\u001b[39m { exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m }))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                                   \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 71 |\u001b[39m         }\n \u001b[90m 72 |\u001b[39m     })\u001b[33m;\u001b[39m\n \u001b[90m 73 |\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/history/DSL/generated.spec.js",
+                            "column": 67,
+                            "line": 70
+                          },
+                          "message": "Error: expect.toBeVisible: Error: strict mode violation: getByText('10', { exact: true }) resolved to 3 elements:\n    1) <strong>10</strong> aka getByText('10').nth(1)\n    2) <strong>10</strong> aka getByText('10').nth(2)\n    3) <option value=\"10\">10</option> aka getByLabel('Result count')\n\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText('10', { exact: true })\u001b[22m\n\n\n\u001b[0m \u001b[90m 68 |\u001b[39m\n \u001b[90m 69 |\u001b[39m         \u001b[36mfor\u001b[39m (\u001b[36mconst\u001b[39m option \u001b[36mof\u001b[39m [\u001b[32m'10'\u001b[39m\u001b[33m,\u001b[39m \u001b[32m'20'\u001b[39m\u001b[33m,\u001b[39m \u001b[32m'30'\u001b[39m\u001b[33m,\u001b[39m \u001b[32m'40'\u001b[39m\u001b[33m,\u001b[39m \u001b[32m'50'\u001b[39m]) {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 70 |\u001b[39m             \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByText(option\u001b[33m,\u001b[39m { exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m }))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                                   \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 71 |\u001b[39m         }\n \u001b[90m 72 |\u001b[39m     })\u001b[33m;\u001b[39m\n \u001b[90m 73 |\u001b[39m\u001b[0m\n\n\u001b[2m    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/history/DSL/generated.spec.js:70:67\u001b[22m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 1,
+                      "startTime": "2024-11-25T14:24:05.018Z",
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-7be35-alidate-pagination-controls-chromium-retry1/test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-7be35-alidate-pagination-controls-chromium-retry1/video.webm"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-7be35-alidate-pagination-controls-chromium-retry1/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/history/DSL/generated.spec.js",
+                        "column": 67,
+                        "line": 70
+                      }
                     }
                   ],
-                  "status": "expected"
+                  "status": "unexpected"
                 }
               ],
-              "id": "c38d3b59a803faba734e-1cdee030207fd16c6fc4",
+              "id": "c38d3b59a803faba734e-a026878dd9b76ff68b4b",
               "file": "admin/landingPage/mainPage/sideBar/conversations/history/DSL/generated.spec.js",
-              "line": 53,
+              "line": 62,
+              "column": 9
+            },
+            {
+              "title": "should validate table sorting",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "repository",
+                      "description": "Buerokratt-Chatbot History"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "status": "interrupted",
+                      "duration": 19047,
+                      "error": {
+                        "message": "Error: locator.click: Test ended.\nCall log:\n  \u001b[2m- waiting for locator('table thead tr th').first().locator('button').nth(1)\u001b[22m\n",
+                        "stack": "Error: locator.click: Test ended.\nCall log:\n  \u001b[2m- waiting for locator('table thead tr th').first().locator('button').nth(1)\u001b[22m\n\n    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/history/DSL/generated.spec.js:82:26",
+                        "location": {
+                          "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/history/DSL/generated.spec.js",
+                          "column": 26,
+                          "line": 82
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 80 |\u001b[39m             \u001b[36mconst\u001b[39m header \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m tableHeaders\u001b[33m.\u001b[39mnth(i)\u001b[33m;\u001b[39m\n \u001b[90m 81 |\u001b[39m             \u001b[36mconst\u001b[39m button \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m header\u001b[33m.\u001b[39mlocator(\u001b[32m'button'\u001b[39m)\u001b[33m.\u001b[39mnth(\u001b[35m1\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 82 |\u001b[39m             \u001b[36mawait\u001b[39m button\u001b[33m.\u001b[39mclick()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                          \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 83 |\u001b[39m             \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForTimeout(\u001b[35m1000\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 84 |\u001b[39m\n \u001b[90m 85 |\u001b[39m             \u001b[36mconst\u001b[39m ascendingOrder \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m getColumnValues(rows\u001b[33m,\u001b[39m i)\u001b[33m;\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/history/DSL/generated.spec.js",
+                            "column": 26,
+                            "line": 82
+                          },
+                          "message": "Error: locator.click: Test ended.\nCall log:\n  \u001b[2m- waiting for locator('table thead tr th').first().locator('button').nth(1)\u001b[22m\n\n\n\u001b[0m \u001b[90m 80 |\u001b[39m             \u001b[36mconst\u001b[39m header \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m tableHeaders\u001b[33m.\u001b[39mnth(i)\u001b[33m;\u001b[39m\n \u001b[90m 81 |\u001b[39m             \u001b[36mconst\u001b[39m button \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m header\u001b[33m.\u001b[39mlocator(\u001b[32m'button'\u001b[39m)\u001b[33m.\u001b[39mnth(\u001b[35m1\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 82 |\u001b[39m             \u001b[36mawait\u001b[39m button\u001b[33m.\u001b[39mclick()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                          \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 83 |\u001b[39m             \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForTimeout(\u001b[35m1000\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 84 |\u001b[39m\n \u001b[90m 85 |\u001b[39m             \u001b[36mconst\u001b[39m ascendingOrder \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m getColumnValues(rows\u001b[33m,\u001b[39m i)\u001b[33m;\u001b[39m\u001b[0m\n\n\u001b[2m    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/history/DSL/generated.spec.js:82:26\u001b[22m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-11-25T14:24:04.392Z",
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-a978c-ould-validate-table-sorting-chromium/test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-a978c-ould-validate-table-sorting-chromium/video.webm"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-a978c-ould-validate-table-sorting-chromium/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/history/DSL/generated.spec.js",
+                        "column": 26,
+                        "line": 82
+                      }
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "c38d3b59a803faba734e-bc77c5d1f1ed27e37b1d",
+              "file": "admin/landingPage/mainPage/sideBar/conversations/history/DSL/generated.spec.js",
+              "line": 74,
               "column": 9
             }
           ]
@@ -314,11 +561,11 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2024-11-25T13:56:41.615Z",
-    "duration": 25330.576,
-    "expected": 5,
-    "skipped": 0,
-    "unexpected": 0,
+    "startTime": "2024-11-25T14:23:38.465Z",
+    "duration": 45130.913,
+    "expected": 3,
+    "skipped": 1,
+    "unexpected": 2,
     "flaky": 0
   }
 }

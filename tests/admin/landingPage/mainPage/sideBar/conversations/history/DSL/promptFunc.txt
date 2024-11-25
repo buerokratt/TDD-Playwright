@@ -54,12 +54,73 @@ Conduct functionality testing to ensure all interactive elements on the page beh
    Handling Multiple Elements:
    Use .first() or .nth(index) for specific instances.
 
-3. Test Grouping:
+
+3. Table handling: 
+   a. Consider only first row when checking data persistence. For example when checking edit, delete, forward buttons in table data. PS! Don't use here exact: true, because it will cause errors.
+      For example: 
+      const dataTable = page.locator('.data-table');
+      const editButton = dataTable.getByRole('button', { name: `${translation.edit}`, exact: true}).first();
+      const deleteButton = dataTable.getByRole('button', { name: `${translation.delete}`, exact: true }).first();
+      const forwardButton = dataTable.getByRole('button', { name: `${translation.forward}`, exact: true }).first();
+      
+
+   c. Checking pagination
+      For example:
+      const resultCountLabel = await page.getByText(`${translation.resultCount}`);
+      const resultCountDropdown = await page.getByText(new RegExp(translation.barChart));
+   
+   d. If DSL has table and table has 'sortable: true' field then should check test sorting functionality (ascending and descending).
+      To get the sorting button next to the header use for example: 
+    First do this:
+    const forwardChat = page.getByText(`${translation.forwardToColleague}`)
+    await forwardChat.click();
+
+    await page.getByRole('cell', { name: 'Nimi', exact: true }).getByRole('button').first();
+    The first click searches ascending, second click searches descending, test both
+    As the last header is not sortable, take headerCount minus one as the loopable.
+
+    const ascendingOrder = await getColumnValues(rows, index);
+    const sortedAscending = [...ascendingOrder].sort((a, b) => a.localeCompare(b));
+
+    ascending sort example
+        const tableHeaders = page.locator('table thead tr th');
+        const headerCount = await tableHeaders.count();
+        const rows = page.locator('table tbody tr');
+
+        for (let i = 0; i < headerCount - 1; i++) {
+            const header = await tableHeaders.nth(i);
+            const button = await header.locator('button').nth(1);
+            await button.click();
+            await page.waitForTimeout(1000);
+
+            const orderAfterClick = await getColumnValues(rows, i);
+            const sortedAscending = [...orderAfterClick].sort((a, b) => a.localeCompare(b));
+            await expect(orderAfterClick).toEqual(sortedAscending);
+        }
+
+        async function getColumnValues(rows, columnIndex) {
+            const values = [];
+            for (let i = 0; i < await rows.count(); i++) {
+                const row = rows.nth(i);
+                const cell = row.locator('td').nth(columnIndex); // Locate cell by column index
+                const cellText = await cell.innerText(); // Fetch text content using innerText()
+                values.push(cellText.trim()); // Trim extra spaces
+            }
+            return values;
+        }
+
+    To get the sorting button next to the header use for example: 
+    First do this:
+    const forwardChat = page.getByText(`${translation.forwardToColleague}`)
+    await forwardChat.click();
+
+
+4. Test Grouping:
    - Group related tests using test.describe().
    - Combine related checks (e.g., heading and button visibility) into single tests where possible.
 
 
-4. Example, but should use this just as example and give actual result based on DSL (the structure may vary). Basically before checking datepickers Selected Period button should be clicked.
+5. Example, but should use this just as example and give actual result based on DSL (the structure may vary). Basically before checking datepickers Selected Period button should be clicked.
 import { test, expect } from '@playwright/test';
 import { getTranslations } from '@translation/languageDetector.js';
 
