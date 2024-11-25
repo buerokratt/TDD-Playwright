@@ -11,7 +11,7 @@
     "grepInvert": null,
     "maxFailures": 0,
     "metadata": {
-      "actualWorkers": 2
+      "actualWorkers": 4
     },
     "preserveOutput": "always",
     "reporter": [
@@ -97,12 +97,12 @@
                 {
                   "workerIndex": 0,
                   "status": "passed",
-                  "duration": 16263,
+                  "duration": 16724,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2024-11-25T11:13:09.970Z",
+                  "startTime": "2024-11-25T13:56:42.173Z",
                   "attachments": [
                     {
                       "name": "trace",
@@ -123,20 +123,20 @@
       ]
     },
     {
-      "title": "admin/landingPage/mainPage/sideBar/conversations/unanswered/DSL/generatedTests.spec.js",
-      "file": "admin/landingPage/mainPage/sideBar/conversations/unanswered/DSL/generatedTests.spec.js",
+      "title": "admin/landingPage/mainPage/sideBar/conversations/history/DSL/generated.spec.js",
+      "file": "admin/landingPage/mainPage/sideBar/conversations/history/DSL/generated.spec.js",
       "column": 0,
       "line": 0,
       "specs": [],
       "suites": [
         {
-          "title": "Unanswered Chats Tests",
-          "file": "admin/landingPage/mainPage/sideBar/conversations/unanswered/DSL/generatedTests.spec.js",
-          "line": 12,
+          "title": "Buerokratt Chatbot - History Page",
+          "file": "admin/landingPage/mainPage/sideBar/conversations/history/DSL/generated.spec.js",
+          "line": 6,
           "column": 6,
           "specs": [
             {
-              "title": "Validate \"Forward to Colleague\" Dialog and Table",
+              "title": "Validate heading and search input visibility",
               "ok": true,
               "tags": [],
               "tests": [
@@ -145,7 +145,7 @@
                   "annotations": [
                     {
                       "type": "repository",
-                      "description": "Unanswered Chats Testing"
+                      "description": "Buerokratt Chatbot History Page"
                     }
                   ],
                   "expectedStatus": "passed",
@@ -155,17 +155,17 @@
                     {
                       "workerIndex": 1,
                       "status": "passed",
-                      "duration": 26162,
+                      "duration": 6307,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2024-11-25T11:13:27.332Z",
+                      "startTime": "2024-11-25T13:56:59.890Z",
                       "attachments": [
                         {
                           "name": "trace",
                           "contentType": "application/zip",
-                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-05ac8--Colleague-Dialog-and-Table-chromium/trace.zip"
+                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-5b336-and-search-input-visibility-chromium/trace.zip"
                         }
                       ]
                     }
@@ -173,13 +173,13 @@
                   "status": "expected"
                 }
               ],
-              "id": "20b58c729748b63d59c8-3d41744ed0682f7fbf4d",
-              "file": "admin/landingPage/mainPage/sideBar/conversations/unanswered/DSL/generatedTests.spec.js",
-              "line": 51,
-              "column": 10
+              "id": "c38d3b59a803faba734e-7a97eb31beb16688f790",
+              "file": "admin/landingPage/mainPage/sideBar/conversations/history/DSL/generated.spec.js",
+              "line": 14,
+              "column": 9
             },
             {
-              "title": "Validate Chat Metadata",
+              "title": "Validate datepicker and dropdown selection",
               "ok": true,
               "tags": [],
               "tests": [
@@ -188,7 +188,7 @@
                   "annotations": [
                     {
                       "type": "repository",
-                      "description": "Unanswered Chats Testing"
+                      "description": "Buerokratt Chatbot History Page"
                     }
                   ],
                   "expectedStatus": "passed",
@@ -198,17 +198,17 @@
                     {
                       "workerIndex": 2,
                       "status": "passed",
-                      "duration": 26198,
+                      "duration": 6179,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2024-11-25T11:13:27.331Z",
+                      "startTime": "2024-11-25T13:56:59.835Z",
                       "attachments": [
                         {
                           "name": "trace",
                           "contentType": "application/zip",
-                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-ad43c-ests-Validate-Chat-Metadata-chromium/trace.zip"
+                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-93783-cker-and-dropdown-selection-chromium/trace.zip"
                         }
                       ]
                     }
@@ -216,10 +216,96 @@
                   "status": "expected"
                 }
               ],
-              "id": "20b58c729748b63d59c8-522e8ba2f0ec5e2b66c0",
-              "file": "admin/landingPage/mainPage/sideBar/conversations/unanswered/DSL/generatedTests.spec.js",
-              "line": 95,
-              "column": 10
+              "id": "c38d3b59a803faba734e-fbc76077b435628e00c3",
+              "file": "admin/landingPage/mainPage/sideBar/conversations/history/DSL/generated.spec.js",
+              "line": 21,
+              "column": 9
+            },
+            {
+              "title": "Validate table headers and actions visibility",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "repository",
+                      "description": "Buerokratt Chatbot History Page"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "status": "passed",
+                      "duration": 5868,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-11-25T13:56:59.870Z",
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-b456f-ders-and-actions-visibility-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "c38d3b59a803faba734e-cf4f9ab6b2b67cd7a745",
+              "file": "admin/landingPage/mainPage/sideBar/conversations/history/DSL/generated.spec.js",
+              "line": 30,
+              "column": 9
+            },
+            {
+              "title": "Validate pagination visibility and options",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "repository",
+                      "description": "Buerokratt Chatbot History Page"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "status": "passed",
+                      "duration": 6485,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-11-25T13:56:59.893Z",
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-2e282-tion-visibility-and-options-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "c38d3b59a803faba734e-1cdee030207fd16c6fc4",
+              "file": "admin/landingPage/mainPage/sideBar/conversations/history/DSL/generated.spec.js",
+              "line": 53,
+              "column": 9
             }
           ]
         }
@@ -228,9 +314,9 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2024-11-25T11:13:09.403Z",
-    "duration": 44596.767,
-    "expected": 3,
+    "startTime": "2024-11-25T13:56:41.615Z",
+    "duration": 25330.576,
+    "expected": 5,
     "skipped": 0,
     "unexpected": 0,
     "flaky": 0

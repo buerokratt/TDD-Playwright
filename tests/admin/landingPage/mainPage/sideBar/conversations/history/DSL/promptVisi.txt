@@ -28,7 +28,7 @@ Give clear visibility testfile without any comments .
    - Input fields or textareas with placeholder text: page.getByPlaceholder()
    - Element that is associated with label (in DSL this elements are marked with adjacentTo: label): page.getByLabel()
    - Interactive elements (buttons, links, checkboxes, headings): page.getByRole()
-   - Dropdown, or any element with visible text and if no previous thing does not fit: page.getByText()
+   - Dropdown(select), or any element with visible text and if no previous thing does not fit: page.getByText()
    - Datepicker without assosiated label: page.locator()
 
    Examples:
@@ -51,20 +51,36 @@ Give clear visibility testfile without any comments .
    Handling Multiple Elements:
    Use .first() or .nth(index) for specific instances.
 
-   Table handling:
-   const tableHeader = page.getByRole('table').locator('thead'); to get the header row of the table
-
-   Always check if the first row of the table is actually there. In case of functionality tests also save the values for reference.
-
-   To get the sorting buttons in the table headers, use for each header:
-   const tableHeaders = page.locator('table thead tr th');
-      const headerCount = await tableHeaders.count();
-      const rows = page.locator('table tbody tr');
+3. Table handling: 
+   a. Consider only first row when checking data persistence. For example when checking edit, delete, forward buttons in table data. PS! Don't use here exact: true, because it will cause errors.
+      For example: 
+      const dataTable = page.locator('.data-table');
+      const editButton = dataTable.getByRole('button', { name: `${translation.edit}`, exact: true}).first();
+      const deleteButton = dataTable.getByRole('button', { name: `${translation.delete}`, exact: true }).first();
+      const forwardButton = dataTable.getByRole('button', { name: `${translation.forward}`, exact: true }).first();
       
+   b. Checking headers
+      For example: 
+      const container = page.locator('.data-table');
+      const nameHeader = container.getByText(`${translation.name}`)
+      await expect(nameHeader).toBeVisible();
 
+   c. Checking pagination
+      For example:
+      const resultCountLabel = await page.getByText(`${translation.resultCount}`);
+      const resultCountDropdown = await page.getByText(new RegExp(translation.barChart));
+      
+      await expect(resultCountLabel).toBeVisible();
+      await expect(resultCountDropdown).toBeVisible();
    
+   d. If DSL has table and table has 'sortable: true' field then should check for sorting button persistence.
+      For example: 
+      for (const header of headers) {
+            const sortingButton = page.locator('th').filter({ hasText: header }).locator('button');
+            await expect(sortingButton).toBeVisible();
+      }
 
-3. Test Grouping:
+4. Test Grouping:
    - Group related tests using test.describe().
    - Combine related checks (e.g., heading and button visibility) into single tests where possible.
 
@@ -108,3 +124,5 @@ Key Highlights:
 2. Use translation keys for dynamic locators.
 3. Group tests logically.
 4. Simplify tests by combining related assertions.
+
+

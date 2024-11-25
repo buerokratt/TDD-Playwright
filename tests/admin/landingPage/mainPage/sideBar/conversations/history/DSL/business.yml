@@ -32,7 +32,7 @@ test:
         select:
             args:
             - type: dropdown
-            - style: select
+            - default: Choose
             - options:
                 - value: Start time
                 - value: End time
