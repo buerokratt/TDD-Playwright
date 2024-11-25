@@ -1,0 +1,206 @@
+The goal is to convert BusinessDSL specifications into Playwright test cases. The output should be a valid, directly executable test file. Focus on comprehensive test coverage, clear locators, logical grouping, and alignment with DSL requirements.
+Give clear functionality testfile without any comments .
+
+Functionality testing.
+Conduct functionality testing to ensure all interactive elements on the page behave as expected. Validate that buttons, checkboxes, dropdowns, and date pickers are functional and perform their intended actions. Verify the ability to select dropdown options. Ensure correct state persistence and data handling for elements such as checkboxes and date pickers. Test the visibility or changes in UI components triggered by user actions.
+
+1. Setup and Initialization:
+   - Base URL: Append the DSL's resource URL to https://admin.prod.buerokratt.ee.
+   - Translations:
+     Use getTranslations to fetch translation keys:
+     import { getTranslations } from '@translation/languageDetector.js';
+     let translation;
+     Fetch translations after page navigation to avoid security errors:
+     translation = await getTranslations(page);
+   - Timeout: Include a 3000ms timeout in beforeEach for element loading.
+   - Test Annotations: Add annotations using DSL-provided descriptions:
+     test.info().annotations.push({ type: 'repository', description: '<DSL description>' });
+
+2. Locator Rules:
+   - Use translation.
+   - Translation keys start with a lowercase letter and are integrated like this:
+     `${translation.key}`. For example: `${translation.helloWorld}` will get "Hello world!" from translation file.
+   - Use exact matching ({ exact: true }) for all locators.
+   - Always scope locators to specific parent containers (e.g., card, modal, form, section or table etc.) to ensure precision and avoid ambiguity.
+     For example: If a button is within .card__body, use cardBody.getByRole() rather than page.getByRole().
+     More examples:
+     const checkbox = page.locator('.card').first().getByRole('checkbox', `${translation.onlyBuerokrattInvolved}`, { exact: true });
+     const button = page.locator('.card').filter({ hasText: `${translation.forwarding}` }).getByRole('button', { name: `${translation.forwarding}`, exact: true });
+
+   Specific Locators:
+   - Input fields or textareas with placeholder text: page.getByPlaceholder()
+   - Element that is associated with label (in DSL this elements are marked with adjacentTo: label): page.getByLabel()
+   - Interactive elements (buttons, links, checkboxes, headings): page.getByRole()
+   - Dropdown, or any element with visible text and if no previous thing does not fit: page.getByText()
+   - Datepicker without assosiated label: page.locator()
+
+   Examples:
+   const button = await page.getByRole('button', `${translation.save}`, { exact: true });
+   const cell = await row.getByRole('cell', { name: 'John Doe', exact: true });
+   const firstRow = page.locator('table').locator('tbody).getByRole('row').nth(0);
+   const heading = await page.getByRole('heading', { name: `${translation.settings}`, exact: true });
+   const checkBox = await page.getByRole('checkbox', { name: '${translation.rememberMe}', exact: true });
+   const inputField = await page.getByLabel(`${translation.email}`, { exact: true });
+   const radioOption = await page.getByText(`${translation.radioText}`, { exact: true });
+   const datepicker = await page.locator('.datepicker')
+   const dropdown = await page.getByText(new RegExp(translation.barChart));
+   const switch = await page.getByRole('switch', { name: `${translation.someName}`, exact: true });
+   
+
+   nth-instance Handling:
+   If DSL specifies nth-instance, use .nth(index):
+   const label = await page.getByText(`${translation.labelName}`).nth(1);
+
+   Handling Multiple Elements:
+   Use .first() or .nth(index) for specific instances.
+
+3. Test Grouping:
+   - Group related tests using test.describe().
+   - Combine related checks (e.g., heading and button visibility) into single tests where possible.
+
+
+4. Example, but should use this just as example and give actual result based on DSL (the structure may vary). Basically before checking datepickers Selected Period button should be clicked.
+import { test, expect } from '@playwright/test';
+import { getTranslations } from '@translation/languageDetector.js';
+
+let translation;
+
+test.describe('Functionality Testing Suite', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto('https://admin.prod.buerokratt.ee/analytics/advisors');
+    translation = await getTranslations(page);
+    test.info().annotations.push({ type: 'repository', description: 'Functionality Testing' });
+    await page.waitForTimeout(3000);
+    const firstChat = 
+  });
+
+  test('should display and edit display period date pickers', async ({ page }) => {
+    const label = page.getByText(`${translation.displayPeriod}`, { exact: true });
+    const startDatePicker = page.locator('.datepicker').nth(0);
+    const endDatePicker = page.locator('.datepicker').nth(1);
+
+    await expect(label).toBeVisible();
+    await expect(startDatePicker).toBeVisible();
+    await expect(endDatePicker).toBeVisible();
+
+    const startInput = startDatePicker.locator('input').first();
+    const endInput = endDatePicker.locator('input').first();
+
+    await startInput.fill('01.01.2024');
+    await endInput.fill('31.12.2024');
+
+    const updatedStartValue = await startInput.getAttribute('value');
+    const updatedEndValue = await endInput.getAttribute('value');
+
+    expect(updatedStartValue).toBe('01.01.2024');
+    expect(updatedEndValue).toBe('31.12.2024');
+  });
+})
+
+3. Table handling: 
+   a. Consider only first row when checking data persistence. For example when checking edit, delete, forward buttons in table data. PS! Don't use here exact: true, because it will cause errors.
+      For example: 
+      const dataTable = page.locator('.data-table');
+      const editButton = dataTable.getByRole('button', { name: `${translation.edit}`, exact: true}).first();
+      const deleteButton = dataTable.getByRole('button', { name: `${translation.delete}`, exact: true }).first();
+      const forwardButton = dataTable.getByRole('button', { name: `${translation.forward}`, exact: true }).first();
+      
+   b. Checking headers
+      For example: 
+      const container = page.locator('.data-table');
+      const nameHeader = container.getByText(`${translation.name}`)
+      await expect(nameHeader).toBeVisible();
+
+   c. Checking pagination
+      For example:
+      const resultCountLabel = await page.getByText(`${translation.resultCount}`);
+      const resultCountDropdown = await page.getByRole('combobox', { name: `${translation.resultCount}` });
+      await expect(resultCountLabel).toBeVisible();
+      await expect(resultCountDropdown).toBeVisible();
+   
+   d. If DSL has table and table has 'sortable: true' field then should check for sorting button persistence.
+      For example: 
+      for (const header of headers) {
+            const sortingButton = page.locator('th').filter({ hasText: header }).locator('button');
+            await expect(sortingButton).toBeVisible();
+      }
+
+To get the sorting button next to the header use for example: 
+First do this:
+const forwardChat = page.getByText(`${translation.forwardToColleague}`)
+ await forwardChat.click();
+
+await page.getByRole('cell', { name: 'Nimi', exact: true }).getByRole('button').first();
+The first click searches ascending, second click searches descending, test both
+As the last header is not sortable, take headerCount minus one as the loopable.
+
+const ascendingOrder = await getColumnValues(rows, index);
+const sortedAscending = [...ascendingOrder].sort((a, b) => a.localeCompare(b));
+
+ascending sort example
+      const tableHeaders = page.locator('table thead tr th');
+      const headerCount = await tableHeaders.count();
+      const rows = page.locator('table tbody tr');
+
+      for (let i = 0; i < headerCount - 1; i++) {
+        const header = await tableHeaders.nth(i);
+        const button = await header.locator('button').nth(1);
+        await button.click();
+        await page.waitForTimeout(1000);
+
+        const orderAfterClick = await getColumnValues(rows, i);
+        const sortedAscending = [...orderAfterClick].sort((a, b) => a.localeCompare(b));
+        await expect(orderAfterClick).toEqual(sortedAscending);
+      }
+
+      async function getColumnValues(rows, columnIndex) {
+        const values = [];
+        for (let i = 0; i < await rows.count(); i++) {
+            const row = rows.nth(i);
+            const cell = row.locator('td').nth(columnIndex); // Locate cell by column index
+            const cellText = await cell.innerText(); // Fetch text content using innerText()
+            values.push(cellText.trim()); // Trim extra spaces
+        }
+        return values;
+    }
+
+Steps:
+Locates all sortable headers in the table (thead row).
+Saves all the rows to check sorting correctness later.
+Iterates through each header (excluding the last two, which are presumably not sortable).
+Clicks the sort button twice for each header to test ascending and descending sorts. Between the sorts checks the sort order.
+Verification:
+Ensures headers are clickable and sorting is functional.
+Confirms headers count to validate correct iteration.
+
+To get the search button next to the header use for example:
+await page.getByRole('cell', { name: 'Nimi', exact: true }).getByRole('button').nth(1);
+To test searching, select the first row of the table, save the values of the columns and start searching per header search button for these values.
+Identify the corresponding search button next to the header and click it.
+const searchInput = await page.getByPlaceholder(`${translation.search}`);
+Use the extracted value of the column to populate the search input.
+Verify that the first row of the table matches the searched value.
+Clear the search input and reset the search state after each iteration.
+Ensure the test handles these headers:
+Name
+ID Code
+Role
+Display Name
+User Title
+Email
+
+The search state should be cleared after verifying each value to isolate each test case and the searchbutton should be clicked to remove the search input.
+
+4. Search functionality.
+
+To test search functionality first open the forward to colleague:
+const forwardChat = page.getByText(`${translation.forwardToColleague}`);
+Then capture the first row of the table and only the first cell meaning the first value under translation.name header.
+Then use the search bar to search for the name.
+const searchInput = page.getByPlaceholder(`${translation.searchByName}`);
+
+Key Highlights:
+1. Ensure page readiness in beforeEach.
+2. Use translation keys for dynamic locators.
+3. Group tests logically.
+4. Simplify tests by combining related assertions.
