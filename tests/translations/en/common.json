@@ -244,6 +244,8 @@
     "trainingAndTest": "Training and test",
     "anonymous": "Anonymous",
     "chooseChatStatus": "Choose chat status",
-    "forward": "Forward"
+    "forward": "Forward",
+    "couldNotReachUser": "Could Not Reach User",
+    "contactedUser": "Contacted User"
     
 }
