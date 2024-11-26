@@ -68,8 +68,9 @@ test.describe('Training-Module', () => {
                 `${translation.id}`,
             ];
 
+            const table = page.locator('.card__body table thead tr');
             for (const header of headers) {
-                const headerLocator = await page.getByText(header, { exact: true });
+                const headerLocator = await table.getByText(header, { exact: true });
                 await expect(headerLocator).toBeVisible();
             }
         });

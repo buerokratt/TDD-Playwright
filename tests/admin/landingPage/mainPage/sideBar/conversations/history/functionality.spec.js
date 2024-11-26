@@ -134,10 +134,31 @@ test.describe('Training-Module', () => {
     });
 
 
-    // test.only('Should show correctly Selected (count) in dropdown based on selected items count', async ({ page }) => {
-    //   const dropdown = await page.locator('.select');
-    //   const text = await dropdown.textContent();
-    // })
+    test.only('Test table elements count based on selected pagination', async ({ page }) => {
+
+      const paginationSelect = await page.getByRole('combobox', { name: `${translation.resultCount}`, exact: true });
+      const rows = page.locator('table tbody tr');
+
+      const datepickerStart = await page.locator(`.datepicker`, { exact: true }).nth(0);
+      const datepickerEnd = await page.locator(`.datepicker`, { exact: true }).nth(1);
+      await expect(datepickerStart).toBeVisible();
+      await expect(datepickerEnd).toBeVisible();
+
+      const startInput = datepickerStart.locator('input').first();
+      const endInput = datepickerEnd.locator('input').first();
+
+      await startInput.fill('01.01.2000');
+      await endInput.fill('31.12.2030');
+
+      const paginationOptions = [10, 20, 30, 40, 50];
+
+      for (const option of paginationOptions) {
+        await paginationSelect.selectOption(`${option}`);
+        await page.waitForTimeout(1000);
+        const rowsCount = await rows.count();
+        await expect(rowsCount).toBeLessThanOrEqual(option);
+      }
+    });
   });
 
 
