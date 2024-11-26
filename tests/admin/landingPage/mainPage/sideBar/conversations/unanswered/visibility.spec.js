@@ -39,6 +39,11 @@ test.describe('Buerokratt-Chatbot', () => {
             const takeOverButton = page.locator('.active-chat__toolbar').getByText(`${translation.takeOver}`, { exact: true });
             await expect(takeOverButton).toBeVisible();
         });
+
+        test('should have chat wrapper', async ({ page }) => {
+            const wrapper = page.locator('div.active-chat__group-wrapper');
+            await expect(wrapper).toBeVisible();
+        })
     });
 
     test.describe('Side Actions', () => {

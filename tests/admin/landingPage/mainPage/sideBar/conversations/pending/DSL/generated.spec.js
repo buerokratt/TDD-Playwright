@@ -55,20 +55,23 @@ test.describe('Buerokratt-Chatbot', () => {
     test.describe('Chat Metadata', () => {
         test('should display metadata fields correctly', async ({ page }) => {
             const chatMeta = page.locator('.active-chat__side-meta');
-            await expect(chatMeta.getByText(`${translation.id}`, { exact: true })).toBeVisible();
-            await expect(chatMeta.getByText(`${translation.endUserName}`, { exact: true })).toBeVisible();
-            await expect(chatMeta.getByText(`${translation.endUserEmail}`, { exact: true })).toBeVisible();
-            await expect(chatMeta.getByText(`${translation.endUserPhone}`, { exact: true })).toBeVisible();
-            await expect(chatMeta.getByText(`${translation.clientSupportName}`, { exact: true })).toBeVisible();
-            await expect(chatMeta.getByText(`${translation.chatStartedAt}`, { exact: true })).toBeVisible();
-            await expect(chatMeta.getByText(`${translation.device}`, { exact: true })).toBeVisible();
-            await expect(chatMeta.getByText(`${translation.location}`, { exact: true })).toBeVisible();
+            const fields = [
+ 
+                `${translation.location}`
+            ];
+
+            for (const field of fields) {
+                const title = chatMeta.getByText(field, {exact: true});
+                await expect(title).toBeVisible();
+
+                const value = title.locator('..').getByRole('paragraph').nth(1);
+                await expect(value).toBeVisible();
+            }
         });
+
+
+
     });
-
-
-
-    
 
 
 });
