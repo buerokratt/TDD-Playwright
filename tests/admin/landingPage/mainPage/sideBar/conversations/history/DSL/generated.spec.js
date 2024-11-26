@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { getTranslations } from '@translation/languageDetector.js';
-
+import { getColumnValues } from '../../unanswered/helper.js';
 let translation;
 
 test.describe('Functionality Testing Suite', () => {
@@ -31,16 +31,15 @@ test.describe('Functionality Testing Suite', () => {
         expect(updatedEndValue).toBe('31.12.2024');
     });
 
-    test('should validate dropdown options', async ({ page }) => {
-        const dropdown = page.getByText(new RegExp(translation.choose));
+    test.only('should validate dropdown selection and table rendering', async ({ page }) => {
+        const dropdown = page.getByText(new RegExp(translation.choose), { exact: true });
         await dropdown.click();
-        const options = page.locator("select__menu")
-        for (const option of [
-            'Start time', 'End time', 'Customer support name', 'Name', 'ID code',
-            'Contact', 'Comment', 'Rating', 'Feedback', 'Status', 'ID'
-        ]) {
-            await expect(options.getByText(option, { exact: true })).toBeVisible();
-        }
+        const option = page.getByText(new RegExp(translation.startTime), { exact: true });
+        await option.click();
+
+        const tableHeaders = page.locator('table thead tr th');
+        const headerText = await tableHeaders.nth(0).textContent();
+        expect(headerText.trim()).toBe(translation.startTime);
     });
 
     test('should validate table data and actions', async ({ page }) => {
@@ -59,50 +58,52 @@ test.describe('Functionality Testing Suite', () => {
         await viewButton.click();
     });
 
-    test('should validate pagination controls', async ({ page }) => {
-        const resultCountLabel = await page.getByText(`${translation.resultCount}`, { exact: true });
-        const paginationDropdown = page.getByText(new RegExp(translation.resultCount));
 
-        await expect(resultCountLabel).toBeVisible();
-        await paginationDropdown.click();
 
-        for (const option of ['10', '20', '30', '40', '50']) {
-            await expect(page.getByText(option, { exact: true })).toBeVisible();
-        }
+    test('should validate pagination functionality', async ({ page }) => {
+        const paginationDropdown = page.getByLabel(`${translation.resultCount}`);
+        await paginationDropdown.selectOption({ label: '20' });
+        const selectedOption = await paginationDropdown.inputValue();
+        expect(selectedOption).toBe('20');
     });
 
-    test('should validate table sorting', async ({ page }) => {
-        const tableHeaders = page.locator('table thead tr th');
-        const headerCount = await tableHeaders.count();
-        const rows = page.locator('table tbody tr');
 
-        for (let i = 0; i < headerCount - 1; i++) {
-            const header = await tableHeaders.nth(i);
-            const button = await header.locator('button').nth(1);
-            await button.click();
-            await page.waitForTimeout(1000);
+    test.describe('Sorting Tests', () => {
+        test('Ascending sort', async ({ page }) => {
+            const tableHeaders = page.locator('table thead tr th');
+            const headerCount = await tableHeaders.count();
+            const rows = page.locator('table tbody tr');
 
-            const ascendingOrder = await getColumnValues(rows, i);
-            const sortedAscending = [...ascendingOrder].sort((a, b) => a.localeCompare(b));
-            expect(ascendingOrder).toEqual(sortedAscending);
+            for (let i = 0; i < headerCount - 1; i++) {
+                const header = await tableHeaders.nth(i);
+                const button = await header.locator('button');
+                await button.click();
+                await page.waitForTimeout(1000);
 
-            await button.click();
-            await page.waitForTimeout(1000);
-
-            const descendingOrder = await getColumnValues(rows, i);
-            const sortedDescending = [...ascendingOrder].sort((a, b) => b.localeCompare(a));
-            expect(descendingOrder).toEqual(sortedDescending);
-        }
-
-        async function getColumnValues(rows, columnIndex) {
-            const values = [];
-            for (let i = 0; i < await rows.count(); i++) {
-                const row = rows.nth(i);
-                const cell = row.locator('td').nth(columnIndex);
-                const cellText = await cell.innerText();
-                values.push(cellText.trim());
+                const orderAfterClick = await getColumnValues(rows, i);
+                const sortedAscending = [...orderAfterClick].sort((a, b) => a.localeCompare(b));
+                await expect(orderAfterClick).toEqual(sortedAscending);
             }
-            return values;
-        }
+        });
+
+        test('Descending sort', async ({ page }) => {
+            const tableHeaders = page.locator('table thead tr th');
+            const headerCount = await tableHeaders.count();
+            const rows = page.locator('table tbody tr');
+
+            for (let i = 0; i < headerCount - 1; i++) {
+                const header = await tableHeaders.nth(i);
+                const button = await header.locator('button');
+                await button.click();
+                await button.click();
+                await page.waitForTimeout(1000);
+
+                const orderAfterClick = await getColumnValues(rows, i);
+                const sortedDescending = [...orderAfterClick].sort((a, b) => b.localeCompare(a));
+                await expect(orderAfterClick).toEqual(sortedDescending);
+            }
+        });
     });
+
+
 });

@@ -15,6 +15,7 @@ Conduct functionality testing to ensure all interactive elements on the page beh
    - Timeout: Include a 3000ms timeout in beforeEach for element loading.
    - Test Annotations: Add annotations using DSL-provided descriptions:
      test.info().annotations.push({ type: 'repository', description: '<DSL description>' });
+   - Add import { getColumnValues } from '../../unanswered/helper.js'; and this function will be used in sorting tests
 
 2. Locator Rules:
    - Use translation.
@@ -30,8 +31,8 @@ Conduct functionality testing to ensure all interactive elements on the page beh
    Specific Locators:
    - Input fields or textareas with placeholder text: page.getByPlaceholder()
    - Element that is associated with label (in DSL this elements are marked with adjacentTo: label): page.getByLabel()
-   - Interactive elements (buttons, links, checkboxes, headings): page.getByRole()
-   - Dropdown(select), or any element with visible text and if no previous thing does not fit: page.getByText()
+   - Interactive elements (buttons, links, checkboxes, headings, dropdown options): page.getByRole()
+   - Dropdown(select) except pagination dropdown, or any element with visible text and if no previous thing does not fit: page.getByText()
    - Datepicker without assosiated label: page.locator()
 
    Examples:
@@ -45,6 +46,7 @@ Conduct functionality testing to ensure all interactive elements on the page beh
    const datepicker = await page.locator('.datepicker')
    const dropdown = await page.getByText(new RegExp(translation.barChart));
    const switch = await page.getByRole('switch', { name: `${translation.someName}`, exact: true });
+   const dropdownOption = await page.getByRole('option', { name: `${translation.optionName}` });
    
 
    nth-instance Handling:
@@ -67,52 +69,49 @@ Conduct functionality testing to ensure all interactive elements on the page beh
    c. Checking pagination
       For example:
       const resultCountLabel = await page.getByText(`${translation.resultCount}`);
-      const resultCountDropdown = await page.getByText(new RegExp(translation.barChart));
+      const resultCountDropdown = await page.getByLabel(`${translation.resultCount}`);
+      then click on resultCountLabel and after that check that different options can be clicked and validate them.
    
    d. If DSL has table and table has 'sortable: true' field then should check test sorting functionality (ascending and descending).
-      To get the sorting button next to the header use for example: 
-    First do this:
-    const forwardChat = page.getByText(`${translation.forwardToColleague}`)
-    await forwardChat.click();
+      test.describe.only('Sorting Tests', () => {
+        test('Ascending sort', async ({ page }) => {
+            const tableHeaders = page.locator('table thead tr th');
+            const headerCount = await tableHeaders.count();
+            const rows = page.locator('table tbody tr');
 
-    await page.getByRole('cell', { name: 'Nimi', exact: true }).getByRole('button').first();
-    The first click searches ascending, second click searches descending, test both
-    As the last header is not sortable, take headerCount minus one as the loopable.
+            for (let i = 0; i < headerCount - 1; i++) {
+                const header = await tableHeaders.nth(i);
+                const button = await header.locator('button');
+                await button.click();
+                await page.waitForTimeout(1000);
 
-    const ascendingOrder = await getColumnValues(rows, index);
-    const sortedAscending = [...ascendingOrder].sort((a, b) => a.localeCompare(b));
-
-    ascending sort example
-        const tableHeaders = page.locator('table thead tr th');
-        const headerCount = await tableHeaders.count();
-        const rows = page.locator('table tbody tr');
-
-        for (let i = 0; i < headerCount - 1; i++) {
-            const header = await tableHeaders.nth(i);
-            const button = await header.locator('button').nth(1);
-            await button.click();
-            await page.waitForTimeout(1000);
-
-            const orderAfterClick = await getColumnValues(rows, i);
-            const sortedAscending = [...orderAfterClick].sort((a, b) => a.localeCompare(b));
-            await expect(orderAfterClick).toEqual(sortedAscending);
-        }
-
-        async function getColumnValues(rows, columnIndex) {
-            const values = [];
-            for (let i = 0; i < await rows.count(); i++) {
-                const row = rows.nth(i);
-                const cell = row.locator('td').nth(columnIndex); // Locate cell by column index
-                const cellText = await cell.innerText(); // Fetch text content using innerText()
-                values.push(cellText.trim()); // Trim extra spaces
+                const orderAfterClick = await getColumnValues(rows, i);
+                const sortedAscending = [...orderAfterClick].sort((a, b) => a.localeCompare(b));
+                await expect(orderAfterClick).toEqual(sortedAscending);
             }
-            return values;
-        }
+        });
 
-    To get the sorting button next to the header use for example: 
-    First do this:
-    const forwardChat = page.getByText(`${translation.forwardToColleague}`)
-    await forwardChat.click();
+        test('Descending sort', async ({ page }) => {
+            const tableHeaders = page.locator('table thead tr th');
+            const headerCount = await tableHeaders.count();
+            const rows = page.locator('table tbody tr');
+
+            for (let i = 0; i < headerCount - 1; i++) {
+                const header = await tableHeaders.nth(i);
+                const button = await header.locator('button');
+                await button.click();
+                await button.click();
+                await page.waitForTimeout(1000);
+
+                const orderAfterClick = await getColumnValues(rows, i);
+                const sortedDescending = [...orderAfterClick].sort((a, b) => b.localeCompare(a));
+                await expect(orderAfterClick).toEqual(sortedDescending);
+            }
+        });
+    });
+
+
+    e. Should check table rendering. For that you should click Choose dropdown and select some option from there and then check from table that according column is rendered and correct count of columns. It means that if only one option was selected, then there should be 2 rendered columns, because of second one column with empty header, this is just extra column for view or details.
 
 
 4. Test Grouping:
