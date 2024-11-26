@@ -125,7 +125,7 @@ test.describe('Training-Module', () => {
       await selectedOption.click();
 
       const headerCount = await tableHeaders.count();
-      expect(headerCount).toBe(1);
+      expect(headerCount).toBe(2);
 
       const renderedHeaderText = await tableHeaders.first().textContent();
       expect(renderedHeaderText).toBe(selectedOptionText);
@@ -150,7 +150,7 @@ test.describe('Training-Module', () => {
       await selectedOptionEndTime.click();
 
       const headerCount = await tableHeaders.count();
-      expect(headerCount).toBe(2);
+      expect(headerCount).toBe(3);
 
       const renderedHeaderStartTimeText = await tableHeaders.first().textContent();
       expect(renderedHeaderStartTimeText).toBe(selectedOptionStartTimeText);
@@ -192,7 +192,7 @@ test.describe('Training-Module', () => {
       await page.waitForTimeout(1000)
 
       const headerCount = await tableHeaders.count();
-      expect(headerCount).toBe(5);
+      expect(headerCount).toBe(6);
 
       const renderedHeaderStartTimeText = await tableHeaders.first().textContent();
       expect(renderedHeaderStartTimeText).toBe(selectedOptionStartTimeText);
