@@ -11,7 +11,7 @@
     "grepInvert": null,
     "maxFailures": 0,
     "metadata": {
-      "actualWorkers": 1
+      "actualWorkers": 4
     },
     "preserveOutput": "always",
     "reporter": [
@@ -97,12 +97,12 @@
                 {
                   "workerIndex": 0,
                   "status": "passed",
-                  "duration": 29980,
+                  "duration": 9013,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2024-11-26T11:40:11.935Z",
+                  "startTime": "2024-11-26T12:06:19.864Z",
                   "attachments": [
                     {
                       "name": "trace",
@@ -130,7 +130,7 @@
       "specs": [],
       "suites": [
         {
-          "title": "Training-Module",
+          "title": "Buerokratt-Chatbot",
           "file": "admin/landingPage/mainPage/sideBar/conversations/history/functionality.spec.js",
           "line": 5,
           "column": 6,
@@ -143,7 +143,7 @@
               "column": 8,
               "specs": [
                 {
-                  "title": "Test table elements count based on selected pagination",
+                  "title": "should filter results based on search input 1",
                   "ok": true,
                   "tags": [],
                   "tests": [
@@ -152,7 +152,7 @@
                       "annotations": [
                         {
                           "type": "repository",
-                          "description": "Training-Module"
+                          "description": "Buerokratt-Chatbot"
                         }
                       ],
                       "expectedStatus": "passed",
@@ -162,17 +162,17 @@
                         {
                           "workerIndex": 1,
                           "status": "passed",
-                          "duration": 10084,
+                          "duration": 6770,
                           "errors": [],
                           "stdout": [],
                           "stderr": [],
                           "retry": 0,
-                          "startTime": "2024-11-26T11:40:42.988Z",
+                          "startTime": "2024-11-26T12:06:30.288Z",
                           "attachments": [
                             {
                               "name": "trace",
                               "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-6ee55-ased-on-selected-pagination-chromium/trace.zip"
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-b45b3-lts-based-on-search-input-1-chromium/trace.zip"
                             }
                           ]
                         }
@@ -180,10 +180,571 @@
                       "status": "expected"
                     }
                   ],
-                  "id": "1a8d286449e509ec0efb-5e764d7a79f3d0dd3d02",
+                  "id": "1a8d286449e509ec0efb-c38fc24c1d110ca63215",
                   "file": "admin/landingPage/mainPage/sideBar/conversations/history/functionality.spec.js",
-                  "line": 137,
-                  "column": 10
+                  "line": 15,
+                  "column": 5
+                },
+                {
+                  "title": "should filter results based on search input 2",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [
+                        {
+                          "type": "repository",
+                          "description": "Buerokratt-Chatbot"
+                        }
+                      ],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 2,
+                          "status": "passed",
+                          "duration": 7695,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-11-26T12:06:30.323Z",
+                          "attachments": [
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-ece83-lts-based-on-search-input-2-chromium/trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "1a8d286449e509ec0efb-75cb04d5e8d0a573957a",
+                  "file": "admin/landingPage/mainPage/sideBar/conversations/history/functionality.spec.js",
+                  "line": 28,
+                  "column": 5
+                },
+                {
+                  "title": "should filter results using date pickers",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [
+                        {
+                          "type": "repository",
+                          "description": "Buerokratt-Chatbot"
+                        }
+                      ],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 3,
+                          "status": "passed",
+                          "duration": 10133,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-11-26T12:06:30.268Z",
+                          "attachments": [
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-37cf5--results-using-date-pickers-chromium/trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "1a8d286449e509ec0efb-92d2953dab579e0ee9e5",
+                  "file": "admin/landingPage/mainPage/sideBar/conversations/history/functionality.spec.js",
+                  "line": 51,
+                  "column": 5
+                },
+                {
+                  "title": "Test Dropdown render table based on selected option/options (1 option selected)",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [
+                        {
+                          "type": "repository",
+                          "description": "Buerokratt-Chatbot"
+                        }
+                      ],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 4,
+                          "status": "passed",
+                          "duration": 7036,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-11-26T12:06:30.332Z",
+                          "attachments": [
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-3a8dc--options-1-option-selected--chromium/trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "1a8d286449e509ec0efb-f05d32e40ed90405a9f6",
+                  "file": "admin/landingPage/mainPage/sideBar/conversations/history/functionality.spec.js",
+                  "line": 88,
+                  "column": 5
+                },
+                {
+                  "title": "Test Dropdown render table based on selected option/options (2 options selected)",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [
+                        {
+                          "type": "repository",
+                          "description": "Buerokratt-Chatbot"
+                        }
+                      ],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 1,
+                          "status": "passed",
+                          "duration": 7005,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-11-26T12:06:38.009Z",
+                          "attachments": [
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-f5665-options-2-options-selected--chromium/trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "1a8d286449e509ec0efb-912f807822e7770049fb",
+                  "file": "admin/landingPage/mainPage/sideBar/conversations/history/functionality.spec.js",
+                  "line": 108,
+                  "column": 5
+                },
+                {
+                  "title": "Test Dropdown render table based on selected option/options (5 options selected)",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [
+                        {
+                          "type": "repository",
+                          "description": "Buerokratt-Chatbot"
+                        }
+                      ],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 4,
+                          "status": "passed",
+                          "duration": 8974,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-11-26T12:06:38.730Z",
+                          "attachments": [
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-11ee2-options-5-options-selected--chromium/trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "1a8d286449e509ec0efb-074718bfd6bddcab80b6",
+                  "file": "admin/landingPage/mainPage/sideBar/conversations/history/functionality.spec.js",
+                  "line": 136,
+                  "column": 5
+                },
+                {
+                  "title": "Test table elements count based on selected pagination",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [
+                        {
+                          "type": "repository",
+                          "description": "Buerokratt-Chatbot"
+                        }
+                      ],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 2,
+                          "status": "passed",
+                          "duration": 13537,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-11-26T12:06:39.103Z",
+                          "attachments": [
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-04bf1-ased-on-selected-pagination-chromium/trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "1a8d286449e509ec0efb-91a50d75aced9600f940",
+                  "file": "admin/landingPage/mainPage/sideBar/conversations/history/functionality.spec.js",
+                  "line": 187,
+                  "column": 5
+                }
+              ]
+            },
+            {
+              "title": "Sorting Tests",
+              "file": "admin/landingPage/mainPage/sideBar/conversations/history/functionality.spec.js",
+              "line": 215,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "Ascending sort",
+                  "ok": false,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [
+                        {
+                          "type": "repository",
+                          "description": "Buerokratt-Chatbot"
+                        }
+                      ],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 3,
+                          "status": "failed",
+                          "duration": 16567,
+                          "error": {
+                            "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 3\u001b[39m\n\u001b[31m+ Received  + 3\u001b[39m\n\n\u001b[2m  Array [\u001b[22m\n\u001b[2m    \"\",\u001b[22m\n\u001b[31m+   \"10/10\",\u001b[39m\n\u001b[2m    \"\",\u001b[22m\n\u001b[31m+   \"10/10\",\u001b[39m\n\u001b[2m    \"\",\u001b[22m\n\u001b[2m    \"\",\u001b[22m\n\u001b[31m+   \"10/10\",\u001b[39m\n\u001b[2m    \"\",\u001b[22m\n\u001b[2m    \"\",\u001b[22m\n\u001b[2m    \"\",\u001b[22m\n\u001b[32m-   \"10/10\",\u001b[39m\n\u001b[32m-   \"10/10\",\u001b[39m\n\u001b[32m-   \"10/10\",\u001b[39m\n\u001b[2m  ]\u001b[22m",
+                            "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 3\u001b[39m\n\u001b[31m+ Received  + 3\u001b[39m\n\n\u001b[2m  Array [\u001b[22m\n\u001b[2m    \"\",\u001b[22m\n\u001b[31m+   \"10/10\",\u001b[39m\n\u001b[2m    \"\",\u001b[22m\n\u001b[31m+   \"10/10\",\u001b[39m\n\u001b[2m    \"\",\u001b[22m\n\u001b[2m    \"\",\u001b[22m\n\u001b[31m+   \"10/10\",\u001b[39m\n\u001b[2m    \"\",\u001b[22m\n\u001b[2m    \"\",\u001b[22m\n\u001b[2m    \"\",\u001b[22m\n\u001b[32m-   \"10/10\",\u001b[39m\n\u001b[32m-   \"10/10\",\u001b[39m\n\u001b[32m-   \"10/10\",\u001b[39m\n\u001b[2m  ]\u001b[22m\n    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/history/functionality.spec.js:229:39",
+                            "location": {
+                              "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/history/functionality.spec.js",
+                              "column": 39,
+                              "line": 229
+                            },
+                            "snippet": "\u001b[0m \u001b[90m 227 |\u001b[39m         \u001b[36mconst\u001b[39m orderAfterClick \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m getColumnValues(rows\u001b[33m,\u001b[39m i)\u001b[33m;\u001b[39m\n \u001b[90m 228 |\u001b[39m         \u001b[36mconst\u001b[39m sortedAscending \u001b[33m=\u001b[39m [\u001b[33m...\u001b[39morderAfterClick]\u001b[33m.\u001b[39msort((a\u001b[33m,\u001b[39m b) \u001b[33m=>\u001b[39m a\u001b[33m.\u001b[39mlocaleCompare(b))\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 229 |\u001b[39m         \u001b[36mawait\u001b[39m expect(orderAfterClick)\u001b[33m.\u001b[39mtoEqual(sortedAscending)\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                                       \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 230 |\u001b[39m       }\n \u001b[90m 231 |\u001b[39m     })\u001b[33m;\u001b[39m\n \u001b[90m 232 |\u001b[39m\u001b[0m"
+                          },
+                          "errors": [
+                            {
+                              "location": {
+                                "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/history/functionality.spec.js",
+                                "column": 39,
+                                "line": 229
+                              },
+                              "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 3\u001b[39m\n\u001b[31m+ Received  + 3\u001b[39m\n\n\u001b[2m  Array [\u001b[22m\n\u001b[2m    \"\",\u001b[22m\n\u001b[31m+   \"10/10\",\u001b[39m\n\u001b[2m    \"\",\u001b[22m\n\u001b[31m+   \"10/10\",\u001b[39m\n\u001b[2m    \"\",\u001b[22m\n\u001b[2m    \"\",\u001b[22m\n\u001b[31m+   \"10/10\",\u001b[39m\n\u001b[2m    \"\",\u001b[22m\n\u001b[2m    \"\",\u001b[22m\n\u001b[2m    \"\",\u001b[22m\n\u001b[32m-   \"10/10\",\u001b[39m\n\u001b[32m-   \"10/10\",\u001b[39m\n\u001b[32m-   \"10/10\",\u001b[39m\n\u001b[2m  ]\u001b[22m\n\n\u001b[0m \u001b[90m 227 |\u001b[39m         \u001b[36mconst\u001b[39m orderAfterClick \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m getColumnValues(rows\u001b[33m,\u001b[39m i)\u001b[33m;\u001b[39m\n \u001b[90m 228 |\u001b[39m         \u001b[36mconst\u001b[39m sortedAscending \u001b[33m=\u001b[39m [\u001b[33m...\u001b[39morderAfterClick]\u001b[33m.\u001b[39msort((a\u001b[33m,\u001b[39m b) \u001b[33m=>\u001b[39m a\u001b[33m.\u001b[39mlocaleCompare(b))\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 229 |\u001b[39m         \u001b[36mawait\u001b[39m expect(orderAfterClick)\u001b[33m.\u001b[39mtoEqual(sortedAscending)\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                                       \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 230 |\u001b[39m       }\n \u001b[90m 231 |\u001b[39m     })\u001b[33m;\u001b[39m\n \u001b[90m 232 |\u001b[39m\u001b[0m\n\n\u001b[2m    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/history/functionality.spec.js:229:39\u001b[22m"
+                            }
+                          ],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-11-26T12:06:41.766Z",
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-89dee-orting-Tests-Ascending-sort-chromium/test-failed-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-89dee-orting-Tests-Ascending-sort-chromium/video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-89dee-orting-Tests-Ascending-sort-chromium/trace.zip"
+                            }
+                          ],
+                          "errorLocation": {
+                            "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/history/functionality.spec.js",
+                            "column": 39,
+                            "line": 229
+                          }
+                        },
+                        {
+                          "workerIndex": 6,
+                          "status": "interrupted",
+                          "duration": 2865,
+                          "error": {
+                            "message": "Error: page.waitForTimeout: Test ended.",
+                            "stack": "Error: page.waitForTimeout: Test ended.\n    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/history/functionality.spec.js:11:16",
+                            "location": {
+                              "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/history/functionality.spec.js",
+                              "column": 16,
+                              "line": 11
+                            },
+                            "snippet": "\u001b[0m \u001b[90m  9 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m'https://admin.prod.buerokratt.ee/chat/history'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 10 |\u001b[39m     translation \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m getTranslations(page)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 11 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForTimeout(\u001b[35m3000\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 12 |\u001b[39m   })\u001b[33m;\u001b[39m\n \u001b[90m 13 |\u001b[39m\n \u001b[90m 14 |\u001b[39m   test\u001b[33m.\u001b[39mdescribe(\u001b[32m'Search functionality'\u001b[39m\u001b[33m,\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m"
+                          },
+                          "errors": [
+                            {
+                              "location": {
+                                "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/history/functionality.spec.js",
+                                "column": 16,
+                                "line": 11
+                              },
+                              "message": "Error: page.waitForTimeout: Test ended.\n\n\u001b[0m \u001b[90m  9 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m'https://admin.prod.buerokratt.ee/chat/history'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 10 |\u001b[39m     translation \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m getTranslations(page)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 11 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForTimeout(\u001b[35m3000\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 12 |\u001b[39m   })\u001b[33m;\u001b[39m\n \u001b[90m 13 |\u001b[39m\n \u001b[90m 14 |\u001b[39m   test\u001b[33m.\u001b[39mdescribe(\u001b[32m'Search functionality'\u001b[39m\u001b[33m,\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\n\u001b[2m    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/history/functionality.spec.js:11:16\u001b[22m"
+                            }
+                          ],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 1,
+                          "startTime": "2024-11-26T12:06:59.626Z",
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-89dee-orting-Tests-Ascending-sort-chromium-retry1/test-failed-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-89dee-orting-Tests-Ascending-sort-chromium-retry1/video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-89dee-orting-Tests-Ascending-sort-chromium-retry1/trace.zip"
+                            }
+                          ],
+                          "errorLocation": {
+                            "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/history/functionality.spec.js",
+                            "column": 16,
+                            "line": 11
+                          }
+                        }
+                      ],
+                      "status": "unexpected"
+                    }
+                  ],
+                  "id": "1a8d286449e509ec0efb-cedeaafb9a8a4eb0985f",
+                  "file": "admin/landingPage/mainPage/sideBar/conversations/history/functionality.spec.js",
+                  "line": 216,
+                  "column": 5
+                },
+                {
+                  "title": "Descending sort",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [
+                        {
+                          "type": "repository",
+                          "description": "Buerokratt-Chatbot"
+                        }
+                      ],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 1,
+                          "status": "interrupted",
+                          "duration": 17779,
+                          "error": {
+                            "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 3\u001b[39m\n\u001b[31m+ Received  + 3\u001b[39m\n\n\u001b[2m  Array [\u001b[22m\n\u001b[32m-   \"10/10\",\u001b[39m\n\u001b[32m-   \"10/10\",\u001b[39m\n\u001b[32m-   \"10/10\",\u001b[39m\n\u001b[2m    \"\",\u001b[22m\n\u001b[31m+   \"10/10\",\u001b[39m\n\u001b[2m    \"\",\u001b[22m\n\u001b[31m+   \"10/10\",\u001b[39m\n\u001b[2m    \"\",\u001b[22m\n\u001b[2m    \"\",\u001b[22m\n\u001b[31m+   \"10/10\",\u001b[39m\n\u001b[2m    \"\",\u001b[22m\n\u001b[2m    \"\",\u001b[22m\n\u001b[2m    \"\",\u001b[22m\n\u001b[2m  ]\u001b[22m",
+                            "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 3\u001b[39m\n\u001b[31m+ Received  + 3\u001b[39m\n\n\u001b[2m  Array [\u001b[22m\n\u001b[32m-   \"10/10\",\u001b[39m\n\u001b[32m-   \"10/10\",\u001b[39m\n\u001b[32m-   \"10/10\",\u001b[39m\n\u001b[2m    \"\",\u001b[22m\n\u001b[31m+   \"10/10\",\u001b[39m\n\u001b[2m    \"\",\u001b[22m\n\u001b[31m+   \"10/10\",\u001b[39m\n\u001b[2m    \"\",\u001b[22m\n\u001b[2m    \"\",\u001b[22m\n\u001b[31m+   \"10/10\",\u001b[39m\n\u001b[2m    \"\",\u001b[22m\n\u001b[2m    \"\",\u001b[22m\n\u001b[2m    \"\",\u001b[22m\n\u001b[2m  ]\u001b[22m\n    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/history/functionality.spec.js:247:39",
+                            "location": {
+                              "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/history/functionality.spec.js",
+                              "column": 39,
+                              "line": 247
+                            },
+                            "snippet": "\u001b[0m \u001b[90m 245 |\u001b[39m         \u001b[36mconst\u001b[39m orderAfterClick \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m getColumnValues(rows\u001b[33m,\u001b[39m i)\u001b[33m;\u001b[39m\n \u001b[90m 246 |\u001b[39m         \u001b[36mconst\u001b[39m sortedDescending \u001b[33m=\u001b[39m [\u001b[33m...\u001b[39morderAfterClick]\u001b[33m.\u001b[39msort((a\u001b[33m,\u001b[39m b) \u001b[33m=>\u001b[39m b\u001b[33m.\u001b[39mlocaleCompare(a))\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 247 |\u001b[39m         \u001b[36mawait\u001b[39m expect(orderAfterClick)\u001b[33m.\u001b[39mtoEqual(sortedDescending)\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                                       \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 248 |\u001b[39m       }\n \u001b[90m 249 |\u001b[39m     })\u001b[33m;\u001b[39m\n \u001b[90m 250 |\u001b[39m   })\u001b[33m;\u001b[39m\u001b[0m"
+                          },
+                          "errors": [
+                            {
+                              "location": {
+                                "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/history/functionality.spec.js",
+                                "column": 39,
+                                "line": 247
+                              },
+                              "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 3\u001b[39m\n\u001b[31m+ Received  + 3\u001b[39m\n\n\u001b[2m  Array [\u001b[22m\n\u001b[32m-   \"10/10\",\u001b[39m\n\u001b[32m-   \"10/10\",\u001b[39m\n\u001b[32m-   \"10/10\",\u001b[39m\n\u001b[2m    \"\",\u001b[22m\n\u001b[31m+   \"10/10\",\u001b[39m\n\u001b[2m    \"\",\u001b[22m\n\u001b[31m+   \"10/10\",\u001b[39m\n\u001b[2m    \"\",\u001b[22m\n\u001b[2m    \"\",\u001b[22m\n\u001b[31m+   \"10/10\",\u001b[39m\n\u001b[2m    \"\",\u001b[22m\n\u001b[2m    \"\",\u001b[22m\n\u001b[2m    \"\",\u001b[22m\n\u001b[2m  ]\u001b[22m\n\n\u001b[0m \u001b[90m 245 |\u001b[39m         \u001b[36mconst\u001b[39m orderAfterClick \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m getColumnValues(rows\u001b[33m,\u001b[39m i)\u001b[33m;\u001b[39m\n \u001b[90m 246 |\u001b[39m         \u001b[36mconst\u001b[39m sortedDescending \u001b[33m=\u001b[39m [\u001b[33m...\u001b[39morderAfterClick]\u001b[33m.\u001b[39msort((a\u001b[33m,\u001b[39m b) \u001b[33m=>\u001b[39m b\u001b[33m.\u001b[39mlocaleCompare(a))\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 247 |\u001b[39m         \u001b[36mawait\u001b[39m expect(orderAfterClick)\u001b[33m.\u001b[39mtoEqual(sortedDescending)\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                                       \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 248 |\u001b[39m       }\n \u001b[90m 249 |\u001b[39m     })\u001b[33m;\u001b[39m\n \u001b[90m 250 |\u001b[39m   })\u001b[33m;\u001b[39m\u001b[0m\n\n\u001b[2m    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/history/functionality.spec.js:247:39\u001b[22m"
+                            }
+                          ],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-11-26T12:06:45.476Z",
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-67c86-rting-Tests-Descending-sort-chromium/test-failed-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-67c86-rting-Tests-Descending-sort-chromium/video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-67c86-rting-Tests-Descending-sort-chromium/trace.zip"
+                            }
+                          ],
+                          "errorLocation": {
+                            "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/history/functionality.spec.js",
+                            "column": 39,
+                            "line": 247
+                          }
+                        }
+                      ],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "1a8d286449e509ec0efb-2358997ee1f26ccfbd49",
+                  "file": "admin/landingPage/mainPage/sideBar/conversations/history/functionality.spec.js",
+                  "line": 233,
+                  "column": 5
+                }
+              ]
+            },
+            {
+              "title": "Drawer tests",
+              "file": "admin/landingPage/mainPage/sideBar/conversations/history/functionality.spec.js",
+              "line": 252,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "Clicking on view button should open drawer and close button should close it",
+                  "ok": false,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [
+                        {
+                          "type": "repository",
+                          "description": "Buerokratt-Chatbot"
+                        },
+                        {
+                          "type": "fail",
+                          "description": "Add aria-label to close button for better accessibility"
+                        }
+                      ],
+                      "expectedStatus": "failed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 4,
+                          "status": "passed",
+                          "duration": 6279,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-11-26T12:06:48.070Z",
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-9af5f-lose-button-should-close-it-chromium/test-failed-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-9af5f-lose-button-should-close-it-chromium/video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-9af5f-lose-button-should-close-it-chromium/trace.zip"
+                            }
+                          ]
+                        },
+                        {
+                          "workerIndex": 5,
+                          "status": "interrupted",
+                          "duration": 6273,
+                          "error": {
+                            "message": "Error: end of central directory record signature not found",
+                            "stack": "Error: end of central directory record signature not found"
+                          },
+                          "errors": [
+                            {
+                              "message": "Error: end of central directory record signature not found"
+                            }
+                          ],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 1,
+                          "startTime": "2024-11-26T12:06:55.499Z",
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-9af5f-lose-button-should-close-it-chromium-retry1/test-failed-1.png"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "unexpected"
+                    }
+                  ],
+                  "id": "1a8d286449e509ec0efb-32885c73fa2fa53bd16e",
+                  "file": "admin/landingPage/mainPage/sideBar/conversations/history/functionality.spec.js",
+                  "line": 253,
+                  "column": 5
                 }
               ]
             }
@@ -194,11 +755,11 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2024-11-26T11:40:11.196Z",
-    "duration": 42359.013,
-    "expected": 2,
-    "skipped": 0,
-    "unexpected": 0,
+    "startTime": "2024-11-26T12:06:19.118Z",
+    "duration": 44483.456999999995,
+    "expected": 8,
+    "skipped": 1,
+    "unexpected": 2,
     "flaky": 0
   }
 }

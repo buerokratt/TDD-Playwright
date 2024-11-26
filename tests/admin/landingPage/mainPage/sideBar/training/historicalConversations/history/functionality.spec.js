@@ -85,6 +85,32 @@ test.describe('Training-Module', () => {
     });
 
 
+    test('Test table elements count based on selected pagination', async ({ page }) => {
+
+      const paginationSelect = await page.getByRole('combobox', { name: `${translation.resultCount}`, exact: true });
+      const rows = page.locator('table tbody tr');
+
+      const datepickerStart = await page.locator(`.datepicker`, { exact: true }).nth(0);
+      const datepickerEnd = await page.locator(`.datepicker`, { exact: true }).nth(1);
+      await expect(datepickerStart).toBeVisible();
+      await expect(datepickerEnd).toBeVisible();
+
+      const startInput = datepickerStart.locator('input').first();
+      const endInput = datepickerEnd.locator('input').first();
+
+      await startInput.fill('01.01.2000');
+      await endInput.fill('31.12.2030');
+
+      const paginationOptions = [10, 20, 30, 40, 50];
+
+      for (const option of paginationOptions) {
+        await paginationSelect.selectOption(`${option}`);
+        await page.waitForTimeout(1000);
+        const rowsCount = await rows.count();
+        await expect(rowsCount).toBeLessThanOrEqual(option);
+      }
+    });
+
     test('Test Dropdown render table based on selected option/options (1 option selected)', async ({ page }) => {
       const tableHeaders = page.locator('table thead tr th');
       await expect(await tableHeaders.count()).toBe(12);
@@ -132,6 +158,58 @@ test.describe('Training-Module', () => {
       const renderedHeaderEndTimeText = await tableHeaders.nth(1).textContent();
       expect(renderedHeaderEndTimeText).toBe(selectedOptionEndTimeText);
     });
+
+
+    test('Test Dropdown render table based on selected option/options (5 options selected)', async ({ page }) => {
+      const tableHeaders = page.locator('table thead tr th');
+      await expect(await tableHeaders.count()).toBe(12);
+
+      const dropdown = await page.locator('.select');
+      await expect(dropdown).toBeVisible();
+      await dropdown.click();
+
+      // select options
+      const selectedOptionStartTime = await page.getByRole('option', { name: `${translation.startTime}` });
+      const selectedOptionEndTime = await page.getByRole('option', { name: `${translation.endTime}` });
+      const selectedOptionSupportName = await page.getByRole('option', { name: `${translation.customerSupportName}` });
+      const selectedOptionIdCode = await page.getByRole('option', { name: `${translation.idCode}` });
+      const selectedOptionContact = await page.getByRole('option', { name: `${translation.contact}` });
+
+
+
+      const selectedOptionStartTimeText = await selectedOptionStartTime.textContent();
+      const selectedOptionEndTimeText = await selectedOptionEndTime.textContent();
+      const selectedOptionSupportNameText = await selectedOptionSupportName.textContent();
+      const selectedOptionIdCodeText = await selectedOptionIdCode.textContent();
+      const selectedOptionContactText = await selectedOptionContact.textContent();
+
+      await selectedOptionStartTime.click();
+      await selectedOptionEndTime.click();
+      await selectedOptionSupportName.click();
+      await selectedOptionIdCode.click();
+      await selectedOptionContact.click();
+
+      await page.waitForTimeout(1000)
+
+      const headerCount = await tableHeaders.count();
+      expect(headerCount).toBe(5);
+
+      const renderedHeaderStartTimeText = await tableHeaders.first().textContent();
+      expect(renderedHeaderStartTimeText).toBe(selectedOptionStartTimeText);
+
+      const renderedHeaderEndTimeText = await tableHeaders.nth(1).textContent();
+      expect(renderedHeaderEndTimeText).toBe(selectedOptionEndTimeText);
+
+      const renderedHeaderSupportNameText = await tableHeaders.nth(2).textContent();
+      expect(renderedHeaderSupportNameText).toBe(selectedOptionSupportNameText);
+
+      const renderedHeaderIdCodeText = await tableHeaders.nth(3).textContent();
+      expect(renderedHeaderIdCodeText).toBe(selectedOptionIdCodeText);
+
+      const renderedHeaderContactText = await tableHeaders.nth(4).textContent();
+      expect(renderedHeaderContactText).toBe(selectedOptionContactText);
+    });
+
 
 
     // test.only('Should show correctly Selected (count) in dropdown based on selected items count', async ({ page }) => {

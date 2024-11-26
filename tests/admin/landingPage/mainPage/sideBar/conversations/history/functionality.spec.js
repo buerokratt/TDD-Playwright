@@ -2,11 +2,11 @@ const { test, expect } = require('@playwright/test');
 const { getTranslations } = require('@translation/languageDetector');
 import { getColumnValues } from '../../conversations/unanswered/helper.js';
 let translation;
-test.describe('Training-Module', () => {
+test.describe('Buerokratt-Chatbot', () => {
 
   test.beforeEach(async ({ page }) => {
-    test.info().annotations.push({ type: 'repository', description: 'Training-Module' });
-    await page.goto('https://admin.prod.buerokratt.ee/training/history/history');
+    test.info().annotations.push({ type: 'repository', description: 'Buerokratt-Chatbot' });
+    await page.goto('https://admin.prod.buerokratt.ee/chat/history');
     translation = await getTranslations(page);
     await page.waitForTimeout(3000);
   });
@@ -99,7 +99,7 @@ test.describe('Training-Module', () => {
       await selectedOption.click();
 
       const headerCount = await tableHeaders.count();
-      expect(headerCount).toBe(1);
+      expect(headerCount).toBe(2);
 
       const renderedHeaderText = await tableHeaders.first().textContent();
       expect(renderedHeaderText).toBe(selectedOptionText);
@@ -124,7 +124,7 @@ test.describe('Training-Module', () => {
       await selectedOptionEndTime.click();
 
       const headerCount = await tableHeaders.count();
-      expect(headerCount).toBe(2);
+      expect(headerCount).toBe(3);
 
       const renderedHeaderStartTimeText = await tableHeaders.first().textContent();
       expect(renderedHeaderStartTimeText).toBe(selectedOptionStartTimeText);
@@ -133,8 +133,58 @@ test.describe('Training-Module', () => {
       expect(renderedHeaderEndTimeText).toBe(selectedOptionEndTimeText);
     });
 
+    test('Test Dropdown render table based on selected option/options (5 options selected)', async ({ page }) => {
+      const tableHeaders = page.locator('table thead tr th');
+      await expect(await tableHeaders.count()).toBe(12);
 
-    test.only('Test table elements count based on selected pagination', async ({ page }) => {
+      const dropdown = await page.locator('.select');
+      await expect(dropdown).toBeVisible();
+      await dropdown.click();
+
+      // select options
+      const selectedOptionStartTime = await page.getByRole('option', { name: `${translation.startTime}` });
+      const selectedOptionEndTime = await page.getByRole('option', { name: `${translation.endTime}` });
+      const selectedOptionSupportName = await page.getByRole('option', { name: `${translation.customerSupportName}` });
+      const selectedOptionIdCode = await page.getByRole('option', { name: `${translation.idCode}` });
+      const selectedOptionContact = await page.getByRole('option', { name: `${translation.contact}` });
+
+
+
+      const selectedOptionStartTimeText = await selectedOptionStartTime.textContent();
+      const selectedOptionEndTimeText = await selectedOptionEndTime.textContent();
+      const selectedOptionSupportNameText = await selectedOptionSupportName.textContent();
+      const selectedOptionIdCodeText = await selectedOptionIdCode.textContent();
+      const selectedOptionContactText = await selectedOptionContact.textContent();
+
+      await selectedOptionStartTime.click();
+      await selectedOptionEndTime.click();
+      await selectedOptionSupportName.click();
+      await selectedOptionIdCode.click();
+      await selectedOptionContact.click();
+
+      await page.waitForTimeout(1000)
+
+      const headerCount = await tableHeaders.count();
+      expect(headerCount).toBe(6);
+
+      const renderedHeaderStartTimeText = await tableHeaders.first().textContent();
+      expect(renderedHeaderStartTimeText).toBe(selectedOptionStartTimeText);
+
+      const renderedHeaderEndTimeText = await tableHeaders.nth(1).textContent();
+      expect(renderedHeaderEndTimeText).toBe(selectedOptionEndTimeText);
+
+      const renderedHeaderSupportNameText = await tableHeaders.nth(2).textContent();
+      expect(renderedHeaderSupportNameText).toBe(selectedOptionSupportNameText);
+
+      const renderedHeaderIdCodeText = await tableHeaders.nth(3).textContent();
+      expect(renderedHeaderIdCodeText).toBe(selectedOptionIdCodeText);
+
+      const renderedHeaderContactText = await tableHeaders.nth(4).textContent();
+      expect(renderedHeaderContactText).toBe(selectedOptionContactText);
+    });
+
+
+    test('Test table elements count based on selected pagination', async ({ page }) => {
 
       const paginationSelect = await page.getByRole('combobox', { name: `${translation.resultCount}`, exact: true });
       const rows = page.locator('table tbody tr');
