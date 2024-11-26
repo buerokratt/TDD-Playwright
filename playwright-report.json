@@ -97,12 +97,12 @@
                 {
                   "workerIndex": 0,
                   "status": "passed",
-                  "duration": 14050,
+                  "duration": 15085,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2024-11-26T14:09:37.394Z",
+                  "startTime": "2024-11-26T14:28:11.154Z",
                   "attachments": [
                     {
                       "name": "trace",
@@ -123,27 +123,27 @@
       ]
     },
     {
-      "title": "admin/landingPage/mainPage/sideBar/conversations/pending/visibility.spec.js",
-      "file": "admin/landingPage/mainPage/sideBar/conversations/pending/visibility.spec.js",
+      "title": "admin/landingPage/mainPage/sideBar/conversations/pending/functionality.spec.js",
+      "file": "admin/landingPage/mainPage/sideBar/conversations/pending/functionality.spec.js",
       "column": 0,
       "line": 0,
       "specs": [],
       "suites": [
         {
-          "title": "Buerokratt-Chatbot In Process Chats",
-          "file": "admin/landingPage/mainPage/sideBar/conversations/pending/visibility.spec.js",
-          "line": 76,
+          "title": "Buerokratt-Chatbot New Chats",
+          "file": "admin/landingPage/mainPage/sideBar/conversations/pending/functionality.spec.js",
+          "line": 16,
           "column": 6,
           "specs": [],
           "suites": [
             {
-              "title": "Chat Metadata",
-              "file": "admin/landingPage/mainPage/sideBar/conversations/pending/visibility.spec.js",
-              "line": 123,
+              "title": "Chats take over",
+              "file": "admin/landingPage/mainPage/sideBar/conversations/pending/functionality.spec.js",
+              "line": 31,
               "column": 10,
               "specs": [
                 {
-                  "title": "should display metadata fields correctly",
+                  "title": "should move new chat in process chats when take over button clicked",
                   "ok": false,
                   "tags": [],
                   "tests": [
@@ -162,108 +162,112 @@
                         {
                           "workerIndex": 1,
                           "status": "failed",
-                          "duration": 21024,
+                          "duration": 17108,
                           "error": {
-                            "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('.active-chat__side-meta').getByText('End user email', { exact: true })\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.active-chat__side-meta').getByText('End user email', { exact: true })\u001b[22m\n",
-                            "stack": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('.active-chat__side-meta').getByText('End user email', { exact: true })\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.active-chat__side-meta').getByText('End user email', { exact: true })\u001b[22m\n\n    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/pending/visibility.spec.js:139:37",
+                            "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m1\u001b[39m\nReceived: \u001b[31m0\u001b[39m",
+                            "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m1\u001b[39m\nReceived: \u001b[31m0\u001b[39m\n    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/pending/functionality.spec.js:48:80",
                             "location": {
-                              "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/pending/visibility.spec.js",
-                              "column": 37,
-                              "line": 139
+                              "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/pending/functionality.spec.js",
+                              "column": 80,
+                              "line": 48
                             },
-                            "snippet": "\u001b[0m \u001b[90m 137 |\u001b[39m                 \u001b[32m`${translation.clientSupportName}`\u001b[39m\u001b[33m,\u001b[39m\n \u001b[90m 138 |\u001b[39m                 \u001b[32m`${translation.chatStartedAt}`\u001b[39m\u001b[33m,\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 139 |\u001b[39m                 \u001b[32m`${translation.device}`\u001b[39m\u001b[33m,\u001b[39m\n \u001b[90m     |\u001b[39m                                     \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 140 |\u001b[39m                 \u001b[32m`${translation.location}`\u001b[39m\n \u001b[90m 141 |\u001b[39m             ]\u001b[33m;\u001b[39m\n \u001b[90m 142 |\u001b[39m\u001b[0m"
+                            "snippet": "\u001b[0m \u001b[90m 46 |\u001b[39m             \u001b[36mawait\u001b[39m takeOverButton\u001b[33m.\u001b[39mclick()\n \u001b[90m 47 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 48 |\u001b[39m             \u001b[36mawait\u001b[39m expect(newChatsCount \u001b[33m-\u001b[39m \u001b[36mawait\u001b[39m buttonsBeforeInProcess\u001b[33m.\u001b[39mcount())\u001b[33m.\u001b[39mtoBe(\u001b[35m1\u001b[39m)\n \u001b[90m    |\u001b[39m                                                                                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 49 |\u001b[39m             \u001b[36mawait\u001b[39m expect(buttonsAfterInProcess\u001b[33m.\u001b[39mcount() \u001b[33m-\u001b[39m inProcessChatsCount)\u001b[33m.\u001b[39mtoBe(\u001b[35m1\u001b[39m)\n \u001b[90m 50 |\u001b[39m\n \u001b[90m 51 |\u001b[39m         })\u001b[33m;\u001b[39m\u001b[0m"
                           },
                           "errors": [
                             {
                               "location": {
-                                "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/pending/visibility.spec.js",
-                                "column": 37,
-                                "line": 139
+                                "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/pending/functionality.spec.js",
+                                "column": 80,
+                                "line": 48
                               },
-                              "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m\n\nLocator: locator('.active-chat__side-meta').getByText('End user email', { exact: true })\nExpected: visible\nReceived: <element(s) not found>\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.active-chat__side-meta').getByText('End user email', { exact: true })\u001b[22m\n\n\n\u001b[0m \u001b[90m 137 |\u001b[39m                 \u001b[32m`${translation.clientSupportName}`\u001b[39m\u001b[33m,\u001b[39m\n \u001b[90m 138 |\u001b[39m                 \u001b[32m`${translation.chatStartedAt}`\u001b[39m\u001b[33m,\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 139 |\u001b[39m                 \u001b[32m`${translation.device}`\u001b[39m\u001b[33m,\u001b[39m\n \u001b[90m     |\u001b[39m                                     \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 140 |\u001b[39m                 \u001b[32m`${translation.location}`\u001b[39m\n \u001b[90m 141 |\u001b[39m             ]\u001b[33m;\u001b[39m\n \u001b[90m 142 |\u001b[39m\u001b[0m\n\n\u001b[2m    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/pending/visibility.spec.js:139:37\u001b[22m"
-                            },
-                            {
-                              "message": "Error: file data stream has unexpected number of bytes"
-                            },
-                            {
-                              "message": "Error: end of central directory record signature not found"
+                              "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m1\u001b[39m\nReceived: \u001b[31m0\u001b[39m\n\n\u001b[0m \u001b[90m 46 |\u001b[39m             \u001b[36mawait\u001b[39m takeOverButton\u001b[33m.\u001b[39mclick()\n \u001b[90m 47 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 48 |\u001b[39m             \u001b[36mawait\u001b[39m expect(newChatsCount \u001b[33m-\u001b[39m \u001b[36mawait\u001b[39m buttonsBeforeInProcess\u001b[33m.\u001b[39mcount())\u001b[33m.\u001b[39mtoBe(\u001b[35m1\u001b[39m)\n \u001b[90m    |\u001b[39m                                                                                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 49 |\u001b[39m             \u001b[36mawait\u001b[39m expect(buttonsAfterInProcess\u001b[33m.\u001b[39mcount() \u001b[33m-\u001b[39m inProcessChatsCount)\u001b[33m.\u001b[39mtoBe(\u001b[35m1\u001b[39m)\n \u001b[90m 50 |\u001b[39m\n \u001b[90m 51 |\u001b[39m         })\u001b[33m;\u001b[39m\u001b[0m\n\n\u001b[2m    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/pending/functionality.spec.js:48:80\u001b[22m"
                             }
                           ],
                           "stdout": [],
                           "stderr": [],
                           "retry": 0,
-                          "startTime": "2024-11-26T14:09:52.555Z",
+                          "startTime": "2024-11-26T14:28:27.502Z",
                           "attachments": [
                             {
                               "name": "screenshot",
                               "contentType": "image/png",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-a79db-y-metadata-fields-correctly-chromium/test-failed-1.png"
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-b11fc-en-take-over-button-clicked-chromium/test-failed-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-b11fc-en-take-over-button-clicked-chromium/video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-b11fc-en-take-over-button-clicked-chromium/trace.zip"
                             }
                           ],
                           "errorLocation": {
-                            "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/pending/visibility.spec.js",
-                            "column": 37,
-                            "line": 139
+                            "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/pending/functionality.spec.js",
+                            "column": 80,
+                            "line": 48
                           }
                         },
                         {
                           "workerIndex": 2,
-                          "status": "interrupted",
-                          "duration": 3166,
+                          "status": "failed",
+                          "duration": 16443,
                           "error": {
-                            "message": "Error: page.waitForTimeout: Test ended.",
-                            "stack": "Error: page.waitForTimeout: Test ended.\n    at letQuestion (/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/unanswered/helper.js:38:16)\n    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/pending/visibility.spec.js:80:9",
+                            "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m1\u001b[39m\nReceived: \u001b[31m0\u001b[39m",
+                            "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m1\u001b[39m\nReceived: \u001b[31m0\u001b[39m\n    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/pending/functionality.spec.js:48:80",
                             "location": {
-                              "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/unanswered/helper.js",
-                              "column": 16,
-                              "line": 38
+                              "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/pending/functionality.spec.js",
+                              "column": 80,
+                              "line": 48
                             },
-                            "snippet": "\u001b[90m   at \u001b[39madmin/landingPage/mainPage/sideBar/conversations/unanswered/helper.js:38\n\n\u001b[0m \u001b[90m 36 |\u001b[39m     \u001b[36mconst\u001b[39m sendButton \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mgetByLabel(\u001b[32m'Saada'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 37 |\u001b[39m     \u001b[36mawait\u001b[39m sendButton\u001b[33m.\u001b[39mclick()\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 38 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForTimeout(\u001b[35m6000\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 39 |\u001b[39m\n \u001b[90m 40 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByPlaceholder(\u001b[32m'nimi@email.ee'\u001b[39m)\u001b[33m.\u001b[39mfill(\u001b[32m'asd@gmail.com'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 41 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByPlaceholder(\u001b[32m'+372 123 456'\u001b[39m)\u001b[33m.\u001b[39mfill(\u001b[32m'55675567'\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m"
+                            "snippet": "\u001b[0m \u001b[90m 46 |\u001b[39m             \u001b[36mawait\u001b[39m takeOverButton\u001b[33m.\u001b[39mclick()\n \u001b[90m 47 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 48 |\u001b[39m             \u001b[36mawait\u001b[39m expect(newChatsCount \u001b[33m-\u001b[39m \u001b[36mawait\u001b[39m buttonsBeforeInProcess\u001b[33m.\u001b[39mcount())\u001b[33m.\u001b[39mtoBe(\u001b[35m1\u001b[39m)\n \u001b[90m    |\u001b[39m                                                                                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 49 |\u001b[39m             \u001b[36mawait\u001b[39m expect(buttonsAfterInProcess\u001b[33m.\u001b[39mcount() \u001b[33m-\u001b[39m inProcessChatsCount)\u001b[33m.\u001b[39mtoBe(\u001b[35m1\u001b[39m)\n \u001b[90m 50 |\u001b[39m\n \u001b[90m 51 |\u001b[39m         })\u001b[33m;\u001b[39m\u001b[0m"
                           },
                           "errors": [
                             {
                               "location": {
-                                "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/unanswered/helper.js",
-                                "column": 16,
-                                "line": 38
+                                "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/pending/functionality.spec.js",
+                                "column": 80,
+                                "line": 48
                               },
-                              "message": "Error: page.waitForTimeout: Test ended.\n\n\u001b[90m   at \u001b[39madmin/landingPage/mainPage/sideBar/conversations/unanswered/helper.js:38\n\n\u001b[0m \u001b[90m 36 |\u001b[39m     \u001b[36mconst\u001b[39m sendButton \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mgetByLabel(\u001b[32m'Saada'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 37 |\u001b[39m     \u001b[36mawait\u001b[39m sendButton\u001b[33m.\u001b[39mclick()\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 38 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForTimeout(\u001b[35m6000\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 39 |\u001b[39m\n \u001b[90m 40 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByPlaceholder(\u001b[32m'nimi@email.ee'\u001b[39m)\u001b[33m.\u001b[39mfill(\u001b[32m'asd@gmail.com'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 41 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByPlaceholder(\u001b[32m'+372 123 456'\u001b[39m)\u001b[33m.\u001b[39mfill(\u001b[32m'55675567'\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\n\u001b[2m    at letQuestion (/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/unanswered/helper.js:38:16)\u001b[22m\n\u001b[2m    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/pending/visibility.spec.js:80:9\u001b[22m"
+                              "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m1\u001b[39m\nReceived: \u001b[31m0\u001b[39m\n\n\u001b[0m \u001b[90m 46 |\u001b[39m             \u001b[36mawait\u001b[39m takeOverButton\u001b[33m.\u001b[39mclick()\n \u001b[90m 47 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 48 |\u001b[39m             \u001b[36mawait\u001b[39m expect(newChatsCount \u001b[33m-\u001b[39m \u001b[36mawait\u001b[39m buttonsBeforeInProcess\u001b[33m.\u001b[39mcount())\u001b[33m.\u001b[39mtoBe(\u001b[35m1\u001b[39m)\n \u001b[90m    |\u001b[39m                                                                                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 49 |\u001b[39m             \u001b[36mawait\u001b[39m expect(buttonsAfterInProcess\u001b[33m.\u001b[39mcount() \u001b[33m-\u001b[39m inProcessChatsCount)\u001b[33m.\u001b[39mtoBe(\u001b[35m1\u001b[39m)\n \u001b[90m 50 |\u001b[39m\n \u001b[90m 51 |\u001b[39m         })\u001b[33m;\u001b[39m\u001b[0m\n\n\u001b[2m    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/pending/functionality.spec.js:48:80\u001b[22m"
                             }
                           ],
                           "stdout": [],
                           "stderr": [],
                           "retry": 1,
-                          "startTime": "2024-11-26T14:10:14.989Z",
+                          "startTime": "2024-11-26T14:28:46.463Z",
                           "attachments": [
                             {
                               "name": "screenshot",
                               "contentType": "image/png",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-a79db-y-metadata-fields-correctly-chromium-retry1/test-failed-1.png"
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-b11fc-en-take-over-button-clicked-chromium-retry1/test-failed-1.png"
                             },
                             {
                               "name": "video",
                               "contentType": "video/webm",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-a79db-y-metadata-fields-correctly-chromium-retry1/video.webm"
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-b11fc-en-take-over-button-clicked-chromium-retry1/video.webm"
                             },
                             {
                               "name": "trace",
                               "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-a79db-y-metadata-fields-correctly-chromium-retry1/trace.zip"
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-b11fc-en-take-over-button-clicked-chromium-retry1/trace.zip"
                             }
                           ],
                           "errorLocation": {
-                            "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/unanswered/helper.js",
-                            "column": 16,
-                            "line": 38
+                            "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/pending/functionality.spec.js",
+                            "column": 80,
+                            "line": 48
                           }
                         }
                       ],
                       "status": "unexpected"
                     }
                   ],
-                  "id": "55e6077353455e132c5b-ec7e9f006e0b4d971bce",
-                  "file": "admin/landingPage/mainPage/sideBar/conversations/pending/visibility.spec.js",
-                  "line": 124,
+                  "id": "0c5319451052bf13cce5-0b7c6d269cae41cefd04",
+                  "file": "admin/landingPage/mainPage/sideBar/conversations/pending/functionality.spec.js",
+                  "line": 32,
                   "column": 14
                 }
               ]
@@ -275,8 +279,8 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2024-11-26T14:09:36.653Z",
-    "duration": 42200.291,
+    "startTime": "2024-11-26T14:28:10.474Z",
+    "duration": 53395.417,
     "expected": 1,
     "skipped": 0,
     "unexpected": 1,
