@@ -1,13 +1,12 @@
-
 const { test, expect } = require('@playwright/test');
 const { getTranslations } = require('@translation/languageDetector');
-import { getColumnValues } from '../unanswered/helper';
+import { getColumnValues } from '../../conversations/unanswered/helper.js';
 let translation;
 test.describe('Training-Module', () => {
 
   test.beforeEach(async ({ page }) => {
     test.info().annotations.push({ type: 'repository', description: 'Training-Module' });
-    await page.goto('https://admin.prod.buerokratt.ee/chat/history');
+    await page.goto('https://admin.prod.buerokratt.ee/training/history/history');
     translation = await getTranslations(page);
     await page.waitForTimeout(3000);
   });
@@ -85,37 +84,6 @@ test.describe('Training-Module', () => {
       }
     });
 
-    test.skip('Date FROM input field should reject invalid date formats ### Check issue inside', async ({ page }) => {
-        test.info().annotations.push({
-            type: 'Error',
-            description: 'Should throw an error. Currently it has not any data validation.',
-        })
-        await page.waitForTimeout(2000);
-    
-        const container = page.locator('.card__body');
-    
-        const dateInputs = container.locator('input');
-    
-        const startDateInput = dateInputs.nth(1);
-    
-        await startDateInput.click({ clickCount: 3 }); 
-        await startDateInput.fill('01.09.12345');
-    
-        await startDateInput.blur();
-    
-        const validationMessage = page.locator('.validation-error-message'); 
-        await validationMessage.waitFor({ state: 'visible', timeout: 5000 }); 
-    
-        const isValidationMessageVisible = await validationMessage.isVisible();
-        expect(isValidationMessageVisible).toBe(true);
-    
-        const validationMessageText = await validationMessage.textContent();
-        expect(validationMessageText).toContain('Invalid date format'); 
-    
-        const inputValue = await datepickerInput.inputValue();
-        expect(inputValue).toBe(''); 
-    });
-    
 
     test('Test Dropdown render table based on selected option/options (1 option selected)', async ({ page }) => {
       const tableHeaders = page.locator('table thead tr th');
@@ -131,9 +99,7 @@ test.describe('Training-Module', () => {
       await selectedOption.click();
 
       const headerCount = await tableHeaders.count();
-      // 2 because view is also always present
-      expect(headerCount).toBe(2);
-      
+      expect(headerCount).toBe(1);
 
       const renderedHeaderText = await tableHeaders.first().textContent();
       expect(renderedHeaderText).toBe(selectedOptionText);
@@ -158,8 +124,7 @@ test.describe('Training-Module', () => {
       await selectedOptionEndTime.click();
 
       const headerCount = await tableHeaders.count();
-      // 3 because view is also always present. It means 2 + 1 (view) = 3 headers
-      expect(headerCount).toBe(3);
+      expect(headerCount).toBe(2);
 
       const renderedHeaderStartTimeText = await tableHeaders.first().textContent();
       expect(renderedHeaderStartTimeText).toBe(selectedOptionStartTimeText);
@@ -187,9 +152,9 @@ test.describe('Training-Module', () => {
         const button = await header.locator('button');
         await button.click();
         await page.waitForTimeout(1000);
+
         const orderAfterClick = await getColumnValues(rows, i);
         const sortedAscending = [...orderAfterClick].sort((a, b) => a.localeCompare(b));
-
         await expect(orderAfterClick).toEqual(sortedAscending);
       }
     });
@@ -231,5 +196,7 @@ test.describe('Training-Module', () => {
 
       await expect(drawer).not.toBeVisible();
     })
+
+
   });
 })

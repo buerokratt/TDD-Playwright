@@ -11,7 +11,7 @@
     "grepInvert": null,
     "maxFailures": 0,
     "metadata": {
-      "actualWorkers": 1
+      "actualWorkers": 4
     },
     "preserveOutput": "always",
     "reporter": [
@@ -96,57 +96,23 @@
               "results": [
                 {
                   "workerIndex": 0,
-                  "status": "interrupted",
-                  "duration": 1796,
-                  "error": {
-                    "message": "Error: locator.click: Test ended.\nCall log:\n  \u001b[2m- waiting for getByRole('button', { name: 'Jätka' })\u001b[22m\n\u001b[2m  -   locator resolved to <button type=\"button\" class=\"c-btn c-btn--primary\">Jätka</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m  -   waiting for element to be visible, enabled and stable\u001b[22m\n",
-                    "stack": "Error: locator.click: Test ended.\nCall log:\n  \u001b[2m- waiting for getByRole('button', { name: 'Jätka' })\u001b[22m\n\u001b[2m  -   locator resolved to <button type=\"button\" class=\"c-btn c-btn--primary\">Jätka</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m  -   waiting for element to be visible, enabled and stable\u001b[22m\n\n    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/.auth/auth.setup.js:25:55",
-                    "location": {
-                      "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/.auth/auth.setup.js",
-                      "column": 55,
-                      "line": 25
-                    },
-                    "snippet": "\u001b[0m \u001b[90m 23 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m'textbox'\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m'Isikukood'\u001b[39m })\u001b[33m.\u001b[39mclick()\u001b[33m;\u001b[39m\n \u001b[90m 24 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m'textbox'\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m'Isikukood'\u001b[39m })\u001b[33m.\u001b[39mfill(\u001b[32m'30303039914'\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 25 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m'button'\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m'Jätka'\u001b[39m })\u001b[33m.\u001b[39mclick()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                       \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 26 |\u001b[39m\n \u001b[90m 27 |\u001b[39m     \u001b[90m// Wait for the navigation to the authenticated page\u001b[39m\n \u001b[90m 28 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForURL(\u001b[32m'https://admin.prod.buerokratt.ee/chat/active'\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m"
-                  },
-                  "errors": [
-                    {
-                      "location": {
-                        "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/.auth/auth.setup.js",
-                        "column": 55,
-                        "line": 25
-                      },
-                      "message": "Error: locator.click: Test ended.\nCall log:\n  \u001b[2m- waiting for getByRole('button', { name: 'Jätka' })\u001b[22m\n\u001b[2m  -   locator resolved to <button type=\"button\" class=\"c-btn c-btn--primary\">Jätka</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m  -   waiting for element to be visible, enabled and stable\u001b[22m\n\n\n\u001b[0m \u001b[90m 23 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m'textbox'\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m'Isikukood'\u001b[39m })\u001b[33m.\u001b[39mclick()\u001b[33m;\u001b[39m\n \u001b[90m 24 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m'textbox'\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m'Isikukood'\u001b[39m })\u001b[33m.\u001b[39mfill(\u001b[32m'30303039914'\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 25 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m'button'\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m'Jätka'\u001b[39m })\u001b[33m.\u001b[39mclick()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                       \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 26 |\u001b[39m\n \u001b[90m 27 |\u001b[39m     \u001b[90m// Wait for the navigation to the authenticated page\u001b[39m\n \u001b[90m 28 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForURL(\u001b[32m'https://admin.prod.buerokratt.ee/chat/active'\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\n\u001b[2m    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/.auth/auth.setup.js:25:55\u001b[22m"
-                    }
-                  ],
+                  "status": "passed",
+                  "duration": 14343,
+                  "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2024-11-26T09:41:36.151Z",
+                  "startTime": "2024-11-26T10:13:03.641Z",
                   "attachments": [
-                    {
-                      "name": "screenshot",
-                      "contentType": "image/png",
-                      "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-.auth-auth.setup.js-authenticate-setup/test-failed-1.png"
-                    },
-                    {
-                      "name": "video",
-                      "contentType": "video/webm",
-                      "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-.auth-auth.setup.js-authenticate-setup/video.webm"
-                    },
                     {
                       "name": "trace",
                       "contentType": "application/zip",
                       "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-.auth-auth.setup.js-authenticate-setup/trace.zip"
                     }
-                  ],
-                  "errorLocation": {
-                    "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/.auth/auth.setup.js",
-                    "column": 55,
-                    "line": 25
-                  }
+                  ]
                 }
               ],
-              "status": "skipped"
+              "status": "expected"
             }
           ],
           "id": "f503efbbcff5c6fe97f9-912a85e5e9ef7f60a698",
@@ -157,37 +123,427 @@
       ]
     },
     {
-      "title": "admin/landingPage/mainPage/sideBar/conversations/history/DSL/generated.spec.js",
-      "file": "admin/landingPage/mainPage/sideBar/conversations/history/DSL/generated.spec.js",
+      "title": "admin/landingPage/mainPage/sideBar/conversations/history/functionality.spec.js",
+      "file": "admin/landingPage/mainPage/sideBar/conversations/history/functionality.spec.js",
       "column": 0,
       "line": 0,
       "specs": [],
       "suites": [
         {
-          "title": "Functionality Testing Suite",
-          "file": "admin/landingPage/mainPage/sideBar/conversations/history/DSL/generated.spec.js",
-          "line": 6,
+          "title": "Training-Module",
+          "file": "admin/landingPage/mainPage/sideBar/conversations/history/functionality.spec.js",
+          "line": 5,
           "column": 6,
-          "specs": [
+          "specs": [],
+          "suites": [
             {
-              "title": "should validate dropdown selection and table rendering",
-              "ok": true,
-              "tags": [],
-              "tests": [
+              "title": "Search functionality",
+              "file": "admin/landingPage/mainPage/sideBar/conversations/history/functionality.spec.js",
+              "line": 14,
+              "column": 8,
+              "specs": [
                 {
-                  "timeout": 30000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "chromium",
-                  "projectName": "chromium",
-                  "results": [],
-                  "status": "skipped"
+                  "title": "should filter results based on search input 1",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [
+                        {
+                          "type": "repository",
+                          "description": "Training-Module"
+                        }
+                      ],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 1,
+                          "status": "passed",
+                          "duration": 7004,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-11-26T10:13:19.344Z",
+                          "attachments": [
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-f4b22-lts-based-on-search-input-1-chromium/trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "1a8d286449e509ec0efb-d88d444999af8b25741a",
+                  "file": "admin/landingPage/mainPage/sideBar/conversations/history/functionality.spec.js",
+                  "line": 15,
+                  "column": 5
+                },
+                {
+                  "title": "should filter results based on search input 2",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [
+                        {
+                          "type": "repository",
+                          "description": "Training-Module"
+                        }
+                      ],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 2,
+                          "status": "passed",
+                          "duration": 7261,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-11-26T10:13:19.320Z",
+                          "attachments": [
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-7a513-lts-based-on-search-input-2-chromium/trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "1a8d286449e509ec0efb-8713d0b1737e70c9ff47",
+                  "file": "admin/landingPage/mainPage/sideBar/conversations/history/functionality.spec.js",
+                  "line": 28,
+                  "column": 5
+                },
+                {
+                  "title": "should filter results using date pickers",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [
+                        {
+                          "type": "repository",
+                          "description": "Training-Module"
+                        }
+                      ],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 3,
+                          "status": "passed",
+                          "duration": 9290,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-11-26T10:13:19.366Z",
+                          "attachments": [
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-718bc--results-using-date-pickers-chromium/trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "1a8d286449e509ec0efb-a55b3fbeef745e3fab71",
+                  "file": "admin/landingPage/mainPage/sideBar/conversations/history/functionality.spec.js",
+                  "line": 51,
+                  "column": 5
+                },
+                {
+                  "title": "Test Dropdown render table based on selected option/options (1 option selected)",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [
+                        {
+                          "type": "repository",
+                          "description": "Training-Module"
+                        }
+                      ],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 4,
+                          "status": "passed",
+                          "duration": 7231,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-11-26T10:13:19.366Z",
+                          "attachments": [
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-e4f52--options-1-option-selected--chromium/trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "1a8d286449e509ec0efb-62f41b78218ca6bd7e52",
+                  "file": "admin/landingPage/mainPage/sideBar/conversations/history/functionality.spec.js",
+                  "line": 88,
+                  "column": 5
+                },
+                {
+                  "title": "Test Dropdown render table based on selected option/options (2 options selected)",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [
+                        {
+                          "type": "repository",
+                          "description": "Training-Module"
+                        }
+                      ],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 1,
+                          "status": "passed",
+                          "duration": 5665,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-11-26T10:13:27.038Z",
+                          "attachments": [
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-9eb2b-options-2-options-selected--chromium/trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "1a8d286449e509ec0efb-491040af827987891b26",
+                  "file": "admin/landingPage/mainPage/sideBar/conversations/history/functionality.spec.js",
+                  "line": 108,
+                  "column": 5
                 }
-              ],
-              "id": "c38d3b59a803faba734e-0f5bedc92d399d8a515c",
-              "file": "admin/landingPage/mainPage/sideBar/conversations/history/DSL/generated.spec.js",
-              "line": 34,
-              "column": 10
+              ]
+            },
+            {
+              "title": "Sorting Tests",
+              "file": "admin/landingPage/mainPage/sideBar/conversations/history/functionality.spec.js",
+              "line": 144,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "Ascending sort",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [
+                        {
+                          "type": "repository",
+                          "description": "Training-Module"
+                        }
+                      ],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 4,
+                          "status": "passed",
+                          "duration": 18252,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-11-26T10:13:27.329Z",
+                          "attachments": [
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-25191-orting-Tests-Ascending-sort-chromium/trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "1a8d286449e509ec0efb-04bf3cd5f358c9d8a800",
+                  "file": "admin/landingPage/mainPage/sideBar/conversations/history/functionality.spec.js",
+                  "line": 145,
+                  "column": 5
+                },
+                {
+                  "title": "Descending sort",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [
+                        {
+                          "type": "repository",
+                          "description": "Training-Module"
+                        }
+                      ],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 2,
+                          "status": "passed",
+                          "duration": 19359,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-11-26T10:13:27.389Z",
+                          "attachments": [
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-c97c1-rting-Tests-Descending-sort-chromium/trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "1a8d286449e509ec0efb-9fc1643809d1aa8c22ee",
+                  "file": "admin/landingPage/mainPage/sideBar/conversations/history/functionality.spec.js",
+                  "line": 162,
+                  "column": 5
+                }
+              ]
+            },
+            {
+              "title": "Drawer tests",
+              "file": "admin/landingPage/mainPage/sideBar/conversations/history/functionality.spec.js",
+              "line": 181,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "Clicking on view button should open drawer and close button should close it",
+                  "ok": false,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [
+                        {
+                          "type": "repository",
+                          "description": "Training-Module"
+                        },
+                        {
+                          "type": "fail",
+                          "description": "Add aria-label to close button for better accessibility"
+                        }
+                      ],
+                      "expectedStatus": "failed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 3,
+                          "status": "passed",
+                          "duration": 5186,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-11-26T10:13:29.564Z",
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-e8f62-lose-button-should-close-it-chromium/test-failed-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-e8f62-lose-button-should-close-it-chromium/video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-e8f62-lose-button-should-close-it-chromium/trace.zip"
+                            }
+                          ]
+                        },
+                        {
+                          "workerIndex": 5,
+                          "status": "passed",
+                          "duration": 5183,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 1,
+                          "startTime": "2024-11-26T10:13:35.693Z",
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-e8f62-lose-button-should-close-it-chromium-retry1/test-failed-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-e8f62-lose-button-should-close-it-chromium-retry1/video.webm"
+                            },
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-e8f62-lose-button-should-close-it-chromium-retry1/trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "unexpected"
+                    }
+                  ],
+                  "id": "1a8d286449e509ec0efb-70c49328b202d97981fe",
+                  "file": "admin/landingPage/mainPage/sideBar/conversations/history/functionality.spec.js",
+                  "line": 182,
+                  "column": 5
+                }
+              ]
             }
           ]
         }
@@ -196,11 +552,11 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2024-11-26T09:41:35.580Z",
-    "duration": 2848.765,
-    "expected": 0,
-    "skipped": 2,
-    "unexpected": 0,
+    "startTime": "2024-11-26T10:13:02.968Z",
+    "duration": 44038.657,
+    "expected": 8,
+    "skipped": 0,
+    "unexpected": 1,
     "flaky": 0
   }
 }
