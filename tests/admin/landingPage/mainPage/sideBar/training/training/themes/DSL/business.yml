@@ -25,6 +25,7 @@ test:
               - value: "Add"
               - style: button
               - disabled: true
+              - extraLocator: first()
 
     selectedTab:
       - name: vertical-tabs__body

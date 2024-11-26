@@ -17,6 +17,7 @@ test:
               args:
                   - type: dropdown
                   - style: select
+                  - additionalSelector: first()
 
           track:
             paragraph:

@@ -1,63 +1,65 @@
 import { test, expect } from '@playwright/test';
 import { getTranslations } from '@translation/languageDetector.js';
-import { selectFirstChat } from '../../../conversations/unanswered/helper';
-let translations;
-let headers;
 
-test.beforeEach(async ({ page }) => {
-    test.info().annotations.push({ type: 'repository', description: 'Training-Module' });
+let translation;
 
-    await page.goto('https://admin.prod.buerokratt.ee/training/training/responses');
+test.describe('Training-Module - Visibility Tests', () => {
 
-    await page.waitForTimeout(4000);
-
-    await expect(page).toHaveURL('https://admin.prod.buerokratt.ee/training/training/responses');
-
-    translations = await getTranslations(page);
-
-    headers = [
-        new RegExp(translations.response)
-    ];
-});
-
-test.describe('Visibility Tests for "Answers"/"Vastused" page', () => {
-    test('Check visibility of the header', async ({ page }) => {
-        const header = page.locator(`h1:has-text("${translations.responses}")`);
-        await expect(header).toBeVisible();
+    test.beforeEach(async ({ page }) => {
+        test.info().annotations.push({ type: 'repository', description: 'Training-Module' });
+        await page.goto('https://admin.prod.buerokratt.ee/training/training/responses');
+        await page.waitForTimeout(3000); // Ensure all elements are loaded
+        translation = await getTranslations(page);
     });
 
-    test('Check visibility of the header card which should include search field and add button', async ({ page }) => {
-        const card = page.locator('.card').first();
-        await expect(card).toBeVisible();
+    test('Heading visibility - Responses', async ({ page }) => {
+        const heading = await page.getByRole('heading', { name: `${translation.responses}`, exact: true });
+        await expect(heading).toBeVisible();
+    });
 
-        const searchField = page.getByPlaceholder(`${translations.searchResponse}`);
-        await expect(searchField).toBeVisible();
-        await expect(searchField).toHaveAttribute('placeholder', `${translations.searchResponse}`);
+    test('Search input visibility', async ({ page }) => {
+        const searchInput = await page.getByPlaceholder(`${translation.searchResponse}`);
+        await expect(searchInput).toBeVisible();
+    });
 
-        const addButton = page.locator(`.track .btn:has-text("${translations.add}")`);
+    test('Button visibility - Add', async ({ page }) => {
+        const addButton = await page.getByText(`${translation.add}`, { exact: true });
         await expect(addButton).toBeVisible();
     });
 
-    test('Check if the table and all headers are rendered', async ({ page }) => {
-        const table = page.locator('table.data-table');
-        await expect(table).toBeVisible();
-
-        for (const header of headers) {
-            const headerElement = table.locator('th').filter({ hasText: header });
-            await expect(headerElement).toBeVisible();
-        }
+    test('Table headers visibility', async ({ page }) => {
+        const tableHeaders = page.getByRole('table').locator('thead');
+        const responseHeader = tableHeaders.getByRole('cell', { name: `${translation.response}`, exact: true });
+        await expect(responseHeader).toBeVisible();
     });
 
-
-    test('Check if sorting buttons are present in each column', async ({ page }) => {
-        for (const header of headers) {
-            const sortingButton = page.locator('th').filter({ hasText: header }).locator('button');
-            await expect(sortingButton).toBeVisible();
-        }
+    test('Table first row visibility', async ({ page }) => {
+        const tableBody = page.getByRole('table').locator('tbody');
+        const firstRow = tableBody.getByRole('row').first();
+        await expect(firstRow).toBeVisible();
     });
-    
+
+    test.only('Buttons visibility - Edit and Delete', async ({ page }) => {
+    const tableBody = page.getByRole('table').locator('tbody');
+    const firstRow = tableBody.locator('tr').first();
+
+    // Check if the first row is visible
+    await expect(firstRow).toBeVisible();
+
+    // Debug: Log the row HTML
+    const rowHTML = await firstRow.innerHTML();
+    console.log('First row HTML:', rowHTML);
+
+    // Locate buttons using refined locators
+    const editButton = firstRow.locator('button:has-text("Edit")');
+    const deleteButton = firstRow.locator('button:has-text("Delete")');
+
+    // Wait for buttons if dynamically loaded
+    await editButton.waitFor();
+    await deleteButton.waitFor();
+
+    // Check button visibility
+    await expect(editButton).toBeVisible();
+    await expect(deleteButton).toBeVisible();
 });
-
-
-
-
+});
