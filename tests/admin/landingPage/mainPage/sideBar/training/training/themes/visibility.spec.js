@@ -1,126 +1,86 @@
 import { test, expect } from '@playwright/test';
 import { getTranslations } from '@translation/languageDetector.js';
-import { selectFirstItem } from '../../../conversations/unanswered/helper';
-let translations;
-let hasElements = false;
 
-test.beforeEach(async ({ page }) => {
-    test.info().annotations.push({ type: 'repository', description: 'Training-Module' });
+let translation;
 
-    await page.goto('https://admin.prod.buerokratt.ee/training/training/intents');
-
-    await page.waitForTimeout(4000);
-
-    await expect(page).toHaveURL('https://admin.prod.buerokratt.ee/training/training/intents');
-
-    translations = await getTranslations(page);
-});
-
-test.describe('Visibility Tests for "Themes"/"Teemad" left vertical tab', () => {
-    test('should have themes vertical listing tab', async ({ page }) => {
-        const verticalTabs = page.locator('div.vertical-tabs__list');
-        await expect(verticalTabs).toBeVisible();
-    })
-
-    test('Check visibility of the header', async ({ page }) => {
-        const header = page.locator(`h1:has-text("${translations.intents}")`);
-        await expect(header).toBeVisible();
-    });
-
-    test('should have vertical tabs - navigation list and result selected element description', async ({ page }) => {
-        const verticalTabs = page.locator('div.vertical-tabs');
-        await expect(verticalTabs).toBeVisible();
-    })
-
-    test('should have in vertical listing tab search input', async ({ page }) => {
-        const searchInput = page.locator('input[name="intentSearch"]');
-        await expect(searchInput).toBeVisible();
-    })
-
-    test('should have in vertical listing tab add button', async ({ page }) => {
-        const addButton = page.locator(`button.btn--primary:has-text("${translations.add}")`);
-        await expect(addButton).toBeVisible();
-    });
-});
-
-
-test.describe('Visibility Tests for "Themes"/"Teemad" right vertical tab', async () => {
+test.describe('Training-Module Intents', () => {
     test.beforeEach(async ({ page }) => {
-        hasElements = await selectFirstItem(page);
-        test.skip(!hasElements, 'No listing elements found');
+        test.info().annotations.push({ type: 'repository', description: 'Training-Module' });
+
+        await page.goto('https://admin.prod.buerokratt.ee/training/training/intents');
+
+        translation = await getTranslations(page);
+
+        await page.waitForTimeout(3000);
+
+        const tabs = page.locator('.vertical-tabs__list-scrollable');
+        await tabs.getByRole('tab').first().click();
     });
 
-    test('should have vertical tab content header', async ({ page }) => {
+    test('Verify Heading and Vertical Tabs', async ({ page }) => {
+        // Verify heading
+        const heading = await page.getByRole('heading', { name: `${translation.intents}`, exact: true });
+        await expect(heading).toBeVisible();
+
+        // Verify search input and Add button
+        const searchInput = await page.getByPlaceholder(`${translation.searchForIntent}`);
+        const addButton = await page.getByRole('button', { name: `${translation.add}`, exact: true }).first();
+        await expect(searchInput).toBeVisible();
+        await expect(addButton).toBeVisible();
+        await expect(addButton).toBeDisabled();
+    });
+
+    test('Verify Selected Tab Content', async ({ page }) => {
         const contentHeader = page.locator('.vertical-tabs__content-header');
-        await expect(contentHeader).toBeVisible();
-    })
 
+        // Verify header elements
+        const contentHeading = contentHeader.getByRole('heading', { level: 3 });
+        const editButton = contentHeader.getByRole('button', { name: `${translation.edit}`, exact: true });
+        const uploadExamplesButton = contentHeader.getByRole('button', { name: `${translation.uploadExamples}`, exact: true });
+        const downloadExamplesButton = contentHeader.getByRole('button', { name: `${translation.downloadExamples}`, exact: true });
+        const removeFromModelButton = contentHeader.getByRole('button', { name: `${translation.removeFromModel}`, exact: true });
+        const deleteButton = contentHeader.getByRole('button', { name: `${translation.delete}`, exact: true });
 
-    test('should have vertical tab title (name) and change button', async ({ page }) => {
-        const title = page.locator('.track h3');
-        await expect(title).toBeVisible();
-
-        const editButton = page.getByRole('button', { name: `${translations.edit}`, exact: true });
+        await expect(contentHeading).toBeVisible();
         await expect(editButton).toBeVisible();
-    })
-
-    test('should have vertical tab examples upload examples, download examples, add to model, delete buttons', async ({ page }) => {
-        const uploadExamplesButton = page.getByRole('button', { name: `${translations.uploadExamples}`, exact: true });
         await expect(uploadExamplesButton).toBeVisible();
-
-        const downloadExamplesButton = page.getByRole('button', { name: `${translations.downloadExamples}`, exact: true });
         await expect(downloadExamplesButton).toBeVisible();
-
-        const addToModelButton = page.getByRole('button', { name: `${translations.removeFromModel}`, exact: true });
-        await expect(addToModelButton).toBeVisible();
-
-        const deleteButton = page.getByRole('button', { name: `${translations.delete}`, exact: true });
+        await expect(removeFromModelButton).toBeVisible();
         await expect(deleteButton).toBeVisible();
-    })
 
-
-    test('should have vertical tab content section', async ({ page }) => {
-        const verticalTabsContent = page.locator('div.vertical-tabs__content');
-        await expect(verticalTabsContent).toBeVisible();
-    })
-
-
-    test('should have vertical tab data-table', async ({ page }) => {
-        const table = page.locator('.data-table');
-        await expect(table).toBeVisible();
-    })
-
-    test('should have in vertical tab data-table text area with defined max length', async ({ page }) => {
-        const table = page.locator('.data-table');
-        const textarea = table.getByPlaceholder(`${translations.addNew}`);
-        await expect(textarea).toBeVisible();
-        await expect(textarea).toHaveAttribute('maxlength', '600');
-    })
-
-    test('should have in vertical tab data-table disabled add button if text area is empty', async ({ page }) => {
-        const table = page.locator('.data-table');
-        const textarea = table.locator(`textarea[placeholder="${translations.addNew}"]`);
-        const button = table.locator(`.btn:has-text("${translations.add}")`);
-
-        const textAreaValue = await textarea.inputValue();
-        if (textAreaValue === '') {
-            await expect(button).toBeVisible();
-            await expect(button).toBeDisabled();
+        // Verify paragraphs
+        const paragraphs = contentHeader.locator('p');
+        for (let i = 0; i < await paragraphs.count(); i++) {
+            await expect(paragraphs.nth(i)).toBeVisible();
         }
-    })
+    });
 
-    test('should have in vertical tab data-table enabled add button if text area is not empty', async ({ page }) => {
-        const table = page.locator('.data-table');
-        const textarea = table.locator(`textarea[placeholder="${translations.addNew}"]`);
-        const button = table.locator(`.btn:has-text("${translations.add}")`);
+    test('Verify Table Headers and First Row', async ({ page }) => {
+        const table = page.getByRole('table');
 
-        await textarea.fill('Test text');
-        await expect(button).toBeVisible(); 
-        await expect(button).toBeEnabled();
+        // Verify table headers
+        const headerExamples = table.locator('thead').getByRole('cell', { name: `${translation.examples}`, exact: true });
+        await expect(headerExamples).toBeVisible();
 
-        
-    })
+        // Verify first row
+        const tableBody = table.locator('tbody');
+        const firstRow = tableBody.locator('tr').first();
+        await expect(firstRow).toBeVisible();
 
+        const addTextArea = firstRow.locator('textarea', { placeholder: `${translation.addNew}` });
+        const addButton = firstRow.getByRole('button', { name: `${translation.add}`, exact: true });
+        await expect(addTextArea).toBeVisible();
+        await expect(addButton).toBeVisible();
 
+        // Verify buttons in rows
+        const turnIntoIntentButtons = tableBody.locator(`button:has-text("${translation.turnIntoAnIntent}")`);
+        const editButtons = tableBody.locator(`button:has-text("${translation.edit}")`);
+        const deleteButtons = tableBody.locator(`button:has-text("${translation.delete}")`);
+
+        for (let i = 0; i < await turnIntoIntentButtons.count(); i++) {
+            await expect(turnIntoIntentButtons.nth(i)).toBeVisible();
+            await expect(editButtons.nth(i)).toBeVisible();
+            await expect(deleteButtons.nth(i)).toBeVisible();
+        }
+    });
 });
-

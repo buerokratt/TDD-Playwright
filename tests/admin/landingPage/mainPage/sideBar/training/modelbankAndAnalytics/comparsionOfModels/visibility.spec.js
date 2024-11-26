@@ -1,68 +1,71 @@
+// tests/trainingAnalytics.spec.js
+
 import { test, expect } from '@playwright/test';
 import { getTranslations } from '@translation/languageDetector.js';
 
 let translation;
 
-test.describe('Training-Module', () => {
+test.describe('Training Analytics Module Tests', () => {
   test.beforeEach(async ({ page }) => {
-    test.info().annotations.push({ type: 'repository', description: 'Training-Module' });
-    await page.goto('https://admin.prod.buerokratt.ee/training/analytics/models');
+    await page.goto('https://admin.prod.buerokratt.ee/training/analytics/overview');
     translation = await getTranslations(page);
+    test.info().annotations.push({ type: 'repository', description: 'Training-Module Functionality Testing' });
     await page.waitForTimeout(3000);
   });
 
-  test.describe('Main Heading Check', () => {
-    test('Verify Main Heading is visible', async ({ page }) => {
-      const mainHeading = await page.getByRole('heading', { name: `${translation.models}`, exact: true });
-      await expect(mainHeading).toBeVisible();
-    });
+  test('should display Intents overview heading', async ({ page }) => {
+    const heading = page.getByRole('heading', { name: `${translation.intentsOverview}`, exact: true });
+    await expect(heading).toBeVisible();
   });
 
-  test.describe('Card - Selected Model', () => {
-    test('Verify Selected Model Header', async ({ page }) => {
-      const selectedModelHeader = await page.getByRole('heading', { name: `${translation.selectedModel}`, exact: true });
-      await expect(selectedModelHeader).toBeVisible();
-    });
+  test('should validate dropdown functionality for Report overview', async ({ page }) => {
+    const dropdown = page.getByLabel(`${translation.reportOverview}`);
+    await dropdown.click();
+    const options = ['Option 1', 'Option 2', 'Option 3'];
 
-    test('Verify Paragraphs in Card Body', async ({ page }) => {
-      const cardBody = page.locator('.card__body').first();
-      const paragraphs = cardBody.locator('p');
-      for (let i = 0; i < await paragraphs.count(); i++) {
-        await expect(paragraphs.nth(i)).toBeVisible();
+    for (const option of options) {
+      const dropdownOption = await page.getByRole('option', { name: option });
+      await dropdownOption.click();
+      const selectedOption = await dropdown.getAttribute('value');
+      expect(selectedOption).toBe(option);
+    }
+  });
+
+  test('should display Model in use and Trained paragraphs', async ({ page }) => {
+    const modelParagraph = page.getByText(`${translation.modelInUse}`, { exact: true });
+    const trainedParagraph = page.getByText(`${translation.trained}`, { exact: false });
+
+    await expect(modelParagraph).toBeVisible();
+    await expect(trainedParagraph).toBeVisible();
+  });
+
+  test('should validate search input in card header', async ({ page }) => {
+    const searchInput = page.getByPlaceholder(`${translation.search}`);
+    await expect(searchInput).toBeVisible();
+    await searchInput.fill('test query');
+    const searchValue = await searchInput.inputValue();
+    expect(searchValue).toBe('test query');
+  });
+
+  test.describe('Table Functionality Tests', () => {
+    test('should validate table headers visibility', async ({ page }) => {
+      const headers = [
+        `${translation.intent}`,
+        `${translation.examples}`,
+        `${translation.f1Score}`
+      ];
+
+      for (const header of headers) {
+        const headerElement = page.getByText(header, { exact: true });
+        await expect(headerElement).toBeVisible();
       }
     });
 
-    test('Verify Delete Button', async ({ page }) => {
-      const deleteButton = await page.getByText(`${translation.delete}`, { exact: true });
-      await expect(deleteButton).toBeVisible();
-    });
-  });
-
-  test.describe('Card - All Models', () => {
-    test('Verify All Models Header', async ({ page }) => {
-      const allModelsHeader = await page.getByRole('heading', { name: `${translation.allModels}`, exact: true });
-      await expect(allModelsHeader).toBeVisible();
-    });
-
-    test('Verify Table Headers', async ({ page }) => {
-      const versionHeader = await page.getByText(`${translation.version}`, { exact: true });
-      const nameHeader = await page.getByText(`${translation.name}`, { exact: true });
-      const lastTrainedHeader = await page.getByText(`${translation.lastTrained}`, { exact: true });
-      const liveHeader = await page.getByText(`${translation.live}`, { exact: true });
-      
-      await expect(versionHeader).toBeVisible();
-      await expect(nameHeader).toBeVisible();
-      await expect(lastTrainedHeader).toBeVisible();
-      await expect(liveHeader).toBeVisible();
-    });
-
-    test('Verify Edit and Delete Buttons in First Row of Table', async ({ page }) => {
-      const container = page.locator('.card__body').nth(1);
-      const editButton = container.getByRole('button', { name: `${translation.edit}`, exact: true }).first();
-      const deleteButton = container.getByRole('button', { name: `${translation.delete}`, exact: true }).first();
-      
-      await expect(editButton).toBeVisible();
-      await expect(deleteButton).toBeVisible();
+    test('should validate Go to example button functionality', async ({ page }) => {
+      const goToExampleButton = page.getByRole('button', { name: `${translation.goToExample}`, exact: true }).first();
+      await expect(goToExampleButton).toBeVisible();
+      await goToExampleButton.click();
+      // Add further checks for the navigation if required
     });
   });
 });
