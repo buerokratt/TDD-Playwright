@@ -52,7 +52,7 @@ test.describe('Buerokratt-Chatbot New Chats', () => {
         });
 
 
-        test.only('Could Not Reach User button action should remove chat from chats list', async ({ page }) => {
+        test('Could Not Reach User button action should remove chat from chats list', async ({ page }) => {
             const inProcessHeader = await page.locator('.vertical-tabs__group-header', { hasText: `${translation.inProcess}` });
             const inProcessChats = await inProcessHeader.locator('xpath=following-sibling::button');
             const inProcessChatsCountBeforeButtonClick = await inProcessChats.count()
@@ -67,7 +67,7 @@ test.describe('Buerokratt-Chatbot New Chats', () => {
             await expect(inProcessChatsCountBeforeButtonClick - await inProcessChats.count()).toBe(1)
         });
 
-        test.only('Contacted user button action should remove chat from chats list', async ({ page }) => {
+        test('Contacted user button action should remove chat from chats list', async ({ page }) => {
             const inProcessHeader = await page.locator('.vertical-tabs__group-header', { hasText: `${translation.inProcess}` });
             const inProcessChats = await inProcessHeader.locator('xpath=following-sibling::button');
             const inProcessChatsCountBeforeButtonClick = await inProcessChats.count()
@@ -79,7 +79,55 @@ test.describe('Buerokratt-Chatbot New Chats', () => {
             await contactedUserButton.click()
             await page.waitForTimeout(5000);
 
-            await expect(inProcessChatsCountBeforeButtonClick - await inProcessChats.count()).toBe(1)
+            expect(inProcessChatsCountBeforeButtonClick - await inProcessChats.count()).toBe(1)
+        });
+
+
+        test.only('Contacted user button action should add to history', async ({ page }) => {
+            const inProcessHeader = await page.locator('.vertical-tabs__group-header', { hasText: `${translation.inProcess}` });
+            const newChats = await inProcessHeader.locator('xpath=preceding-sibling::button');
+            const inProcessChats = await inProcessHeader.locator('xpath=following-sibling::button');
+
+
+            if (newChats.first()) {
+                await newChats.first().click()
+            }
+
+            const takeOverButton = page.locator('.active-chat__toolbar').getByText(`${translation.takeOver}`, { exact: true });
+            await expect(takeOverButton).toBeVisible();
+            await takeOverButton.click()
+            await page.waitForTimeout(2000);
+            
+            if (inProcessChats.first()) {
+                await inProcessChats.first().click()
+            }
+
+            const chatMeta = page.locator('.active-chat__side-meta');
+            const chatId = await chatMeta
+                .locator(`p:has(strong:has-text("${translation.id}"))`)
+                .locator('xpath=following-sibling::p')
+                .innerText();
+
+            const contactedUserButton = page.locator('.active-chat__toolbar').getByText(`${translation.contactedUser}`, { exact: true });
+            await expect(contactedUserButton).toBeVisible();
+            await contactedUserButton.click()
+            await page.waitForTimeout(3000);
+
+            await page.goto('https://admin.prod.buerokratt.ee/chat/history');
+            await page.waitForTimeout(2000);
+            
+            const searchInput = await page.getByPlaceholder(`${translation.searchChats}`, { exact: true });
+            await searchInput.fill(chatId);
+            await page.waitForTimeout(1000);
+
+            const rows = page.locator('table tbody tr');
+            expect(await rows.count()).toBe(1);
+
+            const idRowCell = rows.first().locator('td').nth(10);
+            const idRowCellText = await idRowCell.textContent();
+            expect(chatId).toContain(idRowCellText);
+
+
         });
     });
 
