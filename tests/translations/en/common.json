@@ -121,6 +121,8 @@
     "pieChart": "Pie chart",
     "lineChart": "Line chart",
     "barChart": "Bar Chart",
+    "reply": "Reply...",
+    
     "completedStatusesNumberOfConversations": "Completed statuses / number of conversations",
     "feedbackOnBureaucratConversations": "Feedback on bureaucrat conversations",
     "feedbackOnAdvisorConversations": "Feedback on advisor conversations",
@@ -163,7 +165,7 @@
     "askedAuthentication": "Requested authentication",
     "askPermission": "Ask permission",
     "askedPermission": "Asked permission",
-    "askContactInformation": "Ask for contact",
+    "askForContact": "Ask for contact",
     "askedContactInformation": "Requested contact information",
     "contactInformation": "Contact information",
     "endChat": "End chat",

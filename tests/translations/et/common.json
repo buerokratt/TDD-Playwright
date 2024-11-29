@@ -245,5 +245,6 @@
     "searchForIntent": "Otsi teemat...",
     "anonymous": "Anonüümne",
     "chooseChatStatus": "Vali vestluse staatus",
-    "forward": "Suuna"
+    "forward": "Suuna",
+    "reply": "Vasta..."
 }

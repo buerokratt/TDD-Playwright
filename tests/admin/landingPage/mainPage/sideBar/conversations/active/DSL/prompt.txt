@@ -1,6 +1,17 @@
+Give me playwright tests based on the prompt and DSL.
+
+Import these 
+
+import { test, expect } from '@playwright/test';
+import { getTranslations } from '@translation/languageDetector.js';
+import {
+    turnSwitchOn,
+    provideData,
+    takeOverFirstChat
+} from 'tests/admin/landingPage/mainPage/sideBar/conversations/unanswered/helper.js';
+
 1. Locate Elements Using Classes:
     Use the specific classes mentioned in the DSL to find and interact with elements. For example:
-    vertical-tabs__body-placeholder: Represents the placeholder text when no chat is selected.
     vertical-tabs__group-header: Contains the header text for answered chats, which may display a dynamic count in parentheses.
     active-chat__group-wrapper Contains just chat.
     active-chat__toolbar: Contains action buttons like "Take Over."
@@ -13,7 +24,9 @@
 
 3. Setup Steps in beforeEach Hook:
     After navigating to the Unanswered chats page (page.goto) and waiting for elements to load, call specific helper functions to prepare the page for testing:
+    test.setTimeout(1800000);
     await page.goto('https://admin.prod.buerokratt.ee/chat/unanswered');
+    test.info().annotations.push({ type: 'repository', description: 'Buerokratt-Chatbot' });
     await turnSwitchOn(page); // Activate Present switch
     await provideData(); // Provide required data
     await takeOverFirstChat(page); // Take over the first chat
@@ -41,3 +54,8 @@ const responseSentRadio = element.getByText(`${translation.responseWasSentToClie
 8. Forward to colleague dialog opens after clicking on Forward to colleague button in active-chat__side-actions
 
 9. When getting the translations, use the full value in camelcase meaning don't skip any determiners
+
+10. When answering chat in functionality tests use this:
+const replyTextarea = page.getByPlaceholder(`${translation.reply}`);
+const lastMessage = page.locator('.active-chat__message-text').last();
+await expect(lastMessage).toHaveText(replyText, { timeout: 5000 });
