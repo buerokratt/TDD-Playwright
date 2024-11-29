@@ -11,7 +11,7 @@
     "grepInvert": null,
     "maxFailures": 0,
     "metadata": {
-      "actualWorkers": 1
+      "actualWorkers": 2
     },
     "preserveOutput": "always",
     "reporter": [
@@ -96,23 +96,66 @@
               "results": [
                 {
                   "workerIndex": 0,
-                  "status": "passed",
-                  "duration": 15085,
-                  "errors": [],
+                  "status": "timedOut",
+                  "duration": 31484,
+                  "error": {
+                    "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
+                    "stack": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+                  },
+                  "errors": [
+                    {
+                      "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+                    },
+                    {
+                      "location": {
+                        "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/.auth/auth.setup.js",
+                        "column": 16,
+                        "line": 28
+                      },
+                      "message": "Error: page.waitForURL: Test timeout of 30000ms exceeded.\n=========================== logs ===========================\nwaiting for navigation to \"https://admin.prod.buerokratt.ee/chat/active\" until \"load\"\n============================================================\n\n\u001b[0m \u001b[90m 26 |\u001b[39m\n \u001b[90m 27 |\u001b[39m     \u001b[90m// Wait for the navigation to the authenticated page\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 28 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForURL(\u001b[32m'https://admin.prod.buerokratt.ee/chat/active'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 29 |\u001b[39m\n \u001b[90m 30 |\u001b[39m     \u001b[90m// Save the authentication state\u001b[39m\n \u001b[90m 31 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mcontext()\u001b[33m.\u001b[39mstorageState({ path\u001b[33m:\u001b[39m authFile })\u001b[33m;\u001b[39m\u001b[0m\n\n\u001b[2m    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/.auth/auth.setup.js:28:16\u001b[22m"
+                    }
+                  ],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2024-11-26T14:28:11.154Z",
+                  "startTime": "2024-11-29T07:44:49.928Z",
                   "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-.auth-auth.setup.js-authenticate-setup/test-failed-1.png"
+                    },
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-.auth-auth.setup.js-authenticate-setup/video.webm"
+                    },
                     {
                       "name": "trace",
                       "contentType": "application/zip",
                       "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-.auth-auth.setup.js-authenticate-setup/trace.zip"
                     }
                   ]
+                },
+                {
+                  "workerIndex": 1,
+                  "status": "passed",
+                  "duration": 26640,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 1,
+                  "startTime": "2024-11-29T07:45:22.163Z",
+                  "attachments": [
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-.auth-auth.setup.js-authenticate-setup-retry1/trace.zip"
+                    }
+                  ]
                 }
               ],
-              "status": "expected"
+              "status": "flaky"
             }
           ],
           "id": "f503efbbcff5c6fe97f9-912a85e5e9ef7f60a698",
@@ -143,8 +186,8 @@
               "column": 10,
               "specs": [
                 {
-                  "title": "should move new chat in process chats when take over button clicked",
-                  "ok": false,
+                  "title": "Could Not Reach User button action should remove chat from chats list",
+                  "ok": true,
                   "tags": [],
                   "tests": [
                     {
@@ -160,114 +203,72 @@
                       "projectName": "chromium",
                       "results": [
                         {
-                          "workerIndex": 1,
-                          "status": "failed",
-                          "duration": 17108,
-                          "error": {
-                            "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m1\u001b[39m\nReceived: \u001b[31m0\u001b[39m",
-                            "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m1\u001b[39m\nReceived: \u001b[31m0\u001b[39m\n    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/pending/functionality.spec.js:48:80",
-                            "location": {
-                              "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/pending/functionality.spec.js",
-                              "column": 80,
-                              "line": 48
-                            },
-                            "snippet": "\u001b[0m \u001b[90m 46 |\u001b[39m             \u001b[36mawait\u001b[39m takeOverButton\u001b[33m.\u001b[39mclick()\n \u001b[90m 47 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 48 |\u001b[39m             \u001b[36mawait\u001b[39m expect(newChatsCount \u001b[33m-\u001b[39m \u001b[36mawait\u001b[39m buttonsBeforeInProcess\u001b[33m.\u001b[39mcount())\u001b[33m.\u001b[39mtoBe(\u001b[35m1\u001b[39m)\n \u001b[90m    |\u001b[39m                                                                                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 49 |\u001b[39m             \u001b[36mawait\u001b[39m expect(buttonsAfterInProcess\u001b[33m.\u001b[39mcount() \u001b[33m-\u001b[39m inProcessChatsCount)\u001b[33m.\u001b[39mtoBe(\u001b[35m1\u001b[39m)\n \u001b[90m 50 |\u001b[39m\n \u001b[90m 51 |\u001b[39m         })\u001b[33m;\u001b[39m\u001b[0m"
-                          },
-                          "errors": [
-                            {
-                              "location": {
-                                "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/pending/functionality.spec.js",
-                                "column": 80,
-                                "line": 48
-                              },
-                              "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m1\u001b[39m\nReceived: \u001b[31m0\u001b[39m\n\n\u001b[0m \u001b[90m 46 |\u001b[39m             \u001b[36mawait\u001b[39m takeOverButton\u001b[33m.\u001b[39mclick()\n \u001b[90m 47 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 48 |\u001b[39m             \u001b[36mawait\u001b[39m expect(newChatsCount \u001b[33m-\u001b[39m \u001b[36mawait\u001b[39m buttonsBeforeInProcess\u001b[33m.\u001b[39mcount())\u001b[33m.\u001b[39mtoBe(\u001b[35m1\u001b[39m)\n \u001b[90m    |\u001b[39m                                                                                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 49 |\u001b[39m             \u001b[36mawait\u001b[39m expect(buttonsAfterInProcess\u001b[33m.\u001b[39mcount() \u001b[33m-\u001b[39m inProcessChatsCount)\u001b[33m.\u001b[39mtoBe(\u001b[35m1\u001b[39m)\n \u001b[90m 50 |\u001b[39m\n \u001b[90m 51 |\u001b[39m         })\u001b[33m;\u001b[39m\u001b[0m\n\n\u001b[2m    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/pending/functionality.spec.js:48:80\u001b[22m"
-                            }
-                          ],
+                          "workerIndex": 2,
+                          "status": "passed",
+                          "duration": 24564,
+                          "errors": [],
                           "stdout": [],
                           "stderr": [],
                           "retry": 0,
-                          "startTime": "2024-11-26T14:28:27.502Z",
+                          "startTime": "2024-11-29T07:45:49.681Z",
                           "attachments": [
-                            {
-                              "name": "screenshot",
-                              "contentType": "image/png",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-b11fc-en-take-over-button-clicked-chromium/test-failed-1.png"
-                            },
-                            {
-                              "name": "video",
-                              "contentType": "video/webm",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-b11fc-en-take-over-button-clicked-chromium/video.webm"
-                            },
                             {
                               "name": "trace",
                               "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-b11fc-en-take-over-button-clicked-chromium/trace.zip"
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-fff74-remove-chat-from-chats-list-chromium/trace.zip"
                             }
-                          ],
-                          "errorLocation": {
-                            "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/pending/functionality.spec.js",
-                            "column": 80,
-                            "line": 48
-                          }
-                        },
-                        {
-                          "workerIndex": 2,
-                          "status": "failed",
-                          "duration": 16443,
-                          "error": {
-                            "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m1\u001b[39m\nReceived: \u001b[31m0\u001b[39m",
-                            "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m1\u001b[39m\nReceived: \u001b[31m0\u001b[39m\n    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/pending/functionality.spec.js:48:80",
-                            "location": {
-                              "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/pending/functionality.spec.js",
-                              "column": 80,
-                              "line": 48
-                            },
-                            "snippet": "\u001b[0m \u001b[90m 46 |\u001b[39m             \u001b[36mawait\u001b[39m takeOverButton\u001b[33m.\u001b[39mclick()\n \u001b[90m 47 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 48 |\u001b[39m             \u001b[36mawait\u001b[39m expect(newChatsCount \u001b[33m-\u001b[39m \u001b[36mawait\u001b[39m buttonsBeforeInProcess\u001b[33m.\u001b[39mcount())\u001b[33m.\u001b[39mtoBe(\u001b[35m1\u001b[39m)\n \u001b[90m    |\u001b[39m                                                                                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 49 |\u001b[39m             \u001b[36mawait\u001b[39m expect(buttonsAfterInProcess\u001b[33m.\u001b[39mcount() \u001b[33m-\u001b[39m inProcessChatsCount)\u001b[33m.\u001b[39mtoBe(\u001b[35m1\u001b[39m)\n \u001b[90m 50 |\u001b[39m\n \u001b[90m 51 |\u001b[39m         })\u001b[33m;\u001b[39m\u001b[0m"
-                          },
-                          "errors": [
-                            {
-                              "location": {
-                                "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/pending/functionality.spec.js",
-                                "column": 80,
-                                "line": 48
-                              },
-                              "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m1\u001b[39m\nReceived: \u001b[31m0\u001b[39m\n\n\u001b[0m \u001b[90m 46 |\u001b[39m             \u001b[36mawait\u001b[39m takeOverButton\u001b[33m.\u001b[39mclick()\n \u001b[90m 47 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 48 |\u001b[39m             \u001b[36mawait\u001b[39m expect(newChatsCount \u001b[33m-\u001b[39m \u001b[36mawait\u001b[39m buttonsBeforeInProcess\u001b[33m.\u001b[39mcount())\u001b[33m.\u001b[39mtoBe(\u001b[35m1\u001b[39m)\n \u001b[90m    |\u001b[39m                                                                                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 49 |\u001b[39m             \u001b[36mawait\u001b[39m expect(buttonsAfterInProcess\u001b[33m.\u001b[39mcount() \u001b[33m-\u001b[39m inProcessChatsCount)\u001b[33m.\u001b[39mtoBe(\u001b[35m1\u001b[39m)\n \u001b[90m 50 |\u001b[39m\n \u001b[90m 51 |\u001b[39m         })\u001b[33m;\u001b[39m\u001b[0m\n\n\u001b[2m    at /home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/pending/functionality.spec.js:48:80\u001b[22m"
-                            }
-                          ],
-                          "stdout": [],
-                          "stderr": [],
-                          "retry": 1,
-                          "startTime": "2024-11-26T14:28:46.463Z",
-                          "attachments": [
-                            {
-                              "name": "screenshot",
-                              "contentType": "image/png",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-b11fc-en-take-over-button-clicked-chromium-retry1/test-failed-1.png"
-                            },
-                            {
-                              "name": "video",
-                              "contentType": "video/webm",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-b11fc-en-take-over-button-clicked-chromium-retry1/video.webm"
-                            },
-                            {
-                              "name": "trace",
-                              "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-b11fc-en-take-over-button-clicked-chromium-retry1/trace.zip"
-                            }
-                          ],
-                          "errorLocation": {
-                            "file": "/home/danyilk/tdd/master/TDD-Playwright/tests/admin/landingPage/mainPage/sideBar/conversations/pending/functionality.spec.js",
-                            "column": 80,
-                            "line": 48
-                          }
+                          ]
                         }
                       ],
-                      "status": "unexpected"
+                      "status": "expected"
                     }
                   ],
-                  "id": "0c5319451052bf13cce5-0b7c6d269cae41cefd04",
+                  "id": "0c5319451052bf13cce5-2eeb85a8425647c32734",
                   "file": "admin/landingPage/mainPage/sideBar/conversations/pending/functionality.spec.js",
-                  "line": 32,
+                  "line": 55,
+                  "column": 14
+                },
+                {
+                  "title": "Contacted user button action should remove chat from chats list",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [
+                        {
+                          "type": "repository",
+                          "description": "Buerokratt-Chatbot"
+                        }
+                      ],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 3,
+                          "status": "passed",
+                          "duration": 25194,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-11-29T07:45:49.679Z",
+                          "attachments": [
+                            {
+                              "name": "trace",
+                              "contentType": "application/zip",
+                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-a7d13-remove-chat-from-chats-list-chromium/trace.zip"
+                            }
+                          ]
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "0c5319451052bf13cce5-6fe52f52944ebcd60a42",
+                  "file": "admin/landingPage/mainPage/sideBar/conversations/pending/functionality.spec.js",
+                  "line": 70,
                   "column": 14
                 }
               ]
@@ -279,11 +280,11 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2024-11-26T14:28:10.474Z",
-    "duration": 53395.417,
-    "expected": 1,
+    "startTime": "2024-11-29T07:44:49.364Z",
+    "duration": 86211.308,
+    "expected": 2,
     "skipped": 0,
-    "unexpected": 1,
-    "flaky": 0
+    "unexpected": 0,
+    "flaky": 1
   }
 }

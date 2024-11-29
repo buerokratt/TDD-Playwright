@@ -41,6 +41,7 @@ export async function letQuestion(page) {
     await page.getByPlaceholder('+372 123 456').fill('55675567');
     await page.getByPlaceholder('Täpsustage siin oma küsimust').fill('Kui suur on tulumaks?');
     await page.getByText('Kinnita').click();
+    await page.waitForTimeout(2000);
 }
 
 export async function provideData() {
