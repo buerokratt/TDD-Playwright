@@ -248,6 +248,7 @@
     "chooseChatStatus": "Choose chat status",
     "forward": "Forward",
     "couldNotReachUser": "Could Not Reach User",
-    "contactedUser": "Contacted User"
+    "contactedUser": "Contacted User",
+    "reply": "Reply..."
     
 }

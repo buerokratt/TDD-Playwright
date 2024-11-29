@@ -1,7 +1,3 @@
-// 1. Take over -> chat laheb in process sektsiooni
-
-// 2. In Process kui vajutad contacted user voi could not reach user siis peab vaatama , et historys on esimene element see sama chat
-
 import { test, expect } from '@playwright/test';
 import { getTranslations } from '@translation/languageDetector.js';
 import {

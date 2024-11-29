@@ -97,12 +97,12 @@
                 {
                   "workerIndex": 0,
                   "status": "passed",
-                  "duration": 21873,
+                  "duration": 22141,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2024-11-29T09:30:44.563Z",
+                  "startTime": "2024-11-29T11:55:30.147Z",
                   "attachments": [
                     {
                       "name": "trace",
@@ -123,76 +123,60 @@
       ]
     },
     {
-      "title": "admin/landingPage/mainPage/sideBar/conversations/pending/functionality.spec.js",
-      "file": "admin/landingPage/mainPage/sideBar/conversations/pending/functionality.spec.js",
+      "title": "admin/landingPage/mainPage/sideBar/conversations/unanswered/DSL/generatedTests.spec.js",
+      "file": "admin/landingPage/mainPage/sideBar/conversations/unanswered/DSL/generatedTests.spec.js",
       "column": 0,
       "line": 0,
       "specs": [],
       "suites": [
         {
-          "title": "Buerokratt-Chatbot New Chats",
-          "file": "admin/landingPage/mainPage/sideBar/conversations/pending/functionality.spec.js",
-          "line": 16,
+          "title": "Buerokratt-Chatbot Functionality Testing",
+          "file": "admin/landingPage/mainPage/sideBar/conversations/unanswered/DSL/generatedTests.spec.js",
+          "line": 13,
           "column": 6,
-          "specs": [],
-          "suites": [
+          "specs": [
             {
-              "title": "Chats take over",
-              "file": "admin/landingPage/mainPage/sideBar/conversations/pending/functionality.spec.js",
-              "line": 31,
-              "column": 10,
-              "specs": [
+              "title": "should not send more than 1 event message when ask authentication button is clicked",
+              "ok": true,
+              "tags": [],
+              "tests": [
                 {
-                  "title": "Contacted user button action should add to history",
-                  "ok": true,
-                  "tags": [],
-                  "tests": [
+                  "timeout": 40000,
+                  "annotations": [
                     {
-                      "timeout": 30000,
-                      "annotations": [
-                        {
-                          "type": "repository",
-                          "description": "Buerokratt-Chatbot"
-                        }
-                      ],
-                      "expectedStatus": "passed",
-                      "projectId": "chromium",
-                      "projectName": "chromium",
-                      "results": [
-                        {
-                          "workerIndex": 1,
-                          "status": "passed",
-                          "duration": 28741,
-                          "errors": [],
-                          "stdout": [
-                            {
-                              "text": "843a7795-dcd9-49d9-8a60-9b1aa0369de0\n"
-                            },
-                            {
-                              "text": "843a7795\n"
-                            }
-                          ],
-                          "stderr": [],
-                          "retry": 0,
-                          "startTime": "2024-11-29T09:31:07.275Z",
-                          "attachments": [
-                            {
-                              "name": "trace",
-                              "contentType": "application/zip",
-                              "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-0d4a5-ction-should-add-to-history-chromium/trace.zip"
-                            }
-                          ]
-                        }
-                      ],
-                      "status": "expected"
+                      "type": "repository",
+                      "description": "Buerokratt-Chatbot"
                     }
                   ],
-                  "id": "0c5319451052bf13cce5-d95a32c798c27356e54f",
-                  "file": "admin/landingPage/mainPage/sideBar/conversations/pending/functionality.spec.js",
-                  "line": 86,
-                  "column": 14
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "status": "passed",
+                      "duration": 10471,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-11-29T11:55:53.242Z",
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-417d9-ntication-button-is-clicked-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
                 }
-              ]
+              ],
+              "id": "20b58c729748b63d59c8-7f8ae0ee3e6deb5d0aae",
+              "file": "admin/landingPage/mainPage/sideBar/conversations/unanswered/DSL/generatedTests.spec.js",
+              "line": 198,
+              "column": 10
             }
           ]
         }
@@ -201,8 +185,8 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2024-11-29T09:30:43.900Z",
-    "duration": 52806.051,
+    "startTime": "2024-11-29T11:55:29.420Z",
+    "duration": 34702.506,
     "expected": 2,
     "skipped": 0,
     "unexpected": 0,

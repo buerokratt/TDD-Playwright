@@ -1,235 +1,295 @@
 import { test, expect } from '@playwright/test';
-import { openDialog, selectFirstChat, takeOverFirstChat } from '../unanswered/helper';
+import { getTranslations } from '@translation/languageDetector.js';
+import {
+    turnSwitchOn,
+    changeOpenHoursTo24and7,
+    provideData,
+    selectFirstItem,
+    
+} from './helper';
 
-// todo: cleaner path
-import {getTranslations} from '../../../../../../translations/languageDetector'
+let translation;
 
-let translations;
-
-test.beforeEach(async ({ page }) => {
-    await page.goto('https://admin.prod.buerokratt.ee/chat/unanswered');
-    // before each test should turn switch on.
-
-    const isSwitchButtonActive = await page.locator('.switch__button').getAttribute('aria-checked');
-    if (isSwitchButtonActive !== true) {
-        await page.locator('.switch__button').click();
-        await page.reload();
-        await page.waitForTimeout(2000);
-    }
-    translations = await getTranslations(page);
-
-})
-
-test('Check if clicking unanswered chat opens it',
-
-    async ({ page }) => {
-
-        const chatOpened = await selectFirstChat(page);
-        if (!chatOpened) return;
+test.describe('Buerokratt-Chatbot Functionality Testing', () => {
+    test.beforeEach(async ({ page }) => {
+        await page.goto('https://admin.prod.buerokratt.ee/chat/unanswered');
+        test.info().annotations.push({ type: 'repository', description: 'Buerokratt-Chatbot' }); 
+        await page.waitForTimeout(1000);
+        await turnSwitchOn(page);
+        await changeOpenHoursTo24and7();
+        await provideData();
+        await selectFirstItem(page);
+        translation = await getTranslations(page);
 
 
-        // Check that all chat parts exist
-        const chat = page.locator('div.active-chat__body');
-        await expect(chat).toBeVisible();
+    });
 
-        const chatHeader = page.locator('div.active-chat__header')
-        await expect(chatHeader).toBeVisible();
+    test('should display unanswered chats header with dynamic count', async ({ page }) => {
+        const header = page.locator('.vertical-tabs__group-header');
+        await expect(header).toHaveText(new RegExp(`${translation.unansweredChats}`));
+    });
 
-        const chatWrapper = page.locator('div.active-chat__group-wrapper')
-        await expect(chatWrapper).toBeVisible();
+    test('should display end chat dialog when end chat button clicked and interact with chat management actions', async ({ page }) => {
+        const toolbar = page.locator('.active-chat__toolbar');
+        const takeOverButton = toolbar.getByRole('button', { name: `${translation.takeOver}`, exact: true });
+        await expect(takeOverButton).toBeVisible();
+        await takeOverButton.click();
 
-        const chatToolbar = page.locator('div.active-chat__toolbar')
-        await expect(chatToolbar).toBeVisible();
+        const sideActions = page.locator('.active-chat__side-actions');
+        const endChatButton = sideActions.getByRole('button', { name: `${translation.endChat}`, exact: true });
+        const forwardToColleagueButton = sideActions.getByRole('button', { name: `${translation.forwardToColleague}`, exact: true });
 
-        const chatSide = page.locator('div.active-chat__side')
-        await expect(chatSide).toBeVisible();
+        await expect(endChatButton).toBeVisible();
+        await expect(forwardToColleagueButton).toBeVisible();
+        await endChatButton.click();
 
-        const chatSideActions = page.locator('div.active-chat__side-actions')
-        await expect(chatSideActions).toBeVisible();
+        const endChatDialog = page.locator('.dialog');
+        const endChatDialogHeader = page.locator('.dialog__header');
+        await expect(endChatDialogHeader).toContainText(`${translation.chooseChatStatus}`);
 
-        const chatSideMeta = page.locator('div.active-chat__side-meta')
-        await expect(chatSideMeta).toBeVisible();
+        const radioOption = await page.getByText(`${translation.acceptedResponse}`, { exact: true });
+        await radioOption.click();
 
-        const chatHeaderText = page.locator('div.track h3')
-        await expect(chatHeaderText).toBeVisible();
+        const cancelButton = page.locator('.dialog__footer').getByRole('button', { name: `${translation.cancel}`, exact: true });
+        const confirmEndChatButton = page.locator('.dialog__footer').getByRole('button', { name: `${translation.endChat}`, exact: true });
 
-        // Ensure that the chat header text is not empty
-        await expect(chatHeaderText).not.toHaveText('');
+        await expect(cancelButton).toBeVisible();
+        await expect(confirmEndChatButton).toBeVisible();
+
+        await confirmEndChatButton.click();
+        await expect(endChatDialog).not.toBeVisible();
+        const successMessage = page.locator('.toast--success');
+        await expect(successMessage).toBeVisible();
     });
 
 
 
-test('Should open dialog, when "Lõpeta vestlus" button is clicked', async ({ page }) => {
-    const chatOpened = await selectFirstChat(page);
-    
-    if (!chatOpened) return;
+    test('Should activate chat, when take over button is clicked', async ({ page }) => {
+        const takeOverButton = await page.getByRole('button', { name: `${translation.takeOver}`, exact: true });
+       
+        await expect(takeOverButton).toBeVisible();
+        await takeOverButton.click();
+        
+        const sideActionsButtons = page.locator('.active-chat__side-actions button');
+        const sideButtonsCount = await sideActionsButtons.count();
 
-    const isDialogVisible = await openDialog(page, translations.endChat);
-    expect(isDialogVisible).toBe(true);
-})
+        for (let i = 0; i < sideButtonsCount; i++) {
+            const button = sideActionsButtons.nth(i);
+            await expect(button).not.toHaveClass(/btn--disabled/);
+        }
 
-
-test('Should close dialog, when "Lõpeta vestlus" button is clicked', async ({ page }) => {
-    const chatOpened = await selectFirstChat(page);
-    // if (!chatOpened) return;
-
-    const isDialogVisible = await openDialog(page, translations.endChat);
-    expect(isDialogVisible).toBe(true);
-
-    const dialog = page.locator('.dialog--default');
-    const closeButton = dialog.getByRole('button', { name: translations.cancel });
-    await closeButton.click();
-    await expect(dialog).not.toBeVisible();
-    
-})    
-
-
-test('Should activate chat, when "Võta üle" button is clicked', async ({ page }) => {
-    await takeOverFirstChat(page);
-
-    const sideActionsButtons = page.locator('.active-chat__side-actions button');
-    const sideButtonsCount = await sideActionsButtons.count();
-
-    for (let i = 0; i < sideButtonsCount; i++) {
-        const button = sideActionsButtons.nth(i);
-        await expect(button).not.toHaveClass(/btn--disabled/);
-    }
-
-    await expect(page.locator('textarea#chatArea')).toBeVisible();
-    await expect(page.locator('#myButton')).toBeVisible();
-})
-
-
-
-test('Should be able to type text in chat input field', async ({ page }) => {
-    await takeOverFirstChat(page);
-
-    const textarea = page.locator('textarea#chatArea');
-    const inputValue = 'Test input value';
-    await textarea.fill(inputValue);
-    await expect(textarea).toHaveValue(inputValue);
-
-})
-
-
-test('Verify that text appears in chat after sending button clicked', async ({ page }) => {
-
-    await takeOverFirstChat(page);
-
-    const textArea = page.locator('#chatArea');
-    const message = 'Hello, this is a test message!';
-    await textArea.fill(message);
-
-    const sendButton = page.locator('#myButton');
-    await sendButton.click();
-    //await page.waitForEvent(1000);
-
-    const chatMessage = page.locator('.active-chat__message-text div').last();
-    await expect(chatMessage).toHaveText(message);
-});
-
-
-test('click "Küsi autentimist" button and verify chat event', async ({ page }) => {
-    await takeOverFirstChat(page);
-
-    // Click on the "Küsi autentimist" button
-    await page.click(`button.btn--secondary:has-text("${translations.askAuthentication}")`);
-
-    // Get all chat messages
-    const chatMessages = page.locator('div.active-chat__group.active-chat__group--event div.active-chat__event-message p');
-
-    // Get last chat message that should be asking for authentication
-    const lastMessage = chatMessages.last();
-
-
-    // Verify the chat event message content
-    await expect(lastMessage).toHaveText(new RegExp(translations.requestedAuthentication));
-});
-
-test('click "Küsi kontaktandmeid" button and verify chat event', async ({ page }) => {
-    await takeOverFirstChat(page);
-
-    // Click on the "Küsi autentimist" button
-    await page.click(`button.btn--secondary:has-text("${translations.askContactInformation}")`);
-
-    // Get all chat messages
-    const chatMessages = page.locator('div.active-chat__group.active-chat__group--event div.active-chat__event-message p');
-
-    // Get last chat message that should be asking for authentication
-    const lastMessage = chatMessages.last();
-
-    // Verify the chat event message content
-    await expect(lastMessage).toHaveText(new RegExp(translations.askedContactInformation));
-});
-
-
-test.skip('click "Küsi nõusolekut" button and verify chat event', async ({ page }) => {
-
-    test.info().annotations.push({
-        type: 'Error 500',
-        description: 'Running this test gives error 500 as response and thus is skipped for now.',
+        const textarea = page.getByPlaceholder(`${translation.reply}`, { exact: true });
+        const sendButton = page.locator('#myButton');
+        await expect(textarea).toBeVisible();
+        await expect(sendButton).toBeVisible();
     })
 
-    await takeOverFirstChat(page);
+
+    test('Should be able to type text in chat input field', async ({ page }) => {
+        const takeOverButton = await page.getByRole('button', { name: `${translation.takeOver}`, exact: true });
+        await expect(takeOverButton).toBeVisible();
+        await takeOverButton.click();
+
+        const textarea = page.getByPlaceholder(`${translation.reply}`, { exact: true });
+        await expect(textarea).toBeVisible();
+
+        const inputValue = 'Test input value';
+        await textarea.fill(inputValue);
+        await expect(textarea).toHaveValue(inputValue);
+    
+    })
 
 
-    await page.waitForTimeout(2000);
+    test('should handle forward to colleague functionality', async ({ page }) => {
+        const p = page.locator('header .track p');
+        const firstStrong1 = p.locator('strong').first();
 
-    // Click on the "Küsi nõusolekut" button
-    await page.click(`button.btn--secondary:has-text("${translations.askPermission}")`);
+        const forwardChat1 = page.getByText(`${translation.forwardToColleague}`)
+        await forwardChat1.click();
 
-    await page.waitForTimeout(2000);
+        const forwardButton = page.getByRole('button', { name: `${translation.forward}`, exact: true }).first();
 
-    // Get all chat messages
-    const chatMessages = page.locator('div.active-chat__group.active-chat__group--event div.active-chat__event-message p');
+        await forwardButton.click();
 
-    // Get last chat message that should be asking for authentication
-    const lastMessage = chatMessages.last();
+        const firstStrong2 = p.locator('strong').first();
 
-    // Verify the chat event message content
-    await expect(lastMessage).toHaveText(new RegExp(translations.askedPermission));
-});
+        await expect(firstStrong1).not.toBe(firstStrong2);
+
+    });
+
+    test('Verify that text appears in chat after sending button clicked', async ({ page }) => {
+
+        const takeOverButton = await page.getByRole('button', { name: `${translation.takeOver}`, exact: true });
+        await expect(takeOverButton).toBeVisible();
+        await takeOverButton.click();
+    
+        const textarea = page.getByPlaceholder(`${translation.reply}`, { exact: true });
+        await expect(textarea).toBeVisible();
+        const message = 'Hello, this is a test message!';
+        await textarea.fill(message);
+    
+        const sendButton = page.locator('#myButton');
+        await expect(sendButton).toBeVisible();
+        await sendButton.click();
+        await page.waitForTimeout(1000);
+    
+        const chatMessage = page.locator('.active-chat__message-text div').last();
+        await expect(chatMessage).toHaveText(message);
+    });
+
+    test('click ask authentication button and verify chat event', async ({ page }) => {
+        const takeOverButton = await page.getByRole('button', { name: `${translation.takeOver}`, exact: true });
+        await expect(takeOverButton).toBeVisible();
+        await takeOverButton.click();
+        
+        const askAuthenticationButton = await page.getByRole('button', { name: `${translation.askForAuthentication}`, exact: true });
+        await expect(askAuthenticationButton).toBeVisible();
+        await askAuthenticationButton.click();
+        await page.waitForTimeout(1000);
+
+        // Get all chat messages
+        const chatMessages = page.locator('.active-chat__event-message p');
+    
+        // Get last chat message that should be asking for authentication
+        const lastMessage = chatMessages.last();
+    
+        await expect(lastMessage).toHaveText(new RegExp(translation.requestedAuthentication));
+    });
+
+    test('click ask for contact information button and verify chat event', async ({ page }) => {
+        const takeOverButton = await page.getByRole('button', { name: `${translation.takeOver}`, exact: true });
+        await expect(takeOverButton).toBeVisible();
+        await takeOverButton.click();
+        
+        const askContactInfromationButton = await page.getByRole('button', { name: `${translation.askContactInformation}`, exact: true });
+        await expect(askContactInfromationButton).toBeVisible();
+        await askContactInfromationButton.click();
+        await page.waitForTimeout(1000);
+
+        // Get all chat messages
+        const chatMessages = page.locator('.active-chat__event-message p');
+    
+        // Get last chat message that should be asking for authentication
+        const lastMessage = chatMessages.last();
+    
+        await expect(lastMessage).toHaveText(new RegExp(translation.askedContactInformation));
+    });
+    
+
+    test('click ask permission button and verify chat event', async ({ page }) => {
+        const takeOverButton = await page.getByRole('button', { name: `${translation.takeOver}`, exact: true });
+        await expect(takeOverButton).toBeVisible();
+        await takeOverButton.click();
+        
+        const askPermissionButton = await page.getByRole('button', { name: `${translation.askPermission}`, exact: true });
+        await expect(askPermissionButton).toBeVisible();
+        await askPermissionButton.click();
+        await page.waitForTimeout(1000);
+
+        // Get all chat messages
+        const chatMessages = page.locator('.active-chat__event-message p');
+    
+        // Get last chat message that should be asking for authentication
+        const lastMessage = chatMessages.last();
+    
+        await expect(lastMessage).toHaveText(new RegExp(translation.askedPermission));
+    });
+
+    test('should not send more than 1 event message when ask authentication button is clicked', async ({ page }) => {
+        test.setTimeout(40000)
+        await testEventMessageCount(page, translation.askForAuthentication, translation.askedAuthentication);
+    });
+    
+    test('should not send more than 1 event message when ask for contact information button is clicked', async ({ page }) => {
+        test.setTimeout(40000)
+        await testEventMessageCount(page, translation.askContactInformation, translation.askedContactInformation);
+    });
+    
+    test('should not send more than 1 event message when ask permission button is clicked', async ({ page }) => {
+        test.setTimeout(40000)
+        await testEventMessageCount(page, translation.askPermission, translation.askedPermission);
+    });
+    
+
+    test('should validate table sorting and searching functionality', async ({ page }) => {
+        const forwardChat = page.getByText(`${translation.forwardToColleague}`)
+        await forwardChat.click();
+
+        const tableHeaders = page.locator('table thead tr th');
+        await expect(tableHeaders).toHaveCount(4);
+        const rows = page.locator('table tbody tr');
+
+        const headerCount = await tableHeaders.count();
+        for (let i = 0; i < headerCount - 1; i++) {
+            const header = tableHeaders.nth(i);
+            const button = header.locator('button').first();
+            await button.click();
+            await page.waitForTimeout(1000);
+
+            const ascendingOrder = await getColumnValues(rows, i);
+            const sortedAscending = [...ascendingOrder].sort((a, b) => a.localeCompare(b));
+            await expect(ascendingOrder).toEqual(sortedAscending);
+
+            await button.click();
+            await page.waitForTimeout(1000);
+
+            const descendingOrder = await getColumnValues(rows, i);
+            const sortedDescending = [...descendingOrder].sort((a, b) => b.localeCompare(a));
+            await expect(descendingOrder).toEqual(sortedDescending);
+        }
+
+        async function getColumnValues(rows, columnIndex) {
+            const values = [];
+            for (let i = 0; i < await rows.count(); i++) {
+                const row = rows.nth(i);
+                const cell = row.locator('td').nth(columnIndex);
+                values.push((await cell.innerText()).trim());
+            }
+            return values;
+        }
+    });
+
+    test('should validate search functionality in table', async ({ page }) => {
+        const forwardChat = page.getByText(`${translation.forwardToColleague}`);
+        await forwardChat.click();
+
+        const rows = page.locator('table tbody tr');
+        const headers = ['Name', 'Display name', 'Status'];
+
+        for (let i = 0; i < headers.length; i++) {
+
+            const searchInput = page.getByPlaceholder(`${translation.searchByName}`);
+            const firstRowValue = (await rows.first().locator('td').nth(0).innerText()).trim();
+
+            await searchInput.fill(firstRowValue);
+            await page.waitForTimeout(1000);
+
+            const filteredRowValue = (await rows.first().locator('td').nth(0).innerText()).trim();
+            await expect(filteredRowValue).toBe(firstRowValue);
+            await expect(await rows.count()).toBe(1)
+
+            await searchInput.fill('');
+            await page.waitForTimeout(1000);
+        }
+    });
 
 
-// Test cases
-test('should not send more than 1 event message when "Küsi autentimist" button is clicked', async ({ page }) => {
-    await testEventMessageCount(page, translations.askAuthentication, translations.askedAuthentication);
-});
-
-test('should not send more than 1 event message when "Küsi kontaktandmeid" button is clicked', async ({ page }) => {
-    await testEventMessageCount(page, translations.askContactInformation, translations.askedContactInformation);
-});
-
-test.skip('should not send more than 1 event message when "Küsi nõusolekut" button is clicked', async ({ page }) => {
-    await testEventMessageCount(page, translations.askPermission, translations.askedPermission);
-});
-
-
-// Helper function to test event message count increment
-async function testEventMessageCount(page, buttonText, messageText) {
-    await takeOverFirstChat(page);
-
-    // Get initial messages count
-    const initialMessageCount = await page.locator(`div.active-chat__group.active-chat__group--event div.active-chat__event-message p:has-text("${messageText}")`).count();
-
-    // Click on the button
-    await page.click(`button.btn--secondary:has-text("${buttonText}")`);
-
-    // Get the count of event messages after clicking the button
-    const finalMessageCount = await page.locator(`div.active-chat__group.active-chat__group--event div.active-chat__event-message p:has-text("${messageText}")`).count();
-
-    // Verify the chat event message content
-    await expect(finalMessageCount).toBe(initialMessageCount + 1);
+    async function testEventMessageCount(page, buttonText, messageText) {
+        const takeOverButton = await page.getByRole('button', { name: `${translation.takeOver}`, exact: true });
+        await expect(takeOverButton).toBeVisible();
+        await takeOverButton.click();
+    
+    
+        // Get initial messages count
+        const initialMessageCount = await page.locator(`.active-chat__event-message p:has-text("${messageText}")`).count();
+    
+        await page.getByRole('button', { name: `${buttonText}`, exact: true }).click();
+        
+        const finalMessageCount = await page.locator(`.active-chat__event-message p:has-text("${messageText}")`).count();
+    
+        await expect(finalMessageCount).toBe(initialMessageCount + 1);
+    }
 }
-
-
-
-
-
-
-
-
-
-
+);
 
 
