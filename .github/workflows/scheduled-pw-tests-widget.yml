@@ -1,8 +1,9 @@
 name: Scheduled Playwright Tests Widget
 
 on: 
-  schedule:
-    - cron: '0 0 * * *' # Scheduled to run at 00:00 UTC
+  workflow_dispatch:
+#  schedule:
+#    - cron: '0 0 * * *' # Scheduled to run at 00:00 UTC
 
 jobs:
   test:
