@@ -19,9 +19,12 @@ jobs:
           
       - name: Run Docker
         run: docker compose up -d
+
+      - name: Install dependencies
+        run: npm ci
         
       - name: Install Playwright Browsers
-        run: npm install @playwright/test && npx playwright install --with-deps
+        run: npx playwright install --with-deps
 
       - name: Determine test paths based on task description or title
         id: determine_test_paths
@@ -30,7 +33,7 @@ jobs:
           TASK_TITLE=${{ github.event.client_payload.task_title }}
 
           # Step 1: Try to extract a specific test file or folder path from task description
-          TEST_PATHS=$(echo "$TASK_DESCRIPTION" | grep -oP '/\S+\.spec\.ts')
+          TEST_PATHS=$(echo "$TASK_DESCRIPTION" | grep -oP '/\S+\.spec\.js')
           FOLDER_PATH=$(echo "$TASK_DESCRIPTION" | grep -oP '/\S+/')
 
           # If a specific test path is found in the task description, use it
