@@ -11,21 +11,19 @@ setup('authenticate', async ({ page }) => {
         fs.mkdirSync(path.dirname(authFile), { recursive: true });
     }
 
-    
-
     // Navigate to the login page
-    await page.goto('https://admin.prod.buerokratt.ee/en/log-in');
+    await page.goto('/');
 
     // Perform login steps
-    await page.getByRole('button', { name: 'enter via TARA' }).click();
+    await page.getByRole('button', { name: 'sisene TARA kaudu' }).click();
     await page.getByRole('link', { name: 'Smart-ID', exact: true }).click();
     await page.locator('.c-tab-login__nav-item').nth(2).click()
     await page.getByRole('textbox', { name: 'Isikukood' }).click();
-    await page.getByRole('textbox', { name: 'Isikukood' }).fill('30303039914');
+    await page.getByRole('textbox', { name: 'Isikukood' }).fill('61101012257');
     await page.getByRole('button', { name: 'Jätka' }).click();
 
     // Wait for the navigation to the authenticated page
-    await page.waitForURL('https://admin.prod.buerokratt.ee/chat/active');
+    await page.waitForURL('/chat/landing');
 
     // Save the authentication state
     await page.context().storageState({ path: authFile });
