@@ -6,9 +6,11 @@
   "scripts": {
     "test": "npx playwright test",
     "test:test": "cross-env ENV=test npx playwright test",
+    "test:test:smoke": "cross-env ENV=test npx playwright test --project setup --project smoke",
     "test:stage": "cross-env ENV=stage npx playwright test",
-    "test:debug": "cross-env ENV=test npx playwright test --debug",
-    "test:smoke": "cross-env ENV=test npx playwright test tests/**/*.smoke.js"
+    "test:stage:smoke": "cross-env ENV=stage npx playwright test --project setup --project smoke",
+    "test:test:debug": "cross-env ENV=test npx playwright test --debug",
+    "test:stage:debug": "cross-env ENV=stage npx playwright test --debug"
   },
   "keywords": [],
   "author": "",

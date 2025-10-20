@@ -1,51 +1,43 @@
-import { test, expect } from '@playwright/test';
+import { test } from '@playwright/test';
 import { URLS } from '../../playwright.config';
+import { WidgetPage } from "../../page-objects/widget/widget-page";
+const { AdminPageFactory: ap} = require('../../page-objects/admin-page-factory');
 
 test('Chat flow test', async ({ browser })=>{
+    // Setup
     const customerContext = await browser.newContext();
     const csaContext = await browser.newContext({
         storageState: 'tests/admin/.auth/user.json'
     });
 
-    const customerPage = await customerContext.newPage();
-    const csaPage = await csaContext.newPage();
+    const cPage = await customerContext.newPage();
+    const page = await csaContext.newPage();
 
     await Promise.all([
-        customerPage.goto(URLS.customer),
-        csaPage.goto(URLS.admin + 'chat/unanswered')
+        cPage.goto(URLS.customer),
+        page.goto(URLS.admin + 'chat/unanswered')
     ]);
 
-    const inputField = customerPage.getByPlaceholder('Kirjutage oma sõnum...');
-    const sendButton = customerPage.getByTitle('Saada');
+    const csaPage = new ap(page);
+    const customerPage = new WidgetPage(cPage);
+    // End Setup
 
-    const messages = [
-        { from: 'customer', text: 'tere'},
-        { from: 'customer', text: 'jah'},
-        { from: 'csa', text: 'tere'},
-    ];
+    await csaPage.getPageHeader().markCSAPresent();
 
-    if (await csaPage.getByRole('switch').getAttribute('data-state') === 'unchecked') {
-        await csaPage.getByRole('switch').click();
-    }
+    await cPage.bringToFront();
+    await customerPage.openChat();
+    await customerPage.getCSAChat();
 
-    await customerPage.bringToFront();
-    await customerPage.getByTitle('Ava vestlus').click();
-    await customerPage.getByText('Bürokratt').isVisible();
-    await inputField.fill('tere');
-    await sendButton.click();
-    await customerPage.getByText('Kuidas saan abiks olla?').isVisible();
-    await inputField.fill('suuna mind');
-    await sendButton.click();
-    await customerPage.getByText('Suunan teid klienditeenindajale. Varuge natukene kannatust.').isVisible();
 
-    await csaPage.bringToFront();
-    await customerPage.waitForTimeout(3000);
-    await csaPage.getByRole('tablist').getByRole('tab').last().click();
-    await csaPage.getByText('Võta üle').click();
+    await page.bringToFront();
+    await csaPage.getChats().acceptChat();
 
-    await csaPage.goto('https://admin.stage.buerokratt.ee/chat/active');
-    await csaPage.getByRole('tablist').getByRole('tab').isVisible();
+    await page.goto(URLS.admin + 'chat/active');
+    await page.getByRole('tablist').getByRole('tab').isVisible();
 
-    await customerPage.close();
+    await cPage.close();
     await customerContext.close();
+
+    await page.close();
+    await csaContext.close();
 });

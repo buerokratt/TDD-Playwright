@@ -1,17 +1,5 @@
 import { defineConfig, devices } from '@playwright/test';
 
-/**
- * Read environment variables from file.
- * https://github.com/motdotla/dotenv
- */
-// import dotenv from 'dotenv';
-// import path from 'path';
-// dotenv.config({ path: path.resolve(__dirname, '.env') });
-
-/**
- * See https://playwright.dev/docs/test-configuration.
- */
-
 const env = process.env.ENV || 'test';
 
 const baseURLs = {
@@ -28,6 +16,7 @@ const baseURLs = {
 const currentEnvURLs = baseURLs[env] || baseURLs.test;
 
 export default defineConfig({
+  timeout: 30000,
   testDir: './tests',
   /* Run tests in files in parallel */
   fullyParallel: false,
@@ -47,8 +36,12 @@ export default defineConfig({
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     baseURL: currentEnvURLs.admin,
     trace: 'on-first-retry',
-    //screenshot: 'only-on-failure'
-    screenshot: 'on'
+    screenshot: 'only-on-failure',
+    // screenshot: 'on',
+    reporter: process.env.CI ? 'dot' : [
+      ['list'],
+      ['html']
+    ],
   },
 
   /* Configure projects for major browsers */
@@ -56,6 +49,10 @@ export default defineConfig({
     {
       name: 'setup',
       testMatch: '**/*.setup.js',
+    },
+    {
+      name: 'smoke',
+      testMatch: '**/*.smoke.js',
     },
     {
       name: 'chromium',
