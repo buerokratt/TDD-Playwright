@@ -3,6 +3,16 @@ import { URLS } from '../../playwright.config';
 import { WidgetPage } from "../../page-objects/widget/widget-page";
 const { AdminPageFactory: ap} = require('../../page-objects/admin-page-factory');
 
+test.afterEach(async () => {
+    await page.on('console', msg => {
+        const errorPattern = /error|failed|uncaught|exception|typeerror|referenceerror|syntaxerror|rangeerror|evalerror|urlerror|is not defined|cannot read|undefined|null is not an object/i;
+
+        if (msg.type() === 'error' || errorPattern.test(msg.text())) {
+            console.log(`[${msg.type().toUpperCase()}] ${msg.text()}`);
+        }
+    });
+});
+
 test('Chat flow test', async ({ browser })=>{
     // Setup
     const customerContext = await browser.newContext();
@@ -18,6 +28,7 @@ test('Chat flow test', async ({ browser })=>{
         page.goto(URLS.admin + 'chat/unanswered')
     ]);
 
+    const str = randomString3();
     const csaPage = new ap(page);
     const customerPage = new WidgetPage(cPage);
     // End Setup
@@ -32,12 +43,8 @@ test('Chat flow test', async ({ browser })=>{
     await page.bringToFront();
     await csaPage.getChats().acceptChat();
 
-    await page.goto(URLS.admin + 'chat/active');
-    await page.getByRole('tablist').getByRole('tab').isVisible();
+    await page.getByRole('tablist', {name: 'Aktiivsed vestlused'}).isVisible();
+    await page.getByText('Lõpeta vestlus').isVisible();
 
-    await cPage.close();
-    await customerContext.close();
-
-    await page.close();
-    await csaContext.close();
+    await customerContext.clearCookies();
 });

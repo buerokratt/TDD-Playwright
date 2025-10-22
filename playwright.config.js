@@ -36,12 +36,12 @@ export default defineConfig({
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     baseURL: currentEnvURLs.admin,
     trace: 'on-first-retry',
-    screenshot: 'only-on-failure',
-    // screenshot: 'on',
+    // screenshot: 'only-on-failure',
+    screenshot: 'on',
     reporter: process.env.CI ? 'dot' : [
       ['list'],
       ['html']
-    ],
+    ]
   },
 
   /* Configure projects for major browsers */
@@ -62,6 +62,16 @@ export default defineConfig({
           args: ['--incognito']
         }
       },
+      setup: async ({ page }) => {
+        // This runs for each test in this project
+        page.on('console', msg => {
+          const errorPattern = /error|failed|uncaught|exception|typeerror|referenceerror|syntaxerror|rangeerror|evalerror|urlerror|is not defined|cannot read|undefined|null is not an object/i;
+
+          if (msg.type() === 'error' || errorPattern.test(msg.text())) {
+            console.log(`[${msg.type().toUpperCase()}] ${msg.text()}`);
+          }
+        });
+      }
     },
     // {
     //   name: 'firefox',

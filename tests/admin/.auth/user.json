@@ -1,21 +1,21 @@
 {
   "cookies": [
     {
-      "name": "__Host-ory_hydra_login_csrf_24713869",
-      "value": "MTc2MDk1OTUzNnxfaG1wWndoVExmaDh0eG9ZSXEtN2IxaDliRnhWNWR2aWdpRENJQ21SN2psYzFneUtmWkxzaS1VUjltXzZOQTJpc1ZnMGh1UmI3Um1wQWJJdmtZdF9XdDJ5Z2xUbThUZDR5bFVIMFhhMVpFYklOYkd4TnRyckN5MVd0aEVSc0E9PXyTpcyr_DBPEUkrYH3Oho6pp2jr-Dx-YXOulVu20sX7Yw==",
+      "name": "__Host-ory_hydra_login_csrf_2552989914",
+      "value": "MTc2MTEyMDY1NHwwWEVfelVOSnlFYzBMZ2tsVWVmUGNyS1RRRUx1a2UtVFR2cnFtdEZmMm0zandPMjdKTkZ5Z2xielc4WU1uMW0zZXpiaWJKR0cxZzZNbW1HSjJCbE9FNWtLQzl0SHA2SWR4V1BqVGZVTW5GM2JMMmhuVzF6aTlTVzJPTkRabkE9PXz_P4gmJvTpcYETw_0EchtmYEg2JR9SdPGQneZ13qqELw==",
       "domain": "tara-test.ria.ee",
       "path": "/",
-      "expires": 1760963136.146348,
+      "expires": 1761124254.862431,
       "httpOnly": true,
       "secure": true,
       "sameSite": "Strict"
     },
     {
       "name": "__cf_bm",
-      "value": "jTU9V.iYnIw3JC.5EzrDy_9mZO8_P8tr730A2K8edIg-1760959536-1.0.1.1-0Qoidv4iEkk1_lFonrdbRGM1oMHeTR4zDHk3dl4xGM1e7ndS_gvkjOJp6P39yAx19ajBjl79Wev1BhQ14oClhSjUvSnj1fLTit8fRFUIO_F2RggmBuhKAeDNEpS6Kls.",
+      "value": "0rj1tUQExOo0uRDm7FHe8b0RrQ4Ijf8NZ_mUR7HQSQw-1761120654-1.0.1.1-HX1LFwGg8jTmeWq4RoAOPNU3jbsdpIMAuP3pIeqRpEtzdDyO0lEntFX4A9YMK1Jqf0ypSO2UF12bNJ6Blh93Hm8Zb1JC0iZERPPxeE6qH.XYGsfIbgZaXs7QAa49gdTa",
       "domain": ".tara-test.ria.ee",
       "path": "/",
-      "expires": 1760961336.146441,
+      "expires": 1761122454.862561,
       "httpOnly": true,
       "secure": true,
       "sameSite": "None"
@@ -25,14 +25,14 @@
       "value": "et",
       "domain": "tara-test.ria.ee",
       "path": "/",
-      "expires": 1792495536.293287,
+      "expires": 1792656654.921595,
       "httpOnly": false,
       "secure": true,
       "sameSite": "Lax"
     },
     {
       "name": "_cfuvid",
-      "value": "WMmCMvHriiaMLHV_A16DP_pMyACp9RY4M0HGvWXMMC0-1760959536320-0.0.1.1-604800000",
+      "value": "SlZSy_SuuCSi1iOjFDzUl7uKYcLwo2QJDG.2jhkSrso-1761120654947-0.0.1.1-604800000",
       "domain": ".tara-test.ria.ee",
       "path": "/",
       "expires": -1,
@@ -42,28 +42,30 @@
     },
     {
       "name": "cf_clearance",
-      "value": "DQKknz.DHbDhbpAxhJKIkXo3uLooZnmzERdBIypHslw-1760959536-1.2.1.1-D13kwQOeQ__ziwhLG2RZv1AAE1VfscVWsEYtisW8PCmPU_kusDHLjVSrX1uuNR9uGUvfSWicri8pJfznQ11Rhg.eoqvymLzuojZrPUERPjsyGh4r2XH3qEGXVX3iuI0xs8mQBjGagqMUl0aKyJTC_3izhlcl_7In6cG9sPl4nXg_id1.btyuFPvtNhhTQa.HS3AHQMv0bLZZSJCJ_eiUsqJ6ZhsWis31o.UlBqBmOUo",
+      "value": "6ITpoXXLPYgSqAThFiFFpS.AxF_nXaY.jwz8PTNaHaM-1761120655-1.2.1.1-NVAYR0PsARrK39g8Wu8zWv9BIYHXue9u_lGUiKM35cANDTGuCkZ8zjIvhfhiUQs.Qhva8wvvzeE5npWS2AYfW1T0by85uhaWn5wirxYGXk.EKsfIUCtreworCfXbj6or_GUsCb.LSQmLFvg1BKvZSxC4XEuVb.MKTHTVxL.9gZU6U1jGajnLTO6g.IH0WhVjyn_u8VWwkMNwO5mQFaVNgvNcM6n8KaGj5kFMWAQFViQ",
       "domain": ".ria.ee",
       "path": "/",
-      "expires": 1792495536.546172,
+      "expires": 1792656655.164852,
       "httpOnly": true,
       "secure": true,
-      "sameSite": "None"
+      "sameSite": "None",
+      "partitionKey": "https://ria.ee",
+      "_crHasCrossSiteAncestor": false
     },
     {
-      "name": "__Host-ory_hydra_consent_csrf_24713869",
-      "value": "MTc2MDk1OTU0N3xrTVJHT1p2c1R6Tk5YR2ZwOXhTQjJGczZjZmVBMnNxNXMwd05KRVJ0eEhyRmh3WFNYeVREXzdLcTJoWDJoWE84YTBldE04aGcwZ3BZNktWM2lwQTZBbGQtS2k2eFVzNXdvaDhBVWNLNGJtVm95UWpSV192djZXYVpVM2V3Ymc9PXy5srBrf9h90pi1gFT3n9eSqex494GyZBUVGeFUgYbgow==",
+      "name": "__Host-ory_hydra_consent_csrf_2552989914",
+      "value": "MTc2MTEyMDY2NXwydnBxaUFHZWtFRzQ3cmR1M2M3UHpEdzRCVC1KZXhOX2ZEcGZBVzJwekVfQVRxcVdEeF94MEt0SFF3SHRvWWhLYzZCQ0tuZGRGdGNJWk9NcUJMT0NkUXhDWWY0NUh1SDlxWDV5UVpydS0yX241V1llS3dsZzd5M0w4dndsaEE9PXzDLHsFzmyD71np3u6ieB_rvOgSkCOO2BoqInjHIHhSgQ==",
       "domain": "tara-test.ria.ee",
       "path": "/",
-      "expires": 1760963147.014429,
+      "expires": 1761124265.601634,
       "httpOnly": true,
       "secure": true,
       "sameSite": "Strict"
     },
     {
       "name": "JSESSIONID",
-      "value": "24D86414F9C88B2A3DC0A106DC925216",
-      "domain": "tim.test.buerokratt.ee",
+      "value": "0A54C712542671CCE0B09599E0F2E459",
+      "domain": "tim.stage.buerokratt.ee",
       "path": "/",
       "expires": -1,
       "httpOnly": true,
@@ -72,8 +74,8 @@
     },
     {
       "name": "JWTTOKEN",
-      "value": "eyJhbGciOiJSUzI1NiJ9.eyJwZXJzb25hbENvZGUiOiJFRTYxMTAxMDEyMjU3Iiwic3ViIjoiRUU2MTEwMTAxMjI1NyIsImZpcnN0TmFtZSI6Ik9LIiwibGFzdE5hbWUiOiJURVNUTUlOT1IiLCJhdXRoZW50aWNhdGVkQXMiOiJFRTYxMTAxMDEyMjU3IiwiaXNzIjoidGVzdC5idWVyb2tyYXR0LmVlIiwiZXhwIjoxNzYwOTYxMzQ3LCJhdXRoTWV0aG9kIjoic21hcnRpZCIsImlhdCI6MTc2MDk1OTU0NywianRpIjoiZmQ5OTdhZDctYjc3ZS00N2QwLTgxYjUtZjcwYjBmZjNkYjQyIiwiaGFzaCI6IjM1Njk5MTUzNDUwYjRlNzlhYTRiZThiOTBlZjE4MTA0NTRhMzQ5ZWM2MGFiNDU1YzkzNDVhZWFhMDdhN2E1NmIifQ.K4CyeTgcwILZ3ouG_aJ4j4PNGbDKeegKe2i8I9DjlcWJmAi8tHk4sHlX1TlywlDhZNnZZ-SEwL3embJVV5f6Qzi9QuY2W1cmqs1RJVSXpS2nJpFK7XY5jp9kcm3WlVovtF50uwQnmM8z9FmsOJJdZaqKVylQHWQnUEHMAK4BxztNw2prPpCQ3SeUHNAWFi_BgDSRoH8VdOrYa1rR0QXcFBWGjS9oqMZkp-Oole4bZ3mgKWdZoIu4_egVZxZgEE3caGwN5GgnF1jChHXo0PBgKJE8qBA2UOiXmAcYgG_DMZyCgCJp_BibnqpwxozxjTzsfAljQMJ8x6lMn3qjHqgoIQ",
-      "domain": ".test.buerokratt.ee",
+      "value": "eyJhbGciOiJSUzI1NiJ9.eyJwZXJzb25hbENvZGUiOiJFRTYxMTAxMDEyMjU3Iiwic3ViIjoiRUU2MTEwMTAxMjI1NyIsImZpcnN0TmFtZSI6Ik9LIiwibGFzdE5hbWUiOiJURVNUTUlOT1IiLCJhdXRoZW50aWNhdGVkQXMiOiJFRTYxMTAxMDEyMjU3IiwiaXNzIjoic3RhZ2UuYnVlcm9rcmF0dC5lZSIsImV4cCI6MTc2MTEyMjQ2NSwiYXV0aE1ldGhvZCI6InNtYXJ0aWQiLCJpYXQiOjE3NjExMjA2NjUsImp0aSI6IjJjY2IxYWZiLWFkODgtNDljMy1hYzI1LTExOGUxZDBmNzY0NiIsImhhc2giOiIwNzVhZTIzYjJkYjc0YzQxYTZmZTZmMDM1NTAwMzZhZmE4YzFhMmM5NWUxMjRkNWRhYTNmNTg5OWE2ZjUwZmU5In0.K2r1A5fb1A0BAwO2kI_CDAOpVefAX2hSyJmq8XaTN3_ZZ3zC5rGY5o0AACtXF1MCNdeYK45hcB6qjVmzjfB8TWRbbhtqtnmE_Ks5XCuJ2xGJ8NzSCuzuuziLg-gVB6zlEBFjJ4L9o9Lr7t1rc8bCnaq9_2FZ-EJxmtKGS_0Y6QlFT0WodxkMcSxsd7y6GGk3w6mYREKhYPDPCkQUySFQWjPF3Bryt2bZ9nivXKjSPnooZ0DYFYx7r1JXwjBrQeu4seJ8JkHGgvI4MQbGRqs-axm_5R37sa0XEA-TCzbBjbNdsmV0L2_JhWT2Y2FSC5D7UzDKaxwrpHhxYADOLs9kRQ",
+      "domain": ".stage.buerokratt.ee",
       "path": "/",
       "expires": -1,
       "httpOnly": true,
@@ -82,18 +84,18 @@
     },
     {
       "name": "customJwtCookie",
-      "value": "eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiIiLCJsYXN0TmFtZSI6Ikthc3V0YWphIiwiaWRDb2RlIjoiRUU2MTEwMTAxMjI1NyIsImRpc3BsYXlOYW1lIjoiQWp1dGluZSIsImlzcyI6InRlc3QuYnVlcm9rcmF0dC5lZSIsImZ1bGxOYW1lIjoiT0sgVEVTVE1JTk9SIiwibG9naW4iOiJFRTYxMTAxMDEyMjU3IiwiY3NhRW1haWwiOiJtYWlsQG1haWwuZWUiLCJhdXRob3JpdGllcyI6WyJST0xFX0FETUlOSVNUUkFUT1IiXSwiZmlyc3ROYW1lIjoiQWp1dGluZSIsImV4cCI6MTc2MDk4ODM0NywiYXV0aE1ldGhvZCI6InNtYXJ0aWQiLCJpYXQiOjE3NjA5NTk1NDcsImp0aSI6Ijk0Yzc5M2U5LTQ2NTUtNDQwOC04NjkxLTRlY2ExNGQ1NDhmYyIsImNzYVRpdGxlIjoiQWRtaW4ifQ.wd9J62er7gwvP8yj742v02nK_YO2wY2kaIfJpdnVcxvXpQbNl8hsMX5yGf-D1lOy6dYtJsaUSIOA_LxAI_obutVVVYOqBoYVWh6QQooUHjt4-mcsSRi3QI3jqVOYfj5h6Qe5CJ-Sdut59GrlXDimYX2xcZzZfy6tJLEYvCMEoKWbrwVOvT5x_9CQSN2GGp8RTABgs9cUhOy_-eIR2a21Mvvk00d02kHgPBRXsQy-NK17l-nvbcNYVbZS9tiXFyRaILyMQBKllFp7eJoHd4-_fQ_rvWVwkb12YhvJcTzXzCg7lo0Rou9depsQhg0GJp7GR2UGvK_fGq7PkQM3lFooUw",
-      "domain": ".test.buerokratt.ee",
+      "value": "eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiIiLCJsYXN0TmFtZSI6IkJZSyIsImlkQ29kZSI6IkVFNjExMDEwMTIyNTciLCJkaXNwbGF5TmFtZSI6IlRFU1QiLCJpc3MiOiJzdGFnZS5idWVyb2tyYXR0LmVlIiwiZnVsbE5hbWUiOiJPSyBURVNUTUlOT1IiLCJsb2dpbiI6IkVFNjExMDEwMTIyNTciLCJjc2FFbWFpbCI6ImVtYWlsQG1haWwuZWUiLCJhdXRob3JpdGllcyI6WyJST0xFX0FETUlOSVNUUkFUT1IiXSwiZmlyc3ROYW1lIjoiVEVTVCIsImV4cCI6MTc2MTEyNzg2NiwiYXV0aE1ldGhvZCI6InNtYXJ0aWQiLCJpYXQiOjE3NjExMjA2NjYsImp0aSI6IjhjOWIwNTNhLTA0MmYtNDkwMC05MzY3LTc1MjdkNzM0YTAyZiIsImNzYVRpdGxlIjoiIn0.URu5wTRpUkF_zcuGjeTyA16cqItJ23nQsay777jM7it7dLHK98bamelgRkrWto7UgLK-rUPVy11ctV1ZT7QOal2ex5Pxi_SyDCX-SrjCqjPLUa_2tF3iRYtCu3ua0vtNMTIBJtkzAT4wkDaQopxsZnSvi-qk6iR4mWyGhqv2oPOj33E79_6skZi7HoHm_OKsIxYVeqUBanDZcw-zlbKlLZeTPKTn3q-VaMP1Yfy6VqhA0sJQzUABkP9mPqnMtg0X5iKKyZyiWFmNQc12OfYb6Z6rRQCLqJD0Znyx9DoB2065edreB1zZjQKzmFYFEbDnxeEqHOvb_XXSYozFgyaBzg",
+      "domain": ".stage.buerokratt.ee",
       "path": "/",
-      "expires": 1760988347.719266,
+      "expires": 1761149466.095273,
       "httpOnly": true,
       "secure": true,
-      "sameSite": "Lax"
+      "sameSite": "None"
     }
   ],
   "origins": [
     {
-      "origin": "https://admin.test.buerokratt.ee",
+      "origin": "https://admin.stage.buerokratt.ee",
       "localStorage": [
         {
           "name": "i18nextLng",
