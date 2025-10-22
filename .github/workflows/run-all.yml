@@ -24,7 +24,7 @@ jobs:
         run: npx playwright install --with-deps
 
       - name: Run Playwright tests
-        run: cross-env ENV=${process.env.ENV || 'stage'} npx playwright test --project setup --project smoke
+        run: ENV=${ENV:-stage} npx playwright test --project setup --project smoke
 
       - uses: actions/upload-artifact@v4
         if: always()
