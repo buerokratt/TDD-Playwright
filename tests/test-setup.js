@@ -14,6 +14,15 @@ exports.test = base.test.extend({
 
         page = await context.newPage();
 
+        // Override the goto method with global waitUntil setting
+        const originalGoto = page.goto.bind(page);
+        page.goto = async (url, options = {}) => {
+            return originalGoto(url, {
+                waitUntil: 'domcontentloaded',
+                ...options // Allow individual tests to override if needed
+            });
+        };
+
         // Set up console error monitoring
         page.on('console', msg => {
             const errorPattern = /error|failed|uncaught|exception|typeerror|referenceerror|syntaxerror|rangeerror|evalerror|urlerror|is not defined|cannot read|undefined|null is not an object/i;

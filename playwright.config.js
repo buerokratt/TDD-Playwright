@@ -8,7 +8,8 @@ const baseURLs = {
     admin: 'https://admin.test.buerokratt.ee/'
   },
   stage: {
-    customer: 'https://stage.buerokratt.ee/',
+    // customer: 'https://stage.buerokratt.ee/',
+    customer: 'https://ria.test.vportal.ee/',
     admin: 'https://admin.stage.buerokratt.ee/'
   }
 };
@@ -36,8 +37,8 @@ export default defineConfig({
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     baseURL: currentEnvURLs.admin,
     trace: 'on-first-retry',
-    // screenshot: 'only-on-failure',
-    screenshot: 'on',
+    screenshot: 'only-on-failure',
+    // screenshot: 'on',
     reporter: process.env.CI ? 'dot' : [
       ['list'],
       ['html']
@@ -53,6 +54,14 @@ export default defineConfig({
     {
       name: 'smoke',
       testMatch: '**/*.smoke.js',
+    },
+    {
+      name: 'flow',
+      testMatch: '**/*.spec.js',
+    },
+    {
+      name: 'tests',
+      testMatch: '**/*.test.js',
     },
     {
       name: 'chromium',

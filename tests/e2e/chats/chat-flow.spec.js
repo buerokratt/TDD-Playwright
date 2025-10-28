@@ -1,7 +1,7 @@
 import { test } from '@playwright/test';
-import { URLS } from '../../playwright.config';
-import { WidgetPage } from "../../page-objects/widget/widget-page";
-const { AdminPageFactory: ap} = require('../../page-objects/admin-page-factory');
+import { URLS } from '../../../playwright.config';
+import { WidgetPage } from "../../../page-objects/widget/widget-page";
+const { AdminPageFactory: ap} = require('../../../page-objects/admin-page-factory');
 
 test.afterEach(async () => {
     await page.on('console', msg => {
@@ -14,6 +14,9 @@ test.afterEach(async () => {
 });
 
 test('Chat flow test', async ({ browser })=>{
+
+    // TODO: rewrite test to use test-setup.js
+
     // Setup
     const customerContext = await browser.newContext();
     const csaContext = await browser.newContext({
