@@ -9,14 +9,16 @@
     "test:test:smoke": "cross-env ENV=test npx playwright test --project setup --project smoke",
     "test:stage": "cross-env ENV=stage npx playwright test",
     "test:stage:smoke": "cross-env ENV=stage npx playwright test --project setup --project smoke",
+    "test:stage:flow": "cross-env ENV=stage npx playwright test --project setup --project flow",
     "test:test:debug": "cross-env ENV=test npx playwright test --debug",
-    "test:stage:debug": "cross-env ENV=stage npx playwright test --debug"
+    "test:stage:debug": "cross-env ENV=stage npx playwright test --debug",
+    "test:stage:tests": "cross-env ENV=stage npx playwright test --project setup --project tests"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@playwright/test": "^1.51.1",
+    "@playwright/test": "^1.56.1",
     "@types/node": "^22.3.0",
     "cross-env": "^10.1.0"
   },

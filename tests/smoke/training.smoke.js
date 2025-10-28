@@ -1,51 +1,37 @@
-import { test } from '@playwright/test';
 import { URLS } from '../../playwright.config';
+const { test, expect } = require('../test-setup');
 
-let page;
-
-test.beforeAll(async ({ browser }) => {
-    const context = await browser.newContext({
-        storageState: 'tests/admin/.auth/user.json'
-    });
-    page = await context.newPage();
+test('Intents page', async ({page}) => {
+    await page.goto(URLS.admin + 'training/training/intents'  );
+    await page.getByRole('switch', {id: 'show-common-toggle'}).waitFor({ state: 'visible' });
 });
 
-test.afterAll(async () => {
-   page.close();
+test('Responses page', async ({page}) => {
+    await page.goto(URLS.admin + 'training/training/responses'  );
+    await page.getByRole('button', {name: 'Lisa'}).waitFor({ state: 'visible' });
 });
 
-test('Intents page', async () => {
-    await page.goto(URLS.admin + 'training/training/intents');
-    // await page.getById('tabs').isVisible();
-    await page.getByText('Teemad').isVisible();
+test('Rules page', async ({page}) => {
+    await page.goto(URLS.admin + 'training/training/rules' );
+    await page.getByPlaceholder('Otsi...').waitFor({ state: 'visible' });
 });
 
-test('Responses page', async () => {
-    await page.goto(URLS.admin + 'training/training/responses');
-    await page.getByText('Vastus').isVisible();
+test('Chat history page', async ({page}) => {
+    await page.goto(URLS.admin + 'training/history/history' );
+    await page.getByText('Algusaeg').waitFor({ state: 'visible' });
 });
 
-test('Rules page', async () => {
-    await page.goto(URLS.admin + 'training/training/rules');
-    await page.getByPlaceholder('Otsi...').isVisible();
+test('Intents overview page', async ({page}) => {
+    await page.goto(URLS.admin + 'training/analytics/overview' );
+    await page.getByText('Mudeli ülevaade', { expect: true }).waitFor({ state: 'visible' });
 });
 
-test('Chat history page', async () => {
-    await page.goto(URLS.admin + 'training/history/history');
-    await page.getByText('Algusaeg').isVisible();
+test('Models comparison page', async ({page}) => {
+    await page.goto(URLS.admin + 'training/analytics/models' );
+    await page.getByRole('heading', { name: 'Mudelid', exact: true }).waitFor({ state: 'visible' });
 });
 
-test('Intents overview page', async () => {
-    await page.goto(URLS.admin + 'training/analytics/overview');
-    await page.getByText('Teemade ülevaade').isVisible();
-});
-
-test('Models comparison page', async () => {
-    await page.goto(URLS.admin + 'training/analytics/models');
-    await page.getByText('Teemade ülevaade').isVisible();
-});
-
-test('Model training page', async () => {
-    await page.goto(URLS.admin + 'training/analytics/overview');
-    await page.getByText('Treeni').isVisible();
+test('Model training page', async ({page}) => {
+    await page.goto(URLS.admin + 'training/train-new-model' );
+    await page.getByRole('button', { name: 'Treeni', exact: true}).waitFor({ state: 'visible' });
 });

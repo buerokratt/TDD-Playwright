@@ -8,7 +8,8 @@ const baseURLs = {
     admin: 'https://admin.test.buerokratt.ee/'
   },
   stage: {
-    customer: 'https://stage.buerokratt.ee/',
+    // customer: 'https://stage.buerokratt.ee/',
+    customer: 'https://ria.test.vportal.ee/',
     admin: 'https://admin.stage.buerokratt.ee/'
   }
 };
@@ -41,7 +42,7 @@ export default defineConfig({
     reporter: process.env.CI ? 'dot' : [
       ['list'],
       ['html']
-    ],
+    ]
   },
 
   /* Configure projects for major browsers */
@@ -55,6 +56,14 @@ export default defineConfig({
       testMatch: '**/*.smoke.js',
     },
     {
+      name: 'flow',
+      testMatch: '**/*.spec.js',
+    },
+    {
+      name: 'tests',
+      testMatch: '**/*.test.js',
+    },
+    {
       name: 'chromium',
       use: {
         ...devices['Desktop Chrome'],
@@ -62,6 +71,16 @@ export default defineConfig({
           args: ['--incognito']
         }
       },
+      setup: async ({ page }) => {
+        // This runs for each test in this project
+        page.on('console', msg => {
+          const errorPattern = /error|failed|uncaught|exception|typeerror|referenceerror|syntaxerror|rangeerror|evalerror|urlerror|is not defined|cannot read|undefined|null is not an object/i;
+
+          if (msg.type() === 'error' || errorPattern.test(msg.text())) {
+            console.log(`[${msg.type().toUpperCase()}] ${msg.text()}`);
+          }
+        });
+      }
     },
     // {
     //   name: 'firefox',
