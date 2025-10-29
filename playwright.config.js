@@ -1,74 +1,96 @@
-// @ts-check
-const { defineConfig, devices } = require('@playwright/test');
+import { defineConfig, devices } from '@playwright/test';
 
-/**
- * Read environment variables from file.
- * https://github.com/motdotla/dotenv
- */
-// require('dotenv').config({ path: path.resolve(__dirname, '.env') });
+const env = process.env.ENV || 'test';
 
-/**
- * @see https://playwright.dev/docs/test-configuration
- */
-module.exports = defineConfig({
+const baseURLs = {
+  test: {
+    customer: 'https://test.buerokratt.ee/',
+    admin: 'https://admin.test.buerokratt.ee/'
+  },
+  stage: {
+    // customer: 'https://stage.buerokratt.ee/',
+    customer: 'https://ria.test.vportal.ee/',
+    admin: 'https://admin.stage.buerokratt.ee/'
+  }
+};
+
+const currentEnvURLs = baseURLs[env] || baseURLs.test;
+
+export default defineConfig({
+  timeout: 30000,
   testDir: './tests',
   /* Run tests in files in parallel */
-  fullyParallel: true,
+  fullyParallel: false,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
-  // forbidOnly: !!process.env.CI,
+  forbidOnly: !!process.env.CI,
   /* Retry on CI only */
-  retries: process.env.CI ? 2 : 1,
+  retries: process.env.CI ? 2 : 0,
   /* Opt out of parallel tests on CI. */
-  workers: process.env.CI ? 4 : undefined,
+  workers: 1,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: [
-    ['html', { open: 'always' }], // Generates the HTML report
-    ['list', { printSteps: true }], // Generates the line-based report
-    ['json', { outputFile: 'playwright-report.json' }] // Generates the JSON report
-  ],
+  reporter: 'html',
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
-    // viewport: { width: 1366, height: 768 },  
-    video: 'retain-on-failure',
-    // {
-    //   mode: 'retain-on-failure',
-    //   dir: 'test-results/videos/',
-    //   name: ({ test }) => `${test.title}.webm`,
-    // // launchOptions: {
-    // //   slowMo: 1000,
-    // // },
-    // },
-    screenshot: 'only-on-failure',
-    // {
-    //   mode: 'only-on-failure',
-    //   dir: 'test-results/screenshots/',
-    //   name: ({ test }) => `${test.title}.png`,
-    // },
+    /* Base URL to use in actions like `await page.goto('/')`. */
+    // baseURL: 'http://localhost:3000',
+
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: 'on',
-    //* Base URL to use in actions like `await page.goto('/')`. */
-    baseURL: 'https://prod.buerokratt.ee/'
+    baseURL: currentEnvURLs.admin,
+    trace: 'on-first-retry',
+    screenshot: 'only-on-failure',
+    // screenshot: 'on',
+    reporter: process.env.CI ? 'dot' : [
+      ['list'],
+      ['html']
+    ]
   },
-  
-  
 
   /* Configure projects for major browsers */
   projects: [
-    { name: 'setup', testMatch: /.*\.setup\.js/ },
+    {
+      name: 'setup',
+      testMatch: '**/*.setup.js',
+    },
+    {
+      name: 'smoke',
+      testMatch: '**/*.smoke.js',
+    },
+    {
+      name: 'flow',
+      testMatch: '**/*.spec.js',
+    },
+    {
+      name: 'tests',
+      testMatch: '**/*.test.js',
+    },
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'],
-              storageState: 'tests/admin/.auth/user.json',
+      use: {
+        ...devices['Desktop Chrome'],
+        launchOptions: {
+          args: ['--incognito']
+        }
       },
-      dependencies: ['setup'],
+      setup: async ({ page }) => {
+        // This runs for each test in this project
+        page.on('console', msg => {
+          const errorPattern = /error|failed|uncaught|exception|typeerror|referenceerror|syntaxerror|rangeerror|evalerror|urlerror|is not defined|cannot read|undefined|null is not an object/i;
+
+          if (msg.type() === 'error' || errorPattern.test(msg.text())) {
+            console.log(`[${msg.type().toUpperCase()}] ${msg.text()}`);
+          }
+        });
+      }
     },
-
-
-    // { 
+    // {
     //   name: 'firefox',
-    //   use: { ...devices['Desktop Firefox'] },
+    //   use: {
+    //     ...devices['Desktop Firefox'],
+    //     launchOptions: {
+    //       args: ['--private']
+    //     }
+    //   },
     // },
-
     // {
     //   name: 'webkit',
     //   use: { ...devices['Desktop Safari'] },
@@ -81,25 +103,15 @@ module.exports = defineConfig({
     // },
     // {
     //   name: 'Mobile Safari',
-    //   use: { ...devices['iPhone 12'] },
-    // },
-
-    /* Test against branded browsers. */
-    // {
-    //   name: 'Microsoft Edge',
-    //   use: { ...devices['Desktop Edge'], channel: 'msedge' },
-    // },
-    // {
-    //   name: 'Google Chrome',
-    //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
+    //   use: { ...devices['iPhone 13 Pro'] },
     // },
   ],
 
   /* Run your local dev server before starting the tests */
   // webServer: {
   //   command: 'npm run start',
-  //   url: 'http://127.0.0.1:3000',
+  //   url: 'http://localhost:3000',
   //   reuseExistingServer: !process.env.CI,
   // },
 });
-
+export const URLS = currentEnvURLs;
