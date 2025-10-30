@@ -12,7 +12,8 @@
     "test:stage:flow": "cross-env ENV=stage npx playwright test --project setup --project flow",
     "test:test:debug": "cross-env ENV=test npx playwright test --debug",
     "test:stage:debug": "cross-env ENV=stage npx playwright test --debug",
-    "test:stage:tests": "cross-env ENV=stage npx playwright test --project setup --project tests"
+    "test:stage:tests": "cross-env ENV=stage npx playwright test --project setup --project tests",
+    "test:stage:apismoke": "cross-env ENV=stage npx playwright test --project setup --project apiSmoke"
   },
   "keywords": [],
   "author": "",

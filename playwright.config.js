@@ -17,6 +17,7 @@ const baseURLs = {
 const currentEnvURLs = baseURLs[env] || baseURLs.test;
 
 export default defineConfig({
+  globalSetup: require.resolve('./utils/translations/global-setup.js'),
   timeout: 30000,
   testDir: './tests',
   /* Run tests in files in parallel */
@@ -62,6 +63,10 @@ export default defineConfig({
     {
       name: 'tests',
       testMatch: '**/*.test.js',
+    },
+    {
+      name: 'apiSmoke',
+      testMatch: '**/*.api.smoke.js',
     },
     {
       name: 'chromium',
