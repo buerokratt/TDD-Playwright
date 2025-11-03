@@ -2,7 +2,7 @@ class ServicesOverviewPage{
     constructor(page) {
         this.page = page;
 
-        this.header = this.page.getByText('Teenused');
+        this.header = this.page.getByRole('button', {name: 'Teenused'});
         this.buttonCreateNewService = this.page.getByText('Loo uus teenus');
         this.buttonConfirmDelete = this.page.getByRole('dialog').getByRole('button', { name: 'Kustuta' });
     }
@@ -23,6 +23,10 @@ class ServicesOverviewPage{
 
     async clickEdit(serviceTitle){
         await this.getServiceRow(serviceTitle).getByRole('button', { name: 'Muuda' }).click();
+    }
+
+    async clickCreateNew(){
+        await this.buttonCreateNewService.click();
     }
 
     async deleteService(serviceTitle){
