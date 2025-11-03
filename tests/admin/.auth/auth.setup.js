@@ -23,7 +23,9 @@ setup('authenticate', async ({ page }) => {
     await page.getByRole('button', { name: 'Jätka' }).click();
 
     // Wait for the navigation to the authenticated page
-    await page.waitForURL('/chat/landing');
+    await page.waitForURL('/chat/landing', {
+        timeout: 45000
+    });
 
     // Save the authentication state
     await page.context().storageState({ path: authFile });

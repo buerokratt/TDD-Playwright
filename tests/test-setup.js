@@ -6,6 +6,7 @@ let page;
 
 // Extend the base test with your setup
 exports.test = base.test.extend({
+    //TODO: EN/ET translation implementation
     page: async ({ browser }, use) => {
         // Set up context with auth
         const context = await browser.newContext({
@@ -19,6 +20,7 @@ exports.test = base.test.extend({
         page.goto = async (url, options = {}) => {
             return originalGoto(url, {
                 waitUntil: 'domcontentloaded',
+                waitForTimeout: 3000,
                 ...options // Allow individual tests to override if needed
             });
         };
