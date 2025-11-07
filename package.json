@@ -6,14 +6,14 @@
   "scripts": {
     "test": "npx playwright test",
     "test:test": "cross-env ENV=test npx playwright test",
-    "test:test:smoke": "cross-env ENV=test npx playwright test --project setup --project smoke",
+    "test:test:smoke": "cross-env ENV=test npx playwright test --project smoke",
     "test:stage": "cross-env ENV=stage npx playwright test",
-    "test:stage:smoke": "cross-env ENV=stage npx playwright test --project setup --project smoke",
-    "test:stage:flow": "cross-env ENV=stage npx playwright test --project setup --project flow",
+    "test:stage:smoke": "cross-env ENV=stage npx playwright test --project smoke",
+    "test:stage:flow": "cross-env ENV=stage npx playwright test --project flow",
     "test:test:debug": "cross-env ENV=test npx playwright test --debug",
     "test:stage:debug": "cross-env ENV=stage npx playwright test --debug",
-    "test:stage:tests": "cross-env ENV=stage npx playwright test --project setup --project tests",
-    "test:stage:apismoke": "cross-env ENV=stage npx playwright test --project setup --project apiSmoke"
+    "test:stage:tests": "cross-env ENV=stage npx playwright test --project tests",
+    "test:stage:apismoke": "cross-env ENV=stage npx playwright test --project apiSmoke"
   },
   "keywords": [],
   "author": "",

@@ -1,3 +1,5 @@
+const {expect} = require("@playwright/test");
+
 class NewServicePage {
     constructor(page) {
         this.page = page;
@@ -10,36 +12,41 @@ class NewServicePage {
         this.buttonMessageForCustomer = this.page.getByText('Sõnum kliendile', { exact: true });
         this.messageBox = this.page.locator('[contenteditable="true"]').first();
         this.backToServices = this.page.getByRole('button', { name: '< Tagasi teenuste lehele' });
+        this.confirmationText = this.page.getByText('Salvestatud', { exact: true });
     }
 
     async createNewService(randomName){
         await this.serviceTitle.fill(randomName);
         await this.buttonSave.click();
         await this.page.waitForLoadState('networkidle');
+        await expect(this.confirmationText).toBeVisible();
         await this.backToServices.click();
     }
 
     async addNodes(){
         await this.buttonAdd.last().click();
         await this.buttonMessageForCustomer.waitFor({state: 'visible'});
+        await expect(this.buttonMessageForCustomer).toBeVisible();
         await this.buttonMessageForCustomer.click();
 
         await this.buttonAdd.last().click();
-        await this.buttonEndService.waitFor({state: 'visible'});
+        await expect(this.buttonEndService).toBeVisible();
         await this.buttonEndService.click();
 
         await this.buttonSave.click();
         await this.page.waitForLoadState('networkidle');
+        await this.confirmationText.waitFor({state: 'visible'});
     }
 
-    async returnToServeicesOverview(){
+    async returnToServicesOverview(){
         await this.backToServices.click();
     }
 
     async addMessage(){
         await this.messageBox.click();
-        await this.page.waitForTimeout(2000);
+        await this.page.waitForLoadState('networkidle');
         await this.messageBox.fill('Test');
+        await this.buttonSave.last().click();
     }
 
     getNodeByName(nodeName){
@@ -48,7 +55,14 @@ class NewServicePage {
 
     async editNode(nodeNome){
         const parentNode = this.getNodeByName(nodeNome).locator('xpath=../..');
+        await expect(parentNode.getByRole('button').first()).toBeVisible();
         await parentNode.getByRole('button').first().click();
+    }
+
+    async saveService(){
+        await expect(this.buttonSave).toBeVisible();
+        await this.buttonSave.click();
+        await expect(this.confirmationText).toBeVisible();
     }
 
 
