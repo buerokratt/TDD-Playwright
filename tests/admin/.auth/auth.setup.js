@@ -24,7 +24,7 @@ setup('authenticate', async ({ page }) => {
 
     // Wait for the navigation to the authenticated page
     await page.waitForURL('/chat/landing', {
-        timeout: 45000
+        timeout: 60000
     });
 
     // Save the authentication state

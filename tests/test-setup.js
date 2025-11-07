@@ -1,28 +1,27 @@
 // test-setup.js
 const base = require('@playwright/test');
+const fs = require('fs');
+const path = require('path');
 
 // Export the page variable
 let page;
+let testContext;
 
 // Extend the base test with your setup
 exports.test = base.test.extend({
-    //TODO: EN/ET translation implementation
-    page: async ({ browser }, use) => {
-        // Set up context with auth
-        const context = await browser.newContext({
-            storageState: 'tests/admin/.auth/user.json'
-        });
+    page: async ({ page }, use, testInfo) => {
+        // Set up context with auth and video
 
-        page = await context.newPage();
 
         // Override the goto method with global waitUntil setting
         const originalGoto = page.goto.bind(page);
         page.goto = async (url, options = {}) => {
-            return originalGoto(url, {
+            const result = await originalGoto(url, {
                 waitUntil: 'domcontentloaded',
-                waitForTimeout: 3000,
                 ...options // Allow individual tests to override if needed
             });
+            await page.waitForTimeout(3000);
+            return result;
         };
 
         // Set up console error monitoring
@@ -36,11 +35,10 @@ exports.test = base.test.extend({
 
         await use(page);
 
-        // Cleanup
         await page.close();
-        await context.close();
     }
 });
+
 
 exports.expect = base.expect;
 exports.page = page;
