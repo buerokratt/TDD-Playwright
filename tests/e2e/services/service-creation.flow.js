@@ -54,7 +54,7 @@ test.skip('Service creation flow', async ({ page }) => {
 
     await nsp.buttonSave.click();
 
-    await nsp.returnToServeicesOverview();
+    await nsp.returnToServicesOverview();
     await sop.assertServiceRowVisible(randomString);
 
     // TODO: confirm service
