@@ -1,7 +1,7 @@
 {
   "config": {
-    "configFile": "/home/danyilk/tdd/master/TDD-Playwright/playwright.config.js",
-    "rootDir": "/home/danyilk/tdd/master/TDD-Playwright/tests",
+    "configFile": "C:\\dev\\ria\\TDD-Playwright\\playwright.config.js",
+    "rootDir": "C:/dev/ria/TDD-Playwright/tests",
     "forbidOnly": false,
     "fullyParallel": true,
     "globalSetup": null,
@@ -36,18 +36,20 @@
     ],
     "reportSlowTests": {
       "max": 5,
-      "threshold": 15000
+      "threshold": 300000
     },
     "quiet": false,
     "projects": [
       {
-        "outputDir": "/home/danyilk/tdd/master/TDD-Playwright/test-results",
+        "outputDir": "C:/dev/ria/TDD-Playwright/test-results",
         "repeatEach": 1,
         "retries": 1,
-        "metadata": {},
+        "metadata": {
+          "actualWorkers": 1
+        },
         "id": "setup",
         "name": "setup",
-        "testDir": "/home/danyilk/tdd/master/TDD-Playwright/tests",
+        "testDir": "C:/dev/ria/TDD-Playwright/tests",
         "testIgnore": [],
         "testMatch": [
           "/.*\\.setup\\.js/"
@@ -55,13 +57,15 @@
         "timeout": 30000
       },
       {
-        "outputDir": "/home/danyilk/tdd/master/TDD-Playwright/test-results",
+        "outputDir": "C:/dev/ria/TDD-Playwright/test-results",
         "repeatEach": 1,
         "retries": 1,
-        "metadata": {},
+        "metadata": {
+          "actualWorkers": 1
+        },
         "id": "chromium",
         "name": "chromium",
-        "testDir": "/home/danyilk/tdd/master/TDD-Playwright/tests",
+        "testDir": "C:/dev/ria/TDD-Playwright/tests",
         "testIgnore": [],
         "testMatch": [
           "**/*.@(spec|test).?(c|m)[jt]s?(x)"
@@ -71,13 +75,14 @@
     ],
     "shard": null,
     "updateSnapshots": "missing",
-    "version": "1.48.2",
-    "workers": 4,
+    "updateSourceMethod": "patch",
+    "version": "1.51.1",
+    "workers": 8,
     "webServer": null
   },
   "suites": [
     {
-      "title": "admin/.auth/auth.setup.js",
+      "title": "admin\\.auth\\auth.setup.js",
       "file": "admin/.auth/auth.setup.js",
       "column": 0,
       "line": 0,
@@ -96,18 +101,19 @@
               "results": [
                 {
                   "workerIndex": 0,
+                  "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 22141,
+                  "duration": 20019,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2024-11-29T11:55:30.147Z",
+                  "startTime": "2025-10-16T08:33:31.423Z",
                   "attachments": [
                     {
                       "name": "trace",
                       "contentType": "application/zip",
-                      "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-.auth-auth.setup.js-authenticate-setup/trace.zip"
+                      "path": "C:\\dev\\ria\\TDD-Playwright\\test-results\\admin-.auth-auth.setup.js-authenticate-setup\\trace.zip"
                     }
                   ]
                 }
@@ -123,60 +129,54 @@
       ]
     },
     {
-      "title": "admin/landingPage/mainPage/sideBar/conversations/unanswered/DSL/generatedTests.spec.js",
-      "file": "admin/landingPage/mainPage/sideBar/conversations/unanswered/DSL/generatedTests.spec.js",
+      "title": "api\\conversations_api.spec.js",
+      "file": "api/conversations_api.spec.js",
       "column": 0,
       "line": 0,
       "specs": [],
       "suites": [
         {
-          "title": "Buerokratt-Chatbot Functionality Testing",
-          "file": "admin/landingPage/mainPage/sideBar/conversations/unanswered/DSL/generatedTests.spec.js",
-          "line": 13,
-          "column": 6,
+          "title": "API Testing",
+          "file": "api/conversations_api.spec.js",
+          "line": 6,
+          "column": 15,
           "specs": [
             {
-              "title": "should not send more than 1 event message when ask authentication button is clicked",
+              "title": "POST should get page elements",
               "ok": true,
               "tags": [],
               "tests": [
                 {
-                  "timeout": 40000,
+                  "timeout": 30000,
                   "annotations": [
                     {
-                      "type": "repository",
-                      "description": "Buerokratt-Chatbot"
+                      "type": "skip"
                     }
                   ],
-                  "expectedStatus": "passed",
+                  "expectedStatus": "skipped",
                   "projectId": "chromium",
                   "projectName": "chromium",
                   "results": [
                     {
-                      "workerIndex": 1,
-                      "status": "passed",
-                      "duration": 10471,
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2024-11-29T11:55:53.242Z",
-                      "attachments": [
-                        {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "/home/danyilk/tdd/master/TDD-Playwright/test-results/admin-landingPage-mainPage-417d9-ntication-button-is-clicked-chromium/trace.zip"
-                        }
-                      ]
+                      "startTime": "2025-10-16T08:33:51.791Z",
+                      "attachments": []
                     }
                   ],
-                  "status": "expected"
+                  "status": "skipped"
                 }
               ],
-              "id": "20b58c729748b63d59c8-7f8ae0ee3e6deb5d0aae",
-              "file": "admin/landingPage/mainPage/sideBar/conversations/unanswered/DSL/generatedTests.spec.js",
-              "line": 198,
-              "column": 10
+              "id": "f22eec9b7de9ed7e186f-143611ed70cdea683993",
+              "file": "api/conversations_api.spec.js",
+              "line": 8,
+              "column": 9
             }
           ]
         }
@@ -185,10 +185,10 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2024-11-29T11:55:29.420Z",
-    "duration": 34702.506,
-    "expected": 2,
-    "skipped": 0,
+    "startTime": "2025-10-16T08:33:30.634Z",
+    "duration": 21158.325,
+    "expected": 1,
+    "skipped": 1,
     "unexpected": 0,
     "flaky": 0
   }
