@@ -15,18 +15,20 @@ import { URLS } from '../../../../playwright.config';
 
 test('Create new openAPI endpoint test', async({page}) => {
     const nsp = new NewServicePage(page);
+    await page.goto(URLS.admin + 'services/newService');
 
-    test.step('Save service', async() => {
-        await page.goto(URLS.admin + 'services/newService');
+    await test.step('Save service', async() => {
         await nsp.saveService();
     });
 
-    test.step('Assert dropdown elements correct', async() => {});
+    await test.step('Assert dropdown elements correct', async() => {
+        await nsp.addNewAPI();
+    });
 
-    test.step('Save service', async() => {});
+    await test.step('Save service', async() => {});
 
-    test.step('Save service', async() => {});
+    await test.step('Save service', async() => {});
 
-    test.step('Save service', async() => {});
+    await test.step('Save service', async() => {});
 
 });

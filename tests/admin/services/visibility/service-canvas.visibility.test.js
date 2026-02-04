@@ -8,10 +8,10 @@
 *
 * */
 
-import {NewServicePage} from "../../../page-objects/services/newservice/new-service-page";
+import {NewServicePage} from "../../../../page-objects/services/newservice/new-service-page";
 
-const { test, expect } = require('../../.setup/test-setup');
-import { URLS } from '../../../playwright.config';
+const { test, expect } = require('../../../.setup/test-setup');
+import { URLS } from '../../../../playwright.config';
 
 test('Service canvas base elements visibility', async ({ page }) => {
     await page.goto(URLS.admin + 'services/newService');

@@ -13,9 +13,8 @@ class NewServicePage {
         this.serviceSettings = this.page.getByText('Teenuse seaded', {exact: true});
         this.closeSettings = this.page.locator('button.dialog__close');
 
-        this.serviceTitle = this.page.getByLabel('Pealkiri');
+        this.serviceTitle = this.page.getByPlaceholder('Pealkiri on kohustuslik');
         this.serviceDescription = this.page.getByPlaceholder('Kirjelda, mida teenus teeb...');
-        this.labelMandatory = this.page.getByPlaceholder('Pealkiri on kohustuslik')
 
         this.canvas = this.page.locator('[role="application"]');
         this.buttonImport = this.page.getByText('Impordi', { exact: true });
@@ -153,7 +152,6 @@ class NewServicePage {
     async assertServiceDetailsFieldsVisible(){
         await this.serviceSettings.click();
         await expect(this.serviceTitle).toBeVisible();
-        await expect(this.labelMandatory).toBeVisible();
         await expect(this.serviceDescription).toBeVisible();
         await this.closeSettings.click();
     }
