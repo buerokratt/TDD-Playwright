@@ -1,5 +1,5 @@
 import { URLS } from '../../playwright.config';
-const { test, expect } = require('../test-setup');
+const { test, expect } = require('../.setup/test-setup');
 const {AdminPageFactory: ap} = require("../../page-objects/admin-page-factory");
 
 test('Test: has landing page loaded with menu', async ({page}) => {
@@ -15,12 +15,31 @@ test('Test: has landing page loaded with menu', async ({page}) => {
     await topMenu.assertLogoVisible();
     await topMenu.assertToggleSwitchVisible();
     await topMenu.assertLogoutButtonVisible();
+    await sideMenu.assertCollapseButtonVisible();
 
     // side menu elements - when logged in as admin role
-    await sideMenu.assertCollapseButtonVisible();
-    await sideMenu.assertVestlusedButtonVisible();
-    await sideMenu.assertTreeningButtonVisible();
-    await sideMenu.assertAnalyytikaButtonVisible();
-    await sideMenu.assertTeenusedButtonVisible();
-    await sideMenu.assertHaldusButtonVisible();
+    await test.step('Assert chats module visible in menu', async () => {
+        await sideMenu.assertVestlusedButtonVisible();
+    });
+
+    await test.step('Assert training module visible in menu', async () => {
+        await sideMenu.assertTreeningButtonVisible();
+    });
+
+    await test.step('Assert analytics module visible in menu', async () => {
+        await sideMenu.assertAnalyytikaButtonVisible();
+    });
+
+    await test.step('Assert services module visible in menu', async () => {
+        await sideMenu.assertTeenusedButtonVisible();
+    });
+
+    await test.step('Assert management module visible in menu', async () => {
+        await sideMenu.assertHaldusButtonVisible();
+    });
+
+
+
+
+
 });

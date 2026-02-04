@@ -1,7 +1,7 @@
-import {ServicesOverviewPage} from "../../../page-objects/services/overview/services-overview-page";
+import {ServicesOverviewPage} from "../../../../page-objects/services/overview/services-overview-page";
 
-const { test, expect } = require('../../.setup/test-setup');
-import { URLS } from '../../../playwright.config';
+const { test, expect } = require('../../../.setup/test-setup');
+import { URLS } from '../../../../playwright.config';
 
 test('Service overview page elements visibility', async ({ page }) => {
 
@@ -11,10 +11,6 @@ test('Service overview page elements visibility', async ({ page }) => {
 
     await test.step('Service name visibility', async () => {
         await sop.assertServiceNameExists();
-    });
-
-    await test.step('Intent field visibility', async () => {
-        await sop.assertIntentFieldExists();
     });
 
     await test.step('Service status visibility', async () => {

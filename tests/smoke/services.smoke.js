@@ -1,4 +1,4 @@
-const { test, expect } = require('../test-setup');
+const { test, expect } = require('../.setup/test-setup');
 import { URLS } from '../../playwright.config';
 
 test('Services overview page', async({ page }) => {
@@ -8,7 +8,8 @@ test('Services overview page', async({ page }) => {
 
 test('New service page', async({ page }) => {
     await page.goto(URLS.admin + 'services/newService' );
-    await expect(page.getByText('Teenusvoo loomine')).toBeVisible();
+    await expect(page.getByText('Teenuse seaded')).toBeVisible();
+    await expect(page.getByText('...')).toBeVisible();
 });
 
 test('Faulty services page', async({ page }) => {
