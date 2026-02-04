@@ -1,6 +1,6 @@
 import {ServicesOverviewPage} from "../../../page-objects/services/overview/services-overview-page";
 
-const { test, expect } = require('../../test-setup');
+const { test, expect } = require('../../.setup/test-setup');
 import { URLS } from '../../../playwright.config';
 
 test('Service overview page elements visibility', async ({ page }) => {
@@ -9,15 +9,6 @@ test('Service overview page elements visibility', async ({ page }) => {
 
     const sop = new ServicesOverviewPage(page);
 
-    /*
-    *  Pealkiri „Teenused“
-    * Pealkiri „Üldteenused“
-    * Nupp „Loo uus teenus“
-    * Teenused tabel ja Üldteenused tabel
-    * Veerupäised Nimetus, Ühendatud teema, Olek – mõlemas tabelis
-    * Iga rea juures on nähtav teenuse nimi, ühendatud teema või link „Ühendage teemaga“, nupud „Muuda“ ja „Kustuta“
-    * Rippmenüü „Kuvan korraga“ mõlemas tabelis
-    * */
     await test.step('Service name visibility', async () => {
         await sop.assertServiceNameExists();
     });
@@ -38,8 +29,8 @@ test('Service overview page elements visibility', async ({ page }) => {
         await sop.assertDeleteButtonExists();
     });
 
-    await test.step('Pagination visibility', async () => {
-
+    await test.step('Pagination visibility services table', async () => {
+        await sop.assertPageSizeVisibleServices();
     });
 
 });

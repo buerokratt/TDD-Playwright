@@ -42,7 +42,7 @@ class WidgetPage {
         await this.sendButton.click();
 
         await this.page.waitForTimeout(3000);
-        await this.page.getByText('Suunan teid klienditeenindajale. Varuge natukene kannatust.').isVisible();
+        await expect(this.page.getByText('Suunan teid klienditeenindajale. Varuge natukene kannatust.')).toBeVisible();
     }
 
     async openDetails(){

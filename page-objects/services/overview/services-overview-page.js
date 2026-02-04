@@ -41,13 +41,14 @@ class ServicesOverviewPage{
     }
 
     async clickEdit(serviceTitle){
-        await this.page.waitForLoadState('networkidle');
         await expect(this.getServiceRow(serviceTitle).getByRole('button', { name: 'Muuda' })).toBeVisible();
         await this.getServiceRow(serviceTitle).getByRole('button', { name: 'Muuda' }).click();
+        await this.page.waitForLoadState('domcontentloaded');
     }
 
     async clickCreateNew(){
         await this.buttonCreateNewService.click();
+        await this.page.waitForLoadState('domcontentloaded');
     }
 
     async deleteService(serviceTitle){
@@ -71,25 +72,31 @@ class ServicesOverviewPage{
             await expect(
                 this.getRowColumns(
                     this.getFirstTableRow(this.tableServices)
-                ).nth(2)
+                ).nth(1)
             ).toContainText(/\w/);
         }
     }
 
     async assertStatusExists(){
-        const statuses = ['Mustand', 'Valmis', 'Kinnitatud', 'Valmis'];
+        const statuses = ['Mustand', 'Valmis', 'Aktiivne'];
         await expect(
             this.getRowColumns(
                 this.getFirstTableRow(this.tableServices)
-            ).nth(3)
+            ).nth(2)
         ).toContainText(new RegExp(statuses.join('|')));
+    }
+
+    async assertStatusReady(serviceName){
+        await expect(this.getRowColumns(
+            this.getServiceRow(serviceName).nth(2)
+        )).toContain('Valmis');
     }
 
     async assertEditButtonExists(){
         await expect(
             this.getRowColumns(
                 this.getFirstTableRow(this.tableServices)
-            ).nth(4).getByRole('button', { name: 'Muuda' })
+            ).nth(3).getByRole('button', { name: 'Muuda' })
         ).toBeVisible();
     }
 
@@ -101,8 +108,12 @@ class ServicesOverviewPage{
         ).toBeVisible();
     }
 
-    async assertPageSizeVisible(){
-        await expect(this.page.getByRole('combobox', { name: 'Kuvan korraga' })).toBeVisible();
+    async assertPageSizeVisibleServices(){
+        await expect(this.page.locator('label:has-text("Kuvan korraga") + select').nth(0)).toBeVisible();
+    }
+
+    async assertPageSizeVisibleGeneralServices(){
+        await expect(this.page.locator('label:has-text("Kuvan korraga") + select').nth(1)).toBeVisible();
     }
 }
 module.exports = { ServicesOverviewPage };
