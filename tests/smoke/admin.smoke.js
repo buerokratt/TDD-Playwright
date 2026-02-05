@@ -1,4 +1,4 @@
-const { test, expect } = require('../test-setup');
+const { test, expect } = require('../.setup/test-setup');
 import { URLS } from '../../playwright.config';
 
 test('Users Page', async({ page }) => {

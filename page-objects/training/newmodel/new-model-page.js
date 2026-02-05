@@ -1,3 +1,5 @@
+const {expect} = require("@playwright/test");
+
 class NewModelPage {
     constructor(page) {
         this.page = page;
@@ -11,7 +13,7 @@ class NewModelPage {
     }
 
     async isPageHeaderVisible(){
-        return this.pageHeader.isVisible();
+        return expect(this.pageHeader).toBeVisible();
     }
 }
 module.exports = { NewModelPage };

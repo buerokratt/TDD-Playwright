@@ -15,7 +15,7 @@
 // 9. Active service
 
 import { URLS } from '../../../playwright.config';
-const { test, expect } = require('../../test-setup');
+const { test, expect } = require('../../.setup/test-setup');
 const { AdminPageFactory: ap} = require('../../../page-objects/admin-page-factory');
 
 const randomString = Math.random().toString(36).substring(2, 10);

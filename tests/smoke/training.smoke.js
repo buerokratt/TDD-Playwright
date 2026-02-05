@@ -1,5 +1,5 @@
 import { URLS } from '../../playwright.config';
-const { test, expect } = require('../test-setup');
+const { test, expect } = require('../.setup/test-setup');
 
 test('Intents page', async ({page}) => {
     await page.goto(URLS.admin + 'training/training/intents'  );

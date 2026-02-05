@@ -1,3 +1,5 @@
+const {expect} = require("@playwright/test");
+
 class PageHeader {
     constructor(page) {
         this.page = page;
@@ -25,15 +27,15 @@ class PageHeader {
     }
 
     async assertLogoVisible(){
-        await this.logo.waitFor({ state: 'visible'});
+        await expect(this.logo).toBeVisible();
     }
 
     async assertToggleSwitchVisible(){
-        await this.toggleSwitch.waitFor({ state: 'visible'});
+        await expect(this.toggleSwitch).toBeVisible();;
     }
 
     async assertLogoutButtonVisible(){
-        await this.buttonLogOut.waitFor({ state: 'visible'});
+        await expect(this.buttonLogOut).toBeVisible();;
     }
 
     async saveCSAStatus(){

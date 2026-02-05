@@ -1,3 +1,5 @@
+const {expect} = require("@playwright/test");
+
 class SideMenuPage {
     constructor(page) {
         this.page = page;
@@ -11,31 +13,31 @@ class SideMenuPage {
 
 
     async isChatMenuVisible(){
-        await this.buttonVestlused.isVisible();
+        await expect(this.buttonVestlused).toBeVisible();
     }
 
     async assertVestlusedButtonVisible(){
-        await this.buttonVestlused.waitFor({ state: 'visible'});
+        await expect(this.buttonVestlused).toBeVisible();
     }
 
     async assertTreeningButtonVisible(){
-        await this.buttonTreening.waitFor({ state: 'visible'});
+        await expect(this.buttonTreening).toBeVisible();
     }
 
     async assertAnalyytikaButtonVisible(){
-        await this.buttonAnalyytika.waitFor({ state: 'visible'});
+        await expect(this.buttonAnalyytika).toBeVisible();
     }
 
     async assertTeenusedButtonVisible(){
-        await this.buttonTeenused.waitFor({ state: 'visible'});
+        await expect(this.buttonTeenused).toBeVisible();
     }
 
     async assertHaldusButtonVisible(){
-        await this.buttonHaldus.waitFor({ state: 'visible'});
+        await expect(this.buttonHaldus).toBeVisible();
     }
 
     async assertCollapseButtonVisible(){
-        await this.buttonCollapseAll.waitFor({ state: 'visible'});
+        await expect(this.buttonCollapseAll).toBeVisible();
     }
 }
 
