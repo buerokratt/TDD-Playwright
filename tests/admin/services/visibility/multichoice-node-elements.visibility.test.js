@@ -1,34 +1,52 @@
-import {NewServicePage} from "../../../../page-objects/services/newservice/new-service-page";
+import { NewServicePage } from "../../../../page-objects/services/newservice/new-service-page";
+const { test, expect } = require("../../../.setup/test-setup");
+import { URLS } from "../../../../playwright.config";
 
-const { test, expect } = require('../../../.setup/test-setup');
-import { URLS } from '../../../../playwright.config';
+test("Multichoice node elements visibility", async ({ page }) => {
+    await page.goto(URLS.admin + "services/newService");
+    await page.waitForLoadState("domcontentloaded");
 
-test('Multichoice node elements visibility', async ({ page }) => {
-    await page.goto(URLS.admin + 'services/newService');
     const nsp = new NewServicePage(page);
+    const nodeTitle = "Mitmevalikuline küsimus - 1";
 
-    await test.step('Multichoice question node elements visibility', async () => {
-        await nsp.clickAddNode();
-        await nsp.selectNode(nsp.buttonMultichoiceQuestion);
-        await nsp.assertNodeVisible(nsp.buttonMultichoiceQuestion);
-        await expect(nsp.buttonYes).toBeVisible();
-        await expect(nsp.buttonNo).toBeVisible();
+    await test.step("Add multichoice node from picker (picker closes, canvas visible)", async () => {
+        await nsp.clickAddNodeAtEdgeIndex(0);
+
+        // picker is open (dropdown)
+        await nsp.assertNodePickerVisible();
+
+        // pick the node type and return to canvas (new behavior)
+        await nsp.pickNodeTypeAndReturnToCanvas(nsp.pickerMultichoiceBtn);
+
+        // node should now exist on canvas
+        await expect(nsp.getFlowNodeByTitle(nodeTitle)).toBeVisible();
     });
 
-    await test.step('Open multichoice node', async () => {
-        await nsp.editNode('Mitmevalikuline küsimus - 1');
-        await nsp.assertDialogVisible();
-        await expect(nsp.textArea).toBeVisible();
+    await test.step("Open multichoice node dialog via edit button", async () => {
+        await nsp.openNodeDialogByTitle(nodeTitle);
+
+        // node editor popup (NOT the picker)
+        await nsp.assertNodeEditorVisible();
     });
 
-    await test.step('Multichoice buttons visibility', async () => {
-        await expect(nsp.buttonYes).toBeVisible();
-        await expect(nsp.buttonNo).toBeVisible();
-        await expect(nsp.addButton).toBeVisible();
-    });
+    await test.step("Multichoice dialog base elements visible", async () => {
+        // common popup UI
+        await nsp.assertTabsVisible();
+        await nsp.assertNodeEditorButtonsVisible();
 
-    await test.step('Multichoice question input visible', async () => {
-        await expect(nsp.textArea).toBeVisible();
-    });
+        // multichoice-specific UI (scoped to the opened popup)
+        const popup = nsp.nodeEditorPopup;
 
+        await expect(popup.locator('textarea[placeholder="Sisesta küsimus"]')).toBeVisible();
+
+        // default options
+        await expect(popup.getByRole("button", { name: "Jah", exact: true })).toBeVisible();
+        await expect(popup.getByRole("button", { name: "Ei", exact: true })).toBeVisible();
+
+        // add option button
+        await expect(popup.getByRole("button", { name: "Lisa nupp +", exact: true })).toBeVisible();
+
+        // optional: verify the title is the right dialog
+        await expect(nsp.nodeEditorTitle).toContainText("Mitmevalikuline küsimus");
+    });
 });
