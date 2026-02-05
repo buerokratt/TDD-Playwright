@@ -1,275 +1,356 @@
-const {expect, Locator} = require("@playwright/test");
+// page-objects/services/newservice/new-service-page.js
+const { expect } = require('@playwright/test');
 
 class NewServicePage {
     constructor(page) {
         this.page = page;
 
-        this.buttonSave = this.page.getByText('Salvesta', { exact: true }).last();
-        this.buttonDelete = this.page.getByText('Kustuta', { exact: true });
-        this.buttonConfirm = this.page.getByText('Kinnita', { exact: true });
-        this.backToServices = this.page.getByRole('button', { name: 'Tagasi teenuste lehele' });
-        this.stepName = this.page.getByText('...', { exact: true });
+        // =========================
+        // Header
+        // =========================
+        this.header = page.locator('header.header');
 
-        this.serviceSettings = this.page.getByText('Teenuse seaded', {exact: true});
-        this.closeSettings = this.page.locator('button.dialog__close');
+        this.backToServicesBtn = this.header.getByRole('button', { name: 'Tagasi teenuste lehele', exact: true });
+        this.serviceSettingsBtn = this.header.getByRole('button', { name: 'Teenuse seaded', exact: true });
+        this.stepName = this.header.locator('.naming');
 
-        this.serviceTitle = this.page.getByPlaceholder('Pealkiri on kohustuslik');
-        this.serviceDescription = this.page.getByPlaceholder('Kirjelda, mida teenus teeb...');
+        this.deleteServiceBtn = this.header.getByRole('button', { name: 'Kustuta', exact: true });
+        this.saveServiceBtn = this.header.getByRole('button', { name: 'Salvesta', exact: true });
+        this.confirmServiceBtn = this.header.getByRole('button', { name: 'Kinnita', exact: true });
 
-        this.canvas = this.page.locator('[role="application"]');
-        this.buttonImport = this.page.getByText('Impordi', { exact: true });
-        this.buttonExport = this.page.getByText('Ekspordi', { exact: true });
-        this.nodeStart = this.page.locator('.react-flow__node-start .start-node');
+        // =========================
+        // Settings dialog
+        // =========================
+        this.settingsDialog = page.locator('[role="dialog"]').filter({
+            has: page.getByRole('heading', { name: 'Teenuse seaded' }),
+        });
 
-        this.buttonAdd = this.page.getByRole('button', { name: '+', exact: true });
-        this.nodeMenu = this.page.locator('[role="menu"]');
-        this.dialog = this.page.locator('[role="dialog"]');
+        this.settingsCloseBtn = this.settingsDialog.locator('button.dialog__close');
 
-        this.dialogSave = this.dialog.getByText('Salvesta');
-        this.dialogCancel = this.dialog.getByText('Tühista');
-        this.dialogClose = this.dialog.locator('button.popup__close');
+        // title input is inside settings dialog; use placeholder OR label if available
+        this.serviceTitleInput = this.settingsDialog.locator('input[placeholder="Pealkiri on kohustuslik"]');
+        this.serviceDescriptionInput = this.settingsDialog.getByLabel('Kirjeldus :');
 
-        this.buttonDefine = this.page.getByText('Määra', { expect: true });
-        this.buttonMessageForCustomer = this.page.getByText('Sõnum kliendile', { expect: true });
-        this.buttonCondition = this.page.getByText('Tingimus', { expect: true });
-        this.buttonMultichoiceQuestion = this.page.getByText('Mitmevalikuline küsimus', { expect: true });
-        this.buttonDynamicChoice = this.page.getByText('Dünaamilised valikud', { expect: true });
-        this.buttonEndService = this.page.getByText('Teenuse lõpetamine', { expect: true });
+        // =========================
+        // Canvas / React Flow
+        // =========================
+        this.canvas = page.getByRole('application'); // react-flow sets role="application"
+        this.flowWrapper = page.getByTestId('rf__wrapper').or(page.locator('.react-flow__wrapper')).first();
 
-        this.messageBox = this.page.locator('[contenteditable="true"]').first();
-        this.confirmationText = this.page.getByText('Salvestatud', { exact: true });
+        this.startNode = page.locator('.react-flow__node-start .start-node');
 
-        this.buttonZoomIn = this.page.getByTitle('Zoom In');
-        this.buttonZoomOut = this.page.getByTitle('Zoom Out');
-        this.buttonFitView = this.page.getByTitle('Fit View');
+        this.edgeAddButtons = page.locator('button.edge-button'); // multiple "+"
+        this.flowNodes = page.locator('.react-flow__node'); // node containers
 
-        this.sectionDefineElements = this.page.getByText('Määra elemendid', {exact: true});
-        this.sectionEnvVariables = this.page.getByText('Keskkonnamuutujad', {exact: true});
-        this.sectionDates = this.page.getByText('Kuupäev ja kellaaeg', {exact: true});
-        this.sectionTools = this.page.getByText('Tööriistad', {exact: true});
+        // panels
+        this.topLeftPanel = page.locator('.react-flow__panel.top.left');
+        this.importBtn = this.topLeftPanel.getByRole('button', { name: 'Impordi', exact: true });
+        this.exportBtn = this.topLeftPanel.getByRole('button', { name: 'Ekspordi', exact: true });
 
-        this.tabSettings = this.page.getByText('Seadistamine', {exact: true});
-        this.tabTesting = this.page.getByText('Testimine', {exact: true});
+        // zoom controls
+        this.zoomInBtn = page.getByTitle('Zoom In');
+        this.zoomOutBtn = page.getByTitle('Zoom Out');
+        this.fitViewBtn = page.getByTitle('Fit View');
 
-        this.buttonYes = this.page.getByRole('button', {name: 'Jah', exact: true});
-        this.buttonNo = this.page.getByRole('button', {name: 'Ei', exact: true});
-        this.buttonSuccess = this.page.getByRole('button', {name: 'Success', exact: true});
-        this.buttonFailure = this.page.getByRole('button', {name: 'Failure', exact: true});
+        // =========================
+        // Toasts
+        // =========================
+        this.toastList = page.locator('ol.toast__list');
 
-        this.textArea = this.dialog.getByRole('textbox');
+        // =========================
+        // Node Picker (dropdown after clicking "+")
+        // =========================
+        this.nodePickerDialog = page.locator('[role="dialog"].dropdown[data-state="open"]');
 
-        this.buttonAddElement = this.page.getByRole('button', {name: '+ Element', exact: true});
-        this.buttonRule = this.page.getByRole('button', {name: '+ Reegel', exact: true});
-        this.buttonGroup = this.page.getByRole('button', {name: '+ Grupp', exact: true});
+        // Buttons inside picker (scoped)
+        this.pickerDefineBtn = this.nodePickerDialog.getByRole('button', { name: 'Määra', exact: true });
+        this.pickerMessageBtn = this.nodePickerDialog.getByRole('button', { name: 'Sõnum kliendile', exact: true });
+        this.pickerConditionBtn = this.nodePickerDialog.getByRole('button', { name: 'Tingimus', exact: true });
+        this.pickerMultichoiceBtn = this.nodePickerDialog.getByRole('button', { name: 'Mitmevalikuline küsimus', exact: true });
+        this.pickerDynamicChoiceBtn = this.nodePickerDialog.getByRole('button', { name: 'Dünaamilised valikud', exact: true });
+        this.pickerEndServiceBtn = this.nodePickerDialog.getByRole('button', { name: 'Teenuse lõpetamine', exact: true });
 
-        this.dialogElementInput = this.dialog.getByRole('input').first();
-        this.dialogElementDrag = this.dialog.getByPlaceholder('Lohista element siia', {exact: true});
-        this.elementRows = this.dialog.locator('._assignElement_umtte_1');
+        // "Create API endpoint" plus button inside picker (your svg path locator kept, but scoped)
+        this.pickerAddApiBtn = this.nodePickerDialog.locator(
+            'button:has(svg path[d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"])'
+        );
 
-        this.addButton = this.dialog.getByRole('button', {name: 'Lisa nupp +'});
-        this.buttonAddApi = this.dialog.locator('button:has(svg path[d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"])');
-        this.apiHeader = this.dialog.getByText('Loo uus otspunkt', {exact: true});
+        // =========================
+        // Node Editor Popup (opened by clicking node pencil)
+        // =========================
+        this.nodeEditorPopup = page.locator('[role="dialog"].popup[data-state="open"]');
+        this.nodeEditorTitle = this.nodeEditorPopup.locator('h2.popup__title');
 
-        this.apiURL = 'https://openholidaysapi.org/swagger/v1/swagger.json';
+        this.nodeEditorCloseBtn = this.nodeEditorPopup.locator('button.popup__close');
+        this.nodeEditorCancelBtn = this.nodeEditorPopup.getByRole('button', { name: 'Tühista', exact: true });
+        this.nodeEditorSaveBtn = this.nodeEditorPopup.getByRole('button', { name: 'Salvesta', exact: true });
+
+        this.nodeEditorTabs = this.nodeEditorPopup.getByRole('tablist');
+        this.nodeEditorTabSeadistamine = this.nodeEditorPopup.getByRole('tab', { name: 'Seadistamine', exact: true });
+        this.nodeEditorTabTestimine = this.nodeEditorPopup.getByRole('tab', { name: 'Testimine', exact: true });
+
+        // =========================
+        // Widget (Buerokratt)
+        // =========================
+        this.widgetIcon = page.getByAltText('Buerokratt logo');
+
+        // widget dialog: scope by input label text (unique) instead of "TEST" text
+        this.widgetDialog = page.locator('[role="dialog"]').filter({
+            has: page.getByText('Teenuse sisend:', { exact: true }),
+        }).first();
+
+        this.widgetInput = this.widgetDialog.getByPlaceholder('Sisestage sisend, eraldatud komadega');
+        this.widgetCloseImg = this.widgetDialog.getByAltText('Close');
+        this.widgetSendImg = this.widgetDialog.getByAltText('Send');
+
+        // The message stream container (the IMPORTANT bit for your “reads whole page” problem)
+        // Your markup has .os-viewport > .os-content that contains the messages.
+        this.widgetMessages = this.widgetDialog.locator('.os-viewport .os-content');
+
+        // ---------- "Tingimus" node popup ----------
+        this.conditionDialog = this.page.locator('[role="dialog"].popup:visible').filter({
+            has: this.page.locator('h2.popup__title').filter({ hasText: /^Tingimus/ }),
+        }).first();
+
+        this.conditionTitle = this.conditionDialog.locator('h2.popup__title');
+        this.conditionClose = this.conditionDialog.locator('button.popup__close').first();
+
+        this.conditionTabSeadistamine = this.conditionDialog.getByRole('tab', { name: 'Seadistamine' });
+        this.conditionTabTestimine = this.conditionDialog.getByRole('tab', { name: 'Testimine' });
+
+        this.conditionCancel = this.conditionDialog.getByRole('button', { name: 'Tühista', exact: true });
+        this.conditionSave = this.conditionDialog.getByRole('button', { name: 'Salvesta', exact: true });
+
+        // Buttons inside condition dialog
+        this.conditionBtnSuccess = this.conditionDialog.getByRole('button', { name: 'Success', exact: true });
+        this.conditionBtnFailure = this.conditionDialog.getByRole('button', { name: 'Failure', exact: true });
+
+        // Optional: sections inside condition dialog (if your app has same sections)
+        this.conditionSectionDefineElements = this.conditionDialog.locator('label', { hasText: 'Määra elemendid' }).locator('..');
 
     }
 
-    async createNewService(randomName){
-        await this.serviceSettings.click();
-        await this.page.waitForLoadState('domcontentloaded');
-        await this.serviceTitle.fill(randomName);
-        await this.closeSettings.click();
-        await this.buttonSave.click();
-        await this.page.waitForLoadState('networkidle');
-        await expect(this.confirmationText).toBeVisible();
-        await this.backToServices.click();
-        await this.page.waitForLoadState('networkidle');
+    // ==========================================================
+    // Generic helpers
+    // ==========================================================
+    getFlowNodeByTitle(titleText) {
+        return this.flowNodes
+            .filter({ has: this.page.getByText(titleText, { exact: true }) })
+            .first();
     }
 
-    async addNodes(){
-        await this.clickAddNode();
-        await this.buttonMessageForCustomer.waitFor({state: 'visible'});
-        await expect(this.buttonMessageForCustomer).toBeVisible();
-        await this.buttonMessageForCustomer.click();
+    async waitForToast({ timeout = 15000 } = {}) {
+        await expect(this.toastList.locator('li').first()).toBeVisible({ timeout });
+    }
 
-        await this.clickAddNode();
-        await expect(this.buttonEndService).toBeVisible();
-        await this.buttonEndService.click();
+    // ==========================================================
+    // Settings
+    // ==========================================================
+    async openSettings() {
+        await this.serviceSettingsBtn.click();
+        await expect(this.settingsDialog).toBeVisible();
+    }
 
+    async closeSettingsDialog() {
+        if (await this.settingsCloseBtn.isVisible().catch(() => false)) {
+            await this.settingsCloseBtn.click();
+        } else {
+            await this.page.keyboard.press('Escape');
+        }
+        await expect(this.settingsDialog).toBeHidden();
+    }
+
+    async setTitle(title) {
+        await this.openSettings();
+        await expect(this.serviceTitleInput).toBeVisible();
+        await this.serviceTitleInput.fill(String(title));
+        await this.closeSettingsDialog();
+    }
+
+    // ==========================================================
+    // Service actions
+    // ==========================================================
+    async saveService() {
+        await expect(this.saveServiceBtn).toBeVisible();
+        await this.saveServiceBtn.click();
+        await this.waitForToast();
+        await expect(this.toastList).toContainText(/salvest/i);
+    }
+
+    async confirmService() {
+        await expect(this.confirmServiceBtn).toBeVisible();
+        await this.confirmServiceBtn.click();
+    }
+
+    async returnToServicesOverview() {
+        await this.backToServicesBtn.click();
+    }
+
+    async createNewService(name) {
+        await this.setTitle(name);
         await this.saveService();
-        await this.page.waitForLoadState('networkidle');
-        await this.confirmationText.waitFor({state: 'visible'});
-    }
-
-    async clickAddNode(){
-        await this.buttonAdd.last().click();
-        await this.page.waitForLoadState('domcontentloaded');
-        await expect(this.dialog).toBeVisible();
-    }
-
-    async returnToServicesOverview(){
-        await this.backToServices.click();
-    }
-
-    async addMessage(){
-        await this.messageBox.click();
-        await this.page.waitForLoadState('networkidle');
-        await this.messageBox.fill('Test');
-        await this.dialogSave.click();
-    }
-
-    getNodeByName(nodeName){
-        return this.page.getByText(nodeName);
-    }
-
-    async editNode(nodeNome){
-        const parentNode = this.getNodeByName(nodeNome, {exact: true}).locator('xpath=../..');
-        await expect(parentNode.getByRole('button').first()).toBeVisible();
-        await parentNode.getByRole('button').first().click();
+        await this.returnToServicesOverview();
         await this.page.waitForLoadState('domcontentloaded');
     }
 
-    async deleteNode(nodeName){
-        const parentNode = nodeName.locator('xpath=../..');
-        await expect(parentNode.getByRole('button').nth(1)).toBeVisible();
-        await parentNode.getByRole('button').nth(1).click();
+    // ==========================================================
+    // Node picker / adding nodes
+    // ==========================================================
+    async clickAddNodeAtEdgeIndex(index = 0) {
+        const btn = this.edgeAddButtons.filter({ hasText: '+' }).nth(index);
+        await expect(btn).toBeVisible();
+        await btn.click();
+        await expect(this.nodePickerDialog).toBeVisible();
     }
 
-    async saveService(){
-        await expect(this.buttonSave).toBeVisible();
-        await this.buttonSave.click();
-        await expect(this.confirmationText).toBeVisible();
+    async clickAddNode() {
+        // legacy convenience = first visible edge
+        const btn = this.edgeAddButtons.filter({ hasText: '+' }).first();
+        await expect(btn).toBeVisible();
+        await btn.click();
+        await expect(this.nodePickerDialog).toBeVisible();
     }
 
-    async assertHeaderElementVisible(){
-        await expect(this.backToServices).toBeVisible();
-        await expect(this.stepName).toBeVisible();
-        await expect(this.buttonDelete).toBeVisible();
-        await expect(this.buttonSave).toBeVisible();
-        await expect(this.buttonConfirm).toBeVisible();
+    async assertNodePickerVisible() {
+        await expect(this.nodePickerDialog).toBeVisible();
     }
 
-    async assertServiceDetailsFieldsVisible(){
-        await this.serviceSettings.click();
-        await expect(this.serviceTitle).toBeVisible();
-        await expect(this.serviceDescription).toBeVisible();
-        await this.closeSettings.click();
-    }
+    async pickNodeTypeAndReturnToCanvas(nodeTypeBtn) {
+        await this.assertNodePickerVisible();
+        await expect(nodeTypeBtn).toBeVisible();
+        await nodeTypeBtn.click();
 
-    async assertCanvasVisible(){
+        // picker closes after selection
+        await expect(this.nodePickerDialog).toBeHidden();
+
+        // back to canvas
         await expect(this.canvas).toBeVisible();
     }
 
-    async assertCanvasElementsVisible(){
-        await expect(this.buttonImport).toBeVisible();
-        await expect(this.buttonExport).toBeVisible();
-        await expect(this.nodeStart).toBeVisible();
-        await expect(this.buttonAdd).toBeVisible();
+    // ==========================================================
+    // Open node editor (pencil on node)
+    // ==========================================================
+    async openNodeDialogByTitle(titleText) {
+        const node = this.getFlowNodeByTitle(titleText);
+        await expect(node).toBeVisible();
+
+        // In your node HTML: two buttons in top-right; first is pencil/edit.
+        const editBtn = node.locator('button.btn--text').first();
+        await expect(editBtn).toBeVisible();
+        await editBtn.click();
+
+        await expect(this.nodeEditorPopup).toBeVisible();
+        await expect(this.nodeEditorTitle).toBeVisible();
     }
 
-    async assertZoomButtonsVisible(){
-        await expect(this.buttonZoomOut).toBeVisible();
-        await expect(this.buttonZoomIn).toBeVisible();
-        await expect(this.buttonFitView).toBeVisible();
+    async assertNodeEditorVisible() {
+        await expect(this.nodeEditorPopup).toBeVisible();
+        await expect(this.nodeEditorTitle).toBeVisible();
     }
 
-    async getButtonCount(element){
-        return await element.getByRole('button').count();
+    async assertNodeEditorButtonsVisible() {
+        await this.assertNodeEditorVisible();
+        await expect(this.nodeEditorCancelBtn).toBeVisible();
+        await expect(this.nodeEditorSaveBtn).toBeVisible();
+        await expect(this.nodeEditorCloseBtn).toBeVisible();
     }
 
-    async assertSectionHasButtons(section) {
-        await expect(await section.count()).toBeGreaterThan(0);
+    async assertTabsVisible() {
+        await this.assertNodeEditorVisible();
+        await expect(this.nodeEditorTabs).toBeVisible();
+        await expect(this.nodeEditorTabSeadistamine).toBeVisible();
+        await expect(this.nodeEditorTabTestimine).toBeVisible();
     }
 
-    async assertNodeVisible(nodeName){
-        await expect(nodeName).toBeVisible();
+    // ==========================================================
+    // API endpoint creation modal
+    // ==========================================================
+    get createEndpointModal() {
+        return this.page.locator('[role="dialog"].modal[data-state="open"]');
     }
 
-    async selectNode(node){
-        await node.click();
+    async openCreateEndpointFromPicker() {
+        await this.assertNodePickerVisible();
+        await expect(this.pickerAddApiBtn).toBeVisible();
+        await this.pickerAddApiBtn.click();
+        await expect(this.createEndpointModal).toBeVisible();
     }
 
-    async assertDialogVisible(){
-        await expect(this.dialog).toBeVisible();
+    // ==========================================================
+    // Widget
+    // ==========================================================
+    async openWidget() {
+        await expect(this.widgetIcon).toBeVisible();
+        await this.widgetIcon.click();
+
+        await expect(this.widgetDialog).toBeVisible();
+        await expect(this.widgetInput).toBeVisible();
+        await expect(this.widgetCloseImg).toBeVisible();
+        await expect(this.widgetSendImg).toBeVisible();
     }
 
-    async assertDefineElementsVisible(){
-        await expect(this.sectionDefineElements).toBeVisible();
+    async widgetSendText(text) {
+        await expect(this.widgetInput).toBeVisible();
+        await this.widgetInput.fill(String(text));
+        await this.widgetSendImg.click();
     }
 
-    async assertDefineEnvVariablesVisible(){
-        await expect(this.sectionEnvVariables).toBeVisible();
+    async expectWidgetToContainText(text) {
+        // IMPORTANT: assert only inside messages container
+        await expect(this.widgetMessages).toContainText(String(text));
     }
 
-    async assertDatesVisible(){
-        await expect(this.sectionDates).toBeVisible();
+    // ==========================================================
+    // Visibility assertions (base)
+    // ==========================================================
+    async assertHeaderElementVisible() {
+        await expect(this.backToServicesBtn).toBeVisible();
+        await expect(this.stepName).toBeVisible();
+        await expect(this.deleteServiceBtn).toBeVisible();
+        await expect(this.saveServiceBtn).toBeVisible();
+        await expect(this.confirmServiceBtn).toBeVisible();
     }
 
-    async assertToolsVisible(){
-        await expect(this.sectionTools).toBeVisible();
+    async assertServiceDetailsFieldsVisible() {
+        await this.openSettings();
+        await expect(this.serviceTitleInput).toBeVisible();
+        await expect(this.serviceDescriptionInput).toBeVisible();
+        await this.closeSettingsDialog();
     }
 
-    async assertTabsVisible(){
-        await expect(this.tabSettings).toBeVisible();
-        await expect(this.tabTesting).toBeVisible();
+    async assertCanvasVisible() {
+        await expect(this.canvas).toBeVisible();
     }
 
-    async assertDialogButtonsVisible(){
-        await expect(this.dialogSave).toBeVisible();
-        await expect(this.dialogCancel).toBeVisible();
-        await expect(this.dialogClose).toBeVisible();
+    async assertCanvasElementsVisible() {
+        await expect(this.importBtn).toBeVisible();
+        await expect(this.exportBtn).toBeVisible();
+        await expect(this.startNode).toBeVisible();
+        // ensure at least one add button exists
+        await expect(this.edgeAddButtons.first()).toBeVisible();
     }
 
-    async assertConditionButtonsVisible(){
-        await expect(this.buttonSuccess).toBeVisible();
-        await expect(this.buttonFailure).toBeVisible();
+    async assertZoomButtonsVisible() {
+        await expect(this.zoomOutBtn).toBeVisible();
+        await expect(this.zoomInBtn).toBeVisible();
+        await expect(this.fitViewBtn).toBeVisible();
     }
 
-    async addElementToNode(){
-        await this.buttonAddElement.click();
+    async assertConditionDialogVisible() {
+        await expect(this.conditionDialog).toBeVisible();
+        await expect(this.conditionTitle).toBeVisible();
+        await expect(this.conditionTabSeadistamine).toBeVisible();
+        await expect(this.conditionTabTestimine).toBeVisible();
+        await expect(this.conditionSave).toBeVisible();
+        await expect(this.conditionCancel).toBeVisible();
+        await expect(this.conditionClose).toBeVisible();
     }
 
-    async assertElementRowAdded(){
-        const rowcount = await this.elementRows.count();
-        await this.addElementToNode();
-        await expect(this.elementRows).toHaveCount(rowcount + 1);
-    }
-
-    // TODO: fix this somehow ...
-    async assertElementButtons(){
-        await expect(this.elementRows.getByRole('button')).toHaveCount(3);
-    }
-
-    async assertConditionButtons(){
-        await expect(this.buttonRule).toBeVisible();
-        await expect(this.buttonGroup).toBeVisible();
-    }
-
-    async assertDynamicChoiceFields() {
-        await expect(this.elementRows).toHaveCount(4);
-        const labels = ['Nimekiri', 'Teenuse nimi', 'Võti', 'Andmete võtmed'];
-
-        const rows = this.dialog.locator('_assignElement_umtte_1');
-
-        const count = await rows.count();
-
-        for (let i = 0; i < count; i++) {
-            const row = rows.nth(i);
-
-            await expect(row.locator('[name="key"]'))
-                .toContainText(new RegExp(labels.join('|')));
-
-            await expect(row.locator('[name="value"]'))
-                .toBeVisible();
-        }
-    }
-
-    async addNewAPI(){
-        await this.clickAddNode();
-        await this.buttonAddApi.click();
-        await this.page.waitForLoadState('domcontentloaded');
-        await expect(this.apiHeader).toBeVisible();
+    async assertConditionButtonsVisibleInDialog() {
+        await expect(this.conditionBtnSuccess).toBeVisible();
+        await expect(this.conditionBtnFailure).toBeVisible();
     }
 
 }
+
 module.exports = { NewServicePage };
