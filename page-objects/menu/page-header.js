@@ -31,11 +31,11 @@ class PageHeader {
     }
 
     async assertToggleSwitchVisible(){
-        await expect(this.toggleSwitch).toBeVisible();;
+        await expect(this.toggleSwitch).toBeVisible();
     }
 
     async assertLogoutButtonVisible(){
-        await expect(this.buttonLogOut).toBeVisible();;
+        await expect(this.buttonLogOut).toBeVisible();
     }
 
     async saveCSAStatus(){

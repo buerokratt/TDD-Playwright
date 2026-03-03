@@ -1,4 +1,4 @@
-import { test } from '@playwright/test';
+import {expect, test} from '@playwright/test';
 import { URLS } from '../../../playwright.config';
 import { WidgetPage } from "../../../page-objects/widget/widget-page";
 const { AdminPageFactory: ap} = require('../../../page-objects/admin-page-factory');
@@ -46,8 +46,8 @@ test('Chat flow test', async ({ browser })=>{
     await page.bringToFront();
     await csaPage.getChats().acceptChat();
 
-    await page.getByRole('tablist', {name: 'Aktiivsed vestlused'}).isVisible();
-    await page.getByText('Lõpeta vestlus').isVisible();
+    await expect(page.getByRole('tablist', {name: 'Aktiivsed vestlused'})).toBeVisible();
+    await expect(page.getByText('Lõpeta vestlus')).toBeVisible();
 
     await customerContext.clearCookies();
 });
