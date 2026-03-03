@@ -4,6 +4,7 @@ const { ServicesOverviewPage } = require("./services/overview/services-overview-
 const { NewServicePage } = require("./services/newservice/new-service-page");
 const { IntentsPage } = require("./training/intents/intents-page");
 const {NewModelPage} = require("./training/newmodel/new-model-page");
+const {SideMenuPage} = require("./menu/side-menu-page");
 
 class AdminPageFactory {
     constructor(page) {

@@ -15,7 +15,7 @@
 // 9. Active service
 
 import { URLS } from '../../../playwright.config';
-const { test, expect } = require('../../test-setup');
+const { test, expect } = require('../../.setup/test-setup');
 const { AdminPageFactory: ap} = require('../../../page-objects/admin-page-factory');
 
 const randomString = Math.random().toString(36).substring(2, 10);
@@ -49,12 +49,12 @@ test.skip('Service creation flow', async ({ page }) => {
 
     await nsp.editNode('Sõnum kliendile - 1');
     await page.waitForTimeout(3000);
-    await nsp.addMessage();
+    await nsp.addMessage('test');
     await nsp.buttonSave.last().click();
 
     await nsp.buttonSave.click();
 
-    await nsp.returnToServeicesOverview();
+    await nsp.returnToServicesOverview();
     await sop.assertServiceRowVisible(randomString);
 
     // TODO: confirm service
