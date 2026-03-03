@@ -1,15 +1,12 @@
 // test-setup.js
 const base = require('@playwright/test');
-const fs = require('fs');
-const path = require('path');
 
 // Export the page variable
 let page;
-let testContext;
 
 // Extend the base test with your setup
 exports.test = base.test.extend({
-    page: async ({ page }, use, testInfo) => {
+    page: async ({ page }, use) => {
         // Set up context with auth and video
 
 

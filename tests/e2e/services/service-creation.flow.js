@@ -49,7 +49,7 @@ test.skip('Service creation flow', async ({ page }) => {
 
     await nsp.editNode('Sõnum kliendile - 1');
     await page.waitForTimeout(3000);
-    await nsp.addMessage();
+    await nsp.addMessage('test');
     await nsp.buttonSave.last().click();
 
     await nsp.buttonSave.click();
