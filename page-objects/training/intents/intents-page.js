@@ -1,3 +1,5 @@
+const {expect} = require("@playwright/test");
+
 class IntentsPage {
     constructor(page) {
         this.page = page;
@@ -18,7 +20,7 @@ class IntentsPage {
         await this.buttonAddToModel.click();
 
         await this.page.waitForTimeout(3000);
-        await this.buttonRemoveFromModel.isVisible();
+        await expect(this.buttonRemoveFromModel).toBeVisible();
     }
 }
 module.exports = { IntentsPage };

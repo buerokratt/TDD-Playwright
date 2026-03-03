@@ -6,21 +6,19 @@ let page;
 
 // Extend the base test with your setup
 exports.test = base.test.extend({
-    page: async ({ browser }, use) => {
-        // Set up context with auth
-        const context = await browser.newContext({
-            storageState: 'tests/admin/.auth/user.json'
-        });
+    page: async ({ page }, use) => {
+        // Set up context with auth and video
 
-        page = await context.newPage();
 
         // Override the goto method with global waitUntil setting
         const originalGoto = page.goto.bind(page);
         page.goto = async (url, options = {}) => {
-            return originalGoto(url, {
+            const result = await originalGoto(url, {
                 waitUntil: 'domcontentloaded',
                 ...options // Allow individual tests to override if needed
             });
+            await page.waitForTimeout(3000);
+            return result;
         };
 
         // Set up console error monitoring
@@ -34,11 +32,10 @@ exports.test = base.test.extend({
 
         await use(page);
 
-        // Cleanup
         await page.close();
-        await context.close();
     }
 });
+
 
 exports.expect = base.expect;
 exports.page = page;
