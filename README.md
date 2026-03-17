@@ -1,107 +1,289 @@
-# BUGS:
-emergency-notices has actually bug instead of label element it is paragraph
-#  Playwright testing
-This project is built to test GUI functionality of buerokratt admin panel
+# Bürokratt Playwright Test Suite
 
-## Description:
-Current project help to test Buerokratt chat Widget GUI.  
-Technologies used: Playwright, NODE.js, Docker
+This repository contains the current Playwright-based automated test suite for the **Bürokratt admin interface, chat widget, and selected API-facing flows**.
 
-## Project setup
-* in root directory
-* Build image ```docker-compose up -d```
-* Run docker CLI interactively ```docker-compose exec playwright bash```
-* Run tests
-* To see report ```npx playwright show-report --host 0.0.0.0```	
-	
-	when done...
-* Exit docker CLI ```exit``` or ```CTRL + D```
-* Stop and remove container ```docker-compose down```
+The project is structured around a practical mix of:
 
+- **smoke coverage** for key pages and navigation paths
+- **UI validation tests** for the admin-side service builder
+- **API smoke checks** for major admin, analytics, and chat views
+- **end-to-end flows** for real user journeys
+- **Page Object Model (POM)** abstractions for reuse and maintainability
+- **local, Docker, and GitHub Actions execution**
 
-# Running tests
-* run all tests - ```npx playwright test```
+---
 
-* run tests in specific directory - ```npx playwright test ./tests/chatBox```
- 
-* run specific test file - ```npx playwright test ./tests/chatBox/visibility.spec.js```
+## Current project state
 
-* run api test file - ```npx playwright test ./tests/api/sample.spec.js --config=playwright.config.api.js```
+At the moment the repository includes:
 
-* additional flags
-	```
-	--debug             // debug step by step
-	--ui                // inspect tests while running
-	--project=chromium  // specify a browser for testing | default: all
-	--headed            // graphical representation of tests | default: headless
-    --workers=3         // amount of workers to run tests
-	--config=playwright.config.api.js // specify a config file to use for testing | default: playwright.config.js
-	```  
-[Official documentation for running and debugging tests](https://playwright.dev/docs/running-tests)  
-Tests result will be opened automatically in the browser and localhost address will be displayed in the terminal 
+- **69 active Playwright tests**
+- coverage split across **smoke**, **UI visibility/functionality**, **API smoke**, **widget**, and **E2E flow** suites
+- a strong current focus on the **Services** area in the admin application
+- environment targeting for both **test** and **stage** deployments
+- reusable page objects for admin navigation, chats, services, training, and widget interactions
+- CI workflow files for manual, scheduled, and dispatch-based execution
 
-# Writing tests:
-NB! Writng tests should be done outside the container.
-The container has to be rebuilt after.
+A coverage summary for the repository is maintained in [`docs/coverage.md`](docs/coverage.md).
 
-* create new file with ```example.spec.js``` extension
- 
-* ```import { test, expect } from '@playwright/test'```
+---
 
-* action before each separate test
-    ```
-    test.beforeEach(async ({ page }) => {
-		await page.goto('/');
-		// Additional actions here
-	});
-    ```  
-[Official documentation - Before and after hooks](https://playwright.dev/docs/test-parameterize#before-and-after-hooks)  
-* Use different locators to find elements in DOM:  
-Universal locator in Playwright is a method - .locator()  
-for other useful follow this link: [locators](https://playwright.dev/docs/locators)
+## Tech stack
 
-[Official documentation for writing tests](https://playwright.dev/docs/writing-tests)
+- **Playwright**
+- **Node.js**
+- **Docker / Docker Compose**
+- **GitHub Actions**
+- **Playwright HTML Reporter**
 
-### Generating tests:
-NB! Test generation should be done outside the container
-Test can be generated using:
-```
-npx playwright codegen https://prod.buerokratt.ee/
+---
+
+## Repository structure
+
+```text
+.
+├── docs/                       # Project notes and coverage documentation
+├── page-objects/               # Page Object Model classes
+│   ├── chats/
+│   ├── login/
+│   ├── menu/
+│   ├── services/
+│   ├── training/
+│   └── widget/
+├── tests/
+│   ├── .setup/                 # Shared test setup helpers
+│   ├── admin/                  # Auth, translation, and admin UI tests
+│   ├── api/                    # API smoke checks
+│   ├── e2e/                    # End-to-end flows
+│   ├── smoke/                  # Cross-area smoke tests
+│   └── widget/                 # Widget-specific tests
+├── .github/workflows/          # CI workflows
+├── docker-compose.yml
+├── Dockerfile
+├── playwright.config.js
+├── playwright.config.api.js
+└── package.json
 ```
 
-[Playwright inspector](https://playwright.dev/docs/codegen#generate-tests-with-the-playwright-inspector)  
-point - click - copy - paste
+---
 
-[Official documentation - Generating tests](https://playwright.dev/docs/codegen-intro)
+## Test areas currently covered
 
-# Configure file
-All configurations can be optionally defined, once, per test, run as flags (e.g. timeout : 30000ms,)
-    
-Global configuration are defined in: ```playwright.config.js``` and apply to every test run.  
-* Global timeout is set for 30 seconds.  
-* Failed tests will be retried once.  
-* Failed tests will retain a video, a screenshot and a trace.
+### Smoke suite
 
-# Reading logs
-* In container the test result will be diplayed ```http://0.0.0.0:9323```
-* Outside the container tests result will be opened automatically in the browser and localhost address will be displayed in the terminal.
+The smoke suite provides broad checks for the main application areas:
 
-NB! All tests are saved (including video, screenshot and trace) in the local directories until next batch of tests:
-* ```/playwright-report```  
-* ```/test-results```
+- landing page
+- admin pages
+- analytics pages
+- chats pages
+- services pages
+- training pages
 
+### Admin services suite
 
+The deepest current test coverage is in the **Services** area. This includes:
 
-# Test Suite for Bürokratt Admin Panel
+- overview page visibility
+- service canvas visibility
+- node-specific UI visibility
+- new service creation
+- editing and saving service data
+- confirmation-related behavior
+- client message behavior
+- selected negative-path checks
+- OpenAPI creation flow visibility
 
-## Test Functionalities
+### API smoke suite
 
-### General Testing Features
+API-oriented smoke tests validate that critical pages load without visible API errors for:
 
-* **Authentication:**
-  * All tests are conducted in an authenticated state. Playwright logs in before all tests, saves the cookie, and uses it to access the pages and correct translations.
-  * The login logic is handled in `auth.setup.js`, where the authentication flow and cookie saving is described in detail. Additionally, the configuration related to authentication can be found in `playwright.config.js`, which includes settings required to properly simulate and test authentication in the application.
+- admin settings-related pages
+- analytics pages
+- chat management pages
 
-* **Translations:**
-  * Tests are dynamically designed to handle translations in both English and Estonian. For example, `translation.yes` returns "Jah" when the cookie is set to the Estonian locale. This allows tests to seamlessly switch between languages based on the locale setting, ensuring all user-facing text is verified in the appropriate language.
+### Widget and E2E coverage
 
+The repository also includes:
+
+- widget visibility validation
+- a chat flow E2E test
+- a drafted service-creation E2E flow that is currently skipped
+
+---
+
+## Configuration
+
+### Environment selection
+
+The Playwright UI configuration supports two environments:
+
+- `test`
+- `stage`
+
+The default environment is resolved from `ENV`, with a fallback to `test` inside the config.
+
+Base URLs are defined centrally in `playwright.config.js`.
+
+### Projects in `playwright.config.js`
+
+The repository currently defines these Playwright projects:
+
+- `setup`
+- `smoke`
+- `flow`
+- `tests`
+
+The API suite also has a separate Playwright configuration in `playwright.config.api.js`.
+
+---
+
+## Prerequisites
+
+- Node.js 18+ recommended
+- npm
+- Playwright browser dependencies
+- Access to the target Bürokratt environments
+
+---
+
+## Installation
+
+```bash
+npm install
+npx playwright install --with-deps
+```
+
+---
+
+## Running tests locally
+
+### Run the default suite
+
+```bash
+npm test
+```
+
+### Run by environment
+
+```bash
+npm run test:test
+npm run test:stage
+```
+
+### Run specific Playwright projects
+
+```bash
+npm run test:test:smoke
+npm run test:test:tests
+npm run test:stage:smoke
+npm run test:stage:flow
+npm run test:stage:tests
+npm run test:stage:apismoke
+```
+
+### Run a specific path or file
+
+```bash
+npx playwright test tests/admin/services
+npx playwright test tests/widget/widget.visibility.test.js
+```
+
+### Useful debug commands
+
+```bash
+npm run test:test:debug
+npm run test:stage:debug
+npx playwright test --headed
+npx playwright test --ui
+```
+
+---
+
+## Running with Docker
+
+### Build the image
+
+```bash
+docker build -t buerokratt-playwright .
+```
+
+### Start with Docker Compose
+
+```bash
+docker compose up -d
+```
+
+The compose setup exposes the Playwright report port on `9323`.
+
+---
+
+## Reporting
+
+This project currently uses the Playwright HTML report as the main execution report.
+
+Generated artifacts include:
+
+- HTML report
+- screenshots on failure
+- retained failure videos
+- traces on first retry
+
+### Open the report
+
+```bash
+npx playwright show-report
+```
+
+### Report locations
+
+- `playwright-report/`
+- `test-results/`
+
+---
+
+## CI workflows
+
+The repository already includes workflow definitions for:
+
+- manually triggered Playwright runs
+- scheduled admin test runs
+- scheduled widget test runs
+- repository dispatch based runs
+- issue creation based on failed test results
+
+Workflow files live under `.github/workflows/`.
+
+---
+
+## Test design conventions
+
+- Tests primarily follow the **Page Object Model**
+- Shared setup logic lives under `tests/.setup/`
+- Admin authentication state is stored under `tests/admin/.auth/`
+- Translation-related setup exists under `tests/admin/.translation/`
+- Console errors are monitored in shared setup helpers
+- The current suite runs with **single-worker execution** in the main UI config
+
+---
+
+## Current limitations
+
+- There is **no automated line/branch code coverage instrumentation** in the repository yet
+- Coverage today is best understood as **functional test coverage by feature area**
+- Some areas have only smoke-level coverage
+- The service creation E2E flow is present but currently **skipped**
+- Training functionality coverage is still relatively light compared to Services
+
+---
+
+## Related documentation
+
+- [Coverage summary](docs/coverage.md)
+- [Docs overview](docs/README.md)
+
+---
+
+## Maintainers
+
+Maintained as part of the Bürokratt testing effort.
