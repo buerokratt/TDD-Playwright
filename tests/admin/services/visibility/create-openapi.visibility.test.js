@@ -3,23 +3,23 @@
 const { test, expect } = require("../../../.setup/test-setup");
 const { URLS } = require("../../../../playwright.config");
 const { AdminPageFactory: ap } = require("../../../../page-objects/admin-page-factory");
+const { createServiceName, createValidServiceData } = require('../../../../utils/test-data/service-data');
 const { NewServicePage } = require("../../../../page-objects/services/newservice/new-service-page");
 
 // IMPORTANT: ensure create runs before delete + same worker context
-test.describe.serial("Create new OpenAPI endpoint (visibility)", () => {
+test.describe.serial("[services] [visibility] Create new OpenAPI endpoint (visibility)", () => {
     let serviceName;
 
-    test("Create new openAPI endpoint test (visibility)", async ({ page }) => {
-        // Use your fixture if it exists; otherwise fallback to a local random
-        serviceName = `svc-${Math.random().toString(36).slice(2, 10)}`;
+    test("[services] [visibility] Create new openAPI endpoint test (visibility)", async ({ page }) => {
+        serviceName = createServiceName('openapi-service');
 
         const nsp = new NewServicePage(page);
 
         await page.goto(URLS.admin + "services/newService");
-        await page.waitForLoadState("domcontentloaded");
+        await nsp.waitForReady();
 
         await test.step("New service: set title", async () => {
-            await nsp.setTitle(serviceName);
+            await nsp.setTitle(createValidServiceData({ title: serviceName }).title);
         });
 
         await test.step("Save service", async () => {
@@ -72,7 +72,7 @@ test.describe.serial("Create new OpenAPI endpoint (visibility)", () => {
         });
     });
 
-    test("Delete service created in OpenAPI endpoint test", async ({ page }) => {
+    test("[services] [visibility] Delete service created in OpenAPI endpoint test", async ({ page }) => {
         if (!serviceName) {
             throw new Error("serviceName was not set. Create test likely failed before assigning it.");
         }

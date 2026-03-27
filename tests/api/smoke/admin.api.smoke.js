@@ -1,7 +1,7 @@
 const { test, expect } = require('../api-test-setup');
 const {URLS} = require("../../../playwright.config");
 
-test('Users page loads without API errors', async ({ page }) => {
+test('[api] [smoke] Users page loads without API errors', async ({ page }) => {
     await page.goto(URLS.admin + 'chat/users');
 
     // Verify all APIs returned 200
@@ -14,7 +14,7 @@ test('Users page loads without API errors', async ({ page }) => {
     expect(failingCalls.length).toBe(0);
 });
 
-test('Chatbot settings page loads without API errors', async ({ page }) => {
+test('[api] [smoke] Chatbot settings page loads without API errors', async ({ page }) => {
     await page.goto(URLS.admin + 'chat/chatbot/settings');
 
     // Verify all APIs returned 200
@@ -27,7 +27,7 @@ test('Chatbot settings page loads without API errors', async ({ page }) => {
     expect(failingCalls.length).toBe(0);
 });
 
-test('Chatbot welcome message page loads without API errors', async ({ page }) => {
+test('[api] [smoke] Chatbot welcome message page loads without API errors', async ({ page }) => {
     await page.goto(URLS.admin + 'chat/chatbot/welcome-message');
 
     // Verify all APIs returned 200
@@ -40,7 +40,7 @@ test('Chatbot welcome message page loads without API errors', async ({ page }) =
     expect(failingCalls.length).toBe(0);
 });
 
-test('Chatbot appearance page loads without API errors', async ({ page }) => {
+test('[api] [smoke] Chatbot appearance page loads without API errors', async ({ page }) => {
     await page.goto(URLS.admin + 'chat/chatbot/appearance');
 
     // Verify all APIs returned 200
@@ -53,7 +53,7 @@ test('Chatbot appearance page loads without API errors', async ({ page }) => {
     expect(failingCalls.length).toBe(0);
 });
 
-test('Emergency notices page loads without API errors', async ({ page }) => {
+test('[api] [smoke] Emergency notices page loads without API errors', async ({ page }) => {
     await page.goto(URLS.admin + 'chat/chatbot/emergency-notices');
 
     // Verify all APIs returned 200
@@ -66,7 +66,7 @@ test('Emergency notices page loads without API errors', async ({ page }) => {
     expect(failingCalls.length).toBe(0);
 });
 
-test('Feedback settings page loads without API errors', async ({ page }) => {
+test('[api] [smoke] Feedback settings page loads without API errors', async ({ page }) => {
     await page.goto(URLS.admin + 'chat/chatbot/feedback');
 
     // Verify all APIs returned 200
@@ -79,7 +79,7 @@ test('Feedback settings page loads without API errors', async ({ page }) => {
     expect(failingCalls.length).toBe(0);
 });
 
-test('Working time page loads without API errors', async ({ page }) => {
+test('[api] [smoke] Working time page loads without API errors', async ({ page }) => {
     await page.goto(URLS.admin + 'chat/working-time');
 
     // Verify all APIs returned 200
@@ -92,7 +92,7 @@ test('Working time page loads without API errors', async ({ page }) => {
     expect(failingCalls.length).toBe(0);
 });
 
-test('Session length page loads without API errors', async ({ page }) => {
+test('[api] [smoke] Session length page loads without API errors', async ({ page }) => {
     await page.goto(URLS.admin + 'chat/session-length');
 
     // Verify all APIs returned 200

@@ -1,37 +1,24 @@
-import { defineConfig, devices } from '@playwright/test';
+const { defineConfig, devices } = require('@playwright/test');
+const { URLS } = require('./utils/env/urls');
 
-const env = process.env.ENV || 'test';
-
-const baseURLs = {
-  test: {
-    customer: 'https://test.buerokratt.ee/',
-    admin: 'https://admin.test.buerokratt.ee/'
-  },
-  stage: {
-    customer: 'https://stage.buerokratt.ee/',
-    admin: 'https://admin.stage.buerokratt.ee/'
-  }
-};
-
-const currentEnvURLs = baseURLs[env] || baseURLs.test;
-
-export default defineConfig({
+module.exports = defineConfig({
   timeout: 60000,
   testDir: './tests',
   fullyParallel: false,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
-  workers: 1,
+  workers: process.env.PW_WORKERS || (process.env.CI ? 4 : '50%'),
   reporter: 'html',
 
   use: {
-    baseURL: currentEnvURLs.admin,
+    baseURL: URLS.admin,
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
+    viewport: { width: 1720, height: 1200 },
     video: {
-      mode: 'retain-on-failure', // or 'on'
-      size: { width: 1280, height: 720 }
-    }
+      mode: 'retain-on-failure',
+      size: { width: 1720, height: 1200 },
+    },
   },
 
   outputDir: 'test-results/',
@@ -42,7 +29,12 @@ export default defineConfig({
       testMatch: '**/*.setup.js',
       use: {
         ...devices['Desktop Chrome'],
-      }
+        viewport: { width: 1720, height: 1200 },
+        screen: { width: 1720, height: 1200 },
+        launchOptions: {
+          args: ['--start-maximized'],
+        },
+      },
     },
     {
       name: 'smoke',
@@ -50,9 +42,11 @@ export default defineConfig({
       use: {
         ...devices['Desktop Chrome'],
         storageState: 'tests/admin/.auth/user.json',
+        viewport: { width: 1720, height: 1200 },
+        screen: { width: 1720, height: 1200 },
         launchOptions: {
-          args: ['--incognito']
-        }
+          args: ['--incognito', '--start-maximized'],
+        },
       },
       dependencies: ['setup'],
     },
@@ -62,9 +56,11 @@ export default defineConfig({
       use: {
         ...devices['Desktop Chrome'],
         storageState: 'tests/admin/.auth/user.json',
+        viewport: { width: 1720, height: 1200 },
+        screen: { width: 1720, height: 1200 },
         launchOptions: {
-          args: ['--incognito']
-        }
+          args: ['--incognito', '--start-maximized'],
+        },
       },
       dependencies: ['setup'],
     },
@@ -74,13 +70,15 @@ export default defineConfig({
       use: {
         ...devices['Desktop Chrome'],
         storageState: 'tests/admin/.auth/user.json',
+        viewport: { width: 1720, height: 1200 },
+        screen: { width: 1720, height: 1200 },
         launchOptions: {
-          args: ['--incognito']
-        }
+          args: ['--incognito', '--start-maximized'],
+        },
       },
       dependencies: ['setup'],
-    }
-  ]
+    },
+  ],
 });
 
-export const URLS = currentEnvURLs;
+module.exports.URLS = URLS;

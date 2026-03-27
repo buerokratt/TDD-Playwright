@@ -200,6 +200,47 @@ npx playwright test --ui
 
 ---
 
+
+### Test tags and focused execution
+
+Tests now include grep-friendly tags in their titles, for example:
+
+- `[smoke]`
+- `[api]`
+- `[services]`
+- `[visibility]`
+- `[functional]`
+- `[e2e]`
+- `[chats]`
+
+That makes it easier to run targeted subsets:
+
+```bash
+npx playwright test --grep "\[services\]"
+npx playwright test --grep "\[smoke\]"
+npx playwright test --grep "\[services\].*\[visibility\]"
+```
+
+### Code quality commands
+
+```bash
+npm run lint
+npm run lint:fix
+npm run format
+npm run format:check
+```
+
+### Shared utilities added
+
+The suite now includes reusable helpers for:
+
+- environment URL resolution in `utils/env/urls.js`
+- route-aware page readiness waits in `utils/waits/admin-page-ready.js`
+- paginated admin tables in `page-objects/common/paginated-data-table.js`
+- deterministic service test data in `utils/test-data/service-data.js`
+
+---
+
 ## Running with Docker
 
 ### Build the image

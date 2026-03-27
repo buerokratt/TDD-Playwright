@@ -1,10 +1,10 @@
 // tests/admin/services/overview/services-overview-visibility.spec.js
-import { ServicesOverviewPage } from "../../../../page-objects/services/overview/services-overview-page";
+const { ServicesOverviewPage } = require('../../../../page-objects/services/overview/services-overview-page');
 
 const { test } = require("../../../.setup/test-setup");
-import { URLS } from "../../../../playwright.config";
+const { URLS } = require('../../../../playwright.config');
 
-test("Service overview page elements visibility", async ({ page }) => {
+test("[services] [visibility] Service overview page elements visibility", async ({ page }) => {
     await page.goto(URLS.admin + "services/overview");
     await page.waitForLoadState("domcontentloaded");
 

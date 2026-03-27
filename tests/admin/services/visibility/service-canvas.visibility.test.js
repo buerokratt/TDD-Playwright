@@ -1,10 +1,10 @@
 // tests/admin/services/newservice/base-elements-visibility.spec.js
-import { NewServicePage } from "../../../../page-objects/services/newservice/new-service-page";
+const { NewServicePage } = require('../../../../page-objects/services/newservice/new-service-page');
 
 const { test } = require("../../../.setup/test-setup");
-import { URLS } from "../../../../playwright.config";
+const { URLS } = require('../../../../playwright.config');
 
-test("Service canvas base elements visibility", async ({ page }) => {
+test("[services] [visibility] Service canvas base elements visibility", async ({ page }) => {
     await page.goto(URLS.admin + "services/newService");
     await page.waitForLoadState("domcontentloaded");
 

@@ -1,148 +1,156 @@
 const { expect } = require('@playwright/test');
+const { PaginatedDataTable } = require('../../common/paginated-data-table');
+const { waitForServicesOverviewReady } = require('../../../utils/waits/admin-page-ready');
 
 class ServicesOverviewPage {
-    constructor(page) {
-        this.page = page;
+  constructor(page) {
+    this.page = page;
 
-        // headings
-        this.headingServices = this.page.getByRole('heading', { name: 'Teenused', exact: true });
-        this.headingGeneralServices = this.page.getByRole('heading', { name: 'Üldteenused', exact: true });
+    this.headingServices = this.page.getByRole('heading', { name: 'Teenused', exact: true });
+    this.headingGeneralServices = this.page.getByRole('heading', { name: 'Üldteenused', exact: true });
 
-        // top actions (Teenused section)
-        this.buttonImportMany = this.page.getByRole('button', { name: 'Impordi mitu', exact: true });
-        this.buttonExportMany = this.page.getByRole('button', { name: 'Ekspordi mitu', exact: true });
-        this.buttonCreateNewService = this.page.getByRole('button', { name: 'Loo uus teenus', exact: true });
+    this.buttonImportMany = this.page.getByRole('button', { name: 'Impordi mitu', exact: true });
+    this.buttonExportMany = this.page.getByRole('button', { name: 'Ekspordi mitu', exact: true });
+    this.buttonCreateNewService = this.page.getByRole('button', { name: 'Loo uus teenus', exact: true });
 
-        // optional confirm delete dialog
-        this.buttonConfirmDelete = this.page.getByRole('dialog').getByRole('button', { name: 'Kustuta' });
+    this.buttonConfirmDelete = this.page.getByRole('dialog').getByRole('button', { name: 'Kustuta' });
 
-        // tables
-        this.tableServices = this.page.locator('table.data-table').nth(0); // Teenused
-        this.tableGeneralServices = this.page.locator('table.data-table').nth(1); // Üldteenused
+    this.tableServices = this.page.getByTestId('services-table').or(this.page.locator('table.data-table').nth(0)).first();
+    this.tableGeneralServices = this.page.getByTestId('general-services-table').or(this.page.locator('table.data-table').nth(1)).first();
 
-        // headers (same in both tables)
-        this.thName = this.page.getByRole('columnheader', { name: 'Nimetus' });
-        this.thDescription = this.page.getByRole('columnheader', { name: 'Kirjeldus' });
-        this.thStatus = this.page.getByRole('columnheader', { name: 'Olek' });
+    this.thName = this.page.getByRole('columnheader', { name: 'Nimetus' });
+    this.thDescription = this.page.getByRole('columnheader', { name: 'Kirjeldus' });
+    this.thStatus = this.page.getByRole('columnheader', { name: 'Olek' });
 
-        // pagination (label + select) — two instances, match by nth
-        this.selectPageSizeServices = this.page.locator('label:has-text("Kuvan korraga") + select').nth(0);
-        this.selectPageSizeGeneralServices = this.page.locator('label:has-text("Kuvan korraga") + select').nth(1);
+    this.selectPageSizeServices = this.page.getByTestId('services-page-size').or(this.page.locator('label:has-text("Kuvan korraga") + select').nth(0)).first();
+    this.selectPageSizeGeneralServices = this.page.getByTestId('general-services-page-size').or(this.page.locator('label:has-text("Kuvan korraga") + select').nth(1)).first();
+
+    this.servicesTable = new PaginatedDataTable(this.page, {
+      table: this.tableServices,
+      pageSizeSelect: this.selectPageSizeServices,
+      rowLabelSelector: 'td >> label',
+      defaultPageSize: '50',
+    });
+  }
+
+  async waitForReady(options = {}) {
+    await waitForServicesOverviewReady(this.page, options);
+    await this.servicesTable.waitUntilReady(options);
+  }
+
+  getServiceRow(serviceTitle) {
+    return this.servicesTable.getRowByText(serviceTitle);
+  }
+
+  getFirstTableRow(table = this.tableServices) {
+    return table.locator('tbody').locator('tr').first();
+  }
+
+  getRowColumns(rowOrTitle) {
+    const isLocator = rowOrTitle && typeof rowOrTitle.locator === 'function';
+    const isTextLike = typeof rowOrTitle === 'string' || typeof rowOrTitle === 'number';
+    const row = isLocator ? rowOrTitle : (isTextLike ? this.getServiceRow(String(rowOrTitle)) : null);
+    if (!row || typeof row.locator !== 'function') {
+      throw new Error(`Expected a row locator or service title, received: ${typeof rowOrTitle}`);
     }
+    return row.locator('td');
+  }
 
-    // ---------- table helpers ----------
-    getServiceRow(serviceTitle, table = this.tableServices) {
-        // service name is rendered inside a <label> in the first cell
-        return table.locator('tbody tr').filter({
-            has: this.page.locator(`td >> label:has-text("${serviceTitle}")`),
-        });
+  async setServicesRowsPerPageTo50() {
+    await this.waitForReady();
+    await this.servicesTable.ensureRowsPerPage('50');
+  }
+
+  async assertServiceRowVisible(serviceTitle) {
+    await this.waitForReady();
+    await this.servicesTable.expectRowVisible(serviceTitle);
+  }
+
+  async assertRowDeleted(serviceTitle) {
+    await this.waitForReady();
+    await this.servicesTable.expectRowDeleted(serviceTitle);
+  }
+
+  async clickCreateNew() {
+    await this.waitForReady();
+    await this.buttonCreateNewService.click();
+    await this.page.waitForLoadState('domcontentloaded');
+  }
+
+  async clickEdit(serviceTitle) {
+    await this.waitForReady();
+    const row = this.getServiceRow(serviceTitle);
+    const button = this.servicesTable.getActionButton(row, 'Muuda');
+    await expect(button).toBeVisible();
+    await button.click();
+    await this.page.waitForLoadState('domcontentloaded');
+  }
+
+  async clickExport(serviceTitle) {
+    await this.waitForReady();
+    const row = this.getServiceRow(serviceTitle);
+    const button = this.servicesTable.getActionButton(row, 'Ekspordi');
+    await expect(button).toBeVisible();
+    await button.click();
+  }
+
+  async deleteService(serviceTitle) {
+    await this.waitForReady();
+    const row = this.getServiceRow(serviceTitle);
+    const button = this.servicesTable.getActionButton(row, 'Kustuta');
+    await expect(button).toBeVisible();
+    await button.click();
+
+    if (await this.page.getByRole('dialog').isVisible().catch(() => false)) {
+      await this.buttonConfirmDelete.click();
     }
+  }
 
-    getFirstTableRow(table) {
-        return table.locator('tbody').locator('tr').first();
-    }
+  async assertServiceNameExists() {
+    await this.waitForReady();
+    await expect(this.getFirstTableRow().locator('td').first().locator('label')).toHaveText(/\w/);
+  }
 
-    getRowColumns(row) {
-        return row.locator('td');
-    }
+  async assertDescriptionFieldExists() {
+    await this.waitForReady();
+    await expect(this.getRowColumns(this.getFirstTableRow()).nth(1).locator('label')).toBeVisible();
+  }
 
-    // ---------- actions / assertions ----------
-    async assertServiceRowVisible(serviceTitle) {
-        await this.getServiceRow(serviceTitle).waitFor({ state: 'visible' });
-    }
+  async assertStatusExists() {
+    await this.waitForReady();
+    const statuses = ['Mustand', 'Valmis', 'Aktiivne'];
+    await expect(this.getRowColumns(this.getFirstTableRow()).nth(2)).toContainText(new RegExp(statuses.join('|')));
+  }
 
-    async assertRowDeleted(serviceTitle) {
-        await this.getServiceRow(serviceTitle).waitFor({ state: 'detached' });
-    }
+  async assertStatusReady(rowOrTitle) {
+    await this.waitForReady();
+    await expect(this.getRowColumns(rowOrTitle).nth(2)).toContainText('Valmis');
+  }
 
-    async clickCreateNew() {
-        await this.buttonCreateNewService.click();
-        await this.page.waitForLoadState('domcontentloaded');
-    }
+  async assertEditButtonExists() {
+    await this.waitForReady();
+    await expect(this.getRowColumns(this.getFirstTableRow()).nth(3).getByRole('button', { name: 'Muuda' })).toBeVisible();
+  }
 
-    async clickEdit(serviceTitle) {
-        const row = this.getServiceRow(serviceTitle);
-        await expect(row.getByRole('button', { name: 'Muuda' })).toBeVisible();
-        await row.getByRole('button', { name: 'Muuda' }).click();
-        await this.page.waitForLoadState('domcontentloaded');
-    }
+  async assertExportButtonExists() {
+    await this.waitForReady();
+    await expect(this.getRowColumns(this.getFirstTableRow()).nth(4).getByRole('button', { name: 'Ekspordi' })).toBeVisible();
+  }
 
-    async clickExport(serviceTitle) {
-        const row = this.getServiceRow(serviceTitle);
-        await expect(row.getByRole('button', { name: 'Ekspordi' })).toBeVisible();
-        await row.getByRole('button', { name: 'Ekspordi' }).click();
-    }
+  async assertDeleteButtonExists() {
+    await this.waitForReady();
+    await expect(this.getRowColumns(this.getFirstTableRow()).nth(5).getByRole('button', { name: 'Kustuta' })).toBeVisible();
+  }
 
-    async deleteService(serviceTitle) {
-        const row = this.getServiceRow(serviceTitle);
-        await expect(row.getByRole('button', { name: 'Kustuta' })).toBeVisible();
-        await row.getByRole('button', { name: 'Kustuta' }).click();
+  async assertPageSizeVisibleServices() {
+    await this.waitForReady();
+    await expect(this.selectPageSizeServices).toBeVisible();
+  }
 
-        // confirm dialog if your UI shows one
-        if (await this.page.getByRole('dialog').isVisible().catch(() => false)) {
-            await this.buttonConfirmDelete.click();
-        }
-    }
-
-    async assertServiceNameExists() {
-        // first col contains a <label> with text
-        await expect(
-            this.getFirstTableRow(this.tableServices).locator('td').first().locator('label')
-        ).toHaveText(/\w/);
-    }
-
-    async assertDescriptionFieldExists() {
-        // description is column 2; can be empty label, but should exist
-        await expect(
-            this.getRowColumns(this.getFirstTableRow(this.tableServices)).nth(1).locator('label')
-        ).toBeVisible();
-    }
-
-    async assertStatusExists() {
-        const statuses = ['Mustand', 'Valmis', 'Aktiivne'];
-        await expect(
-            this.getRowColumns(this.getFirstTableRow(this.tableServices)).nth(2)
-        ).toContainText(new RegExp(statuses.join('|')));
-    }
-
-    async assertStatusReady(title){
-        await expect(
-            this.getRowColumns(title).nth(2)
-        ).toContainText('Valmis');
-    }
-
-    async assertEditButtonExists() {
-        // actions start at col index 3: Muuda, Ekspordi, Kustuta
-        await expect(
-            this.getRowColumns(this.getFirstTableRow(this.tableServices))
-                .nth(3)
-                .getByRole('button', { name: 'Muuda' })
-        ).toBeVisible();
-    }
-
-    async assertExportButtonExists() {
-        await expect(
-            this.getRowColumns(this.getFirstTableRow(this.tableServices))
-                .nth(4)
-                .getByRole('button', { name: 'Ekspordi' })
-        ).toBeVisible();
-    }
-
-    async assertDeleteButtonExists() {
-        await expect(
-            this.getRowColumns(this.getFirstTableRow(this.tableServices))
-                .nth(5)
-                .getByRole('button', { name: 'Kustuta' })
-        ).toBeVisible();
-    }
-
-    async assertPageSizeVisibleServices() {
-        await expect(this.selectPageSizeServices).toBeVisible();
-    }
-
-    async assertPageSizeVisibleGeneralServices() {
-        await expect(this.selectPageSizeGeneralServices).toBeVisible();
-    }
+  async assertPageSizeVisibleGeneralServices() {
+    await this.waitForReady();
+    await expect(this.selectPageSizeGeneralServices).toBeVisible();
+  }
 }
 
 module.exports = { ServicesOverviewPage };

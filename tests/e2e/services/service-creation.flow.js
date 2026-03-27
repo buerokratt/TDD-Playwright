@@ -14,11 +14,12 @@
 // 8. Activate model
 // 9. Active service
 
-import { URLS } from '../../../playwright.config';
+const { URLS } = require('../../../playwright.config');
 const { test, expect } = require('../../.setup/test-setup');
 const { AdminPageFactory: ap} = require('../../../page-objects/admin-page-factory');
+const { createServiceName, createValidServiceData } = require('../../../utils/test-data/service-data');
 
-const randomString = Math.random().toString(36).substring(2, 10);
+const randomString = createServiceName('e2e-service');
 
 test.skip('Service creation flow', async ({ page }) => {
    // await page.goto(URLS.admin + 'training/training/intents');
@@ -42,7 +43,7 @@ test.skip('Service creation flow', async ({ page }) => {
 
     await page.goto(URLS.admin + 'services/newService');
 
-    await nsp.createNewService(randomString);
+    await nsp.createNewService(createValidServiceData({ title: randomString }));
     await sop.clickEdit(randomString);
 
     await nsp.addNodes();
