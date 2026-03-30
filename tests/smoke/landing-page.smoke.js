@@ -1,8 +1,8 @@
-import { URLS } from '../../playwright.config';
+const { URLS } = require('../../playwright.config');
 const { test, expect } = require('../.setup/test-setup');
 const {AdminPageFactory: ap} = require("../../page-objects/admin-page-factory");
 
-test('Test: has landing page loaded with menu', async ({page}) => {
+test('[smoke] Test: has landing page loaded with menu', async ({page}) => {
     await page.goto(URLS.admin + 'chat/landing');
 
     const apf = new ap(page);

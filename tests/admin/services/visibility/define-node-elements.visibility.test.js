@@ -3,7 +3,7 @@ const { test, expect } = require("../../../.setup/test-setup");
 const { URLS } = require("../../../../playwright.config");
 const { NewServicePage } = require("../../../../page-objects/services/newservice/new-service-page");
 
-test("Service canvas define node visibility", async ({ page }) => {
+test("[services] [visibility] Service canvas define node visibility", async ({ page }) => {
     await page.goto(URLS.admin + "services/newService");
     await page.waitForLoadState("domcontentloaded");
 

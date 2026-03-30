@@ -1,18 +1,18 @@
 const { test, expect } = require('../.setup/test-setup');
-import { URLS } from '../../playwright.config';
+const { URLS } = require('../../playwright.config');
 
-test('Services overview page', async({ page }) => {
+test('[smoke] Services overview page', async({ page }) => {
     await page.goto(URLS.admin + 'services/overview' );
     await expect(page.getByRole('heading', { name: 'Teenused', exact: true })).toBeVisible();
 });
 
-test('New service page', async({ page }) => {
+test('[smoke] New service page', async({ page }) => {
     await page.goto(URLS.admin + 'services/newService' );
     await expect(page.getByText('Teenuse seaded')).toBeVisible();
     await expect(page.getByText('...')).toBeVisible();
 });
 
-test('Faulty services page', async({ page }) => {
+test('[smoke] Faulty services page', async({ page }) => {
     await page.goto(URLS.admin + 'services/faultyServices' );
     await expect(page.getByRole('heading', { name: 'Probleemsed teenused' })).toBeVisible();
 });
