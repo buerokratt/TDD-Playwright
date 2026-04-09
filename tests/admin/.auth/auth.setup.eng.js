@@ -1,29 +1,17 @@
-const fs = require('fs'); // Import Node.js file system module
-const path = require('path'); // Import Node.js path module
-import { test as setup } from '@playwright/test';
+const { test: setup } = require('../../.setup/test-setup');
+const { AUTH_FILE, ensureAuthDirectory } = require('./auth.helpers');
+const { URLS } = require('../../../utils/env/urls');
 
-// Define the path to the auth file relative to the project root
-const { authFile } = 'tests/admin/.auth/user.json';
+setup('authenticate english locale', async ({ page }) => {
+  await ensureAuthDirectory(AUTH_FILE);
 
-setup('authenticate', async ({ page }) => {
-    // Ensure the .auth directory exists
-    if (!fs.existsSync(path.dirname(authFile))) {
-        fs.mkdirSync(path.dirname(authFile), { recursive: true });
-    }
+  await page.goto(`${URLS.admin}en/log-in`);
 
-    // Navigate to the login page
-    await page.goto('https://admin.test.buerokratt.ee/en/log-in');
+  await page.getByRole('button', { name: 'enter via TARA' }).click();
+  await page.getByRole('link', { name: 'Smart-ID', exact: true }).click();
+  await page.getByRole('textbox', { name: 'Isikukood' }).fill('61101012257');
+  await page.getByRole('button', { name: 'Jätka' }).click();
 
-    // Perform login steps
-    await page.getByRole('button', { name: 'enter via TARA' }).click();
-    await page.getByRole('link', { name: 'Smart-ID', exact: true }).click();
-    await page.getByRole('textbox', { name: 'Isikukood' }).click();
-    await page.getByRole('textbox', { name: 'Isikukood' }).fill('61101012257');
-    await page.getByRole('button', { name: 'Jätka' }).click();
-
-    // Wait for the navigation to the authenticated page
-    await page.waitForURL('https://admin.test.buerokratt.ee/chat/landing');
-
-    // Save the authentication state
-    await page.context().storageState({ path: authFile });
+  await page.waitForURL(`${URLS.admin}chat/landing`, { timeout: 60000 });
+  await page.context().storageState({ path: AUTH_FILE });
 });

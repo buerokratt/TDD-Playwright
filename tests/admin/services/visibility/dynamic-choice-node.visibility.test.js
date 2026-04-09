@@ -4,7 +4,7 @@ const { test, expect } = require('../../../.setup/test-setup');
 const { URLS } = require('../../../../playwright.config');
 const { NewServicePage } = require('../../../../page-objects/services/newservice/new-service-page');
 
-test('Dynamic choice node visibility (refactored: picker closes, edit opens dialog)', async ({ page }) => {
+test('[services] [visibility] Dynamic choice node visibility (refactored: picker closes, edit opens dialog)', async ({ page }) => {
     await page.goto(URLS.admin + 'services/newService');
     const nsp = new NewServicePage(page);
 

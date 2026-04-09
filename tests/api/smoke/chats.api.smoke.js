@@ -2,7 +2,7 @@
 const { test, expect } = require('../api-test-setup');
 const {URLS} = require("../../../playwright.config");
 
-test('home page loads without API errors', async ({ page }) => {
+test('[api] [smoke] home page loads without API errors', async ({ page }) => {
     await page.goto(URLS.admin + 'chat/landing');
 
     // Verify all APIs returned 200
@@ -15,7 +15,7 @@ test('home page loads without API errors', async ({ page }) => {
     expect(failingCalls.length).toBe(0);
 });
 
-test('Unanswered chats page loads without API errors', async ({ page }) => {
+test('[api] [smoke] Unanswered chats page loads without API errors', async ({ page }) => {
     await page.goto(URLS.admin + 'chat/unanswered');
 
     // Verify all APIs returned 200
@@ -28,7 +28,7 @@ test('Unanswered chats page loads without API errors', async ({ page }) => {
     expect(failingCalls.length).toBe(0);
 });
 
-test('Active chats page loads without API errors', async ({ page }) => {
+test('[api] [smoke] Active chats page loads without API errors', async ({ page }) => {
     await page.goto(URLS.admin + 'chat/active');
 
     // Verify all APIs returned 200
@@ -41,7 +41,7 @@ test('Active chats page loads without API errors', async ({ page }) => {
     expect(failingCalls.length).toBe(0);
 });
 
-test('Pending chats page loads without API errors', async ({ page }) => {
+test('[api] [smoke] Pending chats page loads without API errors', async ({ page }) => {
     await page.goto(URLS.admin + 'chat/pending');
 
     // Verify all APIs returned 200
@@ -54,7 +54,7 @@ test('Pending chats page loads without API errors', async ({ page }) => {
     expect(failingCalls.length).toBe(0);
 });
 
-test('Chat history page loads without API errors', async ({ page }) => {
+test('[api] [smoke] Chat history page loads without API errors', async ({ page }) => {
     await page.goto(URLS.admin + 'chat/history');
 
     // Verify all APIs returned 200

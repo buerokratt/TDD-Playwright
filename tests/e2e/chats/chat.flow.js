@@ -1,53 +1,44 @@
-import {expect, test} from '@playwright/test';
-import { URLS } from '../../../playwright.config';
-import { WidgetPage } from "../../../page-objects/widget/widget-page";
-const { AdminPageFactory: ap} = require('../../../page-objects/admin-page-factory');
+const { test, expect } = require('@playwright/test');
+const { URLS } = require('../../../playwright.config');
+const { WidgetPage } = require('../../../page-objects/widget/widget-page');
+const { AdminPageFactory: ap } = require('../../../page-objects/admin-page-factory');
 
-test.afterEach(async () => {
-    await page.on('console', msg => {
-        const errorPattern = /error|failed|uncaught|exception|typeerror|referenceerror|syntaxerror|rangeerror|evalerror|urlerror|is not defined|cannot read|undefined|null is not an object/i;
+test('[e2e] [chats] Chat flow test', async ({ browser }) => {
+  const customerContext = await browser.newContext();
+  const csaContext = await browser.newContext({
+    storageState: 'tests/admin/.auth/user.json',
+  });
 
-        if (msg.type() === 'error' || errorPattern.test(msg.text())) {
-            console.log(`[${msg.type().toUpperCase()}] ${msg.text()}`);
-        }
-    });
-});
+  const cPage = await customerContext.newPage();
+  const page = await csaContext.newPage();
 
-test('Chat flow test', async ({ browser })=>{
+  page.on('console', (msg) => {
+    const errorPattern = /error|failed|uncaught|exception|typeerror|referenceerror|syntaxerror|rangeerror|evalerror|urlerror|is not defined|cannot read|undefined|null is not an object/i;
+    if (msg.type() === 'error' || errorPattern.test(msg.text())) {
+      console.log(`[${msg.type().toUpperCase()}] ${msg.text()}`);
+    }
+  });
 
-    // TODO: rewrite test to use test-setup.js
+  await Promise.all([
+    cPage.goto(URLS.customer),
+    page.goto(`${URLS.admin}chat/unanswered`),
+  ]);
 
-    // Setup
-    const customerContext = await browser.newContext();
-    const csaContext = await browser.newContext({
-        storageState: 'tests/admin/.auth/user.json'
-    });
+  const csaPage = new ap(page);
+  const customerPage = new WidgetPage(cPage);
 
-    const cPage = await customerContext.newPage();
-    const page = await csaContext.newPage();
+  await csaPage.getPageHeader().markCSAPresent();
 
-    await Promise.all([
-        cPage.goto(URLS.customer),
-        page.goto(URLS.admin + 'chat/unanswered')
-    ]);
+  await cPage.bringToFront();
+  await customerPage.openChat();
+  await customerPage.getCSAChat();
 
-    const str = randomString3();
-    const csaPage = new ap(page);
-    const customerPage = new WidgetPage(cPage);
-    // End Setup
+  await page.bringToFront();
+  await csaPage.getChats().acceptChat();
 
-    await csaPage.getPageHeader().markCSAPresent();
+  await expect(page.getByRole('tablist', { name: 'Aktiivsed vestlused' })).toBeVisible();
+  await expect(page.getByText('Lõpeta vestlus')).toBeVisible();
 
-    await cPage.bringToFront();
-    await customerPage.openChat();
-    await customerPage.getCSAChat();
-
-
-    await page.bringToFront();
-    await csaPage.getChats().acceptChat();
-
-    await expect(page.getByRole('tablist', {name: 'Aktiivsed vestlused'})).toBeVisible();
-    await expect(page.getByText('Lõpeta vestlus')).toBeVisible();
-
-    await customerContext.clearCookies();
+  await customerContext.close();
+  await csaContext.close();
 });
