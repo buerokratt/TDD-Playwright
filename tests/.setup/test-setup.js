@@ -28,7 +28,6 @@ exports.test = base.test.extend({
     });
 
     await use(page);
-    await page.close();
   },
 });
 

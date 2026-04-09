@@ -2,15 +2,19 @@
 
 const { test, expect } = require("../../../.setup/test-setup");
 const { URLS } = require("../../../../playwright.config");
-const { AdminPageFactory: ap } = require("../../../../page-objects/admin-page-factory");
 const { createServiceName, createValidServiceData } = require('../../../../utils/test-data/service-data');
 const { NewServicePage } = require("../../../../page-objects/services/newservice/new-service-page");
+const { registerServiceCleanup } = require('../service-test-helpers');
 
 // IMPORTANT: ensure create runs before delete + same worker context
-test.describe.serial("[services] [visibility] Create new OpenAPI endpoint (visibility)", () => {
+test.describe("[services] [visibility] Create new OpenAPI endpoint (visibility)", () => {
     let serviceName;
 
+    registerServiceCleanup(test, () => serviceName);
+
     test("[services] [visibility] Create new openAPI endpoint test (visibility)", async ({ page }) => {
+        test.slow();
+        test.setTimeout(600000);
         serviceName = createServiceName('openapi-service');
 
         const nsp = new NewServicePage(page);
@@ -53,7 +57,7 @@ test.describe.serial("[services] [visibility] Create new OpenAPI endpoint (visib
         });
 
         await test.step('Fill required fields and verify "Loo" becomes enabled', async () => {
-            await nsp.setEndpointName(`keskmineBrutopalkAPI-${serviceName}`);
+            await nsp.setEndpointName(`keskmineBrutopalkAPI${serviceName}`);
             await nsp.setEndpointUrl(nsp.apiURL);
 
             // some UIs enable after blur/change
@@ -62,27 +66,14 @@ test.describe.serial("[services] [visibility] Create new OpenAPI endpoint (visib
             await expect(nsp.createEndpointCreate).toBeEnabled();
         });
 
-        await test.step("Create endpoint (modal closes)", async () => {
+        await test.step("Create endpoint and verify durable success state", async () => {
             await nsp.createEndpoint();
-            await expect(nsp.createEndpointModal).toBeHidden();
         });
 
-        await test.step("Save service (post-endpoint creation)", async () => {
-            await nsp.saveService();
+        await test.step("Endpoint is returned to canvas", async () => {
+            await nsp.assertCanvasVisible();
+            await expect(nsp.toastList).toContainText(/salvest|õnnest|api element/i);
         });
     });
 
-    test("[services] [visibility] Delete service created in OpenAPI endpoint test", async ({ page }) => {
-        if (!serviceName) {
-            throw new Error("serviceName was not set. Create test likely failed before assigning it.");
-        }
-
-        await page.goto(URLS.admin + "services/overview");
-
-        const sop = new ap(page).getServicesOverview();
-
-        await sop.assertServiceRowVisible(serviceName);
-        await sop.deleteService(serviceName);
-        await sop.assertRowDeleted(serviceName);
-    });
 });

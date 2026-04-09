@@ -21,6 +21,12 @@ const { createServiceName, createValidServiceData } = require('../../../utils/te
 
 const randomString = createServiceName('e2e-service');
 
+test.afterEach(async ({ page }) => {
+   const sop = new ap(page).getServicesOverview();
+   await page.goto(URLS.admin + 'services/overview');
+   await sop.deleteServiceIfExists(randomString);
+});
+
 test.skip('Service creation flow', async ({ page }) => {
    // await page.goto(URLS.admin + 'training/training/intents');
    // await page.waitForTimeout(3000);

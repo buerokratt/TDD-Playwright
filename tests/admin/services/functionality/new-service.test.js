@@ -1,17 +1,15 @@
 const { test } = require('../../../.setup/test-setup');
 const { URLS } = require('../../../../playwright.config');
-const { AdminPageFactory: ap } = require('../../../../page-objects/admin-page-factory');
 const { createServiceName, createValidServiceData } = require('../../../../utils/test-data/service-data');
+const { getServicePages, registerServiceCleanup } = require('../service-test-helpers');
 
 const serviceName = createServiceName('newservice');
 
 test.describe('[services] [functional] New service test', () => {
-  test.describe.configure({ mode: 'serial' });
+  registerServiceCleanup(test, serviceName);
 
   test('[services] [functional] Creating new service test', async ({ page }) => {
-    const apf = new ap(page);
-    const nsp = apf.getNewServicePage();
-    const sop = apf.getServicesOverview();
+    const { nsp, sop } = getServicePages(page);
 
     await page.goto(URLS.admin + 'services/newService');
 
@@ -20,12 +18,4 @@ test.describe('[services] [functional] New service test', () => {
     await sop.assertServiceRowVisible(serviceName);
   });
 
-  test('[services] [functional] Delete new service test', async ({ page }) => {
-    await page.goto(URLS.admin + 'services/overview');
-
-    const sop = new ap(page).getServicesOverview();
-    await sop.assertServiceRowVisible(serviceName);
-    await sop.deleteService(serviceName);
-    await sop.assertRowDeleted(serviceName);
-  });
 });

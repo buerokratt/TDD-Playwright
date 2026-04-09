@@ -38,6 +38,11 @@ test("[services] [visibility] Service canvas define node visibility", async ({ p
         const rowsBefore = await nsp.defineRows.count();
         await nsp.defineAddElementBtn.click();
         await expect(nsp.defineRows).toHaveCount(rowsBefore + 1);
+
+        const { row: newRow, nameInput, valueInput } = await nsp.resolveDefineRowInputs(rowsBefore);
+        await expect(newRow).toBeVisible();
+        await expect(nameInput).toBeEditable();
+        await expect(valueInput).toBeEditable();
     });
 
     await test.step("Sections visible + chips exist", async () => {

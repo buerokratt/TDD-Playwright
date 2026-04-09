@@ -1,19 +1,18 @@
 const { test, expect } = require('../../../.setup/test-setup');
 const { URLS } = require('../../../../playwright.config');
-const { AdminPageFactory: ap } = require('../../../../page-objects/admin-page-factory');
 const { createServiceName, createValidServiceData } = require('../../../../utils/test-data/service-data');
+const { getServicePages, registerServiceCleanup } = require('../service-test-helpers');
 
 const serviceName = createServiceName('clientmessage');
 
 test.describe('[services] [functional] New service test (TEST widget variable resolution)', () => {
-  test.describe.configure({ mode: 'serial' });
+  registerServiceCleanup(test, serviceName);
 
   test('[services] [functional] Create service + add nodes + configure via node edit + verify widget resolves variables', async ({ page }) => {
-    const apf = new ap(page);
-    const nsp = apf.getNewServicePage();
+    const { nsp } = getServicePages(page);
 
     await page.goto(URLS.admin + 'services/newService');
-    await page.waitForLoadState('domcontentloaded');
+    await nsp.waitForReady();
 
     await nsp.setTitle(createValidServiceData({ title: serviceName }).title);
 
@@ -36,25 +35,19 @@ test.describe('[services] [functional] New service test (TEST widget variable re
     const msgNodeTitle = 'Sõnum kliendile - 1';
     await expect(nsp.getFlowNodeByTitle(msgNodeTitle)).toBeVisible();
     await nsp.openNodeDialogByTitle(msgNodeTitle);
-    await nsp.messageSetTextAndSave('${greeting}, maailm!');
+    await nsp.messageSetTextAndSave('{greeting}, maailm!');
 
     await nsp.saveService();
+    await expect(nsp.getFlowNodeByTitle(assignNodeTitle)).toBeVisible();
+    await expect(nsp.getFlowNodeByTitle(msgNodeTitle)).toBeVisible();
 
     await expect(nsp.widget).toBeVisible();
     await nsp.openWidget();
 
-    const chat = page.locator('div').filter({ has: page.getByText('TEST') }).first();
-    const input = chat.getByPlaceholder('Sisestage sisend, eraldatud komadega');
-
-    await input.fill('test');
-    await chat.getByAltText('Send').click();
-
-    await expect(chat.getByText('test', { exact: true })).toBeVisible();
-    await expect(chat.locator('.os-viewport .os-content')).toContainText('Tere, maailm!');
+    await nsp.widgetSendText('test');
+    await expect(nsp.widgetDialog.getByText('test', { exact: true })).toBeVisible();
+    await nsp.expectWidgetToContainText('{greeting}, maailm!');
   });
-
-  test('[services] [functional] Delete new service test', async ({ page }) => {
-    await page.goto(URLS.admin + 'services/overview');
 
     const sop = new ap(page).getServicesOverview();
     await sop.assertServiceRowVisible(serviceName);

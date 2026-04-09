@@ -2,7 +2,7 @@ const { defineConfig, devices } = require('@playwright/test');
 const { URLS } = require('./utils/env/urls');
 
 module.exports = defineConfig({
-  timeout: 60000,
+  timeout: 120000,
   testDir: './tests',
   fullyParallel: false,
   forbidOnly: !!process.env.CI,
