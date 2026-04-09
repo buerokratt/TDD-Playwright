@@ -49,4 +49,9 @@ test.describe('[services] [functional] New service test (TEST widget variable re
     await nsp.expectWidgetToContainText('{greeting}, maailm!');
   });
 
+    const sop = new ap(page).getServicesOverview();
+    await sop.assertServiceRowVisible(serviceName);
+    await sop.deleteService(serviceName);
+    await sop.assertRowDeleted(serviceName);
+  });
 });

@@ -8,7 +8,7 @@
       "expires": 1775730259.412212,
       "httpOnly": true,
       "secure": true,
-      "sameSite": "Strict"
+      "sameSite": "Lax"
     },
     {
       "name": "__Host-LOCALE",
@@ -28,9 +28,7 @@
       "expires": 1807262659.74698,
       "httpOnly": true,
       "secure": true,
-      "sameSite": "None",
-      "partitionKey": "https://ria.ee",
-      "_crHasCrossSiteAncestor": false
+      "sameSite": "Lax"
     },
     {
       "name": "__cf_bm",

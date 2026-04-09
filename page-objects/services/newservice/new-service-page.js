@@ -24,6 +24,10 @@ class NewServicePage {
         this.buttonSave = this.saveServiceBtn;
         this.buttonConfirm = this.confirmServiceBtn;
 
+        // backwards-compatible aliases used by older tests
+        this.buttonSave = this.saveServiceBtn;
+        this.buttonConfirm = this.confirmServiceBtn;
+
         // =========================
         // Settings dialog
         // =========================
@@ -521,6 +525,10 @@ class NewServicePage {
         await expect(this.nodeEditorPopup).toBeVisible({ timeout: 5000 });
         await expect(this.nodeEditorTitle).toBeVisible();
         await expect(this.nodeEditorSaveBtn).toBeVisible();
+    }
+
+    async editNode(titleText) {
+        await this.openNodeDialogByTitle(titleText);
     }
 
     async editNode(titleText) {
