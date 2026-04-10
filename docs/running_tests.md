@@ -98,7 +98,7 @@ Setup guide: `docs/ci_setup.md`
 Use in issue/task description under `## AT_TESTS`.
 
 - `ENV`: `test | stage` (default: `test`)
-- `PROJECT`: `setup | smoke | flow | tests | all` (default: `smoke`)
+- `PROJECT`: `mock | setup | smoke | flow | tests | all` (default: `smoke`)
 - `RUN_ALL`: `true | false` (default: `false`)
 - `TEST_PATH`: folder path (default: `tests/smoke`)
 - `TEST_FILE`: single file path
@@ -120,6 +120,12 @@ Use one selector method per run:
 - Full run: set `RUN_ALL: true` or `PROJECT: all`
 
 ### AT_TESTS examples
+
+```yaml
+## AT_TESTS
+PROJECT: mock
+TEST_FILE: tests/mocks/ci/always-pass.mock.js
+```
 
 ```yaml
 ## AT_TESTS
