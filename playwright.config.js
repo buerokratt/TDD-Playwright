@@ -25,6 +25,10 @@ module.exports = defineConfig({
 
   projects: [
     {
+      name: 'mock',
+      testMatch: '**/*.mock.js',
+    },
+    {
       name: 'setup',
       testMatch: '**/*.setup.js',
       use: {

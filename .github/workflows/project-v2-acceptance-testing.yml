@@ -18,7 +18,7 @@ on:
         default: "test"
         type: string
       project:
-        description: "setup, smoke, flow, tests, all"
+        description: "mock, setup, smoke, flow, tests, all"
         required: false
         default: "smoke"
         type: string
@@ -129,7 +129,7 @@ jobs:
 
               if [ -n "$at_tests_block" ]; then
                 env_override="$(printf '%s\n' "$at_tests_block" | sed -nE 's/^[[:space:]]*ENV:[[:space:]]*(test|stage)[[:space:]]*$/\1/ip' | head -n1)"
-                project_override="$(printf '%s\n' "$at_tests_block" | sed -nE 's/^[[:space:]]*PROJECT:[[:space:]]*(setup|smoke|flow|tests|all)[[:space:]]*$/\1/ip' | head -n1)"
+                project_override="$(printf '%s\n' "$at_tests_block" | sed -nE 's/^[[:space:]]*PROJECT:[[:space:]]*(mock|setup|smoke|flow|tests|all)[[:space:]]*$/\1/ip' | head -n1)"
                 run_all_override="$(printf '%s\n' "$at_tests_block" | sed -nE 's/^[[:space:]]*RUN_ALL:[[:space:]]*(true|false)[[:space:]]*$/\1/ip' | head -n1)"
                 path_override="$(printf '%s\n' "$at_tests_block" | sed -nE 's/^[[:space:]]*TEST_PATH:[[:space:]]*(.+)[[:space:]]*$/\1/ip' | head -n1)"
                 file_override="$(printf '%s\n' "$at_tests_block" | sed -nE 's/^[[:space:]]*TEST_FILE:[[:space:]]*(.+)[[:space:]]*$/\1/ip' | head -n1)"
@@ -152,8 +152,8 @@ jobs:
             exit 1
           fi
 
-          if [ "$project_name" != "setup" ] && [ "$project_name" != "smoke" ] && [ "$project_name" != "flow" ] && [ "$project_name" != "tests" ] && [ "$project_name" != "all" ]; then
-            echo "Invalid PROJECT: $project_name (allowed: setup|smoke|flow|tests|all)"
+          if [ "$project_name" != "mock" ] && [ "$project_name" != "setup" ] && [ "$project_name" != "smoke" ] && [ "$project_name" != "flow" ] && [ "$project_name" != "tests" ] && [ "$project_name" != "all" ]; then
+            echo "Invalid PROJECT: $project_name (allowed: mock|setup|smoke|flow|tests|all)"
             exit 1
           fi
 
@@ -197,7 +197,7 @@ jobs:
               # Optional per-target project override with @project suffix.
               if [[ "$token_selector" == *@* ]]; then
                 suffix="${token_selector##*@}"
-                if [[ "$suffix" == "setup" || "$suffix" == "smoke" || "$suffix" == "flow" || "$suffix" == "tests" ]]; then
+                if [[ "$suffix" == "mock" || "$suffix" == "setup" || "$suffix" == "smoke" || "$suffix" == "flow" || "$suffix" == "tests" ]]; then
                   token_project="$suffix"
                   token_selector="${token_selector%@*}"
                 fi

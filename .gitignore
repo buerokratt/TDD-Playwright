@@ -5,3 +5,4 @@ playwright/.cache/
 screenshots/
 *.env
 .idea
+.codex
