@@ -6,9 +6,11 @@ This document reflects the **current repository test coverage** based on the tes
 
 The repository currently contains:
 
-- **69 active Playwright tests**
+- **about 60 active Playwright tests**
 - **1 skipped end-to-end flow** (`tests/e2e/services/service-creation.flow.js`)
 - coverage centered on **functional and page-level validation**, not instrumented code coverage
+
+Counts in this document are intentionally approximate and based on the current repository test files. They may drift slightly as tests are added, removed, or reorganized.
 
 ## Important note
 
@@ -28,16 +30,16 @@ It does **not** yet mean Istanbul/nyc-style source-code coverage percentages.
 
 | Area | Active tests | Notes |
 |---|---:|---|
-| Admin services UI tests | 21 | Deepest coverage area in the repository |
-| API smoke tests | 17 | Verifies critical admin, analytics, and chat pages load without visible API errors |
-| General smoke tests | 28 | Broad page-level coverage across admin, analytics, chats, landing page, services, and training |
-| E2E flow tests | 2 | Chat flow present; service creation flow exists separately but is skipped |
-| Widget tests | 1 | Basic widget UI visibility coverage |
-| **Total** | **69** | Current active Playwright tests |
+| Admin services UI tests | about 15 | Deepest coverage area in the repository |
+| API smoke tests | about 17 | Verifies critical admin, analytics, and chat pages load without visible API errors |
+| General smoke tests | about 28 | Broad page-level coverage across admin, analytics, chats, landing page, services, and training |
+| E2E flow tests | about 1 active + 1 skipped | Chat flow is active; service creation flow exists separately but is skipped |
+| Widget coverage | no standalone suite currently present | Widget behavior is referenced in some flows, but not as a dedicated test directory in the current tree |
+| **Total** | **about 60** | Approximate current active Playwright tests |
 
 ## Detailed coverage by folder
 
-### `tests/smoke/` — 28 tests
+### `tests/smoke/` — about 28 tests
 
 Current smoke coverage includes:
 
@@ -54,7 +56,7 @@ Purpose of this suite:
 - confirm major menus/pages remain reachable
 - catch broad regressions quickly
 
-## `tests/admin/services/` — 21 tests
+## `tests/admin/services/` — about 15 tests
 
 This is the most mature and detailed part of the repository.
 
@@ -79,11 +81,12 @@ Covered areas include:
 - editing and saving service name/content
 - service confirmation behavior
 - confirmation-disabled behavior
+- title-required validation before save succeeds
 - client message configuration behavior
 - negative-path validation
 - cleanup/delete flows for created services in several tests
 
-## `tests/api/smoke/` — 17 tests
+## `tests/api/smoke/` — about 17 tests
 
 API smoke coverage currently checks that important pages load without visible API errors.
 
@@ -119,12 +122,11 @@ Covered pages:
 - pending chats
 - chat history
 
-## `tests/e2e/` — 2 active tests + 1 skipped flow
+## `tests/e2e/` — about 1 active test + 1 skipped flow
 
 ### Active
 
 - chat flow end-to-end test
-- one additional active test definition in the chat flow file lifecycle/setup
 
 ### Skipped
 
@@ -137,13 +139,11 @@ The skipped service flow shows intended future coverage for:
 - service creation
 - service activation flow
 
-## `tests/widget/` — 1 test
+## Widget coverage
 
-Current widget coverage is limited to:
+There is currently **no dedicated standalone widget test directory** in the repository.
 
-- core widget element visibility
-
-This area exists but is still light compared with the admin-side services coverage.
+Widget-related behavior still appears indirectly in the active chat E2E flow and in some admin-side service scenarios, but not as a standalone widget suite.
 
 ## Functional areas covered
 
@@ -157,7 +157,7 @@ This area exists but is still light compared with the admin-side services covera
 
 - Chat flow
 - Training page reachability via smoke tests
-- Widget presence/visibility
+- limited widget-related coverage through broader flows
 
 ### Light or incomplete coverage
 
@@ -185,7 +185,7 @@ Today, the safest way to read repository coverage is:
 - **broad smoke coverage** across major product areas
 - **deep functional coverage** in the admin Services module
 - **targeted API smoke validation** for key pages
-- **limited but present E2E and widget coverage**
+- **limited but present E2E coverage, with no dedicated widget suite currently present**
 
 ## Suggested next coverage improvements
 

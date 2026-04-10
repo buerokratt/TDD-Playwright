@@ -2,14 +2,33 @@
 
 This repository contains the current Playwright-based automated test suite for the **Bürokratt admin interface, chat widget, and selected API-facing flows**.
 
+Playwright is an end-to-end browser automation framework; in this project it is used to validate UI behavior, smoke coverage, and selected API-facing flows in test and stage environments.
+
 The project is structured around a practical mix of:
 
 - **smoke coverage** for key pages and navigation paths
 - **UI validation tests** for the admin-side service builder
 - **API smoke checks** for major admin, analytics, and chat views
-- **end-to-end flows** for real user journeys
+- **limited end-to-end flows** for real user journeys
 - **Page Object Model (POM)** abstractions for reuse and maintainability
 - **local, Docker, and GitHub Actions execution**
+
+---
+
+## Quick Start
+
+Use this repository in three ways:
+
+- Local and Docker test execution: [Running tests guide](docs/running_tests.md)
+- CI setup and configuration: [CI setup guide](docs/ci_setup.md)
+- Current coverage and scope: [Coverage summary](docs/coverage.md)
+
+CI trigger model:
+
+- label-triggered runs via issue label `run-at-tests`
+- manual runs via workflow dispatch
+- scheduled all-tests run on weekdays at `03:30 UTC` (`06:30` Tallinn during EEST)
+- issue runs are marked with `testing...` while execution is in progress
 
 ---
 
@@ -17,24 +36,15 @@ The project is structured around a practical mix of:
 
 At the moment the repository includes:
 
-- **69 active Playwright tests**
-- coverage split across **smoke**, **UI visibility/functionality**, **API smoke**, **widget**, and **E2E flow** suites
+- coverage split across **smoke**, **UI visibility/functionality**, **API smoke**, and **E2E flow** suites, with limited widget-related coverage through broader flows
 - a strong current focus on the **Services** area in the admin application
 - environment targeting for both **test** and **stage** deployments
 - reusable page objects for admin navigation, chats, services, training, and widget interactions
-- CI workflow files for manual, scheduled, and dispatch-based execution
+- two active CI workflows:
+  - issue/manual execution: `project-v2-acceptance-testing.yml`
+  - weekday scheduled full run: `scheduled-all-tests.yml`
 
-A coverage summary for the repository is maintained in [`docs/coverage.md`](docs/coverage.md).
-
----
-
-## Tech stack
-
-- **Playwright**
-- **Node.js**
-- **Docker / Docker Compose**
-- **GitHub Actions**
-- **Playwright HTML Reporter**
+For current counts and detailed suite breakdown, see [`docs/coverage.md`](docs/coverage.md).
 
 ---
 
@@ -55,8 +65,7 @@ A coverage summary for the repository is maintained in [`docs/coverage.md`](docs
 │   ├── admin/                  # Auth, translation, and admin UI tests
 │   ├── api/                    # API smoke checks
 │   ├── e2e/                    # End-to-end flows
-│   ├── smoke/                  # Cross-area smoke tests
-│   └── widget/                 # Widget-specific tests
+│   └── smoke/                  # Cross-area smoke tests
 ├── .github/workflows/          # CI workflows
 ├── docker-compose.yml
 ├── Dockerfile
@@ -64,51 +73,6 @@ A coverage summary for the repository is maintained in [`docs/coverage.md`](docs
 ├── playwright.config.api.js
 └── package.json
 ```
-
----
-
-## Test areas currently covered
-
-### Smoke suite
-
-The smoke suite provides broad checks for the main application areas:
-
-- landing page
-- admin pages
-- analytics pages
-- chats pages
-- services pages
-- training pages
-
-### Admin services suite
-
-The deepest current test coverage is in the **Services** area. This includes:
-
-- overview page visibility
-- service canvas visibility
-- node-specific UI visibility
-- new service creation
-- editing and saving service data
-- confirmation-related behavior
-- client message behavior
-- selected negative-path checks
-- OpenAPI creation flow visibility
-
-### API smoke suite
-
-API-oriented smoke tests validate that critical pages load without visible API errors for:
-
-- admin settings-related pages
-- analytics pages
-- chat management pages
-
-### Widget and E2E coverage
-
-The repository also includes:
-
-- widget visibility validation
-- a chat flow E2E test
-- a drafted service-creation E2E flow that is currently skipped
 
 ---
 
@@ -138,173 +102,46 @@ The API suite also has a separate Playwright configuration in `playwright.config
 
 ---
 
-## Prerequisites
+## Tech stack
 
-- Node.js 18+ recommended
-- npm
-- Playwright browser dependencies
-- Access to the target Bürokratt environments
-
----
-
-## Installation
-
-```bash
-npm install
-npx playwright install --with-deps
-```
+- **Playwright**
+- **Node.js**
+- **Docker / Docker Compose**
+- **GitHub Actions**
+- **Playwright HTML Reporter**
 
 ---
 
-## Running tests locally
+## Running tests
 
-### Run the default suite
-
-```bash
-npm test
-```
-
-### Run by environment
-
-```bash
-npm run test:test
-npm run test:stage
-```
-
-### Run specific Playwright projects
-
-```bash
-npm run test:test:smoke
-npm run test:test:tests
-npm run test:stage:smoke
-npm run test:stage:flow
-npm run test:stage:tests
-npm run test:stage:apismoke
-```
-
-### Run a specific path or file
-
-```bash
-npx playwright test tests/admin/services
-npx playwright test tests/widget/widget.visibility.test.js
-```
-
-### Useful debug commands
-
-```bash
-npm run test:test:debug
-npm run test:stage:debug
-npx playwright test --headed
-npx playwright test --ui
-```
+- [Running tests guide](docs/running_tests.md)
 
 ---
 
+## Implementation
 
-### Test tags and focused execution
+Implementation guidance for new tests:
 
-Tests now include grep-friendly tags in their titles, for example:
+- [Testing strategy](docs/testing_strategy.md) for scope and workflow
+- [Running tests guide](docs/running_tests.md) for execution patterns
 
-- `[smoke]`
-- `[api]`
-- `[services]`
-- `[visibility]`
-- `[functional]`
-- `[e2e]`
-- `[chats]`
-
-That makes it easier to run targeted subsets:
-
-```bash
-npx playwright test --grep "\[services\]"
-npx playwright test --grep "\[smoke\]"
-npx playwright test --grep "\[services\].*\[visibility\]"
-```
-
-### Code quality commands
-
-```bash
-npm run lint
-npm run lint:fix
-npm run format
-npm run format:check
-```
-
-### Shared utilities added
-
-The suite now includes reusable helpers for:
-
-- environment URL resolution in `utils/env/urls.js`
-- route-aware page readiness waits in `utils/waits/admin-page-ready.js`
-- paginated admin tables in `page-objects/common/paginated-data-table.js`
-- deterministic service test data in `utils/test-data/service-data.js`
-
----
-
-## Running with Docker
-
-### Build the image
-
-```bash
-docker build -t buerokratt-playwright .
-```
-
-### Start with Docker Compose
-
-```bash
-docker compose up -d
-```
-
-The compose setup exposes the Playwright report port on `9323`.
-
----
-
-## Reporting
-
-This project currently uses the Playwright HTML report as the main execution report.
-
-Generated artifacts include:
-
-- HTML report
-- screenshots on failure
-- retained failure videos
-- traces on first retry
-
-### Open the report
-
-```bash
-npx playwright show-report
-```
-
-### Report locations
-
-- `playwright-report/`
-- `test-results/`
-
----
-
-## CI workflows
-
-The repository already includes workflow definitions for:
-
-- manually triggered Playwright runs
-- scheduled admin test runs
-- scheduled widget test runs
-- repository dispatch based runs
-- issue creation based on failed test results
-
-Workflow files live under `.github/workflows/`.
-
----
-
-## Test design conventions
+How implementation is done in this repository:
 
 - Tests primarily follow the **Page Object Model**
 - Shared setup logic lives under `tests/.setup/`
 - Admin authentication state is stored under `tests/admin/.auth/`
 - Translation-related setup exists under `tests/admin/.translation/`
 - Console errors are monitored in shared setup helpers
-- The current suite runs with **single-worker execution** in the main UI config
+- Main UI suite runs with **4 workers in CI** and **50% of available workers locally** by default
+- API Playwright config runs with **single-worker execution in CI**
+
+Shared test infrastructure includes:
+
+- environment URL resolution in `utils/env/urls.js`
+- route-aware page readiness waits in `utils/waits/admin-page-ready.js`
+- deterministic service test data in `utils/test-data/service-data.js`
+- paginated admin table helpers in `page-objects/common/paginated-data-table.js`
+- service-specific helper utilities in `tests/admin/services/service-test-helpers.js`
 
 ---
 
@@ -321,7 +158,11 @@ Workflow files live under `.github/workflows/`.
 ## Related documentation
 
 - [Coverage summary](docs/coverage.md)
-- [Docs overview](docs/README.md)
+- [Running tests guide](docs/running_tests.md)
+- [CI setup guide](docs/ci_setup.md)
+- [Testing strategy](docs/testing_strategy.md)
+- [Issue/manual CI workflow](.github/workflows/project-v2-acceptance-testing.yml)
+- [Scheduled all-tests CI workflow](.github/workflows/scheduled-all-tests.yml)
 
 ---
 

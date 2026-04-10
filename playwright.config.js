@@ -52,7 +52,7 @@ module.exports = defineConfig({
     },
     {
       name: 'flow',
-      testMatch: '**/*.spec.js',
+      testMatch: '**/*.flow.js',
       use: {
         ...devices['Desktop Chrome'],
         storageState: 'tests/admin/.auth/user.json',

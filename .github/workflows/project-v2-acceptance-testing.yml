@@ -1,0 +1,529 @@
+name: Run AT Tests On Label
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
+permissions:
+  contents: read
+  issues: write
+
+on:
+  issues:
+    types: [labeled]
+  workflow_dispatch:
+    inputs:
+      env:
+        description: "test or stage"
+        required: false
+        default: "test"
+        type: string
+      project:
+        description: "setup, smoke, flow, tests, all"
+        required: false
+        default: "smoke"
+        type: string
+      run_all:
+        description: "Run all tests: true/false"
+        required: false
+        default: "false"
+        type: string
+      test_path:
+        description: "Optional folder path"
+        required: false
+        default: ""
+        type: string
+      test_file:
+        description: "Optional single test file"
+        required: false
+        default: ""
+        type: string
+      test_grep:
+        description: "Optional grep pattern for test title"
+        required: false
+        default: ""
+        type: string
+      targets:
+        description: "Optional semicolon-separated targets. Formats: project:<name> | path:<dir>@<project> | file:<file>@<project>"
+        required: false
+        default: ""
+        type: string
+
+jobs:
+  resolve_targets:
+    if: github.event_name == 'workflow_dispatch' || github.event.label.name == 'run-at-tests'
+    runs-on: ubuntu-latest
+    outputs:
+      env_name: ${{ steps.resolve.outputs.env_name }}
+      matrix: ${{ steps.resolve.outputs.matrix }}
+    steps:
+      - name: Cleanup previous AT labels
+        if: ${{ github.event_name == 'issues' && github.event.label.name == 'run-at-tests' }}
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          set -euo pipefail
+
+          # Remove stale labels from earlier runs; ignore not-found responses.
+          for label in tests-passed tests-failed testing... run-at-tests; do
+            code=$(curl -sS -o /dev/null -w "%{http_code}" -X DELETE \
+              -H "Authorization: Bearer $GH_TOKEN" \
+              -H "Accept: application/vnd.github+json" \
+              "https://api.github.com/repos/$REPO/issues/$ISSUE_NUMBER/labels/$label" || true)
+            echo "cleanup $label -> HTTP $code"
+          done
+
+          # Mark issue as currently being tested.
+          curl -sS -X POST \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            -H "Content-Type: application/json" \
+            -d '{"labels":["testing..."]}' \
+            "https://api.github.com/repos/$REPO/issues/$ISSUE_NUMBER/labels"
+
+      - name: Resolve run parameters
+        id: resolve
+        shell: bash
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          ISSUE_BODY: ${{ github.event.issue.body }}
+          MANUAL_ENV: ${{ github.event.inputs.env }}
+          MANUAL_PROJECT: ${{ github.event.inputs.project }}
+          MANUAL_RUN_ALL: ${{ github.event.inputs.run_all }}
+          MANUAL_TEST_PATH: ${{ github.event.inputs.test_path }}
+          MANUAL_TEST_FILE: ${{ github.event.inputs.test_file }}
+          MANUAL_TEST_GREP: ${{ github.event.inputs.test_grep }}
+          MANUAL_TARGETS: ${{ github.event.inputs.targets }}
+        run: |
+          set -euo pipefail
+
+          env_name="test"
+          project_name="smoke"
+          run_all="false"
+          test_path="tests/smoke"
+          test_file=""
+          test_grep=""
+          targets=""
+
+          if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
+            env_name="${MANUAL_ENV:-$env_name}"
+            project_name="${MANUAL_PROJECT:-$project_name}"
+            run_all="${MANUAL_RUN_ALL:-$run_all}"
+            test_path="${MANUAL_TEST_PATH:-$test_path}"
+            test_file="${MANUAL_TEST_FILE:-$test_file}"
+            test_grep="${MANUAL_TEST_GREP:-$test_grep}"
+            targets="${MANUAL_TARGETS:-$targets}"
+          else
+            body="${ISSUE_BODY:-}"
+            if [ -n "$body" ]; then
+              # Parse overrides only from a dedicated AT_TESTS section.
+              # Section starts at a heading like "## AT_TESTS" and ends at the next heading.
+              at_tests_block="$(printf '%s\n' "$body" | awk '
+                BEGIN { in_block = 0 }
+                /^[[:space:]]*#+[[:space:]]*AT_TESTS[[:space:]]*$/ { in_block = 1; next }
+                /^[[:space:]]*#+[[:space:]]+/ { if (in_block) exit }
+                { if (in_block) print }
+              ')"
+
+              if [ -n "$at_tests_block" ]; then
+                env_override="$(printf '%s\n' "$at_tests_block" | sed -nE 's/^[[:space:]]*ENV:[[:space:]]*(test|stage)[[:space:]]*$/\1/ip' | head -n1)"
+                project_override="$(printf '%s\n' "$at_tests_block" | sed -nE 's/^[[:space:]]*PROJECT:[[:space:]]*(setup|smoke|flow|tests|all)[[:space:]]*$/\1/ip' | head -n1)"
+                run_all_override="$(printf '%s\n' "$at_tests_block" | sed -nE 's/^[[:space:]]*RUN_ALL:[[:space:]]*(true|false)[[:space:]]*$/\1/ip' | head -n1)"
+                path_override="$(printf '%s\n' "$at_tests_block" | sed -nE 's/^[[:space:]]*TEST_PATH:[[:space:]]*(.+)[[:space:]]*$/\1/ip' | head -n1)"
+                file_override="$(printf '%s\n' "$at_tests_block" | sed -nE 's/^[[:space:]]*TEST_FILE:[[:space:]]*(.+)[[:space:]]*$/\1/ip' | head -n1)"
+                grep_override="$(printf '%s\n' "$at_tests_block" | sed -nE 's/^[[:space:]]*TEST_GREP:[[:space:]]*(.+)[[:space:]]*$/\1/ip' | head -n1)"
+                targets_override="$(printf '%s\n' "$at_tests_block" | sed -nE 's/^[[:space:]]*TARGETS:[[:space:]]*(.+)[[:space:]]*$/\1/ip' | head -n1)"
+
+                if [ -n "${env_override:-}" ]; then env_name="$env_override"; fi
+                if [ -n "${project_override:-}" ]; then project_name="$project_override"; fi
+                if [ -n "${run_all_override:-}" ]; then run_all="${run_all_override,,}"; fi
+                if [ -n "${path_override:-}" ]; then test_path="$path_override"; fi
+                if [ -n "${file_override:-}" ]; then test_file="$file_override"; fi
+                if [ -n "${grep_override:-}" ]; then test_grep="$grep_override"; fi
+                if [ -n "${targets_override:-}" ]; then targets="$targets_override"; fi
+              fi
+            fi
+          fi
+
+          if [ "$env_name" != "test" ] && [ "$env_name" != "stage" ]; then
+            echo "Invalid ENV: $env_name (allowed: test|stage)"
+            exit 1
+          fi
+
+          if [ "$project_name" != "setup" ] && [ "$project_name" != "smoke" ] && [ "$project_name" != "flow" ] && [ "$project_name" != "tests" ] && [ "$project_name" != "all" ]; then
+            echo "Invalid PROJECT: $project_name (allowed: setup|smoke|flow|tests|all)"
+            exit 1
+          fi
+
+          if [ "$run_all" != "true" ] && [ "$run_all" != "false" ]; then
+            echo "Invalid RUN_ALL: $run_all (allowed: true|false)"
+            exit 1
+          fi
+
+          matrix='[]'
+          add_target() {
+            local selector="$1"
+            local project="$2"
+            local grep="$3"
+            matrix="$(jq -c --arg selector "$selector" --arg project "$project" --arg grep "$grep" \
+              '. + [{selector:$selector, project:$project, grep:$grep}]' <<< "$matrix")"
+          }
+
+          normalize_selector() {
+            local raw="$1"
+            local value="$raw"
+            # Convert markdown link token [text](url) -> text.
+            # Use sed instead of bash regex to avoid shell parsing edge-cases.
+            value="$(printf '%s' "$value" | sed -E 's/^\[([^]]+)\]\([^)]*\)$/\1/')"
+            # remove optional surrounding backticks
+            value="${value#\`}"
+            value="${value%\`}"
+            printf '%s' "$value"
+          }
+
+          if [ "$run_all" = "true" ] || [ "$project_name" = "all" ]; then
+            add_target "" "" "$test_grep"
+          elif [ -n "$targets" ]; then
+            IFS=';' read -ra parts <<< "$targets"
+            for raw in "${parts[@]}"; do
+              token="$(echo "$raw" | xargs)"
+              [ -z "$token" ] && continue
+
+              token_project="$project_name"
+              token_selector="$token"
+
+              # Optional per-target project override with @project suffix.
+              if [[ "$token_selector" == *@* ]]; then
+                suffix="${token_selector##*@}"
+                if [[ "$suffix" == "setup" || "$suffix" == "smoke" || "$suffix" == "flow" || "$suffix" == "tests" ]]; then
+                  token_project="$suffix"
+                  token_selector="${token_selector%@*}"
+                fi
+              fi
+
+              token_selector="$(normalize_selector "$token_selector")"
+
+              if [[ "$token_selector" == project:* ]]; then
+                add_target "" "${token_selector#project:}" "$test_grep"
+              elif [[ "$token_selector" == path:* ]]; then
+                add_target "$(normalize_selector "${token_selector#path:}")" "$token_project" "$test_grep"
+              elif [[ "$token_selector" == file:* ]]; then
+                add_target "$(normalize_selector "${token_selector#file:}")" "$token_project" "$test_grep"
+              else
+                add_target "$token_selector" "$token_project" "$test_grep"
+              fi
+            done
+          else
+            selector="$test_path"
+            if [ -n "$test_file" ]; then
+              selector="$test_file"
+            fi
+            selector="$(normalize_selector "$selector")"
+            add_target "$selector" "$project_name" "$test_grep"
+          fi
+
+          {
+            echo "env_name=$env_name"
+            echo "matrix=$matrix"
+          } >> "$GITHUB_OUTPUT"
+
+  tests_on_label:
+    needs: resolve_targets
+    strategy:
+      fail-fast: false
+      matrix:
+        target: ${{ fromJson(needs.resolve_targets.outputs.matrix) }}
+    runs-on: ubuntu-latest
+    env:
+      ENV: ${{ needs.resolve_targets.outputs.env_name }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: "24"
+          cache: "npm"
+
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-ms-playwright-${{ hashFiles('package-lock.json') }}
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+
+      - name: Run Playwright target
+        shell: bash
+        env:
+          TARGET_SELECTOR: ${{ matrix.target.selector }}
+          TARGET_PROJECT: ${{ matrix.target.project }}
+          TARGET_GREP: ${{ matrix.target.grep }}
+        run: |
+          set -euo pipefail
+          cmd=(npx playwright test)
+
+          if [ -n "${TARGET_SELECTOR:-}" ]; then
+            cmd+=("$TARGET_SELECTOR")
+          fi
+          if [ -n "${TARGET_PROJECT:-}" ]; then
+            cmd+=(--project "$TARGET_PROJECT")
+          fi
+          if [ -n "${TARGET_GREP:-}" ]; then
+            cmd+=(--grep "$TARGET_GREP")
+          fi
+
+          echo "ENV=$ENV"
+          printf 'Running:'
+          printf ' %q' "${cmd[@]}"
+          echo
+
+          "${cmd[@]}"
+
+      - name: Upload Playwright Report
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: playwright-report-${{ github.run_id }}-${{ strategy.job-index }}
+          path: playwright-report/
+          retention-days: 30
+
+  resolve_project_item:
+    if: github.event_name == 'issues' && github.event.label.name == 'run-at-tests'
+    runs-on: ubuntu-latest
+    outputs:
+      project_id: ${{ steps.resolve.outputs.project_id }}
+      field_id: ${{ steps.resolve.outputs.field_id }}
+      acceptance_option_id: ${{ steps.resolve.outputs.acceptance_option_id }}
+      rejected_option_id: ${{ steps.resolve.outputs.rejected_option_id }}
+      item_id: ${{ steps.resolve.outputs.item_id }}
+    steps:
+      - name: Resolve project item and status field ids
+        id: resolve
+        shell: bash
+        env:
+          BYK_PAT: ${{ secrets.BYK_PAT }}
+          ORG: ${{ vars.ORG }}
+          PROJECT_NUMBER: ${{ vars.PROJECT_NUMBER }}
+          STATUS_FIELD_NAME: ${{ vars.STATUS_FIELD_NAME }}
+          IN_PROGRESS_STATUS: ${{ vars.IN_PROGRESS_STATUS }}
+          FAIL_STATUS: ${{ vars.FAIL_STATUS }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          REPO_OWNER: ${{ github.repository_owner }}
+          REPO_NAME: ${{ github.event.repository.name }}
+        run: |
+          set -euo pipefail
+
+          trim() {
+            printf '%s' "$1" | sed -E 's/^[[:space:]]+//; s/[[:space:]]+$//'
+          }
+
+          org="$(trim "${ORG:-}")"
+          project_number="$(trim "${PROJECT_NUMBER:-}")"
+          status_field_name="$(trim "${STATUS_FIELD_NAME:-Status}")"
+          in_progress_status_name="$(trim "${IN_PROGRESS_STATUS:-Acceptance testing}")"
+          fail_status_name="$(trim "${FAIL_STATUS:-AT-rejected}")"
+
+          if [ -z "${BYK_PAT:-}" ]; then
+            echo "Missing secret BYK_PAT"
+            exit 1
+          fi
+          if [ -z "$org" ] || [ -z "$project_number" ]; then
+            echo "Missing required repository variables: ORG, PROJECT_NUMBER"
+            exit 1
+          fi
+          if ! [[ "$project_number" =~ ^[0-9]+$ ]]; then
+            echo "PROJECT_NUMBER must be numeric, got: '$project_number'"
+            exit 1
+          fi
+
+          echo "Using owner='$org' project_number='$project_number' status_field='$status_field_name' in_progress='$in_progress_status_name' fail='$fail_status_name'"
+
+          query_project=$(jq -n \
+            --arg org "$org" \
+            --argjson number "$project_number" \
+            --arg field_name "$status_field_name" \
+            --arg fail_name "$fail_status_name" \
+            '{
+              query: "query($org:String!, $number:Int!) { organization(login:$org) { projectV2(number:$number) { id fields(first:100) { nodes { ... on ProjectV2SingleSelectField { id name options { id name } } } } } } user(login:$org) { projectV2(number:$number) { id fields(first:100) { nodes { ... on ProjectV2SingleSelectField { id name options { id name } } } } } } }",
+              variables: { org:$org, number:$number }
+            }')
+
+          project_resp=$(curl -sS -X POST \
+            -H "Authorization: bearer $BYK_PAT" \
+            -H "Content-Type: application/json" \
+            -d "$query_project" \
+            https://api.github.com/graphql)
+
+          project_id=$(echo "$project_resp" | jq -r '(.data.organization.projectV2.id // .data.user.projectV2.id // empty)')
+          field_id=$(echo "$project_resp" | jq -r --arg f "$status_field_name" '((((.data.organization.projectV2.fields.nodes // .data.user.projectV2.fields.nodes) // []) | map(select((.name // "" | ascii_downcase) == ($f | ascii_downcase))) | .[0].id) // empty)')
+          acceptance_option_id=$(echo "$project_resp" | jq -r --arg f "$status_field_name" --arg s "$in_progress_status_name" '(((((((.data.organization.projectV2.fields.nodes // .data.user.projectV2.fields.nodes) // []) | map(select((.name // "" | ascii_downcase) == ($f | ascii_downcase))) | .[0].options) // []) | map(select((.name // "" | ascii_downcase) == ($s | ascii_downcase))) | .[0].id)) // empty)')
+          rejected_option_id=$(echo "$project_resp" | jq -r --arg f "$status_field_name" --arg s "$fail_status_name" '(((((((.data.organization.projectV2.fields.nodes // .data.user.projectV2.fields.nodes) // []) | map(select((.name // "" | ascii_downcase) == ($f | ascii_downcase))) | .[0].options) // []) | map(select((.name // "" | ascii_downcase) == ($s | ascii_downcase))) | .[0].id)) // empty)')
+
+          if [ -z "$project_id" ] || [ "$project_id" = "null" ] || [ -z "$field_id" ] || [ "$field_id" = "null" ] || [ -z "$acceptance_option_id" ] || [ "$acceptance_option_id" = "null" ] || [ -z "$rejected_option_id" ] || [ "$rejected_option_id" = "null" ]; then
+            echo "Could not resolve project/field/option ids"
+            echo "$project_resp"
+            echo "Available fields/options:"
+            echo "$project_resp" | jq -r '((.data.organization.projectV2.fields.nodes // .data.user.projectV2.fields.nodes) // [])
+              | map(select(.name != null))
+              | .[]
+              | (.name + ": " + (((.options // []) | map(.name) | join(", "))))'
+            exit 1
+          fi
+
+          query_item=$(jq -n \
+            --arg owner "$REPO_OWNER" \
+            --arg repo "$REPO_NAME" \
+            --argjson issue_number "$ISSUE_NUMBER" \
+            --arg project_id "$project_id" \
+            '{
+              query: "query($owner:String!, $repo:String!, $issueNumber:Int!) { repository(owner:$owner, name:$repo) { issue(number:$issueNumber) { projectItems(first:100, includeArchived:false) { nodes { id project { id } } } } } }",
+              variables: { owner:$owner, repo:$repo, issueNumber:$issue_number }
+            }')
+
+          item_resp=$(curl -sS -X POST \
+            -H "Authorization: bearer $BYK_PAT" \
+            -H "Content-Type: application/json" \
+            -d "$query_item" \
+            https://api.github.com/graphql)
+
+          item_id=$(echo "$item_resp" | jq -r --arg pid "$project_id" '((.data.repository.issue.projectItems.nodes // []) | map(select(.project.id == $pid)) | .[0].id) // empty')
+
+          if [ -z "$item_id" ] || [ "$item_id" = "null" ]; then
+            echo "Issue #$ISSUE_NUMBER is not linked to project $project_id"
+            echo "$item_resp"
+            exit 1
+          fi
+
+          {
+            echo "project_id=$project_id"
+            echo "field_id=$field_id"
+            echo "acceptance_option_id=$acceptance_option_id"
+            echo "rejected_option_id=$rejected_option_id"
+            echo "item_id=$item_id"
+          } >> "$GITHUB_OUTPUT"
+
+  set_status_acceptance:
+    needs: [resolve_project_item]
+    if: ${{ always() && github.event_name == 'issues' && github.event.label.name == 'run-at-tests' && needs.resolve_project_item.result == 'success' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Update project status to Acceptance testing
+        shell: bash
+        env:
+          BYK_PAT: ${{ secrets.BYK_PAT }}
+          PROJECT_ID: ${{ needs.resolve_project_item.outputs.project_id }}
+          ITEM_ID: ${{ needs.resolve_project_item.outputs.item_id }}
+          FIELD_ID: ${{ needs.resolve_project_item.outputs.field_id }}
+          OPTION_ID: ${{ needs.resolve_project_item.outputs.acceptance_option_id }}
+        run: |
+          set -euo pipefail
+          mutation=$(jq -n \
+            --arg project_id "$PROJECT_ID" \
+            --arg item_id "$ITEM_ID" \
+            --arg field_id "$FIELD_ID" \
+            --arg option_id "$OPTION_ID" \
+            '{
+              query: "mutation($projectId:ID!, $itemId:ID!, $fieldId:ID!, $optionId:String!) { updateProjectV2ItemFieldValue(input:{ projectId:$projectId, itemId:$itemId, fieldId:$fieldId, value:{ singleSelectOptionId:$optionId } }) { projectV2Item { id } } }",
+              variables: { projectId:$project_id, itemId:$item_id, fieldId:$field_id, optionId:$option_id }
+            }')
+
+          curl -sS -X POST \
+            -H "Authorization: bearer $BYK_PAT" \
+            -H "Content-Type: application/json" \
+            -d "$mutation" \
+            https://api.github.com/graphql
+
+  labels_on_success:
+    needs: [tests_on_label]
+    if: ${{ always() && github.event_name == 'issues' && github.event.label.name == 'run-at-tests' && needs.tests_on_label.result == 'success' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Finalize labels on success
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          set -euo pipefail
+          # Remove transitional labels; ignore missing-label errors.
+          for label in run-at-tests testing... tests-failed; do
+            curl -sS -o /dev/null -w "%{http_code}" -X DELETE \
+              -H "Authorization: Bearer $GH_TOKEN" \
+              -H "Accept: application/vnd.github+json" \
+              "https://api.github.com/repos/$REPO/issues/$ISSUE_NUMBER/labels/$label" || true
+          done
+
+          # Add pass label.
+          curl -sS -X POST \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            -H "Content-Type: application/json" \
+            -d '{"labels":["tests-passed"]}' \
+            "https://api.github.com/repos/$REPO/issues/$ISSUE_NUMBER/labels"
+
+  set_status_rejected:
+    needs: [tests_on_label, resolve_project_item]
+    if: ${{ always() && github.event_name == 'issues' && github.event.label.name == 'run-at-tests' && needs.tests_on_label.result == 'failure' && needs.resolve_project_item.result == 'success' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Update project status to AT rejected
+        shell: bash
+        env:
+          BYK_PAT: ${{ secrets.BYK_PAT }}
+          PROJECT_ID: ${{ needs.resolve_project_item.outputs.project_id }}
+          ITEM_ID: ${{ needs.resolve_project_item.outputs.item_id }}
+          FIELD_ID: ${{ needs.resolve_project_item.outputs.field_id }}
+          OPTION_ID: ${{ needs.resolve_project_item.outputs.rejected_option_id }}
+        run: |
+          set -euo pipefail
+          mutation=$(jq -n \
+            --arg project_id "$PROJECT_ID" \
+            --arg item_id "$ITEM_ID" \
+            --arg field_id "$FIELD_ID" \
+            --arg option_id "$OPTION_ID" \
+            '{
+              query: "mutation($projectId:ID!, $itemId:ID!, $fieldId:ID!, $optionId:String!) { updateProjectV2ItemFieldValue(input:{ projectId:$projectId, itemId:$itemId, fieldId:$fieldId, value:{ singleSelectOptionId:$optionId } }) { projectV2Item { id } } }",
+              variables: { projectId:$project_id, itemId:$item_id, fieldId:$field_id, optionId:$option_id }
+            }')
+
+          curl -sS -X POST \
+            -H "Authorization: bearer $BYK_PAT" \
+            -H "Content-Type: application/json" \
+            -d "$mutation" \
+            https://api.github.com/graphql
+
+  labels_on_failure:
+    needs: [tests_on_label]
+    if: ${{ always() && github.event_name == 'issues' && github.event.label.name == 'run-at-tests' && needs.tests_on_label.result == 'failure' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Finalize labels on failure
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          set -euo pipefail
+          for label in run-at-tests testing... tests-passed; do
+            curl -sS -o /dev/null -w "%{http_code}" -X DELETE \
+              -H "Authorization: Bearer $GH_TOKEN" \
+              -H "Accept: application/vnd.github+json" \
+              "https://api.github.com/repos/$REPO/issues/$ISSUE_NUMBER/labels/$label" || true
+          done
+
+          curl -sS -X POST \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            -H "Content-Type: application/json" \
+            -d '{"labels":["tests-failed"]}' \
+            "https://api.github.com/repos/$REPO/issues/$ISSUE_NUMBER/labels"
