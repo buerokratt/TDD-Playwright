@@ -1,8 +1,8 @@
-import { NewServicePage } from "../../../../page-objects/services/newservice/new-service-page";
+const { NewServicePage } = require('../../../../page-objects/services/newservice/new-service-page');
 const { test, expect } = require("../../../.setup/test-setup");
-import { URLS } from "../../../../playwright.config";
+const { URLS } = require('../../../../playwright.config');
 
-test("Multichoice node elements visibility", async ({ page }) => {
+test("[services] [visibility] Multichoice node elements visibility", async ({ page }) => {
     await page.goto(URLS.admin + "services/newService");
     await page.waitForLoadState("domcontentloaded");
 

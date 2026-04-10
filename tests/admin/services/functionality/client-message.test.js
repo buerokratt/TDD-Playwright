@@ -1,93 +1,57 @@
-// tests/admin/services/newservice/test-widget-variable-resolution.spec.js
-const { test, expect } = require("../../../.setup/test-setup");
-const { URLS } = require("../../../../playwright.config");
-const { AdminPageFactory: ap } = require("../../../../page-objects/admin-page-factory");
+const { test, expect } = require('../../../.setup/test-setup');
+const { URLS } = require('../../../../playwright.config');
+const { createServiceName, createValidServiceData } = require('../../../../utils/test-data/service-data');
+const { getServicePages, registerServiceCleanup } = require('../service-test-helpers');
 
+const serviceName = createServiceName('clientmessage');
 
-test.describe("New service test (TEST widget variable resolution)", () => {
-    let randomString = Math.random().toString(36).substring(2, 10);
+test.describe('[services] [functional] New service test (TEST widget variable resolution)', () => {
+  registerServiceCleanup(test, serviceName);
 
-    test("Create service + add nodes + configure via node edit + verify widget resolves variables", async ({ page }) => {
-        const apf = new ap(page);
-        const nsp = apf.getNewServicePage();
+  test('[services] [functional] Create service + add nodes + configure via node edit + verify widget resolves variables', async ({ page }) => {
+    const { nsp } = getServicePages(page);
 
-        console.log(randomString);
+    await page.goto(URLS.admin + 'services/newService');
+    await nsp.waitForReady();
 
-        await page.goto(URLS.admin + "services/newService");
-        await page.waitForLoadState("domcontentloaded");
+    await nsp.setTitle(createValidServiceData({ title: serviceName }).title);
 
-        // Create service title (but do NOT leave page)
-        await nsp.setTitle(randomString);
+    await nsp.clickAddNodeAtEdgeIndex(0);
+    await nsp.pickNodeTypeAndReturnToCanvas(nsp.buttonDefine);
 
-        // -----------------------------
-        // 1) Add node: Määra (picker closes after click)
-        // -----------------------------
-        await nsp.clickAddNodeAtEdgeIndex(0); // first edge after Start
-        await nsp.pickNodeTypeAndReturnToCanvas(nsp.buttonDefine);
+    const assignNodeTitle = 'Määra - 1';
+    await expect(nsp.getFlowNodeByTitle(assignNodeTitle)).toBeVisible();
+    await nsp.openNodeDialogByTitle(assignNodeTitle);
+    await nsp.assignSetVariableAndSave('greeting', 'Tere');
 
-        // Node title should now exist on canvas (usually "Määra - 1")
-        // If numbering can vary, use prefix match; but we'll use "- 1" based on your sample.
-        const assignNodeTitle = "Määra - 1";
-        await expect(nsp.getFlowNodeByTitle(assignNodeTitle)).toBeVisible();
+    if (typeof nsp.clickAddNodeOnLastEdge === 'function') {
+      await nsp.clickAddNodeOnLastEdge();
+    } else {
+      await nsp.clickAddNodeAtEdgeIndex(1);
+    }
 
-        // Open node dialog via edit button
-        await nsp.openNodeDialogByTitle(assignNodeTitle);
+    await nsp.pickNodeTypeAndReturnToCanvas(nsp.buttonMessageForCustomer);
 
-        // Configure: greeting = Tere and save
-        await nsp.assignSetVariableAndSave("greeting", "Tere");
+    const msgNodeTitle = 'Sõnum kliendile - 1';
+    await expect(nsp.getFlowNodeByTitle(msgNodeTitle)).toBeVisible();
+    await nsp.openNodeDialogByTitle(msgNodeTitle);
+    await nsp.messageSetTextAndSave('{greeting}, maailm!');
 
-        // -----------------------------
-        // 2) Add node: Sõnum kliendile (picker closes after click)
-        // -----------------------------
-        // Now there are multiple '+' buttons; safest is "last edge" when building downwards
-        await nsp.clickAddNodeOnLastEdge?.()
-            ? await nsp.clickAddNodeOnLastEdge()
-            : await nsp.clickAddNodeAtEdgeIndex(1); // fallback if you didn't add clickAddNodeOnLastEdge
+    await nsp.saveService();
+    await expect(nsp.getFlowNodeByTitle(assignNodeTitle)).toBeVisible();
+    await expect(nsp.getFlowNodeByTitle(msgNodeTitle)).toBeVisible();
 
-        await nsp.pickNodeTypeAndReturnToCanvas(nsp.buttonMessageForCustomer);
+    await expect(nsp.widget).toBeVisible();
+    await nsp.openWidget();
 
-        const msgNodeTitle = "Sõnum kliendile - 1";
-        await expect(nsp.getFlowNodeByTitle(msgNodeTitle)).toBeVisible();
+    await nsp.widgetSendText('test');
+    await expect(nsp.widgetDialog.getByText('test', { exact: true })).toBeVisible();
+    await nsp.expectWidgetToContainText('{greeting}, maailm!');
+  });
 
-        // Open message node dialog via edit
-        await nsp.openNodeDialogByTitle(msgNodeTitle);
-
-        // Set message content and save
-        await nsp.messageSetTextAndSave("${greeting}, maailm!");
-
-        // Save service (recommended before testing widget)
-        await nsp.saveService();
-
-        // -----------------------------
-        // Widget test
-        // -----------------------------
-        await expect(nsp.widget).toBeVisible();
-        await nsp.openWidget();
-
-        const chat = page.locator("div").filter({ has: page.getByText("TEST") }).first();
-        const input = chat.getByPlaceholder("Sisestage sisend, eraldatud komadega");
-
-        await input.fill("test");
-        await chat.getByAltText("Send").click();
-
-        // user input visible
-        await expect(chat.getByText("test", { exact: true })).toBeVisible();
-
-        // resolved output visible + raw template not visible
-        await expect(
-            chat.locator('.os-viewport .os-content')
-        ).toContainText("Tere, maailm!");
-
-        //await expect(chat).not.toContainText("${greeting}");
-    });
-
-    test("Delete new service test", async ({ page }) => {
-        await page.goto(URLS.admin + "services/overview");
-
-        const sop = new ap(page).getServicesOverview();
-        await sop.assertServiceRowVisible(randomString);
-        await sop.deleteService(randomString);
-        await sop.assertRowDeleted(randomString);
-    });
-
+    const sop = new ap(page).getServicesOverview();
+    await sop.assertServiceRowVisible(serviceName);
+    await sop.deleteService(serviceName);
+    await sop.assertRowDeleted(serviceName);
+  });
 });

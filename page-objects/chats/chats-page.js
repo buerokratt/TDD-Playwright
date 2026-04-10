@@ -1,3 +1,5 @@
+const { waitForChatsReady } = require('../../utils/waits/admin-page-ready');
+
 class ChatsPage {
     constructor(page) {
         this.page = page;
@@ -12,11 +14,16 @@ class ChatsPage {
         this.buttonAskApproval = this.page.locator('button', { hasText: 'Küsi nõusolekut'});
     }
 
+    async waitForReady(options = {}) {
+        await waitForChatsReady(this.page, options);
+    }
+
     getLastListItem(){
         return this.tabs.last();
     }
 
     async acceptChat(){
+        await this.waitForReady();
         await this.getLastListItem().click();
         await this.buttonAccept.click();
     }
