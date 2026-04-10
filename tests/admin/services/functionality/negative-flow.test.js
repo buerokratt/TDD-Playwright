@@ -1,22 +1,28 @@
-const {test} = require("../../../.setup/test-setup");
-const {URLS} = require("../../../../playwright.config");
-const {AdminPageFactory: ap} = require("../../../../page-objects/admin-page-factory");
-const {expect} = require("@playwright/test");
+const { test, expect } = require('../../../.setup/test-setup');
+const { URLS } = require('../../../../playwright.config');
+const { createServiceName } = require('../../../../utils/test-data/service-data');
+const { getServicePages, registerServiceCleanup } = require('../service-test-helpers');
 
-// Use environment variable, set it if not already set
-if (!process.env.SHARED_RANDOM_STRING) {
-    process.env.SHARED_RANDOM_STRING = Math.random().toString(36).substring(2, 10);
-}
+const serviceName = createServiceName('negativeservice');
 
-const randomString = process.env.SHARED_RANDOM_STRING;
+test.describe('[services] [functional] Service negative path test', () => {
+  registerServiceCleanup(test, serviceName);
 
-test.describe('Service negative path test', () => {
+  test('[services] [functional] Service negative path test', async ({ page }) => {
+    const { nsp, sop } = getServicePages(page);
 
-    test('Service negative path test', async ({page}) => {
-        const apf = new ap(page);
-        const nsp = apf.getNewServicePage();
-        const sop = apf.getServicesOverview();
+    await page.goto(URLS.admin + 'services/newService');
+    await nsp.waitForReady();
 
-        // Is this even possible?
+    await test.step('Saving without required title shows validation error', async () => {
+      await nsp.saveService({ expectedToast: 'Pealkiri on kohustuslik' });
+      await expect(page.locator('.toast__content')).toHaveText('Pealkiri on kohustuslik');
+      await expect(nsp.confirmServiceBtn).toBeDisabled();
     });
+
+    await test.step('No service row is created in overview', async () => {
+      await nsp.returnToServicesOverview();
+      await expect(await sop.findServiceRow(serviceName, { pageSize: '50' })).toHaveCount(0);
+    });
+  });
 });
