@@ -1,5 +1,6 @@
 node_modules/
 test-results/
+tests/admin/.auth/user.json
 playwright-report/
 playwright/.cache/
 screenshots/
