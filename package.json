@@ -3,12 +3,41 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "test": "npx playwright test",
+    "test:test": "cross-env ENV=test npx playwright test",
+    "test:test:smoke": "cross-env ENV=test npx playwright test --project smoke",
+    "test:test:tests": "cross-env ENV=test npx playwright test --project tests",
+    "test:stage": "cross-env ENV=stage npx playwright test",
+    "test:stage:smoke": "cross-env ENV=stage npx playwright test --project smoke",
+    "test:stage:flow": "cross-env ENV=stage npx playwright test --project flow",
+    "test:test:debug": "cross-env ENV=test npx playwright test --debug",
+    "test:stage:debug": "cross-env ENV=stage npx playwright test --debug",
+    "test:stage:tests": "cross-env ENV=stage npx playwright test --project tests",
+    "test:stage:apismoke": "cross-env ENV=stage npx playwright test --project apiSmoke",
+    "lint": "eslint . --ext .js",
+    "lint:fix": "eslint . --ext .js --fix",
+    "format": "prettier . --write",
+    "format:check": "prettier . --check .",
+    "test:services": "cross-env ENV=test npx playwright test tests/admin/services",
+    "test:services:fast": "cross-env ENV=test npx playwright test tests/admin/services --project tests",
+    "test:tests:fast": "cross-env ENV=test npx playwright test --project tests",
+    "test:smoke:admin": "cross-env ENV=test npx playwright test tests/smoke/admin.smoke.js tests/smoke/chats.smoke.js tests/smoke/services.smoke.js tests/smoke/training.smoke.js tests/smoke/analytics.smoke.js"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@playwright/test": "^1.46.0",
-    "@types/node": "^22.3.0"
+    "@playwright/test": "^1.56.1",
+    "@types/node": "^22.3.0",
+    "cross-env": "^10.1.0",
+    "eslint": "^9.23.0",
+    "globals": "^16.0.0",
+    "prettier": "^3.5.3"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "js-yaml": "^4.1.0",
+    "openai": "^4.68.4"
   }
 }

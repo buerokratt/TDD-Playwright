@@ -1,0 +1,9 @@
+
+{
+  "event_type": "run-tests",
+  "client_payload": {
+    "task_description": "A string describing the tests to run (e.g., Please run tests for /tests/auth/login.spec.js)",
+    "task_title": "Authentication Module Tests",
+    "task_id": "MDExOlB1bGxSZXF1ZXN0MjM0NTY3OA=="
+  }
+}
