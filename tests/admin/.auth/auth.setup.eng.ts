@@ -1,6 +1,6 @@
-const { test: setup } = require('../../.setup/test-setup');
-const { AUTH_FILE, ensureAuthDirectory } = require('./auth.helpers');
-const { URLS } = require('../../../utils/env/urls');
+import { AUTH_FILE, ensureAuthDirectory } from '@auth/auth.helpers';
+import { test as setup } from '@setup/test-setup';
+import { URLS } from '@utils/env/urls';
 
 setup('authenticate english locale', async ({ page }) => {
   await ensureAuthDirectory(AUTH_FILE);

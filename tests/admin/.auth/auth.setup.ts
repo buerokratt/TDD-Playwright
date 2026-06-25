@@ -1,5 +1,5 @@
-const { test: setup } = require('../../.setup/test-setup');
-const { AUTH_FILE, ensureAuthDirectory } = require('./auth.helpers');
+import { AUTH_FILE, ensureAuthDirectory } from '@auth/auth.helpers';
+import { test as setup } from '@setup/test-setup';
 
 setup('authenticate', async ({ page }) => {
   await ensureAuthDirectory(AUTH_FILE);
