@@ -1,10 +1,10 @@
-const tseslint = require('typescript-eslint');
-const prettierRecommended = require('eslint-plugin-prettier/recommended');
-const unusedImports = require('eslint-plugin-unused-imports');
-const importPlugin = require('eslint-plugin-import');
-const globals = require('globals');
+import tseslint from 'typescript-eslint';
+import prettierRecommended from 'eslint-plugin-prettier/recommended';
+import unusedImports from 'eslint-plugin-unused-imports';
+import perfectionist from 'eslint-plugin-perfectionist';
+import globals from 'globals';
 
-module.exports = [
+export default [
   {
     ignores: ['**/*.js', 'node_modules/**', 'playwright-report/**', 'test-results/**'],
   },
@@ -20,7 +20,7 @@ module.exports = [
     },
     plugins: {
       'unused-imports': unusedImports,
-      import: importPlugin,
+      perfectionist,
     },
     rules: {
       '@typescript-eslint/no-unused-vars': 'off',
@@ -36,12 +36,15 @@ module.exports = [
           argsIgnorePattern: '^_',
         },
       ],
-      'import/order': [
+      'perfectionist/sort-imports': [
         'error',
         {
-          groups: ['builtin', 'external', ['parent', 'sibling'], 'index'],
-          'newlines-between': 'always',
-          alphabetize: { order: 'asc', caseInsensitive: true },
+          type: 'alphabetical',
+          order: 'asc',
+          ignoreCase: true,
+          newlinesBetween: 1,
+          internalPattern: ['^@(utils|pages|setup|auth)/'],
+          groups: ['builtin', 'external', 'internal', ['parent', 'sibling', 'index']],
         },
       ],
     },
