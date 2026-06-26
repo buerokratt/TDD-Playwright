@@ -1,9 +1,18 @@
 node_modules/
+
+# Playwright outputs
 test-results/
-tests/admin/.auth/user.json
 playwright-report/
 playwright/.cache/
 screenshots/
+
+# Generated auth
+tests/admin/.auth/user.json
+
+# Local config
 *.env
+
+# IDE and OS
 .idea
 .codex
+.DS_Store
