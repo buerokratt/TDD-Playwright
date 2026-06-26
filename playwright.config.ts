@@ -1,4 +1,5 @@
 import { defineConfig, devices } from '@playwright/test';
+
 import { URLS } from '@utils/env/urls';
 
 export default defineConfig({
