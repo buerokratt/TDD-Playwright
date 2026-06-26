@@ -1,9 +1,10 @@
-type EnvUrls = { customer: string; admin: string };
+import { EnvUrls } from '@utils/interfaces/env-urls';
+
 type EnvName = 'test' | 'stage';
 
-export const env: string = process.env.ENV ?? 'test';
+const env = process.env.ENV || 'test';
 
-export const baseURLs: Record<EnvName, EnvUrls> = {
+const baseURLs: Record<EnvName, EnvUrls> = {
   test: {
     customer: 'https://test.buerokratt.ee/',
     admin: 'https://admin.test.buerokratt.ee/',
@@ -14,4 +15,6 @@ export const baseURLs: Record<EnvName, EnvUrls> = {
   },
 };
 
-export const URLS: EnvUrls = baseURLs[env as EnvName] ?? baseURLs.test;
+const isSupportedEnv = (value: string): value is EnvName => value in baseURLs;
+
+export const URLS = isSupportedEnv(env) ? baseURLs[env] : baseURLs.test;

@@ -1,11 +1,7 @@
-import { test as base, expect, type Page } from '@playwright/test';
+import { test as base, expect } from '@playwright/test';
+
+import { ReadyPage } from '@utils/interfaces/ready-page';
 import { waitForRouteReady } from '@utils/waits/admin-page-ready';
-
-type RouteReadyOptions = { timeout?: number };
-
-export interface ReadyPage extends Page {
-  waitForRouteReady(url: string, options?: RouteReadyOptions): Promise<void>;
-}
 
 export const test = base.extend<{ page: ReadyPage }>({
   page: async ({ page }, use) => {
