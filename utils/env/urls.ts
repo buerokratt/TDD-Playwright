@@ -1,4 +1,4 @@
-import { EnvUrls } from '@utils/interfaces/env-urls';
+import { EnvUrls } from '@utils/interfaces';
 
 type EnvName = 'test' | 'stage';
 

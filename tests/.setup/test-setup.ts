@@ -1,11 +1,11 @@
 import { test as base, expect } from '@playwright/test';
 
-import { ReadyPage } from '@utils/interfaces/ready-page';
-import { waitForRouteReady } from '@utils/waits/admin-page-ready';
+import { ReadyPageInterface } from '@utils/interfaces';
+import { waitForRouteReady } from '@utils/waits';
 
-export const test = base.extend<{ page: ReadyPage }>({
+export const test = base.extend<{ page: ReadyPageInterface }>({
   page: async ({ page }, use) => {
-    const readyPage = page as ReadyPage;
+    const readyPage = page as ReadyPageInterface;
     const originalGoto = page.goto.bind(page);
 
     page.goto = async (url, options = {}) => {
