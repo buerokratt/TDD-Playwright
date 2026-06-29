@@ -1,11 +1,20 @@
-const { expect } = require('@playwright/test');
+import { Page, expect } from '@playwright/test';
 
-async function waitForAppSettled(page, { timeout = 15000 } = {}) {
+import { RouteReadyOptions } from '@utils/interfaces';
+
+export async function waitForAppSettled(page: Page, { timeout = 15000 }: RouteReadyOptions = {}): Promise<void> {
   await page.waitForLoadState('domcontentloaded', { timeout }).catch(() => {});
-  await page.waitForFunction(() => document.readyState === 'interactive' || document.readyState === 'complete', undefined, { timeout }).catch(() => {});
+  await page
+    .waitForFunction(() => document.readyState === 'interactive' || document.readyState === 'complete', undefined, {
+      timeout,
+    })
+    .catch(() => {});
 }
 
-async function waitForServicesOverviewReady(page, { timeout = 15000 } = {}) {
+export async function waitForServicesOverviewReady(
+  page: Page,
+  { timeout = 15000 }: RouteReadyOptions = {},
+): Promise<void> {
   await waitForAppSettled(page, { timeout });
 
   const heading = page.getByRole('heading', { name: /Teenused/i }).first();
@@ -25,7 +34,7 @@ async function waitForServicesOverviewReady(page, { timeout = 15000 } = {}) {
   });
 }
 
-async function waitForNewServiceReady(page, { timeout = 15000 } = {}) {
+export async function waitForNewServiceReady(page: Page, { timeout = 15000 }: RouteReadyOptions = {}): Promise<void> {
   await waitForAppSettled(page, { timeout });
 
   const header = page.locator('header.header').first().or(page.locator('header').first());
@@ -38,12 +47,10 @@ async function waitForNewServiceReady(page, { timeout = 15000 } = {}) {
   ];
 
   await expect(header).toBeVisible({ timeout });
-  await Promise.any(
-    readySignals.map((locator) => locator.waitFor({ state: 'visible', timeout }))
-  );
+  await Promise.any(readySignals.map((locator) => locator.waitFor({ state: 'visible', timeout })));
 }
 
-async function waitForChatsReady(page, { timeout = 15000 } = {}) {
+export async function waitForChatsReady(page: Page, { timeout = 15000 }: RouteReadyOptions = {}): Promise<void> {
   await waitForAppSettled(page, { timeout });
   const main = page.locator('main').first();
   const heading = page.getByRole('heading').first();
@@ -58,7 +65,7 @@ async function waitForChatsReady(page, { timeout = 15000 } = {}) {
   });
 }
 
-async function waitForRouteReady(page, url, options) {
+export async function waitForRouteReady(page: Page, url: string, options?: RouteReadyOptions): Promise<void> {
   const target = String(url || '');
   if (target.includes('services/overview')) {
     await waitForServicesOverviewReady(page, options);
@@ -74,11 +81,3 @@ async function waitForRouteReady(page, url, options) {
   }
   await waitForAppSettled(page, options);
 }
-
-module.exports = {
-  waitForAppSettled,
-  waitForServicesOverviewReady,
-  waitForNewServiceReady,
-  waitForChatsReady,
-  waitForRouteReady,
-};
