@@ -1,14 +1,17 @@
-const { test, expect } = require('../../../.setup/test-setup');
-const { URLS } = require('../../../../playwright.config');
-const { createServiceName, createValidServiceData } = require('../../../../utils/test-data/service-data');
-const { getServicePages, registerServiceCleanup } = require('../service-test-helpers');
+import { expect, test } from '@setup/test-setup';
+import { URLS } from '@utils/env/urls';
+import { createServiceName, createValidServiceData } from '@utils/test-data/service-data';
+
+import { getServicePages, registerServiceCleanup } from '../service-test-helpers';
 
 const serviceName = createServiceName('clientmessage');
 
 test.describe('[services] [functional] New service test (TEST widget variable resolution)', () => {
   registerServiceCleanup(test, serviceName);
 
-  test('[services] [functional] Create service + add nodes + configure via node edit + verify widget resolves variables', async ({ page }) => {
+  test('[services] [functional] Create service + add nodes + configure via node edit + verify widget resolves variables', async ({
+    page,
+  }): Promise<void> => {
     const { nsp } = getServicePages(page);
 
     await page.goto(URLS.admin + 'services/newService');
@@ -47,11 +50,5 @@ test.describe('[services] [functional] New service test (TEST widget variable re
     await nsp.widgetSendText('test');
     await expect(nsp.widgetDialog.getByText('test', { exact: true })).toBeVisible();
     await nsp.expectWidgetToContainText('{greeting}, maailm!');
-  });
-
-    const sop = new ap(page).getServicesOverview();
-    await sop.assertServiceRowVisible(serviceName);
-    await sop.deleteService(serviceName);
-    await sop.assertRowDeleted(serviceName);
   });
 });

@@ -1,7 +1,8 @@
-const { test } = require('../../../.setup/test-setup');
-const { URLS } = require('../../../../playwright.config');
-const { createServiceName, createValidServiceData } = require('../../../../utils/test-data/service-data');
-const { getServicePages, registerServiceCleanup } = require('../service-test-helpers');
+import { test } from '@setup/test-setup';
+import { URLS } from '@utils/env/urls';
+import { createServiceName, createValidServiceData } from '@utils/test-data/service-data';
+
+import { getServicePages, registerServiceCleanup } from '../service-test-helpers';
 
 const serviceName = createServiceName('newservice');
 
@@ -17,5 +18,4 @@ test.describe('[services] [functional] New service test', () => {
     await sop.waitForReady();
     await sop.assertServiceRowVisible(serviceName);
   });
-
 });
