@@ -26,6 +26,17 @@ export default [
       '@typescript-eslint/no-unused-vars': 'off',
       '@typescript-eslint/no-explicit-any': 'off',
       'no-unused-vars': 'off',
+      '@typescript-eslint/naming-convention': [
+        'error',
+        {
+          selector: 'interface',
+          format: ['PascalCase'],
+        },
+        {
+          selector: 'typeAlias',
+          format: ['PascalCase'],
+        },
+      ],
       'unused-imports/no-unused-imports': 'error',
       'unused-imports/no-unused-vars': [
         'warn',
@@ -34,6 +45,8 @@ export default [
           varsIgnorePattern: '^_',
           args: 'after-used',
           argsIgnorePattern: '^_',
+          caughtErrors: 'all',
+          caughtErrorsIgnorePattern: '^_',
         },
       ],
       'perfectionist/sort-imports': [
@@ -45,6 +58,14 @@ export default [
           newlinesBetween: 1,
           internalPattern: ['^@(utils|pages|setup|auth)/'],
           groups: ['builtin', 'external', 'internal', ['parent', 'sibling', 'index']],
+        },
+      ],
+      'perfectionist/sort-exports': [
+        'error',
+        {
+          type: 'alphabetical',
+          order: 'asc',
+          ignoreCase: true,
         },
       ],
     },
