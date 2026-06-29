@@ -7,7 +7,7 @@
     "baseUrl": ".",
     "paths": {
       "@utils/*": ["utils/*"],
-      "@pages-objects/*": ["pages-objects/*"],
+      "@page-objects/*": ["page-objects/*"],
       "@setup/*": ["tests/.setup/*"],
       "@auth/*": ["tests/admin/.auth/*"]
     },
