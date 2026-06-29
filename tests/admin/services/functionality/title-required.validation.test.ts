@@ -1,7 +1,7 @@
+import { AdminPageFactory } from '@page-objects/admin-page-factory';
+
 import { expect, test } from '@setup/test-setup';
 import { URLS } from '@utils/env/urls';
-
-import { AdminPageFactory } from '../../../../page-objects/admin-page-factory';
 
 test.describe('[services] [functional] Service title validation', () => {
   test('[services] [functional] Service title is required before save succeeds', async ({ page }) => {
