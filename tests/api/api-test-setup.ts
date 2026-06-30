@@ -1,23 +1,6 @@
-import { test as base, expect, Page } from '@playwright/test';
+import { test as base, expect } from '@playwright/test';
 
-interface ApiCall {
-  url: string;
-  method: string;
-  timestamp: number;
-  status: number | null;
-}
-
-interface VerifyAPIsReturn200Options {
-  waitForNetworkIdle?: boolean;
-}
-
-export interface ApiPageInterface extends Page {
-  verifyAPIsReturn200(options?: VerifyAPIsReturn200Options): Promise<ApiCall[]>;
-  getAllAPICalls(): ApiCall[];
-  getSuccessfulAPICalls(): ApiCall[];
-  getFailingAPICalls(): ApiCall[];
-  clearAPICalls(): void;
-}
+import { ApiCall, ApiPageInterface } from '@utils/interfaces';
 
 export const test = base.extend<{ page: ApiPageInterface }>({
   page: async ({ browser }, use) => {
