@@ -1,16 +1,33 @@
-const base = require('@playwright/test');
+import { test as base, expect, Page } from '@playwright/test';
 
-let page;
+interface ApiCall {
+  url: string;
+  method: string;
+  timestamp: number;
+  status: number | null;
+}
 
-exports.test = base.test.extend({
+interface VerifyAPIsReturn200Options {
+  waitForNetworkIdle?: boolean;
+}
+
+export interface ApiPageInterface extends Page {
+  verifyAPIsReturn200(options?: VerifyAPIsReturn200Options): Promise<ApiCall[]>;
+  getAllAPICalls(): ApiCall[];
+  getSuccessfulAPICalls(): ApiCall[];
+  getFailingAPICalls(): ApiCall[];
+  clearAPICalls(): void;
+}
+
+export const test = base.extend<{ page: ApiPageInterface }>({
   page: async ({ browser }, use) => {
     const context = await browser.newContext({
       storageState: 'tests/admin/.auth/user.json',
     });
 
-    page = await context.newPage();
+    const page = (await context.newPage()) as ApiPageInterface;
 
-    const apiCalls = new Map();
+    const apiCalls = new Map<string, ApiCall>();
 
     page.on('requestfinished', (request) => {
       const url = request.url();
@@ -29,7 +46,7 @@ exports.test = base.test.extend({
       const url = response.url();
 
       if (url.includes('ruuter') && apiCalls.has(url)) {
-        const call = apiCalls.get(url);
+        const call = apiCalls.get(url)!;
         call.status = response.status();
         apiCalls.set(url, call);
       }
@@ -43,18 +60,15 @@ exports.test = base.test.extend({
         await this.waitForLoadState('networkidle').catch(() => {});
       }
 
-      const calls = Array.from(apiCalls.entries()).map(([url, details]) => ({
-        url,
-        ...details,
-      }));
+      const calls = Array.from(apiCalls.values());
 
       if (calls.length === 0) {
         console.warn('No API calls were detected during page load');
         return [];
       }
 
-      const successfulCalls = [];
-      const failingCalls = [];
+      const successfulCalls: ApiCall[] = [];
+      const failingCalls: ApiCall[] = [];
 
       calls.forEach((call) => {
         if (call.status === 200 || call.status === null) {
@@ -66,7 +80,7 @@ exports.test = base.test.extend({
       });
 
       failingCalls.forEach((call) => {
-        base.expect(call.status, `API call failed: ${call.method} ${call.url} returned ${call.status}`).toBe(200);
+        expect(call.status, `API call failed: ${call.method} ${call.url} returned ${call.status}`).toBe(200);
       });
 
       if (failingCalls.length === 0) {
@@ -79,10 +93,7 @@ exports.test = base.test.extend({
     };
 
     page.getAllAPICalls = function getAllAPICalls() {
-      return Array.from(apiCalls.entries()).map(([url, details]) => ({
-        url,
-        ...details,
-      }));
+      return Array.from(apiCalls.values());
     };
 
     page.getSuccessfulAPICalls = function getSuccessfulAPICalls() {
@@ -98,13 +109,15 @@ exports.test = base.test.extend({
     };
 
     const originalGoto = page.goto.bind(page);
-    page.goto = async (url, options = {}) => originalGoto(url, {
-      waitUntil: 'domcontentloaded',
-      ...options,
-    });
+    page.goto = async (url, options = {}) =>
+      originalGoto(url, {
+        waitUntil: 'domcontentloaded',
+        ...options,
+      });
 
     page.on('console', (msg) => {
-      const errorPattern = /error|failed|uncaught|exception|typeerror|referenceerror|syntaxerror|rangeerror|evalerror|urlerror|is not defined|cannot read|undefined|null is not an object/i;
+      const errorPattern =
+        /error|failed|uncaught|exception|typeerror|referenceerror|syntaxerror|rangeerror|evalerror|urlerror|is not defined|cannot read|undefined|null is not an object/i;
 
       if (msg.type() === 'error' || errorPattern.test(msg.text())) {
         console.log(`[${msg.type().toUpperCase()}] ${msg.text()}`);
@@ -117,5 +130,4 @@ exports.test = base.test.extend({
   },
 });
 
-exports.expect = base.expect;
-exports.page = page;
+export { expect };
