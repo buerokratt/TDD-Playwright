@@ -9,7 +9,8 @@
       "@utils/*": ["utils/*"],
       "@page-objects/*": ["page-objects/*"],
       "@setup/*": ["tests/.setup/*"],
-      "@auth/*": ["tests/admin/.auth/*"]
+      "@auth/*": ["tests/admin/.auth/*"],
+      "@test-data/*": ["utils/test-data/*"]
     },
     "allowJs": true,
     "checkJs": false,
