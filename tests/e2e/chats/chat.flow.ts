@@ -1,7 +1,8 @@
-const { test, expect } = require('@playwright/test');
-const { URLS } = require('../../../playwright.config');
-const { WidgetPage } = require('../../../page-objects/widget/widget-page');
-const { AdminPageFactory: ap } = require('../../../page-objects/admin-page-factory');
+import { AdminPageFactory } from '@page-objects/admin-page-factory';
+import { WidgetPage } from '@page-objects/widget/widget-page';
+import { test, expect } from '@playwright/test';
+
+import { URLS } from '@utils/env/urls';
 
 test('[e2e] [chats] Chat flow test', async ({ browser }) => {
   const customerContext = await browser.newContext();
@@ -13,18 +14,16 @@ test('[e2e] [chats] Chat flow test', async ({ browser }) => {
   const page = await csaContext.newPage();
 
   page.on('console', (msg) => {
-    const errorPattern = /error|failed|uncaught|exception|typeerror|referenceerror|syntaxerror|rangeerror|evalerror|urlerror|is not defined|cannot read|undefined|null is not an object/i;
+    const errorPattern =
+      /error|failed|uncaught|exception|typeerror|referenceerror|syntaxerror|rangeerror|evalerror|urlerror|is not defined|cannot read|undefined|null is not an object/i;
     if (msg.type() === 'error' || errorPattern.test(msg.text())) {
       console.log(`[${msg.type().toUpperCase()}] ${msg.text()}`);
     }
   });
 
-  await Promise.all([
-    cPage.goto(URLS.customer),
-    page.goto(`${URLS.admin}chat/unanswered`),
-  ]);
+  await Promise.all([cPage.goto(URLS.customer), page.goto(`${URLS.admin}chat/unanswered`)]);
 
-  const csaPage = new ap(page);
+  const csaPage = new AdminPageFactory(page);
   const customerPage = new WidgetPage(cPage);
 
   await csaPage.getPageHeader().markCSAPresent();
