@@ -27,7 +27,7 @@
     "test:services": "cross-env ENV=test npx playwright test tests/admin/services",
     "test:services:fast": "cross-env ENV=test npx playwright test tests/admin/services --project tests",
     "test:tests:fast": "cross-env ENV=test npx playwright test --project tests",
-    "test:smoke:admin": "cross-env ENV=test npx playwright test tests/smoke/admin.smoke.js tests/smoke/chats.smoke.js tests/smoke/services.smoke.js tests/smoke/training.smoke.js tests/smoke/analytics.smoke.js"
+    "test:smoke:admin": "cross-env ENV=test npx playwright test tests/smoke/admin.smoke.ts tests/smoke/chats.smoke.ts tests/smoke/services.smoke.ts tests/smoke/analytics.smoke.ts"
   },
   "devDependencies": {
     "@playwright/test": "^1.61.1",
