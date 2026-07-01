@@ -1,14 +1,14 @@
 import { ServiceData } from '@utils/interfaces';
 
-export function normalizeServiceTitle(value: unknown): string {
-  return String(value ?? '')
+export function normalizeServiceTitle(value?: string): string {
+  return (value ?? '')
     .normalize('NFKD')
     .replace(/[^a-zA-Z0-9]/g, '')
     .trim();
 }
 
-export function createServiceName(prefix = 'autotestservice'): string {
-  const normalizedPrefix = normalizeServiceTitle(prefix).toLowerCase() || 'autotestservice';
+export function createServiceName(prefix: string): string {
+  const normalizedPrefix = normalizeServiceTitle(prefix).toLowerCase();
   const stamp = new Date()
     .toISOString()
     .replace(/[-:.TZ]/g, '')
