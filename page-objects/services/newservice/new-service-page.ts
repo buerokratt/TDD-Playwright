@@ -1,152 +1,144 @@
 import { Locator, Page, expect } from '@playwright/test';
 
-import { RouteReadyOptions, ServiceData } from '@utils/interfaces';
+import { RouteReadyOptions, SaveServiceOptions, ServiceData } from '@utils/interfaces';
 import { normalizeServiceTitle } from '@utils/test-data/service-data';
 import { waitForNewServiceReady } from '@utils/waits/admin-page-ready';
 
 type ServiceInput = string | Partial<ServiceData>;
 
-interface ToastOptions {
-  readonly timeout?: number;
-}
-
-interface SaveServiceOptions {
-  readonly expectedToast?: string | RegExp | false;
-}
-
 export class NewServicePage {
   private readonly page: Page;
 
-  private readonly header: Locator;
-  private readonly backToServicesBtn: Locator;
-  private readonly serviceSettingsBtn: Locator;
-  private readonly stepName: Locator;
-  private readonly deleteServiceBtn: Locator;
-  private readonly saveServiceBtn: Locator;
-  private readonly confirmServiceBtn: Locator;
-  private readonly buttonSave: Locator;
-  private readonly buttonConfirm: Locator;
+  readonly header: Locator;
+  readonly backToServicesBtn: Locator;
+  readonly serviceSettingsBtn: Locator;
+  readonly stepName: Locator;
+  readonly deleteServiceBtn: Locator;
+  readonly saveServiceBtn: Locator;
+  readonly confirmServiceBtn: Locator;
+  readonly buttonSave: Locator;
+  readonly buttonConfirm: Locator;
 
-  private readonly settingsDialog: Locator;
-  private readonly settingsCloseBtn: Locator;
-  private readonly serviceTitleInput: Locator;
-  private readonly serviceDescriptionInput: Locator;
+  readonly settingsDialog: Locator;
+  readonly settingsCloseBtn: Locator;
+  readonly serviceTitleInput: Locator;
+  readonly serviceDescriptionInput: Locator;
 
-  private readonly canvas: Locator;
-  private readonly flowWrapper: Locator;
-  private readonly startNode: Locator;
-  private readonly edgeAddButtons: Locator;
-  private readonly flowNodes: Locator;
+  readonly canvas: Locator;
+  readonly flowWrapper: Locator;
+  readonly startNode: Locator;
+  readonly edgeAddButtons: Locator;
+  readonly flowNodes: Locator;
 
-  private readonly topLeftPanel: Locator;
-  private readonly importBtn: Locator;
-  private readonly exportBtn: Locator;
+  readonly topLeftPanel: Locator;
+  readonly importBtn: Locator;
+  readonly exportBtn: Locator;
 
-  private readonly zoomInBtn: Locator;
-  private readonly zoomOutBtn: Locator;
-  private readonly fitViewBtn: Locator;
+  readonly zoomInBtn: Locator;
+  readonly zoomOutBtn: Locator;
+  readonly fitViewBtn: Locator;
 
-  private readonly toastList: Locator;
+  readonly toastList: Locator;
 
   private nodePickerDialog: Locator;
-  private readonly pickerDefineBtn: Locator;
-  private readonly pickerMessageBtn: Locator;
-  private readonly pickerConditionBtn: Locator;
-  private readonly pickerMultichoiceBtn: Locator;
-  private readonly pickerDynamicChoiceBtn: Locator;
-  private readonly pickerEndServiceBtn: Locator;
+  readonly pickerDefineBtn: Locator;
+  readonly pickerMessageBtn: Locator;
+  readonly pickerConditionBtn: Locator;
+  readonly pickerMultichoiceBtn: Locator;
+  readonly pickerDynamicChoiceBtn: Locator;
+  readonly pickerEndServiceBtn: Locator;
   private pickerAddApiBtn: Locator;
 
-  private readonly buttonDefine: Locator;
-  private readonly buttonMessageForCustomer: Locator;
-  private readonly buttonCondition: Locator;
-  private readonly buttonDynamicChoice: Locator;
+  readonly buttonDefine: Locator;
+  readonly buttonMessageForCustomer: Locator;
+  readonly buttonCondition: Locator;
+  readonly buttonDynamicChoice: Locator;
 
-  private readonly nodeEditorPopup: Locator;
-  private readonly nodeEditorTitle: Locator;
-  private readonly nodeEditorCloseBtn: Locator;
-  private readonly nodeEditorCancelBtn: Locator;
-  private readonly nodeEditorSaveBtn: Locator;
-  private readonly nodeEditorTabs: Locator;
-  private readonly nodeEditorTabSeadistamine: Locator;
-  private readonly nodeEditorTabTestimine: Locator;
+  readonly nodeEditorPopup: Locator;
+  readonly nodeEditorTitle: Locator;
+  readonly nodeEditorCloseBtn: Locator;
+  readonly nodeEditorCancelBtn: Locator;
+  readonly nodeEditorSaveBtn: Locator;
+  readonly nodeEditorTabs: Locator;
+  readonly nodeEditorTabSeadistamine: Locator;
+  readonly nodeEditorTabTestimine: Locator;
 
-  private readonly messageDialog: Locator;
-  private readonly messageTabSeadistamine: Locator;
-  private readonly messageTabTestimine: Locator;
-  private readonly messageCancel: Locator;
-  private readonly messageSave: Locator;
-  private readonly messageClose: Locator;
-  private readonly quillEditor: Locator;
-  private readonly messageSectionElements: Locator;
-  private readonly messageChips: Locator;
+  readonly messageDialog: Locator;
+  readonly messageTabSeadistamine: Locator;
+  readonly messageTabTestimine: Locator;
+  readonly messageCancel: Locator;
+  readonly messageSave: Locator;
+  readonly messageClose: Locator;
+  readonly quillEditor: Locator;
+  readonly messageSectionElements: Locator;
+  readonly messageChips: Locator;
 
-  private readonly defineDialog: Locator;
-  private readonly defineTabSeadistamine: Locator;
-  private readonly defineTabTestimine: Locator;
-  private readonly defineCancel: Locator;
-  private readonly defineSave: Locator;
-  private readonly defineClose: Locator;
-  private readonly defineAssignContainer: Locator;
-  private readonly defineRows: Locator;
-  private readonly defineAddElementBtn: Locator;
-  private readonly defineSectionElements: Locator;
-  private readonly defineSectionEnv: Locator;
-  private readonly defineSectionDates: Locator;
-  private readonly defineSectionTools: Locator;
-  private readonly defineChips: Locator;
-  private readonly defineNameInputs: Locator;
-  private readonly defineValueInputs: Locator;
+  readonly defineDialog: Locator;
+  readonly defineTabSeadistamine: Locator;
+  readonly defineTabTestimine: Locator;
+  readonly defineCancel: Locator;
+  readonly defineSave: Locator;
+  readonly defineClose: Locator;
+  readonly defineAssignContainer: Locator;
+  readonly defineRows: Locator;
+  readonly defineAddElementBtn: Locator;
+  readonly defineSectionElements: Locator;
+  readonly defineSectionEnv: Locator;
+  readonly defineSectionDates: Locator;
+  readonly defineSectionTools: Locator;
+  readonly defineChips: Locator;
+  readonly defineNameInputs: Locator;
+  readonly defineValueInputs: Locator;
 
-  private readonly dynamicChoicesDialog: Locator;
-  private readonly dynamicChoicesTabSeadistamine: Locator;
-  private readonly dynamicChoicesTabTestimine: Locator;
-  private readonly dynamicChoicesCancel: Locator;
-  private readonly dynamicChoicesSave: Locator;
-  private readonly dynamicChoicesClose: Locator;
-  private readonly dynamicChoicesSectionElements: Locator;
-  private readonly dynamicChoicesChips: Locator;
-  private readonly dynamicChoicesRows: Locator;
-  private readonly dynamicChoicesKeyInputs: Locator;
-  private readonly dynamicChoicesValueInputs: Locator;
+  readonly dynamicChoicesDialog: Locator;
+  readonly dynamicChoicesTabSeadistamine: Locator;
+  readonly dynamicChoicesTabTestimine: Locator;
+  readonly dynamicChoicesCancel: Locator;
+  readonly dynamicChoicesSave: Locator;
+  readonly dynamicChoicesClose: Locator;
+  readonly dynamicChoicesSectionElements: Locator;
+  readonly dynamicChoicesChips: Locator;
+  readonly dynamicChoicesRows: Locator;
+  readonly dynamicChoicesKeyInputs: Locator;
+  readonly dynamicChoicesValueInputs: Locator;
 
-  private readonly conditionDialog: Locator;
-  private readonly conditionTitle: Locator;
-  private readonly conditionClose: Locator;
-  private readonly conditionTabSeadistamine: Locator;
-  private readonly conditionTabTestimine: Locator;
-  private readonly conditionCancel: Locator;
-  private readonly conditionSave: Locator;
-  private readonly conditionChipJa: Locator;
-  private readonly conditionChipVoi: Locator;
-  private readonly conditionChipMitte: Locator;
-  private readonly conditionAddRuleButton: Locator;
-  private readonly conditionAddGroupButton: Locator;
-  private readonly conditionSectionDefineElements: Locator;
+  readonly conditionDialog: Locator;
+  readonly conditionTitle: Locator;
+  readonly conditionClose: Locator;
+  readonly conditionTabSeadistamine: Locator;
+  readonly conditionTabTestimine: Locator;
+  readonly conditionCancel: Locator;
+  readonly conditionSave: Locator;
+  readonly conditionChipJa: Locator;
+  readonly conditionChipVoi: Locator;
+  readonly conditionChipMitte: Locator;
+  readonly conditionAddRuleButton: Locator;
+  readonly conditionAddGroupButton: Locator;
+  readonly conditionSectionDefineElements: Locator;
 
-  private readonly createEndpointModal: Locator;
-  private readonly createEndpointTitle: Locator;
-  private readonly createEndpointTabOtspunkt: Locator;
-  private readonly createEndpointServiceTypeCombo: Locator;
-  private readonly createEndpointCancel: Locator;
-  private readonly createEndpointCreate: Locator;
-  private readonly createEndpointName: Locator;
-  private readonly createEndpointUrl: Locator;
-  private readonly createEndpointFetchEndpoints: Locator;
-  private readonly createEndpointPublicSwitch: Locator;
-  private readonly createEndpointPublicYes: Locator;
-  private readonly createEndpointPublicNo: Locator;
-  private readonly apiURL: string;
+  readonly createEndpointModal: Locator;
+  readonly createEndpointTitle: Locator;
+  readonly createEndpointTabOtspunkt: Locator;
+  readonly createEndpointServiceTypeCombo: Locator;
+  readonly createEndpointCancel: Locator;
+  readonly createEndpointCreate: Locator;
+  readonly createEndpointName: Locator;
+  readonly createEndpointUrl: Locator;
+  readonly createEndpointFetchEndpoints: Locator;
+  readonly createEndpointPublicSwitch: Locator;
+  readonly createEndpointPublicYes: Locator;
+  readonly createEndpointPublicNo: Locator;
+  readonly apiURL: string;
 
-  private readonly widgetIcon: Locator;
-  private readonly widget: Locator;
-  private readonly widgetDialog: Locator;
-  private readonly widgetInput: Locator;
-  private readonly widgetCloseButton: Locator;
-  private readonly widgetSendButton: Locator;
-  private readonly widgetCloseImg: Locator;
-  private readonly widgetSendImg: Locator;
-  private readonly widgetMessages: Locator;
+  readonly widgetIcon: Locator;
+  readonly widget: Locator;
+  readonly widgetDialog: Locator;
+  readonly widgetInput: Locator;
+  readonly widgetCloseButton: Locator;
+  readonly widgetSendButton: Locator;
+  readonly widgetCloseImg: Locator;
+  readonly widgetSendImg: Locator;
+  readonly widgetMessages: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -458,7 +450,7 @@ export class NewServicePage {
     return this.flowNodes.filter({ has: this.page.getByText(titleText, { exact: true }) }).first();
   }
 
-  async waitForToast({ timeout = 15000 }: ToastOptions = {}): Promise<void> {
+  async waitForToast({ timeout = 15000 }: RouteReadyOptions = {}): Promise<void> {
     await expect(this.toastList.locator('li').first()).toBeVisible({ timeout });
   }
 
@@ -505,7 +497,7 @@ export class NewServicePage {
     await expect(this.settingsDialog).toBeHidden({ timeout: 5000 });
   }
 
-  assertValidServiceTitle(title: unknown): string {
+  assertValidServiceTitle(title?: string): string {
     const normalizedTitle = normalizeServiceTitle(title);
     if (!normalizedTitle) {
       throw new Error('Service title is required but was not provided');

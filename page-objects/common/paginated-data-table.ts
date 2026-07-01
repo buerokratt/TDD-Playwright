@@ -1,22 +1,6 @@
 import { Locator, Page, expect } from '@playwright/test';
 
-import { RouteReadyOptions } from '@utils/interfaces';
-
-interface PaginatedDataTableOptions {
-  readonly table: Locator;
-  readonly pageSizeSelect?: Locator;
-  readonly rowLabelSelector?: string;
-  readonly defaultPageSize?: string;
-}
-
-interface FindRowOptions {
-  readonly maxPages?: number;
-}
-
-interface ExpectRowOptions {
-  readonly pageSize?: string;
-  readonly timeout?: number;
-}
+import { ExpectRowOptions, FindRowOptions, PaginatedDataTableOptions, RouteReadyOptions } from '@utils/interfaces';
 
 function escapeRegex(value: string): string {
   return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');

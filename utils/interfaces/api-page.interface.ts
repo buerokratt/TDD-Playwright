@@ -1,13 +1,8 @@
 import { Page } from '@playwright/test';
 
-export interface ApiCall {
-  readonly url: string;
-  readonly method: string;
-  readonly timestamp: number;
-  status: number | null;
-}
+import { ApiCall } from '@utils/interfaces/api-call.interface';
 
-export interface VerifyAPIsReturn200Options {
+interface VerifyAPIsReturn200Options {
   readonly waitForNetworkIdle?: boolean;
 }
 

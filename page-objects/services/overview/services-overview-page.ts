@@ -1,18 +1,8 @@
 import { PaginatedDataTable } from '@page-objects/common/paginated-data-table';
 import { Locator, Page, expect } from '@playwright/test';
 
-import { RouteReadyOptions } from '@utils/interfaces';
+import { ExpectRowOptions, FindServiceRowOptions, RouteReadyOptions } from '@utils/interfaces';
 import { waitForServicesOverviewReady } from '@utils/waits/admin-page-ready';
-
-interface FindServiceRowOptions {
-  readonly pageSize?: string;
-  readonly maxPages?: number;
-}
-
-interface ExpectServiceRowOptions {
-  readonly pageSize?: string;
-  readonly timeout?: number;
-}
 
 export class ServicesOverviewPage {
   private readonly page: Page;
@@ -123,7 +113,7 @@ export class ServicesOverviewPage {
     await this.servicesTable.ensureRowsPerPage('50');
   }
 
-  async assertServiceRowVisible(serviceTitle: string, options: ExpectServiceRowOptions = {}): Promise<void> {
+  async assertServiceRowVisible(serviceTitle: string, options: ExpectRowOptions = {}): Promise<void> {
     await this.waitForReady();
     await this.servicesTable.expectRowVisible(serviceTitle, options);
   }
