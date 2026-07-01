@@ -1,18 +1,7 @@
 // SERVICE CREATION STEPS
-// TRAINING
-// 1. Create new intent
-// 2. Format intent questions
-// 3. Add intent to model
-// 4. Add intent for use of service
-//
-//     SERVICE
-// 5. Create a service
-// 6. Connect the service with new intent
-//
-//     TRAINING
-// 7. Train model
-// 8. Activate model
-// 9. Active service
+// 1. Create a service
+// 2. Add nodes
+// 3. Save + assert service is listed
 
 import { AdminPageFactory } from '@page-objects/admin-page-factory';
 
@@ -29,22 +18,7 @@ test.afterEach(async ({ page }) => {
 });
 
 test.skip('Service creation flow', async ({ page }) => {
-  // await page.goto(URLS.admin + 'training/training/intents');
-  // await page.waitForTimeout(3000);
-  //
-  //
-
   const apf = new AdminPageFactory(page);
-  const iop = apf.getIntentsPage();
-  await iop.createNewIntent(randomString);
-
-  // TODO: näidete lisamine teemasse
-
-  await page.goto(URLS.admin + 'training/train-new-model');
-  const nmp = apf.getNewModelPage();
-
-  await nmp.isPageHeaderVisible();
-
   const nsp = apf.getNewServicePage();
   const sop = apf.getServicesOverview();
 
@@ -66,8 +40,4 @@ test.skip('Service creation flow', async ({ page }) => {
   await sop.assertServiceRowVisible(randomString);
 
   // TODO: confirm service
-  // TODO: connect service with intent
-
-  // TODO: disabled until service creation logic is done
-  // await nmp.clickTrainButton();
 });
