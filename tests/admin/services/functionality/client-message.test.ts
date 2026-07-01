@@ -11,7 +11,7 @@ test.describe('[services] [functional] New service test (TEST widget variable re
 
   test('[services] [functional] Create service + add nodes + configure via node edit + verify widget resolves variables', async ({
     page,
-  }): Promise<void> => {
+  }) => {
     const { nsp } = getServicePages(page);
 
     await page.goto(URLS.admin + 'services/newService');
