@@ -3,6 +3,7 @@
     "target": "ES2022",
     "module": "CommonJS",
     "moduleResolution": "node10",
+    "ignoreDeprecations": "6.0",
     "lib": ["ES2022", "DOM"],
     "baseUrl": ".",
     "paths": {
@@ -12,8 +13,6 @@
       "@auth/*": ["tests/admin/.auth/*"],
       "@test-data/*": ["utils/test-data/*"]
     },
-    "allowJs": true,
-    "checkJs": false,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
