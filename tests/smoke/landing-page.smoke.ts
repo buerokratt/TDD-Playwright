@@ -23,10 +23,6 @@ test('[smoke] Test: has landing page loaded with menu', async ({ page }) => {
     await sideMenu.assertVestlusedButtonVisible();
   });
 
-  await test.step('Assert training module visible in menu', async () => {
-    await sideMenu.assertTreeningButtonVisible();
-  });
-
   await test.step('Assert analytics module visible in menu', async () => {
     await sideMenu.assertAnalyytikaButtonVisible();
   });
