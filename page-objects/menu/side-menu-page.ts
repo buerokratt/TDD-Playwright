@@ -4,7 +4,6 @@ export class SideMenuPage {
   private readonly page: Page;
 
   private readonly buttonVestlused: Locator;
-  private readonly buttonTreening: Locator;
   private readonly buttonAnalyytika: Locator;
   private readonly buttonTeenused: Locator;
   private readonly buttonHaldus: Locator;
@@ -14,7 +13,6 @@ export class SideMenuPage {
     this.page = page;
 
     this.buttonVestlused = this.page.getByRole('button', { name: 'Vestlused' });
-    this.buttonTreening = this.page.getByRole('button', { name: 'Treening' });
     this.buttonAnalyytika = this.page.getByRole('button', { name: 'Analüütika' });
     this.buttonTeenused = this.page.getByRole('button', { name: 'Teenused' });
     this.buttonHaldus = this.page.getByRole('button', { name: 'Haldus' });
@@ -27,10 +25,6 @@ export class SideMenuPage {
 
   async assertVestlusedButtonVisible(): Promise<void> {
     await expect(this.buttonVestlused).toBeVisible();
-  }
-
-  async assertTreeningButtonVisible(): Promise<void> {
-    await expect(this.buttonTreening).toBeVisible();
   }
 
   async assertAnalyytikaButtonVisible(): Promise<void> {
