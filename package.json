@@ -1,8 +1,12 @@
 {
   "name": "pw",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "license": "ISC",
+  "private": true,
+  "engines": {
+    "node": "^24.18.0",
+    "npm": "^11.16.0"
+  },
   "scripts": {
     "test": "npx playwright test",
     "test:test": "cross-env ENV=test npx playwright test",
@@ -15,29 +19,28 @@
     "test:stage:debug": "cross-env ENV=stage npx playwright test --debug",
     "test:stage:tests": "cross-env ENV=stage npx playwright test --project tests",
     "test:stage:apismoke": "cross-env ENV=stage npx playwright test --project apiSmoke",
-    "lint": "eslint . --ext .js",
-    "lint:fix": "eslint . --ext .js --fix",
+    "lint": "eslint .",
+    "lint:check": "eslint . --max-warnings 0",
+    "lint:fix": "eslint . --fix",
     "format": "prettier . --write",
-    "format:check": "prettier . --check .",
+    "format:check": "prettier . --check",
     "test:services": "cross-env ENV=test npx playwright test tests/admin/services",
     "test:services:fast": "cross-env ENV=test npx playwright test tests/admin/services --project tests",
     "test:tests:fast": "cross-env ENV=test npx playwright test --project tests",
-    "test:smoke:admin": "cross-env ENV=test npx playwright test tests/smoke/admin.smoke.js tests/smoke/chats.smoke.js tests/smoke/services.smoke.js tests/smoke/training.smoke.js tests/smoke/analytics.smoke.js"
+    "test:smoke:admin": "cross-env ENV=test npx playwright test tests/smoke/admin.smoke.ts tests/smoke/chats.smoke.ts tests/smoke/services.smoke.ts tests/smoke/analytics.smoke.ts"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "devDependencies": {
-    "@playwright/test": "^1.56.1",
-    "@types/node": "^22.3.0",
+    "@playwright/test": "^1.61.1",
+    "@types/node": "^24.13.2",
     "cross-env": "^10.1.0",
-    "eslint": "^9.23.0",
-    "globals": "^16.0.0",
-    "prettier": "^3.5.3"
-  },
-  "dependencies": {
-    "dotenv": "^16.4.5",
-    "js-yaml": "^4.1.0",
-    "openai": "^4.68.4"
+    "eslint": "^10.5.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-perfectionist": "^5.9.1",
+    "eslint-plugin-prettier": "^5.5.6",
+    "eslint-plugin-unused-imports": "^4.4.1",
+    "globals": "^17.7.0",
+    "prettier": "^3.8.4",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.62.0"
   }
 }

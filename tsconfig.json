@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "CommonJS",
+    "moduleResolution": "node10",
+    "ignoreDeprecations": "6.0",
+    "lib": ["ES2022", "DOM"],
+    "baseUrl": ".",
+    "paths": {
+      "@utils/*": ["utils/*"],
+      "@page-objects/*": ["page-objects/*"],
+      "@setup/*": ["tests/.setup/*"],
+      "@auth/*": ["tests/admin/.auth/*"],
+      "@test-data/*": ["utils/test-data/*"]
+    },
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "noEmit": true,
+    "resolveJsonModule": true,
+    "types": ["node"]
+  },
+  "include": ["tests/**/*", "utils/**/*", "page-objects/**/*", "*.ts"],
+  "exclude": ["node_modules"]
+}
