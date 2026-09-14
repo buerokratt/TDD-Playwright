@@ -1,3 +1,4 @@
+export * from './delete-conversations-test-helpers';
 export * from './domain-test-helpers';
 export * from './generated-services';
 export * from './locale';

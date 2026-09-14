@@ -90,12 +90,28 @@ export async function waitForMultiDomainsReady(
   ).toBeVisible({ timeout });
 }
 
+export async function waitForDeleteConversationsReady(
+  page: Page,
+  { timeout = ACTION_TIMEOUT }: RouteReadyOptions = {},
+): Promise<void> {
+  await waitForAppSettled(page, { timeout });
+
+  await expect(
+    page.getByRole('heading', { name: 'Conversation deletion', exact: true }),
+    'Conversation deletion never rendered its heading',
+  ).toBeVisible({ timeout });
+}
+
 const ROUTE_READY: { test: (url: string) => boolean; wait: typeof waitForAppSettled }[] = [
   { test: (url) => url.includes('services/overview'), wait: waitForServicesOverviewReady },
   { test: (url) => url.includes('services/newService'), wait: waitForNewServiceReady },
   { test: (url) => url.includes('chat/session-length'), wait: waitForSessionLengthReady },
   { test: (url) => url.includes('chat/multi-domains'), wait: waitForMultiDomainsReady },
-  { test: (url) => /\/chat\/(?:unanswered|active|pending|history)(?:\/|$)/i.test(url), wait: waitForConversationsReady },
+  { test: (url) => url.includes('chat/delete-conversations'), wait: waitForDeleteConversationsReady },
+  {
+    test: (url) => /\/chat\/(?:unanswered|active|pending|history)(?:\/|$)/i.test(url),
+    wait: waitForConversationsReady,
+  },
 ];
 
 export async function waitForRouteReady(page: Page, url: string, options?: RouteReadyOptions): Promise<void> {
