@@ -15,6 +15,24 @@ export async function waitForAppSettled(
     .catch(() => {});
 }
 
+export async function waitForConversationsReady(
+  page: Page,
+  { timeout = ACTION_TIMEOUT }: RouteReadyOptions = {},
+): Promise<void> {
+  await waitForAppSettled(page, { timeout });
+  const main = page.locator('main').first();
+  const heading = page.getByRole('heading').first();
+  const tabList = page.getByRole('tablist').first();
+
+  await Promise.any([
+    tabList.waitFor({ state: 'visible', timeout }),
+    heading.waitFor({ state: 'visible', timeout }),
+    main.waitFor({ state: 'visible', timeout }),
+  ]).catch(async () => {
+    await expect(page.locator('body')).toBeVisible({ timeout });
+  });
+}
+
 export async function waitForServicesOverviewReady(
   page: Page,
   { timeout = ACTION_TIMEOUT }: RouteReadyOptions = {},
@@ -43,22 +61,21 @@ export async function waitForNewServiceReady(
   await expect(page.locator('.react-flow__node').first()).toBeVisible({ timeout });
 }
 
-export async function waitForChatsReady(
+export async function waitForSessionLengthReady(
   page: Page,
   { timeout = ACTION_TIMEOUT }: RouteReadyOptions = {},
 ): Promise<void> {
   await waitForAppSettled(page, { timeout });
-  const main = page.locator('main').first();
-  const heading = page.getByRole('heading').first();
-  const tabList = page.getByRole('tablist').first();
 
-  await Promise.any([
-    tabList.waitFor({ state: 'visible', timeout }),
-    heading.waitFor({ state: 'visible', timeout }),
-    main.waitFor({ state: 'visible', timeout }),
-  ]).catch(async () => {
-    await expect(page.locator('body')).toBeVisible({ timeout });
-  });
+  await expect(
+    page.getByRole('heading', { name: 'Session length', exact: true }),
+    'Session length never rendered its heading',
+  ).toBeVisible({ timeout });
+
+  await expect(
+    page.locator('input[name="session-length"]'),
+    'Session length rendered its heading but never received the settings it holds',
+  ).not.toHaveValue('', { timeout });
 }
 
 export async function waitForMultiDomainsReady(
@@ -70,6 +87,18 @@ export async function waitForMultiDomainsReady(
   await expect(
     page.getByRole('heading', { name: 'Multidomains', exact: true }),
     'Multidomains never rendered its heading',
+  ).toBeVisible({ timeout });
+}
+
+export async function waitForDeleteConversationsReady(
+  page: Page,
+  { timeout = ACTION_TIMEOUT }: RouteReadyOptions = {},
+): Promise<void> {
+  await waitForAppSettled(page, { timeout });
+
+  await expect(
+    page.getByRole('heading', { name: 'Conversation deletion', exact: true }),
+    'Conversation deletion never rendered its heading',
   ).toBeVisible({ timeout });
 }
 
@@ -101,38 +130,23 @@ export async function waitForHistoryReady(
   ).toBeVisible({ timeout });
 }
 
+const ROUTE_READY: { test: (url: string) => boolean; wait: typeof waitForAppSettled }[] = [
+  { test: (url) => url.includes('services/overview'), wait: waitForServicesOverviewReady },
+  { test: (url) => url.includes('services/newService'), wait: waitForNewServiceReady },
+  { test: (url) => url.includes('chat/session-length'), wait: waitForSessionLengthReady },
+  { test: (url) => url.includes('chat/multi-domains'), wait: waitForMultiDomainsReady },
+  { test: (url) => url.includes('chat/delete-conversations'), wait: waitForDeleteConversationsReady },
+  { test: (url) => url.includes('chat/chat-analysis'), wait: waitForChatAnalysisReady },
+  { test: (url) => url.includes('chat/history'), wait: waitForHistoryReady },
+  {
+    test: (url) => /\/chat\/(?:unanswered|active|pending|history)(?:\/|$)/i.test(url),
+    wait: waitForConversationsReady,
+  },
+];
+
 export async function waitForRouteReady(page: Page, url: string, options?: RouteReadyOptions): Promise<void> {
   const target = String(url || '');
+  const route = ROUTE_READY.find((entry) => entry.test(target));
 
-  if (target.includes('services/overview')) {
-    await waitForServicesOverviewReady(page, options);
-    return;
-  }
-
-  if (target.includes('services/newService')) {
-    await waitForNewServiceReady(page, options);
-    return;
-  }
-
-  if (target.includes('chat/multi-domains')) {
-    await waitForMultiDomainsReady(page, options);
-    return;
-  }
-
-  if (target.includes('chat/chat-analysis')) {
-    await waitForChatAnalysisReady(page, options);
-    return;
-  }
-
-  if (target.includes('chat/history')) {
-    await waitForHistoryReady(page, options);
-    return;
-  }
-
-  if (/\/chat(?:\/|$)/i.test(target)) {
-    await waitForChatsReady(page, options);
-    return;
-  }
-
-  await waitForAppSettled(page, options);
+  await (route?.wait ?? waitForAppSettled)(page, options);
 }
