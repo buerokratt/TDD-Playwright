@@ -73,6 +73,18 @@ export async function waitForMultiDomainsReady(
   ).toBeVisible({ timeout });
 }
 
+export async function waitForDeleteConversationsReady(
+  page: Page,
+  { timeout = ACTION_TIMEOUT }: RouteReadyOptions = {},
+): Promise<void> {
+  await waitForAppSettled(page, { timeout });
+
+  await expect(
+    page.getByRole('heading', { name: 'Conversation deletion', exact: true }),
+    'Conversation deletion never rendered its heading',
+  ).toBeVisible({ timeout });
+}
+
 export async function waitForRouteReady(page: Page, url: string, options?: RouteReadyOptions): Promise<void> {
   const target = String(url || '');
 
@@ -88,6 +100,11 @@ export async function waitForRouteReady(page: Page, url: string, options?: Route
 
   if (target.includes('chat/multi-domains')) {
     await waitForMultiDomainsReady(page, options);
+    return;
+  }
+
+  if (target.includes('chat/delete-conversations')) {
+    await waitForDeleteConversationsReady(page, options);
     return;
   }
 
