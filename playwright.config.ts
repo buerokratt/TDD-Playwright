@@ -113,6 +113,7 @@ export default defineConfig({
     {
       name: 'tests',
       testMatch: '**/*.test.ts',
+      testIgnore: '**/tests/widget/**',
       use: {
         ...devices['Desktop Chrome'],
         storageState: ADMIN_AUTH_STATE,
@@ -120,6 +121,27 @@ export default defineConfig({
         contextOptions: { screen: VIEWPORT },
         launchOptions: {
           args: ['--incognito', '--start-maximized'],
+        },
+      },
+      dependencies: ['setup'],
+    },
+    {
+      name: 'widget',
+      testMatch: '**/tests/widget/**/*.test.ts',
+      use: {
+        ...devices['Desktop Chrome'],
+        actionTimeout: ACTION_TIMEOUT,
+        storageState: ADMIN_AUTH_STATE,
+        viewport: VIEWPORT,
+        contextOptions: { screen: VIEWPORT },
+        launchOptions: {
+          args: [
+            '--incognito',
+            '--start-maximized',
+            '--disable-background-timer-throttling',
+            '--disable-backgrounding-occluded-windows',
+            '--disable-renderer-backgrounding',
+          ],
         },
       },
       dependencies: ['setup'],
