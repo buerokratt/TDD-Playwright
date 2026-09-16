@@ -132,9 +132,10 @@ export class ChatAnalysisPage {
       section.locator('.label-section__input'),
       `"${title}" section was rendered without its input field`,
     ).toHaveAttribute('placeholder', placeholder);
-    await expect(section.locator('.label-section__add-button'), `"${title}" offers no way to add a value`).toHaveText(
-      '+ Add',
-    );
+    await expect(
+      section.locator('.label-section__add-button'),
+      `"${title}" section offers no way to add a label`,
+    ).toHaveText('+ Add');
     await expect(section.locator('.label-section__hint'), `"${title}" came without its note`).toHaveText(hint);
   }
 
