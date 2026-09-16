@@ -30,7 +30,7 @@ test.describe('[administration] [visibility] The chat analysis page shows its do
       });
 
       for (const section of CHAT_ANALYSIS_LABEL_SECTIONS) {
-        await test.step(`"${section.title}" offers its field, its add control and its note`, async () => {
+        await test.step(`"${section.title}" section offers its input field, its add control and its note`, async () => {
           await cap.assertLabelSectionIsOffered(section);
           await cap.assertLabelSectionExplainsItself(section.title);
         });
