@@ -3,7 +3,7 @@ import { expect, test } from '@setup/test-setup';
 import { ACTION_TIMEOUT, CHAT_ANALYSIS_LABEL_SECTIONS } from '@utils/constants';
 import { URLS } from '@utils/env';
 import { chatAnalysisCleanup, conversationAnalysisCleanup, readUserDisplayName } from '@utils/helpers';
-import { ConversationAnalysis } from '@utils/interfaces';
+import { AnalysedConversation, ConversationAnalysis } from '@utils/interfaces';
 import { createChatAnalysisLabel } from '@utils/test-data';
 
 const [themeSection, qualitySection, followUpSection] = CHAT_ANALYSIS_LABEL_SECTIONS;
@@ -15,7 +15,7 @@ const analysis: ConversationAnalysis = {
 };
 
 test.describe('[conversations] [functional] A conversation is analysed from its own card', () => {
-  let analysed: { conversationId: string; analysis: ConversationAnalysis } | undefined;
+  let analysed: AnalysedConversation | undefined;
 
   test.afterEach(conversationAnalysisCleanup(() => analysed));
   test.afterEach(chatAnalysisCleanup(() => [analysis.theme, analysis.responseQuality, analysis.followUpAction]));
