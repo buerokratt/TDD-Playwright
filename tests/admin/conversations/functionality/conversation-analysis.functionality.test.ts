@@ -93,7 +93,7 @@ test.describe('[conversations] [functional] A conversation is analysed from the 
 
         await expect
           .poll(() => history.readRowAnalysis(conversationId), {
-            message: 'The conversation row was left without what the card holds',
+            message: 'The conversation row was left without the values selected in the drawer',
             timeout: ACTION_TIMEOUT,
           })
           .toEqual(analysis);
