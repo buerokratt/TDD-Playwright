@@ -62,6 +62,12 @@ test.describe('[conversations] [functional] A conversation is analysed from its 
         await history.assertFollowUpActionWasSaved();
       });
 
+      await test.step('The pickers show the picked values right away', async () => {
+        expect(await history.readAnalysisSelections(), 'The pickers did not show what was just picked').toEqual(
+          analysis,
+        );
+      });
+
       await test.step('The card comes back holding the values in its pickers', async () => {
         await history.open();
         await history.openConversation(conversationId);
