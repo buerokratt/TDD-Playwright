@@ -5,7 +5,7 @@ import { chatAnalysisCleanup, chatAnalysisConfigRestore, readChatAnalysisConfig 
 import { ChatAnalysisDomainSnapshot, ChatAnalysisSettings } from '@utils/interfaces';
 import { createChatAnalysisLabel, createOverlongChatAnalysisLabel } from '@utils/test-data';
 
-const [fieldSection, qualitySection] = CHAT_ANALYSIS_LABEL_SECTIONS;
+const [themeSection, qualitySection] = CHAT_ANALYSIS_LABEL_SECTIONS;
 const sectionTitles = CHAT_ANALYSIS_LABEL_SECTIONS.map((section) => section.title);
 const savedLabel = createChatAnalysisLabel('autotestsavedfield');
 const copiedLabel = createChatAnalysisLabel('autotestcopiedfield');
@@ -26,10 +26,10 @@ test.describe('[administration] [functional] Chat analysis settings are saved fo
         await cap.selectDomainTab();
       });
 
-      await test.step(`Chat analysis is on and "${fieldSection.title}" takes a label of the run's own`, async () => {
+      await test.step(`Chat analysis is on and "${themeSection.title}" takes a label of the run's own`, async () => {
         await cap.enableAnalysis();
-        await cap.addLabel(fieldSection.title, savedLabel);
-        await cap.assertLabelIsShownAsChip(fieldSection.title, savedLabel);
+        await cap.addLabel(themeSection.title, savedLabel);
+        await cap.assertLabelIsShownAsChip(themeSection.title, savedLabel);
       });
 
       await test.step('Saving reports the settings went through', async () => {
@@ -40,7 +40,7 @@ test.describe('[administration] [functional] Chat analysis settings are saved fo
       await test.step('The label is still listed after a reload', async () => {
         await cap.open();
 
-        await cap.assertLabelIsShownAsChip(fieldSection.title, savedLabel);
+        await cap.assertLabelIsShownAsChip(themeSection.title, savedLabel);
       });
     },
   );
@@ -69,11 +69,11 @@ test.describe('[administration] [functional] A value entered in a label section 
         });
       }
 
-      await test.step(`"${fieldSection.title}" lists a value entered with the Enter key just as well`, async () => {
+      await test.step(`"${themeSection.title}" lists a value entered with the Enter key just as well`, async () => {
         const label = createChatAnalysisLabel('autotestentered');
 
-        await cap.addLabelWithEnter(fieldSection.title, label);
-        await cap.assertLabelIsShownAsChip(fieldSection.title, label);
+        await cap.addLabelWithEnter(themeSection.title, label);
+        await cap.assertLabelIsShownAsChip(themeSection.title, label);
       });
     },
   );
@@ -111,7 +111,7 @@ test.describe('[administration] [functional] Settings are copied from one domain
       await test.step('The source domain is given settings the target does not have', async () => {
         await cap.selectDomainTab();
         await cap.enableAnalysis();
-        await cap.addLabel(fieldSection.title, copiedLabel);
+        await cap.addLabel(themeSection.title, copiedLabel);
 
         await cap.saveSettings();
         await cap.assertSaveWasConfirmed();
@@ -156,14 +156,14 @@ test.describe('[administration] [functional] A chip is deleted once the deletion
         await cap.enableAnalysis();
       });
 
-      await test.step(`"${fieldSection.title}" holds a label of the run's own to delete`, async () => {
-        await cap.addLabel(fieldSection.title, label);
-        await cap.assertLabelIsShownAsChip(fieldSection.title, label);
+      await test.step(`"${themeSection.title}" holds a label of the run's own to delete`, async () => {
+        await cap.addLabel(themeSection.title, label);
+        await cap.assertLabelIsShownAsChip(themeSection.title, label);
       });
 
       await test.step('Confirming the deletion takes the chip out of its section', async () => {
-        await cap.deleteLabel(fieldSection.title, label);
-        await cap.assertLabelIsNotListed(fieldSection.title, label);
+        await cap.deleteLabel(themeSection.title, label);
+        await cap.assertLabelIsNotListed(themeSection.title, label);
       });
     },
   );
@@ -183,13 +183,13 @@ test.describe('[administration] [functional] A label over the length limit is re
         await cap.enableAnalysis();
       });
 
-      await test.step(`"${fieldSection.title}" refuses the value its add control was given`, async () => {
+      await test.step(`"${themeSection.title}" refuses the value its add control was given`, async () => {
         const label = createOverlongChatAnalysisLabel();
 
-        await cap.addLabel(fieldSection.title, label);
+        await cap.addLabel(themeSection.title, label);
 
         await cap.assertLabelTooLongWasReported();
-        await cap.assertLabelIsNotListed(fieldSection.title, label);
+        await cap.assertLabelIsNotListed(themeSection.title, label);
       });
 
       await test.step(`"${qualitySection.title}" refuses it through the Enter key just as well`, async () => {
