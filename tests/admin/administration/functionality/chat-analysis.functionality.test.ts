@@ -61,7 +61,7 @@ test.describe('[administration] [functional] A value entered in a label section 
       });
 
       for (const section of CHAT_ANALYSIS_LABEL_SECTIONS) {
-        await test.step(`"${section.title}" lists the value its add control was given`, async () => {
+        await test.step(`"${section.title}" section lists a label entered through its add control`, async () => {
           const label = createChatAnalysisLabel('autotestadded');
 
           await cap.addLabel(section.title, label);
