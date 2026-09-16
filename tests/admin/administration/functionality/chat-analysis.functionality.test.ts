@@ -192,7 +192,7 @@ test.describe('[administration] [functional] A label over the length limit is re
         await cap.assertLabelIsNotListed(themeSection.title, label);
       });
 
-      await test.step(`"${qualitySection.title}" refuses it through the Enter key just as well`, async () => {
+      await test.step(`"${qualitySection.title}" section refuses a label entered with the Enter key`, async () => {
         const label = createOverlongChatAnalysisLabel();
 
         await cap.addLabelWithEnter(qualitySection.title, label);
