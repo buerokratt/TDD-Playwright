@@ -69,7 +69,7 @@ test.describe('[administration] [functional] A value entered in a label section 
         });
       }
 
-      await test.step(`"${themeSection.title}" lists a value entered with the Enter key just as well`, async () => {
+      await test.step(`"${themeSection.title}" section lists a label entered with the Enter key`, async () => {
         const label = createChatAnalysisLabel('autotestentered');
 
         await cap.addLabelWithEnter(themeSection.title, label);
