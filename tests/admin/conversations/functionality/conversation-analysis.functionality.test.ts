@@ -45,7 +45,7 @@ test.describe('[conversations] [functional] A conversation is analysed from the 
 
       const conversationId = await history.findConversationIdByWebpage(URLS.customer);
 
-      await test.step(`Conversation "${conversationId}" opens on its own card`, async () => {
+      await test.step(`Conversation "${conversationId}" opens in the drawer`, async () => {
         await history.assertPageIsShown();
         await history.openConversation(conversationId);
       });
@@ -68,7 +68,7 @@ test.describe('[conversations] [functional] A conversation is analysed from the 
         );
       });
 
-      await test.step('The card comes back holding the values in its pickers', async () => {
+      await test.step('The drawer comes back holding the values in its pickers', async () => {
         await history.open();
         await history.openConversation(conversationId);
 
@@ -80,7 +80,7 @@ test.describe('[conversations] [functional] A conversation is analysed from the 
           .toEqual(analysis);
       });
 
-      await test.step('The card records who analysed the conversation and when', async () => {
+      await test.step('The drawer records who analysed the conversation and when', async () => {
         const author = await readUserDisplayName(page);
 
         await history.assertAnalysisWasRecorded('Chat theme', analysis.theme, author);
