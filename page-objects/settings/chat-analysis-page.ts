@@ -1,5 +1,6 @@
 import { Locator, Page, Response, expect } from '@playwright/test';
 
+import { CopyToDomain } from '@page-objects/common';
 import { ACTION_TIMEOUT } from '@utils/constants';
 import { URLS } from '@utils/env';
 import { ChatAnalysisLabelSection, ChatAnalysisSettings, RouteReadyOptions } from '@utils/interfaces';
@@ -13,6 +14,7 @@ export class ChatAnalysisPage {
   private readonly domainTabs: Locator;
   private readonly domainTabsActive: Locator;
   private readonly buttonCopyToDomain: Locator;
+  private readonly copyToDomain: CopyToDomain;
 
   private readonly labelChatAnalysisSwitch: Locator;
   private readonly switchChatAnalysis: Locator;
@@ -32,6 +34,10 @@ export class ChatAnalysisPage {
     this.domainTabs = this.page.locator('main .domain-tab-selector__tab');
     this.domainTabsActive = this.page.locator('main .domain-tab-selector__tab--active');
     this.buttonCopyToDomain = this.page.locator('main').getByRole('button', { name: 'Copy to domain' });
+    this.copyToDomain = new CopyToDomain(this.page, {
+      button: this.buttonCopyToDomain,
+      transferPath: 'configs/transfer/chat-analysis',
+    });
 
     this.labelChatAnalysisSwitch = this.page.locator('main div.switch label.switch__label').first();
     this.switchChatAnalysis = this.page.locator('main div.switch button.switch__button').first();
@@ -98,10 +104,7 @@ export class ChatAnalysisPage {
   }
 
   async assertCopyToDomainIsOffered(): Promise<void> {
-    await expect(
-      this.buttonCopyToDomain,
-      'The page offers no way to copy the settings to another domain',
-    ).toBeVisible();
+    await this.copyToDomain.assertIsOffered();
   }
 
   async assertAnalysisSwitchIsShown(): Promise<void> {
@@ -222,41 +225,8 @@ export class ChatAnalysisPage {
     return { enabled: (await this.switchChatAnalysis.getAttribute('data-state')) === 'checked', labels };
   }
 
-  async copySettingsTo(domainName: string, { timeout = ACTION_TIMEOUT }: RouteReadyOptions = {}): Promise<void> {
-    await this.buttonCopyToDomain.click();
-
-    const dialog = this.page.getByRole('dialog');
-
-    await expect(dialog, 'Copying the settings opened no dialog').toContainText('Copy to domain');
-
-    const trigger = dialog.locator('.select__trigger');
-    const options = dialog.locator('.select__menu li');
-
-    await trigger.click();
-
-    const option = options.filter({ has: this.page.getByText(domainName, { exact: true }) }).first();
-
-    await option.click();
-    await expect(option.locator('input[type="checkbox"]'), `"${domainName}" was not taken as a target`).toBeChecked();
-
-    await trigger.click();
-    await expect(options, 'The list of target domains stayed open over the copy control').toHaveCount(0);
-
-    const transferred = this.page.waitForResponse(
-      (response) => response.url().includes('configs/transfer/chat-analysis') && response.request().method() === 'POST',
-      { timeout },
-    );
-
-    await dialog.getByRole('button', { name: 'Copy', exact: true }).click();
-
-    const response = await transferred;
-
-    expect(
-      response.ok(),
-      `The admin rejected copying the settings onto "${domainName}" (${response.status()})`,
-    ).toBeTruthy();
-
-    await expect(dialog, 'The copy dialog stayed open after the settings were copied').toBeHidden({ timeout });
+  async copySettingsTo(domainName: string, options: RouteReadyOptions = {}): Promise<void> {
+    await this.copyToDomain.copyTo(domainName, options);
   }
 
   async assertLabelIsNotListed(title: string, label: string): Promise<void> {
