@@ -202,7 +202,13 @@ export class HistoryPage {
 
     expect(response.ok(), `The admin rejected saving "${value}" (${response.status()})`).toBeTruthy();
 
-    await this.closeAnalysisMenu(select, { timeout });
+    const options = select.locator('.select__options');
+
+    if (await options.isVisible().catch(() => false)) {
+      await select.locator('.select__trigger').click();
+    }
+
+    await expect(options, 'The list of values stayed open over the pickers under it').toHaveCount(0, { timeout });
   }
 
   private async clearAnalysisValue(index: number, value: string): Promise<void> {
@@ -211,16 +217,6 @@ export class HistoryPage {
     }
 
     await this.chooseAnalysisValue(index, value);
-  }
-
-  private async closeAnalysisMenu(select: Locator, { timeout = ACTION_TIMEOUT }: RouteReadyOptions): Promise<void> {
-    const options = select.locator('.select__options');
-
-    if (await options.isVisible().catch(() => false)) {
-      await select.locator('.select__trigger').click();
-    }
-
-    await expect(options, 'The list of values stayed open over the pickers under it').toHaveCount(0, { timeout });
   }
 
   private async assertToastReads(message: string, { timeout = ACTION_TIMEOUT }: RouteReadyOptions): Promise<void> {
