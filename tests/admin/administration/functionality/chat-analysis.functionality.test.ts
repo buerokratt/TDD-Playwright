@@ -7,11 +7,11 @@ import { createChatAnalysisLabel, createOverlongChatAnalysisLabel } from '@utils
 
 const [themeSection, qualitySection] = CHAT_ANALYSIS_LABEL_SECTIONS;
 const sectionTitles = CHAT_ANALYSIS_LABEL_SECTIONS.map((section) => section.title);
-const savedLabel = createChatAnalysisLabel('autotestsavedfield');
+const addedLabel = createChatAnalysisLabel('autotestaddedfield');
 const copiedLabel = createChatAnalysisLabel('autotestcopiedfield');
 
 test.describe('[administration] [functional] Chat analysis settings are saved for the selected domain', () => {
-  test.afterEach(chatAnalysisCleanup(() => savedLabel));
+  test.afterEach(chatAnalysisCleanup(() => addedLabel));
 
   test(
     'A saved label is confirmed and read back after a reload',
@@ -28,8 +28,8 @@ test.describe('[administration] [functional] Chat analysis settings are saved fo
 
       await test.step(`Chat analysis is enabled and "${themeSection.title}" section accepts a label from the current run`, async () => {
         await cap.enableAnalysis();
-        await cap.addLabel(themeSection.title, savedLabel);
-        await cap.assertLabelIsShownAsChip(themeSection.title, savedLabel);
+        await cap.addLabel(themeSection.title, addedLabel);
+        await cap.assertLabelIsShownAsChip(themeSection.title, addedLabel);
       });
 
       await test.step('Saving reports the settings went through', async () => {
@@ -40,7 +40,7 @@ test.describe('[administration] [functional] Chat analysis settings are saved fo
       await test.step('The label is still listed after a reload', async () => {
         await cap.open();
 
-        await cap.assertLabelIsShownAsChip(themeSection.title, savedLabel);
+        await cap.assertLabelIsShownAsChip(themeSection.title, addedLabel);
       });
     },
   );
