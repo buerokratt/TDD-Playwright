@@ -79,7 +79,7 @@ test.describe('[administration] [functional] A value entered in a label section 
   );
 });
 
-test.describe('[administration] [functional] Settings are copied from one domain onto another', () => {
+test.describe('[administration] [functional] Settings are copied from one domain to another', () => {
   let targetSnapshot: ChatAnalysisDomainSnapshot | undefined;
 
   test.afterEach(chatAnalysisConfigRestore(() => targetSnapshot));
