@@ -173,7 +173,7 @@ export class ChatAnalysisPage {
   async assertLabelIsShownAsChip({ title }: ChatAnalysisLabelSection, label: string): Promise<void> {
     const chip = this.labelChip(title, label);
 
-    await expect(chip, `"${title}" does not list "${label}"`).toBeVisible();
+    await expect(chip, `"${title}" section does not list label named "${label}"`).toBeVisible();
     await expect(
       chip.locator('.label-section__chip-handle'),
       `"${label}" cannot be dragged into another position`,
