@@ -68,7 +68,7 @@ test.describe('[conversations] [functional] A conversation is analysed from the 
         );
       });
 
-      await test.step('The drawer comes back holding the values in its pickers', async () => {
+      await test.step('The conversation drawer retains the selected values', async () => {
         await history.open();
         await history.openConversation(conversationId);
 
