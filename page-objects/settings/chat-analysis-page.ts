@@ -130,7 +130,7 @@ export class ChatAnalysisPage {
     await expect(section, `The page holds no "${title}" section`).toBeVisible();
     await expect(
       section.locator('.label-section__input'),
-      `"${title}" came without the field it is entered in`,
+      `"${title}" section was rendered without its input field`,
     ).toHaveAttribute('placeholder', placeholder);
     await expect(section.locator('.label-section__add-button'), `"${title}" offers no way to add a value`).toHaveText(
       '+ Add',
