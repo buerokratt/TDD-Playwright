@@ -198,7 +198,7 @@ export class ChatAnalysisPage {
     );
     await this.buttonConfirmDelete.click();
 
-    await expect(chip, `"${title}" kept "${label}" after it was removed`).toHaveCount(0);
+    await expect(chip, `"${title}" section kept label "${label}" after it was removed`).toHaveCount(0);
   }
 
   async saveSettings(): Promise<void> {
