@@ -1,4 +1,4 @@
-import { ConversationAnalysis } from '@utils/interfaces/conversation-analysis.interface';
+import { ConversationAnalysis } from './conversation-analysis.interface';
 
 export interface AnalysedConversation {
   readonly conversationId: string;

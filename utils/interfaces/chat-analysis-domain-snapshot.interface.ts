@@ -1,4 +1,4 @@
-import { ChatAnalysisConfig } from '@utils/interfaces/chat-analysis-config.interface';
+import { ChatAnalysisConfig } from './chat-analysis-config.interface';
 
 export interface ChatAnalysisDomainSnapshot {
   readonly domainId: string;
