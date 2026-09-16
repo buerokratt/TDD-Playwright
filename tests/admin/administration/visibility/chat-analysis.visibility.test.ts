@@ -24,7 +24,7 @@ test.describe('[administration] [visibility] The chat analysis page shows its do
         await cap.assertCopyToDomainIsOffered();
       });
 
-      await test.step('Chat analysis is turned on and off from a switch of its own', async () => {
+      await test.step('Chat analysis can be turned on and off from a switch of its own', async () => {
         await cap.assertAnalysisSwitchIsShown();
         await cap.enableAnalysis();
       });
