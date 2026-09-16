@@ -32,7 +32,7 @@ test.describe('[administration] [visibility] The chat analysis page shows its do
       for (const section of CHAT_ANALYSIS_LABEL_SECTIONS) {
         await test.step(`"${section.title}" offers its field, its add control and its note`, async () => {
           await cap.assertLabelSectionIsOffered(section);
-          await cap.assertLabelSectionExplainsItself(section);
+          await cap.assertLabelSectionExplainsItself(section.title);
         });
       }
 
@@ -40,9 +40,9 @@ test.describe('[administration] [visibility] The chat analysis page shows its do
       const label = createChatAnalysisLabel();
 
       await test.step('A value that was added is listed as a chip that can be dragged and removed', async () => {
-        await cap.addLabel(firstSection, label);
-        await cap.assertLabelIsShownAsChip(firstSection, label);
-        await cap.assertReorderingIsExplained(firstSection);
+        await cap.addLabel(firstSection.title, label);
+        await cap.assertLabelIsShownAsChip(firstSection.title, label);
+        await cap.assertReorderingIsExplained(firstSection.title);
       });
     },
   );

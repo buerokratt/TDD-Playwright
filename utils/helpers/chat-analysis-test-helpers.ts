@@ -59,8 +59,8 @@ export function chatAnalysisCleanup(resolveLabels: LabelsResolver) {
 
     for (const section of CHAT_ANALYSIS_LABEL_SECTIONS) {
       for (const label of labels) {
-        if (await cap.hasLabel(section, label)) {
-          await cap.deleteLabel(section, label);
+        if (await cap.hasLabel(section.title, label)) {
+          await cap.deleteLabel(section.title, label);
           removedAny = true;
         }
       }

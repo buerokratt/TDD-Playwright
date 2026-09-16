@@ -142,7 +142,7 @@ export class ChatAnalysisPage {
   }
 
   async assertLabelSectionExplainsItself(
-    { title }: ChatAnalysisLabelSection,
+    title: string,
     { timeout = ACTION_TIMEOUT }: RouteReadyOptions = {},
   ): Promise<void> {
     await this.labelSection(title).locator('.label-section__input-wrapper .icon').hover();
@@ -156,21 +156,21 @@ export class ChatAnalysisPage {
     await expect(tooltip, `The tooltip of "${title}" stayed on screen`).toBeHidden({ timeout });
   }
 
-  async addLabel({ title }: ChatAnalysisLabelSection, label: string): Promise<void> {
+  async addLabel(title: string, label: string): Promise<void> {
     const section = this.labelSection(title);
 
     await section.locator('.label-section__input').fill(label);
     await section.locator('.label-section__add-button').click();
   }
 
-  async addLabelWithEnter({ title }: ChatAnalysisLabelSection, label: string): Promise<void> {
+  async addLabelWithEnter(title: string, label: string): Promise<void> {
     const input = this.labelSection(title).locator('.label-section__input');
 
     await input.fill(label);
     await input.press('Enter');
   }
 
-  async assertLabelIsShownAsChip({ title }: ChatAnalysisLabelSection, label: string): Promise<void> {
+  async assertLabelIsShownAsChip(title: string, label: string): Promise<void> {
     const chip = this.labelChip(title, label);
 
     await expect(chip, `"${title}" section does not list label named "${label}"`).toBeVisible();
@@ -184,11 +184,11 @@ export class ChatAnalysisPage {
     ).toBeVisible();
   }
 
-  async hasLabel({ title }: ChatAnalysisLabelSection, label: string): Promise<boolean> {
+  async hasLabel(title: string, label: string): Promise<boolean> {
     return (await this.labelChip(title, label).count()) > 0;
   }
 
-  async deleteLabel({ title }: ChatAnalysisLabelSection, label: string): Promise<void> {
+  async deleteLabel(title: string, label: string): Promise<void> {
     const chip = this.labelChip(title, label);
 
     await chip.getByRole('button', { name: `Remove ${label}` }).click();
@@ -212,11 +212,11 @@ export class ChatAnalysisPage {
     );
   }
 
-  async readSettings(sections: ChatAnalysisLabelSection[]): Promise<ChatAnalysisSettings> {
+  async readSettings(titles: string[]): Promise<ChatAnalysisSettings> {
     const labels: Record<string, string[]> = {};
 
-    for (const section of sections) {
-      labels[section.title] = await this.listedLabels(section);
+    for (const title of titles) {
+      labels[title] = await this.listedLabels(title);
     }
 
     return { enabled: (await this.switchChatAnalysis.getAttribute('data-state')) === 'checked', labels };
@@ -259,7 +259,7 @@ export class ChatAnalysisPage {
     await expect(dialog, 'The copy dialog stayed open after the settings were copied').toBeHidden({ timeout });
   }
 
-  async assertLabelIsNotListed({ title }: ChatAnalysisLabelSection, label: string): Promise<void> {
+  async assertLabelIsNotListed(title: string, label: string): Promise<void> {
     await expect(this.labelChip(title, label), `"${title}" took "${label}" after it was rejected`).toHaveCount(0);
   }
 
@@ -270,7 +270,7 @@ export class ChatAnalysisPage {
     );
   }
 
-  async assertReorderingIsExplained({ title }: ChatAnalysisLabelSection): Promise<void> {
+  async assertReorderingIsExplained(title: string): Promise<void> {
     await expect(
       this.labelSection(title).locator('.label-section__drag-hint'),
       `"${title}" lists labels without saying they can be reordered`,
@@ -284,7 +284,7 @@ export class ChatAnalysisPage {
     );
   }
 
-  private async listedLabels({ title }: ChatAnalysisLabelSection): Promise<string[]> {
+  private async listedLabels(title: string): Promise<string[]> {
     return this.labelSection(title).locator('.label-section__chip-label').allInnerTexts();
   }
 

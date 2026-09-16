@@ -33,9 +33,9 @@ test.describe('[conversations] [functional] A conversation is analysed from its 
         await cap.selectDomainTab();
         await cap.enableAnalysis();
 
-        await cap.addLabel(themeSection, analysis.theme);
-        await cap.addLabel(qualitySection, analysis.responseQuality);
-        await cap.addLabel(followUpSection, analysis.followUpAction);
+        await cap.addLabel(themeSection.title, analysis.theme);
+        await cap.addLabel(qualitySection.title, analysis.responseQuality);
+        await cap.addLabel(followUpSection.title, analysis.followUpAction);
 
         await cap.saveSettings();
         await cap.assertSaveWasConfirmed();
