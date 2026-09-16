@@ -149,7 +149,7 @@ export class ChatAnalysisPage {
 
     const tooltip = this.page.getByRole('tooltip').first();
 
-    await expect(tooltip, `"${title}" offers no tooltip`).toBeVisible({ timeout });
+    await expect(tooltip, `"${title}" section offers no tooltip`).toBeVisible({ timeout });
     await expect(tooltip, `The tooltip of "${title}" explains nothing`).not.toBeEmpty();
 
     await this.page.keyboard.press('Escape');
