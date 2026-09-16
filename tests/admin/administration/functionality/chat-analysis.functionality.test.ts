@@ -10,6 +10,102 @@ const sectionTitles = CHAT_ANALYSIS_LABEL_SECTIONS.map((section) => section.titl
 const addedLabel = createChatAnalysisLabel('autotestaddedfield');
 const copiedLabel = createChatAnalysisLabel('autotestcopiedfield');
 
+test.describe('[administration] [functional] A value entered in a label section is listed as a chip', () => {
+  test(
+    'Every section takes a value, by the add control and by the Enter key',
+    { annotation: { type: 'kiwi case', description: 'https://monitooring.test.buerokratt.ee/case/192/' } },
+    async ({ page }) => {
+      const cap = new AdminPageFactory(page).getChatAnalysisPage();
+
+      await cap.open();
+
+      await test.step('The page opens with chat analysis enabled', async () => {
+        await cap.assertPageIsShown();
+        await cap.enableAnalysis();
+      });
+
+      for (const section of CHAT_ANALYSIS_LABEL_SECTIONS) {
+        await test.step(`"${section.title}" section lists a label entered through its add control`, async () => {
+          const label = createChatAnalysisLabel('autotestadded');
+
+          await cap.addLabel(section.title, label);
+          await cap.assertLabelIsShownAsChip(section.title, label);
+        });
+      }
+
+      await test.step(`"${themeSection.title}" section lists a label entered with the Enter key`, async () => {
+        const label = createChatAnalysisLabel('autotestentered');
+
+        await cap.addLabelWithEnter(themeSection.title, label);
+        await cap.assertLabelIsShownAsChip(themeSection.title, label);
+      });
+    },
+  );
+});
+
+test.describe('[administration] [functional] A label over the length limit is refused', () => {
+  test(
+    'A value longer than 50 characters is reported and left out of the section',
+    { annotation: { type: 'kiwi case', description: 'https://monitooring.test.buerokratt.ee/case/193/' } },
+    async ({ page }) => {
+      const cap = new AdminPageFactory(page).getChatAnalysisPage();
+
+      await cap.open();
+
+      await test.step('The page opens with chat analysis enabled', async () => {
+        await cap.assertPageIsShown();
+        await cap.enableAnalysis();
+      });
+
+      await test.step(`"${themeSection.title}" section refuses a label entered through its add control`, async () => {
+        const label = createOverlongChatAnalysisLabel();
+
+        await cap.addLabel(themeSection.title, label);
+
+        await cap.assertLabelTooLongWasReported();
+        await cap.assertLabelIsNotListed(themeSection.title, label);
+      });
+
+      await test.step(`"${qualitySection.title}" section refuses a label entered with the Enter key`, async () => {
+        const label = createOverlongChatAnalysisLabel();
+
+        await cap.addLabelWithEnter(qualitySection.title, label);
+
+        await cap.assertLabelTooLongWasReported();
+        await cap.assertLabelIsNotListed(qualitySection.title, label);
+      });
+    },
+  );
+});
+
+test.describe('[administration] [functional] A chip is deleted once the deletion is confirmed', () => {
+  test(
+    'A chip is gone from its section after the confirmation is given',
+    { annotation: { type: 'kiwi case', description: 'https://monitooring.test.buerokratt.ee/case/194/' } },
+    async ({ page }) => {
+      const cap = new AdminPageFactory(page).getChatAnalysisPage();
+      const label = createChatAnalysisLabel('autotestdeleted');
+
+      await cap.open();
+
+      await test.step('The page opens with chat analysis enabled', async () => {
+        await cap.assertPageIsShown();
+        await cap.enableAnalysis();
+      });
+
+      await test.step(`"${themeSection.title}" section holds a label from the current run to delete`, async () => {
+        await cap.addLabel(themeSection.title, label);
+        await cap.assertLabelIsShownAsChip(themeSection.title, label);
+      });
+
+      await test.step('Confirming the deletion takes the chip out of its section', async () => {
+        await cap.deleteLabel(themeSection.title, label);
+        await cap.assertLabelIsNotListed(themeSection.title, label);
+      });
+    },
+  );
+});
+
 test.describe('[administration] [functional] Chat analysis settings are saved for the selected domain', () => {
   test.afterEach(chatAnalysisCleanup(() => addedLabel));
 
@@ -41,39 +137,6 @@ test.describe('[administration] [functional] Chat analysis settings are saved fo
         await cap.open();
 
         await cap.assertLabelIsShownAsChip(themeSection.title, addedLabel);
-      });
-    },
-  );
-});
-
-test.describe('[administration] [functional] A value entered in a label section is listed as a chip', () => {
-  test(
-    'Every section takes a value, by the add control and by the Enter key',
-    { annotation: { type: 'kiwi case', description: 'https://monitooring.test.buerokratt.ee/case/192/' } },
-    async ({ page }) => {
-      const cap = new AdminPageFactory(page).getChatAnalysisPage();
-
-      await cap.open();
-
-      await test.step('The page opens with chat analysis enabled', async () => {
-        await cap.assertPageIsShown();
-        await cap.enableAnalysis();
-      });
-
-      for (const section of CHAT_ANALYSIS_LABEL_SECTIONS) {
-        await test.step(`"${section.title}" section lists a label entered through its add control`, async () => {
-          const label = createChatAnalysisLabel('autotestadded');
-
-          await cap.addLabel(section.title, label);
-          await cap.assertLabelIsShownAsChip(section.title, label);
-        });
-      }
-
-      await test.step(`"${themeSection.title}" section lists a label entered with the Enter key`, async () => {
-        const label = createChatAnalysisLabel('autotestentered');
-
-        await cap.addLabelWithEnter(themeSection.title, label);
-        await cap.assertLabelIsShownAsChip(themeSection.title, label);
       });
     },
   );
@@ -136,69 +199,6 @@ test.describe('[administration] [functional] Settings are copied from one domain
             timeout: ACTION_TIMEOUT,
           })
           .toEqual(sourceSettings);
-      });
-    },
-  );
-});
-
-test.describe('[administration] [functional] A chip is deleted once the deletion is confirmed', () => {
-  test(
-    'A chip is gone from its section after the confirmation is given',
-    { annotation: { type: 'kiwi case', description: 'https://monitooring.test.buerokratt.ee/case/194/' } },
-    async ({ page }) => {
-      const cap = new AdminPageFactory(page).getChatAnalysisPage();
-      const label = createChatAnalysisLabel('autotestdeleted');
-
-      await cap.open();
-
-      await test.step('The page opens with chat analysis enabled', async () => {
-        await cap.assertPageIsShown();
-        await cap.enableAnalysis();
-      });
-
-      await test.step(`"${themeSection.title}" section holds a label from the current run to delete`, async () => {
-        await cap.addLabel(themeSection.title, label);
-        await cap.assertLabelIsShownAsChip(themeSection.title, label);
-      });
-
-      await test.step('Confirming the deletion takes the chip out of its section', async () => {
-        await cap.deleteLabel(themeSection.title, label);
-        await cap.assertLabelIsNotListed(themeSection.title, label);
-      });
-    },
-  );
-});
-
-test.describe('[administration] [functional] A label over the length limit is refused', () => {
-  test(
-    'A value longer than 50 characters is reported and left out of the section',
-    { annotation: { type: 'kiwi case', description: 'https://monitooring.test.buerokratt.ee/case/193/' } },
-    async ({ page }) => {
-      const cap = new AdminPageFactory(page).getChatAnalysisPage();
-
-      await cap.open();
-
-      await test.step('The page opens with chat analysis enabled', async () => {
-        await cap.assertPageIsShown();
-        await cap.enableAnalysis();
-      });
-
-      await test.step(`"${themeSection.title}" section refuses a label entered through its add control`, async () => {
-        const label = createOverlongChatAnalysisLabel();
-
-        await cap.addLabel(themeSection.title, label);
-
-        await cap.assertLabelTooLongWasReported();
-        await cap.assertLabelIsNotListed(themeSection.title, label);
-      });
-
-      await test.step(`"${qualitySection.title}" section refuses a label entered with the Enter key`, async () => {
-        const label = createOverlongChatAnalysisLabel();
-
-        await cap.addLabelWithEnter(qualitySection.title, label);
-
-        await cap.assertLabelTooLongWasReported();
-        await cap.assertLabelIsNotListed(qualitySection.title, label);
       });
     },
   );
