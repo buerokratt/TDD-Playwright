@@ -80,7 +80,7 @@ test.describe('[conversations] [functional] A conversation is analysed from the 
           .toEqual(analysis);
       });
 
-      await test.step('The drawer records who analysed the conversation and when', async () => {
+      await test.step('The conversation drawer records who analysed the conversation and when', async () => {
         const author = await readUserDisplayName(page);
 
         await history.assertAnalysisWasRecorded('Chat theme', analysis.theme, author);
