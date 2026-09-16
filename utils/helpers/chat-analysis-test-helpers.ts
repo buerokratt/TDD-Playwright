@@ -36,7 +36,7 @@ export function chatAnalysisConfigRestore(resolveSnapshot: () => ChatAnalysisDom
 
     expect(
       response.ok(),
-      `The back office refused to put the settings of "${snapshot.domainId}" back (${response.status()})`,
+      `The back office refused to restore the settings of domain "${snapshot.domainId}" (${response.status()})`,
     ).toBeTruthy();
   };
 }
