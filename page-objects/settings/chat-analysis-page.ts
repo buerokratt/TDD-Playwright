@@ -230,7 +230,10 @@ export class ChatAnalysisPage {
   }
 
   async assertLabelIsNotListed(title: string, label: string): Promise<void> {
-    await expect(this.labelChip(title, label), `"${title}" took "${label}" after it was rejected`).toHaveCount(0);
+    await expect(
+      this.labelChip(title, label),
+      `"${title}" section still lists label "${label}" after it was rejected`,
+    ).toHaveCount(0);
   }
 
   async assertLabelTooLongWasReported({ timeout = ACTION_TIMEOUT }: RouteReadyOptions = {}): Promise<void> {
