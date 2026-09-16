@@ -55,7 +55,7 @@ test.describe('[administration] [functional] A value entered in a label section 
 
       await cap.open();
 
-      await test.step('The page opens with chat analysis turned on', async () => {
+      await test.step('The page opens with chat analysis enabled', async () => {
         await cap.assertPageIsShown();
         await cap.enableAnalysis();
       });
@@ -151,7 +151,7 @@ test.describe('[administration] [functional] A chip is deleted once the deletion
 
       await cap.open();
 
-      await test.step('The page opens with chat analysis turned on', async () => {
+      await test.step('The page opens with chat analysis enabled', async () => {
         await cap.assertPageIsShown();
         await cap.enableAnalysis();
       });
@@ -178,7 +178,7 @@ test.describe('[administration] [functional] A label over the length limit is re
 
       await cap.open();
 
-      await test.step('The page opens with chat analysis turned on', async () => {
+      await test.step('The page opens with chat analysis enabled', async () => {
         await cap.assertPageIsShown();
         await cap.enableAnalysis();
       });
