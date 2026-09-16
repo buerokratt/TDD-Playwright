@@ -43,7 +43,7 @@ test.describe('[conversations] [functional] A conversation is analysed from its 
 
       await history.open();
 
-      const conversationId = await history.findConversationOn(URLS.customer);
+      const conversationId = await history.findConversationIdByWebpage(URLS.customer);
 
       await test.step(`Conversation "${conversationId}" opens on its own card`, async () => {
         await history.assertPageIsShown();

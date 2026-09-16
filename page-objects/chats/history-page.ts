@@ -52,20 +52,20 @@ export class HistoryPage {
     await expect(this.table, 'History never rendered its conversations table').toBeVisible();
   }
 
-  async findConversationOn(webpage: string): Promise<string> {
-    const webpageColumn = await this.columnIndex('Webpage');
-    const idColumn = await this.columnIndex('ID');
-    const rows = await this.rows().count();
+  async findConversationIdByWebpage(webpage: string): Promise<string> {
+    const webpageColumnIndex = await this.columnIndex('Webpage');
+    const idColumnIndex = await this.columnIndex('ID');
+    const rowCount = await this.rows().count();
 
-    for (let index = 0; index < rows; index++) {
+    for (let index = 0; index < rowCount; index++) {
       const cells = this.rows().nth(index).locator('td');
 
-      if ((await cells.nth(webpageColumn).innerText()).trim() === webpage) {
-        return (await cells.nth(idColumn).innerText()).trim();
+      if ((await cells.nth(webpageColumnIndex).innerText()).trim() === webpage) {
+        return (await cells.nth(idColumnIndex).innerText()).trim();
       }
     }
 
-    throw new Error(`History holds no conversation of "${webpage}" within the filters the table opens on`);
+    throw new Error(`History contains no conversation for "${webpage}" under the filters applied on load`);
   }
 
   async openConversation(conversationId: string, { timeout = ACTION_TIMEOUT }: RouteReadyOptions = {}): Promise<void> {
