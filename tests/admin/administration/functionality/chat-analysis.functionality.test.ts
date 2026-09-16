@@ -183,7 +183,7 @@ test.describe('[administration] [functional] A label over the length limit is re
         await cap.enableAnalysis();
       });
 
-      await test.step(`"${themeSection.title}" refuses the value its add control was given`, async () => {
+      await test.step(`"${themeSection.title}" section refuses a label entered through its add control`, async () => {
         const label = createOverlongChatAnalysisLabel();
 
         await cap.addLabel(themeSection.title, label);
