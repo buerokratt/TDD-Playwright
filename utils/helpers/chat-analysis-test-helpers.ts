@@ -14,7 +14,7 @@ export async function readChatAnalysisConfig(page: Page, domainId: string): Prom
 
   expect(
     response.ok(),
-    `The back office would not report the chat analysis settings of "${domainId}" (${response.status()})`,
+    `The back office failed to return the chat analysis settings for domain "${domainId}" (${response.status()})`,
   ).toBeTruthy();
 
   const { response: config } = (await response.json()) as { response: ChatAnalysisConfig };
