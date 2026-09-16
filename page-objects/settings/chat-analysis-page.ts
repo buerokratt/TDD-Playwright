@@ -92,7 +92,7 @@ export class ChatAnalysisPage {
 
     const domainId = new URL((await settingsLoaded).url()).searchParams.get('domain');
 
-    expect(domainId, 'The page asked for its settings without naming a domain').toBeTruthy();
+    expect(domainId, 'The page requested settings without a domain id').toBeTruthy();
 
     return domainId as string;
   }
