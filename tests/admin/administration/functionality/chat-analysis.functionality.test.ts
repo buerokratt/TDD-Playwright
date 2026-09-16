@@ -156,7 +156,7 @@ test.describe('[administration] [functional] A chip is deleted once the deletion
         await cap.enableAnalysis();
       });
 
-      await test.step(`"${themeSection.title}" holds a label of the run's own to delete`, async () => {
+      await test.step(`"${themeSection.title}" section holds a label from the current run to delete`, async () => {
         await cap.addLabel(themeSection.title, label);
         await cap.assertLabelIsShownAsChip(themeSection.title, label);
       });
