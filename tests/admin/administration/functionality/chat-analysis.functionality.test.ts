@@ -26,7 +26,7 @@ test.describe('[administration] [functional] Chat analysis settings are saved fo
         await cap.selectDomainTab();
       });
 
-      await test.step(`Chat analysis is on and "${themeSection.title}" takes a label of the run's own`, async () => {
+      await test.step(`Chat analysis is enabled and "${themeSection.title}" section accepts a label from the current run`, async () => {
         await cap.enableAnalysis();
         await cap.addLabel(themeSection.title, savedLabel);
         await cap.assertLabelIsShownAsChip(themeSection.title, savedLabel);
