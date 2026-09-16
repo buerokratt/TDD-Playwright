@@ -1,5 +1,5 @@
 export interface ChatAnalysisLabelSection {
   readonly title: string;
   readonly placeholder: string;
-  readonly hint: string;
+  readonly note: string;
 }

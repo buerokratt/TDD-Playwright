@@ -127,7 +127,7 @@ export class ChatAnalysisPage {
     );
   }
 
-  async assertLabelSectionIsOffered({ title, placeholder, hint }: ChatAnalysisLabelSection): Promise<void> {
+  async assertLabelSectionIsOffered({ title, placeholder, note }: ChatAnalysisLabelSection): Promise<void> {
     const section = this.labelSection(title);
 
     await expect(section, `The page holds no "${title}" section`).toBeVisible();
@@ -140,7 +140,7 @@ export class ChatAnalysisPage {
       `"${title}" section offers no way to add a label`,
     ).toHaveText('+ Add');
     await expect(section.locator('.label-section__hint'), `"${title}" section rendered without its note`).toHaveText(
-      hint,
+      note,
     );
   }
 
