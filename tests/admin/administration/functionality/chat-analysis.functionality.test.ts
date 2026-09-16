@@ -100,7 +100,7 @@ test.describe('[administration] [functional] Settings are copied from one domain
       const targetIndex = domains - 1;
       const targetName = await cap.domainTabName(targetIndex);
 
-      await test.step('The settings the target domain holds today are kept to be put back', async () => {
+      await test.step("The target domain's current settings are saved to be restored later", async () => {
         const targetId = await cap.selectDomainTab(targetIndex);
 
         targetSnapshot = { domainId: targetId, config: await readChatAnalysisConfig(page, targetId) };
