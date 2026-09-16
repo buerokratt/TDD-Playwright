@@ -136,7 +136,9 @@ export class ChatAnalysisPage {
       section.locator('.label-section__add-button'),
       `"${title}" section offers no way to add a label`,
     ).toHaveText('+ Add');
-    await expect(section.locator('.label-section__hint'), `"${title}" came without its note`).toHaveText(hint);
+    await expect(section.locator('.label-section__hint'), `"${title}" section rendered without its note`).toHaveText(
+      hint,
+    );
   }
 
   async assertLabelSectionExplainsItself(
