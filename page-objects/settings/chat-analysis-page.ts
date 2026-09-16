@@ -246,7 +246,7 @@ export class ChatAnalysisPage {
   async assertReorderingIsExplained(title: string): Promise<void> {
     await expect(
       this.labelSection(title).locator('.label-section__drag-hint'),
-      `"${title}" lists labels without saying they can be reordered`,
+      `"${title}" section lists labels without mentioning they can be reordered`,
     ).toHaveText('You can change the order of the labels by dragging them.');
   }
 
