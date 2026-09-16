@@ -74,7 +74,7 @@ test.describe('[conversations] [functional] A conversation is analysed from the 
 
         await expect
           .poll(() => history.readAnalysisSelections(), {
-            message: 'The card lost what was picked on it',
+            message: 'The conversation drawer lost the selected values',
             timeout: ACTION_TIMEOUT,
           })
           .toEqual(analysis);
