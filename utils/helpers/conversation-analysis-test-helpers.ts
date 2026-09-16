@@ -4,6 +4,8 @@ import { AdminPageFactory } from '@page-objects/admin-page-factory';
 import { USER_INFO_URL } from '@utils/constants';
 import { AnalysedConversation } from '@utils/interfaces';
 
+type AnalysedConversationResolver = () => AnalysedConversation | undefined;
+
 export async function readUserDisplayName(page: Page): Promise<string> {
   const response = await page.request.get(USER_INFO_URL);
 
@@ -14,7 +16,7 @@ export async function readUserDisplayName(page: Page): Promise<string> {
   return user.displayName;
 }
 
-export function conversationAnalysisCleanup(resolveAnalysed: () => AnalysedConversation | undefined) {
+export function conversationAnalysisCleanup(resolveAnalysed: AnalysedConversationResolver) {
   return async ({ page }: { page: Page }): Promise<void> => {
     const analysed = resolveAnalysed();
 
