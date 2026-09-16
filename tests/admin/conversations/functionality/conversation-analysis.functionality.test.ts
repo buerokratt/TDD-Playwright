@@ -14,7 +14,7 @@ const analysis: ConversationAnalysis = {
   followUpAction: createChatAnalysisLabel('autotestfollowup'),
 };
 
-test.describe('[conversations] [functional] A conversation is analysed from its own card', () => {
+test.describe('[conversations] [functional] A conversation is analysed from the conversation drawer', () => {
   let analysed: AnalysedConversation | undefined;
 
   test.afterEach(conversationAnalysisCleanup(() => analysed));
