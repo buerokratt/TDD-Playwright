@@ -18,8 +18,8 @@ export class HistoryPage {
   private readonly drawer: Locator;
   private readonly buttonCloseDrawer: Locator;
 
-  private readonly analysisPanel: Locator;
-  private readonly sideMeta: Locator;
+  private readonly metadataSection: Locator;
+  private readonly analysisSection: Locator;
 
   private readonly toastList: Locator;
 
@@ -32,8 +32,8 @@ export class HistoryPage {
     this.drawer = this.page.locator('.drawer').first();
     this.buttonCloseDrawer = this.drawer.locator('.drawer__close');
 
-    this.analysisPanel = this.page.locator('.quality-settings');
-    this.sideMeta = this.page.locator('.side-meta');
+    this.metadataSection = this.page.locator('.side-meta');
+    this.analysisSection = this.page.locator('.quality-settings');
 
     this.toastList = this.page.locator('ol.toast__list');
   }
@@ -76,7 +76,10 @@ export class HistoryPage {
 
     await this.conversationRow(conversationId).getByRole('button', { name: 'View', exact: true }).click();
 
-    await expect(this.analysisPanel, `Conversation "${conversationId}" opened without its analysis panel`).toBeVisible({
+    await expect(
+      this.analysisSection,
+      `Conversation "${conversationId}" opened without its analysis section`,
+    ).toBeVisible({
       timeout,
     });
 
@@ -164,7 +167,7 @@ export class HistoryPage {
   }
 
   private analysisSelect(index: number): Locator {
-    return this.analysisPanel.locator('.select').nth(index);
+    return this.analysisSection.locator('.select').nth(index);
   }
 
   private async analysisSelectionText(index: number): Promise<string> {
@@ -172,7 +175,7 @@ export class HistoryPage {
   }
 
   private metadataValue(label: string): Locator {
-    return this.sideMeta.locator(`p:has(strong:text-is("${label}")) + p.metadata-item__value`);
+    return this.metadataSection.locator(`p:has(strong:text-is("${label}")) + p.metadata-item__value`);
   }
 
   private async chooseAnalysisValue(
