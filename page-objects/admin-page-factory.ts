@@ -1,13 +1,14 @@
 import { Page } from '@playwright/test';
 
-import { ActiveChatsPage, UnansweredChatsPage } from '@page-objects/chats';
+import { ActiveChatsPage, HistoryPage, UnansweredChatsPage } from '@page-objects/chats';
 import { Header, SideMenu } from '@page-objects/menu';
 import { NewServicePage, ServicesOverviewPage } from '@page-objects/services';
 import {
+  ChatAnalysisPage,
+  DeleteConversationsPage,
   MultiDomainsPage,
   OfficeOpeningHoursPage,
   SessionLengthPage,
-  DeleteConversationsPage,
 } from '@page-objects/settings';
 
 export class AdminPageFactory {
@@ -33,12 +34,20 @@ export class AdminPageFactory {
     return new ActiveChatsPage(this.page);
   }
 
+  getHistoryPage(): HistoryPage {
+    return new HistoryPage(this.page);
+  }
+
   getServicesOverviewPage(): ServicesOverviewPage {
     return new ServicesOverviewPage(this.page);
   }
 
   getNewServicePage(): NewServicePage {
     return new NewServicePage(this.page);
+  }
+
+  getChatAnalysisPage(): ChatAnalysisPage {
+    return new ChatAnalysisPage(this.page);
   }
 
   getOfficeOpeningHoursPage(): OfficeOpeningHoursPage {
