@@ -130,6 +130,18 @@ export async function waitForMultiDomainsReady(
   ).toBeVisible({ timeout });
 }
 
+export async function waitForAnonymizerReady(
+  page: Page,
+  { timeout = ACTION_TIMEOUT }: RouteReadyOptions = {},
+): Promise<void> {
+  await waitForAppSettled(page, { timeout });
+
+  await expect(
+    page.getByRole('heading', { name: 'Anonymizer Settings', exact: true }),
+    'Anonymizer never rendered its heading',
+  ).toBeVisible({ timeout });
+}
+
 const ROUTE_READY: { test: (url: string) => boolean; wait: typeof waitForAppSettled }[] = [
   {
     test: (url) => /\/chat\/(?:unanswered|active|pending)(?:\/|$)/i.test(url),
@@ -142,6 +154,7 @@ const ROUTE_READY: { test: (url: string) => boolean; wait: typeof waitForAppSett
   { test: (url) => url.includes('chat/session-length'), wait: waitForSessionLengthReady },
   { test: (url) => url.includes('chat/delete-conversations'), wait: waitForDeleteConversationsReady },
   { test: (url) => url.includes('chat/multi-domains'), wait: waitForMultiDomainsReady },
+  { test: (url) => url.includes('chat/anonymizer'), wait: waitForAnonymizerReady },
 ];
 
 export async function waitForRouteReady(page: Page, url: string, options?: RouteReadyOptions): Promise<void> {

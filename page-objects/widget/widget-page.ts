@@ -20,6 +20,11 @@ export class WidgetPage {
   private readonly buttonHamburger: Locator;
   private readonly routeYes: Locator;
 
+  private readonly botMessages: Locator;
+  private readonly buttonCloseChat: Locator;
+  private readonly buttonEndWithoutAnswer: Locator;
+  private readonly buttonSkipFeedback: Locator;
+
   private readonly buttonConfirm: Locator;
   private readonly inputFeedback: Locator;
   private readonly buttonContinue: Locator;
@@ -34,6 +39,11 @@ export class WidgetPage {
     this.sendButton = this.page.getByTitle('Send');
     this.buttonHamburger = this.page.getByTitle('Details');
     this.routeYes = this.page.getByRole('button', { name: 'Yes', exact: true });
+
+    this.botMessages = this.page.locator('.admin .message-main');
+    this.buttonCloseChat = this.page.getByTitle('Close', { exact: true });
+    this.buttonEndWithoutAnswer = this.page.getByRole('button', { name: 'Yes, no answer' });
+    this.buttonSkipFeedback = this.page.getByTitle('Skip', { exact: true });
 
     this.buttonConfirm = this.page.getByRole('button', { name: 'Confirm' });
     this.inputFeedback = this.page.getByPlaceholder('Enter your feedback...');
@@ -99,12 +109,40 @@ export class WidgetPage {
     ).toBeHidden();
   }
 
+  async botGreeting(): Promise<string> {
+    const greeting = this.botMessages.first();
+
+    await expect(greeting, 'The widget never showed a message of the bot the chat could be read back by').toBeVisible({
+      timeout: WIDGET_REPLY_TIMEOUT,
+    });
+
+    return (await greeting.innerText()).trim();
+  }
+
+  async closeChat(): Promise<void> {
+    await this.buttonCloseChat.click();
+
+    await expect(
+      this.buttonEndWithoutAnswer,
+      'The widget never asked the customer to confirm ending the conversation',
+    ).toBeVisible({ timeout: WIDGET_REDRAW_TIMEOUT });
+    await this.buttonEndWithoutAnswer.click();
+
+    if (await isEventuallyVisible(this.buttonSkipFeedback, WIDGET_REDRAW_TIMEOUT)) {
+      await this.buttonSkipFeedback.click();
+    }
+  }
+
   async chatId(): Promise<string> {
-    const stored = await this.page.evaluate(() => window.localStorage.getItem('byk-va-cid'));
+    let stored: string | null = null;
 
-    expect(stored, 'The widget never stored an id for the conversation').toBeTruthy();
+    await expect(async () => {
+      stored = await this.page.evaluate(() => window.localStorage.getItem('byk-va-cid'));
 
-    return JSON.parse(stored as string);
+      expect(stored, 'The widget never stored an id for the conversation').toBeTruthy();
+    }).toPass({ timeout: WIDGET_REDRAW_TIMEOUT });
+
+    return JSON.parse(stored as unknown as string);
   }
 
   private async lastReply(noCsaAvailableMessage?: string): Promise<string> {

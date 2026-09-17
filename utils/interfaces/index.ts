@@ -1,5 +1,7 @@
 export * from './admin-page-visit.interface';
 export * from './analysed-conversation.interface';
+export * from './anonymized-text.interface';
+export * from './anonymizer-settings.interface';
 export * from './chat-analysis-config.interface';
 export * from './chat-analysis-domain-snapshot.interface';
 export * from './chat-analysis-label-section.interface';

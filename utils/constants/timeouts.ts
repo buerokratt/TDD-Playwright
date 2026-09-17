@@ -19,6 +19,8 @@ export const WIDGET_REDRAW_TIMEOUT = 15000;
 /** How long the widget may keep its message box hidden before it is reloaded. */
 export const WIDGET_MESSAGE_BOX_TIMEOUT = 10000;
 
+export const CHAT_LOG_TIMEOUT = 30000;
+
 /** How long the widget may keep an idle customer waiting for the warning or the end message: the shortest response time the admin allows is 5 minutes, and this leaves two on top. */
 export const WIDGET_IDLE_TIMEOUT = 420000;
 

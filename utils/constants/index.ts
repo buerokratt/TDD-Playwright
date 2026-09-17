@@ -1,3 +1,4 @@
+export * from './anonymizer';
 export * from './browser';
 export * from './chat-analysis';
 export * from './delete-conversations';

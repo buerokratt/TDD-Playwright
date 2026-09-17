@@ -4,6 +4,7 @@ import { ActiveChatsPage, HistoryPage, UnansweredChatsPage } from '@page-objects
 import { Header, SideMenu } from '@page-objects/menu';
 import { NewServicePage, ServicesOverviewPage } from '@page-objects/services';
 import {
+  AnonymizerPage,
   ChatAnalysisPage,
   DeleteConversationsPage,
   MultiDomainsPage,
@@ -52,6 +53,10 @@ export class AdminPageFactory {
 
   getOfficeOpeningHoursPage(): OfficeOpeningHoursPage {
     return new OfficeOpeningHoursPage(this.page);
+  }
+
+  getAnonymizerPage(): AnonymizerPage {
+    return new AnonymizerPage(this.page);
   }
 
   getSessionLengthPage(): SessionLengthPage {

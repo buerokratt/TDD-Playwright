@@ -16,6 +16,12 @@ export const WIDGET_DATA_URL = `${BACKOFFICE_V2_BASE}/accounts/widget-data`;
  */
 export const ORGANIZATION_WORKING_TIME_URL = `${BACKOFFICE_V2_BASE}/configs/organization-working-time`;
 
+export const ENDED_CHATS_PATH = 'agents/chats/ended';
+
+export const ANONYMIZER_CONFIG_PATH = 'configs/anonymizer';
+
+export const ANONYMIZER_TRANSFER_PATH = 'configs/transfer/anonymizer';
+
 /**
  * Administration -> Chat analysis, where the label sections are edited.
  * GET asks for one domain by `domain`, POST writes the settings back with `domainUuid`.
