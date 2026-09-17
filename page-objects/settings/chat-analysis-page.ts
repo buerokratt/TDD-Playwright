@@ -1,6 +1,6 @@
 import { Locator, Page, Response, expect } from '@playwright/test';
 
-import { CopyToDomain } from '@page-objects/common';
+import { CopyToDomainModal } from '@page-objects/common';
 import { ACTION_TIMEOUT } from '@utils/constants';
 import { URLS } from '@utils/env';
 import { ChatAnalysisLabelSection, ChatAnalysisSettings, RouteReadyOptions } from '@utils/interfaces';
@@ -14,7 +14,7 @@ export class ChatAnalysisPage {
   private readonly domainTabs: Locator;
   private readonly domainTabsActive: Locator;
   private readonly buttonCopyToDomain: Locator;
-  private readonly copyToDomain: CopyToDomain;
+  private readonly copyToDomain: CopyToDomainModal;
 
   private readonly labelChatAnalysisSwitch: Locator;
   private readonly switchChatAnalysis: Locator;
@@ -34,7 +34,7 @@ export class ChatAnalysisPage {
     this.domainTabs = this.page.locator('main .domain-tab-selector__tab');
     this.domainTabsActive = this.page.locator('main .domain-tab-selector__tab--active');
     this.buttonCopyToDomain = this.page.locator('main').getByRole('button', { name: 'Copy to domain' });
-    this.copyToDomain = new CopyToDomain(this.page, {
+    this.copyToDomain = new CopyToDomainModal(this.page, {
       button: this.buttonCopyToDomain,
       transferPath: 'configs/transfer/chat-analysis',
     });

@@ -1,15 +1,15 @@
 import { Locator, Page, expect } from '@playwright/test';
 
 import { ACTION_TIMEOUT } from '@utils/constants';
-import { CopyToDomainOptions, RouteReadyOptions } from '@utils/interfaces';
+import { CopyToDomainModalOptions, RouteReadyOptions } from '@utils/interfaces';
 
-export class CopyToDomain {
+export class CopyToDomainModal {
   private readonly page: Page;
   private readonly button: Locator;
   private readonly transferPath: string;
   private readonly dialog: Locator;
 
-  constructor(page: Page, options: CopyToDomainOptions) {
+  constructor(page: Page, options: CopyToDomainModalOptions) {
     this.page = page;
     this.button = options.button;
     this.transferPath = options.transferPath;

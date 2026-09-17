@@ -1,2 +1,2 @@
-export * from './copy-to-domain';
+export * from './copy-to-domain-modal';
 export * from './paginated-data-table';
