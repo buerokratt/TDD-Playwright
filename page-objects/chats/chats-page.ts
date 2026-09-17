@@ -1,7 +1,7 @@
 import { Locator, Page } from '@playwright/test';
 
 import { RouteReadyOptions } from '@utils/interfaces';
-import { isEventuallyVisible, waitForChatsReady } from '@utils/waits';
+import { isEventuallyVisible, waitForConversationsReady } from '@utils/waits';
 
 /**
  * What every chat list under "Conversations" shares: the tabs down the side, and taking a chat
@@ -21,7 +21,7 @@ export abstract class ChatsPage {
   }
 
   async waitForReady(options: RouteReadyOptions = {}): Promise<void> {
-    await waitForChatsReady(this.page, options);
+    await waitForConversationsReady(this.page, options);
   }
 
   getLastListItem(): Locator {

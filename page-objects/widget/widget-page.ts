@@ -1,6 +1,11 @@
 import { Locator, Page, expect, test } from '@playwright/test';
 
-import { WIDGET_MESSAGE_BOX_TIMEOUT, WIDGET_REDRAW_TIMEOUT, WIDGET_REPLY_TIMEOUT } from '@utils/constants';
+import {
+  WIDGET_IDLE_TIMEOUT,
+  WIDGET_MESSAGE_BOX_TIMEOUT,
+  WIDGET_REDRAW_TIMEOUT,
+  WIDGET_REPLY_TIMEOUT,
+} from '@utils/constants';
 import { isEventuallyVisible } from '@utils/waits';
 
 const ASK_FOR_OPERATOR = 'I want to talk to a human';
@@ -22,6 +27,8 @@ export class WidgetPage {
 
   private readonly buttonConfirm: Locator;
   private readonly inputFeedback: Locator;
+  private readonly buttonContinue: Locator;
+  private readonly buttonClose: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -40,6 +47,8 @@ export class WidgetPage {
 
     this.buttonConfirm = this.page.getByRole('button', { name: 'Confirm' });
     this.inputFeedback = this.page.getByPlaceholder('Enter your feedback...');
+    this.buttonContinue = this.page.getByRole('button', { name: 'Continue', exact: true });
+    this.buttonClose = this.page.getByRole('button', { name: 'Close' }).filter({ hasText: 'Close' }).first();
   }
 
   async openChat(): Promise<void> {
@@ -192,6 +201,28 @@ export class WidgetPage {
 
   private messageByText(text: string): Locator {
     return this.page.getByText(text, { exact: true });
+  }
+
+  async expectIdleWarningShown(idleWarningMessage: string): Promise<void> {
+    await expect(
+      this.messageByText(idleWarningMessage),
+      `The widget never asked the idle customer "${idleWarningMessage}"`,
+    ).toBeVisible({ timeout: WIDGET_IDLE_TIMEOUT });
+
+    await expect(this.buttonContinue, 'The idle warning offered no way to continue the conversation').toBeVisible({
+      timeout: WIDGET_REDRAW_TIMEOUT,
+    });
+  }
+
+  async expectEndMessageShown(endMessage: string): Promise<void> {
+    await expect(
+      this.page.getByText(endMessage, { exact: false }),
+      `The widget never closed the idle conversation with "${endMessage}"`,
+    ).toBeVisible({ timeout: WIDGET_IDLE_TIMEOUT });
+
+    await expect(this.buttonClose, 'The end message offered no way to close the chat window').toBeVisible({
+      timeout: WIDGET_REDRAW_TIMEOUT,
+    });
   }
 
   async openDetails(): Promise<void> {

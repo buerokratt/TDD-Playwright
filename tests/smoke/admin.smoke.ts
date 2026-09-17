@@ -52,6 +52,14 @@ test('[SMOKE] "Administration" → "Feedback" page loads with its feedback toggl
   visit.assertNoFailedApiCalls();
 });
 
+test('[SMOKE] "Administration" → "Chat analysis" page loads with its heading', async ({ page }) => {
+  const visit = await openAdminPage(page, 'chat/chat-analysis');
+
+  await expect(page.getByRole('heading', { name: 'Chat analysis management', exact: true })).toBeVisible();
+  visit.assertBackendAnswered();
+  visit.assertNoFailedApiCalls();
+});
+
 test('[SMOKE] "Administration" → "Office opening hours" page loads with its customer service toggle', async ({
   page,
 }) => {
@@ -74,6 +82,14 @@ test('[SMOKE] "Administration" → "Anonymizer" page loads with its settings hea
   const visit = await openAdminPage(page, 'chat/anonymizer');
 
   await expect(page.getByRole('heading', { name: 'Anonymizer Settings', exact: true })).toBeVisible();
+  visit.assertBackendAnswered();
+  visit.assertNoFailedApiCalls();
+});
+
+test('[SMOKE] "Administration" → "Delete Conversations" page loads with its heading', async ({ page }) => {
+  const visit = await openAdminPage(page, 'chat/delete-conversations');
+
+  await expect(page.getByRole('heading', { name: 'Conversation deletion', exact: true })).toBeVisible();
   visit.assertBackendAnswered();
   visit.assertNoFailedApiCalls();
 });

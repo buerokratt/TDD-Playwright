@@ -3,7 +3,14 @@ import { Page } from '@playwright/test';
 import { ActiveChatsPage, HistoryPage, UnansweredChatsPage } from '@page-objects/chats';
 import { Header, SideMenu } from '@page-objects/menu';
 import { NewServicePage, ServicesOverviewPage } from '@page-objects/services';
-import { AnonymizerPage, MultiDomainsPage, OfficeOpeningHoursPage } from '@page-objects/settings';
+import {
+  AnonymizerPage,
+  ChatAnalysisPage,
+  DeleteConversationsPage,
+  MultiDomainsPage,
+  OfficeOpeningHoursPage,
+  SessionLengthPage,
+} from '@page-objects/settings';
 
 export class AdminPageFactory {
   private readonly page: Page;
@@ -40,12 +47,24 @@ export class AdminPageFactory {
     return new NewServicePage(this.page);
   }
 
+  getChatAnalysisPage(): ChatAnalysisPage {
+    return new ChatAnalysisPage(this.page);
+  }
+
   getOfficeOpeningHoursPage(): OfficeOpeningHoursPage {
     return new OfficeOpeningHoursPage(this.page);
   }
 
   getAnonymizerPage(): AnonymizerPage {
     return new AnonymizerPage(this.page);
+  }
+
+  getSessionLengthPage(): SessionLengthPage {
+    return new SessionLengthPage(this.page);
+  }
+
+  getDeleteConversationsPage(): DeleteConversationsPage {
+    return new DeleteConversationsPage(this.page);
   }
 
   getMultiDomainsPage(): MultiDomainsPage {
