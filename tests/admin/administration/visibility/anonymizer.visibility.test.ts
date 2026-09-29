@@ -1,7 +1,7 @@
 import { AdminPageFactory } from '@page-objects/admin-page-factory';
 import { test } from '@setup/test-setup';
 
-test.describe('[administration] [visibility] The anonymizer page shows every control its settings are edited through', () => {
+test.describe('[administration] [visibility] The anonymizer page shows its settings and testing controls', () => {
   test(
     'The page opens with its domain tabs, its approach dropdown, its entities, both word lists, both toggles and the testing card',
     { annotation: { type: 'kiwi case', description: 'https://monitooring.test.buerokratt.ee/case/155/' } },
@@ -10,11 +10,11 @@ test.describe('[administration] [visibility] The anonymizer page shows every con
 
       await ap.open();
 
-      await test.step('The settings card names itself, offers the copy control and can be saved', async () => {
+      await test.step('The heading, the copy control and the save control are on the settings card', async () => {
         await ap.assertSettingsCardIsShown();
       });
 
-      await test.step('The settings are offered per domain, with one domain being edited', async () => {
+      await test.step('The configured domains are offered as tabs with one of them selected', async () => {
         await ap.assertDomainTabsAreShown();
       });
 
@@ -26,7 +26,7 @@ test.describe('[administration] [visibility] The anonymizer page shows every con
         await ap.assertEntitiesAreOffered();
       });
 
-      await test.step('The allowlist and the denylist each take a word of their own', async () => {
+      await test.step('The allowlist and denylist each show an input for adding words', async () => {
         await ap.assertWordListsAreOffered();
       });
 
@@ -34,7 +34,7 @@ test.describe('[administration] [visibility] The anonymizer page shows every con
         await ap.assertTogglesAreShown();
       });
 
-      await test.step('The testing card takes a text, anonymizes it and shows the result back', async () => {
+      await test.step('The heading, input and output text areas, clear and anonymize controls are on the testing card', async () => {
         await ap.assertTestingCardIsShown();
       });
     },
