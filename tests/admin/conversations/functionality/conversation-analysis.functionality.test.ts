@@ -47,7 +47,7 @@ test.describe('[conversations] [functional] A conversation is analysed from the 
 
       await test.step(`Conversation "${conversationId}" opens in the drawer`, async () => {
         await history.assertPageIsShown();
-        await history.openConversation(conversationId);
+        await history.openConversationDetails(conversationId);
       });
 
       await test.step('Each value picked in the analysis panel is reported as saved', async () => {
@@ -70,7 +70,7 @@ test.describe('[conversations] [functional] A conversation is analysed from the 
 
       await test.step('The conversation drawer retains the selected values', async () => {
         await history.open();
-        await history.openConversation(conversationId);
+        await history.openConversationDetails(conversationId);
 
         await expect
           .poll(() => history.readAnalysisSelections(), {

@@ -8,7 +8,7 @@ import { AnonymizerSettings } from '@utils/interfaces';
 import { createAnonymizerEmail } from '@utils/test-data';
 
 test(
-  '[e2e] [chats] A conversation recorded anonymously reaches the chat log without what the customer typed',
+  '[e2e] [chats] Anonymous recording anonymizes customer messages in the chat log',
   { annotation: { type: 'kiwi case', description: 'https://monitooring.test.buerokratt.ee/case/177/' } },
   async ({ browser }) => {
     const customerEmail = createAnonymizerEmail('mari.tamm.');
@@ -47,30 +47,29 @@ test(
         const cPage = await customerContext.newPage();
         const customer = new WidgetPage(cPage);
 
-        let greeting = '';
-        let chatId = '';
+        const { greeting, chatId } =
+          await test.step('The customer writes their e-mail address to the bot and sees it as they typed it', async () => {
+            await cPage.goto(URLS.customer);
+            await customer.openChat();
 
-        await test.step('The customer writes their e-mail address to the bot and sees it as they typed it', async () => {
-          await cPage.goto(URLS.customer);
-          await customer.openChat();
+            const greeting = await customer.botGreeting();
 
-          greeting = await customer.botGreeting();
+            await customer.sendMessage(customerMessage);
 
-          await customer.sendMessage(customerMessage);
-          chatId = await customer.chatId();
-        });
+            return { greeting, chatId: await customer.chatId() };
+          });
 
         await test.step('The customer ends the conversation', async () => {
-          await customer.closeChat();
+          await customer.endChatWithoutAnswerAndSkipFeedback();
         });
 
         await test.step('The operator finds that very conversation in the chat log', async () => {
           await page.bringToFront();
-          await history.openChat(chatId);
+          await history.openConversation(chatId);
         });
 
         await test.step('The log holds the address the customer typed as an anonymized value', async () => {
-          await history.expectCustomerMessagesAnonymize({ hidden: [customerEmail], kept: ['[EMAIL_ADDRESS]'] });
+          await history.expectCustomerMessagesAnonymized({ hidden: [customerEmail], kept: ['[EMAIL_ADDRESS]'] });
         });
 
         await test.step('The log holds what the bot said exactly as the customer saw it', async () => {

@@ -12,16 +12,16 @@ import { URLS } from '@utils/env';
 import { AnonymizedText, ConversationAnalysis, RouteReadyOptions } from '@utils/interfaces';
 import { waitForHistoryReady } from '@utils/waits';
 
-const THEME = 0;
-const RESPONSE_QUALITY = 1;
-const FOLLOW_UP_ACTION = 2;
+const THEME_INDEX = 0;
+const RESPONSE_QUALITY_INDEX = 1;
+const FOLLOW_UP_ACTION_INDEX = 2;
 
 export class HistoryPage {
   private readonly page: Page;
 
   private readonly headingHistory: Locator;
   private readonly table: Locator;
-  private readonly conversationsTable: PaginatedDataTable;
+  private readonly endedConversationsTable: PaginatedDataTable;
 
   private readonly drawer: Locator;
   private readonly buttonCloseDrawer: Locator;
@@ -40,7 +40,7 @@ export class HistoryPage {
 
     this.headingHistory = this.page.getByRole('heading', { name: /^History/ });
     this.table = this.page.locator('table.data-table').first();
-    this.conversationsTable = new PaginatedDataTable(this.page, { table: this.table, rowLabelSelector: 'td' });
+    this.endedConversationsTable = new PaginatedDataTable(this.page, { table: this.table, rowLabelSelector: 'td' });
 
     this.drawer = this.page.locator('.drawer').first();
     this.buttonCloseDrawer = this.drawer.locator('.drawer__close');
@@ -61,7 +61,8 @@ export class HistoryPage {
 
   async open(): Promise<void> {
     const endedChatsLoaded = this.page.waitForResponse(
-      (response) => response.url().includes(ENDED_CHATS_PATH) && response.ok(),
+      (response) =>
+        response.url().includes(ENDED_CHATS_PATH) && response.request().method() === 'POST' && response.ok(),
       { timeout: ACTION_TIMEOUT },
     );
 
@@ -91,7 +92,10 @@ export class HistoryPage {
     throw new Error(`History contains no conversation for "${webpage}" under the filters applied on load`);
   }
 
-  async openConversation(conversationId: string, { timeout = ACTION_TIMEOUT }: RouteReadyOptions = {}): Promise<void> {
+  async openConversationDetails(
+    conversationId: string,
+    { timeout = ACTION_TIMEOUT }: RouteReadyOptions = {},
+  ): Promise<void> {
     const measurementsLoaded = this.page.waitForResponse(
       (response) => response.url().includes(CHAT_MEASUREMENTS_PATH) && response.request().method() === 'GET',
       { timeout },
@@ -106,7 +110,12 @@ export class HistoryPage {
       timeout,
     });
 
-    await measurementsLoaded;
+    const response = await measurementsLoaded;
+
+    expect(
+      response.ok(),
+      `The admin would not load the analysis of "${conversationId}" (${response.status()})`,
+    ).toBeTruthy();
   }
 
   async closeConversation({ timeout = ACTION_TIMEOUT }: RouteReadyOptions = {}): Promise<void> {
@@ -115,15 +124,15 @@ export class HistoryPage {
   }
 
   async selectTheme(value: string): Promise<void> {
-    await this.chooseAnalysisValue(THEME, value);
+    await this.chooseAnalysisValue(THEME_INDEX, value);
   }
 
   async selectResponseQuality(value: string): Promise<void> {
-    await this.chooseAnalysisValue(RESPONSE_QUALITY, value);
+    await this.chooseAnalysisValue(RESPONSE_QUALITY_INDEX, value);
   }
 
   async selectFollowUpAction(value: string): Promise<void> {
-    await this.chooseAnalysisValue(FOLLOW_UP_ACTION, value);
+    await this.chooseAnalysisValue(FOLLOW_UP_ACTION_INDEX, value);
   }
 
   async assertThemeWasSaved(options: RouteReadyOptions = {}): Promise<void> {
@@ -140,9 +149,9 @@ export class HistoryPage {
 
   async readAnalysisSelections(): Promise<ConversationAnalysis> {
     return {
-      theme: await this.analysisSelectionText(THEME),
-      responseQuality: await this.analysisSelectionText(RESPONSE_QUALITY),
-      followUpAction: await this.analysisSelectionText(FOLLOW_UP_ACTION),
+      theme: await this.analysisSelectionText(THEME_INDEX),
+      responseQuality: await this.analysisSelectionText(RESPONSE_QUALITY_INDEX),
+      followUpAction: await this.analysisSelectionText(FOLLOW_UP_ACTION_INDEX),
     };
   }
 
@@ -167,29 +176,29 @@ export class HistoryPage {
   }
 
   async clearAnalysisSelections({ theme, responseQuality, followUpAction }: ConversationAnalysis): Promise<void> {
-    await this.clearAnalysisValue(THEME, theme);
-    await this.clearAnalysisValue(RESPONSE_QUALITY, responseQuality);
-    await this.clearAnalysisValue(FOLLOW_UP_ACTION, followUpAction);
+    await this.clearAnalysisValue(THEME_INDEX, theme);
+    await this.clearAnalysisValue(RESPONSE_QUALITY_INDEX, responseQuality);
+    await this.clearAnalysisValue(FOLLOW_UP_ACTION_INDEX, followUpAction);
   }
 
-  async openChat(chatId: string): Promise<void> {
-    const shownId = chatId.slice(0, 8);
-    const row = this.conversationRow(shownId);
+  async openConversation(conversationId: string): Promise<void> {
+    const shortConversationId = conversationId.slice(0, 8);
+    const row = this.conversationRow(shortConversationId);
 
     await expect(async () => {
       await this.open();
-      await expect(row, `The chat log never listed the conversation ${chatId}`).toBeVisible({
+      await expect(row, `The chat log never listed the conversation ${conversationId}`).toBeVisible({
         timeout: TABLE_SETTLE_TIMEOUT,
       });
     }).toPass({ timeout: CHAT_LOG_TIMEOUT });
 
-    await this.openConversation(shownId);
-    await expect(this.transcript, `The chat log never opened the transcript of ${chatId}`).toBeVisible({
+    await this.openConversationDetails(shortConversationId);
+    await expect(this.transcript, `The chat log never opened the transcript of ${conversationId}`).toBeVisible({
       timeout: ACTION_TIMEOUT,
     });
   }
 
-  async expectCustomerMessagesAnonymize({ hidden, kept }: AnonymizedText): Promise<void> {
+  async expectCustomerMessagesAnonymized({ hidden, kept }: AnonymizedText): Promise<void> {
     await expect(async () => {
       const messages = (await this.customerMessages.allInnerTexts()).join('\n');
 
@@ -213,11 +222,11 @@ export class HistoryPage {
   }
 
   private conversationRow(conversationId: string): Locator {
-    return this.conversationsTable.getRowByText(conversationId).first();
+    return this.endedConversationsTable.getRowByText(conversationId).first();
   }
 
   private rows(): Locator {
-    return this.conversationsTable.getRows();
+    return this.endedConversationsTable.getRows();
   }
 
   private async columnIndex(name: string): Promise<number> {
