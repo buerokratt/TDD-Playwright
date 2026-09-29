@@ -12,7 +12,7 @@ export class ChatAnalysisPage {
   private readonly headingChatAnalysis: Locator;
 
   private readonly domainTabs: Locator;
-  private readonly domainTabsActive: Locator;
+  private readonly domainTabActive: Locator;
   private readonly buttonCopyToDomain: Locator;
   private readonly copyToDomain: CopyToDomainModal;
 
@@ -32,7 +32,7 @@ export class ChatAnalysisPage {
     this.headingChatAnalysis = this.page.getByRole('heading', { name: 'Chat analysis management', exact: true });
 
     this.domainTabs = this.page.locator('main .domain-tab-selector__tab');
-    this.domainTabsActive = this.page.locator('main .domain-tab-selector__tab--active');
+    this.domainTabActive = this.page.locator('main .domain-tab-selector__tab--active');
     this.buttonCopyToDomain = this.page.locator('main').getByRole('button', { name: 'Copy to domain' });
     this.copyToDomain = new CopyToDomainModal(this.page, {
       button: this.buttonCopyToDomain,
@@ -70,7 +70,7 @@ export class ChatAnalysisPage {
 
   async assertDomainTabsAreShown({ timeout = ACTION_TIMEOUT }: RouteReadyOptions = {}): Promise<void> {
     await expect(this.domainTabs.first(), 'The page rendered no domain tab').toBeVisible({ timeout });
-    await expect(this.domainTabsActive, 'The domain tabs left no domain selected').toHaveCount(1);
+    await expect(this.domainTabActive, 'The domain tabs left no domain selected').toHaveCount(1);
   }
 
   async domainTabCount({ timeout = ACTION_TIMEOUT }: RouteReadyOptions = {}): Promise<number> {

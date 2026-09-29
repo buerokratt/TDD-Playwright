@@ -91,7 +91,7 @@ test.describe('[administration] [functional] The anonymizer testing card anonymi
         });
 
         await test.step('The output hides the address and the denied word, and keeps the allowed address and the rest of the text', async () => {
-          await ap.assertOutputAnonymizes({
+          await ap.assertOutputWasAnonymized({
             hidden: [anonymizedEmail, deniedWord],
             kept: [allowedEmail, untouchedWord],
           });
@@ -108,7 +108,7 @@ test.describe('[administration] [functional] The anonymizer testing card anonymi
 
 test.describe('[administration] [functional] Anonymizer settings are copied from one domain to another', () => {
   test(
-    'The copied domain comes back holding the settings of the domain they were copied from',
+    'The target domain is confirmed and comes back holding the settings of the source',
     { annotation: { type: 'kiwi case', description: 'https://monitooring.test.buerokratt.ee/case/173/' } },
     async ({ page }) => {
       const ap = new AdminPageFactory(page).getAnonymizerPage();
@@ -116,7 +116,7 @@ test.describe('[administration] [functional] Anonymizer settings are copied from
       await ap.open();
 
       const domains = await ap.domainNames();
-      expect(domains.length, 'The stand offers too few domains to copy anonymizer settings between').toBeGreaterThan(1);
+      expect(domains.length, 'Copying settings is only offered where a second domain exists').toBeGreaterThan(1);
 
       const [source, target] = domains;
 
@@ -130,7 +130,7 @@ test.describe('[administration] [functional] Anonymizer settings are copied from
           recordAnonymously: settingsBefore[source].recordAnonymously,
         };
 
-        await test.step(`The settings of "${source}" are made to differ from those of "${target}"`, async () => {
+        await test.step('The source domain is given settings the target does not have', async () => {
           await ap.selectDomain(source);
           await ap.applySettings(settings);
           await ap.saveSettings();
@@ -142,12 +142,12 @@ test.describe('[administration] [functional] Anonymizer settings are copied from
           ).not.toEqual(settings);
         });
 
-        await test.step(`Copying the settings onto "${target}" is confirmed on the page`, async () => {
+        await test.step(`Copying them onto "${target}" reports the settings went through`, async () => {
           await ap.copySettingsTo(target);
           await ap.assertSaveWasConfirmed();
         });
 
-        await test.step(`The tab of "${target}" comes back holding the settings of "${source}"`, async () => {
+        await test.step('The target domain comes back with the settings of the source', async () => {
           await ap.selectDomain(target);
           await ap.assertSettingsStored(settings);
         });

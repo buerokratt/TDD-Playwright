@@ -26,7 +26,7 @@ export class AnonymizerPage {
   private readonly sectionHeadingDenylist: Locator;
 
   private readonly domainTabs: Locator;
-  private readonly domainTabsActive: Locator;
+  private readonly domainTabActive: Locator;
   private readonly buttonCopyToDomain: Locator;
   private readonly copyToDomain: CopyToDomainModal;
 
@@ -61,7 +61,7 @@ export class AnonymizerPage {
     this.sectionHeadingDenylist = heading('Add words to the denylist');
 
     this.domainTabs = this.page.locator('main .domain-tab-selector__tab');
-    this.domainTabsActive = this.page.locator('main .domain-tab-selector__tab--active');
+    this.domainTabActive = this.page.locator('main .domain-tab-selector__tab--active');
     this.buttonCopyToDomain = this.page.getByRole('button', { name: 'Copy to domain', exact: true });
     this.copyToDomain = new CopyToDomainModal(this.page, {
       button: this.buttonCopyToDomain,
@@ -109,7 +109,7 @@ export class AnonymizerPage {
 
   async assertDomainTabsAreShown(): Promise<void> {
     await expect(this.domainTabs.first(), 'The page rendered no domain tab').toBeVisible();
-    await expect(this.domainTabsActive, 'The domain tabs left no domain selected').toHaveCount(1);
+    await expect(this.domainTabActive, 'The domain tabs left no domain selected').toHaveCount(1);
   }
 
   async assertApproachOptionsAreOffered(): Promise<void> {
@@ -131,7 +131,7 @@ export class AnonymizerPage {
     );
 
     for (const entity of ANONYMIZER_ENTITIES) {
-      await expect(this.optionEntity(entity), `The entities section offers no "${entity}" checkbox`).toBeVisible();
+      await expect(this.entityOption(entity), `The entities section offers no "${entity}" checkbox`).toBeVisible();
     }
   }
 
@@ -176,7 +176,7 @@ export class AnonymizerPage {
     );
   }
 
-  async assertOutputAnonymizes({ hidden, kept }: AnonymizedText): Promise<void> {
+  async assertOutputWasAnonymized({ hidden, kept }: AnonymizedText): Promise<void> {
     await expect(async () => {
       const output = await this.textareaOutputText.inputValue();
 
@@ -225,7 +225,7 @@ export class AnonymizerPage {
 
   async readSettings(): Promise<AnonymizerSettings> {
     return {
-      approach: (await this.approachText().innerText()).trim() as AnonymizerApproach,
+      approach: await this.selectedApproach(),
       entities: await this.checkedEntities(),
       allowlist: await this.listedWords(this.sectionAllowlist),
       denylist: await this.listedWords(this.sectionDenylist),
@@ -268,7 +268,7 @@ export class AnonymizerPage {
     try {
       await body(settingsBefore);
     } finally {
-      await this.restore(settingsBefore).catch((error: unknown) => {
+      await this.restoreSettings(settingsBefore).catch((error: unknown) => {
         test.info().annotations.push({
           type: 'anonymizer settings left changed',
           description: error instanceof Error ? error.message.split('\n')[0] : String(error),
@@ -292,7 +292,7 @@ export class AnonymizerPage {
       await body(settingsBefore);
     } finally {
       for (const domain of domains) {
-        await this.restoreDomain(domain, settingsBefore[domain]).catch((error: unknown) => {
+        await this.restoreSettingsForDomain(domain, settingsBefore[domain]).catch((error: unknown) => {
           test.info().annotations.push({
             type: `anonymizer settings left changed on "${domain}"`,
             description: error instanceof Error ? error.message.split('\n')[0] : String(error),
@@ -326,14 +326,14 @@ export class AnonymizerPage {
     return this.domainTabs.nth(index);
   }
 
-  private async restoreDomain(domain: string, settings: AnonymizerSettings): Promise<void> {
+  private async restoreSettingsForDomain(domain: string, settings: AnonymizerSettings): Promise<void> {
     await this.selectDomain(domain);
     await this.applySettings(settings);
     await this.saveSettings();
     await this.assertSaveWasConfirmed();
   }
 
-  private async restore(settings: AnonymizerSettings): Promise<void> {
+  private async restoreSettings(settings: AnonymizerSettings): Promise<void> {
     await this.open();
     await this.applySettings(settings);
     await this.saveSettings();
@@ -360,7 +360,18 @@ export class AnonymizerPage {
     return this.triggerApproachSelector.locator('p');
   }
 
-  private optionEntity(entity: string): Locator {
+  private async selectedApproach(): Promise<AnonymizerApproach> {
+    const shown = (await this.approachText().innerText()).trim();
+    const approach = ANONYMIZER_APPROACHES.find((candidate) => candidate === shown);
+
+    if (!approach) {
+      throw new Error(`The anonymizer displayed an unknown approach: "${shown}"`);
+    }
+
+    return approach;
+  }
+
+  private entityOption(entity: string): Locator {
     return this.sectionEntities.locator(`input[type="checkbox"][name="${entity}"]`);
   }
 
@@ -376,7 +387,7 @@ export class AnonymizerPage {
     const checked: AnonymizerEntity[] = [];
 
     for (const entity of ANONYMIZER_ENTITIES) {
-      if (await this.optionEntity(entity).isChecked()) {
+      if (await this.entityOption(entity).isChecked()) {
         checked.push(entity);
       }
     }
@@ -403,7 +414,7 @@ export class AnonymizerPage {
   private async setEntities(entities: readonly AnonymizerEntity[]): Promise<void> {
     await expect(async () => {
       for (const entity of ANONYMIZER_ENTITIES) {
-        const checkbox = this.optionEntity(entity);
+        const checkbox = this.entityOption(entity);
         const wanted = entities.includes(entity);
 
         if ((await checkbox.isChecked()) !== wanted) {
