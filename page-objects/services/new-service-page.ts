@@ -3,7 +3,7 @@ import { Locator, Page, expect } from '@playwright/test';
 import { ACTION_TIMEOUT } from '@utils/constants';
 import { RouteReadyOptions, SaveServiceOptions, ServiceData } from '@utils/interfaces';
 import { normalizeServiceTitle } from '@utils/test-data';
-import { waitForNewServiceReady } from '@utils/waits';
+import { isEventuallyVisible, waitForNewServiceReady } from '@utils/waits';
 
 type ServiceInput = string | Partial<ServiceData>;
 
@@ -581,44 +581,10 @@ export class NewServicePage {
 
   async clickAddNodeAtEdgeIndex(index = 0): Promise<void> {
     await this.waitForReady();
-    const candidates = [
-      this.edgeAddButtons.filter({ hasText: '+' }).nth(index),
-      this.edgeAddButtons.nth(index),
-      this.edgeAddButtons.first(),
-      this.edgeAddButtons.last(),
-    ];
-
-    for (const btn of candidates) {
-      if (!(await btn.count().catch(() => 0))) continue;
-      if (!(await btn.isVisible().catch(() => false))) continue;
-      await btn.scrollIntoViewIfNeeded().catch(() => {});
-      await btn.click({ force: true }).catch(() => {});
-      if (await this.nodePickerDialog.isVisible().catch(() => false)) break;
-    }
-
-    if (!(await this.nodePickerDialog.isVisible().catch(() => false))) {
-      const fallbackPlus = this.flowWrapper
-        .locator('button, [role="button"], div, span')
-        .filter({
-          hasText: /^\+$/,
-        })
-        .last();
-
-      if (await fallbackPlus.isVisible().catch(() => false)) {
-        await fallbackPlus.scrollIntoViewIfNeeded().catch(() => {});
-        await fallbackPlus.click({ force: true }).catch(() => {});
-      }
-    }
-
-    if (!(await this.nodePickerDialog.isVisible().catch(() => false))) {
-      const fallbackTarget = this.edgeAddButtons.first();
-      const box = await fallbackTarget.boundingBox().catch(() => null);
-      if (box) {
-        await this.page.mouse.click(box.x + box.width / 2, box.y + box.height / 2);
-      }
-    }
-
-    await expect(this.nodePickerDialog).toBeVisible({ timeout: 10000 });
+    await expect(async () => {
+      await this.edgeAddButtons.nth(index).click({ timeout: 2000 });
+      await expect(this.nodePickerDialog).toBeVisible({ timeout: 2000 });
+    }).toPass({ timeout: ACTION_TIMEOUT });
   }
 
   async clickAddNode(): Promise<void> {
@@ -655,6 +621,7 @@ export class NewServicePage {
   async openNodeDialogByTitle(titleText: string): Promise<void> {
     const node = this.getFlowNodeByTitle(titleText);
     await expect(node).toBeVisible();
+    await isEventuallyVisible(node.locator('button').first(), ACTION_TIMEOUT);
 
     const buttonCandidates = [
       node.getByRole('button', { name: /edit/i }).first(),
