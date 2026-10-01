@@ -26,8 +26,7 @@ test.describe('[widget] [functional] An idle conversation follows the session le
   });
 
   test.afterEach(async () => {
-    await customerContext.close();
-    await csaContext.close();
+    await Promise.all([customerContext.close(), csaContext.close()]);
   });
 
   test(

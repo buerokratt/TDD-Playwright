@@ -77,8 +77,7 @@ test(
         });
       });
     } finally {
-      await customerContext.close();
-      await csaContext.close();
+      await Promise.all([customerContext.close(), csaContext.close()]);
     }
   },
 );
