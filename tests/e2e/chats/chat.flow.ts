@@ -73,8 +73,7 @@ test('[e2e] [chats] A routed chat carries messages both ways between customer an
       await customerPage.expectMessageNeverDelivered(neverSentMarker);
     });
   } finally {
-    await customerContext.close();
-    await csaContext.close();
+    await Promise.all([customerContext.close(), csaContext.close()]);
   }
 });
 
@@ -97,7 +96,6 @@ test('[e2e] [chats] The widget offers no operator while the CSA is unavailable',
       await customerPage.expectNoOperatorOffered(botCannotAnswer);
     });
   } finally {
-    await customerContext.close();
-    await csaContext.close();
+    await Promise.all([customerContext.close(), csaContext.close()]);
   }
 });

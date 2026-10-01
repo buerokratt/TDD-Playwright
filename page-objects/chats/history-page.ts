@@ -61,14 +61,16 @@ export class HistoryPage {
 
   async open(): Promise<void> {
     const endedChatsLoaded = this.page.waitForResponse(
-      (response) =>
-        response.url().includes(ENDED_CHATS_PATH) && response.request().method() === 'POST' && response.ok(),
+      (response) => response.url().includes(ENDED_CHATS_PATH) && response.request().method() === 'POST',
       { timeout: ACTION_TIMEOUT },
     );
 
     await this.page.goto(URLS.admin + 'chat/history');
     await this.waitForReady();
-    await endedChatsLoaded;
+
+    const response = await endedChatsLoaded;
+
+    expect(response.ok(), `The admin would not list the ended chats (${response.status()})`).toBeTruthy();
   }
 
   async assertPageIsShown(): Promise<void> {
@@ -284,7 +286,7 @@ export class HistoryPage {
   }
 
   private async clearAnalysisValue(index: number, value: string): Promise<void> {
-    if (!(await this.analysisSelectionText(index)).includes(value)) {
+    if ((await this.analysisSelectionText(index)) !== value) {
       return;
     }
 
