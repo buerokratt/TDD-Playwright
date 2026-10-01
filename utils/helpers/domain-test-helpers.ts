@@ -20,7 +20,7 @@ export async function customerWidgetName(page: Page): Promise<string> {
 
   const activity = (await activityResponse.json()) as { response: CsaActivity };
 
-  const response = await page.request.get(`${WIDGET_DATA_URL}?user_id=${activity.response.idCode}`);
+  const response = await page.request.get(WIDGET_DATA_URL, { params: { user_id: activity.response.idCode } });
 
   expect(response.ok(), `The back office would not list its widgets (${response.status()})`).toBeTruthy();
 
