@@ -57,13 +57,6 @@ export class Header {
     }).toPass({ timeout: ACTION_TIMEOUT });
   }
 
-  // Leaves the account deactivated: the back office then renders no header at all on
-  // the next load, so presence cannot be restored through the UI and every later test
-  // sharing this account needs a fresh login. Only call it if the test restores presence.
-  async markCsaAway(): Promise<void> {
-    await this.setCsaStatus('offline');
-  }
-
   // The switch renders from the account's `active` flag, not from its status, so
   // `data-state` reads `checked` while the account still sits on `idle` and the bot
   // answers an escalation with "Nõustaja on eemal" instead of offering an agent.
