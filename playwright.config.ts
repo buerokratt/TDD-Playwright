@@ -146,6 +146,53 @@ export default defineConfig({
       },
       dependencies: ['setup'],
     },
+    {
+      name: 'smoke-webkit',
+      testMatch: '**/*.smoke.ts',
+      use: {
+        ...devices['Desktop Safari'],
+        storageState: ADMIN_AUTH_STATE,
+        viewport: VIEWPORT,
+        contextOptions: { screen: VIEWPORT },
+      },
+      dependencies: ['setup'],
+    },
+    {
+      name: 'flow-webkit',
+      testMatch: '**/*.flow.ts',
+      use: {
+        ...devices['Desktop Safari'],
+        actionTimeout: ACTION_TIMEOUT,
+        storageState: ADMIN_AUTH_STATE,
+        viewport: VIEWPORT,
+        contextOptions: { screen: VIEWPORT },
+      },
+      dependencies: ['setup'],
+    },
+    {
+      name: 'tests-webkit',
+      testMatch: '**/*.test.ts',
+      testIgnore: '**/tests/widget/**',
+      use: {
+        ...devices['Desktop Safari'],
+        storageState: ADMIN_AUTH_STATE,
+        viewport: VIEWPORT,
+        contextOptions: { screen: VIEWPORT },
+      },
+      dependencies: ['setup'],
+    },
+    {
+      name: 'widget-webkit',
+      testMatch: '**/tests/widget/**/*.test.ts',
+      use: {
+        ...devices['Desktop Safari'],
+        actionTimeout: ACTION_TIMEOUT,
+        storageState: ADMIN_AUTH_STATE,
+        viewport: VIEWPORT,
+        contextOptions: { screen: VIEWPORT },
+      },
+      dependencies: ['setup'],
+    },
   ],
 });
 
