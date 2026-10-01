@@ -2,8 +2,13 @@ import { AdminPageFactory } from '@page-objects/admin-page-factory';
 import { expect, test } from '@setup/test-setup';
 import { ACTION_TIMEOUT, CHAT_ANALYSIS_LABEL_SECTIONS } from '@utils/constants';
 import { URLS } from '@utils/env';
-import { chatAnalysisCleanup, conversationAnalysisCleanup, readUserDisplayName } from '@utils/helpers';
-import { AnalysedConversation, ConversationAnalysis } from '@utils/interfaces';
+import {
+  chatAnalysisConfigRestore,
+  conversationAnalysisCleanup,
+  readChatAnalysisConfig,
+  readUserDisplayName,
+} from '@utils/helpers';
+import { AnalysedConversation, ChatAnalysisDomainSnapshot, ConversationAnalysis } from '@utils/interfaces';
 import { createChatAnalysisLabel } from '@utils/test-data';
 
 const [themeSection, qualitySection, followUpSection] = CHAT_ANALYSIS_LABEL_SECTIONS;
@@ -16,9 +21,12 @@ const analysis: ConversationAnalysis = {
 
 test.describe('[conversations] [functional] A conversation is analysed from the conversation drawer', () => {
   let analysed: AnalysedConversation | undefined;
+  let settingsBefore: ChatAnalysisDomainSnapshot | undefined;
 
-  test.afterEach(conversationAnalysisCleanup(() => analysed));
-  test.afterEach(chatAnalysisCleanup(() => [analysis.theme, analysis.responseQuality, analysis.followUpAction]));
+  test.afterEach(async ({ page }) => {
+    await conversationAnalysisCleanup(() => analysed)({ page });
+    await chatAnalysisConfigRestore(() => settingsBefore)({ page });
+  });
 
   test(
     'The values picked are confirmed, kept on the card and carried into the conversations table',
@@ -30,7 +38,11 @@ test.describe('[conversations] [functional] A conversation is analysed from the 
 
       await test.step('The domain the conversations belong to has a label in every section', async () => {
         await cap.open();
-        await cap.selectDomainTab();
+
+        const domainId = await cap.selectDomainTab();
+
+        settingsBefore = { domainId, config: await readChatAnalysisConfig(page, domainId) };
+
         await cap.enableAnalysis();
 
         await cap.addLabel(themeSection.title, analysis.theme);
