@@ -24,6 +24,10 @@ export class AnonymizerPage {
   private readonly sectionHeadingEntities: Locator;
   private readonly sectionHeadingAllowlist: Locator;
   private readonly sectionHeadingDenylist: Locator;
+  private readonly noteEntities: Locator;
+  private readonly noteAllowlist: Locator;
+  private readonly noteDenylist: Locator;
+  private readonly noteTesting: Locator;
 
   private readonly domainTabs: Locator;
   private readonly domainTabActive: Locator;
@@ -59,6 +63,16 @@ export class AnonymizerPage {
     this.sectionHeadingEntities = heading('Entities to anonymize');
     this.sectionHeadingAllowlist = heading('Add words to the allowlist');
     this.sectionHeadingDenylist = heading('Add words to the denylist');
+    this.noteEntities = this.page.getByText(
+      'Select the types of entities you want to anonymize in the conversations with the user.',
+      { exact: true },
+    );
+    this.noteAllowlist = this.page.getByText('Allowlist contains words that should not be anonymized', { exact: true });
+    this.noteDenylist = this.page.getByText('Denylist contains words that should be anonymized', { exact: true });
+    this.noteTesting = this.page.getByText(
+      'To test your anonymizer configuration, enter the input text and press "Anonymize"',
+      { exact: true },
+    );
 
     this.domainTabs = this.page.locator('main .domain-tab-selector__tab');
     this.domainTabActive = this.page.locator('main .domain-tab-selector__tab--active');
@@ -126,6 +140,7 @@ export class AnonymizerPage {
 
   async assertEntitiesAreOffered(): Promise<void> {
     await expect(this.sectionHeadingEntities, 'The settings hold no entities section').toBeVisible();
+    await expect(this.noteEntities, 'The entities section explains nothing about what it selects').toBeVisible();
     await expect(this.optionsEntities, 'The entities section lists a different number of entities').toHaveCount(
       ANONYMIZER_ENTITIES.length,
     );
@@ -137,9 +152,11 @@ export class AnonymizerPage {
 
   async assertWordListsAreOffered(): Promise<void> {
     await expect(this.sectionHeadingAllowlist, 'The settings hold no allowlist section').toBeVisible();
+    await expect(this.noteAllowlist, 'The allowlist section explains nothing about the words it holds').toBeVisible();
     await expect(this.wordInput(this.sectionAllowlist), 'The allowlist section takes no word').toBeVisible();
 
     await expect(this.sectionHeadingDenylist, 'The settings hold no denylist section').toBeVisible();
+    await expect(this.noteDenylist, 'The denylist section explains nothing about the words it holds').toBeVisible();
     await expect(this.wordInput(this.sectionDenylist), 'The denylist section takes no word').toBeVisible();
   }
 
@@ -158,6 +175,7 @@ export class AnonymizerPage {
 
   async assertTestingCardIsShown(): Promise<void> {
     await expect(this.headingAnonymizerTesting, 'The page holds no anonymizer testing card').toBeVisible();
+    await expect(this.noteTesting, 'The testing card explains nothing about how to use it').toBeVisible();
     await expect(this.textareaInputText, 'The testing card takes no text to anonymize').toBeVisible();
     await expect(this.buttonClear, 'The testing card offers no way to clear the text entered').toBeVisible();
     await expect(this.buttonAnonymize, 'The testing card offers no way to anonymize the text entered').toBeVisible();

@@ -3,7 +3,7 @@ import { test } from '@setup/test-setup';
 
 test.describe('[administration] [visibility] The anonymizer page shows its settings and testing controls', () => {
   test(
-    'The page opens with its domain tabs, its approach dropdown, its entities, both word lists, both toggles and the testing card',
+    'The page opens with its domain tabs, its approach dropdown, its entities, both word lists, both toggles, the testing card and their notes',
     { annotation: { type: 'kiwi case', description: 'https://monitooring.test.buerokratt.ee/case/155/' } },
     async ({ page }) => {
       const ap = new AdminPageFactory(page).getAnonymizerPage();
@@ -22,11 +22,11 @@ test.describe('[administration] [visibility] The anonymizer page shows its setti
         await ap.assertApproachOptionsAreOffered();
       });
 
-      await test.step('The entities section offers every entity that can be anonymized', async () => {
+      await test.step('The entities section offers every entity that can be anonymized and shows its note', async () => {
         await ap.assertEntitiesAreOffered();
       });
 
-      await test.step('The allowlist and denylist each show an input for adding words', async () => {
+      await test.step('The allowlist and denylist each show their note and an input for adding words', async () => {
         await ap.assertWordListsAreOffered();
       });
 
@@ -34,7 +34,7 @@ test.describe('[administration] [visibility] The anonymizer page shows its setti
         await ap.assertTogglesAreShown();
       });
 
-      await test.step('The heading, input and output text areas, clear and anonymize controls are on the testing card', async () => {
+      await test.step('The heading, the note, input and output text areas, clear and anonymize controls are on the testing card', async () => {
         await ap.assertTestingCardIsShown();
       });
     },
