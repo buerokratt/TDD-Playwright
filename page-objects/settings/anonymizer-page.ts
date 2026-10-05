@@ -285,14 +285,14 @@ export class AnonymizerPage {
 
     try {
       await body(settingsBefore);
-    } finally {
-      await this.restoreSettings(settingsBefore).catch((error: unknown) => {
-        test.info().annotations.push({
-          type: 'anonymizer settings left changed',
-          description: error instanceof Error ? error.message.split('\n')[0] : String(error),
-        });
+    } catch (error) {
+      await this.restoreSettings(settingsBefore).catch((restoreError: unknown) => {
+        this.annotateRestoreFailure('anonymizer settings left changed', restoreError);
       });
+      throw error;
     }
+
+    await this.restoreSettings(settingsBefore);
   }
 
   async withSettingsRestoredForDomains(
@@ -308,16 +308,15 @@ export class AnonymizerPage {
 
     try {
       await body(settingsBefore);
-    } finally {
-      for (const domain of domains) {
-        await this.restoreSettingsForDomain(domain, settingsBefore[domain]).catch((error: unknown) => {
-          test.info().annotations.push({
-            type: `anonymizer settings left changed on "${domain}"`,
-            description: error instanceof Error ? error.message.split('\n')[0] : String(error),
-          });
-        });
-      }
+    } catch (error) {
+      await this.restoreSettingsForDomains(settingsBefore);
+      throw error;
     }
+
+    expect(
+      await this.restoreSettingsForDomains(settingsBefore),
+      'The anonymizer settings could not be put back on every domain',
+    ).toEqual([]);
   }
 
   private async openDomainTab(tab: Locator, domain: string): Promise<void> {
@@ -349,6 +348,26 @@ export class AnonymizerPage {
     await this.applySettings(settings);
     await this.saveSettings();
     await this.assertSaveWasConfirmed();
+  }
+
+  private async restoreSettingsForDomains(settings: Record<string, AnonymizerSettings>): Promise<string[]> {
+    const leftChanged: string[] = [];
+
+    for (const [domain, settingsBefore] of Object.entries(settings)) {
+      await this.restoreSettingsForDomain(domain, settingsBefore).catch((error: unknown) => {
+        this.annotateRestoreFailure(`anonymizer settings left changed on "${domain}"`, error);
+        leftChanged.push(domain);
+      });
+    }
+
+    return leftChanged;
+  }
+
+  private annotateRestoreFailure(type: string, error: unknown): void {
+    test.info().annotations.push({
+      type,
+      description: error instanceof Error ? error.message.split('\n')[0] : String(error),
+    });
   }
 
   private async restoreSettings(settings: AnonymizerSettings): Promise<void> {
