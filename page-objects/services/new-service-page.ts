@@ -581,10 +581,8 @@ export class NewServicePage {
 
   async clickAddNodeAtEdgeIndex(index = 0): Promise<void> {
     await this.waitForReady();
-    await expect(async () => {
-      await this.edgeAddButtons.nth(index).click({ timeout: 2000 });
-      await expect(this.nodePickerDialog).toBeVisible({ timeout: 2000 });
-    }).toPass({ timeout: ACTION_TIMEOUT });
+    await this.edgeAddButtons.nth(index).click();
+    await expect(this.nodePickerDialog).toBeVisible();
   }
 
   async clickAddNode(): Promise<void> {

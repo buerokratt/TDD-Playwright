@@ -38,10 +38,6 @@ export default defineConfig({
 
   projects: [
     {
-      name: 'mock',
-      testMatch: '**/*.mock.ts',
-    },
-    {
       name: 'auth',
       testMatch: '**/auth.setup.ts',
       use: {
