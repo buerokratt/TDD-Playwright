@@ -13,12 +13,13 @@ const CHROMIUM_BACKGROUND_ARGS = [
 export const SHARED_USE = {
   viewport: VIEWPORT,
   contextOptions: { screen: VIEWPORT },
+  deviceScaleFactor: 1,
 };
 
 const BROWSERS = [
-  { name: 'chromium', suffix: '', device: devices['Desktop Chrome'] },
-  { name: 'firefox', suffix: '-firefox', device: devices['Desktop Firefox'] },
-  { name: 'webkit', suffix: '-webkit', device: devices['Desktop Safari'] },
+  { name: 'chromium', device: devices['Desktop Chrome'] },
+  { name: 'firefox', device: devices['Desktop Firefox'] },
+  { name: 'webkit', device: devices['Desktop Safari'] },
 ];
 
 const SUITES = [
@@ -40,7 +41,7 @@ const SUITES = [
 
 export const BROWSER_PROJECTS: PlaywrightTestProject[] = BROWSERS.flatMap((browser) =>
   SUITES.map((suite) => ({
-    name: `${suite.name}${browser.suffix}`,
+    name: `${suite.name}-${browser.name}`,
     testMatch: suite.testMatch,
     testIgnore: suite.testIgnore,
     use: {
