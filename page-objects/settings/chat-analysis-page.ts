@@ -12,7 +12,7 @@ export class ChatAnalysisPage {
   private readonly headingChatAnalysis: Locator;
 
   private readonly domainTabs: Locator;
-  private readonly domainTabsActive: Locator;
+  private readonly domainTabActive: Locator;
   private readonly buttonCopyToDomain: Locator;
   private readonly copyToDomain: CopyToDomainModal;
 
@@ -22,7 +22,7 @@ export class ChatAnalysisPage {
   private readonly labelSections: Locator;
   private readonly buttonSave: Locator;
 
-  private readonly deleteDialog: Locator;
+  private readonly dialogDelete: Locator;
   private readonly buttonConfirmDelete: Locator;
   private readonly toastList: Locator;
 
@@ -32,7 +32,7 @@ export class ChatAnalysisPage {
     this.headingChatAnalysis = this.page.getByRole('heading', { name: 'Chat analysis management', exact: true });
 
     this.domainTabs = this.page.locator('main .domain-tab-selector__tab');
-    this.domainTabsActive = this.page.locator('main .domain-tab-selector__tab--active');
+    this.domainTabActive = this.page.locator('main .domain-tab-selector__tab--active');
     this.buttonCopyToDomain = this.page.locator('main').getByRole('button', { name: 'Copy to domain' });
     this.copyToDomain = new CopyToDomainModal(this.page, {
       button: this.buttonCopyToDomain,
@@ -45,8 +45,8 @@ export class ChatAnalysisPage {
     this.labelSections = this.page.locator('main .label-section');
     this.buttonSave = this.page.locator('main').getByRole('button', { name: 'Save', exact: true });
 
-    this.deleteDialog = this.page.getByRole('dialog');
-    this.buttonConfirmDelete = this.deleteDialog.getByRole('button', { name: 'Delete', exact: true });
+    this.dialogDelete = this.page.getByRole('dialog');
+    this.buttonConfirmDelete = this.dialogDelete.getByRole('button', { name: 'Delete', exact: true });
 
     this.toastList = this.page.locator('ol.toast__list');
   }
@@ -70,7 +70,7 @@ export class ChatAnalysisPage {
 
   async assertDomainTabsAreShown({ timeout = ACTION_TIMEOUT }: RouteReadyOptions = {}): Promise<void> {
     await expect(this.domainTabs.first(), 'The page rendered no domain tab').toBeVisible({ timeout });
-    await expect(this.domainTabsActive, 'The domain tabs left no domain selected').toHaveCount(1);
+    await expect(this.domainTabActive, 'The domain tabs left no domain selected').toHaveCount(1);
   }
 
   async domainTabCount({ timeout = ACTION_TIMEOUT }: RouteReadyOptions = {}): Promise<number> {
@@ -196,7 +196,7 @@ export class ChatAnalysisPage {
 
     await chip.getByRole('button', { name: `Remove ${label}` }).click();
 
-    await expect(this.deleteDialog, `Removing label "${label}" asked for no confirmation`).toContainText(
+    await expect(this.dialogDelete, `Removing label "${label}" asked for no confirmation`).toContainText(
       'Confirm deletion',
     );
     await this.buttonConfirmDelete.click();

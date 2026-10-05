@@ -33,7 +33,7 @@ test('[e2e] [chats] A routed chat carries messages both ways between customer an
     });
 
     await test.step('The operator is watching the queue', async () => {
-      await page.goto(`${URLS.admin}chat/unanswered`);
+      await page.goto(URLS.admin + 'chat/unanswered');
     });
 
     // Each step raises the window it is about to act through. Both the widget and the queue
@@ -43,7 +43,7 @@ test('[e2e] [chats] A routed chat carries messages both ways between customer an
       await cPage.bringToFront();
       await cPage.goto(URLS.customer);
       await customerPage.openChat();
-      await customerPage.getCsaChat(await csaPage.getOfficeOpeningHoursPage().noCsaAvailableMessage());
+      await customerPage.requestCsaChat(await csaPage.getOfficeOpeningHoursPage().noCsaAvailableMessage());
     });
 
     // The widget hides its message box while a question of the bot's is still unanswered, and
@@ -73,8 +73,7 @@ test('[e2e] [chats] A routed chat carries messages both ways between customer an
       await customerPage.expectMessageNeverDelivered(neverSentMarker);
     });
   } finally {
-    await customerContext.close();
-    await csaContext.close();
+    await Promise.all([customerContext.close(), csaContext.close()]);
   }
 });
 
@@ -97,7 +96,6 @@ test('[e2e] [chats] The widget offers no operator while the CSA is unavailable',
       await customerPage.expectNoOperatorOffered(botCannotAnswer);
     });
   } finally {
-    await customerContext.close();
-    await csaContext.close();
+    await Promise.all([customerContext.close(), csaContext.close()]);
   }
 });

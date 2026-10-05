@@ -42,7 +42,7 @@ export class Header {
       return;
     }
 
-    await this.page.goto(`${URLS.admin}chat/landing`);
+    await this.page.goto(URLS.admin + 'chat/landing');
 
     await expect(
       this.toggleSwitchStatus,
@@ -55,13 +55,6 @@ export class Header {
     await expect(async () => {
       expect(await this.isCsaPresent(), 'The operator stayed away after the switch was set to Present').toBeTruthy();
     }).toPass({ timeout: ACTION_TIMEOUT });
-  }
-
-  // Leaves the account deactivated: the back office then renders no header at all on
-  // the next load, so presence cannot be restored through the UI and every later test
-  // sharing this account needs a fresh login. Only call it if the test restores presence.
-  async markCsaAway(): Promise<void> {
-    await this.setCsaStatus('offline');
   }
 
   // The switch renders from the account's `active` flag, not from its status, so

@@ -27,7 +27,7 @@ export function conversationAnalysisCleanup(resolveAnalysed: AnalysedConversatio
     const history = new AdminPageFactory(page).getHistoryPage();
 
     await history.open();
-    await history.openConversation(analysed.conversationId);
+    await history.openConversationDetails(analysed.conversationId);
     await history.clearAnalysisSelections(analysed.analysis);
   };
 }

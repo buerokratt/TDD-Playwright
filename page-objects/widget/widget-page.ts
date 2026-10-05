@@ -14,31 +14,41 @@ export class WidgetPage {
   private readonly page: Page;
 
   private readonly widget: Locator;
-  private readonly bykTitle: Locator;
-  private readonly inputField: Locator;
-  private readonly sendButton: Locator;
-  private readonly buttonHamburger: Locator;
-  private readonly routeYes: Locator;
+  private readonly headingWidget: Locator;
+  private readonly buttonDetails: Locator;
+  private readonly buttonCloseChat: Locator;
 
-  private readonly buttonConfirm: Locator;
+  private readonly inputMessage: Locator;
+  private readonly buttonSendMessage: Locator;
+  private readonly botMessages: Locator;
+
+  private readonly buttonConfirmForwarding: Locator;
+  private readonly buttonEndWithoutAnswer: Locator;
   private readonly inputFeedback: Locator;
-  private readonly buttonContinue: Locator;
-  private readonly buttonClose: Locator;
+  private readonly buttonConfirmFeedback: Locator;
+  private readonly buttonSkipFeedback: Locator;
+  private readonly buttonContinueIdleChat: Locator;
+  private readonly buttonCloseEndedChat: Locator;
 
   constructor(page: Page) {
     this.page = page;
 
     this.widget = this.page.getByTitle('Open chat');
-    this.bykTitle = this.page.getByRole('heading', { name: 'Bürokratt' });
-    this.inputField = this.page.getByPlaceholder('Enter your message...');
-    this.sendButton = this.page.getByTitle('Send');
-    this.buttonHamburger = this.page.getByTitle('Details');
-    this.routeYes = this.page.getByRole('button', { name: 'Yes', exact: true });
+    this.headingWidget = this.page.getByRole('heading', { name: 'Bürokratt' });
+    this.buttonDetails = this.page.getByTitle('Details');
+    this.buttonCloseChat = this.page.getByTitle('Close', { exact: true });
 
-    this.buttonConfirm = this.page.getByRole('button', { name: 'Confirm' });
+    this.inputMessage = this.page.getByPlaceholder('Enter your message...');
+    this.buttonSendMessage = this.page.getByTitle('Send');
+    this.botMessages = this.page.locator('.admin .message-main');
+
+    this.buttonConfirmForwarding = this.page.getByRole('button', { name: 'Yes', exact: true });
+    this.buttonEndWithoutAnswer = this.page.getByRole('button', { name: 'Yes, no answer' });
     this.inputFeedback = this.page.getByPlaceholder('Enter your feedback...');
-    this.buttonContinue = this.page.getByRole('button', { name: 'Continue', exact: true });
-    this.buttonClose = this.page.getByRole('button', { name: 'Close' }).filter({ hasText: 'Close' }).first();
+    this.buttonConfirmFeedback = this.page.getByRole('button', { name: 'Confirm' });
+    this.buttonSkipFeedback = this.page.getByTitle('Skip', { exact: true });
+    this.buttonContinueIdleChat = this.page.getByRole('button', { name: 'Continue', exact: true });
+    this.buttonCloseEndedChat = this.page.getByRole('button', { name: 'Close' }).filter({ hasText: 'Close' }).first();
   }
 
   async openChat(): Promise<void> {
@@ -46,7 +56,9 @@ export class WidgetPage {
       timeout: WIDGET_REPLY_TIMEOUT,
     });
     await this.widget.click();
-    await this.bykTitle.waitFor({ state: 'visible' });
+    await expect(this.headingWidget, 'The chat launcher never opened the widget').toBeVisible({
+      timeout: WIDGET_REDRAW_TIMEOUT,
+    });
   }
 
   /**
@@ -54,11 +66,11 @@ export class WidgetPage {
    * back office's, so it carries whatever wording and language an administrator last typed.
    * The caller reads it from there and passes it in rather than this page assuming a phrase.
    */
-  async getCsaChat(noCsaAvailableMessage: string): Promise<void> {
-    await this.inputField.fill(ASK_FOR_OPERATOR);
-    await this.sendButton.click();
+  async requestCsaChat(noCsaAvailableMessage: string): Promise<void> {
+    await this.inputMessage.fill(ASK_FOR_OPERATOR);
+    await this.buttonSendMessage.click();
 
-    const offeredRouting = await isEventuallyVisible(this.routeYes, WIDGET_REPLY_TIMEOUT);
+    const offeredRouting = await isEventuallyVisible(this.buttonConfirmForwarding, WIDGET_REPLY_TIMEOUT);
 
     // Whether the bot offers an operator at all depends on its current configuration, and
     // a bare timeout on the button says nothing about which of the known refusals happened:
@@ -73,15 +85,15 @@ export class WidgetPage {
       { timeout: WIDGET_REPLY_TIMEOUT },
     );
 
-    await this.routeYes.click();
+    await this.buttonConfirmForwarding.click();
 
     const response = await forwarded;
     expect(response.ok(), `The back office refused to take the chat over with ${response.status()}`).toBeTruthy();
   }
 
   async expectNoOperatorOffered(botCannotAnswerMessage: string): Promise<void> {
-    await this.inputField.fill(ASK_FOR_OPERATOR);
-    await this.sendButton.click();
+    await this.inputMessage.fill(ASK_FOR_OPERATOR);
+    await this.buttonSendMessage.click();
 
     const showedNotice = await isEventuallyVisible(
       this.page.getByText(botCannotAnswerMessage, { exact: false }),
@@ -94,17 +106,52 @@ export class WidgetPage {
     ).toBe(true);
 
     await expect(
-      this.routeYes,
+      this.buttonConfirmForwarding,
       'The widget offered to route the chat although customer service was switched off',
     ).toBeHidden();
   }
 
+  async botGreeting(): Promise<string> {
+    const greeting = this.botMessages.first();
+
+    await expect(greeting, 'The widget never showed a message of the bot the chat could be read back by').toBeVisible({
+      timeout: WIDGET_REPLY_TIMEOUT,
+    });
+
+    return (await greeting.innerText()).trim();
+  }
+
+  async endChatWithoutAnswerAndSkipFeedback(): Promise<void> {
+    await this.buttonCloseChat.click();
+
+    await expect(
+      this.buttonEndWithoutAnswer,
+      'The widget never asked the customer to confirm ending the conversation',
+    ).toBeVisible({ timeout: WIDGET_REDRAW_TIMEOUT });
+    await this.buttonEndWithoutAnswer.click();
+
+    if (await isEventuallyVisible(this.buttonSkipFeedback, WIDGET_REDRAW_TIMEOUT)) {
+      await this.buttonSkipFeedback.click();
+    }
+  }
+
   async chatId(): Promise<string> {
-    const stored = await this.page.evaluate(() => window.localStorage.getItem('byk-va-cid'));
+    const storedId = (): Promise<string | null> => this.page.evaluate(() => window.localStorage.getItem('byk-va-cid'));
 
-    expect(stored, 'The widget never stored an id for the conversation').toBeTruthy();
+    await expect
+      .poll(storedId, {
+        timeout: WIDGET_REDRAW_TIMEOUT,
+        message: 'The widget never stored an id for the conversation',
+      })
+      .not.toBeNull();
 
-    return JSON.parse(stored as string);
+    const stored = await storedId();
+
+    if (stored === null) {
+      throw new Error('The widget stored no id for the conversation');
+    }
+
+    return JSON.parse(stored);
   }
 
   private async lastReply(noCsaAvailableMessage?: string): Promise<string> {
@@ -122,7 +169,7 @@ export class WidgetPage {
   }
 
   private async waitForMessageBox(): Promise<void> {
-    if (await isEventuallyVisible(this.inputField, WIDGET_MESSAGE_BOX_TIMEOUT)) {
+    if (await isEventuallyVisible(this.inputMessage, WIDGET_MESSAGE_BOX_TIMEOUT)) {
       return;
     }
 
@@ -137,15 +184,15 @@ export class WidgetPage {
       await this.widget.click();
     }
 
-    await expect(this.inputField, 'The widget hid its message box even after a reload').toBeVisible({
+    await expect(this.inputMessage, 'The widget hid its message box even after a reload').toBeVisible({
       timeout: WIDGET_REPLY_TIMEOUT,
     });
   }
 
   async sendMessage(text: string): Promise<void> {
     await this.waitForMessageBox();
-    await this.inputField.fill(text);
-    await this.sendButton.click();
+    await this.inputMessage.fill(text);
+    await this.buttonSendMessage.click();
     await expect(this.messageByText(text), 'The widget never echoed the message the customer sent').toBeVisible({
       timeout: WIDGET_REDRAW_TIMEOUT,
     });
@@ -171,7 +218,10 @@ export class WidgetPage {
       `The widget never asked the idle customer "${idleWarningMessage}"`,
     ).toBeVisible({ timeout: WIDGET_IDLE_TIMEOUT });
 
-    await expect(this.buttonContinue, 'The idle warning offered no way to continue the conversation').toBeVisible({
+    await expect(
+      this.buttonContinueIdleChat,
+      'The idle warning offered no way to continue the conversation',
+    ).toBeVisible({
       timeout: WIDGET_REDRAW_TIMEOUT,
     });
   }
@@ -182,18 +232,18 @@ export class WidgetPage {
       `The widget never closed the idle conversation with "${endMessage}"`,
     ).toBeVisible({ timeout: WIDGET_IDLE_TIMEOUT });
 
-    await expect(this.buttonClose, 'The end message offered no way to close the chat window').toBeVisible({
+    await expect(this.buttonCloseEndedChat, 'The end message offered no way to close the chat window').toBeVisible({
       timeout: WIDGET_REDRAW_TIMEOUT,
     });
   }
 
   async openDetails(): Promise<void> {
-    await this.buttonHamburger.click();
+    await this.buttonDetails.click();
   }
 
   async giveFeedback(score: string, feedback: string): Promise<void> {
     await this.page.getByRole('button', { name: score }).click();
     await this.inputFeedback.fill(feedback);
-    await this.buttonConfirm.click();
+    await this.buttonConfirmFeedback.click();
   }
 }

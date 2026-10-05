@@ -10,7 +10,7 @@ import { ChatsPage } from './chats-page';
  * talk to the customer through.
  */
 export class ActiveChatsPage extends ChatsPage {
-  private readonly activeChatList: Locator;
+  private readonly listActiveChats: Locator;
   private readonly buttonEndChat: Locator;
   private readonly inputMessage: Locator;
   private readonly buttonSendMessage: Locator;
@@ -20,7 +20,7 @@ export class ActiveChatsPage extends ChatsPage {
   constructor(page: Page) {
     super(page);
 
-    this.activeChatList = this.page.getByRole('tablist', { name: 'Active chat list' });
+    this.listActiveChats = this.page.getByRole('tablist', { name: 'Active chat list' });
     this.buttonEndChat = this.page.locator('button', { hasText: 'End chat' });
     this.inputMessage = this.page.getByPlaceholder(/reply|message/i);
     this.buttonSendMessage = this.page.locator('button.btn--primary').filter({ hasNotText: /./ });
@@ -30,7 +30,7 @@ export class ActiveChatsPage extends ChatsPage {
   }
 
   async expectChatIsActive(): Promise<void> {
-    await expect(this.activeChatList, 'The chat never moved to the operator’s own list').toBeVisible();
+    await expect(this.listActiveChats, 'The chat never moved to the operator’s own list').toBeVisible();
     await expect(this.buttonEndChat, 'An active chat offers no way to end it').toBeVisible();
   }
 

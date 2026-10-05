@@ -86,6 +86,14 @@ test('[SMOKE] "Administration" → "Delete Conversations" page loads with its he
   visit.assertNoFailedApiCalls();
 });
 
+test('[SMOKE] "Administration" → "Anonymizer" page loads with its heading', async ({ page }) => {
+  const visit = await openAdminPage(page, 'chat/anonymizer');
+
+  await expect(page.getByRole('heading', { name: 'Anonymizer Settings', exact: true })).toBeVisible();
+  visit.assertBackendAnswered();
+  visit.assertNoFailedApiCalls();
+});
+
 test('[SMOKE] "Administration" → "Multi-Domains" page loads with its heading', async ({ page }) => {
   const visit = await openAdminPage(page, 'chat/multi-domains');
 

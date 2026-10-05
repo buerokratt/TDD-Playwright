@@ -1,12 +1,12 @@
 import { test as base, expect } from '@playwright/test';
 
 import { ACTION_TIMEOUT } from '@utils/constants';
-import { ReadyPageInterface } from '@utils/interfaces';
+import { ReadyPage } from '@utils/interfaces';
 import { waitForRouteReady } from '@utils/waits';
 
-export const test = base.extend<{ page: ReadyPageInterface }>({
+export const test = base.extend<{ page: ReadyPage }>({
   page: async ({ page }, use) => {
-    const readyPage = page as ReadyPageInterface;
+    const readyPage = page as ReadyPage;
     const originalGoto = page.goto.bind(page);
 
     page.goto = async (url, options = {}) => {

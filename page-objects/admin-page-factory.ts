@@ -4,6 +4,7 @@ import { ActiveChatsPage, HistoryPage, UnansweredChatsPage } from '@page-objects
 import { Header, SideMenu } from '@page-objects/menu';
 import { NewServicePage, ServicesOverviewPage } from '@page-objects/services';
 import {
+  AnonymizerPage,
   ChatAnalysisPage,
   DeleteConversationsPage,
   MultiDomainsPage,
@@ -60,6 +61,10 @@ export class AdminPageFactory {
 
   getDeleteConversationsPage(): DeleteConversationsPage {
     return new DeleteConversationsPage(this.page);
+  }
+
+  getAnonymizerPage(): AnonymizerPage {
+    return new AnonymizerPage(this.page);
   }
 
   getMultiDomainsPage(): MultiDomainsPage {
