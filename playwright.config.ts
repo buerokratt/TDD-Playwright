@@ -37,6 +37,20 @@ export default defineConfig({
 
   projects: [
     {
+      name: 'seed',
+      testMatch: '**/*.seed.ts',
+      use: {
+        ...devices['Desktop Chrome'],
+        storageState: ADMIN_AUTH_STATE,
+        viewport: VIEWPORT,
+        contextOptions: { screen: VIEWPORT },
+        launchOptions: {
+          args: ['--incognito', '--start-maximized'],
+        },
+      },
+      dependencies: ['auth'],
+    },
+    {
       name: 'mock',
       testMatch: '**/*.mock.ts',
     },
