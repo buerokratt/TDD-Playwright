@@ -1,4 +1,4 @@
-import { Locator, Page, expect, test } from '@playwright/test';
+import { Dialog, Locator, Page, expect, test } from '@playwright/test';
 
 import { ACTION_TIMEOUT } from '@utils/constants';
 import { URLS } from '@utils/env';
@@ -23,6 +23,7 @@ export class SessionLengthPage {
 
   private readonly switchDisplayMessage: Locator;
   private readonly switchShowEndMessage: Locator;
+  private readonly switchAwayStatus: Locator;
 
   private readonly textareaIdleWarningMessage: Locator;
   private readonly textareaEndMessage: Locator;
@@ -58,6 +59,7 @@ export class SessionLengthPage {
 
     this.switchDisplayMessage = this.page.getByRole('switch', { name: 'Display message' });
     this.switchShowEndMessage = this.page.getByRole('switch', { name: 'Show end message' });
+    this.switchAwayStatus = this.page.getByRole('switch', { name: 'Away status' });
 
     this.textareaIdleWarningMessage = this.page.getByLabel('Idle warning message', { exact: true });
     this.textareaEndMessage = this.page.getByLabel('End message', { exact: true });
@@ -108,6 +110,11 @@ export class SessionLengthPage {
 
     await this.assertTooltipIsOffered(this.switchDisplayMessage, '"Display message" toggle');
     await this.assertTooltipIsOffered(this.switchShowEndMessage, '"Show end message" toggle');
+  }
+
+  async assertAwayStatusToggleIsShown(): Promise<void> {
+    await expect(this.switchAwayStatus, 'The page offers no toggle for the away status').toBeVisible();
+    await this.assertTooltipIsOffered(this.switchAwayStatus, '"Away status" toggle');
   }
 
   async assertIdleWarningMessageFollowsItsToggle(): Promise<void> {
@@ -166,6 +173,15 @@ export class SessionLengthPage {
     await this.inputSessionLength.fill(value);
   }
 
+  async typeSessionLength(value: string): Promise<void> {
+    await this.inputSessionLength.clear();
+    await this.inputSessionLength.pressSequentially(value);
+  }
+
+  async assertSessionLengthReads(value: string): Promise<void> {
+    await expect(this.inputSessionLength, `The session length field does not read "${value}"`).toHaveValue(value);
+  }
+
   async fillResponseTime(value: string): Promise<void> {
     await this.inputResponseTime.fill(value);
   }
@@ -202,6 +218,24 @@ export class SessionLengthPage {
         });
       });
     }
+  }
+
+  async assertLeavingRaisesNoPrompt(leave: () => Promise<void>): Promise<void> {
+    const dialogs: string[] = [];
+    const recordDialog = async (dialog: Dialog): Promise<void> => {
+      dialogs.push(dialog.type());
+      await dialog.accept();
+    };
+
+    this.page.on('dialog', recordDialog);
+
+    try {
+      await leave();
+    } finally {
+      this.page.off('dialog', recordDialog);
+    }
+
+    expect(dialogs, 'Leaving the page with an unsaved edit raised a prompt').toEqual([]);
   }
 
   async assertSettingsStored(expected: SessionLengthSettings): Promise<void> {
