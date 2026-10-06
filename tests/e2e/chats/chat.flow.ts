@@ -1,4 +1,6 @@
-import { AdminPageFactory } from '@page-objects/admin-page-factory';
+import { ActiveChatsPage, UnansweredChatsPage } from '@page-objects/chats';
+import { Header } from '@page-objects/menu';
+import { OfficeOpeningHoursPage } from '@page-objects/settings';
 import { WidgetPage } from '@page-objects/widget';
 import { test } from '@setup/test-setup';
 import { ADMIN_AUTH_STATE } from '@utils/constants';
@@ -22,14 +24,13 @@ test('[e2e] [chats] A routed chat carries messages both ways between customer an
     const cPage = await customerContext.newPage();
     const page = await csaContext.newPage();
 
-    const csaPage = new AdminPageFactory(page);
     const customerPage = new WidgetPage(cPage);
-    const unansweredChats = csaPage.getUnansweredChatsPage();
-    const activeChats = csaPage.getActiveChatsPage();
+    const unansweredChats = new UnansweredChatsPage(page);
+    const activeChats = new ActiveChatsPage(page);
 
     await test.step('The operator is present before the customer writes', async () => {
       await page.bringToFront();
-      await csaPage.getPageHeader().ensureCsaPresent();
+      await new Header(page).ensureCsaPresent();
     });
 
     await test.step('The operator is watching the queue', async () => {
@@ -43,7 +44,7 @@ test('[e2e] [chats] A routed chat carries messages both ways between customer an
       await cPage.bringToFront();
       await cPage.goto(URLS.customer);
       await customerPage.openChat();
-      await customerPage.requestCsaChat(await csaPage.getOfficeOpeningHoursPage().noCsaAvailableMessage());
+      await customerPage.requestCsaChat(await new OfficeOpeningHoursPage(page).noCsaAvailableMessage());
     });
 
     // The widget hides its message box while a question of the bot's is still unanswered, and
@@ -84,7 +85,7 @@ test('[e2e] [chats] The widget offers no operator while the CSA is unavailable',
   try {
     await seedEnglishLocale(customerContext);
 
-    const officeHours = new AdminPageFactory(await csaContext.newPage()).getOfficeOpeningHoursPage();
+    const officeHours = new OfficeOpeningHoursPage(await csaContext.newPage());
     const botCannotAnswer = await officeHours.botCannotAnswerMessage();
 
     await officeHours.whileCsaUnavailable(async () => {
