@@ -39,7 +39,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          npx playwright test --project smoke --project flow --project tests
+          npx playwright test --project smoke-chromium --project flow-chromium --project tests-chromium
 
       - name: Upload Playwright report
         if: always()

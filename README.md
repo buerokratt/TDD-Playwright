@@ -65,7 +65,6 @@ For current counts and detailed suite breakdown, see [`docs/coverage.md`](docs/c
 │   ├── admin/                  # Auth, translation, and admin UI tests
 │   ├── api/                    # API smoke checks
 │   ├── e2e/                    # End-to-end flows
-│   ├── mocks/                  # Lightweight CI mock tests
 │   └── smoke/                  # Cross-area smoke tests
 ├── .github/workflows/          # CI workflows
 ├── docker-compose.yml
@@ -94,11 +93,9 @@ Base URLs are defined centrally in `playwright.config.js`.
 
 The repository currently defines these Playwright projects:
 
-- `mock`
+- `auth`
 - `setup`
-- `smoke`
-- `flow`
-- `tests`
+- `<suite>-<browser>`, where suite is `smoke`, `flow`, `tests` or `widget` and browser is `chromium`, `firefox` or `webkit` (e.g. `smoke-chromium`, `tests-webkit`)
 
 The API suite also has a separate Playwright configuration in `playwright.config.api.js`.
 
