@@ -1,8 +1,7 @@
 import { Page, expect } from '@playwright/test';
 
-import { AdminPageFactory } from '@page-objects/admin-page-factory';
 import { CHAT_ANALYSIS_LABEL_SECTIONS, CHAT_ANALYSIS_URL } from '@utils/constants';
-import { ChatAnalysisConfig, ChatAnalysisDomainSnapshot } from '@utils/interfaces';
+import { AdminPagesFixtures, ChatAnalysisConfig, ChatAnalysisDomainSnapshot } from '@utils/interfaces';
 
 import { asUniqueNames } from './shared-helpers';
 
@@ -42,33 +41,31 @@ export function chatAnalysisConfigRestore(resolveSnapshot: () => ChatAnalysisDom
 }
 
 export function chatAnalysisCleanup(resolveLabels: LabelsResolver) {
-  return async ({ page }: { page: Page }): Promise<void> => {
+  return async ({ chatAnalysisPage }: Pick<AdminPagesFixtures, 'chatAnalysisPage'>): Promise<void> => {
     const labels = asUniqueNames(typeof resolveLabels === 'function' ? await resolveLabels() : resolveLabels);
 
     if (!labels.length) {
       return;
     }
 
-    const cap = new AdminPageFactory(page).getChatAnalysisPage();
-
-    await cap.open();
-    await cap.selectDomainTab();
-    await cap.enableAnalysis();
+    await chatAnalysisPage.open();
+    await chatAnalysisPage.selectDomainTab();
+    await chatAnalysisPage.enableAnalysis();
 
     let removedAny = false;
 
     for (const section of CHAT_ANALYSIS_LABEL_SECTIONS) {
       for (const label of labels) {
-        if (await cap.hasLabel(section.title, label)) {
-          await cap.deleteLabel(section.title, label);
+        if (await chatAnalysisPage.hasLabel(section.title, label)) {
+          await chatAnalysisPage.deleteLabel(section.title, label);
           removedAny = true;
         }
       }
     }
 
     if (removedAny) {
-      await cap.saveSettings();
-      await cap.assertSaveWasConfirmed();
+      await chatAnalysisPage.saveSettings();
+      await chatAnalysisPage.assertSaveWasConfirmed();
     }
   };
 }

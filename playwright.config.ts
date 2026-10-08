@@ -38,6 +38,17 @@ export default defineConfig({
 
   projects: [
     {
+      name: 'seed',
+      testMatch: '**/*.seed.ts',
+      use: {
+        ...devices['Desktop Chrome'],
+        ...SHARED_USE,
+        storageState: ADMIN_AUTH_STATE,
+        launchOptions: { args: CHROMIUM_ARGS },
+      },
+      dependencies: ['auth'],
+    },
+    {
       name: 'auth',
       testMatch: '**/auth.setup.ts',
       use: {

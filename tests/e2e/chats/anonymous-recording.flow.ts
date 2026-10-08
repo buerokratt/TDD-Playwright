@@ -1,4 +1,5 @@
-import { AdminPageFactory } from '@page-objects/admin-page-factory';
+import { HistoryPage } from '@page-objects/chats';
+import { AnonymizerPage } from '@page-objects/settings';
 import { WidgetPage } from '@page-objects/widget';
 import { test } from '@setup/test-setup';
 import { ADMIN_AUTH_STATE } from '@utils/constants';
@@ -21,9 +22,8 @@ test(
 
     try {
       const page = await csaContext.newPage();
-      const admin = new AdminPageFactory(page);
-      const anonymizer = admin.getAnonymizerPage();
-      const history = admin.getHistoryPage();
+      const anonymizer = new AnonymizerPage(page);
+      const history = new HistoryPage(page);
 
       await anonymizer.open();
       await anonymizer.selectDomain(await customerWidgetName(page));

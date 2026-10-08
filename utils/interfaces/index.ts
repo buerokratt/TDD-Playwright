@@ -1,4 +1,5 @@
 export * from './admin-page-visit.interface';
+export * from './admin-pages-fixtures.interface';
 export * from './analysed-conversation.interface';
 export * from './anonymized-text.interface';
 export * from './anonymizer-settings.interface';

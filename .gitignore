@@ -5,6 +5,10 @@ test-results/
 playwright-report/
 playwright/.cache/
 screenshots/
+.playwright-mcp
+
+# Test agent plans
+specs/
 
 # Generated auth
 tests/admin/.auth/user.json

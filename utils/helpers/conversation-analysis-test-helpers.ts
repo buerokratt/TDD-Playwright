@@ -1,8 +1,7 @@
 import { Page, expect } from '@playwright/test';
 
-import { AdminPageFactory } from '@page-objects/admin-page-factory';
 import { USER_INFO_URL } from '@utils/constants';
-import { AnalysedConversation } from '@utils/interfaces';
+import { AdminPagesFixtures, AnalysedConversation } from '@utils/interfaces';
 
 type AnalysedConversationResolver = () => AnalysedConversation | undefined;
 
@@ -17,17 +16,15 @@ export async function readUserDisplayName(page: Page): Promise<string> {
 }
 
 export function conversationAnalysisCleanup(resolveAnalysed: AnalysedConversationResolver) {
-  return async ({ page }: { page: Page }): Promise<void> => {
+  return async ({ historyPage }: Pick<AdminPagesFixtures, 'historyPage'>): Promise<void> => {
     const analysed = resolveAnalysed();
 
     if (!analysed) {
       return;
     }
 
-    const history = new AdminPageFactory(page).getHistoryPage();
-
-    await history.open();
-    await history.openConversationDetails(analysed.conversationId);
-    await history.clearAnalysisSelections(analysed.analysis);
+    await historyPage.open();
+    await historyPage.openConversationDetails(analysed.conversationId);
+    await historyPage.clearAnalysisSelections(analysed.analysis);
   };
 }

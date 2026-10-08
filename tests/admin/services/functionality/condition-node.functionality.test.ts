@@ -1,6 +1,6 @@
 import { expect, test } from '@setup/test-setup';
 import { URLS } from '@utils/env';
-import { getServicePages, registerServiceCleanup } from '@utils/helpers';
+import { registerServiceCleanup } from '@utils/helpers';
 import { createServiceName, createValidServiceData } from '@utils/test-data';
 
 const conditionNodeTitle = 'Condition - 1';
@@ -37,50 +37,48 @@ test.describe('[services] [functional] Condition node routes the conversation do
     const deliveredMessage = takenBranch === 'Success' ? successMessage : failureMessage;
     const skippedMessage = takenBranch === 'Success' ? failureMessage : successMessage;
 
-    test(`An ${rule} rule delivers the ${takenBranch} branch and no other`, async ({ page }) => {
-      const { nsp } = getServicePages(page);
-
+    test(`An ${rule} rule delivers the ${takenBranch} branch and no other`, async ({ page, newServicePage }) => {
       await page.goto(URLS.admin + 'services/newService');
-      await nsp.waitForReady();
+      await newServicePage.waitForReady();
 
       await test.step('Create a service with a title', async () => {
-        await nsp.setTitle(createValidServiceData({ title: serviceName }).title);
+        await newServicePage.setTitle(createValidServiceData({ title: serviceName }).title);
       });
 
       await test.step('Add a "Condition" node to the flow', async () => {
-        await nsp.clickAddNodeAtEdgeIndex(0);
-        await nsp.pickNodeTypeAndReturnToCanvas(nsp.pickerConditionBtn);
-        await expect(nsp.getFlowNodeByTitle(conditionNodeTitle)).toBeVisible();
+        await newServicePage.clickAddNodeAtEdgeIndex(0);
+        await newServicePage.pickNodeTypeAndReturnToCanvas(newServicePage.pickerConditionBtn);
+        await expect(newServicePage.getFlowNodeByTitle(conditionNodeTitle)).toBeVisible();
       });
 
       await test.step(`Author an ${rule} rule and save the condition node`, async () => {
-        await nsp.openNodeDialogByTitle(conditionNodeTitle);
-        await nsp.conditionAddLiteralRule(leftOperand, '==', rightOperand);
-        await nsp.conditionSaveNode();
+        await newServicePage.openNodeDialogByTitle(conditionNodeTitle);
+        await newServicePage.conditionAddLiteralRule(leftOperand, '==', rightOperand);
+        await newServicePage.conditionSaveNode();
       });
 
       await test.step('Wire a distinct message onto each branch', async () => {
-        await nsp.addMessageOnConditionBranch('Success', successNodeTitle, successMessage);
-        await nsp.addMessageOnConditionBranch('Failure', failureNodeTitle, failureMessage);
+        await newServicePage.addMessageOnConditionBranch('Success', successNodeTitle, successMessage);
+        await newServicePage.addMessageOnConditionBranch('Failure', failureNodeTitle, failureMessage);
       });
 
       await test.step('Save the service and confirm both branch nodes persisted', async () => {
-        await nsp.saveService();
-        await expect(nsp.getFlowNodeByTitle(successNodeTitle)).toBeVisible();
-        await expect(nsp.getFlowNodeByTitle(failureNodeTitle)).toBeVisible();
+        await newServicePage.saveService();
+        await expect(newServicePage.getFlowNodeByTitle(successNodeTitle)).toBeVisible();
+        await expect(newServicePage.getFlowNodeByTitle(failureNodeTitle)).toBeVisible();
       });
 
       await test.step('Open the TEST widget and start a conversation', async () => {
-        await expect(nsp.widget).toBeVisible();
-        await nsp.openWidget();
-        await nsp.widgetSendText('test');
-        await expect(nsp.widgetDialog.getByText('test', { exact: true })).toBeVisible();
+        await expect(newServicePage.widget).toBeVisible();
+        await newServicePage.openWidget();
+        await newServicePage.widgetSendText('test');
+        await expect(newServicePage.widgetDialog.getByText('test', { exact: true })).toBeVisible();
       });
 
       await test.step(`The ${takenBranch} branch is delivered and the other one is not`, async () => {
-        await nsp.expectWidgetToContainText(deliveredMessage);
-        await nsp.expectWidgetNotToContainText(skippedMessage);
-        await nsp.expectWidgetNotToContainText(neverAuthored);
+        await newServicePage.expectWidgetToContainText(deliveredMessage);
+        await newServicePage.expectWidgetNotToContainText(skippedMessage);
+        await newServicePage.expectWidgetNotToContainText(neverAuthored);
       });
     });
   }

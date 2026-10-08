@@ -1,6 +1,5 @@
 import { BrowserContext } from '@playwright/test';
 
-import { AdminPageFactory } from '@page-objects/admin-page-factory';
 import { SessionLengthPage } from '@page-objects/settings';
 import { WidgetPage } from '@page-objects/widget';
 import { test } from '@setup/test-setup';
@@ -22,7 +21,7 @@ test.describe('[widget] [functional] An idle conversation follows the session le
 
     await seedEnglishLocale(customerContext);
 
-    sessionLength = new AdminPageFactory(await csaContext.newPage()).getSessionLengthPage();
+    sessionLength = new SessionLengthPage(await csaContext.newPage());
   });
 
   test.afterEach(async () => {
