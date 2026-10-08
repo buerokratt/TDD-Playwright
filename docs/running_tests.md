@@ -19,6 +19,9 @@ npx playwright install --with-deps
 npm test
 npm run test:test
 npm run test:stage
+npm run test:test:chromium
+npm run test:test:firefox
+npm run test:test:webkit
 ```
 
 ### Stand preconditions
@@ -47,12 +50,9 @@ Not covered by these tests, in case a later one needs it: the time zone the serv
 ### Examples
 
 ```bash
-npm run test:test:smoke
-npm run test:test:tests
-npm run test:services
-npm run test:services:fast
-npm run test:tests:fast
-npm run test:smoke:admin
+npm run test:test -- --project=smoke-chromium
+npm run test:test -- --project=tests-chromium tests/admin/services
+npm run test:test -- --debug
 npx playwright test tests/admin/services/functionality
 npx playwright test -g "Create service"
 ```
@@ -89,11 +89,11 @@ docker compose exec playwright npx playwright test
 ### Examples
 
 ```bash
-docker compose exec playwright npx playwright test --project smoke
+docker compose exec playwright npx playwright test --project smoke-chromium
 docker compose exec playwright npx playwright test tests/smoke
 docker compose exec playwright npx playwright test tests/admin/services
 docker compose exec playwright npx playwright test -g "Create service"
-docker compose exec -e ENV=stage playwright npx playwright test --project tests
+docker compose exec -e ENV=stage playwright npx playwright test --project tests-chromium
 ```
 
 ### Stop
@@ -120,7 +120,7 @@ Setup guide: `docs/ci_setup.md`
 Use in issue/task description under `## AT_TESTS`.
 
 - `ENV`: `test | stage` (default: `test`)
-- `PROJECT`: `mock | setup | smoke | flow | tests | all` (default: `smoke`)
+- `PROJECT`: `setup | smoke | flow | tests | all` (default: `smoke`)
 - `RUN_ALL`: `true | false` (default: `false`)
 - `TEST_PATH`: folder path (default: `tests/smoke`)
 - `TEST_FILE`: single file path
@@ -145,8 +145,8 @@ Use one selector method per run:
 
 ```yaml
 ## AT_TESTS
-PROJECT: mock
-TEST_FILE: tests/mocks/ci/always-pass.mock.js
+PROJECT: smoke
+TEST_FILE: tests/smoke/landing-page.smoke.ts
 ```
 
 ```yaml

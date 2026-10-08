@@ -2,7 +2,6 @@ import 'dotenv/config';
 import { defineConfig, devices } from '@playwright/test';
 
 import {
-  ACTION_TIMEOUT,
   ADMIN_AUTH_STATE,
   GLOBAL_TEARDOWN,
   TEST_DIR,
@@ -11,6 +10,8 @@ import {
   VIEWPORT,
 } from '@utils/constants';
 import { URLS } from '@utils/env';
+
+import { BROWSER_PROJECTS, CHROMIUM_ARGS, SHARED_USE } from './playwright.browsers';
 
 export default defineConfig({
   timeout: TEST_TIMEOUT,
@@ -51,17 +52,12 @@ export default defineConfig({
       dependencies: ['auth'],
     },
     {
-      name: 'mock',
-      testMatch: '**/*.mock.ts',
-    },
-    {
       name: 'auth',
       testMatch: '**/auth.setup.ts',
       use: {
         ...devices['Desktop Chrome'],
+        ...SHARED_USE,
         channel: 'chrome',
-        viewport: VIEWPORT,
-        contextOptions: { screen: VIEWPORT },
         launchOptions: {
           args: ['--start-maximized'],
         },
@@ -72,94 +68,13 @@ export default defineConfig({
       testMatch: '**/working-time.setup.ts',
       use: {
         ...devices['Desktop Chrome'],
+        ...SHARED_USE,
         storageState: ADMIN_AUTH_STATE,
-        viewport: VIEWPORT,
-        contextOptions: { screen: VIEWPORT },
-        launchOptions: {
-          args: ['--incognito', '--start-maximized'],
-        },
+        launchOptions: { args: CHROMIUM_ARGS },
       },
       dependencies: ['auth'],
     },
-    {
-      name: 'smoke',
-      testMatch: '**/*.smoke.ts',
-      use: {
-        ...devices['Desktop Chrome'],
-        storageState: ADMIN_AUTH_STATE,
-        viewport: VIEWPORT,
-        contextOptions: { screen: VIEWPORT },
-        launchOptions: {
-          args: ['--incognito', '--start-maximized'],
-        },
-      },
-      dependencies: ['setup'],
-    },
-    {
-      name: 'flow',
-      testMatch: '**/*.flow.ts',
-      use: {
-        ...devices['Desktop Chrome'],
-        // The widget sometimes stops keeping its own conversation up to date, and a click
-        // aimed at it then never settles: Playwright rechecks the button until the test's
-        // whole budget is gone and reports a timeout that names no step. Capped here, the
-        // same failure arrives in seconds and points at the click that could not land.
-        actionTimeout: ACTION_TIMEOUT,
-        storageState: ADMIN_AUTH_STATE,
-        viewport: VIEWPORT,
-        contextOptions: { screen: VIEWPORT },
-        launchOptions: {
-          // A flow drives a customer and an operator at once, so one of the two windows is
-          // always in the background, and both sides learn about the other's messages from a
-          // pushed update rather than by polling. Chrome throttles exactly that in windows it
-          // considers hidden, which leaves the backgrounded side rendering a stale chat.
-          args: [
-            '--incognito',
-            '--start-maximized',
-            '--disable-background-timer-throttling',
-            '--disable-backgrounding-occluded-windows',
-            '--disable-renderer-backgrounding',
-          ],
-        },
-      },
-      dependencies: ['setup'],
-    },
-    {
-      name: 'tests',
-      testMatch: '**/*.test.ts',
-      testIgnore: '**/tests/widget/**',
-      use: {
-        ...devices['Desktop Chrome'],
-        storageState: ADMIN_AUTH_STATE,
-        viewport: VIEWPORT,
-        contextOptions: { screen: VIEWPORT },
-        launchOptions: {
-          args: ['--incognito', '--start-maximized'],
-        },
-      },
-      dependencies: ['setup'],
-    },
-    {
-      name: 'widget',
-      testMatch: '**/tests/widget/**/*.test.ts',
-      use: {
-        ...devices['Desktop Chrome'],
-        actionTimeout: ACTION_TIMEOUT,
-        storageState: ADMIN_AUTH_STATE,
-        viewport: VIEWPORT,
-        contextOptions: { screen: VIEWPORT },
-        launchOptions: {
-          args: [
-            '--incognito',
-            '--start-maximized',
-            '--disable-background-timer-throttling',
-            '--disable-backgrounding-occluded-windows',
-            '--disable-renderer-backgrounding',
-          ],
-        },
-      },
-      dependencies: ['setup'],
-    },
+    ...BROWSER_PROJECTS,
   ],
 });
 
