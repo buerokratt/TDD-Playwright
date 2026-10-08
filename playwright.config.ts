@@ -42,12 +42,9 @@ export default defineConfig({
       testMatch: '**/*.seed.ts',
       use: {
         ...devices['Desktop Chrome'],
+        ...SHARED_USE,
         storageState: ADMIN_AUTH_STATE,
-        viewport: VIEWPORT,
-        contextOptions: { screen: VIEWPORT },
-        launchOptions: {
-          args: ['--incognito', '--start-maximized'],
-        },
+        launchOptions: { args: CHROMIUM_ARGS },
       },
       dependencies: ['auth'],
     },
