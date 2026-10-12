@@ -50,3 +50,6 @@ You will:
 
 **Output Format**: Always save the complete test plan as a markdown file with clear headings, numbered steps, and
 professional formatting suitable for sharing with development and QA teams.
+
+**Cleanup**: When your work is finished, close the browser you opened with `browser_close`. Do this even if the work
+ended early or with an error, and before you write the final report.
