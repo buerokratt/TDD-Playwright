@@ -1,5 +1,5 @@
 import { expect, test } from '@setup/test-setup';
-import { domainCleanup } from '@utils/helpers';
+import { domainCleanup, readStoredDomains } from '@utils/helpers';
 import { createDomainName, createDomainUrl, createUpdatedDomainName } from '@utils/test-data';
 
 const addedName = createDomainName('autotestadddomain');
@@ -141,4 +141,51 @@ test.describe('[administration] [functional] Domains are added, edited and delet
       });
     },
   );
+});
+
+test.describe('[administration] [functional] A row added with Add new stays unsaved', () => {
+  test('Add new appends an empty row and sends nothing', async ({ multiDomainsPage }) => {
+    await multiDomainsPage.open();
+
+    await test.step('Add new appends one row without saving anything', async () => {
+      await multiDomainsPage.assertNothingSaved(
+        () => multiDomainsPage.addDomainRow(),
+        'Adding a row saved the domains',
+      );
+    });
+
+    await test.step('The new last row is numbered, empty and can be deleted', async () => {
+      await multiDomainsPage.assertLastRowIsEmpty();
+    });
+  });
+});
+
+test.describe('[administration] [functional] Saving an untouched list changes nothing', () => {
+  test('Saving without a change is confirmed and keeps the stored domains', async ({ page, multiDomainsPage }) => {
+    const domainsBeforeRun = await readStoredDomains(page);
+
+    await multiDomainsPage.open();
+
+    await test.step('Saving the untouched list sends no row', async () => {
+      expect(await multiDomainsPage.saveReadingPostedDomains(), 'Saving an untouched list sent rows').toEqual([]);
+    });
+
+    await test.step('Saving reports the update went through', async () => {
+      await multiDomainsPage.assertSaveWasConfirmed();
+    });
+
+    await test.step('Every stored domain is listed unchanged after a reload', async () => {
+      await multiDomainsPage.open();
+      await multiDomainsPage.assertDomainsStored(domainsBeforeRun);
+    });
+
+    await test.step('The back office holds every stored domain unchanged', async () => {
+      const knownIds = new Set(domainsBeforeRun.map((domain) => domain.domainId));
+
+      expect(
+        (await readStoredDomains(page)).filter((domain) => knownIds.has(domain.domainId)),
+        'Saving an untouched list changed a stored domain',
+      ).toEqual(domainsBeforeRun);
+    });
+  });
 });
