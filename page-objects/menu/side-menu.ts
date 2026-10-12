@@ -9,6 +9,8 @@ export class SideMenu {
   private readonly buttonAdministration: Locator;
   private readonly buttonCollapseAll: Locator;
   private readonly linkHistory: Locator;
+  private readonly linkSessionLength: Locator;
+  private readonly linkMultiDomains: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -19,6 +21,8 @@ export class SideMenu {
     this.buttonAdministration = this.page.getByRole('button', { name: 'Administration' });
     this.buttonCollapseAll = this.page.getByRole('button', { name: 'Close menu' });
     this.linkHistory = this.page.getByRole('link', { name: 'History', exact: true });
+    this.linkSessionLength = this.page.getByRole('link', { name: 'Session length', exact: true });
+    this.linkMultiDomains = this.page.getByRole('link', { name: 'Multi-Domains', exact: true });
   }
 
   async openHistory(): Promise<void> {
@@ -27,6 +31,16 @@ export class SideMenu {
     }
 
     await this.linkHistory.click();
+  }
+
+  async openSessionLength(): Promise<void> {
+    await this.expandAdministration();
+    await this.linkSessionLength.click();
+  }
+
+  async openMultiDomains(): Promise<void> {
+    await this.expandAdministration();
+    await this.linkMultiDomains.click();
   }
 
   async assertConversationsButtonVisible(): Promise<void> {
@@ -47,5 +61,11 @@ export class SideMenu {
 
   async assertCollapseButtonVisible(): Promise<void> {
     await expect(this.buttonCollapseAll).toBeVisible();
+  }
+
+  private async expandAdministration(): Promise<void> {
+    if ((await this.buttonAdministration.getAttribute('aria-expanded')) !== 'true') {
+      await this.buttonAdministration.click();
+    }
   }
 }

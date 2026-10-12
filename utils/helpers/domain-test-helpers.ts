@@ -1,8 +1,8 @@
 import { Page, expect } from '@playwright/test';
 
-import { CSA_ACTIVITY_URL, WIDGET_DATA_URL } from '@utils/constants';
+import { CSA_ACTIVITY_URL, WIDGET_DATA_URL, WIDGET_DOMAINS_URL } from '@utils/constants';
 import { URLS } from '@utils/env';
-import { AdminPagesFixtures, CsaActivity } from '@utils/interfaces';
+import { AdminPagesFixtures, CsaActivity, WidgetDomain } from '@utils/interfaces';
 
 import { asUniqueNames } from './shared-helpers';
 
@@ -31,6 +31,14 @@ export async function customerWidgetName(page: Page): Promise<string> {
   }
 
   return widget.name;
+}
+
+export async function readStoredDomains(page: Page): Promise<WidgetDomain[]> {
+  const response = await page.request.get(WIDGET_DOMAINS_URL);
+
+  expect(response.ok(), `The back office would not list its domains (${response.status()})`).toBeTruthy();
+
+  return ((await response.json()) as { response: WidgetDomain[] }).response;
 }
 
 export function domainCleanup(resolveNames: DomainNamesResolver) {

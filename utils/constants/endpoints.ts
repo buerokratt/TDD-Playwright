@@ -33,6 +33,16 @@ export const ANONYMIZER_CONFIG_PATH = 'configs/anonymizer';
 /** Copying one domain's anonymizer settings onto others: awaited when the copy dialog confirms. */
 export const ANONYMIZER_TRANSFER_PATH = 'configs/transfer/anonymizer';
 
+/** Administration -> Multidomains: awaited when the page reads the domains and when it saves them. */
+export const WIDGET_DOMAINS_PATH = 'configs/widget-domains';
+
+/**
+ * Administration -> Multidomains, where the widget domains are listed and edited.
+ * GET lists the active domains, POST takes only the changed rows as a JSON string in `widgetDomains`
+ * and drops a deleted one by sending it back with `active: false`.
+ */
+export const WIDGET_DOMAINS_URL = `${BACKOFFICE_V2_BASE}/${WIDGET_DOMAINS_PATH}`;
+
 // --- AGENTS, CHATS --- //
 
 /** The conversations History lists once they are over: awaited when the page opens. */

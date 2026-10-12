@@ -23,4 +23,5 @@ export * from './save-service-options.interface';
 export * from './server-error.interface';
 export * from './service-data.interface';
 export * from './session-length-settings.interface';
+export * from './widget-domain.interface';
 export * from './working-time-settings.interface';
