@@ -41,6 +41,16 @@ export async function readStoredDomains(page: Page): Promise<WidgetDomain[]> {
   return ((await response.json()) as { response: WidgetDomain[] }).response;
 }
 
+export async function storedDomainId(page: Page, name: string): Promise<string> {
+  const domain = (await readStoredDomains(page)).find((candidate) => candidate.name === name);
+
+  if (!domain) {
+    throw new Error(`The back office stores no domain named "${name}"`);
+  }
+
+  return domain.domainId;
+}
+
 export function domainCleanup(resolveNames: DomainNamesResolver) {
   return async ({ multiDomainsPage }: Pick<AdminPagesFixtures, 'multiDomainsPage'>): Promise<void> => {
     const names = asUniqueNames(typeof resolveNames === 'function' ? await resolveNames() : resolveNames);

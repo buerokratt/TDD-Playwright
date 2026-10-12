@@ -30,6 +30,9 @@ export const ORGANIZATION_WORKING_TIME_URL = `${BACKOFFICE_V2_BASE}/configs/orga
 /** Administration -> Anonymizer settings of one domain: awaited when the page opens and when a domain tab is switched. */
 export const ANONYMIZER_CONFIG_PATH = 'configs/anonymizer';
 
+/** The same endpoint spelled in full: asks for one domain's settings by `domain`, the id of the domain. */
+export const ANONYMIZER_CONFIG_URL = `${BACKOFFICE_V2_BASE}/${ANONYMIZER_CONFIG_PATH}`;
+
 /** Copying one domain's anonymizer settings onto others: awaited when the copy dialog confirms. */
 export const ANONYMIZER_TRANSFER_PATH = 'configs/transfer/anonymizer';
 
@@ -42,6 +45,14 @@ export const WIDGET_DOMAINS_PATH = 'configs/widget-domains';
  * and drops a deleted one by sending it back with `active: false`.
  */
 export const WIDGET_DOMAINS_URL = `${BACKOFFICE_V2_BASE}/${WIDGET_DOMAINS_PATH}`;
+
+// --- ANONYMIZER --- //
+
+/**
+ * The anonymizer testing card: awaited when "Anonymize" posts the text with the id of the selected domain.
+ * Answers 500 for any text while the domain has no entity selected.
+ */
+export const ANONYMIZE_PATH = 'anonymizer/anonymize';
 
 // --- AGENTS, CHATS --- //
 
