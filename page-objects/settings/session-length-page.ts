@@ -1,9 +1,9 @@
-import { Dialog, Locator, Page, expect, test } from '@playwright/test';
+import { Locator, Page, expect, test } from '@playwright/test';
 
 import { ACTION_TIMEOUT } from '@utils/constants';
 import { URLS } from '@utils/env';
 import { RouteReadyOptions, SessionLengthSettings } from '@utils/interfaces';
-import { waitForSessionLengthReady } from '@utils/waits';
+import { assertLeavingRaisesNoPrompt, waitForSessionLengthReady } from '@utils/waits';
 
 export class SessionLengthPage {
   private readonly page: Page;
@@ -221,21 +221,7 @@ export class SessionLengthPage {
   }
 
   async assertLeavingRaisesNoPrompt(leave: () => Promise<void>): Promise<void> {
-    const dialogs: string[] = [];
-    const recordDialog = async (dialog: Dialog): Promise<void> => {
-      dialogs.push(dialog.type());
-      await dialog.accept();
-    };
-
-    this.page.on('dialog', recordDialog);
-
-    try {
-      await leave();
-    } finally {
-      this.page.off('dialog', recordDialog);
-    }
-
-    expect(dialogs, 'Leaving the page with an unsaved edit raised a prompt').toEqual([]);
+    await assertLeavingRaisesNoPrompt(this.page, leave);
   }
 
   async assertSettingsStored(expected: SessionLengthSettings): Promise<void> {
