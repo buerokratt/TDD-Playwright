@@ -1,6 +1,11 @@
 import { AdminPageFactory } from '@page-objects/admin-page-factory';
 import { expect, test } from '@setup/test-setup';
-import { ACTION_TIMEOUT } from '@utils/constants';
+import {
+  ACTION_TIMEOUT,
+  OUT_OF_RANGE_FOUND_DOCUMENTS,
+  OUT_OF_RANGE_MAX_TOKENS,
+  OUT_OF_RANGE_STRICTNESS,
+} from '@utils/constants';
 import {
   hasNoSkmCredentials,
   readEverySkmDomain,
@@ -59,6 +64,74 @@ test.describe('[administration] [functional] SKM settings are saved and read bac
           await readSkmSettings(page, target.domainId),
           'The back office holds settings other than the ones saved',
         ).toMatchObject(changes);
+      });
+    },
+  );
+});
+
+test.describe('[administration] [functional] SKM values outside their range are refused and nothing is stored', () => {
+  let targetSnapshot: SkmDomainSnapshot | undefined;
+
+  test.afterEach(skmSettingsRestore(() => targetSnapshot));
+
+  test(
+    'Every invalid value is named in a notification and the domain keeps the settings it ran on',
+    { annotation: { type: 'kiwi case', description: 'https://monitooring.test.buerokratt.ee/case/198/' } },
+    async ({ page }) => {
+      const scp = new AdminPageFactory(page).getSkmConfigurationPage();
+
+      await scp.open();
+
+      const domains = await readEverySkmDomain(page, scp);
+      const targetIndex = domains.findIndex(({ settings }) => hasNoSkmCredentials(settings));
+
+      test.skip(targetIndex === -1, 'Every domain holds a client ID or secret that a save let through could erase');
+
+      const target = domains[targetIndex];
+
+      await test.step("The target domain's current settings are saved to be restored later", async () => {
+        targetSnapshot = target;
+      });
+
+      await scp.selectDomainTab(targetIndex);
+      await scp.setAgenticRetrieval(false);
+
+      await test.step('A strictness outside 1-5 is refused with its range', async () => {
+        await scp.fillStrictness(OUT_OF_RANGE_STRICTNESS);
+        await scp.saveSettings();
+
+        await scp.assertSaveWasRejected('Range must be between 1 and 5');
+      });
+
+      await test.step('A found documents value outside 1-20 is refused with its range', async () => {
+        await scp.fillStrictness(target.settings.range);
+        await scp.fillFoundDocuments(OUT_OF_RANGE_FOUND_DOCUMENTS);
+        await scp.saveSettings();
+
+        await scp.assertSaveWasRejected('Documents must be between 1 and 20');
+      });
+
+      await test.step('An empty system instruction is refused as empty', async () => {
+        await scp.fillFoundDocuments(target.settings.documents);
+        await scp.clearSystemInstruction();
+        await scp.saveSettings();
+
+        await scp.assertSaveWasRejected("System message can't be empty");
+      });
+
+      await test.step('A maximum number of tokens outside 1-2000 is refused with its range', async () => {
+        await scp.fillSystemInstruction(target.settings.systemMessage);
+        await scp.fillMaxTokens(OUT_OF_RANGE_MAX_TOKENS);
+        await scp.saveSettings();
+
+        await scp.assertSaveWasRejected('Maxmimum number of tokens must be between 1 and 2000');
+      });
+
+      await test.step('The settings the domain held survive the refused saves', async () => {
+        expect(
+          await readSkmSettings(page, target.domainId),
+          'A refused save still changed the stored settings',
+        ).toEqual(target.settings);
       });
     },
   );
