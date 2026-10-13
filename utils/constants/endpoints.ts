@@ -33,6 +33,9 @@ export const ANONYMIZER_CONFIG_PATH = 'configs/anonymizer';
 /** Copying one domain's anonymizer settings onto others: awaited when the copy dialog confirms. */
 export const ANONYMIZER_TRANSFER_PATH = 'configs/transfer/anonymizer';
 
+/** Administration -> SKM Configuration settings of one domain, asked for by `domain`: awaited when the page opens. */
+export const SKM_CONFIG_PATH = 'configs/skm-config';
+
 // --- AGENTS, CHATS --- //
 
 /** The conversations History lists once they are over: awaited when the page opens. */

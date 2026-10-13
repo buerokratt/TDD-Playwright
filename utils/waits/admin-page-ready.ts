@@ -106,6 +106,18 @@ export async function waitForSessionLengthReady(
   ).not.toHaveValue('', { timeout });
 }
 
+export async function waitForSkmConfigurationReady(
+  page: Page,
+  { timeout = ACTION_TIMEOUT }: RouteReadyOptions = {},
+): Promise<void> {
+  await waitForAppSettled(page, { timeout });
+
+  await expect(
+    page.getByRole('heading', { name: 'SKM Configuration', exact: true }),
+    'SKM Configuration never rendered its heading',
+  ).toBeVisible({ timeout });
+}
+
 export async function waitForDeleteConversationsReady(
   page: Page,
   { timeout = ACTION_TIMEOUT }: RouteReadyOptions = {},
@@ -152,6 +164,7 @@ const ROUTE_READY: { test: (url: string) => boolean; wait: typeof waitForAppSett
   { test: (url) => url.includes('services/newService'), wait: waitForNewServiceReady },
   { test: (url) => url.includes('chat/chat-analysis'), wait: waitForChatAnalysisReady },
   { test: (url) => url.includes('chat/session-length'), wait: waitForSessionLengthReady },
+  { test: (url) => url.includes('chat/skm-configuration'), wait: waitForSkmConfigurationReady },
   { test: (url) => url.includes('chat/delete-conversations'), wait: waitForDeleteConversationsReady },
   { test: (url) => url.includes('chat/anonymizer'), wait: waitForAnonymizerReady },
   { test: (url) => url.includes('chat/multi-domains'), wait: waitForMultiDomainsReady },

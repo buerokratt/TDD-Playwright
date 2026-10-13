@@ -5,5 +5,6 @@ export * from './delete-conversations';
 export * from './endpoints';
 export * from './paths';
 export * from './session-length';
+export * from './skm-configuration';
 export * from './timeouts';
 export * from './working-time';
