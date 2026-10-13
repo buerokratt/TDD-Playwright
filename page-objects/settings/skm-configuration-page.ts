@@ -1,5 +1,6 @@
 import { Locator, Page, Response, expect } from '@playwright/test';
 
+import { CopyToDomainModal } from '@page-objects/common';
 import {
   ACTION_TIMEOUT,
   SKM_AGENTIC_FIELDS,
@@ -7,6 +8,7 @@ import {
   SKM_NUMBER_FIELDS,
   SKM_RETRIEVAL_FIELDS,
   SKM_SEARCH_TYPES,
+  SKM_TRANSFER_PATH,
   SkmField,
 } from '@utils/constants';
 import { URLS } from '@utils/env';
@@ -22,6 +24,7 @@ export class SkmConfigurationPage {
   private readonly domainTabs: Locator;
   private readonly domainTabActive: Locator;
   private readonly buttonCopyToDomain: Locator;
+  private readonly copyToDomain: CopyToDomainModal;
 
   private readonly switchAgenticRetrieval: Locator;
   private readonly triggerSearchType: Locator;
@@ -33,6 +36,7 @@ export class SkmConfigurationPage {
   private readonly noteClientSecretSaved: Locator;
 
   private readonly buttonSave: Locator;
+  private readonly toastList: Locator;
   private readonly tooltip: Locator;
 
   constructor(page: Page) {
@@ -44,6 +48,10 @@ export class SkmConfigurationPage {
     this.domainTabs = this.page.locator('main .domain-tab-selector__tab');
     this.domainTabActive = this.page.locator('main .domain-tab-selector__tab--active');
     this.buttonCopyToDomain = this.page.getByRole('button', { name: 'Copy to domain', exact: true });
+    this.copyToDomain = new CopyToDomainModal(this.page, {
+      button: this.buttonCopyToDomain,
+      transferPath: SKM_TRANSFER_PATH,
+    });
 
     this.switchAgenticRetrieval = this.field('Use agentic retrieval');
     this.triggerSearchType = this.page.getByRole('combobox', { name: 'Search Type', exact: true });
@@ -61,6 +69,7 @@ export class SkmConfigurationPage {
     );
 
     this.buttonSave = this.page.getByRole('button', { name: 'Save', exact: true });
+    this.toastList = this.page.locator('ol.toast__list');
     this.tooltip = this.page.getByRole('tooltip');
   }
 
@@ -89,11 +98,55 @@ export class SkmConfigurationPage {
     await expect(this.domainTabActive, 'The domain tabs left no domain selected').toHaveCount(1);
   }
 
+  async domainTabCount({ timeout = ACTION_TIMEOUT }: RouteReadyOptions = {}): Promise<number> {
+    await expect(this.domainTabs.first(), 'The page rendered no domain tab').toBeVisible({ timeout });
+
+    return this.domainTabs.count();
+  }
+
+  async domainTabName(index: number): Promise<string> {
+    return (await this.domainTabs.nth(index).innerText()).trim();
+  }
+
+  async selectDomainTab(index = 0, { timeout = ACTION_TIMEOUT }: RouteReadyOptions = {}): Promise<string> {
+    const tab = this.domainTabs.nth(index);
+
+    await expect(tab, `The page rendered no domain tab at position ${index}`).toBeVisible({ timeout });
+
+    const settingsLoaded = this.settingsLoaded({ timeout });
+
+    await tab.click();
+    await expect(tab, 'The domain that was picked did not become the selected one').toHaveClass(
+      /domain-tab-selector__tab--active/,
+      { timeout },
+    );
+
+    const response = await settingsLoaded;
+
+    expect(response.ok(), `The back office would not read the SKM settings (${response.status()})`).toBeTruthy();
+
+    const domainId = new URL(response.url()).searchParams.get('domain');
+
+    if (!domainId) {
+      throw new Error('The page asked for the SKM settings without a domain id');
+    }
+
+    return domainId;
+  }
+
+  async copySettingsTo(domainName: string, options: RouteReadyOptions = {}): Promise<void> {
+    await this.copyToDomain.copyTo(domainName, options);
+  }
+
+  async assertSaveWasConfirmed({ timeout = ACTION_TIMEOUT }: RouteReadyOptions = {}): Promise<void> {
+    await expect(this.toastList, 'Saving the SKM settings raised no notification').toContainText(
+      'Updated Successfully',
+      { timeout },
+    );
+  }
+
   async assertControlsAreShown(): Promise<void> {
-    await expect(
-      this.buttonCopyToDomain,
-      'The page offers no way to copy the settings to another domain',
-    ).toBeVisible();
+    await this.copyToDomain.assertIsOffered();
     await expect(this.switchAgenticRetrieval, 'The settings offer no toggle for agentic retrieval').toBeVisible();
     await this.assertTooltipIsOffered('Use agentic retrieval');
     await expect(this.buttonSave, 'The page offers no way to save the SKM settings').toBeVisible();
