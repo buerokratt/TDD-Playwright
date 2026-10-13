@@ -23,6 +23,7 @@ export * from './server-error.interface';
 export * from './service-data.interface';
 export * from './session-length-settings.interface';
 export * from './skm-domain-snapshot.interface';
+export * from './skm-retrieval-settings.interface';
 export * from './skm-settings.interface';
 export * from './stored-skm-settings.interface';
 export * from './working-time-settings.interface';

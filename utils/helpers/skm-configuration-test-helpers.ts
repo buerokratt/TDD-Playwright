@@ -1,5 +1,6 @@
 import { Page, expect } from '@playwright/test';
 
+import { SkmConfigurationPage } from '@page-objects/settings';
 import { SKM_CONFIG_URL } from '@utils/constants';
 import { SkmDomainSnapshot, SkmSettings, StoredSkmSettings } from '@utils/interfaces';
 
@@ -14,6 +15,19 @@ export async function readSkmSettings(page: Page, domainId: string): Promise<Sto
   const { response: settings } = (await response.json()) as { response: StoredSkmSettings };
 
   return settings;
+}
+
+export async function readEverySkmDomain(page: Page, scp: SkmConfigurationPage): Promise<SkmDomainSnapshot[]> {
+  const domains = await scp.domainTabCount();
+  const snapshots: SkmDomainSnapshot[] = [];
+
+  for (let index = 0; index < domains; index++) {
+    const domainId = await scp.selectDomainTab(index);
+
+    snapshots.push({ domainId, settings: await readSkmSettings(page, domainId) });
+  }
+
+  return snapshots;
 }
 
 export async function saveSkmSettings(page: Page, domainId: string, settings: StoredSkmSettings): Promise<void> {

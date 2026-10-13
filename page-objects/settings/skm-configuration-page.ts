@@ -12,7 +12,7 @@ import {
   SkmField,
 } from '@utils/constants';
 import { URLS } from '@utils/env';
-import { RouteReadyOptions } from '@utils/interfaces';
+import { RouteReadyOptions, SkmRetrievalSettings } from '@utils/interfaces';
 import { waitForSkmConfigurationReady } from '@utils/waits';
 
 export class SkmConfigurationPage {
@@ -163,6 +163,30 @@ export class SkmConfigurationPage {
         'The agentic retrieval toggle kept the state it was clicked out of',
       ).toBe(on);
     }).toPass({ timeout: ACTION_TIMEOUT });
+  }
+
+  async applyRetrievalSettings(settings: SkmRetrievalSettings): Promise<void> {
+    await this.setAgenticRetrieval(false);
+    await this.field('Strictness').fill(settings.range);
+    await this.field('Found Documents').fill(settings.documents);
+    await this.field('Index').fill(settings.indexName);
+  }
+
+  async saveSettings(): Promise<void> {
+    await this.buttonSave.click();
+  }
+
+  async assertRetrievalSettingsStored(settings: SkmRetrievalSettings): Promise<void> {
+    await expect(this.field('Strictness'), 'Strictness came back with a value other than the one saved').toHaveValue(
+      settings.range,
+    );
+    await expect(
+      this.field('Found Documents'),
+      'Found documents came back with a value other than the one saved',
+    ).toHaveValue(settings.documents);
+    await expect(this.field('Index'), 'Index came back with a value other than the one saved').toHaveValue(
+      settings.indexName,
+    );
   }
 
   async assertRetrievalFieldsAreShown(): Promise<void> {
