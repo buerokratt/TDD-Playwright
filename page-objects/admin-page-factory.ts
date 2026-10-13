@@ -10,6 +10,7 @@ import {
   MultiDomainsPage,
   OfficeOpeningHoursPage,
   SessionLengthPage,
+  SkmConfigurationPage,
 } from '@page-objects/settings';
 
 export class AdminPageFactory {
@@ -57,6 +58,10 @@ export class AdminPageFactory {
 
   getSessionLengthPage(): SessionLengthPage {
     return new SessionLengthPage(this.page);
+  }
+
+  getSkmConfigurationPage(): SkmConfigurationPage {
+    return new SkmConfigurationPage(this.page);
   }
 
   getDeleteConversationsPage(): DeleteConversationsPage {

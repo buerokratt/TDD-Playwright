@@ -6,4 +6,5 @@ export * from './generated-services';
 export * from './locale';
 export * from './service-test-helpers';
 export * from './session-length-test-helpers';
+export * from './skm-configuration-test-helpers';
 export * from './smoke-helpers';

@@ -33,6 +33,15 @@ export const ANONYMIZER_CONFIG_PATH = 'configs/anonymizer';
 /** Copying one domain's anonymizer settings onto others: awaited when the copy dialog confirms. */
 export const ANONYMIZER_TRANSFER_PATH = 'configs/transfer/anonymizer';
 
+/** Administration -> SKM Configuration settings of one domain, asked for by `domain`: awaited when the page opens. */
+export const SKM_CONFIG_PATH = 'configs/skm-config';
+
+/** The same endpoint spelled in full: read with GET by `domain`, written with POST by `domainUUID`, for the settings the suite saves and puts back itself. */
+export const SKM_CONFIG_URL = `${BACKOFFICE_V2_BASE}/${SKM_CONFIG_PATH}`;
+
+/** Copying one domain's SKM settings onto others: awaited when the copy dialog confirms. Clears the client ID and secret of every target. */
+export const SKM_TRANSFER_PATH = 'configs/transfer/skm-config';
+
 // --- AGENTS, CHATS --- //
 
 /** The conversations History lists once they are over: awaited when the page opens. */
