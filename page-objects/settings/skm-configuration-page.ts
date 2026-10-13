@@ -145,6 +145,12 @@ export class SkmConfigurationPage {
     );
   }
 
+  async assertSaveWasRejected(message: string, { timeout = ACTION_TIMEOUT }: RouteReadyOptions = {}): Promise<void> {
+    await expect(this.toastList, `Saving raised no notification reading "${message}"`).toContainText(message, {
+      timeout,
+    });
+  }
+
   async assertControlsAreShown(): Promise<void> {
     await this.copyToDomain.assertIsOffered();
     await expect(this.switchAgenticRetrieval, 'The settings offer no toggle for agentic retrieval').toBeVisible();
@@ -167,9 +173,34 @@ export class SkmConfigurationPage {
 
   async applyRetrievalSettings(settings: SkmRetrievalSettings): Promise<void> {
     await this.setAgenticRetrieval(false);
-    await this.field('Strictness').fill(settings.range);
-    await this.field('Found Documents').fill(settings.documents);
+    await this.fillStrictness(settings.range);
+    await this.fillFoundDocuments(settings.documents);
     await this.field('Index').fill(settings.indexName);
+  }
+
+  async fillStrictness(value: string): Promise<void> {
+    await this.field('Strictness').fill(value);
+  }
+
+  async fillFoundDocuments(value: string): Promise<void> {
+    await this.field('Found Documents').fill(value);
+  }
+
+  async fillSystemInstruction(value: string): Promise<void> {
+    await this.field('System Instruction').fill(value);
+  }
+
+  async clearSystemInstruction(): Promise<void> {
+    const textarea = this.field('System Instruction');
+
+    await textarea.click();
+    await this.page.keyboard.press('ControlOrMeta+A');
+    await this.page.keyboard.press('Delete');
+    await expect(textarea, 'The system instruction kept its text after being cleared').toHaveValue('');
+  }
+
+  async fillMaxTokens(value: string): Promise<void> {
+    await this.field('Maximum Number Of Tokens').fill(value);
   }
 
   async saveSettings(): Promise<void> {
