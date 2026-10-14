@@ -12,7 +12,7 @@ import {
   WORKDAYS,
 } from '@utils/constants';
 import { URLS } from '@utils/env';
-import { CsaActivity, RouteReadyOptions, WorkingTimeSettings } from '@utils/interfaces';
+import { CsaActivity, RouteReadyOptions, WidgetData, WorkingTimeSettings } from '@utils/interfaces';
 import { waitForOfficeOpeningHoursReady } from '@utils/waits';
 
 /** Administration -> Office opening hours, where the texts the bot falls back on are edited. */
@@ -47,6 +47,7 @@ export class OfficeOpeningHoursPage {
   private readonly textareaBotCannotAnswerMessage: Locator;
 
   private readonly buttonSave: Locator;
+  private readonly toastList: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -102,6 +103,7 @@ export class OfficeOpeningHoursPage {
     });
 
     this.buttonSave = this.page.locator('main').getByRole('button', { name: 'Save', exact: true });
+    this.toastList = this.page.locator('ol.toast__list');
   }
 
   async waitForReady(options: RouteReadyOptions = {}): Promise<void> {
@@ -189,11 +191,107 @@ export class OfficeOpeningHoursPage {
     ).toBeHidden();
   }
 
-  private async settings(): Promise<WorkingTimeSettings> {
-    const response = await this.read(`${ORGANIZATION_WORKING_TIME_URL}?domain=${await this.widgetId()}`);
-    const { response: settings } = (await response.json()) as { response: WorkingTimeSettings };
+  async domainNamesBesidesSuiteWidget(): Promise<string[]> {
+    return (await this.widgets()).filter((widget) => widget.url !== URLS.customer).map((widget) => widget.name);
+  }
 
-    return settings;
+  async selectDomain(domain: string, { timeout = ACTION_TIMEOUT }: RouteReadyOptions = {}): Promise<void> {
+    const tab = this.domainTab(domain);
+
+    await expect(tab, `The opening hours are offered for no domain named "${domain}"`).toBeVisible({ timeout });
+
+    if (((await tab.getAttribute('class')) ?? '').includes('domain-tab-selector__tab--active')) {
+      return;
+    }
+
+    const domainId = await this.domainId(domain);
+    const settingsLoaded = this.page.waitForResponse(
+      (response) =>
+        response.url().startsWith(ORGANIZATION_WORKING_TIME_URL) &&
+        new URL(response.url()).searchParams.get('domain') === domainId &&
+        response.request().method() === 'GET',
+      { timeout },
+    );
+
+    await tab.click();
+    await expect(tab, `The domain tabs never moved to "${domain}"`).toHaveClass(/domain-tab-selector__tab--active/);
+
+    const response = await settingsLoaded;
+
+    expect(response.ok(), `The opening hours of "${domain}" never loaded (${response.status()})`).toBeTruthy();
+    await expect(this.switchUseCustomerService, `"${domain}" never rendered its opening hours`).toBeVisible({
+      timeout,
+    });
+  }
+
+  async fillAbsenceMessage(message: string): Promise<void> {
+    await this.setSwitch(this.switchUseCustomerService, true);
+
+    await this.textareaAbsenceMessage.clear();
+    await this.textareaAbsenceMessage.fill(message);
+    await expect(
+      this.textareaAbsenceMessage,
+      'The absence notification kept the text it held instead of the one entered',
+    ).toHaveValue(message);
+  }
+
+  async saveSettings(): Promise<void> {
+    await this.buttonSave.click();
+  }
+
+  async copySettingsTo(domain: string): Promise<void> {
+    await this.copyToDomain.copyTo(domain);
+  }
+
+  async assertSaveWasConfirmed({ timeout = ACTION_TIMEOUT }: RouteReadyOptions = {}): Promise<void> {
+    await expect(this.toastList, 'Updating the opening hours raised no notification').toContainText(
+      'Updated Successfully',
+      { timeout },
+    );
+  }
+
+  async assertSettingsCopied(source: string, target: string, absenceMessage: string): Promise<void> {
+    await expect(
+      this.textareaAbsenceMessage,
+      `"${target}" came back without the absence notification of "${source}"`,
+    ).toHaveValue(absenceMessage);
+
+    const sourceSettings = await this.settingsFor(await this.domainId(source));
+    const targetId = await this.domainId(target);
+
+    await expect
+      .poll(() => this.settingsFor(targetId), {
+        message: `"${target}" came back with opening hours of its own`,
+        timeout: ACTION_TIMEOUT,
+      })
+      .toEqual(sourceSettings);
+  }
+
+  async withSettingsRestoredForDomains(
+    domains: string[],
+    body: (settingsBefore: Record<string, WorkingTimeSettings>) => Promise<void>,
+  ): Promise<void> {
+    const settingsBefore: Record<string, WorkingTimeSettings> = {};
+
+    for (const domain of domains) {
+      settingsBefore[domain] = await this.settingsFor(await this.domainId(domain));
+    }
+
+    try {
+      await body(settingsBefore);
+    } catch (error) {
+      await this.restoreSettingsForDomains(settingsBefore);
+      throw error;
+    }
+
+    expect(
+      await this.restoreSettingsForDomains(settingsBefore),
+      'The opening hours could not be put back on every domain',
+    ).toEqual([]);
+  }
+
+  private async settings(): Promise<WorkingTimeSettings> {
+    return this.settingsFor(await this.widgetId());
   }
 
   /** The notice the widget shows instead of offering an operator. */
@@ -240,11 +338,7 @@ export class OfficeOpeningHoursPage {
   }
 
   private async write(changes: Partial<WorkingTimeSettings>): Promise<void> {
-    const response = await this.page.request.post(ORGANIZATION_WORKING_TIME_URL, {
-      data: { ...(await this.settings()), ...changes, domainUUID: [await this.widgetId()] },
-    });
-
-    expect(response.ok(), `The back office refused to save the opening hours (${response.status()})`).toBeTruthy();
+    await this.writeFor(await this.widgetId(), { ...(await this.settings()), ...changes });
   }
 
   /** Every widget carries its own texts, and the settings endpoint asks for one of them by id. */
@@ -253,9 +347,7 @@ export class OfficeOpeningHoursPage {
       return this.widgetIdOfThisRun;
     }
 
-    const response = await this.read(`${WIDGET_DATA_URL}?user_id=${await this.idCode()}`);
-    const widgets = (await response.json()) as { id: string; url: string }[];
-    const widget = widgets.find((candidate) => candidate.url === URLS.customer);
+    const widget = (await this.widgets()).find((candidate) => candidate.url === URLS.customer);
 
     expect(widget, `The back office configures no widget for ${URLS.customer}`).toBeTruthy();
 
@@ -271,12 +363,63 @@ export class OfficeOpeningHoursPage {
     return activity.idCode;
   }
 
-  private async read(url: string): Promise<APIResponse> {
-    const response = await this.page.request.get(url);
+  private async read(url: string, params?: Record<string, string>): Promise<APIResponse> {
+    const response = await this.page.request.get(url, { params });
 
     expect(response.ok(), `The back office would not answer ${url} (${response.status()})`).toBeTruthy();
 
     return response;
+  }
+
+  private domainTab(domain: string): Locator {
+    return this.domainTabs.and(this.page.getByRole('button', { name: domain, exact: true }));
+  }
+
+  private async widgets(): Promise<WidgetData[]> {
+    const response = await this.read(WIDGET_DATA_URL, { user_id: await this.idCode() });
+
+    return (await response.json()) as WidgetData[];
+  }
+
+  private async domainId(domain: string): Promise<string> {
+    const widget = (await this.widgets()).find((candidate) => candidate.name === domain);
+
+    if (!widget) {
+      throw new Error(`The back office configures no widget named "${domain}"`);
+    }
+
+    return widget.id;
+  }
+
+  private async settingsFor(domainId: string): Promise<WorkingTimeSettings> {
+    const response = await this.read(ORGANIZATION_WORKING_TIME_URL, { domain: domainId });
+    const { response: settings } = (await response.json()) as { response: WorkingTimeSettings };
+
+    return settings;
+  }
+
+  private async writeFor(domainId: string, settings: Partial<WorkingTimeSettings>): Promise<void> {
+    const response = await this.page.request.post(ORGANIZATION_WORKING_TIME_URL, {
+      data: { ...settings, domainUUID: [domainId] },
+    });
+
+    expect(response.ok(), `The back office refused to save the opening hours (${response.status()})`).toBeTruthy();
+  }
+
+  private async restoreSettingsForDomains(settings: Record<string, WorkingTimeSettings>): Promise<string[]> {
+    const leftChanged: string[] = [];
+
+    for (const [domain, settingsBefore] of Object.entries(settings)) {
+      await this.writeFor(await this.domainId(domain), settingsBefore).catch((error: unknown) => {
+        test.info().annotations.push({
+          type: `opening hours left changed on "${domain}"`,
+          description: error instanceof Error ? error.message.split('\n')[0] : String(error),
+        });
+        leftChanged.push(domain);
+      });
+    }
+
+    return leftChanged;
   }
 
   private async showSchedule({ sameOnAllWorkingDays }: { sameOnAllWorkingDays: boolean }): Promise<void> {
