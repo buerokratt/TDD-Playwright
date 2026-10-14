@@ -12,7 +12,13 @@ import {
   WORKDAYS,
 } from '@utils/constants';
 import { URLS } from '@utils/env';
-import { CsaActivity, RouteReadyOptions, WidgetData, WorkingTimeSettings } from '@utils/interfaces';
+import {
+  CsaActivity,
+  RouteReadyOptions,
+  WidgetData,
+  WorkingTimeFormSettings,
+  WorkingTimeSettings,
+} from '@utils/interfaces';
 import { waitForOfficeOpeningHoursReady } from '@utils/waits';
 
 /** Administration -> Office opening hours, where the texts the bot falls back on are edited. */
@@ -241,6 +247,28 @@ export class OfficeOpeningHoursPage {
 
   async copySettingsTo(domain: string): Promise<void> {
     await this.copyToDomain.copyTo(domain);
+  }
+
+  async readSettings(): Promise<WorkingTimeFormSettings> {
+    await this.setSwitch(this.switchUseCustomerService, true);
+
+    return {
+      workingAllTime: await this.isSwitchOn(this.switchWorkingAllTime),
+      absenceMessage: await this.textareaAbsenceMessage.inputValue(),
+    };
+  }
+
+  async applySettings(settings: WorkingTimeFormSettings): Promise<void> {
+    await this.setSwitch(this.switchWorkingAllTime, settings.workingAllTime);
+    await this.fillAbsenceMessage(settings.absenceMessage);
+  }
+
+  async assertSettingsStored(expected: WorkingTimeFormSettings): Promise<void> {
+    await expect(async () => {
+      expect(await this.readSettings(), 'The page came back holding settings other than the ones saved').toEqual(
+        expected,
+      );
+    }).toPass({ timeout: ACTION_TIMEOUT });
   }
 
   async assertSaveWasConfirmed({ timeout = ACTION_TIMEOUT }: RouteReadyOptions = {}): Promise<void> {
