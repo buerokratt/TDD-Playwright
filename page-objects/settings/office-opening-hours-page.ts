@@ -332,6 +332,11 @@ export class OfficeOpeningHoursPage {
     return this.notice('organizationBotCannotAnswerMessage', 'for the case where the bot cannot answer');
   }
 
+  /** The notice the bot asks with before it hands the chat over to an operator. */
+  async redirectIfBotCannotAnswerMessage(): Promise<string> {
+    return this.notice('organizationRedirectIfBotCannotAnswerMessage', 'for redirecting the chat to an operator');
+  }
+
   /**
    * These notices are free-text fields an administrator may rewrite in any language, so tests
    * have to read them rather than assume them — and an empty one has to stop the test rather

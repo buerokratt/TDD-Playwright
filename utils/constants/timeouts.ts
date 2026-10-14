@@ -13,6 +13,9 @@ export const TABLE_PAGE_TURN_TIMEOUT = 10000;
 /** How long the widget may take to answer, whether the reply comes from the bot or an operator. */
 export const WIDGET_REPLY_TIMEOUT = 30000;
 
+/** How long the widget may take to show the prompt the bot falls back on when it cannot answer: the stand has been measured at 15–41 seconds. */
+export const BOT_CANNOT_ANSWER_TIMEOUT = 60000;
+
 /** How long the widget may take to redraw itself, whether after a message or after a reload. */
 export const WIDGET_REDRAW_TIMEOUT = 15000;
 

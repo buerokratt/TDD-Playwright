@@ -82,3 +82,46 @@ test.describe('[widget] [functional] The bot-cannot-answer prompt lets the custo
     },
   );
 });
+
+test.describe('[widget] [functional] The forwarding prompt offers an operator while customer service is used', () => {
+  let csaContext: BrowserContext;
+  let customerContext: BrowserContext;
+  let csaPage: AdminPageFactory;
+
+  test.beforeEach(async ({ browser }) => {
+    csaContext = await browser.newContext({ storageState: ADMIN_AUTH_STATE });
+    customerContext = await browser.newContext();
+
+    await seedEnglishLocale(customerContext);
+
+    csaPage = new AdminPageFactory(await csaContext.newPage());
+  });
+
+  test.afterEach(async () => {
+    await Promise.all([customerContext.close(), csaContext.close()]);
+  });
+
+  test(
+    'The redirect notice is shown with Yes and No while the operator is present',
+    { annotation: { type: 'kiwi case', description: 'https://monitooring.test.buerokratt.ee/case/129/' } },
+    async () => {
+      const redirectMessage = await csaPage.getOfficeOpeningHoursPage().redirectIfBotCannotAnswerMessage();
+      const cPage = await customerContext.newPage();
+      const customerPage = new WidgetPage(cPage);
+
+      await test.step('The operator is present before the customer writes', async () => {
+        await csaPage.getPageHeader().ensureCsaPresent();
+      });
+
+      await test.step('The customer writes something the bot cannot answer', async () => {
+        await cPage.goto(URLS.customer);
+        await customerPage.openChat();
+        await customerPage.askWhatBotCannotAnswer();
+      });
+
+      await test.step('The widget shows the configured redirect notice with Yes and No', async () => {
+        await customerPage.expectForwardingPromptShown(redirectMessage);
+      });
+    },
+  );
+});

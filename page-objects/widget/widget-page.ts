@@ -1,6 +1,7 @@
 import { Locator, Page, expect, test } from '@playwright/test';
 
 import {
+  BOT_CANNOT_ANSWER_TIMEOUT,
   WIDGET_IDLE_TIMEOUT,
   WIDGET_MESSAGE_BOX_TIMEOUT,
   WIDGET_REDRAW_TIMEOUT,
@@ -24,6 +25,7 @@ export class WidgetPage {
   private readonly botMessages: Locator;
 
   private readonly buttonConfirmForwarding: Locator;
+  private readonly buttonDeclineForwarding: Locator;
   private readonly buttonEndWithoutAnswer: Locator;
   private readonly inputFeedback: Locator;
   private readonly buttonConfirmFeedback: Locator;
@@ -46,6 +48,7 @@ export class WidgetPage {
     this.botMessages = this.page.locator('.admin .message-main');
 
     this.buttonConfirmForwarding = this.page.getByRole('button', { name: 'Yes', exact: true });
+    this.buttonDeclineForwarding = this.page.getByRole('button', { name: 'No', exact: true });
     this.buttonEndWithoutAnswer = this.page.getByRole('button', { name: 'Yes, no answer' });
     this.inputFeedback = this.page.getByPlaceholder('Enter your feedback...');
     this.buttonConfirmFeedback = this.page.getByRole('button', { name: 'Confirm' });
@@ -125,7 +128,7 @@ export class WidgetPage {
 
   async expectBotCannotAnswerPromptShown(botCannotAnswerMessage: string): Promise<void> {
     const prompt = this.botCannotAnswerPrompt(botCannotAnswerMessage);
-    const showedPrompt = await isEventuallyVisible(prompt, WIDGET_REPLY_TIMEOUT);
+    const showedPrompt = await isEventuallyVisible(prompt, BOT_CANNOT_ANSWER_TIMEOUT);
 
     expect(
       showedPrompt,
@@ -148,6 +151,24 @@ export class WidgetPage {
 
   async continueChatOnBotCannotAnswerPrompt(): Promise<void> {
     await this.buttonContinueCannotAnswerPrompt.click();
+  }
+
+  async expectForwardingPromptShown(redirectMessage: string): Promise<void> {
+    const showedPrompt = await isEventuallyVisible(this.forwardingPrompt(redirectMessage), BOT_CANNOT_ANSWER_TIMEOUT);
+
+    expect(
+      showedPrompt,
+      `The widget never showed "${redirectMessage}". Its last reply: "${await this.lastReply()}"`,
+    ).toBe(true);
+
+    await expect(
+      this.buttonConfirmForwarding,
+      'The forwarding prompt offered no way to accept an operator',
+    ).toBeVisible();
+    await expect(
+      this.buttonDeclineForwarding,
+      'The forwarding prompt offered no way to decline an operator',
+    ).toBeVisible();
   }
 
   async expectChatWindowClosed(): Promise<void> {
@@ -174,6 +195,10 @@ export class WidgetPage {
     return this.page
       .locator('form')
       .filter({ has: this.page.getByRole('heading', { name: botCannotAnswerMessage, exact: true }) });
+  }
+
+  private forwardingPrompt(redirectMessage: string): Locator {
+    return this.page.getByRole('heading', { name: redirectMessage, exact: true });
   }
 
   async botGreeting(): Promise<string> {
