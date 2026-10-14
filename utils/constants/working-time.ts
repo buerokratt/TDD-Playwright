@@ -11,3 +11,6 @@ export const CSA_AVAILABLE_ALL_TIME: Partial<WorkingTimeSettings> = {
 export const CSA_UNAVAILABLE: Partial<WorkingTimeSettings> = {
   organizationUseCSA: 'false',
 };
+
+export const WORKDAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
+export const WEEK_DAYS = [...WORKDAYS, 'Saturday', 'Sunday'];
