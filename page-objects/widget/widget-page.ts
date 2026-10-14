@@ -9,6 +9,7 @@ import {
 import { isEventuallyVisible } from '@utils/waits';
 
 const ASK_FOR_OPERATOR = 'I want to talk to a human';
+const UNANSWERABLE_QUESTION = 'qwzx plorb vintek gorsh';
 
 export class WidgetPage {
   private readonly page: Page;
@@ -29,6 +30,8 @@ export class WidgetPage {
   private readonly buttonSkipFeedback: Locator;
   private readonly buttonContinueIdleChat: Locator;
   private readonly buttonCloseEndedChat: Locator;
+  private readonly buttonCloseCannotAnswerPrompt: Locator;
+  private readonly buttonContinueCannotAnswerPrompt: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -49,6 +52,10 @@ export class WidgetPage {
     this.buttonSkipFeedback = this.page.getByTitle('Skip', { exact: true });
     this.buttonContinueIdleChat = this.page.getByRole('button', { name: 'Continue', exact: true });
     this.buttonCloseEndedChat = this.page.getByRole('button', { name: 'Close' }).filter({ hasText: 'Close' }).first();
+    this.buttonCloseCannotAnswerPrompt = this.page.locator('form').getByRole('button', { name: 'Close', exact: true });
+    this.buttonContinueCannotAnswerPrompt = this.page
+      .locator('form')
+      .getByRole('button', { name: 'Continue', exact: true });
   }
 
   async openChat(): Promise<void> {
@@ -109,6 +116,64 @@ export class WidgetPage {
       this.buttonConfirmForwarding,
       'The widget offered to route the chat although customer service was switched off',
     ).toBeHidden();
+  }
+
+  async askWhatBotCannotAnswer(): Promise<void> {
+    await this.inputMessage.fill(UNANSWERABLE_QUESTION);
+    await this.buttonSendMessage.click();
+  }
+
+  async expectBotCannotAnswerPromptShown(botCannotAnswerMessage: string): Promise<void> {
+    const prompt = this.botCannotAnswerPrompt(botCannotAnswerMessage);
+    const showedPrompt = await isEventuallyVisible(prompt, WIDGET_REPLY_TIMEOUT);
+
+    expect(
+      showedPrompt,
+      `The widget never showed "${botCannotAnswerMessage}". Its last reply: "${await this.lastReply()}"`,
+    ).toBe(true);
+
+    await expect(
+      this.buttonCloseCannotAnswerPrompt,
+      'The bot-cannot-answer prompt offered no way to close the chat window',
+    ).toBeVisible();
+    await expect(
+      this.buttonContinueCannotAnswerPrompt,
+      'The bot-cannot-answer prompt offered no way to continue the conversation',
+    ).toBeVisible();
+  }
+
+  async closeChatOnBotCannotAnswerPrompt(): Promise<void> {
+    await this.buttonCloseCannotAnswerPrompt.click();
+  }
+
+  async continueChatOnBotCannotAnswerPrompt(): Promise<void> {
+    await this.buttonContinueCannotAnswerPrompt.click();
+  }
+
+  async expectChatWindowClosed(): Promise<void> {
+    await expect(this.headingWidget, 'The chat window stayed open after the customer closed it').toBeHidden({
+      timeout: WIDGET_REDRAW_TIMEOUT,
+    });
+    await expect(this.widget, 'The page never brought the chat launcher back').toBeVisible({
+      timeout: WIDGET_REDRAW_TIMEOUT,
+    });
+  }
+
+  async expectChatContinuesAfterPrompt(botCannotAnswerMessage: string): Promise<void> {
+    await expect(
+      this.botCannotAnswerPrompt(botCannotAnswerMessage),
+      'The bot-cannot-answer prompt stayed on screen after the customer chose to continue',
+    ).toBeHidden({ timeout: WIDGET_REDRAW_TIMEOUT });
+    await expect(this.headingWidget, 'The chat window closed although the customer chose to continue').toBeVisible();
+    await expect(this.inputMessage, 'The widget gave the customer no message box to continue in').toBeVisible({
+      timeout: WIDGET_REDRAW_TIMEOUT,
+    });
+  }
+
+  private botCannotAnswerPrompt(botCannotAnswerMessage: string): Locator {
+    return this.page
+      .locator('form')
+      .filter({ has: this.page.getByRole('heading', { name: botCannotAnswerMessage, exact: true }) });
   }
 
   async botGreeting(): Promise<string> {
