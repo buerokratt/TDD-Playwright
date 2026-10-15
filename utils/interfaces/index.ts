@@ -6,6 +6,7 @@ export * from './chat-analysis-config.interface';
 export * from './chat-analysis-domain-snapshot.interface';
 export * from './chat-analysis-label-section.interface';
 export * from './chat-analysis-settings.interface';
+export * from './contact-details.interface';
 export * from './conversation-analysis.interface';
 export * from './copy-to-domain-modal-options.interface';
 export * from './csa-activity.interface';
