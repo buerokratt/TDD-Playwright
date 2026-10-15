@@ -36,18 +36,18 @@ test.describe('[widget] [functional] The bot-cannot-answer prompt lets the custo
         const cPage = await customerContext.newPage();
         const customerPage = new WidgetPage(cPage);
 
-        await test.step('The customer writes something the bot cannot answer', async () => {
+        await test.step('The customer asks for an operator', async () => {
           await cPage.goto(URLS.customer);
           await customerPage.openChat();
-          await customerPage.askWhatBotCannotAnswer();
+          await customerPage.askForOperator();
         });
 
         await test.step('The widget shows the configured notice with Close and Continue', async () => {
-          await customerPage.expectBotCannotAnswerPromptShown(botCannotAnswer);
+          await customerPage.expectCloseOrContinuePromptShown(botCannotAnswer);
         });
 
         await test.step('Close shuts the chat window', async () => {
-          await customerPage.closeChatOnBotCannotAnswerPrompt();
+          await customerPage.closeChatOnPrompt();
           await customerPage.expectChatWindowClosed();
         });
       });
@@ -64,18 +64,18 @@ test.describe('[widget] [functional] The bot-cannot-answer prompt lets the custo
         const cPage = await customerContext.newPage();
         const customerPage = new WidgetPage(cPage);
 
-        await test.step('The customer writes something the bot cannot answer', async () => {
+        await test.step('The customer asks for an operator', async () => {
           await cPage.goto(URLS.customer);
           await customerPage.openChat();
-          await customerPage.askWhatBotCannotAnswer();
+          await customerPage.askForOperator();
         });
 
         await test.step('The widget shows the configured notice with Close and Continue', async () => {
-          await customerPage.expectBotCannotAnswerPromptShown(botCannotAnswer);
+          await customerPage.expectCloseOrContinuePromptShown(botCannotAnswer);
         });
 
         await test.step('Continue drops the prompt and leaves the message box open', async () => {
-          await customerPage.continueChatOnBotCannotAnswerPrompt();
+          await customerPage.continueChatOnPrompt();
           await customerPage.expectChatContinuesAfterPrompt(botCannotAnswer);
         });
       });
@@ -113,10 +113,10 @@ test.describe('[widget] [functional] The forwarding prompt offers an operator wh
         await csaPage.getPageHeader().ensureCsaPresent();
       });
 
-      await test.step('The customer writes something the bot cannot answer', async () => {
+      await test.step('The customer asks for an operator', async () => {
         await cPage.goto(URLS.customer);
         await customerPage.openChat();
-        await customerPage.askWhatBotCannotAnswer();
+        await customerPage.askForOperator();
       });
 
       await test.step('The widget shows the configured redirect notice with Yes and No', async () => {

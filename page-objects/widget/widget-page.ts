@@ -7,10 +7,15 @@ import {
   WIDGET_REDRAW_TIMEOUT,
   WIDGET_REPLY_TIMEOUT,
 } from '@utils/constants';
+import { ContactDetails } from '@utils/interfaces';
 import { isEventuallyVisible } from '@utils/waits';
 
 const ASK_FOR_OPERATOR = 'I want to talk to a human';
-const UNANSWERABLE_QUESTION = 'qwzx plorb vintek gorsh';
+const CONTACTS_REQUIRED = 'Please fill in at least one field';
+const EMAIL_REJECTED = 'Please make sure the email address is correct';
+const PHONE_REJECTED = 'Please make sure the phone number is correct';
+
+const asRendered = (notice: string): string => notice.replace(/\[([^\]]+)]\([^)]+\)/g, '$1');
 
 export class WidgetPage {
   private readonly page: Page;
@@ -32,8 +37,15 @@ export class WidgetPage {
   private readonly buttonSkipFeedback: Locator;
   private readonly buttonContinueIdleChat: Locator;
   private readonly buttonCloseEndedChat: Locator;
-  private readonly buttonCloseCannotAnswerPrompt: Locator;
-  private readonly buttonContinueCannotAnswerPrompt: Locator;
+  private readonly buttonClosePrompt: Locator;
+  private readonly buttonContinuePrompt: Locator;
+  private readonly noteContinueConversation: Locator;
+
+  private readonly inputContactEmail: Locator;
+  private readonly inputContactPhone: Locator;
+  private readonly inputContactQuestion: Locator;
+  private readonly buttonSkipContactForm: Locator;
+  private readonly buttonSubmitContactForm: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -55,10 +67,15 @@ export class WidgetPage {
     this.buttonSkipFeedback = this.page.getByTitle('Skip', { exact: true });
     this.buttonContinueIdleChat = this.page.getByRole('button', { name: 'Continue', exact: true });
     this.buttonCloseEndedChat = this.page.getByRole('button', { name: 'Close' }).filter({ hasText: 'Close' }).first();
-    this.buttonCloseCannotAnswerPrompt = this.page.locator('form').getByRole('button', { name: 'Close', exact: true });
-    this.buttonContinueCannotAnswerPrompt = this.page
-      .locator('form')
-      .getByRole('button', { name: 'Continue', exact: true });
+    this.buttonClosePrompt = this.page.locator('form').getByRole('button', { name: 'Close', exact: true });
+    this.buttonContinuePrompt = this.page.locator('form').getByRole('button', { name: 'Continue', exact: true });
+    this.noteContinueConversation = this.page.getByText('Continue conversation with bürokratt', { exact: true });
+
+    this.inputContactEmail = this.page.getByPlaceholder('email@gmail.com');
+    this.inputContactPhone = this.page.getByPlaceholder('+372 123 456');
+    this.inputContactQuestion = this.page.getByPlaceholder('Type your question here');
+    this.buttonSkipContactForm = this.page.locator('form').getByRole('button', { name: 'skip' });
+    this.buttonSubmitContactForm = this.page.locator('form').getByRole('button', { name: 'submit' });
   }
 
   async openChat(): Promise<void> {
@@ -77,8 +94,7 @@ export class WidgetPage {
    * The caller reads it from there and passes it in rather than this page assuming a phrase.
    */
   async requestCsaChat(noCsaAvailableMessage: string): Promise<void> {
-    await this.inputMessage.fill(ASK_FOR_OPERATOR);
-    await this.buttonSendMessage.click();
+    await this.askForOperator();
 
     const offeredRouting = await isEventuallyVisible(this.buttonConfirmForwarding, WIDGET_REPLY_TIMEOUT);
 
@@ -102,11 +118,10 @@ export class WidgetPage {
   }
 
   async expectNoOperatorOffered(botCannotAnswerMessage: string): Promise<void> {
-    await this.inputMessage.fill(ASK_FOR_OPERATOR);
-    await this.buttonSendMessage.click();
+    await this.askForOperator();
 
     const showedNotice = await isEventuallyVisible(
-      this.page.getByText(botCannotAnswerMessage, { exact: false }),
+      this.page.getByText(asRendered(botCannotAnswerMessage), { exact: false }),
       WIDGET_REPLY_TIMEOUT,
     );
 
@@ -121,36 +136,27 @@ export class WidgetPage {
     ).toBeHidden();
   }
 
-  async askWhatBotCannotAnswer(): Promise<void> {
-    await this.inputMessage.fill(UNANSWERABLE_QUESTION);
+  async askForOperator(): Promise<void> {
+    await this.inputMessage.fill(ASK_FOR_OPERATOR);
     await this.buttonSendMessage.click();
   }
 
-  async expectBotCannotAnswerPromptShown(botCannotAnswerMessage: string): Promise<void> {
-    const prompt = this.botCannotAnswerPrompt(botCannotAnswerMessage);
+  async expectCloseOrContinuePromptShown(notice: string): Promise<void> {
+    const prompt = this.noticePrompt(notice);
     const showedPrompt = await isEventuallyVisible(prompt, BOT_CANNOT_ANSWER_TIMEOUT);
 
-    expect(
-      showedPrompt,
-      `The widget never showed "${botCannotAnswerMessage}". Its last reply: "${await this.lastReply()}"`,
-    ).toBe(true);
+    expect(showedPrompt, `The widget never showed "${notice}". Its last reply: "${await this.lastReply()}"`).toBe(true);
 
-    await expect(
-      this.buttonCloseCannotAnswerPrompt,
-      'The bot-cannot-answer prompt offered no way to close the chat window',
-    ).toBeVisible();
-    await expect(
-      this.buttonContinueCannotAnswerPrompt,
-      'The bot-cannot-answer prompt offered no way to continue the conversation',
-    ).toBeVisible();
+    await expect(this.buttonClosePrompt, 'The prompt offered no way to close the chat window').toBeVisible();
+    await expect(this.buttonContinuePrompt, 'The prompt offered no way to continue the conversation').toBeVisible();
   }
 
-  async closeChatOnBotCannotAnswerPrompt(): Promise<void> {
-    await this.buttonCloseCannotAnswerPrompt.click();
+  async closeChatOnPrompt(): Promise<void> {
+    await this.buttonClosePrompt.click();
   }
 
-  async continueChatOnBotCannotAnswerPrompt(): Promise<void> {
-    await this.buttonContinueCannotAnswerPrompt.click();
+  async continueChatOnPrompt(): Promise<void> {
+    await this.buttonContinuePrompt.click();
   }
 
   async expectForwardingPromptShown(redirectMessage: string): Promise<void> {
@@ -180,10 +186,10 @@ export class WidgetPage {
     });
   }
 
-  async expectChatContinuesAfterPrompt(botCannotAnswerMessage: string): Promise<void> {
+  async expectChatContinuesAfterPrompt(notice: string): Promise<void> {
     await expect(
-      this.botCannotAnswerPrompt(botCannotAnswerMessage),
-      'The bot-cannot-answer prompt stayed on screen after the customer chose to continue',
+      this.noticePrompt(notice),
+      'The prompt stayed on screen after the customer chose to continue',
     ).toBeHidden({ timeout: WIDGET_REDRAW_TIMEOUT });
     await expect(this.headingWidget, 'The chat window closed although the customer chose to continue').toBeVisible();
     await expect(this.inputMessage, 'The widget gave the customer no message box to continue in').toBeVisible({
@@ -191,14 +197,67 @@ export class WidgetPage {
     });
   }
 
-  private botCannotAnswerPrompt(botCannotAnswerMessage: string): Locator {
+  async expectContinueConversationNoteShown(): Promise<void> {
+    await expect(
+      this.noteContinueConversation,
+      'The widget never told the customer the conversation goes on with the bot',
+    ).toBeVisible({ timeout: WIDGET_REPLY_TIMEOUT });
+  }
+
+  async expectContactFormShown(notice: string): Promise<void> {
+    const showedForm = await isEventuallyVisible(this.noticePrompt(notice), BOT_CANNOT_ANSWER_TIMEOUT);
+
+    expect(showedForm, `The widget never showed "${notice}". Its last reply: "${await this.lastReply()}"`).toBe(true);
+
+    await expect(this.inputContactEmail, 'The contact form asked for no e-mail address').toBeVisible();
+    await expect(this.inputContactPhone, 'The contact form asked for no phone number').toBeVisible();
+    await expect(this.inputContactQuestion, 'The contact form left no room for the question').toBeVisible();
+    await expect(this.buttonSkipContactForm, 'The contact form offered no way to skip it').toBeVisible();
+    await expect(this.buttonSubmitContactForm, 'The contact form offered no way to send the contacts').toBeVisible();
+  }
+
+  async skipContactForm(): Promise<void> {
+    await this.buttonSkipContactForm.click();
+  }
+
+  async submitContactForm(contacts: ContactDetails): Promise<void> {
+    await this.inputContactEmail.fill(contacts.email ?? '');
+    await this.inputContactPhone.fill(contacts.phone ?? '');
+    await this.buttonSubmitContactForm.click();
+  }
+
+  async expectContactsRequired(): Promise<void> {
+    await this.expectContactFormRejected(CONTACTS_REQUIRED);
+  }
+
+  async expectEmailRejected(): Promise<void> {
+    await this.expectContactFormRejected(EMAIL_REJECTED);
+  }
+
+  async expectPhoneRejected(): Promise<void> {
+    await this.expectContactFormRejected(PHONE_REJECTED);
+  }
+
+  private noticePrompt(notice: string): Locator {
     return this.page
       .locator('form')
-      .filter({ has: this.page.getByRole('heading', { name: botCannotAnswerMessage, exact: true }) });
+      .filter({ has: this.page.getByRole('heading', { name: asRendered(notice), exact: true }) });
   }
 
   private forwardingPrompt(redirectMessage: string): Locator {
-    return this.page.getByRole('heading', { name: redirectMessage, exact: true });
+    return this.page.getByRole('heading', { name: asRendered(redirectMessage), exact: true });
+  }
+
+  private async expectContactFormRejected(message: string): Promise<void> {
+    await expect(this.page.getByText(message, { exact: true }), `The contact form never said "${message}"`).toBeVisible(
+      {
+        timeout: WIDGET_REDRAW_TIMEOUT,
+      },
+    );
+    await expect(
+      this.buttonSubmitContactForm,
+      'The contact form closed although it rejected the contacts',
+    ).toBeVisible();
   }
 
   async botGreeting(): Promise<string> {
