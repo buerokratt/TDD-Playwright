@@ -337,6 +337,10 @@ export class OfficeOpeningHoursPage {
     return this.notice('organizationRedirectIfBotCannotAnswerMessage', 'for redirecting the chat to an operator');
   }
 
+  async outsideWorkingHoursMessage(): Promise<string> {
+    return this.notice('organizationOutsideWorkingHoursMessage', 'for the hours the office is closed');
+  }
+
   /**
    * These notices are free-text fields an administrator may rewrite in any language, so tests
    * have to read them rather than assume them — and an empty one has to stop the test rather
@@ -368,6 +372,26 @@ export class OfficeOpeningHoursPage {
         });
       });
     }
+  }
+
+  async whileSettingsAre(changes: Partial<WorkingTimeSettings>, body: () => Promise<void>): Promise<void> {
+    const settingsBefore = await this.settings();
+
+    await this.write(changes);
+
+    try {
+      await body();
+    } catch (error) {
+      await this.write(settingsBefore).catch((restoreError: unknown) => {
+        test.info().annotations.push({
+          type: 'opening hours settings left changed',
+          description: restoreError instanceof Error ? restoreError.message.split('\n')[0] : String(restoreError),
+        });
+      });
+      throw error;
+    }
+
+    await this.write(settingsBefore);
   }
 
   private async write(changes: Partial<WorkingTimeSettings>): Promise<void> {
