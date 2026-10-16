@@ -1,6 +1,6 @@
 import { expect, test } from '@setup/test-setup';
 import { URLS } from '@utils/env';
-import { registerServiceCleanup } from '@utils/helpers';
+import { serviceCleanup } from '@utils/helpers';
 import { createServiceName, createValidServiceData } from '@utils/test-data';
 
 const serviceName = createServiceName('clientmessage');
@@ -13,7 +13,7 @@ const interpolatedMessage = `${variableValue} from ${serviceName}`;
 const neverAuthoredMessage = `Never authored ${serviceName}`;
 
 test.describe('[services] [functional] Message text reaches the customer exactly as authored', () => {
-  registerServiceCleanup(test, serviceName);
+  test.afterEach(serviceCleanup(serviceName));
 
   test('A {variable} placeholder is delivered literally and is not resolved by the widget', async ({
     page,

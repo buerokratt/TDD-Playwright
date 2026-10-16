@@ -1,7 +1,7 @@
 import { Page, expect } from '@playwright/test';
 
 import { USER_INFO_URL } from '@utils/constants';
-import { AdminPagesFixtures, AnalysedConversation } from '@utils/interfaces';
+import { AdminFixtures, AnalysedConversation } from '@utils/interfaces';
 
 type AnalysedConversationResolver = () => AnalysedConversation | undefined;
 
@@ -16,7 +16,7 @@ export async function readUserDisplayName(page: Page): Promise<string> {
 }
 
 export function conversationAnalysisCleanup(resolveAnalysed: AnalysedConversationResolver) {
-  return async ({ historyPage }: Pick<AdminPagesFixtures, 'historyPage'>): Promise<void> => {
+  return async ({ historyPage }: Pick<AdminFixtures, 'historyPage'>): Promise<void> => {
     const analysed = resolveAnalysed();
 
     if (!analysed) {

@@ -1,6 +1,6 @@
-import { Dialog, Locator, Page, expect, test } from '@playwright/test';
+import { Locator, Page, expect, test } from '@playwright/test';
 
-import { ACTION_TIMEOUT } from '@utils/constants';
+import { ACTION_TIMEOUT, AWAY_STATUS_TIME_CAP } from '@utils/constants';
 import { URLS } from '@utils/env';
 import { RouteReadyOptions, SessionLengthSettings } from '@utils/interfaces';
 import { waitForSessionLengthReady } from '@utils/waits';
@@ -11,15 +11,19 @@ export class SessionLengthPage {
   private readonly headingSessionLength: Locator;
   private readonly textInactiveUsersLoggedOut: Locator;
   private readonly textConversationEndsAutomatically: Locator;
+  private readonly textAwayStatusAfterInactivity: Locator;
 
   private readonly inputSessionLength: Locator;
   private readonly inputResponseTime: Locator;
+  private readonly inputAwayStatusTime: Locator;
 
   private readonly labelSessionLengthUnit: Locator;
   private readonly labelResponseTimeUnit: Locator;
+  private readonly labelAwayStatusTimeUnit: Locator;
 
   private readonly noteSessionLengthRange: Locator;
   private readonly noteResponseTimeRange: Locator;
+  private readonly noteAwayStatusTimeRange: Locator;
 
   private readonly switchDisplayMessage: Locator;
   private readonly switchShowEndMessage: Locator;
@@ -43,12 +47,18 @@ export class SessionLengthPage {
       'When the time expires, the conversation will end automatically.',
       { exact: true },
     );
+    this.textAwayStatusAfterInactivity = this.page.getByText(
+      'When active, users will automatically be set to away status after the selected period of inactivity.',
+      { exact: true },
+    );
 
     this.inputSessionLength = this.page.locator('input[name="session-length"]');
     this.inputResponseTime = this.page.locator('input[name="chatActiveDuration"]');
+    this.inputAwayStatusTime = this.page.locator('input[name="awayStatusTimeout"]');
 
-    this.labelSessionLengthUnit = this.page.locator('label.minute').filter({ hasText: /^Minutes$/ });
-    this.labelResponseTimeUnit = this.page.locator('label.minute').filter({ hasText: /^minutes$/ });
+    this.labelSessionLengthUnit = this.unitLabelOf(this.inputSessionLength);
+    this.labelResponseTimeUnit = this.unitLabelOf(this.inputResponseTime);
+    this.labelAwayStatusTimeUnit = this.unitLabelOf(this.inputAwayStatusTime);
 
     this.noteSessionLengthRange = this.page.getByText('Session length is allowed between 30 min - 480 min (8h)', {
       exact: true,
@@ -56,6 +66,7 @@ export class SessionLengthPage {
     this.noteResponseTimeRange = this.page.getByText('Session length is allowed between 5 min - 480 min (8h)', {
       exact: true,
     });
+    this.noteAwayStatusTimeRange = this.page.getByText(/^Away status time is allowed between/);
 
     this.switchDisplayMessage = this.page.getByRole('switch', { name: 'Display message' });
     this.switchShowEndMessage = this.page.getByRole('switch', { name: 'Show end message' });
@@ -129,25 +140,53 @@ export class SessionLengthPage {
     await this.assertMessageFieldFollowsItsToggle(this.switchShowEndMessage, this.textareaEndMessage, 'end message');
   }
 
+  async assertAwayStatusTimeFollowsItsToggle(): Promise<void> {
+    const sessionLength = Number(await this.inputSessionLength.inputValue());
+    const maxAwayStatusTime = sessionLength > AWAY_STATUS_TIME_CAP ? AWAY_STATUS_TIME_CAP : sessionLength - 1;
+
+    await this.setSwitch(this.switchAwayStatus, true);
+
+    await expect(
+      this.textAwayStatusAfterInactivity,
+      'The page never explained what the away status does while its toggle says Yes',
+    ).toBeVisible();
+    await expect(this.inputAwayStatusTime, 'The away status time is missing while its toggle says Yes').toBeVisible();
+    await expect(this.labelAwayStatusTimeUnit, 'The away status time field states no unit').toBeVisible();
+    await expect(
+      this.noteAwayStatusTimeRange,
+      'The away status time field states a range other than the session length allows',
+    ).toHaveText(`Away status time is allowed between 5 min - ${maxAwayStatusTime} min`);
+    await this.assertTooltipIsOffered(this.inputAwayStatusTime, 'away status time field');
+
+    await this.setSwitch(this.switchAwayStatus, false);
+    await expect(
+      this.inputAwayStatusTime,
+      'The away status time stayed on the page while its toggle says No',
+    ).toBeHidden();
+    await expect(
+      this.textAwayStatusAfterInactivity,
+      'The away status explanation stayed on the page while its toggle says No',
+    ).toBeHidden();
+  }
+
   async readSettings(): Promise<SessionLengthSettings> {
     const displayMessage = await this.isSwitchOn(this.switchDisplayMessage);
     const showEndMessage = await this.isSwitchOn(this.switchShowEndMessage);
+    const awayStatus = await this.isSwitchOn(this.switchAwayStatus);
 
     return {
       sessionLength: await this.inputSessionLength.inputValue(),
       responseTime: await this.inputResponseTime.inputValue(),
       displayMessage,
-      idleWarningMessage: await this.readMessageBehindToggle(
+      idleWarningMessage: await this.readValueBehindToggle(
         this.switchDisplayMessage,
         this.textareaIdleWarningMessage,
         displayMessage,
       ),
       showEndMessage,
-      endMessage: await this.readMessageBehindToggle(
-        this.switchShowEndMessage,
-        this.textareaEndMessage,
-        showEndMessage,
-      ),
+      endMessage: await this.readValueBehindToggle(this.switchShowEndMessage, this.textareaEndMessage, showEndMessage),
+      awayStatus,
+      awayStatusTime: await this.readValueBehindToggle(this.switchAwayStatus, this.inputAwayStatusTime, awayStatus),
     };
   }
 
@@ -155,17 +194,23 @@ export class SessionLengthPage {
     await this.inputSessionLength.fill(settings.sessionLength);
     await this.inputResponseTime.fill(settings.responseTime);
 
-    await this.writeMessageBehindToggle(
+    await this.writeValueBehindToggle(
       this.switchDisplayMessage,
       this.textareaIdleWarningMessage,
       settings.displayMessage,
       settings.idleWarningMessage,
     );
-    await this.writeMessageBehindToggle(
+    await this.writeValueBehindToggle(
       this.switchShowEndMessage,
       this.textareaEndMessage,
       settings.showEndMessage,
       settings.endMessage,
+    );
+    await this.writeValueBehindToggle(
+      this.switchAwayStatus,
+      this.inputAwayStatusTime,
+      settings.awayStatus,
+      settings.awayStatusTime,
     );
   }
 
@@ -173,17 +218,16 @@ export class SessionLengthPage {
     await this.inputSessionLength.fill(value);
   }
 
-  async typeSessionLength(value: string): Promise<void> {
-    await this.inputSessionLength.clear();
-    await this.inputSessionLength.pressSequentially(value);
-  }
-
-  async assertSessionLengthReads(value: string): Promise<void> {
-    await expect(this.inputSessionLength, `The session length field does not read "${value}"`).toHaveValue(value);
-  }
-
   async fillResponseTime(value: string): Promise<void> {
     await this.inputResponseTime.fill(value);
+  }
+
+  async setAwayStatus(on: boolean): Promise<void> {
+    await this.setSwitch(this.switchAwayStatus, on);
+  }
+
+  async fillAwayStatusTime(value: string): Promise<void> {
+    await this.inputAwayStatusTime.fill(value);
   }
 
   async saveSettings(): Promise<void> {
@@ -210,32 +254,17 @@ export class SessionLengthPage {
     try {
       await this.write({ ...settingsBefore, ...changes });
       await body();
-    } finally {
-      await this.write(settingsBefore).catch((error: unknown) => {
+    } catch (error) {
+      await this.write(settingsBefore).catch((restoreError: unknown) => {
         test.info().annotations.push({
           type: 'session length left changed',
-          description: error instanceof Error ? error.message.split('\n')[0] : String(error),
+          description: restoreError instanceof Error ? restoreError.message.split('\n')[0] : String(restoreError),
         });
       });
-    }
-  }
-
-  async assertLeavingRaisesNoPrompt(leave: () => Promise<void>): Promise<void> {
-    const dialogs: string[] = [];
-    const recordDialog = async (dialog: Dialog): Promise<void> => {
-      dialogs.push(dialog.type());
-      await dialog.accept();
-    };
-
-    this.page.on('dialog', recordDialog);
-
-    try {
-      await leave();
-    } finally {
-      this.page.off('dialog', recordDialog);
+      throw error;
     }
 
-    expect(dialogs, 'Leaving the page with an unsaved edit raised a prompt').toEqual([]);
+    await this.write(settingsBefore);
   }
 
   async assertSettingsStored(expected: SessionLengthSettings): Promise<void> {
@@ -251,29 +280,26 @@ export class SessionLengthPage {
     await this.assertSaveWasConfirmed();
   }
 
-  private async readMessageBehindToggle(toggle: Locator, field: Locator, shown: boolean): Promise<string> {
+  private async readValueBehindToggle(toggle: Locator, field: Locator, shown: boolean): Promise<string> {
     if (shown) {
       return field.inputValue();
     }
 
     await this.setSwitch(toggle, true);
-    const message = await field.inputValue();
+    const value = await field.inputValue();
     await this.setSwitch(toggle, false);
 
-    return message;
+    return value;
   }
 
-  private async writeMessageBehindToggle(
-    toggle: Locator,
-    field: Locator,
-    shown: boolean,
-    message: string,
-  ): Promise<void> {
+  private async writeValueBehindToggle(toggle: Locator, field: Locator, shown: boolean, value: string): Promise<void> {
     await this.setSwitch(toggle, true);
 
     await field.clear();
-    await field.fill(message);
-    await expect(field, 'The message field kept the text it held instead of the one entered').toHaveValue(message);
+    await field.fill(value);
+    await expect(field, 'The field behind the toggle kept the value it held instead of the one entered').toHaveValue(
+      value,
+    );
 
     await this.setSwitch(toggle, shown);
   }
@@ -308,6 +334,10 @@ export class SessionLengthPage {
 
       expect(await this.isSwitchOn(toggle), 'The toggle kept the state it was clicked out of').toBe(on);
     }).toPass({ timeout: ACTION_TIMEOUT });
+  }
+
+  private unitLabelOf(field: Locator): Locator {
+    return this.page.locator('main .track').filter({ has: field }).last().locator('label.minute');
   }
 
   private async assertTooltipIsOffered(control: Locator, describedAs: string): Promise<void> {

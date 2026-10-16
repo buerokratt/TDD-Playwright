@@ -1,14 +1,18 @@
-import { TestType } from '@playwright/test';
+import { Page } from '@playwright/test';
 
 import { URLS } from '@utils/env';
+import { AdminFixtures } from '@utils/interfaces';
 
 import { asUniqueNames } from './shared-helpers';
 
 type ServiceNames = string | string[];
 type ServiceNamesResolver = ServiceNames | (() => ServiceNames | Promise<ServiceNames>);
 
-export function registerServiceCleanup(test: TestType<any, any>, resolveNames: ServiceNamesResolver): void {
-  test.afterEach(async ({ page, servicesOverviewPage }) => {
+export function serviceCleanup(resolveNames: ServiceNamesResolver) {
+  return async ({
+    page,
+    servicesOverviewPage,
+  }: Pick<AdminFixtures, 'servicesOverviewPage'> & { page: Page }): Promise<void> => {
     const names = asUniqueNames(typeof resolveNames === 'function' ? await resolveNames() : resolveNames);
 
     if (!names.length) {
@@ -20,5 +24,5 @@ export function registerServiceCleanup(test: TestType<any, any>, resolveNames: S
     for (const name of names) {
       await servicesOverviewPage.deleteServiceIfExists(name);
     }
-  });
+  };
 }

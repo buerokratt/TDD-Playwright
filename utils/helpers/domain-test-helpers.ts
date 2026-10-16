@@ -2,7 +2,7 @@ import { Page, expect } from '@playwright/test';
 
 import { CSA_ACTIVITY_URL, WIDGET_DATA_URL } from '@utils/constants';
 import { URLS } from '@utils/env';
-import { AdminPagesFixtures, CsaActivity } from '@utils/interfaces';
+import { AdminFixtures, CsaActivity } from '@utils/interfaces';
 
 import { asUniqueNames } from './shared-helpers';
 
@@ -34,7 +34,7 @@ export async function customerWidgetName(page: Page): Promise<string> {
 }
 
 export function domainCleanup(resolveNames: DomainNamesResolver) {
-  return async ({ multiDomainsPage }: Pick<AdminPagesFixtures, 'multiDomainsPage'>): Promise<void> => {
+  return async ({ multiDomainsPage }: Pick<AdminFixtures, 'multiDomainsPage'>): Promise<void> => {
     const names = asUniqueNames(typeof resolveNames === 'function' ? await resolveNames() : resolveNames);
 
     if (!names.length) {

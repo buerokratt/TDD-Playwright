@@ -1,13 +1,13 @@
 import { expect, test } from '@setup/test-setup';
 import { URLS } from '@utils/env';
-import { registerServiceCleanup } from '@utils/helpers';
+import { serviceCleanup } from '@utils/helpers';
 import { createServiceName, createUpdatedServiceName, createValidServiceData } from '@utils/test-data';
 
 const serviceName = createServiceName('editservice');
 const updatedName = createUpdatedServiceName(serviceName);
 
 test.describe('[services] [functional] Renaming a service replaces its old name everywhere', () => {
-  registerServiceCleanup(test, () => [updatedName, serviceName]);
+  test.afterEach(serviceCleanup(() => [updatedName, serviceName]));
 
   test('A renamed service is listed under the new name only, and reopens with it', async ({
     page,

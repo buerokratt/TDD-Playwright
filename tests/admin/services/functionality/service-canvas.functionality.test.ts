@@ -1,6 +1,6 @@
 import { expect, test } from '@setup/test-setup';
 import { URLS } from '@utils/env';
-import { registerServiceCleanup } from '@utils/helpers';
+import { serviceCleanup } from '@utils/helpers';
 import { createServiceName, createValidServiceData } from '@utils/test-data';
 
 const serviceName = createServiceName('canvas');
@@ -11,7 +11,7 @@ const messageNodeTitle = 'Send message to client - 1';
 const neverAddedNodeTitle = 'Condition - 1';
 
 test.describe('[services] [functional] The flow canvas stores the nodes it is given and drops the ones removed', () => {
-  registerServiceCleanup(test, serviceName);
+  test.afterEach(serviceCleanup(serviceName));
 
   test('Added nodes survive a reload and a deleted node stays deleted', async ({ page, newServicePage }) => {
     await test.step('Create a service and place two nodes on the canvas', async () => {

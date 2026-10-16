@@ -6,8 +6,6 @@ playwright-report/
 playwright/.cache/
 screenshots/
 .playwright-mcp
-
-# Test agent plans
 specs/
 
 # Generated auth
@@ -19,4 +17,6 @@ tests/admin/.auth/user.json
 # IDE and OS
 .idea
 .codex
+.claude/
+.mcp.json
 .DS_Store

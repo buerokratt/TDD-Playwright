@@ -1,6 +1,6 @@
 import { expect, test } from '@setup/test-setup';
 import { URLS } from '@utils/env';
-import { registerServiceCleanup } from '@utils/helpers';
+import { serviceCleanup } from '@utils/helpers';
 import { createServiceName, createValidServiceData } from '@utils/test-data';
 
 const serviceName = createServiceName('msgdelivery');
@@ -9,7 +9,7 @@ const deliveredMessage = `Delivered marker ${serviceName}`;
 const neverAuthoredMessage = `Never authored ${serviceName}`;
 
 test.describe('[services] [functional] Message node delivers authored text to the customer widget', () => {
-  registerServiceCleanup(test, serviceName);
+  test.afterEach(serviceCleanup(serviceName));
 
   test('Authored message node text is delivered in the TEST widget', async ({ page, newServicePage }) => {
     await page.goto(URLS.admin + 'services/newService');
