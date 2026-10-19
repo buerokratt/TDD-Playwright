@@ -153,7 +153,7 @@ npx playwright init-agents --loop=claude -c playwright.seed.config.ts --project=
 
 `--loop` also takes `codex`, `copilot`, `opencode` and `vscode`. For Claude Code the command writes `.claude/agents/` and `.mcp.json`, both git-ignored. The `seed` project lives in `playwright.seed.config.ts`, apart from the suite, and points the agents at `tests/.setup/admin.seed.ts`, which opens the admin with the stored session.
 
-`init-agents` writes the MCP server without a config, so add it to the server's `args` in `.mcp.json` by hand:
+`init-agents` writes the MCP configuration without the custom `--config` path, so add it to the server's `args` in `.mcp.json` by hand:
 
 ```json
 "args": ["playwright", "run-test-mcp-server", "--config", "playwright.seed.config.ts"]
