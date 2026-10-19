@@ -163,7 +163,7 @@ test.describe(
         await sessionLengthPage.assertSaveWasRejected('Away status time must be between 5 and 120 minutes');
       });
 
-      await test.step('An away status time as long as a shorter session is refused as not shorter than it', async () => {
+      await test.step('An away status time equal to the session length is refused', async () => {
         await sessionLengthPage.fillSessionLength(SESSION_LENGTH_BELOW_AWAY_CAP);
         await sessionLengthPage.fillAwayStatusTime(SESSION_LENGTH_BELOW_AWAY_CAP);
         await sessionLengthPage.saveSettings();
