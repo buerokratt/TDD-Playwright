@@ -3,6 +3,8 @@ import { WorkingTimeSettings } from '@utils/interfaces';
 export const WORKDAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
 export const WEEK_DAYS = [...WORKDAYS, 'Saturday', 'Sunday'];
 
+export const WORKING_TIME_TAG = '@working-time';
+
 export const CSA_AVAILABLE_ALL_TIME: Partial<WorkingTimeSettings> = {
   organizationWorkingAllTime: 'true',
   organizationUseCSA: 'true',
