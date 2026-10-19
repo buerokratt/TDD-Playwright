@@ -3,8 +3,6 @@ node_modules/
 # Playwright outputs
 test-results/
 playwright-report/
-playwright/.cache/
-screenshots/
 .playwright-mcp
 specs/
 
@@ -16,7 +14,9 @@ tests/admin/.auth/user.json
 
 # IDE and OS
 .idea
+.vscode/
 .codex
+.opencode/
 .claude/
 .mcp.json
 .DS_Store
