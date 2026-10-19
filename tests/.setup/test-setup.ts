@@ -48,9 +48,12 @@ export const test = base.extend<AdminFixtures & CustomerFixtures>({
   customerPage: async ({ browser }, use) => {
     const context = await browser.newContext();
 
-    await seedEnglishLocale(context);
-    await use(await context.newPage());
-    await context.close();
+    try {
+      await seedEnglishLocale(context);
+      await use(await context.newPage());
+    } finally {
+      await context.close();
+    }
   },
   widgetPage: async ({ customerPage }, use) => use(new WidgetPage(customerPage)),
 });
