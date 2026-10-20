@@ -1,7 +1,7 @@
 import { AdminPageFactory } from '@page-objects/admin-page-factory';
 import { test } from '@setup/test-setup';
 import { ADMIN_PERSONAL_CODE, USERS_TABLE_RESULT_COUNTS } from '@utils/constants';
-import { usersPageSizeCleanup } from '@utils/helpers';
+import { existingDomainNames, usersPageSizeCleanup } from '@utils/helpers';
 
 test.describe(
   '[administration] [visibility] The users page shows its users and the controls to manage them',
@@ -44,6 +44,46 @@ test.describe(
         pageSizeBeforeRun = await up.readPageSize();
         await up.setPageSize(USERS_TABLE_RESULT_COUNTS[0]);
         await up.assertPagingOfferedWhenListOverflows();
+      });
+    });
+  },
+);
+
+test.describe(
+  '[administration] [visibility] The add user dialog asks for every detail of the new user',
+  { annotation: { type: 'kiwi case', description: 'https://monitooring.test.buerokratt.ee/case/159/' } },
+  () => {
+    test('The dialog shows every field with its roles and domains to choose from and both its controls', async ({
+      page,
+    }) => {
+      const up = new AdminPageFactory(page).getUsersPage();
+      const domainNames = await existingDomainNames(page);
+
+      await up.open();
+
+      await test.step('The "Add user" dialog opens over the users page', async () => {
+        await up.openAddUser();
+        await up.assertAddUserDialogIsShown();
+      });
+
+      await test.step('The dialog asks for the first- and lastname and the ID code, with the note on the country prefix', async () => {
+        await up.assertNameAndIdCodeAsked();
+      });
+
+      await test.step('"User role(s)" is a multiselect that starts on "Choose" and offers the five roles', async () => {
+        await up.assertRolesOffered();
+      });
+
+      await test.step('"Domains" is a multiselect that starts on "Choose" and offers every existing domain', async () => {
+        await up.assertDomainsOffered(domainNames);
+      });
+
+      await test.step('The dialog asks for the display name, the user title, the e-mail and the department', async () => {
+        await up.assertProfileFieldsAsked();
+      });
+
+      await test.step('The dialog offers "Cancel" and "Add user"', async () => {
+        await up.assertCancelAndConfirmOffered();
       });
     });
   },

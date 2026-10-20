@@ -3,9 +3,11 @@ import { Locator, Page, expect } from '@playwright/test';
 import { PaginatedDataTable } from '@page-objects/common';
 import {
   ACTION_TIMEOUT,
+  ADD_USER_PROFILE_FIELDS,
   PAGE_PREFERENCE_PATH,
   USERS_TABLE_COLUMNS,
   USERS_TABLE_FILTERABLE_COLUMNS,
+  USER_ROLES,
   USERS_TABLE_RESULT_COUNTS,
 } from '@utils/constants';
 import { URLS } from '@utils/env';
@@ -25,6 +27,13 @@ export class UsersPage {
 
   private readonly usersTable: PaginatedDataTable;
 
+  private readonly dialogAddUser: Locator;
+  private readonly headingAddUser: Locator;
+  private readonly noteIdCodePrefix: Locator;
+  private readonly optionsMultiSelect: Locator;
+  private readonly buttonCancelAddUser: Locator;
+  private readonly buttonConfirmAddUser: Locator;
+
   constructor(page: Page) {
     this.page = page;
 
@@ -42,6 +51,16 @@ export class UsersPage {
       rowLabelSelector: 'td',
       defaultPageSize: USERS_TABLE_RESULT_COUNTS[0],
     });
+
+    this.dialogAddUser = this.page.getByRole('dialog', { name: 'Add user' });
+    this.headingAddUser = this.dialogAddUser.getByRole('heading', { name: 'Add user', exact: true });
+    this.noteIdCodePrefix = this.dialogAddUser.getByText(
+      'The personal identification number must start with a country prefix, (eg.EE12345678910)',
+      { exact: true },
+    );
+    this.optionsMultiSelect = this.page.getByRole('option');
+    this.buttonCancelAddUser = this.dialogAddUser.getByRole('button', { name: 'Cancel', exact: true });
+    this.buttonConfirmAddUser = this.dialogAddUser.getByRole('button', { name: 'Add user', exact: true });
   }
 
   async waitForReady(options: RouteReadyOptions = {}): Promise<void> {
@@ -59,6 +78,17 @@ export class UsersPage {
 
   private columnCells(column: string): Locator {
     return this.usersTable.getRows().locator(`td:nth-child(${USERS_TABLE_COLUMNS.indexOf(column) + 1})`);
+  }
+
+  private dialogTextbox(label: string): Locator {
+    return this.dialogAddUser.getByRole('textbox', { name: label, exact: true });
+  }
+
+  private dialogMultiSelect(label: string): Locator {
+    return this.dialogAddUser
+      .locator('.multiSelect')
+      .filter({ has: this.page.getByText(label, { exact: true }) })
+      .first();
   }
 
   async assertHeadingAndAddUserShown(): Promise<void> {
@@ -163,5 +193,67 @@ export class UsersPage {
       this.selectPageSize.locator('option'),
       'The result count offers a different set of page sizes',
     ).toHaveText(USERS_TABLE_RESULT_COUNTS);
+  }
+
+  async openAddUser(): Promise<void> {
+    await this.buttonAddUser.click();
+  }
+
+  async assertAddUserDialogIsShown(): Promise<void> {
+    await expect(this.dialogAddUser, 'Adding a user opened no dialog').toBeVisible();
+    await expect(this.headingAddUser, 'The dialog is not titled "Add user"').toBeVisible();
+  }
+
+  async assertNameAndIdCodeAsked(): Promise<void> {
+    await expect(this.dialogTextbox('First- and lastname'), 'The dialog asks for no first- and lastname').toBeVisible();
+    await expect(this.dialogTextbox('ID code'), 'The dialog asks for no ID code').toBeVisible();
+    await expect(
+      this.noteIdCodePrefix,
+      'The ID code was asked for without the note on its country prefix',
+    ).toBeVisible();
+  }
+
+  async assertRolesOffered(): Promise<void> {
+    await this.assertMultiSelectOffers('User role(s)', USER_ROLES);
+  }
+
+  async assertDomainsOffered(domainNames: readonly string[]): Promise<void> {
+    await this.assertMultiSelectOffers('Domains', domainNames);
+  }
+
+  private async assertMultiSelectOffers(label: string, choices: readonly string[]): Promise<void> {
+    const multiSelect = this.dialogMultiSelect(label);
+
+    await expect(multiSelect, `The dialog offers no "${label}" multiselect`).toBeVisible();
+    await expect(
+      multiSelect.getByText('Choose', { exact: true }),
+      `"${label}" does not start on its "Choose" placeholder`,
+    ).toBeVisible();
+
+    await multiSelect.getByRole('combobox').click();
+    await expect(this.optionsMultiSelect, `"${label}" offers a different number of choices`).toHaveCount(
+      choices.length,
+    );
+
+    for (const choice of choices) {
+      await expect(
+        this.page.getByRole('option', { name: choice, exact: true }),
+        `"${label}" does not offer "${choice}"`,
+      ).toHaveCount(1);
+    }
+
+    await this.headingAddUser.click();
+    await expect(this.optionsMultiSelect, `The choices of "${label}" stayed open over the dialog`).toHaveCount(0);
+  }
+
+  async assertProfileFieldsAsked(): Promise<void> {
+    for (const label of ADD_USER_PROFILE_FIELDS) {
+      await expect(this.dialogTextbox(label), `The dialog asks for no "${label}"`).toBeVisible();
+    }
+  }
+
+  async assertCancelAndConfirmOffered(): Promise<void> {
+    await expect(this.buttonCancelAddUser, 'The dialog offers no way to cancel').toBeVisible();
+    await expect(this.buttonConfirmAddUser, 'The dialog offers no way to add the user').toBeVisible();
   }
 }

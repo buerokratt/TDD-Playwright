@@ -36,6 +36,9 @@ export const ANONYMIZER_CONFIG_PATH = 'configs/anonymizer';
 /** Copying one domain's anonymizer settings onto others: awaited when the copy dialog confirms. */
 export const ANONYMIZER_TRANSFER_PATH = 'configs/transfer/anonymizer';
 
+/** Every domain the back office knows, active or not: the list the user dialog offers its domains from. */
+export const WIDGET_DOMAINS_URL = `${BACKOFFICE_V2_BASE}/configs/widget-domains`;
+
 // --- AGENTS, CHATS --- //
 
 /** The conversations History lists once they are over: awaited when the page opens. */

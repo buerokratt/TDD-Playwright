@@ -24,3 +24,7 @@ export const USERS_TABLE_FILTERABLE_COLUMNS = [
 ];
 
 export const USERS_TABLE_RESULT_COUNTS = ['10', '20', '30', '40', '50'];
+
+export const ADD_USER_PROFILE_FIELDS = ['Display Name', 'User title', 'E-mail', 'Department'];
+
+export const USER_ROLES = ['Administrator', 'Service manager', 'Customer support', 'Chatbot trainer', 'Analyst'];
