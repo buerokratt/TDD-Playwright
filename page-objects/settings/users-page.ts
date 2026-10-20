@@ -11,7 +11,7 @@ import {
   USERS_TABLE_RESULT_COUNTS,
 } from '@utils/constants';
 import { URLS } from '@utils/env';
-import { RouteReadyOptions } from '@utils/interfaces';
+import { RouteReadyOptions, UserRow } from '@utils/interfaces';
 import { waitForUsersReady } from '@utils/waits';
 
 export class UsersPage {
@@ -33,6 +33,11 @@ export class UsersPage {
   private readonly optionsMultiSelect: Locator;
   private readonly buttonCancelAddUser: Locator;
   private readonly buttonConfirmAddUser: Locator;
+
+  private readonly dialogEditUser: Locator;
+  private readonly headingEditUser: Locator;
+  private readonly buttonCancelEditUser: Locator;
+  private readonly buttonConfirmEditUser: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -61,6 +66,11 @@ export class UsersPage {
     this.optionsMultiSelect = this.page.getByRole('option');
     this.buttonCancelAddUser = this.dialogAddUser.getByRole('button', { name: 'Cancel', exact: true });
     this.buttonConfirmAddUser = this.dialogAddUser.getByRole('button', { name: 'Add user', exact: true });
+
+    this.dialogEditUser = this.page.getByRole('dialog', { name: 'Edit user' });
+    this.headingEditUser = this.dialogEditUser.getByRole('heading', { name: 'Edit user', exact: true });
+    this.buttonCancelEditUser = this.dialogEditUser.getByRole('button', { name: 'Cancel', exact: true });
+    this.buttonConfirmEditUser = this.dialogEditUser.getByRole('button', { name: 'Edit user', exact: true });
   }
 
   async waitForReady(options: RouteReadyOptions = {}): Promise<void> {
@@ -80,12 +90,12 @@ export class UsersPage {
     return this.usersTable.getRows().locator(`td:nth-child(${USERS_TABLE_COLUMNS.indexOf(column) + 1})`);
   }
 
-  private dialogTextbox(label: string): Locator {
-    return this.dialogAddUser.getByRole('textbox', { name: label, exact: true });
+  private dialogTextbox(dialog: Locator, label: string): Locator {
+    return dialog.getByRole('textbox', { name: label, exact: true });
   }
 
-  private dialogMultiSelect(label: string): Locator {
-    return this.dialogAddUser
+  private dialogMultiSelect(dialog: Locator, label: string): Locator {
+    return dialog
       .locator('.multiSelect')
       .filter({ has: this.page.getByText(label, { exact: true }) })
       .first();
@@ -205,8 +215,11 @@ export class UsersPage {
   }
 
   async assertNameAndIdCodeAsked(): Promise<void> {
-    await expect(this.dialogTextbox('First- and lastname'), 'The dialog asks for no first- and lastname').toBeVisible();
-    await expect(this.dialogTextbox('ID code'), 'The dialog asks for no ID code').toBeVisible();
+    await expect(
+      this.dialogTextbox(this.dialogAddUser, 'First- and lastname'),
+      'The dialog asks for no first- and lastname',
+    ).toBeVisible();
+    await expect(this.dialogTextbox(this.dialogAddUser, 'ID code'), 'The dialog asks for no ID code').toBeVisible();
     await expect(
       this.noteIdCodePrefix,
       'The ID code was asked for without the note on its country prefix',
@@ -214,21 +227,37 @@ export class UsersPage {
   }
 
   async assertRolesOffered(): Promise<void> {
-    await this.assertMultiSelectOffers('User role(s)', USER_ROLES);
+    await this.assertMultiSelectOffers(this.dialogAddUser, 'User role(s)', USER_ROLES);
   }
 
   async assertDomainsOffered(domainNames: readonly string[]): Promise<void> {
-    await this.assertMultiSelectOffers('Domains', domainNames);
+    await this.assertMultiSelectOffers(this.dialogAddUser, 'Domains', domainNames);
   }
 
-  private async assertMultiSelectOffers(label: string, choices: readonly string[]): Promise<void> {
-    const multiSelect = this.dialogMultiSelect(label);
+  private async assertMultiSelectOffers(
+    dialog: Locator,
+    label: string,
+    available: readonly string[],
+    chosen: readonly string[] = [],
+  ): Promise<void> {
+    const multiSelect = this.dialogMultiSelect(dialog, label);
+    const choices = available.filter((choice) => !chosen.includes(choice));
 
     await expect(multiSelect, `The dialog offers no "${label}" multiselect`).toBeVisible();
-    await expect(
-      multiSelect.getByText('Choose', { exact: true }),
-      `"${label}" does not start on its "Choose" placeholder`,
-    ).toBeVisible();
+
+    if (chosen.length === 0) {
+      await expect(
+        multiSelect.getByText('Choose', { exact: true }),
+        `"${label}" does not start on its "Choose" placeholder`,
+      ).toBeVisible();
+    }
+
+    for (const choice of chosen) {
+      await expect(
+        multiSelect.getByRole('button', { name: `Remove ${choice}`, exact: true }),
+        `"${label}" does not hold "${choice}"`,
+      ).toBeVisible();
+    }
 
     await multiSelect.getByRole('combobox').click();
     await expect(this.optionsMultiSelect, `"${label}" offers a different number of choices`).toHaveCount(
@@ -242,18 +271,83 @@ export class UsersPage {
       ).toHaveCount(1);
     }
 
-    await this.headingAddUser.click();
+    await dialog.getByRole('heading').first().click();
     await expect(this.optionsMultiSelect, `The choices of "${label}" stayed open over the dialog`).toHaveCount(0);
   }
 
   async assertProfileFieldsAsked(): Promise<void> {
     for (const label of ADD_USER_PROFILE_FIELDS) {
-      await expect(this.dialogTextbox(label), `The dialog asks for no "${label}"`).toBeVisible();
+      await expect(this.dialogTextbox(this.dialogAddUser, label), `The dialog asks for no "${label}"`).toBeVisible();
     }
   }
 
-  async assertCancelAndConfirmOffered(): Promise<void> {
+  async assertAddUserControlsOffered(): Promise<void> {
     await expect(this.buttonCancelAddUser, 'The dialog offers no way to cancel').toBeVisible();
     await expect(this.buttonConfirmAddUser, 'The dialog offers no way to add the user').toBeVisible();
+  }
+
+  async readUserRow(personalCode: string): Promise<UserRow> {
+    const row = await this.usersTable.findRowAcrossPages(`EE${personalCode}`);
+
+    await expect(row, `The user ${personalCode} is not in the list`).toBeVisible();
+
+    const cells = (await row.locator('td').allInnerTexts()).map((text) => text.trim());
+    const cell = (column: string): string => cells[USERS_TABLE_COLUMNS.indexOf(column)];
+    const list = (column: string): string[] => cell(column).split(', ').filter(Boolean);
+
+    return {
+      name: cell('Name'),
+      roles: list('Role'),
+      domains: list('Domains'),
+      displayName: cell('Display Name'),
+      title: cell('User title'),
+      email: cell('E-mail'),
+      department: cell('Department'),
+    };
+  }
+
+  async openEditUser(personalCode: string): Promise<void> {
+    const row = await this.usersTable.findRowAcrossPages(`EE${personalCode}`);
+
+    await row.getByRole('button', { name: 'Edit', exact: true }).click();
+  }
+
+  async assertEditUserDialogIsShown(): Promise<void> {
+    await expect(this.dialogEditUser, 'Editing a user opened no dialog').toBeVisible();
+    await expect(this.headingEditUser, 'The dialog is not titled "Edit user"').toBeVisible();
+  }
+
+  async assertNameFilledIn(user: UserRow): Promise<void> {
+    await expect(
+      this.dialogTextbox(this.dialogEditUser, 'First- and lastname'),
+      'The dialog does not start on the name the row lists',
+    ).toHaveValue(user.name);
+  }
+
+  async assertUserRolesHeld(user: UserRow): Promise<void> {
+    await this.assertMultiSelectOffers(this.dialogEditUser, 'User role(s)', USER_ROLES, user.roles);
+  }
+
+  async assertUserDomainsHeld(user: UserRow, domainNames: readonly string[]): Promise<void> {
+    await this.assertMultiSelectOffers(this.dialogEditUser, 'Domains', domainNames, user.domains);
+  }
+
+  async assertProfileFilledIn(user: UserRow): Promise<void> {
+    for (const [label, value] of [
+      ['Display Name', user.displayName],
+      ['User title', user.title],
+      ['E-mail', user.email],
+      ['Department', user.department],
+    ]) {
+      await expect(
+        this.dialogTextbox(this.dialogEditUser, label),
+        `The dialog does not start "${label}" on what the row lists`,
+      ).toHaveValue(value);
+    }
+  }
+
+  async assertEditUserControlsOffered(): Promise<void> {
+    await expect(this.buttonCancelEditUser, 'The dialog offers no way to cancel').toBeVisible();
+    await expect(this.buttonConfirmEditUser, 'The dialog offers no way to save the user').toBeVisible();
   }
 }

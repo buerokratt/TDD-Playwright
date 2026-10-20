@@ -83,7 +83,49 @@ test.describe(
       });
 
       await test.step('The dialog offers "Cancel" and "Add user"', async () => {
-        await up.assertCancelAndConfirmOffered();
+        await up.assertAddUserControlsOffered();
+      });
+    });
+  },
+);
+
+test.describe(
+  '[administration] [visibility] The edit user dialog starts on the details the users table lists',
+  { annotation: { type: 'kiwi case', description: 'https://monitooring.test.buerokratt.ee/case/160/' } },
+  () => {
+    test('The dialog shows every field filled in from the row, with only the roles and domains not yet chosen on offer', async ({
+      page,
+    }) => {
+      const up = new AdminPageFactory(page).getUsersPage();
+      const domainNames = await existingDomainNames(page);
+
+      await up.open();
+
+      const user = await up.readUserRow(ADMIN_PERSONAL_CODE);
+
+      await test.step('The "Edit user" dialog opens over the row of the logged-in user', async () => {
+        await up.openEditUser(ADMIN_PERSONAL_CODE);
+        await up.assertEditUserDialogIsShown();
+      });
+
+      await test.step('The first- and lastname is filled in with the name the row lists', async () => {
+        await up.assertNameFilledIn(user);
+      });
+
+      await test.step('"User role(s)" holds the roles the row lists and offers only the roles not yet chosen', async () => {
+        await up.assertUserRolesHeld(user);
+      });
+
+      await test.step('"Domains" holds the domains the row lists and offers only the domains not yet chosen', async () => {
+        await up.assertUserDomainsHeld(user, domainNames);
+      });
+
+      await test.step('The display name, the user title, the e-mail and the department are filled in as the row lists them', async () => {
+        await up.assertProfileFilledIn(user);
+      });
+
+      await test.step('The dialog offers "Cancel" and "Edit user"', async () => {
+        await up.assertEditUserControlsOffered();
       });
     });
   },
