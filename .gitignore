@@ -15,8 +15,11 @@ tests/admin/.auth/user.json
 # IDE and OS
 .idea
 .vscode/
+.github/agents/
+.github/workflows/copilot-setup-steps.yml
 .codex
 .opencode/
+opencode.json
 .claude/
 .mcp.json
 .DS_Store
