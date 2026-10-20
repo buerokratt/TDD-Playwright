@@ -10,6 +10,7 @@ import {
   MultiDomainsPage,
   OfficeOpeningHoursPage,
   SessionLengthPage,
+  UsersPage,
 } from '@page-objects/settings';
 
 export class AdminPageFactory {
@@ -69,5 +70,9 @@ export class AdminPageFactory {
 
   getMultiDomainsPage(): MultiDomainsPage {
     return new MultiDomainsPage(this.page);
+  }
+
+  getUsersPage(): UsersPage {
+    return new UsersPage(this.page);
   }
 }

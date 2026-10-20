@@ -6,4 +6,5 @@ export * from './endpoints';
 export * from './paths';
 export * from './session-length';
 export * from './timeouts';
+export * from './users';
 export * from './working-time';

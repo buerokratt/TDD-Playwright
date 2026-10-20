@@ -13,6 +13,9 @@ export const CSA_ACTIVITY_URL = `${BACKOFFICE_V2_BASE}/${CSA_ACTIVITY_PATH}`;
 /** The widgets this account may configure. Asks for the account by `user_id`, answers 500 without it. */
 export const WIDGET_DATA_URL = `${BACKOFFICE_V2_BASE}/accounts/widget-data`;
 
+/** Where the back office stores the result count a user picked for a table: written with POST whenever the select changes. */
+export const PAGE_PREFERENCE_PATH = 'accounts/update-page-preference';
+
 // --- CONFIGS --- //
 
 /**
