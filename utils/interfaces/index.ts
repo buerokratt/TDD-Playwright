@@ -15,6 +15,7 @@ export * from './expect-row-options.interface';
 export * from './failed-api-call.interface';
 export * from './find-row-options.interface';
 export * from './find-service-row-options.interface';
+export * from './new-user-data.interface';
 export * from './paginated-data-table-options.interface';
 export * from './ready-page.interface';
 export * from './route-ready-options.interface';

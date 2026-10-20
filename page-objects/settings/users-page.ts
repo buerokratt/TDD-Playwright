@@ -8,10 +8,11 @@ import {
   USERS_TABLE_COLUMNS,
   USERS_TABLE_FILTERABLE_COLUMNS,
   USER_ROLES,
+  USER_STATUS_BUSY_COLOR,
   USERS_TABLE_RESULT_COUNTS,
 } from '@utils/constants';
 import { URLS } from '@utils/env';
-import { RouteReadyOptions, UserRow } from '@utils/interfaces';
+import { NewUserData, RouteReadyOptions, UserRow } from '@utils/interfaces';
 import { waitForUsersReady } from '@utils/waits';
 
 export class UsersPage {
@@ -38,6 +39,11 @@ export class UsersPage {
   private readonly headingEditUser: Locator;
   private readonly buttonCancelEditUser: Locator;
   private readonly buttonConfirmEditUser: Locator;
+
+  private readonly toastList: Locator;
+
+  private readonly dialogDeleteUser: Locator;
+  private readonly buttonConfirmDeleteUser: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -71,6 +77,11 @@ export class UsersPage {
     this.headingEditUser = this.dialogEditUser.getByRole('heading', { name: 'Edit user', exact: true });
     this.buttonCancelEditUser = this.dialogEditUser.getByRole('button', { name: 'Cancel', exact: true });
     this.buttonConfirmEditUser = this.dialogEditUser.getByRole('button', { name: 'Edit user', exact: true });
+
+    this.toastList = this.page.locator('ol.toast__list');
+
+    this.dialogDeleteUser = this.page.getByRole('dialog', { name: 'Delete user' });
+    this.buttonConfirmDeleteUser = this.dialogDeleteUser.getByRole('button', { name: 'Yes', exact: true });
   }
 
   async waitForReady(options: RouteReadyOptions = {}): Promise<void> {
@@ -284,6 +295,84 @@ export class UsersPage {
   async assertAddUserControlsOffered(): Promise<void> {
     await expect(this.buttonCancelAddUser, 'The dialog offers no way to cancel').toBeVisible();
     await expect(this.buttonConfirmAddUser, 'The dialog offers no way to add the user').toBeVisible();
+  }
+
+  async fillAddUser(user: NewUserData): Promise<void> {
+    await this.dialogTextbox(this.dialogAddUser, 'First- and lastname').fill(user.name);
+    await this.dialogTextbox(this.dialogAddUser, 'ID code').fill(`EE${user.personalCode}`);
+    await this.chooseOptions(this.dialogAddUser, 'User role(s)', user.roles);
+    await this.dialogTextbox(this.dialogAddUser, 'Display Name').fill(user.displayName);
+    await this.dialogTextbox(this.dialogAddUser, 'E-mail').fill(user.email);
+  }
+
+  private async chooseOptions(dialog: Locator, label: string, choices: readonly string[]): Promise<void> {
+    const multiSelect = this.dialogMultiSelect(dialog, label);
+
+    for (const choice of choices) {
+      const option = this.page.getByRole('option', { name: choice, exact: true });
+
+      if (!(await option.isVisible())) {
+        await multiSelect.getByRole('combobox').click();
+      }
+
+      await option.click();
+      await expect(
+        multiSelect.getByRole('button', { name: `Remove ${choice}`, exact: true }),
+        `"${label}" did not take "${choice}"`,
+      ).toBeVisible();
+    }
+
+    await dialog.getByRole('heading').first().click();
+    await expect(this.optionsMultiSelect, `The choices of "${label}" stayed open over the dialog`).toHaveCount(0);
+  }
+
+  async confirmAddUser(): Promise<void> {
+    await this.buttonConfirmAddUser.click();
+  }
+
+  async assertAddUserDialogClosed(): Promise<void> {
+    await expect(this.dialogAddUser, 'The "Add user" dialog stayed open after adding the user').toBeHidden();
+  }
+
+  async assertUserAddedConfirmed({ timeout = ACTION_TIMEOUT }: RouteReadyOptions = {}): Promise<void> {
+    await expect(this.toastList, 'Adding the user raised no notification').toContainText('New user added', {
+      timeout,
+    });
+  }
+
+  async assertUserListed(user: NewUserData): Promise<void> {
+    const row = await this.readUserRow(user.personalCode);
+
+    expect(row, 'The users table does not list the new user with the entered values').toMatchObject({
+      name: user.name,
+      roles: user.roles,
+      displayName: user.displayName,
+      email: user.email,
+    });
+  }
+
+  async assertUserBusy(personalCode: string): Promise<void> {
+    const row = await this.usersTable.findRowAcrossPages(`EE${personalCode}`);
+
+    await expect(
+      row
+        .locator(`td:nth-child(${USERS_TABLE_COLUMNS.indexOf('Status') + 1})`)
+        .getByRole('button')
+        .locator('span'),
+      `The user ${personalCode} is not shown as "Busy"`,
+    ).toHaveCSS('background-color', USER_STATUS_BUSY_COLOR);
+  }
+
+  async deleteUserIfExists(personalCode: string): Promise<void> {
+    const row = await this.usersTable.findRowAcrossPages(`EE${personalCode}`);
+
+    if (!(await row.count())) {
+      return;
+    }
+
+    await row.getByRole('button', { name: 'Delete', exact: true }).click();
+    await this.buttonConfirmDeleteUser.click();
+    await this.usersTable.expectRowDeleted(`EE${personalCode}`);
   }
 
   async readUserRow(personalCode: string): Promise<UserRow> {

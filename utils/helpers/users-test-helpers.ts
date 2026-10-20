@@ -18,3 +18,12 @@ export function usersPageSizeCleanup(resolvePageSize: PageSizeResolver) {
     await up.setPageSize(pageSize);
   };
 }
+
+export function userCleanup(resolvePersonalCode: () => string) {
+  return async ({ page }: { page: Page }): Promise<void> => {
+    const up = new AdminPageFactory(page).getUsersPage();
+
+    await up.open();
+    await up.deleteUserIfExists(resolvePersonalCode());
+  };
+}
