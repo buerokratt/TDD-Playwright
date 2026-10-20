@@ -3,8 +3,8 @@ node_modules/
 # Playwright outputs
 test-results/
 playwright-report/
-playwright/.cache/
-screenshots/
+.playwright-mcp
+specs/
 
 # Generated auth
 tests/admin/.auth/user.json
@@ -14,5 +14,12 @@ tests/admin/.auth/user.json
 
 # IDE and OS
 .idea
+.vscode/
+.github/agents/
+.github/workflows/copilot-setup-steps.yml
 .codex
+.opencode/
+opencode.json
+.claude/
+.mcp.json
 .DS_Store

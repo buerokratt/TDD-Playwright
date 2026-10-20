@@ -1,4 +1,3 @@
-import { AdminPageFactory } from '@page-objects/admin-page-factory';
 import { expect, test } from '@setup/test-setup';
 import { ACTION_TIMEOUT, CHAT_ANALYSIS_LABEL_SECTIONS } from '@utils/constants';
 import { URLS } from '@utils/env';
@@ -23,69 +22,65 @@ test.describe('[conversations] [functional] A conversation is analysed from the 
   let analysed: AnalysedConversation | undefined;
   let settingsBefore: ChatAnalysisDomainSnapshot | undefined;
 
-  test.afterEach(async ({ page }) => {
-    await conversationAnalysisCleanup(() => analysed)({ page });
+  test.afterEach(async ({ page, historyPage }) => {
+    await conversationAnalysisCleanup(() => analysed)({ historyPage });
     await chatAnalysisConfigRestore(() => settingsBefore)({ page });
   });
 
   test(
     'The values picked are confirmed, kept on the card and carried into the conversations table',
     { annotation: { type: 'kiwi case', description: 'https://monitooring.test.buerokratt.ee/case/195/' } },
-    async ({ page }) => {
-      const admin = new AdminPageFactory(page);
-      const cap = admin.getChatAnalysisPage();
-      const history = admin.getHistoryPage();
-
+    async ({ page, chatAnalysisPage, historyPage }) => {
       await test.step('The domain the conversations belong to has a label in every section', async () => {
-        await cap.open();
+        await chatAnalysisPage.open();
 
-        const domainId = await cap.selectDomainTab();
+        const domainId = await chatAnalysisPage.selectDomainTab();
 
         settingsBefore = { domainId, config: await readChatAnalysisConfig(page, domainId) };
 
-        await cap.enableAnalysis();
+        await chatAnalysisPage.enableAnalysis();
 
-        await cap.addLabel(themeSection.title, analysis.theme);
-        await cap.addLabel(qualitySection.title, analysis.responseQuality);
-        await cap.addLabel(followUpSection.title, analysis.followUpAction);
+        await chatAnalysisPage.addLabel(themeSection.title, analysis.theme);
+        await chatAnalysisPage.addLabel(qualitySection.title, analysis.responseQuality);
+        await chatAnalysisPage.addLabel(followUpSection.title, analysis.followUpAction);
 
-        await cap.saveSettings();
-        await cap.assertSaveWasConfirmed();
+        await chatAnalysisPage.saveSettings();
+        await chatAnalysisPage.assertSaveWasConfirmed();
       });
 
-      await history.open();
+      await historyPage.open();
 
-      const conversationId = await history.findConversationIdByWebpage(URLS.customer);
+      const conversationId = await historyPage.findConversationIdByWebpage(URLS.customer);
 
       await test.step(`Conversation "${conversationId}" opens in the drawer`, async () => {
-        await history.assertPageIsShown();
-        await history.openConversationDetails(conversationId);
+        await historyPage.assertPageIsShown();
+        await historyPage.openConversationDetails(conversationId);
       });
 
       await test.step('Each value picked in the analysis panel is reported as saved', async () => {
-        await history.selectTheme(analysis.theme);
-        await history.assertThemeWasSaved();
+        await historyPage.selectTheme(analysis.theme);
+        await historyPage.assertThemeWasSaved();
         analysed = { conversationId, analysis };
 
-        await history.selectResponseQuality(analysis.responseQuality);
-        await history.assertResponseQualityWasSaved();
+        await historyPage.selectResponseQuality(analysis.responseQuality);
+        await historyPage.assertResponseQualityWasSaved();
 
-        await history.selectFollowUpAction(analysis.followUpAction);
-        await history.assertFollowUpActionWasSaved();
+        await historyPage.selectFollowUpAction(analysis.followUpAction);
+        await historyPage.assertFollowUpActionWasSaved();
       });
 
       await test.step('The pickers show the picked values right away', async () => {
-        expect(await history.readAnalysisSelections(), 'The pickers did not show what was just picked').toEqual(
+        expect(await historyPage.readAnalysisSelections(), 'The pickers did not show what was just picked').toEqual(
           analysis,
         );
       });
 
       await test.step('The conversation drawer retains the selected values', async () => {
-        await history.open();
-        await history.openConversationDetails(conversationId);
+        await historyPage.open();
+        await historyPage.openConversationDetails(conversationId);
 
         await expect
-          .poll(() => history.readAnalysisSelections(), {
+          .poll(() => historyPage.readAnalysisSelections(), {
             message: 'The conversation drawer lost the selected values',
             timeout: ACTION_TIMEOUT,
           })
@@ -95,16 +90,16 @@ test.describe('[conversations] [functional] A conversation is analysed from the 
       await test.step('The conversation drawer records who analysed the conversation and when', async () => {
         const author = await readUserDisplayName(page);
 
-        await history.assertAnalysisWasRecorded('Chat theme', analysis.theme, author);
-        await history.assertAnalysisWasRecorded('Chat response quality', analysis.responseQuality, author);
-        await history.assertAnalysisWasRecorded('Follow-up action', analysis.followUpAction, author);
+        await historyPage.assertAnalysisWasRecorded('Chat theme', analysis.theme, author);
+        await historyPage.assertAnalysisWasRecorded('Chat response quality', analysis.responseQuality, author);
+        await historyPage.assertAnalysisWasRecorded('Follow-up action', analysis.followUpAction, author);
       });
 
       await test.step('The conversations table carries the values in the row of that conversation', async () => {
-        await history.closeConversation();
+        await historyPage.closeConversation();
 
         await expect
-          .poll(() => history.readRowAnalysis(conversationId), {
+          .poll(() => historyPage.readRowAnalysis(conversationId), {
             message: 'The conversation row was left without the values selected in the drawer',
             timeout: ACTION_TIMEOUT,
           })

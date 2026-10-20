@@ -1,4 +1,3 @@
-import { AdminPageFactory } from '@page-objects/admin-page-factory';
 import { expect, test } from '@setup/test-setup';
 import { ACTION_TIMEOUT, CHAT_ANALYSIS_LABEL_SECTIONS } from '@utils/constants';
 import { chatAnalysisCleanup, chatAnalysisConfigRestore, readChatAnalysisConfig } from '@utils/helpers';
@@ -14,30 +13,28 @@ test.describe('[administration] [functional] A value entered in a label section 
   test(
     'Every section takes a value, by the add control and by the Enter key',
     { annotation: { type: 'kiwi case', description: 'https://monitooring.test.buerokratt.ee/case/192/' } },
-    async ({ page }) => {
-      const cap = new AdminPageFactory(page).getChatAnalysisPage();
-
-      await cap.open();
+    async ({ chatAnalysisPage }) => {
+      await chatAnalysisPage.open();
 
       await test.step('The page opens with chat analysis enabled', async () => {
-        await cap.assertPageIsShown();
-        await cap.enableAnalysis();
+        await chatAnalysisPage.assertPageIsShown();
+        await chatAnalysisPage.enableAnalysis();
       });
 
       for (const section of CHAT_ANALYSIS_LABEL_SECTIONS) {
         await test.step(`"${section.title}" section lists a label entered through its add control`, async () => {
           const label = createChatAnalysisLabel('autotestadded');
 
-          await cap.addLabel(section.title, label);
-          await cap.assertLabelIsShownAsChip(section.title, label);
+          await chatAnalysisPage.addLabel(section.title, label);
+          await chatAnalysisPage.assertLabelIsShownAsChip(section.title, label);
         });
       }
 
       await test.step(`"${themeSection.title}" section lists a label entered with the Enter key`, async () => {
         const label = createChatAnalysisLabel('autotestentered');
 
-        await cap.addLabelWithEnter(themeSection.title, label);
-        await cap.assertLabelIsShownAsChip(themeSection.title, label);
+        await chatAnalysisPage.addLabelWithEnter(themeSection.title, label);
+        await chatAnalysisPage.assertLabelIsShownAsChip(themeSection.title, label);
       });
     },
   );
@@ -47,32 +44,30 @@ test.describe('[administration] [functional] A label over the length limit is re
   test(
     'A value longer than 50 characters is reported and left out of the section',
     { annotation: { type: 'kiwi case', description: 'https://monitooring.test.buerokratt.ee/case/193/' } },
-    async ({ page }) => {
-      const cap = new AdminPageFactory(page).getChatAnalysisPage();
-
-      await cap.open();
+    async ({ chatAnalysisPage }) => {
+      await chatAnalysisPage.open();
 
       await test.step('The page opens with chat analysis enabled', async () => {
-        await cap.assertPageIsShown();
-        await cap.enableAnalysis();
+        await chatAnalysisPage.assertPageIsShown();
+        await chatAnalysisPage.enableAnalysis();
       });
 
       await test.step(`"${themeSection.title}" section refuses a label entered through its add control`, async () => {
         const label = createOverlongChatAnalysisLabel();
 
-        await cap.addLabel(themeSection.title, label);
+        await chatAnalysisPage.addLabel(themeSection.title, label);
 
-        await cap.assertLabelTooLongWasReported();
-        await cap.assertLabelIsNotListed(themeSection.title, label);
+        await chatAnalysisPage.assertLabelTooLongWasReported();
+        await chatAnalysisPage.assertLabelIsNotListed(themeSection.title, label);
       });
 
       await test.step(`"${qualitySection.title}" section refuses a label entered with the Enter key`, async () => {
         const label = createOverlongChatAnalysisLabel();
 
-        await cap.addLabelWithEnter(qualitySection.title, label);
+        await chatAnalysisPage.addLabelWithEnter(qualitySection.title, label);
 
-        await cap.assertLabelTooLongWasReported();
-        await cap.assertLabelIsNotListed(qualitySection.title, label);
+        await chatAnalysisPage.assertLabelTooLongWasReported();
+        await chatAnalysisPage.assertLabelIsNotListed(qualitySection.title, label);
       });
     },
   );
@@ -82,25 +77,24 @@ test.describe('[administration] [functional] A chip is deleted once the deletion
   test(
     'A chip is gone from its section after the confirmation is given',
     { annotation: { type: 'kiwi case', description: 'https://monitooring.test.buerokratt.ee/case/194/' } },
-    async ({ page }) => {
-      const cap = new AdminPageFactory(page).getChatAnalysisPage();
+    async ({ chatAnalysisPage }) => {
       const label = createChatAnalysisLabel('autotestdeleted');
 
-      await cap.open();
+      await chatAnalysisPage.open();
 
       await test.step('The page opens with chat analysis enabled', async () => {
-        await cap.assertPageIsShown();
-        await cap.enableAnalysis();
+        await chatAnalysisPage.assertPageIsShown();
+        await chatAnalysisPage.enableAnalysis();
       });
 
       await test.step(`"${themeSection.title}" section holds a label from the current run to delete`, async () => {
-        await cap.addLabel(themeSection.title, label);
-        await cap.assertLabelIsShownAsChip(themeSection.title, label);
+        await chatAnalysisPage.addLabel(themeSection.title, label);
+        await chatAnalysisPage.assertLabelIsShownAsChip(themeSection.title, label);
       });
 
       await test.step('Confirming the deletion takes the chip out of its section', async () => {
-        await cap.deleteLabel(themeSection.title, label);
-        await cap.assertLabelIsNotListed(themeSection.title, label);
+        await chatAnalysisPage.deleteLabel(themeSection.title, label);
+        await chatAnalysisPage.assertLabelIsNotListed(themeSection.title, label);
       });
     },
   );
@@ -112,31 +106,29 @@ test.describe('[administration] [functional] Chat analysis settings are saved fo
   test(
     'A saved label is confirmed and read back after a reload',
     { annotation: { type: 'kiwi case', description: 'https://monitooring.test.buerokratt.ee/case/190/' } },
-    async ({ page }) => {
-      const cap = new AdminPageFactory(page).getChatAnalysisPage();
-
-      await cap.open();
+    async ({ chatAnalysisPage }) => {
+      await chatAnalysisPage.open();
 
       await test.step('The page opens on a domain of its own', async () => {
-        await cap.assertPageIsShown();
-        await cap.selectDomainTab();
+        await chatAnalysisPage.assertPageIsShown();
+        await chatAnalysisPage.selectDomainTab();
       });
 
       await test.step(`Chat analysis is enabled and "${themeSection.title}" section accepts a label from the current run`, async () => {
-        await cap.enableAnalysis();
-        await cap.addLabel(themeSection.title, addedLabel);
-        await cap.assertLabelIsShownAsChip(themeSection.title, addedLabel);
+        await chatAnalysisPage.enableAnalysis();
+        await chatAnalysisPage.addLabel(themeSection.title, addedLabel);
+        await chatAnalysisPage.assertLabelIsShownAsChip(themeSection.title, addedLabel);
       });
 
       await test.step('Saving reports the settings went through', async () => {
-        await cap.saveSettings();
-        await cap.assertSaveWasConfirmed();
+        await chatAnalysisPage.saveSettings();
+        await chatAnalysisPage.assertSaveWasConfirmed();
       });
 
       await test.step('The label is still listed after a reload', async () => {
-        await cap.open();
+        await chatAnalysisPage.open();
 
-        await cap.assertLabelIsShownAsChip(themeSection.title, addedLabel);
+        await chatAnalysisPage.assertLabelIsShownAsChip(themeSection.title, addedLabel);
       });
     },
   );
@@ -151,20 +143,18 @@ test.describe('[administration] [functional] Settings are copied from one domain
   test(
     'The target domain is confirmed and comes back holding the settings of the source',
     { annotation: { type: 'kiwi case', description: 'https://monitooring.test.buerokratt.ee/case/191/' } },
-    async ({ page }) => {
-      const cap = new AdminPageFactory(page).getChatAnalysisPage();
+    async ({ page, chatAnalysisPage }) => {
+      await chatAnalysisPage.open();
 
-      await cap.open();
-
-      const domains = await cap.domainTabCount();
+      const domains = await chatAnalysisPage.domainTabCount();
 
       expect(domains, 'Copying settings is only offered where a second domain exists').toBeGreaterThan(1);
 
       const targetIndex = domains - 1;
-      const targetName = await cap.domainTabName(targetIndex);
+      const targetName = await chatAnalysisPage.domainTabName(targetIndex);
 
       await test.step("The target domain's current settings are saved to be restored later", async () => {
-        const targetId = await cap.selectDomainTab(targetIndex);
+        const targetId = await chatAnalysisPage.selectDomainTab(targetIndex);
 
         targetSnapshot = { domainId: targetId, config: await readChatAnalysisConfig(page, targetId) };
       });
@@ -172,29 +162,29 @@ test.describe('[administration] [functional] Settings are copied from one domain
       let sourceSettings: ChatAnalysisSettings;
 
       await test.step('The source domain is given settings the target does not have', async () => {
-        await cap.selectDomainTab();
-        await cap.enableAnalysis();
-        await cap.addLabel(themeSection.title, copiedLabel);
+        await chatAnalysisPage.selectDomainTab();
+        await chatAnalysisPage.enableAnalysis();
+        await chatAnalysisPage.addLabel(themeSection.title, copiedLabel);
 
-        await cap.saveSettings();
-        await cap.assertSaveWasConfirmed();
+        await chatAnalysisPage.saveSettings();
+        await chatAnalysisPage.assertSaveWasConfirmed();
 
-        sourceSettings = await cap.readSettings(sectionTitles);
+        sourceSettings = await chatAnalysisPage.readSettings(sectionTitles);
       });
 
       await test.step(`Copying them onto "${targetName}" reports the settings went through`, async () => {
-        await cap.open();
-        await cap.selectDomainTab();
+        await chatAnalysisPage.open();
+        await chatAnalysisPage.selectDomainTab();
 
-        await cap.copySettingsTo(targetName);
-        await cap.assertSaveWasConfirmed();
+        await chatAnalysisPage.copySettingsTo(targetName);
+        await chatAnalysisPage.assertSaveWasConfirmed();
       });
 
       await test.step('The target domain comes back with the settings of the source', async () => {
-        await cap.selectDomainTab(targetIndex);
+        await chatAnalysisPage.selectDomainTab(targetIndex);
 
         await expect
-          .poll(() => cap.readSettings(sectionTitles), {
+          .poll(() => chatAnalysisPage.readSettings(sectionTitles), {
             message: `"${targetName}" came back with settings of its own`,
             timeout: ACTION_TIMEOUT,
           })
