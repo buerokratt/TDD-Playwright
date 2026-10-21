@@ -41,6 +41,8 @@ export class UsersPage {
   private readonly buttonCancelEditUser: Locator;
   private readonly buttonConfirmEditUser: Locator;
 
+  private readonly dialogUser: Locator;
+
   private readonly toastList: Locator;
 
   private readonly dialogDeleteUser: Locator;
@@ -78,6 +80,8 @@ export class UsersPage {
     this.headingEditUser = this.dialogEditUser.getByRole('heading', { name: 'Edit user', exact: true });
     this.buttonCancelEditUser = this.dialogEditUser.getByRole('button', { name: 'Cancel', exact: true });
     this.buttonConfirmEditUser = this.dialogEditUser.getByRole('button', { name: 'Edit user', exact: true });
+
+    this.dialogUser = this.dialogAddUser.or(this.dialogEditUser);
 
     this.toastList = this.page.locator('ol.toast__list');
 
@@ -354,20 +358,19 @@ export class UsersPage {
   }
 
   async fillEmail(email: string): Promise<void> {
-    await this.dialogTextbox(this.dialogAddUser, 'E-mail').fill(email);
+    await this.dialogTextbox(this.dialogUser, 'E-mail').fill(email);
   }
 
-  async assertRequiredFieldsFlagged(): Promise<void> {
-    for (const label of ADD_USER_REQUIRED_FIELDS) {
+  async assertRequiredFieldsFlagged(labels: readonly string[] = ADD_USER_REQUIRED_FIELDS): Promise<void> {
+    for (const label of labels) {
       await this.assertFieldRejected(label, 'Required');
     }
   }
 
   async assertFieldRejected(label: string, message: string): Promise<void> {
-    await expect(
-      this.fieldMessage(this.dialogAddUser, label),
-      `"${label}" was not rejected as "${message}"`,
-    ).toHaveText(message);
+    await expect(this.fieldMessage(this.dialogUser, label), `"${label}" was not rejected as "${message}"`).toHaveText(
+      message,
+    );
   }
 
   async assertUserExistsReported({ timeout = ACTION_TIMEOUT }: RouteReadyOptions = {}): Promise<void> {
@@ -485,6 +488,22 @@ export class UsersPage {
     await this.dialogTextbox(this.dialogEditUser, 'First- and lastname').fill(user.name);
     await this.dialogTextbox(this.dialogEditUser, 'Display Name').fill(user.displayName);
     await this.dialogTextbox(this.dialogEditUser, 'E-mail').fill(user.email);
+  }
+
+  async clearEditUser(user: NewUserData): Promise<void> {
+    for (const label of ['First- and lastname', 'Display Name', 'E-mail']) {
+      await this.dialogTextbox(this.dialogEditUser, label).fill('');
+    }
+
+    for (const role of user.roles) {
+      await this.dialogMultiSelect(this.dialogEditUser, 'User role(s)')
+        .getByRole('button', { name: `Remove ${role}`, exact: true })
+        .click();
+    }
+  }
+
+  async selectEditUserRoles(roles: readonly string[]): Promise<void> {
+    await this.chooseOptions(this.dialogEditUser, 'User role(s)', roles);
   }
 
   async confirmEditUser(): Promise<void> {

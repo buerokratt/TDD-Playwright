@@ -32,3 +32,5 @@ export const USER_ROLES = ['Administrator', 'Service manager', 'Customer support
 export const USER_STATUS_BUSY_COLOR = 'rgb(215, 62, 62)';
 
 export const ADD_USER_REQUIRED_FIELDS = ['First- and lastname', 'ID code', 'User role(s)', 'Display Name', 'E-mail'];
+
+export const EDIT_USER_REQUIRED_FIELDS = ['First- and lastname', 'User role(s)', 'Display Name', 'E-mail'];
