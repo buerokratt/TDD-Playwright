@@ -480,4 +480,24 @@ export class UsersPage {
     await expect(this.buttonCancelEditUser, 'The dialog offers no way to cancel').toBeVisible();
     await expect(this.buttonConfirmEditUser, 'The dialog offers no way to save the user').toBeVisible();
   }
+
+  async fillEditUser(user: NewUserData): Promise<void> {
+    await this.dialogTextbox(this.dialogEditUser, 'First- and lastname').fill(user.name);
+    await this.dialogTextbox(this.dialogEditUser, 'Display Name').fill(user.displayName);
+    await this.dialogTextbox(this.dialogEditUser, 'E-mail').fill(user.email);
+  }
+
+  async confirmEditUser(): Promise<void> {
+    await this.buttonConfirmEditUser.click();
+  }
+
+  async assertEditUserDialogClosed(): Promise<void> {
+    await expect(this.dialogEditUser, 'The "Edit user" dialog stayed open after saving the user').toBeHidden();
+  }
+
+  async assertUserUpdatedConfirmed({ timeout = ACTION_TIMEOUT }: RouteReadyOptions = {}): Promise<void> {
+    await expect(this.toastList, 'Saving the user raised no notification').toContainText('User updated', {
+      timeout,
+    });
+  }
 }

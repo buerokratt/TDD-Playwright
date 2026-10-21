@@ -13,3 +13,14 @@ export function createUserData(prefix = 'autotestuser'): NewUserData {
     email: `${name}@test.test`,
   };
 }
+
+export function createUpdatedUserData(user: NewUserData): NewUserData {
+  const name = `${user.name}updated`;
+
+  return {
+    ...user,
+    name,
+    displayName: name,
+    email: `${name}@test.test`,
+  };
+}
