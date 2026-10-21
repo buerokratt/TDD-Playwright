@@ -1,12 +1,12 @@
 import { expect, test } from '@setup/test-setup';
 import { URLS } from '@utils/env';
-import { registerServiceCleanup } from '@utils/helpers';
+import { serviceCleanup } from '@utils/helpers';
 import { createServiceName } from '@utils/test-data';
 
 const serviceName = createServiceName('negativeservice');
 
 test.describe('[services] [functional] A service without a title is rejected', () => {
-  registerServiceCleanup(test, serviceName);
+  test.afterEach(serviceCleanup(serviceName));
 
   test('A titleless save creates no service, and the same draft saves once the title is supplied', async ({
     page,

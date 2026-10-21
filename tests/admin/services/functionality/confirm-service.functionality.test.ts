@@ -1,12 +1,12 @@
 import { expect, test } from '@setup/test-setup';
 import { URLS } from '@utils/env';
-import { registerServiceCleanup } from '@utils/helpers';
+import { serviceCleanup } from '@utils/helpers';
 import { createServiceName, createValidServiceData } from '@utils/test-data';
 
 const serviceName = createServiceName('confirmservice');
 
 test.describe('[services] [functional] Confirming a service changes its state', () => {
-  registerServiceCleanup(test, serviceName);
+  test.afterEach(serviceCleanup(serviceName));
 
   test('A saved service stays Draft until it is confirmed, then turns Ready', async ({
     page,

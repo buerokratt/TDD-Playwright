@@ -1,6 +1,6 @@
 import { expect, test } from '@setup/test-setup';
 import { URLS } from '@utils/env';
-import { registerServiceCleanup } from '@utils/helpers';
+import { serviceCleanup } from '@utils/helpers';
 import { createServiceName, createValidServiceData } from '@utils/test-data';
 
 const serviceName = createServiceName('newservice');
@@ -8,7 +8,7 @@ const neverCreatedName = createServiceName('nevercreated');
 const description = `Description marker ${serviceName}`;
 
 test.describe('[services] [functional] A created service persists the data it was authored with', () => {
-  registerServiceCleanup(test, serviceName);
+  test.afterEach(serviceCleanup(serviceName));
 
   test('Title and description survive saving and reopening the service', async ({
     page,

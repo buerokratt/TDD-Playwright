@@ -1,9 +1,9 @@
-import { AdminPagesFixtures, DeleteConversationsSettings } from '@utils/interfaces';
+import { AdminFixtures, DeleteConversationsSettings } from '@utils/interfaces';
 
 type SettingsResolver = () => DeleteConversationsSettings | undefined;
 
 export function deleteConversationsCleanup(resolveSettings: SettingsResolver) {
-  return async ({ deleteConversationsPage }: Pick<AdminPagesFixtures, 'deleteConversationsPage'>): Promise<void> => {
+  return async ({ deleteConversationsPage }: Pick<AdminFixtures, 'deleteConversationsPage'>): Promise<void> => {
     const settings = resolveSettings();
 
     if (!settings) {
