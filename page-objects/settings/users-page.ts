@@ -414,9 +414,25 @@ export class UsersPage {
       return;
     }
 
-    await row.getByRole('button', { name: 'Delete', exact: true }).click();
-    await this.buttonConfirmDeleteUser.click();
+    await this.openDeleteUser(personalCode);
+    await this.confirmDeleteUser();
     await this.usersTable.expectRowDeleted(`EE${personalCode}`);
+  }
+
+  async openDeleteUser(personalCode: string): Promise<void> {
+    const row = await this.usersTable.findRowAcrossPages(`EE${personalCode}`);
+
+    await row.getByRole('button', { name: 'Delete', exact: true }).click();
+  }
+
+  async confirmDeleteUser(): Promise<void> {
+    await this.buttonConfirmDeleteUser.click();
+  }
+
+  async assertUserDeletedConfirmed({ timeout = ACTION_TIMEOUT }: RouteReadyOptions = {}): Promise<void> {
+    await expect(this.toastList, 'Deleting the user raised no notification').toContainText('User deleted', {
+      timeout,
+    });
   }
 
   async readUserRow(personalCode: string): Promise<UserRow> {
