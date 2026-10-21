@@ -30,3 +30,5 @@ export const ADD_USER_PROFILE_FIELDS = ['Display Name', 'User title', 'E-mail', 
 export const USER_ROLES = ['Administrator', 'Service manager', 'Customer support', 'Chatbot trainer', 'Analyst'];
 
 export const USER_STATUS_BUSY_COLOR = 'rgb(215, 62, 62)';
+
+export const ADD_USER_REQUIRED_FIELDS = ['First- and lastname', 'ID code', 'User role(s)', 'Display Name', 'E-mail'];

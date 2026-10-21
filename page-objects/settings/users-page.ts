@@ -4,6 +4,7 @@ import { PaginatedDataTable } from '@page-objects/common';
 import {
   ACTION_TIMEOUT,
   ADD_USER_PROFILE_FIELDS,
+  ADD_USER_REQUIRED_FIELDS,
   PAGE_PREFERENCE_PATH,
   USERS_TABLE_COLUMNS,
   USERS_TABLE_FILTERABLE_COLUMNS,
@@ -110,6 +111,14 @@ export class UsersPage {
       .locator('.multiSelect')
       .filter({ has: this.page.getByText(label, { exact: true }) })
       .first();
+  }
+
+  private fieldMessage(dialog: Locator, label: string): Locator {
+    return dialog
+      .locator('.track > *')
+      .filter({ has: this.page.getByText(label, { exact: true }) })
+      .first()
+      .locator('xpath=following-sibling::*[1][self::span]');
   }
 
   async assertHeadingAndAddUserShown(): Promise<void> {
@@ -338,6 +347,38 @@ export class UsersPage {
     await expect(this.toastList, 'Adding the user raised no notification').toContainText('New user added', {
       timeout,
     });
+  }
+
+  async fillIdCode(idCode: string): Promise<void> {
+    await this.dialogTextbox(this.dialogAddUser, 'ID code').fill(idCode);
+  }
+
+  async fillEmail(email: string): Promise<void> {
+    await this.dialogTextbox(this.dialogAddUser, 'E-mail').fill(email);
+  }
+
+  async assertRequiredFieldsFlagged(): Promise<void> {
+    for (const label of ADD_USER_REQUIRED_FIELDS) {
+      await this.assertFieldRejected(label, 'Required');
+    }
+  }
+
+  async assertFieldRejected(label: string, message: string): Promise<void> {
+    await expect(
+      this.fieldMessage(this.dialogAddUser, label),
+      `"${label}" was not rejected as "${message}"`,
+    ).toHaveText(message);
+  }
+
+  async assertUserExistsReported({ timeout = ACTION_TIMEOUT }: RouteReadyOptions = {}): Promise<void> {
+    await expect(
+      this.toastList,
+      'Adding a user under a taken ID code raised no "User Exists" notification',
+    ).toContainText('User Exists', { timeout });
+  }
+
+  async assertUserNotListed(name: string): Promise<void> {
+    await this.usersTable.expectRowDeleted(name);
   }
 
   async assertUserListed(user: NewUserData): Promise<void> {
