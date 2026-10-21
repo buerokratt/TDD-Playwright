@@ -1,4 +1,4 @@
-import { Locator, Page, expect } from '@playwright/test';
+import { Locator, Page, expect, test } from '@playwright/test';
 
 import { ACTION_TIMEOUT, CSA_ACTIVITY_PATH, CSA_ACTIVITY_URL } from '@utils/constants';
 import { URLS } from '@utils/env';
@@ -55,6 +55,29 @@ export class Header {
     await expect(async () => {
       expect(await this.isCsaPresent(), 'The operator stayed away after the switch was set to Present').toBeTruthy();
     }).toPass({ timeout: ACTION_TIMEOUT });
+  }
+
+  async whileCsaAway(body: () => Promise<void>): Promise<void> {
+    await this.page.goto(URLS.admin + 'chat/landing');
+    await this.setCsaStatus('offline');
+
+    await expect(async () => {
+      expect(await this.isCsaPresent(), 'The operator stayed present after the switch was set to Away').toBeFalsy();
+    }).toPass({ timeout: ACTION_TIMEOUT });
+
+    try {
+      await body();
+    } catch (error) {
+      await this.setCsaStatus('online').catch((restoreError: unknown) => {
+        test.info().annotations.push({
+          type: 'operator left away',
+          description: restoreError instanceof Error ? restoreError.message.split('\n')[0] : String(restoreError),
+        });
+      });
+      throw error;
+    }
+
+    await this.setCsaStatus('online');
   }
 
   // The switch renders from the account's `active` flag, not from its status, so
