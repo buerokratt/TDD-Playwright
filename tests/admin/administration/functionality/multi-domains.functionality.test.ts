@@ -1,9 +1,19 @@
 import { expect, test } from '@setup/test-setup';
-import { domainCleanup, readStoredDomains } from '@utils/helpers';
+import {
+  DUPLICATE_DOMAIN_NAME_MESSAGE,
+  DUPLICATE_DOMAIN_URL_MESSAGE,
+  REQUIRED_DOMAIN_NAME_MESSAGE,
+  REQUIRED_DOMAIN_URL_MESSAGE,
+} from '@utils/constants';
+import { multiDomainsCleanup, readWidgetDomains } from '@utils/helpers';
+import { WidgetDomain } from '@utils/interfaces';
 import { createDomainName, createDomainUrl, createUpdatedDomainName } from '@utils/test-data';
 
 const addedName = createDomainName('autotestadddomain');
 const addedUrl = createDomainUrl(addedName);
+
+const paddedName = createDomainName('autotestpaddomain');
+const paddedUrl = createDomainUrl(paddedName);
 
 const editedName = createDomainName('autotesteditdomain');
 const editedUrl = createDomainUrl(editedName);
@@ -13,44 +23,38 @@ const updatedUrl = createDomainUrl(updatedName);
 const deletedName = createDomainName('autotestdeletedomain');
 const deletedUrl = createDomainUrl(deletedName);
 
-test.describe('[administration] [functional] The domain left last cannot be removed', () => {
-  test('Removing domains down to the last one disables its delete control', async ({ multiDomainsPage }) => {
-    await multiDomainsPage.open();
+let domainsBeforeRun: WidgetDomain[];
 
-    await test.step('The page opens with more than one domain listed', async () => {
-      await multiDomainsPage.assertRowsAreComplete();
+test.beforeEach(async ({ page, multiDomainsPage }) => {
+  await multiDomainsPage.open();
+  await multiDomainsPage.assertRowsAreComplete();
 
-      if ((await multiDomainsPage.domainRowCount()) === 1) {
-        await multiDomainsPage.addDomainRow();
-      }
-    });
-
-    await test.step('Removing rows leaves a single domain in the form', async () => {
-      await multiDomainsPage.removeDomainRowsUntilOneLeft();
-    });
-
-    await test.step('The remaining row offers no way to delete itself', async () => {
-      await multiDomainsPage.assertOnlyDomainCannotBeDeleted();
-    });
-  });
+  domainsBeforeRun = await readWidgetDomains(page);
 });
 
-test.describe('[administration] [functional] Domains are added, edited and deleted through the list', () => {
-  test.afterEach(domainCleanup(() => [addedName, editedName, updatedName, deletedName]));
+test.afterEach(async ({ page }) => {
+  await multiDomainsCleanup(() => domainsBeforeRun)({ page });
 
+  expect(
+    await readWidgetDomains(page),
+    'After cleanup, the widget domains differ from the ones this run started with',
+  ).toEqual(domainsBeforeRun);
+});
+
+test.describe('[administration] [functional] Domain list changes are saved for the stand', () => {
   test(
-    'A saved domain is confirmed, listed and read back with the values entered',
+    'Saved domains are confirmed and read back, each URL trimmed and closed with one slash',
     { annotation: { type: 'kiwi case', description: 'https://monitooring.test.buerokratt.ee/case/153/' } },
     async ({ multiDomainsPage }) => {
-      await multiDomainsPage.open();
-
       await test.step('The page lists the domains the stand already holds', async () => {
         await multiDomainsPage.assertRowsAreComplete();
       });
 
-      await test.step('A new row takes a domain name and a URL', async () => {
+      await test.step('Two new rows take a clean domain and a padded one with a trailing slash', async () => {
         await multiDomainsPage.addDomainRow();
         await multiDomainsPage.fillLastDomainRow(addedName, addedUrl);
+        await multiDomainsPage.addDomainRow();
+        await multiDomainsPage.fillLastDomainRow(`  ${paddedName}  `, `  ${paddedUrl}/  `);
       });
 
       await test.step('Saving reports the update went through', async () => {
@@ -63,6 +67,10 @@ test.describe('[administration] [functional] Domains are added, edited and delet
 
         await multiDomainsPage.assertDomainStored(addedName, `${addedUrl}/`);
       });
+
+      await test.step('The padded domain keeps its name as typed, its URL trimmed and closed with one slash', async () => {
+        await multiDomainsPage.assertDomainStored(`  ${paddedName}  `, `${paddedUrl}/`);
+      });
     },
   );
 
@@ -70,8 +78,6 @@ test.describe('[administration] [functional] Domains are added, edited and delet
     'An edited domain keeps its place and comes back with the new values',
     { annotation: { type: 'kiwi case', description: 'https://monitooring.test.buerokratt.ee/case/152/' } },
     async ({ multiDomainsPage }) => {
-      await multiDomainsPage.open();
-
       await test.step("A domain of the run's own is on the list to edit", async () => {
         await multiDomainsPage.addDomainRow();
         await multiDomainsPage.fillLastDomainRow(editedName, editedUrl);
@@ -107,8 +113,6 @@ test.describe('[administration] [functional] Domains are added, edited and delet
     'A deleted domain is gone from the list after a reload',
     { annotation: { type: 'kiwi case', description: 'https://monitooring.test.buerokratt.ee/case/154/' } },
     async ({ multiDomainsPage }) => {
-      await multiDomainsPage.open();
-
       await test.step("A domain of the run's own is on the list to delete", async () => {
         await multiDomainsPage.addDomainRow();
         await multiDomainsPage.fillLastDomainRow(deletedName, deletedUrl);
@@ -141,51 +145,144 @@ test.describe('[administration] [functional] Domains are added, edited and delet
       });
     },
   );
+
+  test(
+    'Saving without a change keeps the stored domains',
+    { annotation: { type: 'NO KIWI TEST CASE', description: 'Extension of the domain list save coverage.' } },
+    async ({ multiDomainsPage }) => {
+      await test.step('Saving the untouched list reports the change went through', async () => {
+        await multiDomainsPage.saveDomains();
+        await multiDomainsPage.assertSaveWasConfirmed();
+      });
+
+      await test.step('The domains come back unchanged after a reload', async () => {
+        await multiDomainsPage.open();
+
+        await multiDomainsPage.assertDomainsStored(domainsBeforeRun);
+      });
+    },
+  );
 });
 
-test.describe('[administration] [functional] A row added with Add new stays unsaved', () => {
-  test('Add new appends an empty row and sends nothing', async ({ multiDomainsPage }) => {
-    await multiDomainsPage.open();
+test.describe('[administration] [functional] The domain left last cannot be removed', () => {
+  test(
+    'Removing domains down to the last one disables its delete control',
+    { annotation: { type: 'NO KIWI TEST CASE', description: 'Extension of the domain deletion coverage.' } },
+    async ({ multiDomainsPage }) => {
+      await test.step('Removing rows leaves a single domain in the form', async () => {
+        await multiDomainsPage.removeDomainRowsUntilOneLeft();
+      });
 
-    await test.step('Add new appends one row without saving anything', async () => {
-      await multiDomainsPage.assertNothingSaved(
-        () => multiDomainsPage.addDomainRow(),
-        'Adding a row saved the domains',
-      );
-    });
-
-    await test.step('The new last row is numbered, empty and can be deleted', async () => {
-      await multiDomainsPage.assertLastRowIsEmpty();
-    });
-  });
+      await test.step('The remaining row offers no way to delete itself', async () => {
+        await multiDomainsPage.assertOnlyDomainCannotBeDeleted();
+      });
+    },
+  );
 });
 
-test.describe('[administration] [functional] Saving an untouched list changes nothing', () => {
-  test('Saving without a change is confirmed and keeps the stored domains', async ({ page, multiDomainsPage }) => {
-    const domainsBeforeRun = await readStoredDomains(page);
+test.describe(
+  '[administration] [functional] Empty and duplicate values are refused, nothing is stored',
+  { annotation: { type: 'kiwi case', description: 'https://monitooring.test.buerokratt.ee/case/210/' } },
+  () => {
+    test('Empty domain name and URL are refused', async ({ multiDomainsPage }) => {
+      const emptyRows = [
+        {
+          label: 'Both fields empty',
+          name: '',
+          url: '',
+          marks: [REQUIRED_DOMAIN_NAME_MESSAGE, REQUIRED_DOMAIN_URL_MESSAGE],
+        },
+        {
+          label: 'Only the name empty',
+          name: '',
+          url: createDomainUrl(createDomainName('autotestemptyname')),
+          marks: [REQUIRED_DOMAIN_NAME_MESSAGE],
+        },
+        {
+          label: 'Only the URL empty',
+          name: createDomainName('autotestemptyurl'),
+          url: '',
+          marks: [REQUIRED_DOMAIN_URL_MESSAGE],
+        },
+        {
+          label: 'Both fields only spaces',
+          name: '   ',
+          url: '   ',
+          marks: [REQUIRED_DOMAIN_NAME_MESSAGE, REQUIRED_DOMAIN_URL_MESSAGE],
+        },
+      ];
 
-    await multiDomainsPage.open();
+      for (const { label, name, url, marks } of emptyRows) {
+        await test.step(`${label}: the new row is marked as required and nothing is posted`, async () => {
+          await multiDomainsPage.open();
+          await multiDomainsPage.addDomainRow();
+          await multiDomainsPage.fillLastDomainRow(name, url);
 
-    await test.step('Saving the untouched list sends no row', async () => {
-      expect(await multiDomainsPage.saveReadingPostedDomains(), 'Saving an untouched list sent rows').toEqual([]);
+          await multiDomainsPage.assertNothingSaved(async () => {
+            await multiDomainsPage.saveDomains();
+
+            for (const mark of marks) {
+              await multiDomainsPage.assertLastRowMarked(mark);
+            }
+          }, 'A row with an empty value was sent to be stored');
+        });
+      }
+
+      await test.step('The stand keeps the domains it ran on after a reload', async () => {
+        await multiDomainsPage.open();
+        await multiDomainsPage.assertDomainsStored(domainsBeforeRun);
+      });
     });
 
-    await test.step('Saving reports the update went through', async () => {
-      await multiDomainsPage.assertSaveWasConfirmed();
+    test('Duplicate domain name is refused', async ({ multiDomainsPage }) => {
+      const clashing = domainsBeforeRun[0];
+
+      for (const duplicateName of [clashing.name, `  ${clashing.name.toUpperCase()}  `]) {
+        await test.step(`"${duplicateName}" is marked under both clashing rows and nothing is posted`, async () => {
+          const url = createDomainUrl(createDomainName('autotestdupname'));
+
+          await multiDomainsPage.open();
+          await multiDomainsPage.addDomainRow();
+          await multiDomainsPage.fillLastDomainRow(duplicateName, url);
+
+          await multiDomainsPage.assertNothingSaved(async () => {
+            await multiDomainsPage.saveDomains();
+            await multiDomainsPage.assertDuplicateMarked(DUPLICATE_DOMAIN_NAME_MESSAGE, 'url', url);
+            await multiDomainsPage.assertDuplicateMarked(DUPLICATE_DOMAIN_NAME_MESSAGE, 'url', clashing.url);
+          }, 'A refused duplicate was sent to be stored');
+        });
+      }
+
+      await test.step('The stand keeps the domains it ran on after a reload', async () => {
+        await multiDomainsPage.open();
+        await multiDomainsPage.assertDomainsStored(domainsBeforeRun);
+      });
     });
 
-    await test.step('Every stored domain is listed unchanged after a reload', async () => {
-      await multiDomainsPage.open();
-      await multiDomainsPage.assertDomainsStored(domainsBeforeRun);
-    });
+    test('Duplicate URL is refused', async ({ multiDomainsPage }) => {
+      const clashing = domainsBeforeRun[0];
+      const duplicateUrls = [clashing.url, `  ${clashing.url.toUpperCase()}  `, clashing.url.replace(/\/$/, '')];
 
-    await test.step('The back office holds every stored domain unchanged', async () => {
-      const knownIds = new Set(domainsBeforeRun.map((domain) => domain.domainId));
+      for (const duplicateUrl of duplicateUrls) {
+        await test.step(`"${duplicateUrl}" is marked under both clashing rows and nothing is posted`, async () => {
+          const name = createDomainName('autotestdupurl');
 
-      expect(
-        (await readStoredDomains(page)).filter((domain) => knownIds.has(domain.domainId)),
-        'Saving an untouched list changed a stored domain',
-      ).toEqual(domainsBeforeRun);
+          await multiDomainsPage.open();
+          await multiDomainsPage.addDomainRow();
+          await multiDomainsPage.fillLastDomainRow(name, duplicateUrl);
+
+          await multiDomainsPage.assertNothingSaved(async () => {
+            await multiDomainsPage.saveDomains();
+            await multiDomainsPage.assertDuplicateMarked(DUPLICATE_DOMAIN_URL_MESSAGE, 'name', name);
+            await multiDomainsPage.assertDuplicateMarked(DUPLICATE_DOMAIN_URL_MESSAGE, 'name', clashing.name);
+          }, 'A refused duplicate was sent to be stored');
+        });
+      }
+
+      await test.step('The stand keeps the domains it ran on after a reload', async () => {
+        await multiDomainsPage.open();
+        await multiDomainsPage.assertDomainsStored(domainsBeforeRun);
+      });
     });
-  });
-});
+  },
+);

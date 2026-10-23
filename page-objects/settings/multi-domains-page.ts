@@ -3,7 +3,7 @@ import { Locator, Page, Request, expect } from '@playwright/test';
 import { ACTION_TIMEOUT, WIDGET_DOMAINS_PATH } from '@utils/constants';
 import { URLS } from '@utils/env';
 import { RouteReadyOptions, WidgetDomain } from '@utils/interfaces';
-import { assertLeavingRaisesNoPrompt, waitForMultiDomainsReady } from '@utils/waits';
+import { waitForMultiDomainsReady } from '@utils/waits';
 
 type DomainField = 'name' | 'url';
 
@@ -125,10 +125,6 @@ export class MultiDomainsPage {
     expect(listed, `The domains list holds "${domainName}" ${listed} times`).toBe(1);
   }
 
-  async hasDomain(domainName: string): Promise<boolean> {
-    return (await this.domainRowIndex(domainName)) > -1;
-  }
-
   async updateDomainByName(currentName: string, nextName: string, nextUrl: string): Promise<void> {
     const row = await this.domainRowIndex(currentName);
 
@@ -164,45 +160,10 @@ export class MultiDomainsPage {
     }
   }
 
-  async assertRowsHold(domains: readonly WidgetDomain[]): Promise<void> {
-    await expect(
-      this.inputsDomainName,
-      'The form lists a different number of domains than the back office holds',
-    ).toHaveCount(domains.length);
-
-    for (const [row, domain] of domains.entries()) {
-      await expect(this.inputsDomainName.nth(row), `Row ${row + 1} came back with a different name`).toHaveValue(
-        domain.name,
-      );
-      await expect(this.inputsDomainUrl.nth(row), `Row ${row + 1} came back with a different URL`).toHaveValue(
-        domain.url,
-      );
-    }
-  }
-
   async assertDomainsStored(domains: readonly WidgetDomain[]): Promise<void> {
     for (const domain of domains) {
       await this.assertDomainStored(domain.name, domain.url);
     }
-  }
-
-  async assertLastRowIsEmpty(): Promise<void> {
-    const rows = await this.domainRowCount();
-
-    await expect(this.nameInputNumbered(rows - 1), 'The new row came without its number or with a name').toHaveValue(
-      '',
-    );
-    await expect(this.inputsDomainUrl.last(), 'The new row came with a URL filled in').toHaveValue('');
-    await expect(this.buttonsDeleteDomain.last(), 'The new row offers no way to remove it').toBeEnabled();
-  }
-
-  async assertLastRowHolds(domainName: string, domainUrl: string): Promise<void> {
-    await expect(this.inputsDomainName.last(), 'The last row holds a different name than the one typed').toHaveValue(
-      domainName,
-    );
-    await expect(this.inputsDomainUrl.last(), 'The last row holds a different URL than the one typed').toHaveValue(
-      domainUrl,
-    );
   }
 
   async assertDuplicateMarked(message: string, field: DomainField, value: string): Promise<void> {
@@ -214,24 +175,11 @@ export class MultiDomainsPage {
     );
   }
 
-  async assertDuplicateNotMarked(message: string, field?: DomainField, value?: string): Promise<void> {
-    const scope = field && value !== undefined ? this.domainRow(field, value) : this.sectionDomains;
-
-    await expect(scope.getByText(message, { exact: true }), `A row is still marked "${message}"`).toHaveCount(0);
-  }
-
-  async assertSaveRefused(reason: string): Promise<void> {
-    const saved = this.page
-      .waitForRequest((request) => this.isDomainsSave(request), { timeout: ACTION_TIMEOUT })
-      .then(
-        () => true,
-        () => false,
-      );
-
-    await this.buttonSave.click();
-
-    expect(await saved, reason).toBe(false);
-    await expect(this.toastList, reason).not.toContainText('Updated Successfully');
+  async assertLastRowMarked(message: string): Promise<void> {
+    await expect(
+      this.lastDomainRow().getByText(message, { exact: true }),
+      `The new row was not marked "${message}"`,
+    ).toBeVisible();
   }
 
   async assertNothingSaved(action: () => Promise<void>, reason: string): Promise<void> {
@@ -253,20 +201,6 @@ export class MultiDomainsPage {
     expect(saves, reason).toEqual([]);
   }
 
-  async saveReadingPostedDomains(): Promise<WidgetDomain[]> {
-    const saved = this.page.waitForRequest((request) => this.isDomainsSave(request));
-
-    await this.buttonSave.click();
-
-    const { widgetDomains } = (await saved).postDataJSON() as { widgetDomains: string };
-
-    return JSON.parse(widgetDomains) as WidgetDomain[];
-  }
-
-  async assertLeavingRaisesNoPrompt(leave: () => Promise<void>): Promise<void> {
-    await assertLeavingRaisesNoPrompt(this.page, leave);
-  }
-
   private async domainRowIndex(domainName: string): Promise<number> {
     return (await this.listedDomainNames()).indexOf(domainName);
   }
@@ -281,6 +215,13 @@ export class MultiDomainsPage {
     return this.sectionDomains.locator('.track').filter({
       has: this.page.locator(`input[name$=".${field}"][value=${JSON.stringify(value)}]`),
     });
+  }
+
+  private lastDomainRow(): Locator {
+    return this.sectionDomains
+      .locator('.track')
+      .filter({ has: this.page.locator('input[name$=".name"]') })
+      .last();
   }
 
   private nameInputNumbered(row: number): Locator {

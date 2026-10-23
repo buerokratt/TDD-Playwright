@@ -3,7 +3,7 @@ import { Locator, Page, expect, test } from '@playwright/test';
 import { ACTION_TIMEOUT, AWAY_STATUS_TIME_CAP } from '@utils/constants';
 import { URLS } from '@utils/env';
 import { RouteReadyOptions, SessionLengthSettings } from '@utils/interfaces';
-import { assertLeavingRaisesNoPrompt, waitForSessionLengthReady } from '@utils/waits';
+import { waitForSessionLengthReady } from '@utils/waits';
 
 export class SessionLengthPage {
   private readonly page: Page;
@@ -265,10 +265,6 @@ export class SessionLengthPage {
     }
 
     await this.write(settingsBefore);
-  }
-
-  async assertLeavingRaisesNoPrompt(leave: () => Promise<void>): Promise<void> {
-    await assertLeavingRaisesNoPrompt(this.page, leave);
   }
 
   async assertSettingsStored(expected: SessionLengthSettings): Promise<void> {
