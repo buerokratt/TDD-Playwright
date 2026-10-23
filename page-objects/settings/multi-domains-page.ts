@@ -1,9 +1,11 @@
-import { Locator, Page, expect } from '@playwright/test';
+import { Locator, Page, Request, expect } from '@playwright/test';
 
-import { ACTION_TIMEOUT } from '@utils/constants';
+import { ACTION_TIMEOUT, WIDGET_DOMAINS_PATH } from '@utils/constants';
 import { URLS } from '@utils/env';
-import { RouteReadyOptions } from '@utils/interfaces';
+import { RouteReadyOptions, WidgetDomain } from '@utils/interfaces';
 import { waitForMultiDomainsReady } from '@utils/waits';
+
+type DomainField = 'name' | 'url';
 
 export class MultiDomainsPage {
   private readonly page: Page;
@@ -15,13 +17,12 @@ export class MultiDomainsPage {
   private readonly buttonAddNew: Locator;
   private readonly buttonSave: Locator;
 
+  private readonly sectionDomains: Locator;
   private readonly headingMultidomains: Locator;
   private readonly toastList: Locator;
 
   constructor(page: Page) {
     this.page = page;
-
-    this.headingMultidomains = this.page.getByRole('heading', { name: 'Multidomains', exact: true });
 
     this.inputsDomainName = this.page.locator('main input[name^="widgetDomains."][name$=".name"]');
     this.inputsDomainUrl = this.page.locator('main input[name^="widgetDomains."][name$=".url"]');
@@ -30,6 +31,8 @@ export class MultiDomainsPage {
     this.buttonAddNew = this.page.getByRole('button', { name: 'Add new', exact: true });
     this.buttonSave = this.page.getByRole('button', { name: 'Save', exact: true });
 
+    this.sectionDomains = this.page.locator('main');
+    this.headingMultidomains = this.page.getByRole('heading', { name: 'Multidomains', exact: true });
     this.toastList = this.page.locator('ol.toast__list');
   }
 
@@ -122,10 +125,6 @@ export class MultiDomainsPage {
     expect(listed, `The domains list holds "${domainName}" ${listed} times`).toBe(1);
   }
 
-  async hasDomain(domainName: string): Promise<boolean> {
-    return (await this.domainRowIndex(domainName)) > -1;
-  }
-
   async updateDomainByName(currentName: string, nextName: string, nextUrl: string): Promise<void> {
     const row = await this.domainRowIndex(currentName);
 
@@ -153,6 +152,55 @@ export class MultiDomainsPage {
     await this.assertDomainNotListed(domainName);
   }
 
+  async assertRowsNumbered(): Promise<void> {
+    const rows = await this.domainRowCount();
+
+    for (let row = 0; row < rows; row++) {
+      await expect(this.nameInputNumbered(row), `Row ${row + 1} carries no numbered name label`).toBeVisible();
+    }
+  }
+
+  async assertDomainsStored(domains: readonly WidgetDomain[]): Promise<void> {
+    for (const domain of domains) {
+      await this.assertDomainStored(domain.name, domain.url);
+    }
+  }
+
+  async assertDuplicateMarked(message: string, field: DomainField, value: string): Promise<void> {
+    const rows = this.domainRow(field, value);
+
+    expect(await rows.count(), `The form holds no row with the ${field} "${value}"`).toBeGreaterThan(0);
+    await expect(rows.getByText(message, { exact: true }), `A clashing row was not marked "${message}"`).toHaveCount(
+      await rows.count(),
+    );
+  }
+
+  async assertLastRowMarked(message: string): Promise<void> {
+    await expect(
+      this.lastDomainRow().getByText(message, { exact: true }),
+      `The new row was not marked "${message}"`,
+    ).toBeVisible();
+  }
+
+  async assertNothingSaved(action: () => Promise<void>, reason: string): Promise<void> {
+    const saves: string[] = [];
+    const recordSave = (request: Request): void => {
+      if (this.isDomainsSave(request)) {
+        saves.push(request.postData() ?? '');
+      }
+    };
+
+    this.page.on('request', recordSave);
+
+    try {
+      await action();
+    } finally {
+      this.page.off('request', recordSave);
+    }
+
+    expect(saves, reason).toEqual([]);
+  }
+
   private async domainRowIndex(domainName: string): Promise<number> {
     return (await this.listedDomainNames()).indexOf(domainName);
   }
@@ -161,5 +209,26 @@ export class MultiDomainsPage {
     await this.domainRowCount();
 
     return this.inputsDomainName.evaluateAll((inputs) => inputs.map((input) => (input as HTMLInputElement).value));
+  }
+
+  private domainRow(field: DomainField, value: string): Locator {
+    return this.sectionDomains.locator('.track').filter({
+      has: this.page.locator(`input[name$=".${field}"][value=${JSON.stringify(value)}]`),
+    });
+  }
+
+  private lastDomainRow(): Locator {
+    return this.sectionDomains
+      .locator('.track')
+      .filter({ has: this.page.locator('input[name$=".name"]') })
+      .last();
+  }
+
+  private nameInputNumbered(row: number): Locator {
+    return this.page.getByRole('textbox', { name: `${row + 1}. Domain name`, exact: true });
+  }
+
+  private isDomainsSave(request: Request): boolean {
+    return request.method() === 'POST' && request.url().includes(WIDGET_DOMAINS_PATH);
   }
 }

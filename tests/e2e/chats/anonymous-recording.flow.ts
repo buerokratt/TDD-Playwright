@@ -1,6 +1,6 @@
 import { test } from '@setup/test-setup';
 import { URLS } from '@utils/env';
-import { customerWidgetName } from '@utils/helpers';
+import { readCustomerWidgetName } from '@utils/helpers';
 import { AnonymizerSettings } from '@utils/interfaces';
 import { createAnonymizerEmail } from '@utils/test-data';
 
@@ -12,7 +12,7 @@ test(
     const customerMessage = `Write to me at ${customerEmail}`;
 
     await anonymizerPage.open();
-    await anonymizerPage.selectDomain(await customerWidgetName(page));
+    await anonymizerPage.selectDomain(await readCustomerWidgetName(page));
 
     await anonymizerPage.withSettingsRestored(async () => {
       const settings: AnonymizerSettings = {
