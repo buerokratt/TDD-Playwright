@@ -5,34 +5,32 @@ import { URLS } from '@utils/env';
 import { RouteReadyOptions, WidgetDomain } from '@utils/interfaces';
 import { waitForMultiDomainsReady } from '@utils/waits';
 
-type DomainField = 'name' | 'url';
-
 export class MultiDomainsPage {
   private readonly page: Page;
 
+  private readonly headingMultidomains: Locator;
+  private readonly rowsDomain: Locator;
+
   private readonly inputsDomainName: Locator;
   private readonly inputsDomainUrl: Locator;
+  private readonly buttonsDelete: Locator;
 
-  private readonly buttonsDeleteDomain: Locator;
   private readonly buttonAddNew: Locator;
   private readonly buttonSave: Locator;
-
-  private readonly sectionDomains: Locator;
-  private readonly headingMultidomains: Locator;
   private readonly toastList: Locator;
 
   constructor(page: Page) {
     this.page = page;
 
-    this.inputsDomainName = this.page.locator('main input[name^="widgetDomains."][name$=".name"]');
-    this.inputsDomainUrl = this.page.locator('main input[name^="widgetDomains."][name$=".url"]');
+    this.headingMultidomains = this.page.getByRole('heading', { name: 'Multidomains', exact: true });
+    this.rowsDomain = this.page.locator('main .card__body > .track');
 
-    this.buttonsDeleteDomain = this.page.locator('main button.btn--error');
+    this.inputsDomainName = this.rowsDomain.locator('input[name^="widgetDomains."][name$=".name"]');
+    this.inputsDomainUrl = this.rowsDomain.locator('input[name^="widgetDomains."][name$=".url"]');
+    this.buttonsDelete = this.rowsDomain.locator('button.btn--error');
+
     this.buttonAddNew = this.page.getByRole('button', { name: 'Add new', exact: true });
     this.buttonSave = this.page.getByRole('button', { name: 'Save', exact: true });
-
-    this.sectionDomains = this.page.locator('main');
-    this.headingMultidomains = this.page.getByRole('heading', { name: 'Multidomains', exact: true });
     this.toastList = this.page.locator('ol.toast__list');
   }
 
@@ -52,42 +50,34 @@ export class MultiDomainsPage {
   }
 
   async domainRowCount({ timeout = ACTION_TIMEOUT }: RouteReadyOptions = {}): Promise<number> {
-    await expect(
-      this.inputsDomainName.first(),
-      'Multidomains rendered its heading but never received a domain row',
-    ).toBeVisible({ timeout });
+    await expect(this.rowsDomain.first(), 'The page listed no domain row').toBeVisible({ timeout });
 
-    return this.inputsDomainName.count();
+    return this.rowsDomain.count();
   }
 
   async assertRowsAreComplete(): Promise<void> {
     const rows = await this.domainRowCount();
 
     await expect(this.inputsDomainUrl, 'A domain was listed without its URL field').toHaveCount(rows);
-    await expect(this.buttonsDeleteDomain, 'A domain was listed with no way to remove it').toHaveCount(rows);
+    await expect(this.buttonsDelete, 'A domain was listed with no way to remove it').toHaveCount(rows);
   }
 
   async assertOnlyDomainCannotBeDeleted(): Promise<void> {
-    await expect(this.inputsDomainName, 'The form was expected to hold a single domain').toHaveCount(1);
-    await expect(
-      this.buttonsDeleteDomain.first(),
-      'The last domain left was still offered for deletion',
-    ).toBeDisabled();
+    await expect(this.rowsDomain, 'The form was expected to hold a single domain').toHaveCount(1);
+    await expect(this.buttonsDelete.first(), 'The last domain left was still offered for deletion').toBeDisabled();
   }
 
   async addDomainRow(): Promise<void> {
     const rowsBefore = await this.domainRowCount();
 
     await this.buttonAddNew.click();
-    await expect(this.inputsDomainName, 'The page never added the domain row it was asked for').toHaveCount(
-      rowsBefore + 1,
-    );
+    await expect(this.rowsDomain, 'The new domain row never appeared').toHaveCount(rowsBefore + 1);
   }
 
   async removeDomainRowsUntilOneLeft(): Promise<void> {
     for (let rows = await this.domainRowCount(); rows > 1; rows--) {
-      await this.buttonsDeleteDomain.last().click();
-      await expect(this.inputsDomainName, 'The form kept the domain row that was removed').toHaveCount(rows - 1);
+      await this.buttonsDelete.last().click();
+      await expect(this.rowsDomain, 'The form kept the domain row that was removed').toHaveCount(rows - 1);
     }
   }
 
@@ -147,8 +137,8 @@ export class MultiDomainsPage {
 
     const rowsBefore = await this.domainRowCount();
 
-    await this.buttonsDeleteDomain.nth(row).click();
-    await expect(this.inputsDomainName, 'The form kept the domain row that was removed').toHaveCount(rowsBefore - 1);
+    await this.buttonsDelete.nth(row).click();
+    await expect(this.rowsDomain, 'The form kept the domain row that was removed').toHaveCount(rowsBefore - 1);
     await this.assertDomainNotListed(domainName);
   }
 
@@ -161,13 +151,17 @@ export class MultiDomainsPage {
   }
 
   async assertDomainsStored(domains: readonly WidgetDomain[]): Promise<void> {
+    await expect(this.rowsDomain, 'The domains list holds a different number of domains').toHaveCount(domains.length);
+
     for (const domain of domains) {
       await this.assertDomainStored(domain.name, domain.url);
     }
   }
 
-  async assertDuplicateMarked(message: string, field: DomainField, value: string): Promise<void> {
-    const rows = this.domainRow(field, value);
+  async assertDuplicateMarked(message: string, field: 'name' | 'url', value: string): Promise<void> {
+    const rows = this.rowsDomain.filter({
+      has: this.page.locator(`input[name$=".${field}"][value=${JSON.stringify(value)}]`),
+    });
 
     expect(await rows.count(), `The form holds no row with the ${field} "${value}"`).toBeGreaterThan(0);
     await expect(rows.getByText(message, { exact: true }), `A clashing row was not marked "${message}"`).toHaveCount(
@@ -177,7 +171,7 @@ export class MultiDomainsPage {
 
   async assertLastRowMarked(message: string): Promise<void> {
     await expect(
-      this.lastDomainRow().getByText(message, { exact: true }),
+      this.rowsDomain.last().getByText(message, { exact: true }),
       `The new row was not marked "${message}"`,
     ).toBeVisible();
   }
@@ -209,19 +203,6 @@ export class MultiDomainsPage {
     await this.domainRowCount();
 
     return this.inputsDomainName.evaluateAll((inputs) => inputs.map((input) => (input as HTMLInputElement).value));
-  }
-
-  private domainRow(field: DomainField, value: string): Locator {
-    return this.sectionDomains.locator('.track').filter({
-      has: this.page.locator(`input[name$=".${field}"][value=${JSON.stringify(value)}]`),
-    });
-  }
-
-  private lastDomainRow(): Locator {
-    return this.sectionDomains
-      .locator('.track')
-      .filter({ has: this.page.locator('input[name$=".name"]') })
-      .last();
   }
 
   private nameInputNumbered(row: number): Locator {

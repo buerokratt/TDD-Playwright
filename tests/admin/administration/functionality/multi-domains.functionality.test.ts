@@ -9,20 +9,6 @@ import { multiDomainsCleanup, readWidgetDomains } from '@utils/helpers';
 import { WidgetDomain } from '@utils/interfaces';
 import { createDomainName, createDomainUrl, createUpdatedDomainName } from '@utils/test-data';
 
-const addedName = createDomainName('autotestadddomain');
-const addedUrl = createDomainUrl(addedName);
-
-const paddedName = createDomainName('autotestpaddomain');
-const paddedUrl = createDomainUrl(paddedName);
-
-const editedName = createDomainName('autotesteditdomain');
-const editedUrl = createDomainUrl(editedName);
-const updatedName = createUpdatedDomainName(editedName);
-const updatedUrl = createDomainUrl(updatedName);
-
-const deletedName = createDomainName('autotestdeletedomain');
-const deletedUrl = createDomainUrl(deletedName);
-
 let domainsBeforeRun: WidgetDomain[];
 
 test.beforeEach(async ({ page, multiDomainsPage }) => {
@@ -46,13 +32,17 @@ test.describe('[administration] [functional] Domain list changes are saved for t
     'Saved domains are confirmed and read back, each URL trimmed and closed with one slash',
     { annotation: { type: 'kiwi case', description: 'https://monitooring.test.buerokratt.ee/case/153/' } },
     async ({ multiDomainsPage }) => {
-      await test.step('The page lists the domains the stand already holds', async () => {
-        await multiDomainsPage.assertRowsAreComplete();
-      });
+      const addedName = createDomainName('autotestadddomain');
+      const addedUrl = createDomainUrl(addedName);
+      const paddedName = createDomainName('autotestpaddomain');
+      const paddedUrl = createDomainUrl(paddedName);
 
-      await test.step('Two new rows take a clean domain and a padded one with a trailing slash', async () => {
+      await test.step('New domain is added: its name and URL typed as-is, the URL not ending with a slash', async () => {
         await multiDomainsPage.addDomainRow();
         await multiDomainsPage.fillLastDomainRow(addedName, addedUrl);
+      });
+
+      await test.step('New domain is added: its name and URL wrapped in spaces, the URL already ending with a slash', async () => {
         await multiDomainsPage.addDomainRow();
         await multiDomainsPage.fillLastDomainRow(`  ${paddedName}  `, `  ${paddedUrl}/  `);
       });
@@ -62,13 +52,15 @@ test.describe('[administration] [functional] Domain list changes are saved for t
         await multiDomainsPage.assertSaveWasConfirmed();
       });
 
-      await test.step('The domain survives a reload, its URL closed with the slash the back office adds', async () => {
+      await test.step('The page is reloaded', async () => {
         await multiDomainsPage.open();
+      });
 
+      await test.step('Saved domain typed as-is: name unchanged, URL ending with a slash', async () => {
         await multiDomainsPage.assertDomainStored(addedName, `${addedUrl}/`);
       });
 
-      await test.step('The padded domain keeps its name as typed, its URL trimmed and closed with one slash', async () => {
+      await test.step('Saved domain wrapped in spaces: spaces kept on the name, URL trimmed and ending with one slash', async () => {
         await multiDomainsPage.assertDomainStored(`  ${paddedName}  `, `${paddedUrl}/`);
       });
     },
@@ -78,6 +70,11 @@ test.describe('[administration] [functional] Domain list changes are saved for t
     'An edited domain keeps its place and comes back with the new values',
     { annotation: { type: 'kiwi case', description: 'https://monitooring.test.buerokratt.ee/case/152/' } },
     async ({ multiDomainsPage }) => {
+      const editedName = createDomainName('autotesteditdomain');
+      const editedUrl = createDomainUrl(editedName);
+      const updatedName = createUpdatedDomainName(editedName);
+      const updatedUrl = createDomainUrl(updatedName);
+
       await test.step("A domain of the run's own is on the list to edit", async () => {
         await multiDomainsPage.addDomainRow();
         await multiDomainsPage.fillLastDomainRow(editedName, editedUrl);
@@ -113,6 +110,9 @@ test.describe('[administration] [functional] Domain list changes are saved for t
     'A deleted domain is gone from the list after a reload',
     { annotation: { type: 'kiwi case', description: 'https://monitooring.test.buerokratt.ee/case/154/' } },
     async ({ multiDomainsPage }) => {
+      const deletedName = createDomainName('autotestdeletedomain');
+      const deletedUrl = createDomainUrl(deletedName);
+
       await test.step("A domain of the run's own is on the list to delete", async () => {
         await multiDomainsPage.addDomainRow();
         await multiDomainsPage.fillLastDomainRow(deletedName, deletedUrl);
@@ -190,29 +190,29 @@ test.describe(
           label: 'Both fields empty',
           name: '',
           url: '',
-          marks: [REQUIRED_DOMAIN_NAME_MESSAGE, REQUIRED_DOMAIN_URL_MESSAGE],
+          messages: [REQUIRED_DOMAIN_NAME_MESSAGE, REQUIRED_DOMAIN_URL_MESSAGE],
         },
         {
           label: 'Only the name empty',
           name: '',
           url: createDomainUrl(createDomainName('autotestemptyname')),
-          marks: [REQUIRED_DOMAIN_NAME_MESSAGE],
+          messages: [REQUIRED_DOMAIN_NAME_MESSAGE],
         },
         {
           label: 'Only the URL empty',
           name: createDomainName('autotestemptyurl'),
           url: '',
-          marks: [REQUIRED_DOMAIN_URL_MESSAGE],
+          messages: [REQUIRED_DOMAIN_URL_MESSAGE],
         },
         {
           label: 'Both fields only spaces',
           name: '   ',
           url: '   ',
-          marks: [REQUIRED_DOMAIN_NAME_MESSAGE, REQUIRED_DOMAIN_URL_MESSAGE],
+          messages: [REQUIRED_DOMAIN_NAME_MESSAGE, REQUIRED_DOMAIN_URL_MESSAGE],
         },
       ];
 
-      for (const { label, name, url, marks } of emptyRows) {
+      for (const { label, name, url, messages } of emptyRows) {
         await test.step(`${label}: the new row is marked as required and nothing is posted`, async () => {
           await multiDomainsPage.open();
           await multiDomainsPage.addDomainRow();
@@ -221,8 +221,8 @@ test.describe(
           await multiDomainsPage.assertNothingSaved(async () => {
             await multiDomainsPage.saveDomains();
 
-            for (const mark of marks) {
-              await multiDomainsPage.assertLastRowMarked(mark);
+            for (const message of messages) {
+              await multiDomainsPage.assertLastRowMarked(message);
             }
           }, 'A row with an empty value was sent to be stored');
         });
