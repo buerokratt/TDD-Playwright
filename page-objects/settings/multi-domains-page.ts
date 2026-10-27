@@ -58,8 +58,16 @@ export class MultiDomainsPage {
   async assertRowsAreComplete(): Promise<void> {
     const rows = await this.domainRowCount();
 
-    await expect(this.inputsDomainUrl, 'A domain was listed without its URL field').toHaveCount(rows);
-    await expect(this.buttonsDelete, 'A domain was listed with no way to remove it').toHaveCount(rows);
+    for (let row = 0; row < rows; row++) {
+      const domainRow = this.rowsDomain.nth(row);
+
+      await expect(
+        domainRow.getByRole('textbox', { name: `${row + 1}. Domain name`, exact: true }),
+        `Row ${row + 1} carries no numbered name field`,
+      ).toBeVisible();
+      await expect(domainRow.locator('input[name$=".url"]'), `Row ${row + 1} carries no URL field`).toBeVisible();
+      await expect(domainRow.locator('button.btn--error'), `Row ${row + 1} offers no way to remove it`).toBeVisible();
+    }
   }
 
   async assertOnlyDomainCannotBeDeleted(): Promise<void> {
@@ -142,14 +150,6 @@ export class MultiDomainsPage {
     await this.assertDomainNotListed(domainName);
   }
 
-  async assertRowsNumbered(): Promise<void> {
-    const rows = await this.domainRowCount();
-
-    for (let row = 0; row < rows; row++) {
-      await expect(this.nameInputNumbered(row), `Row ${row + 1} carries no numbered name label`).toBeVisible();
-    }
-  }
-
   async assertDomainsStored(domains: readonly WidgetDomain[]): Promise<void> {
     await expect(this.rowsDomain, 'The domains list holds a different number of domains').toHaveCount(domains.length);
 
@@ -203,10 +203,6 @@ export class MultiDomainsPage {
     await this.domainRowCount();
 
     return this.inputsDomainName.evaluateAll((inputs) => inputs.map((input) => (input as HTMLInputElement).value));
-  }
-
-  private nameInputNumbered(row: number): Locator {
-    return this.page.getByRole('textbox', { name: `${row + 1}. Domain name`, exact: true });
   }
 
   private isDomainsSave(request: Request): boolean {
