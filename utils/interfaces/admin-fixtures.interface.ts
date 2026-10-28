@@ -10,7 +10,7 @@ import type {
   SessionLengthPage,
 } from '@page-objects/settings';
 
-export interface AdminPagesFixtures {
+export interface AdminFixtures {
   readonly header: Header;
   readonly sideMenu: SideMenu;
   readonly unansweredChatsPage: UnansweredChatsPage;

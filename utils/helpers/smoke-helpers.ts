@@ -15,16 +15,15 @@ export async function openAdminPage(page: Page, path: string): Promise<AdminPage
 
     if (status >= 500) {
       serverErrors.push({ status, url });
-    }
-
-    if (status >= 400 && isApiCall(url)) {
+    } else if (status >= 400 && isApiCall(url)) {
       failedApiCalls.push({ status, method: response.request().method(), url });
     }
   });
 
   const response = await page.goto(URLS.admin + path);
 
-  expect(response?.status(), `GET ${path} should serve the admin app`).toBeLessThan(400);
+  expect(response, `${path} (GET) did not serve the admin app`).not.toBeNull();
+  expect(response!.ok(), `${path} (GET) did not serve the admin app (${response!.status()})`).toBeTruthy();
 
   return {
     assertBackendAnswered(): void {

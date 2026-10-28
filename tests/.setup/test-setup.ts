@@ -11,13 +11,14 @@ import {
   OfficeOpeningHoursPage,
   SessionLengthPage,
 } from '@page-objects/settings';
+import { WidgetPage } from '@page-objects/widget';
 import { ACTION_TIMEOUT } from '@utils/constants';
-import { AdminPagesFixtures, ReadyPage } from '@utils/interfaces';
+import { seedEnglishLocale } from '@utils/helpers';
+import { AdminFixtures, CustomerFixtures } from '@utils/interfaces';
 import { waitForRouteReady } from '@utils/waits';
 
-export const test = base.extend<{ page: ReadyPage } & AdminPagesFixtures>({
+export const test = base.extend<AdminFixtures & CustomerFixtures>({
   page: async ({ page }, use) => {
-    const readyPage = page as ReadyPage;
     const originalGoto = page.goto.bind(page);
 
     page.goto = async (url, options = {}) => {
@@ -29,20 +30,7 @@ export const test = base.extend<{ page: ReadyPage } & AdminPagesFixtures>({
       return result;
     };
 
-    readyPage.waitForRouteReady = async (url, options = {}) => {
-      await waitForRouteReady(page, url, options);
-    };
-
-    page.on('console', (msg) => {
-      const errorPattern =
-        /error|failed|uncaught|exception|typeerror|referenceerror|syntaxerror|rangeerror|evalerror|urlerror|is not defined|cannot read|undefined|null is not an object/i;
-
-      if (msg.type() === 'error' || errorPattern.test(msg.text())) {
-        console.log(`[${msg.type().toUpperCase()}] ${msg.text()}`);
-      }
-    });
-
-    await use(readyPage);
+    await use(page);
   },
   header: async ({ page }, use) => use(new Header(page)),
   sideMenu: async ({ page }, use) => use(new SideMenu(page)),
@@ -57,6 +45,17 @@ export const test = base.extend<{ page: ReadyPage } & AdminPagesFixtures>({
   deleteConversationsPage: async ({ page }, use) => use(new DeleteConversationsPage(page)),
   anonymizerPage: async ({ page }, use) => use(new AnonymizerPage(page)),
   multiDomainsPage: async ({ page }, use) => use(new MultiDomainsPage(page)),
+  customerPage: async ({ browser }, use) => {
+    const context = await browser.newContext();
+
+    try {
+      await seedEnglishLocale(context);
+      await use(await context.newPage());
+    } finally {
+      await context.close();
+    }
+  },
+  widgetPage: async ({ customerPage }, use) => use(new WidgetPage(customerPage)),
 });
 
 export { expect };

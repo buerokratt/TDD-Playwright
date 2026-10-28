@@ -1,6 +1,6 @@
 import { expect, test } from '@setup/test-setup';
 import { URLS } from '@utils/env';
-import { registerServiceCleanup } from '@utils/helpers';
+import { serviceCleanup } from '@utils/helpers';
 import { createServiceName, createValidServiceData } from '@utils/test-data';
 
 const conditionNodeTitle = 'Condition - 1';
@@ -21,10 +21,7 @@ const scenarios = [
 ] as const;
 
 test.describe('[services] [functional] Condition node routes the conversation down the branch its rule selects', () => {
-  registerServiceCleanup(
-    test,
-    scenarios.map((scenario) => scenario.serviceName),
-  );
+  test.afterEach(serviceCleanup(scenarios.map((scenario) => scenario.serviceName)));
 
   for (const { rule, takenBranch, serviceName } of scenarios) {
     const successMessage = `success branch ${serviceName}`;

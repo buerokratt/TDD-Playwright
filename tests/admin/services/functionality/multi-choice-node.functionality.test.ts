@@ -1,6 +1,6 @@
 import { expect, test } from '@setup/test-setup';
 import { URLS } from '@utils/env';
-import { registerServiceCleanup } from '@utils/helpers';
+import { serviceCleanup } from '@utils/helpers';
 import { createServiceName, createValidServiceData } from '@utils/test-data';
 
 const serviceName = createServiceName('multichoice');
@@ -14,7 +14,7 @@ const renamedAwayDefault = 'Jah';
 const multichoiceNodeTitle = 'Multi-choice question - 1';
 
 test.describe('[services] [functional] Multi-choice node presents its authored question and options to the customer', () => {
-  registerServiceCleanup(test, serviceName);
+  test.afterEach(serviceCleanup(serviceName));
 
   test('Authored question and renamed option are delivered as widget buttons', async ({ page, newServicePage }) => {
     await page.goto(URLS.admin + 'services/newService');

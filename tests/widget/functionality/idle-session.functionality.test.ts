@@ -1,40 +1,18 @@
-import { BrowserContext } from '@playwright/test';
-
-import { SessionLengthPage } from '@page-objects/settings';
-import { WidgetPage } from '@page-objects/widget';
 import { test } from '@setup/test-setup';
-import { ADMIN_AUTH_STATE, MINIMUM_RESPONSE_TIME, WIDGET_IDLE_TEST_TIMEOUT } from '@utils/constants';
+import { MINIMUM_RESPONSE_TIME, WIDGET_IDLE_TEST_TIMEOUT } from '@utils/constants';
 import { URLS } from '@utils/env';
-import { seedEnglishLocale } from '@utils/helpers';
 import { createSessionLengthMessage } from '@utils/test-data';
 
 test.describe('[widget] [functional] An idle conversation follows the session length settings', () => {
   test.describe.configure({ timeout: WIDGET_IDLE_TEST_TIMEOUT });
 
-  let csaContext: BrowserContext;
-  let customerContext: BrowserContext;
-  let sessionLength: SessionLengthPage;
-
-  test.beforeEach(async ({ browser }) => {
-    csaContext = await browser.newContext({ storageState: ADMIN_AUTH_STATE });
-    customerContext = await browser.newContext();
-
-    await seedEnglishLocale(customerContext);
-
-    sessionLength = new SessionLengthPage(await csaContext.newPage());
-  });
-
-  test.afterEach(async () => {
-    await Promise.all([customerContext.close(), csaContext.close()]);
-  });
-
   test(
     'An idle customer is warned with the message the session length settings hold',
     { annotation: { type: 'kiwi case', description: 'https://monitooring.test.buerokratt.ee/case/188/' } },
-    async () => {
+    async ({ sessionLengthPage, customerPage, widgetPage }) => {
       const idleWarningMessage = createSessionLengthMessage('autotest idle warning');
 
-      await sessionLength.whileSettingsAre(
+      await sessionLengthPage.whileSettingsAre(
         {
           responseTime: MINIMUM_RESPONSE_TIME,
           displayMessage: true,
@@ -42,16 +20,13 @@ test.describe('[widget] [functional] An idle conversation follows the session le
           showEndMessage: false,
         },
         async () => {
-          const cPage = await customerContext.newPage();
-          const customerPage = new WidgetPage(cPage);
-
           await test.step("The customer opens the widget, and the bot's greeting starts the chat", async () => {
-            await cPage.goto(URLS.customer);
-            await customerPage.openChat();
+            await customerPage.goto(URLS.customer);
+            await widgetPage.openChat();
           });
 
           await test.step('Left alone for the configured time, the widget asks whether to continue', async () => {
-            await customerPage.expectIdleWarningShown(idleWarningMessage);
+            await widgetPage.expectIdleWarningShown(idleWarningMessage);
           });
         },
       );
@@ -61,10 +36,10 @@ test.describe('[widget] [functional] An idle conversation follows the session le
   test(
     'An idle conversation ends with the message the session length settings hold',
     { annotation: { type: 'kiwi case', description: 'https://monitooring.test.buerokratt.ee/case/189/' } },
-    async () => {
+    async ({ sessionLengthPage, customerPage, widgetPage }) => {
       const endMessage = createSessionLengthMessage('autotest end message');
 
-      await sessionLength.whileSettingsAre(
+      await sessionLengthPage.whileSettingsAre(
         {
           responseTime: MINIMUM_RESPONSE_TIME,
           displayMessage: false,
@@ -72,16 +47,13 @@ test.describe('[widget] [functional] An idle conversation follows the session le
           endMessage,
         },
         async () => {
-          const cPage = await customerContext.newPage();
-          const customerPage = new WidgetPage(cPage);
-
           await test.step("The customer opens the widget, and the bot's greeting starts the chat", async () => {
-            await cPage.goto(URLS.customer);
-            await customerPage.openChat();
+            await customerPage.goto(URLS.customer);
+            await widgetPage.openChat();
           });
 
           await test.step('Left alone for the configured time, the widget ends the chat with its end message', async () => {
-            await customerPage.expectEndMessageShown(endMessage);
+            await widgetPage.expectEndMessageShown(endMessage);
           });
         },
       );

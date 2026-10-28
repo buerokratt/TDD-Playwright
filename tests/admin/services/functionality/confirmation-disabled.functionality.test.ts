@@ -1,12 +1,12 @@
 import { expect, test } from '@setup/test-setup';
 import { URLS } from '@utils/env';
-import { registerServiceCleanup } from '@utils/helpers';
+import { serviceCleanup } from '@utils/helpers';
 import { createServiceName } from '@utils/test-data';
 
 const serviceName = createServiceName('confirmdisabled');
 
 test.describe('[services] [functional] Confirm is gated on the service having a title', () => {
-  registerServiceCleanup(test, serviceName);
+  test.afterEach(serviceCleanup(serviceName));
 
   test('Confirm stays disabled without a title and becomes enabled once one is typed', async ({
     page,

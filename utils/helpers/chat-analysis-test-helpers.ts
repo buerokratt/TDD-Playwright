@@ -1,7 +1,7 @@
 import { Page, expect } from '@playwright/test';
 
 import { CHAT_ANALYSIS_LABEL_SECTIONS, CHAT_ANALYSIS_URL } from '@utils/constants';
-import { AdminPagesFixtures, ChatAnalysisConfig, ChatAnalysisDomainSnapshot } from '@utils/interfaces';
+import { AdminFixtures, ChatAnalysisConfig, ChatAnalysisDomainSnapshot } from '@utils/interfaces';
 
 import { asUniqueNames } from './shared-helpers';
 
@@ -41,7 +41,7 @@ export function chatAnalysisConfigRestore(resolveSnapshot: () => ChatAnalysisDom
 }
 
 export function chatAnalysisCleanup(resolveLabels: LabelsResolver) {
-  return async ({ chatAnalysisPage }: Pick<AdminPagesFixtures, 'chatAnalysisPage'>): Promise<void> => {
+  return async ({ chatAnalysisPage }: Pick<AdminFixtures, 'chatAnalysisPage'>): Promise<void> => {
     const labels = asUniqueNames(typeof resolveLabels === 'function' ? await resolveLabels() : resolveLabels);
 
     if (!labels.length) {

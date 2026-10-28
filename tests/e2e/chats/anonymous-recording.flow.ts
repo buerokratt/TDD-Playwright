@@ -1,83 +1,63 @@
-import { HistoryPage } from '@page-objects/chats';
-import { AnonymizerPage } from '@page-objects/settings';
-import { WidgetPage } from '@page-objects/widget';
 import { test } from '@setup/test-setup';
-import { ADMIN_AUTH_STATE } from '@utils/constants';
 import { URLS } from '@utils/env';
-import { customerWidgetName, seedEnglishLocale } from '@utils/helpers';
+import { customerWidgetName } from '@utils/helpers';
 import { AnonymizerSettings } from '@utils/interfaces';
 import { createAnonymizerEmail } from '@utils/test-data';
 
 test(
   '[e2e] [chats] Anonymous recording anonymizes customer messages in the chat log',
   { annotation: { type: 'kiwi case', description: 'https://monitooring.test.buerokratt.ee/case/177/' } },
-  async ({ browser }) => {
+  async ({ page, anonymizerPage, historyPage, customerPage, widgetPage }) => {
     const customerEmail = createAnonymizerEmail('mari.tamm.');
     const customerMessage = `Write to me at ${customerEmail}`;
 
-    const csaContext = await browser.newContext({ storageState: ADMIN_AUTH_STATE });
-    const customerContext = await browser.newContext();
+    await anonymizerPage.open();
+    await anonymizerPage.selectDomain(await customerWidgetName(page));
 
-    await seedEnglishLocale(customerContext);
+    await anonymizerPage.withSettingsRestored(async () => {
+      const settings: AnonymizerSettings = {
+        approach: 'Replace',
+        entities: ['EMAIL_ADDRESS'],
+        allowlist: [],
+        denylist: [],
+        anonymizationBeforeLlm: false,
+        recordAnonymously: true,
+      };
 
-    try {
-      const page = await csaContext.newPage();
-      const anonymizer = new AnonymizerPage(page);
-      const history = new HistoryPage(page);
-
-      await anonymizer.open();
-      await anonymizer.selectDomain(await customerWidgetName(page));
-
-      await anonymizer.withSettingsRestored(async () => {
-        const settings: AnonymizerSettings = {
-          approach: 'Replace',
-          entities: ['EMAIL_ADDRESS'],
-          allowlist: [],
-          denylist: [],
-          anonymizationBeforeLlm: false,
-          recordAnonymously: true,
-        };
-
-        await test.step('The domain records its conversations anonymously, replacing e-mail addresses', async () => {
-          await anonymizer.applySettings(settings);
-          await anonymizer.saveSettings();
-          await anonymizer.assertSaveWasConfirmed();
-        });
-
-        const cPage = await customerContext.newPage();
-        const customer = new WidgetPage(cPage);
-
-        const { greeting, chatId } =
-          await test.step('The customer writes their e-mail address to the bot and sees it as they typed it', async () => {
-            await cPage.goto(URLS.customer);
-            await customer.openChat();
-
-            const greeting = await customer.botGreeting();
-
-            await customer.sendMessage(customerMessage);
-
-            return { greeting, chatId: await customer.chatId() };
-          });
-
-        await test.step('The customer ends the conversation', async () => {
-          await customer.endChatWithoutAnswerAndSkipFeedback();
-        });
-
-        await test.step('The operator finds that very conversation in the chat log', async () => {
-          await page.bringToFront();
-          await history.openConversation(chatId);
-        });
-
-        await test.step('The log holds the address the customer typed as an anonymized value', async () => {
-          await history.expectCustomerMessagesAnonymized({ hidden: [customerEmail], kept: ['[EMAIL_ADDRESS]'] });
-        });
-
-        await test.step('The log holds what the bot said exactly as the customer saw it', async () => {
-          await history.expectBotMessage(greeting);
-        });
+      await test.step('The domain records its conversations anonymously, replacing e-mail addresses', async () => {
+        await anonymizerPage.applySettings(settings);
+        await anonymizerPage.saveSettings();
+        await anonymizerPage.assertSaveWasConfirmed();
       });
-    } finally {
-      await Promise.all([customerContext.close(), csaContext.close()]);
-    }
+
+      const { greeting, chatId } =
+        await test.step('The customer writes their e-mail address to the bot and sees it as they typed it', async () => {
+          await customerPage.goto(URLS.customer);
+          await widgetPage.openChat();
+
+          const greeting = await widgetPage.botGreeting();
+
+          await widgetPage.sendMessage(customerMessage);
+
+          return { greeting, chatId: await widgetPage.chatId() };
+        });
+
+      await test.step('The customer ends the conversation', async () => {
+        await widgetPage.endChatWithoutAnswerAndSkipFeedback();
+      });
+
+      await test.step('The operator finds that very conversation in the chat log', async () => {
+        await page.bringToFront();
+        await historyPage.openConversation(chatId);
+      });
+
+      await test.step('The log holds the address the customer typed as an anonymized value', async () => {
+        await historyPage.expectCustomerMessagesAnonymized({ hidden: [customerEmail], kept: ['[EMAIL_ADDRESS]'] });
+      });
+
+      await test.step('The log holds what the bot said exactly as the customer saw it', async () => {
+        await historyPage.expectBotMessage(greeting);
+      });
+    });
   },
 );
