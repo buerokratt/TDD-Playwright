@@ -11,7 +11,7 @@ test.describe('[administration] [visibility] The multi-domains page shows its do
         await multiDomainsPage.assertPageIsShown();
       });
 
-      await test.step('Every domain listed carries its name, its URL and a delete control', async () => {
+      await test.step('Every domain listed carries its numbered name, its URL and a delete control', async () => {
         await multiDomainsPage.assertRowsAreComplete();
       });
     },

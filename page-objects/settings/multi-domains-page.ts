@@ -1,35 +1,36 @@
-import { Locator, Page, expect } from '@playwright/test';
+import { Locator, Page, Request, expect } from '@playwright/test';
 
-import { ACTION_TIMEOUT } from '@utils/constants';
+import { ACTION_TIMEOUT, WIDGET_DOMAINS_PATH } from '@utils/constants';
 import { URLS } from '@utils/env';
-import { RouteReadyOptions } from '@utils/interfaces';
+import { RouteReadyOptions, WidgetDomain } from '@utils/interfaces';
 import { waitForMultiDomainsReady } from '@utils/waits';
 
 export class MultiDomainsPage {
   private readonly page: Page;
 
+  private readonly headingMultidomains: Locator;
+  private readonly rowsDomain: Locator;
+
   private readonly inputsDomainName: Locator;
   private readonly inputsDomainUrl: Locator;
+  private readonly buttonsDelete: Locator;
 
-  private readonly buttonsDeleteDomain: Locator;
   private readonly buttonAddNew: Locator;
   private readonly buttonSave: Locator;
-
-  private readonly headingMultidomains: Locator;
   private readonly toastList: Locator;
 
   constructor(page: Page) {
     this.page = page;
 
     this.headingMultidomains = this.page.getByRole('heading', { name: 'Multidomains', exact: true });
+    this.rowsDomain = this.page.locator('main .card__body > .track');
 
-    this.inputsDomainName = this.page.locator('main input[name^="widgetDomains."][name$=".name"]');
-    this.inputsDomainUrl = this.page.locator('main input[name^="widgetDomains."][name$=".url"]');
+    this.inputsDomainName = this.rowsDomain.locator('input[name^="widgetDomains."][name$=".name"]');
+    this.inputsDomainUrl = this.rowsDomain.locator('input[name^="widgetDomains."][name$=".url"]');
+    this.buttonsDelete = this.rowsDomain.locator('button.btn--error');
 
-    this.buttonsDeleteDomain = this.page.locator('main button.btn--error');
     this.buttonAddNew = this.page.getByRole('button', { name: 'Add new', exact: true });
     this.buttonSave = this.page.getByRole('button', { name: 'Save', exact: true });
-
     this.toastList = this.page.locator('ol.toast__list');
   }
 
@@ -49,42 +50,42 @@ export class MultiDomainsPage {
   }
 
   async domainRowCount({ timeout = ACTION_TIMEOUT }: RouteReadyOptions = {}): Promise<number> {
-    await expect(
-      this.inputsDomainName.first(),
-      'Multidomains rendered its heading but never received a domain row',
-    ).toBeVisible({ timeout });
+    await expect(this.rowsDomain.first(), 'The page listed no domain row').toBeVisible({ timeout });
 
-    return this.inputsDomainName.count();
+    return this.rowsDomain.count();
   }
 
   async assertRowsAreComplete(): Promise<void> {
     const rows = await this.domainRowCount();
 
-    await expect(this.inputsDomainUrl, 'A domain was listed without its URL field').toHaveCount(rows);
-    await expect(this.buttonsDeleteDomain, 'A domain was listed with no way to remove it').toHaveCount(rows);
+    for (let row = 0; row < rows; row++) {
+      const domainRow = this.rowsDomain.nth(row);
+
+      await expect(
+        domainRow.getByRole('textbox', { name: `${row + 1}. Domain name`, exact: true }),
+        `Row ${row + 1} carries no numbered name field`,
+      ).toBeVisible();
+      await expect(domainRow.locator('input[name$=".url"]'), `Row ${row + 1} carries no URL field`).toBeVisible();
+      await expect(domainRow.locator('button.btn--error'), `Row ${row + 1} offers no way to remove it`).toBeVisible();
+    }
   }
 
   async assertOnlyDomainCannotBeDeleted(): Promise<void> {
-    await expect(this.inputsDomainName, 'The form was expected to hold a single domain').toHaveCount(1);
-    await expect(
-      this.buttonsDeleteDomain.first(),
-      'The last domain left was still offered for deletion',
-    ).toBeDisabled();
+    await expect(this.rowsDomain, 'The form was expected to hold a single domain').toHaveCount(1);
+    await expect(this.buttonsDelete.first(), 'The last domain left was still offered for deletion').toBeDisabled();
   }
 
   async addDomainRow(): Promise<void> {
     const rowsBefore = await this.domainRowCount();
 
     await this.buttonAddNew.click();
-    await expect(this.inputsDomainName, 'The page never added the domain row it was asked for').toHaveCount(
-      rowsBefore + 1,
-    );
+    await expect(this.rowsDomain, 'The new domain row never appeared').toHaveCount(rowsBefore + 1);
   }
 
   async removeDomainRowsUntilOneLeft(): Promise<void> {
     for (let rows = await this.domainRowCount(); rows > 1; rows--) {
-      await this.buttonsDeleteDomain.last().click();
-      await expect(this.inputsDomainName, 'The form kept the domain row that was removed').toHaveCount(rows - 1);
+      await this.buttonsDelete.last().click();
+      await expect(this.rowsDomain, 'The form kept the domain row that was removed').toHaveCount(rows - 1);
     }
   }
 
@@ -122,10 +123,6 @@ export class MultiDomainsPage {
     expect(listed, `The domains list holds "${domainName}" ${listed} times`).toBe(1);
   }
 
-  async hasDomain(domainName: string): Promise<boolean> {
-    return (await this.domainRowIndex(domainName)) > -1;
-  }
-
   async updateDomainByName(currentName: string, nextName: string, nextUrl: string): Promise<void> {
     const row = await this.domainRowIndex(currentName);
 
@@ -148,9 +145,54 @@ export class MultiDomainsPage {
 
     const rowsBefore = await this.domainRowCount();
 
-    await this.buttonsDeleteDomain.nth(row).click();
-    await expect(this.inputsDomainName, 'The form kept the domain row that was removed').toHaveCount(rowsBefore - 1);
+    await this.buttonsDelete.nth(row).click();
+    await expect(this.rowsDomain, 'The form kept the domain row that was removed').toHaveCount(rowsBefore - 1);
     await this.assertDomainNotListed(domainName);
+  }
+
+  async assertDomainsStored(domains: readonly WidgetDomain[]): Promise<void> {
+    await expect(this.rowsDomain, 'The domains list holds a different number of domains').toHaveCount(domains.length);
+
+    for (const domain of domains) {
+      await this.assertDomainStored(domain.name, domain.url);
+    }
+  }
+
+  async assertDuplicateMarked(message: string, field: 'name' | 'url', value: string): Promise<void> {
+    const rows = this.rowsDomain.filter({
+      has: this.page.locator(`input[name$=".${field}"][value=${JSON.stringify(value)}]`),
+    });
+
+    expect(await rows.count(), `The form holds no row with the ${field} "${value}"`).toBeGreaterThan(0);
+    await expect(rows.getByText(message, { exact: true }), `A clashing row was not marked "${message}"`).toHaveCount(
+      await rows.count(),
+    );
+  }
+
+  async assertLastRowMarked(message: string): Promise<void> {
+    await expect(
+      this.rowsDomain.last().getByText(message, { exact: true }),
+      `The new row was not marked "${message}"`,
+    ).toBeVisible();
+  }
+
+  async assertNothingSaved(action: () => Promise<void>, reason: string): Promise<void> {
+    const saves: string[] = [];
+    const recordSave = (request: Request): void => {
+      if (this.isDomainsSave(request)) {
+        saves.push(request.postData() ?? '');
+      }
+    };
+
+    this.page.on('request', recordSave);
+
+    try {
+      await action();
+    } finally {
+      this.page.off('request', recordSave);
+    }
+
+    expect(saves, reason).toEqual([]);
   }
 
   private async domainRowIndex(domainName: string): Promise<number> {
@@ -161,5 +203,9 @@ export class MultiDomainsPage {
     await this.domainRowCount();
 
     return this.inputsDomainName.evaluateAll((inputs) => inputs.map((input) => (input as HTMLInputElement).value));
+  }
+
+  private isDomainsSave(request: Request): boolean {
+    return request.method() === 'POST' && request.url().includes(WIDGET_DOMAINS_PATH);
   }
 }
