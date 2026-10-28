@@ -27,5 +27,3 @@ export const ANONYMIZER_WORD_LISTS = ['allowlist', 'denylist'] as const;
 export type AnonymizerWordList = (typeof ANONYMIZER_WORD_LISTS)[number];
 
 export const ANONYMIZER_DENYLIST_PLACEHOLDER = '[REDACTED]';
-
-export const DOMAIN_SELECTION_STORAGE_KEY = 'domain-selection';

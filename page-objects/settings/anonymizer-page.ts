@@ -11,11 +11,10 @@ import {
   ANONYMIZER_CONFIG_PATH,
   ANONYMIZER_ENTITIES,
   ANONYMIZER_TRANSFER_PATH,
-  DOMAIN_SELECTION_STORAGE_KEY,
 } from '@utils/constants';
 import { URLS } from '@utils/env';
 import { AnonymizedText, AnonymizerSettings, RouteReadyOptions } from '@utils/interfaces';
-import { assertLeavingRaisesNoPrompt, waitForAnonymizerReady } from '@utils/waits';
+import { waitForAnonymizerReady } from '@utils/waits';
 
 const SELECT_PLACEHOLDER = '- Select option -';
 
@@ -55,8 +54,6 @@ export class AnonymizerPage {
   private readonly textareaOutputText: Locator;
   private readonly buttonClear: Locator;
   private readonly buttonAnonymize: Locator;
-
-  private readonly dialog: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -105,8 +102,6 @@ export class AnonymizerPage {
     this.textareaOutputText = this.page.getByPlaceholder('Anonymized text will appear here');
     this.buttonClear = this.page.getByRole('button', { name: 'Clear', exact: true });
     this.buttonAnonymize = this.page.getByRole('button', { name: 'Anonymize', exact: true });
-
-    this.dialog = this.page.getByRole('dialog');
   }
 
   async waitForReady(options: RouteReadyOptions = {}): Promise<void> {
@@ -162,7 +157,7 @@ export class AnonymizerPage {
     await expect(this.approachText(), `The approach dropdown does not show "${approach}"`).toHaveText(approach);
   }
 
-  async chooseApproach(approach: AnonymizerApproach): Promise<void> {
+  async selectApproach(approach: AnonymizerApproach): Promise<void> {
     if ((await this.approachText().innerText()).trim() === approach) {
       return;
     }
@@ -296,7 +291,7 @@ export class AnonymizerPage {
     return domain;
   }
 
-  async domainNames(): Promise<string[]> {
+  async readDomainNames(): Promise<string[]> {
     return (await this.domainTabs.allInnerTexts()).map((name) => name.trim());
   }
 
@@ -306,14 +301,6 @@ export class AnonymizerPage {
 
   async assertDomainActive(domain: string): Promise<void> {
     await expect(this.domainTabActive, `"${domain}" is not the only domain selected`).toHaveText([domain]);
-  }
-
-  async readDomainSelection(): Promise<string | undefined> {
-    return this.page.evaluate((key) => {
-      const raw = localStorage.getItem(key);
-
-      return raw ? (JSON.parse(raw) as { state?: { selectedDomainId?: string } }).state?.selectedDomainId : undefined;
-    }, DOMAIN_SELECTION_STORAGE_KEY);
   }
 
   async copySettingsTo(domain: string): Promise<void> {
@@ -366,7 +353,7 @@ export class AnonymizerPage {
   }
 
   async applySettings(settings: AnonymizerSettings): Promise<void> {
-    await this.chooseApproach(settings.approach);
+    await this.selectApproach(settings.approach);
     await this.setEntities(settings.entities);
     await this.setWords('allowlist', settings.allowlist);
     await this.setWords('denylist', settings.denylist);
@@ -387,18 +374,6 @@ export class AnonymizerPage {
     await this.saveSettings();
 
     return saved;
-  }
-
-  watchSettingsWrites(): Request[] {
-    return this.watchPosts(ANONYMIZER_CONFIG_PATH);
-  }
-
-  async assertLeavingRaisesNoPrompt(leave: () => Promise<void>): Promise<void> {
-    await assertLeavingRaisesNoPrompt(this.page, leave);
-  }
-
-  async assertNoDialogShown(): Promise<void> {
-    await expect(this.dialog, 'The page raised a confirmation dialog').toHaveCount(0);
   }
 
   async assertSaveWasConfirmed({ timeout = ACTION_TIMEOUT }: RouteReadyOptions = {}): Promise<void> {
@@ -471,7 +446,7 @@ export class AnonymizerPage {
   }
 
   private async domainTab(domain: string): Promise<Locator> {
-    const names = await this.domainNames();
+    const names = await this.readDomainNames();
     const index = names.indexOf(domain);
 
     expect(index, `The settings are offered for no domain named "${domain}"`).toBeGreaterThan(-1);
@@ -544,7 +519,7 @@ export class AnonymizerPage {
     return approach;
   }
 
-  private entityOption(entity: string): Locator {
+  private entityOption(entity: AnonymizerEntity): Locator {
     return this.sectionEntities.locator(`input[type="checkbox"][name="${entity}"]`);
   }
 

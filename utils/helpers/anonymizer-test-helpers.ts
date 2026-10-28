@@ -1,7 +1,7 @@
 import { Page, expect } from '@playwright/test';
 
-import { ANONYMIZER_APPROACHES, ANONYMIZER_CONFIG_URL, ANONYMIZER_ENTITIES } from '@utils/constants';
-import { AnonymizerSettings, StoredAnonymizerSettings } from '@utils/interfaces';
+import { ANONYMIZER_CONFIG_URL } from '@utils/constants';
+import { StoredAnonymizerSettings } from '@utils/interfaces';
 
 function splitStoredList(list: string): string[] {
   return list
@@ -37,25 +37,4 @@ export async function assertAnonymizerSettingsUnchanged(
     comparableAnonymizerSettings(await readStoredAnonymizerSettings(page, domainId)),
     'The anonymizer settings were left changed',
   ).toEqual(comparableAnonymizerSettings(snapshot));
-}
-
-export function storedAsFormSettings(stored: StoredAnonymizerSettings): AnonymizerSettings {
-  const approach = ANONYMIZER_APPROACHES.find(
-    (candidate) => candidate.toLowerCase() === stored.anonymizerSelectedApproach,
-  );
-
-  if (!approach) {
-    throw new Error(`The back office stores an unknown approach: "${stored.anonymizerSelectedApproach}"`);
-  }
-
-  const selected = splitStoredList(stored.anonymizerSelectedEntities);
-
-  return {
-    approach,
-    entities: ANONYMIZER_ENTITIES.filter((entity) => selected.includes(entity)),
-    allowlist: splitStoredList(stored.anonymizerAllowlist),
-    denylist: splitStoredList(stored.anonymizerDenylist),
-    anonymizationBeforeLlm: stored.isAnonymizationBeforeLlm,
-    recordAnonymously: stored.recordConversationsAnonymously,
-  };
 }
