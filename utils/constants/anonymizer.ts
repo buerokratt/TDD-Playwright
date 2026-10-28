@@ -21,3 +21,9 @@ export const ANONYMIZER_ENTITIES = [
 ] as const;
 
 export type AnonymizerEntity = (typeof ANONYMIZER_ENTITIES)[number];
+
+export const ANONYMIZER_WORD_LISTS = ['allowlist', 'denylist'] as const;
+
+export type AnonymizerWordList = (typeof ANONYMIZER_WORD_LISTS)[number];
+
+export const ANONYMIZER_DENYLIST_PLACEHOLDER = '[REDACTED]';

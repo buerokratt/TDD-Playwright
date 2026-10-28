@@ -40,6 +40,16 @@ export async function readWidgetDomains(page: Page): Promise<WidgetDomain[]> {
   return domains;
 }
 
+export async function readWidgetDomainId(page: Page, name: string): Promise<string> {
+  const domain = (await readWidgetDomains(page)).find((candidate) => candidate.name === name);
+
+  if (!domain) {
+    throw new Error(`The back office stores no domain named "${name}"`);
+  }
+
+  return domain.domainId;
+}
+
 export function multiDomainsCleanup(resolveDomains: WidgetDomainsResolver) {
   return async ({ page }: { page: Page }): Promise<void> => {
     const domainsBeforeRun = resolveDomains();
