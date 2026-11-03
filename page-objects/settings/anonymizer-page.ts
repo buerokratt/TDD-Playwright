@@ -1,13 +1,11 @@
-import { Locator, Page, Request, Response, expect, test } from '@playwright/test';
+import { Locator, Page, Response, expect, test } from '@playwright/test';
 
 import { CopyToDomainModal } from '@page-objects/common';
 import {
   ACTION_TIMEOUT,
-  ANONYMIZE_PATH,
   ANONYMIZER_APPROACHES,
   AnonymizerApproach,
   AnonymizerEntity,
-  AnonymizerWordList,
   ANONYMIZER_CONFIG_PATH,
   ANONYMIZER_ENTITIES,
   ANONYMIZER_TRANSFER_PATH,
@@ -17,6 +15,8 @@ import { AnonymizedText, AnonymizerSettings, RouteReadyOptions } from '@utils/in
 import { waitForAnonymizerReady } from '@utils/waits';
 
 const SELECT_PLACEHOLDER = '- Select option -';
+
+type AnonymizerWordList = keyof Pick<AnonymizerSettings, 'allowlist' | 'denylist'>;
 
 export class AnonymizerPage {
   private readonly page: Page;
@@ -42,6 +42,7 @@ export class AnonymizerPage {
   private readonly sectionEntities: Locator;
   private readonly sectionAllowlist: Locator;
   private readonly sectionDenylist: Locator;
+  private readonly sectionsWordList: Record<AnonymizerWordList, Locator>;
   private readonly optionsEntities: Locator;
 
   private readonly switchAnonymizationBeforeLlm: Locator;
@@ -90,6 +91,7 @@ export class AnonymizerPage {
     this.sectionEntities = section('Entities to anonymize');
     this.sectionAllowlist = section('Add words to the allowlist');
     this.sectionDenylist = section('Add words to the denylist');
+    this.sectionsWordList = { allowlist: this.sectionAllowlist, denylist: this.sectionDenylist };
     this.optionsEntities = this.sectionEntities.locator('input[type="checkbox"]');
 
     this.switchAnonymizationBeforeLlm = this.switchRow('Anonymization before LLM').getByRole('switch');
@@ -138,23 +140,6 @@ export class AnonymizerPage {
     ).toHaveText([...ANONYMIZER_APPROACHES]);
 
     await this.closeApproachListWithEscape();
-  }
-
-  async openApproachList(): Promise<void> {
-    await this.triggerApproachSelector.click();
-    await expect(this.optionsApproachSelector.first(), 'The approach dropdown never opened its list').toBeVisible();
-  }
-
-  async closeApproachListWithEscape(): Promise<void> {
-    await this.page.keyboard.press('Escape');
-  }
-
-  async assertApproachListClosed(): Promise<void> {
-    await expect(this.optionsApproachSelector, 'The approach dropdown kept its list open').toHaveCount(0);
-  }
-
-  async assertApproachShown(approach: AnonymizerApproach): Promise<void> {
-    await expect(this.approachText(), `The approach dropdown does not show "${approach}"`).toHaveText(approach);
   }
 
   async selectApproach(approach: AnonymizerApproach): Promise<void> {
@@ -224,29 +209,10 @@ export class AnonymizerPage {
     await this.buttonAnonymize.click();
   }
 
-  async anonymizeReadingResponse(text: string): Promise<Response> {
-    const anonymized = this.page.waitForResponse(
-      (response) => response.url().includes(ANONYMIZE_PATH) && response.request().method() === 'POST',
-      { timeout: ACTION_TIMEOUT },
-    );
-
-    await this.anonymize(text);
-
-    return anonymized;
-  }
-
   async assertOutputIs(expected: string | RegExp): Promise<void> {
     await expect(this.textareaOutputText, 'The testing card showed a different anonymized text').toHaveValue(expected, {
       timeout: ACTION_TIMEOUT,
     });
-  }
-
-  async assertOutputContains(fragment: string): Promise<void> {
-    await expect(async () => {
-      expect(await this.textareaOutputText.inputValue(), `The anonymized text does not carry "${fragment}"`).toContain(
-        fragment,
-      );
-    }).toPass({ timeout: ACTION_TIMEOUT });
   }
 
   async assertAnonymizationWasConfirmed({ timeout = ACTION_TIMEOUT }: RouteReadyOptions = {}): Promise<void> {
@@ -299,20 +265,8 @@ export class AnonymizerPage {
     await this.openDomainTab(await this.domainTab(domain), domain);
   }
 
-  async assertDomainActive(domain: string): Promise<void> {
-    await expect(this.domainTabActive, `"${domain}" is not the only domain selected`).toHaveText([domain]);
-  }
-
   async copySettingsTo(domain: string): Promise<void> {
     await this.copyToDomain.copyTo(domain);
-  }
-
-  getCopyToDomainModal(): CopyToDomainModal {
-    return this.copyToDomain;
-  }
-
-  watchTransfers(): Request[] {
-    return this.watchPosts(ANONYMIZER_TRANSFER_PATH);
   }
 
   async enterWord(list: AnonymizerWordList, word: string): Promise<void> {
@@ -320,6 +274,12 @@ export class AnonymizerPage {
 
     await input.fill(word);
     await input.press('Enter');
+  }
+
+  async removeWord(list: AnonymizerWordList, word: string): Promise<void> {
+    await this.wordListSection(list)
+      .getByRole('button', { name: `Remove ${word}`, exact: true })
+      .click();
   }
 
   async typeWordWithoutEnter(list: AnonymizerWordList, word: string): Promise<void> {
@@ -361,17 +321,13 @@ export class AnonymizerPage {
     await this.setSwitch(this.switchRecordAnonymously, settings.recordAnonymously);
   }
 
-  async saveSettings(): Promise<void> {
-    await this.buttonSaveSettings.click();
-  }
-
-  async saveSettingsReadingResponse(): Promise<Response> {
+  async saveSettings(): Promise<Response> {
     const saved = this.page.waitForResponse(
       (response) => response.url().includes(ANONYMIZER_CONFIG_PATH) && response.request().method() === 'POST',
       { timeout: ACTION_TIMEOUT },
     );
 
-    await this.saveSettings();
+    await this.buttonSaveSettings.click();
 
     return saved;
   }
@@ -428,6 +384,15 @@ export class AnonymizerPage {
       await this.restoreSettingsForDomains(settingsBefore),
       'The anonymizer settings could not be put back on every domain',
     ).toEqual([]);
+  }
+
+  private async openApproachList(): Promise<void> {
+    await this.triggerApproachSelector.click();
+    await expect(this.optionsApproachSelector.first(), 'The approach dropdown never opened its list').toBeVisible();
+  }
+
+  private async closeApproachListWithEscape(): Promise<void> {
+    await this.page.keyboard.press('Escape');
   }
 
   private async openDomainTab(tab: Locator, domain: string): Promise<void> {
@@ -523,20 +488,8 @@ export class AnonymizerPage {
     return this.sectionEntities.locator(`input[type="checkbox"][name="${entity}"]`);
   }
 
-  private watchPosts(path: string): Request[] {
-    const seen: Request[] = [];
-
-    this.page.on('request', (request) => {
-      if (request.url().includes(path) && request.method() === 'POST') {
-        seen.push(request);
-      }
-    });
-
-    return seen;
-  }
-
   private wordListSection(list: AnonymizerWordList): Locator {
-    return list === 'allowlist' ? this.sectionAllowlist : this.sectionDenylist;
+    return this.sectionsWordList[list];
   }
 
   private wordInput(section: Locator): Locator {

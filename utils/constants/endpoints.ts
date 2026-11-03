@@ -16,7 +16,6 @@ export const CHAT_ANALYSIS_URL = `${BACKOFFICE_V2_BASE}/configs/chat-analysis`;
 export const ORGANIZATION_WORKING_TIME_URL = `${BACKOFFICE_V2_BASE}/configs/organization-working-time`;
 
 export const ANONYMIZER_CONFIG_PATH = 'configs/anonymizer';
-export const ANONYMIZER_CONFIG_URL = `${BACKOFFICE_V2_BASE}/${ANONYMIZER_CONFIG_PATH}`;
 export const ANONYMIZER_TRANSFER_PATH = 'configs/transfer/anonymizer';
 
 export const WIDGET_DOMAINS_PATH = 'configs/widget-domains';

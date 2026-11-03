@@ -1,4 +1,3 @@
-export * from './anonymizer-test-helpers';
 export * from './chat-analysis-test-helpers';
 export * from './conversation-analysis-test-helpers';
 export * from './delete-conversations-test-helpers';

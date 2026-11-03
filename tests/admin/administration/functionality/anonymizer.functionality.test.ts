@@ -1,21 +1,101 @@
 import { expect, test } from '@setup/test-setup';
-import { ANONYMIZER_APPROACHES, ANONYMIZER_DENYLIST_PLACEHOLDER } from '@utils/constants';
-import { assertAnonymizerSettingsUnchanged, readStoredAnonymizerSettings, readWidgetDomainId } from '@utils/helpers';
-import { AnonymizerSettings, AnonymizerSettingsPayload } from '@utils/interfaces';
+import { ANONYMIZER_APPROACHES, ANONYMIZER_DENYLIST_PLACEHOLDER, AnonymizerApproach } from '@utils/constants';
+import { AnonymizerSettings } from '@utils/interfaces';
 import {
-  ANONYMIZED_IBAN,
-  ANONYMIZER_SAMPLE_IBAN,
   createAnonymizerEmail,
   createAnonymizerWord,
   nextAnonymizerApproach,
   toggledAnonymizerEntities,
 } from '@utils/test-data';
 
-test.describe('[administration] [functional] Anonymizer settings are saved for the selected domain', () => {
+test.describe('[administration] [functional] Words are added to and removed from the anonymizer word lists', () => {
   test(
-    'Approach, entities, both word lists and both toggles come back from a reload as they were saved',
-    { annotation: { type: 'kiwi case', description: 'https://monitooring.test.buerokratt.ee/case/172/' } },
+    'A new word is listed in each list, its upper-case variant as a separate word',
+    { annotation: { type: 'kiwi case', description: 'https://monitooring.test.buerokratt.ee/case/211/' } },
     async ({ anonymizerPage }) => {
+      const allowedWord = createAnonymizerWord('allow');
+      const deniedWord = createAnonymizerWord('deny');
+
+      await anonymizerPage.open();
+
+      const settingsBefore = await anonymizerPage.readSettings();
+
+      await test.step('Each list lists the word entered into it', async () => {
+        await anonymizerPage.enterWord('allowlist', allowedWord);
+        await anonymizerPage.enterWord('denylist', deniedWord);
+        await anonymizerPage.assertWordsListed('allowlist', [...settingsBefore.allowlist, allowedWord]);
+        await anonymizerPage.assertWordsListed('denylist', [...settingsBefore.denylist, deniedWord]);
+      });
+
+      await test.step('The upper-case variant of a listed word is added as a separate word', async () => {
+        await anonymizerPage.enterWord('allowlist', allowedWord.toUpperCase());
+        await anonymizerPage.assertWordsListed('allowlist', [
+          ...settingsBefore.allowlist,
+          allowedWord,
+          allowedWord.toUpperCase(),
+        ]);
+      });
+    },
+  );
+
+  test(
+    'Empty, whitespace and already listed words are not added',
+    { annotation: { type: 'kiwi case', description: 'https://monitooring.test.buerokratt.ee/case/212/' } },
+    async ({ anonymizerPage }) => {
+      const word = createAnonymizerWord('allow');
+
+      await anonymizerPage.open();
+
+      const settingsBefore = await anonymizerPage.readSettings();
+
+      await test.step('Enter on an empty value adds no word', async () => {
+        await anonymizerPage.enterWord('allowlist', '');
+        await anonymizerPage.assertWordsListed('allowlist', settingsBefore.allowlist);
+      });
+
+      await test.step('Enter on whitespace adds no word', async () => {
+        await anonymizerPage.enterWord('allowlist', '   ');
+        await anonymizerPage.assertWordsListed('allowlist', settingsBefore.allowlist);
+      });
+
+      await test.step('A word entered again is not listed twice', async () => {
+        await anonymizerPage.enterWord('allowlist', word);
+        await anonymizerPage.enterWord('allowlist', word);
+        await anonymizerPage.assertWordsListed('allowlist', [...settingsBefore.allowlist, word]);
+      });
+    },
+  );
+
+  test(
+    'A removed word is gone from its list',
+    { annotation: { type: 'kiwi case', description: 'https://monitooring.test.buerokratt.ee/case/213/' } },
+    async ({ anonymizerPage }) => {
+      const word = createAnonymizerWord('deny');
+
+      await anonymizerPage.open();
+
+      const settingsBefore = await anonymizerPage.readSettings();
+
+      await test.step('The denylist holds a word from the current run to remove', async () => {
+        await anonymizerPage.enterWord('denylist', word);
+        await anonymizerPage.assertWordsListed('denylist', [...settingsBefore.denylist, word]);
+      });
+
+      await test.step('Removing the word takes it out of the denylist', async () => {
+        await anonymizerPage.removeWord('denylist', word);
+        await anonymizerPage.assertWordsListed('denylist', settingsBefore.denylist);
+      });
+    },
+  );
+});
+
+test.describe(
+  '[administration] [functional] Anonymizer settings are saved for the selected domain',
+  { annotation: { type: 'kiwi case', description: 'https://monitooring.test.buerokratt.ee/case/172/' } },
+  () => {
+    test('Approach, entities, both word lists and both toggles come back from a reload as they were saved', async ({
+      anonymizerPage,
+    }) => {
       await anonymizerPage.open();
 
       await test.step('The settings are opened on the first domain offered', async () => {
@@ -43,23 +123,126 @@ test.describe('[administration] [functional] Anonymizer settings are saved for t
           await anonymizerPage.assertSettingsStored(settings);
         });
       });
+    });
+
+    test('Saving without a change keeps the stored settings', async ({ anonymizerPage }) => {
+      await anonymizerPage.open();
+
+      await test.step('The settings are opened on the first domain offered', async () => {
+        await anonymizerPage.selectFirstDomain();
+      });
+
+      await anonymizerPage.withSettingsRestored(async (settingsBefore) => {
+        await test.step('Saving the untouched page reports the change went through', async () => {
+          await anonymizerPage.saveSettings();
+          await anonymizerPage.assertSaveWasConfirmed();
+        });
+
+        await test.step('The settings come back unchanged after a reload', async () => {
+          await anonymizerPage.open();
+          await anonymizerPage.assertSettingsStored(settingsBefore);
+        });
+      });
+    });
+
+    test('Each domain tab shows the settings saved for that domain', async ({ anonymizerPage }) => {
+      await anonymizerPage.open();
+
+      const domains = await anonymizerPage.readDomainNames();
+      expect(domains.length, 'Switching tabs is only possible where a second domain exists').toBeGreaterThan(1);
+
+      const [first, second] = domains;
+
+      await anonymizerPage.withSettingsRestoredForDomains([first, second], async (settingsBefore) => {
+        const firstSettings: AnonymizerSettings = {
+          ...settingsBefore[first],
+          allowlist: [createAnonymizerWord('first')],
+        };
+        const secondSettings: AnonymizerSettings = {
+          ...settingsBefore[second],
+          allowlist: [createAnonymizerWord('second')],
+        };
+
+        await test.step(`"${first}" is saved with its own allowlist`, async () => {
+          await anonymizerPage.selectDomain(first);
+          await anonymizerPage.applySettings(firstSettings);
+          await anonymizerPage.saveSettings();
+          await anonymizerPage.assertSaveWasConfirmed();
+        });
+
+        await test.step(`"${second}" is saved with its own allowlist`, async () => {
+          await anonymizerPage.selectDomain(second);
+          await anonymizerPage.applySettings(secondSettings);
+          await anonymizerPage.saveSettings();
+          await anonymizerPage.assertSaveWasConfirmed();
+        });
+
+        await test.step(`Switching to "${first}" shows the settings saved for it`, async () => {
+          await anonymizerPage.selectDomain(first);
+          await anonymizerPage.assertSettingsStored(firstSettings);
+        });
+
+        await test.step(`Switching to "${second}" shows the settings saved for it`, async () => {
+          await anonymizerPage.selectDomain(second);
+          await anonymizerPage.assertSettingsStored(secondSettings);
+        });
+      });
+    });
+  },
+);
+
+test.describe('[administration] [functional] A word typed without Enter is not added to the anonymizer word lists', () => {
+  test(
+    'A word typed without Enter in either list is neither listed nor saved and stays in the input',
+    { annotation: { type: 'NO KIWI TEST CASE', description: 'Extension of the anonymizer word list coverage.' } },
+    async ({ anonymizerPage }) => {
+      const allowedWord = createAnonymizerWord('allow');
+      const deniedWord = createAnonymizerWord('deny');
+
+      await anonymizerPage.open();
+      await anonymizerPage.selectFirstDomain();
+
+      await anonymizerPage.withSettingsRestored(async (settingsBefore) => {
+        await anonymizerPage.typeWordWithoutEnter('allowlist', allowedWord);
+        await anonymizerPage.typeWordWithoutEnter('denylist', deniedWord);
+
+        await test.step('Neither typed word is listed', async () => {
+          await anonymizerPage.assertWordsListed('allowlist', settingsBefore.allowlist);
+          await anonymizerPage.assertWordsListed('denylist', settingsBefore.denylist);
+        });
+
+        await test.step('Each typed word is left in its input', async () => {
+          await anonymizerPage.assertWordInputHolds('allowlist', allowedWord);
+          await anonymizerPage.assertWordInputHolds('denylist', deniedWord);
+        });
+
+        await test.step('Saving reports the change went through', async () => {
+          await anonymizerPage.saveSettings();
+          await anonymizerPage.assertSaveWasConfirmed();
+        });
+
+        await test.step('The settings come back without the typed words after a reload', async () => {
+          await anonymizerPage.open();
+          await anonymizerPage.assertSettingsStored(settingsBefore);
+        });
+      });
     },
   );
 });
 
 test.describe('[administration] [functional] The anonymizer testing card anonymizes text by the settings of the domain', () => {
   test(
-    'Anonymize hides the entity value and the denied word, keeps the allowed one, and Clear empties the input',
+    'Entity value and the denied word are hidden, the allowed word and the rest stay, the entered text is emptied',
     { annotation: { type: 'kiwi case', description: 'https://monitooring.test.buerokratt.ee/case/175/' } },
     async ({ anonymizerPage }) => {
-      const anonymizedEmail = createAnonymizerEmail('anonymized');
-      const allowedEmail = createAnonymizerEmail('allowed');
-      const deniedWord = createAnonymizerWord('deny');
-      const untouchedWord = createAnonymizerWord('random');
+      const email = createAnonymizerEmail('entity');
+      const allowedWord = createAnonymizerWord('allowed');
+      const deniedWord = createAnonymizerWord('denied');
+      const randomWord = createAnonymizerWord('random');
 
       const textToAnonymize = [
-        `Write to ${anonymizedEmail} or to ${allowedEmail}.`,
-        `The word ${deniedWord} is denied and ${untouchedWord} is nothing at all.`,
+        `Write to ${email}.`,
+        `The word ${deniedWord} is denied, ${allowedWord} is allowed and ${randomWord} is nothing at all.`,
       ].join(' ');
 
       await anonymizerPage.open();
@@ -70,15 +253,14 @@ test.describe('[administration] [functional] The anonymizer testing card anonymi
 
       await anonymizerPage.withSettingsRestored(async (settingsBefore) => {
         const settings: AnonymizerSettings = {
+          ...settingsBefore,
           approach: 'Replace',
           entities: ['EMAIL_ADDRESS'],
-          allowlist: [allowedEmail],
+          allowlist: [allowedWord],
           denylist: [deniedWord],
-          anonymizationBeforeLlm: settingsBefore.anonymizationBeforeLlm,
-          recordAnonymously: settingsBefore.recordAnonymously,
         };
 
-        await test.step('The domain is set to replace e-mail addresses, with one address allowed and one word denied', async () => {
+        await test.step('The domain is set to replace e-mail addresses, with one word allowed and one word denied', async () => {
           await anonymizerPage.applySettings(settings);
           await anonymizerPage.saveSettings();
           await anonymizerPage.assertSaveWasConfirmed();
@@ -89,10 +271,10 @@ test.describe('[administration] [functional] The anonymizer testing card anonymi
           await anonymizerPage.assertAnonymizationWasConfirmed();
         });
 
-        await test.step('The output hides the address and the denied word, and keeps the allowed address and the rest of the text', async () => {
+        await test.step('The output hides the address and the denied word, and keeps the allowed word and the rest of the text', async () => {
           await anonymizerPage.assertOutputWasAnonymized({
-            hidden: [anonymizedEmail, deniedWord],
-            kept: [allowedEmail, untouchedWord],
+            hidden: [email, deniedWord],
+            kept: [allowedWord, randomWord],
           });
         });
 
@@ -105,90 +287,109 @@ test.describe('[administration] [functional] The anonymizer testing card anonymi
   );
 
   test(
-    'Text with nothing to hide comes back unchanged',
+    'Matched value is hidden in its own form for each approach',
     { annotation: { type: 'NO KIWI TEST CASE', description: 'Extension of the anonymizer testing card coverage.' } },
-    async ({ page, anonymizerPage }) => {
-      const sentence = 'hello there friend, nothing to hide here';
+    async ({ anonymizerPage }) => {
+      const email = createAnonymizerEmail('entity');
+      const deniedWord = createAnonymizerWord('denied');
+      const text = `mail ${email} word ${deniedWord} end`;
+      const anonymizedText: Record<AnonymizerApproach, string | RegExp> = {
+        Replace: `mail [EMAIL_ADDRESS] word ${ANONYMIZER_DENYLIST_PLACEHOLDER} end`,
+        Redact: 'mail  word  end',
+        Mask: `mail xxxxxx${email.slice(6)} word <DENYLIST_MATCH> end`,
+        Hash: /^mail [0-9a-f]{64} word [0-9a-f]{64} end$/,
+      };
 
       await anonymizerPage.open();
+      await anonymizerPage.selectFirstDomain();
 
-      const domain = await anonymizerPage.selectFirstDomain();
-      const domainId = await readWidgetDomainId(page, domain);
-      const response = await anonymizerPage.anonymizeReadingResponse(sentence);
+      await anonymizerPage.withSettingsRestored(async (settingsBefore) => {
+        for (const approach of ANONYMIZER_APPROACHES) {
+          await test.step(`The domain is set to "${approach}" for e-mail addresses with one word denied`, async () => {
+            await anonymizerPage.applySettings({
+              ...settingsBefore,
+              approach,
+              entities: ['EMAIL_ADDRESS'],
+              allowlist: [],
+              denylist: [deniedWord],
+            });
+            await anonymizerPage.saveSettings();
+            await anonymizerPage.assertSaveWasConfirmed();
+          });
 
-      await test.step('The back office anonymizes the text', async () => {
-        expect(response.ok(), `The back office would not anonymize (${response.status()})`).toBeTruthy();
-      });
-
-      await test.step('The text and the selected domain are sent', async () => {
-        expect(response.request().postDataJSON(), 'The testing card sent something else').toEqual({
-          text: sentence,
-          domain: domainId,
-        });
-      });
-
-      await test.step('The back office answers the text unchanged', async () => {
-        expect(await response.json(), 'The back office changed text with nothing to hide').toEqual({
-          response: sentence,
-        });
-      });
-
-      await test.step('Anonymizing the text is confirmed on the page', async () => {
-        await anonymizerPage.assertAnonymizationWasConfirmed();
-      });
-
-      await test.step('The output equals the input', async () => {
-        await anonymizerPage.assertOutputIs(sentence);
+          await test.step(`"${approach}" hides the address and the denied word in its own form`, async () => {
+            await anonymizerPage.anonymize(text);
+            await anonymizerPage.assertOutputIs(anonymizedText[approach]);
+          });
+        }
       });
     },
   );
 
   test(
-    'Each approach hides an IBAN in its own form',
+    'Entity value is kept when allowlisted and hidden when it is not',
     { annotation: { type: 'NO KIWI TEST CASE', description: 'Extension of the anonymizer testing card coverage.' } },
-    async ({ page, anonymizerPage }) => {
-      const text = `IBAN ${ANONYMIZER_SAMPLE_IBAN}`;
+    async ({ anonymizerPage }) => {
+      const email = createAnonymizerEmail('entity');
+      const allowedEmail = createAnonymizerEmail('allowed');
 
       await anonymizerPage.open();
-
-      const domain = await anonymizerPage.selectFirstDomain();
-      const domainId = await readWidgetDomainId(page, domain);
-      const snapshot = await readStoredAnonymizerSettings(page, domainId);
+      await anonymizerPage.selectFirstDomain();
 
       await anonymizerPage.withSettingsRestored(async (settingsBefore) => {
-        for (const approach of ANONYMIZER_APPROACHES) {
-          await anonymizerPage.applySettings({ ...settingsBefore, approach, entities: ['IBAN_CODE'] });
-
-          const savedResponse = await anonymizerPage.saveSettingsReadingResponse();
-
-          await test.step(`The back office accepts "${approach}" for IBAN codes`, async () => {
-            expect(
-              savedResponse.ok(),
-              `The back office rejected "${approach}" (${savedResponse.status()})`,
-            ).toBeTruthy();
+        await test.step('The domain is set to replace e-mail addresses with one address allowed', async () => {
+          await anonymizerPage.applySettings({
+            ...settingsBefore,
+            approach: 'Replace',
+            entities: ['EMAIL_ADDRESS'],
+            allowlist: [allowedEmail],
+            denylist: [],
           });
+          await anonymizerPage.saveSettings();
+          await anonymizerPage.assertSaveWasConfirmed();
+        });
 
-          await test.step(`Saving "${approach}" is confirmed on the page`, async () => {
-            await anonymizerPage.assertSaveWasConfirmed();
-          });
-
-          const anonymizedResponse = await anonymizerPage.anonymizeReadingResponse(text);
-
-          await test.step(`The back office anonymizes the IBAN with "${approach}"`, async () => {
-            expect(
-              anonymizedResponse.ok(),
-              `The back office would not anonymize with "${approach}" (${anonymizedResponse.status()})`,
-            ).toBeTruthy();
-          });
-
-          await test.step(`"${approach}" hides the IBAN in its own form`, async () => {
-            await anonymizerPage.assertOutputIs(ANONYMIZED_IBAN[approach]);
-          });
-        }
+        await test.step('The allowed address is kept and the other one is replaced', async () => {
+          await anonymizerPage.anonymize(`Write to ${email} or to ${allowedEmail}.`);
+          await anonymizerPage.assertOutputIs(`Write to [EMAIL_ADDRESS] or to ${allowedEmail}.`);
+        });
       });
+    },
+  );
 
-      await test.step('The stored settings equal the snapshot once the run is over', async () => {
-        await assertAnonymizerSettingsUnchanged(page, domainId, snapshot);
+  test(
+    'Denied word wins over the entity and the allowlist, only a whole word is hidden and in any case',
+    { annotation: { type: 'NO KIWI TEST CASE', description: 'Extension of the anonymizer testing card coverage.' } },
+    async ({ anonymizerPage }) => {
+      const allowedEmail = createAnonymizerEmail('allowed');
+      const allowedAndDeniedEmail = createAnonymizerEmail('both');
+      const deniedWord = createAnonymizerWord('denied');
+      const placeholder = ANONYMIZER_DENYLIST_PLACEHOLDER;
+
+      await anonymizerPage.open();
+      await anonymizerPage.selectFirstDomain();
+
+      await anonymizerPage.withSettingsRestored(async (settingsBefore) => {
+        await test.step('The domain allows two addresses and denies one of them and a word', async () => {
+          await anonymizerPage.applySettings({
+            ...settingsBefore,
+            approach: 'Replace',
+            entities: ['EMAIL_ADDRESS'],
+            allowlist: [allowedEmail, allowedAndDeniedEmail],
+            denylist: [allowedAndDeniedEmail, deniedWord],
+          });
+          await anonymizerPage.saveSettings();
+          await anonymizerPage.assertSaveWasConfirmed();
+        });
+
+        await test.step('The output hides what is denied and keeps the rest', async () => {
+          await anonymizerPage.anonymize(
+            `a ${allowedEmail} b ${allowedAndDeniedEmail} c ${deniedWord} d ${deniedWord.toUpperCase()} e x${deniedWord} f`,
+          );
+          await anonymizerPage.assertOutputIs(
+            `a ${allowedEmail} b ${placeholder} c ${placeholder} d ${placeholder} e x${deniedWord} f`,
+          );
+        });
       });
     },
   );
@@ -237,471 +438,6 @@ test.describe('[administration] [functional] Anonymizer settings are copied from
           await anonymizerPage.selectDomain(target);
           await anonymizerPage.assertSettingsStored(settings);
         });
-      });
-    },
-  );
-
-  test(
-    'The dialog offers every other domain and allows copying only while a target is chosen',
-    { annotation: { type: 'NO KIWI TEST CASE', description: 'Extension of the anonymizer copy coverage.' } },
-    async ({ anonymizerPage }) => {
-      await anonymizerPage.open();
-
-      const domains = await anonymizerPage.readDomainNames();
-      const source = await anonymizerPage.selectFirstDomain();
-      const targets = domains.filter((domain) => domain !== source);
-      const [target] = targets;
-      const dialog = anonymizerPage.getCopyToDomainModal();
-
-      expect(target, 'Copying settings is only offered where a second domain exists').toBeTruthy();
-
-      await dialog.open();
-
-      await test.step('The dialog is titled "Copy to domain"', async () => {
-        await dialog.assertTitleIsShown();
-      });
-
-      await test.step('The dialog explains what it copies', async () => {
-        await dialog.assertExplanationIsShown();
-      });
-
-      await test.step('No target domain is chosen yet', async () => {
-        await dialog.assertChoiceShows('Choose');
-      });
-
-      await test.step('Copy is disabled while no target is chosen', async () => {
-        await dialog.assertCopyIsDisabled();
-      });
-
-      await test.step('Cancel is enabled', async () => {
-        await dialog.assertCancelIsEnabled();
-      });
-
-      await test.step(`Every domain but "${source}" is offered as a target`, async () => {
-        await dialog.openTargets();
-        await dialog.assertTargetsOffered(targets);
-      });
-
-      await dialog.toggleTarget(target);
-      await dialog.closeTargets();
-
-      await test.step(`Choosing "${target}" counts one target`, async () => {
-        await dialog.assertChoiceShows('Chosen (1)');
-      });
-
-      await test.step('Copy is enabled once a target is chosen', async () => {
-        await dialog.assertCopyIsEnabled();
-      });
-
-      await dialog.openTargets();
-      await dialog.toggleTarget(target);
-      await dialog.closeTargets();
-
-      await test.step(`Copy is disabled again once "${target}" is unchecked`, async () => {
-        await dialog.assertCopyIsDisabled();
-      });
-    },
-  );
-
-  test(
-    'Cancel, Escape and the close icon close the dialog without copying and reset the choice',
-    { annotation: { type: 'NO KIWI TEST CASE', description: 'Extension of the anonymizer copy coverage.' } },
-    async ({ anonymizerPage }) => {
-      await anonymizerPage.open();
-
-      const domains = await anonymizerPage.readDomainNames();
-      const source = await anonymizerPage.selectFirstDomain();
-      const [target] = domains.filter((domain) => domain !== source);
-      const dialog = anonymizerPage.getCopyToDomainModal();
-      const transfers = anonymizerPage.watchTransfers();
-
-      expect(target, 'Copying settings is only offered where a second domain exists').toBeTruthy();
-
-      await dialog.open();
-      await dialog.openTargets();
-      await dialog.toggleTarget(target);
-      await dialog.closeTargets();
-      await dialog.cancel();
-
-      await test.step('Cancel closes the dialog', async () => {
-        await dialog.assertIsClosed();
-      });
-
-      await dialog.open();
-
-      await test.step('The reopened dialog has no target chosen', async () => {
-        await dialog.assertChoiceShows('Choose');
-      });
-
-      await test.step('Copy is disabled in the reopened dialog', async () => {
-        await dialog.assertCopyIsDisabled();
-      });
-
-      await dialog.closeWithEscape();
-
-      await test.step('Escape closes the dialog', async () => {
-        await dialog.assertIsClosed();
-      });
-
-      await dialog.open();
-      await dialog.closeWithIcon();
-
-      await test.step('The close icon closes the dialog', async () => {
-        await dialog.assertIsClosed();
-      });
-
-      await test.step('Closing the dialog never copies the settings', async () => {
-        expect(transfers, 'Closing the copy dialog copied the settings').toHaveLength(0);
-      });
-    },
-  );
-});
-
-test.describe('[administration] [functional] Anonymizer settings are posted as read and the approach in lower case', () => {
-  test(
-    'Saving untouched settings is accepted and leaves the stored settings as they were',
-    { annotation: { type: 'NO KIWI TEST CASE', description: 'Extension of the anonymizer save coverage.' } },
-    async ({ page, anonymizerPage }) => {
-      await anonymizerPage.open();
-
-      const domain = await anonymizerPage.selectFirstDomain();
-      const domainId = await readWidgetDomainId(page, domain);
-      const snapshot = await readStoredAnonymizerSettings(page, domainId);
-
-      await anonymizerPage.withSettingsRestored(async () => {
-        const response = await anonymizerPage.saveSettingsReadingResponse();
-
-        await test.step('The back office accepts the untouched settings', async () => {
-          expect(response.ok(), `The back office rejected the untouched settings (${response.status()})`).toBeTruthy();
-        });
-
-        await test.step('Saving the untouched settings is confirmed on the page', async () => {
-          await anonymizerPage.assertSaveWasConfirmed();
-        });
-
-        await test.step('The stored settings equal the ones read before saving', async () => {
-          await assertAnonymizerSettingsUnchanged(page, domainId, snapshot);
-        });
-      });
-    },
-  );
-
-  test(
-    'Each approach is posted as its lower-case value and Escape closes the dropdown unchanged',
-    { annotation: { type: 'NO KIWI TEST CASE', description: 'Extension of the anonymizer save coverage.' } },
-    async ({ page, anonymizerPage }) => {
-      await anonymizerPage.open();
-
-      const domain = await anonymizerPage.selectFirstDomain();
-      const domainId = await readWidgetDomainId(page, domain);
-      const snapshot = await readStoredAnonymizerSettings(page, domainId);
-      const lastApproach = ANONYMIZER_APPROACHES[ANONYMIZER_APPROACHES.length - 1];
-
-      await anonymizerPage.withSettingsRestored(async () => {
-        for (const approach of ANONYMIZER_APPROACHES) {
-          await test.step(`The approach dropdown shows "${approach}" once it is chosen`, async () => {
-            await anonymizerPage.selectApproach(approach);
-            await anonymizerPage.assertApproachShown(approach);
-          });
-
-          const response = await anonymizerPage.saveSettingsReadingResponse();
-          const payload = response.request().postDataJSON() as AnonymizerSettingsPayload;
-
-          await test.step(`The back office accepts the settings saved with "${approach}"`, async () => {
-            expect(
-              response.ok(),
-              `The back office rejected the "${approach}" approach (${response.status()})`,
-            ).toBeTruthy();
-          });
-
-          await test.step(`"${approach}" is posted as "${approach.toLowerCase()}"`, async () => {
-            expect(payload.anonymizerSelectedApproach, `"${approach}" was posted under another value`).toBe(
-              approach.toLowerCase(),
-            );
-          });
-
-          await test.step(`Every other field saved with "${approach}" equals the settings read`, async () => {
-            expect(payload, `Saving "${approach}" changed more than the approach`).toEqual({
-              ...snapshot,
-              anonymizerSelectedApproach: approach.toLowerCase(),
-              domainUUID: [domainId],
-            });
-          });
-        }
-
-        await anonymizerPage.openApproachList();
-        await anonymizerPage.closeApproachListWithEscape();
-
-        await test.step('Escape closes the approach list', async () => {
-          await anonymizerPage.assertApproachListClosed();
-        });
-
-        await test.step('Escape leaves the chosen approach in place', async () => {
-          await anonymizerPage.assertApproachShown(lastApproach);
-        });
-      });
-
-      await test.step('The stored settings equal the snapshot once the run is over', async () => {
-        await assertAnonymizerSettingsUnchanged(page, domainId, snapshot);
-      });
-    },
-  );
-});
-
-test.describe('[administration] [functional] Anonymizer word lists take only whole new words and the denylist wins', () => {
-  test(
-    'Empty, whitespace and exact duplicate words are not added, a case variant is',
-    { annotation: { type: 'NO KIWI TEST CASE', description: 'Extension of the anonymizer word list coverage.' } },
-    async ({ anonymizerPage }) => {
-      const word = createAnonymizerWord('allow');
-
-      await anonymizerPage.open();
-
-      const settingsBefore = await anonymizerPage.readSettings();
-
-      await test.step('Enter on an empty value adds no word', async () => {
-        await anonymizerPage.enterWord('allowlist', '');
-        await anonymizerPage.assertWordsListed('allowlist', settingsBefore.allowlist);
-      });
-
-      await test.step('Enter on whitespace adds no word', async () => {
-        await anonymizerPage.enterWord('allowlist', '   ');
-        await anonymizerPage.assertWordsListed('allowlist', settingsBefore.allowlist);
-      });
-
-      await test.step('A new word is added once', async () => {
-        await anonymizerPage.enterWord('allowlist', word);
-        await anonymizerPage.assertWordsListed('allowlist', [...settingsBefore.allowlist, word]);
-      });
-
-      await test.step('The same word entered again is not added twice', async () => {
-        await anonymizerPage.enterWord('allowlist', word);
-        await anonymizerPage.assertWordsListed('allowlist', [...settingsBefore.allowlist, word]);
-      });
-
-      await test.step('The same word in upper case is added as a separate word', async () => {
-        await anonymizerPage.enterWord('allowlist', word.toUpperCase());
-        await anonymizerPage.assertWordsListed('allowlist', [...settingsBefore.allowlist, word, word.toUpperCase()]);
-      });
-
-      await test.step('The reloaded page holds the stored settings again', async () => {
-        await anonymizerPage.open();
-        await anonymizerPage.assertSettingsStored(settingsBefore);
-      });
-    },
-  );
-
-  test(
-    'A word typed without Enter is neither listed nor saved and stays in the input',
-    { annotation: { type: 'NO KIWI TEST CASE', description: 'Extension of the anonymizer word list coverage.' } },
-    async ({ page, anonymizerPage }) => {
-      const word = createAnonymizerWord('deny');
-
-      await anonymizerPage.open();
-
-      const domain = await anonymizerPage.selectFirstDomain();
-      const domainId = await readWidgetDomainId(page, domain);
-      const snapshot = await readStoredAnonymizerSettings(page, domainId);
-
-      await anonymizerPage.withSettingsRestored(async (settingsBefore) => {
-        await anonymizerPage.typeWordWithoutEnter('denylist', word);
-
-        await test.step('The typed word is not listed', async () => {
-          await anonymizerPage.assertWordsListed('denylist', settingsBefore.denylist);
-        });
-
-        const response = await anonymizerPage.saveSettingsReadingResponse();
-
-        await test.step('The back office accepts the settings', async () => {
-          expect(response.ok(), `The back office rejected the settings (${response.status()})`).toBeTruthy();
-        });
-
-        await test.step('The denylist is saved without the typed word', async () => {
-          const payload = response.request().postDataJSON() as AnonymizerSettingsPayload;
-
-          expect(payload.anonymizerDenylist.split(','), 'A word typed without Enter was saved').not.toContain(word);
-        });
-
-        await test.step('The typed word is left in the denylist input with no warning', async () => {
-          await anonymizerPage.assertWordInputHolds('denylist', word);
-        });
-
-        await test.step('The stored settings are unchanged', async () => {
-          await assertAnonymizerSettingsUnchanged(page, domainId, snapshot);
-        });
-      });
-    },
-  );
-
-  test(
-    'The denylist hides whole words in any case, keeps allowed and glued words, and wins over the allowlist',
-    { annotation: { type: 'NO KIWI TEST CASE', description: 'Extension of the anonymizer word list coverage.' } },
-    async ({ page, anonymizerPage }) => {
-      const deniedWord = createAnonymizerWord('deny');
-      const allowedWord = createAnonymizerWord('allow');
-      const sharedWord = createAnonymizerWord('both');
-      const placeholder = ANONYMIZER_DENYLIST_PLACEHOLDER;
-
-      await anonymizerPage.open();
-
-      const domain = await anonymizerPage.selectFirstDomain();
-      const domainId = await readWidgetDomainId(page, domain);
-      const snapshot = await readStoredAnonymizerSettings(page, domainId);
-
-      await anonymizerPage.withSettingsRestored(async (settingsBefore) => {
-        const separateLists: AnonymizerSettings = {
-          ...settingsBefore,
-          approach: 'Replace',
-          entities: ['IBAN_CODE'],
-          allowlist: [allowedWord],
-          denylist: [deniedWord],
-        };
-
-        await anonymizerPage.applySettings(separateLists);
-
-        const savedResponse = await anonymizerPage.saveSettingsReadingResponse();
-
-        await test.step('The back office accepts one denied and one allowed word', async () => {
-          expect(
-            savedResponse.ok(),
-            `The back office rejected the word lists (${savedResponse.status()})`,
-          ).toBeTruthy();
-        });
-
-        await test.step('Saving the word lists is confirmed on the page', async () => {
-          await anonymizerPage.assertSaveWasConfirmed();
-        });
-
-        const anonymizedResponse = await anonymizerPage.anonymizeReadingResponse(
-          `first ${deniedWord} then ${deniedWord.toUpperCase()} then x${deniedWord} then ${allowedWord} end`,
-        );
-
-        await test.step('The back office anonymizes the text', async () => {
-          expect(
-            anonymizedResponse.ok(),
-            `The back office would not anonymize (${anonymizedResponse.status()})`,
-          ).toBeTruthy();
-        });
-
-        await test.step('The denied word and its upper-case form are replaced', async () => {
-          await anonymizerPage.assertOutputContains(`first ${placeholder} then ${placeholder} then`);
-        });
-
-        await test.step('A word glued to the denied one is kept', async () => {
-          await anonymizerPage.assertOutputContains(`then x${deniedWord} then`);
-        });
-
-        await test.step('The allowed word is kept', async () => {
-          await anonymizerPage.assertOutputContains(allowedWord);
-        });
-
-        await anonymizerPage.applySettings({ ...separateLists, allowlist: [sharedWord], denylist: [sharedWord] });
-
-        const savedSharedResponse = await anonymizerPage.saveSettingsReadingResponse();
-
-        await test.step('The back office accepts the same word in both lists', async () => {
-          expect(
-            savedSharedResponse.ok(),
-            `The back office rejected the same word in both lists (${savedSharedResponse.status()})`,
-          ).toBeTruthy();
-        });
-
-        const anonymizedSharedResponse = await anonymizerPage.anonymizeReadingResponse(
-          `the word ${sharedWord} sits in both lists`,
-        );
-
-        await test.step('The back office anonymizes the word held in both lists', async () => {
-          expect(
-            anonymizedSharedResponse.ok(),
-            `The back office would not anonymize (${anonymizedSharedResponse.status()})`,
-          ).toBeTruthy();
-        });
-
-        await test.step('A word in both lists is hidden: the denylist wins', async () => {
-          await anonymizerPage.assertOutputIs(`the word ${placeholder} sits in both lists`);
-        });
-      });
-
-      await test.step('The stored settings equal the snapshot once the run is over', async () => {
-        await assertAnonymizerSettingsUnchanged(page, domainId, snapshot);
-      });
-    },
-  );
-});
-
-test.describe('[administration] [functional] Anonymizer domain tabs load their own settings', () => {
-  test(
-    'Each domain tab shows the settings saved for that domain',
-    { annotation: { type: 'NO KIWI TEST CASE', description: 'Extension of the anonymizer domain coverage.' } },
-    async ({ anonymizerPage }) => {
-      await anonymizerPage.open();
-
-      const domains = await anonymizerPage.readDomainNames();
-      expect(domains.length, 'Switching tabs is only possible where a second domain exists').toBeGreaterThan(1);
-
-      const [first, second] = domains;
-
-      await anonymizerPage.withSettingsRestoredForDomains([first, second], async (settingsBefore) => {
-        const firstSettings: AnonymizerSettings = {
-          ...settingsBefore[first],
-          allowlist: [createAnonymizerWord('first')],
-        };
-        const secondSettings: AnonymizerSettings = {
-          ...settingsBefore[second],
-          allowlist: [createAnonymizerWord('second')],
-        };
-
-        await test.step(`"${first}" and "${second}" are saved with different allowlists`, async () => {
-          await anonymizerPage.selectDomain(first);
-          await anonymizerPage.applySettings(firstSettings);
-          await anonymizerPage.saveSettings();
-          await anonymizerPage.assertSaveWasConfirmed();
-
-          await anonymizerPage.selectDomain(second);
-          await anonymizerPage.applySettings(secondSettings);
-          await anonymizerPage.saveSettings();
-          await anonymizerPage.assertSaveWasConfirmed();
-        });
-
-        await test.step(`Switching to "${first}" makes it the only tab selected`, async () => {
-          await anonymizerPage.selectDomain(first);
-          await anonymizerPage.assertDomainActive(first);
-        });
-
-        await test.step(`The form shows the settings saved for "${first}"`, async () => {
-          await anonymizerPage.assertSettingsStored(firstSettings);
-        });
-
-        await test.step(`Switching to "${second}" makes it the only tab selected`, async () => {
-          await anonymizerPage.selectDomain(second);
-          await anonymizerPage.assertDomainActive(second);
-        });
-
-        await test.step(`The form shows the settings saved for "${second}"`, async () => {
-          await anonymizerPage.assertSettingsStored(secondSettings);
-        });
-      });
-    },
-  );
-
-  test(
-    'The selected domain stays selected after a reload',
-    { annotation: { type: 'NO KIWI TEST CASE', description: 'Extension of the anonymizer domain coverage.' } },
-    async ({ anonymizerPage }) => {
-      await anonymizerPage.open();
-
-      const [, domain] = await anonymizerPage.readDomainNames();
-
-      expect(domain, 'Selecting another domain is only possible where a second one exists').toBeTruthy();
-
-      await anonymizerPage.selectDomain(domain);
-
-      await test.step('The page is reloaded', async () => {
-        await anonymizerPage.open();
-      });
-
-      await test.step(`"${domain}" is still the selected tab`, async () => {
-        await anonymizerPage.assertDomainActive(domain);
       });
     },
   );
