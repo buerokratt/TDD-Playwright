@@ -21,10 +21,6 @@ export const ANONYMIZER_TRANSFER_PATH = 'configs/transfer/anonymizer';
 export const WIDGET_DOMAINS_PATH = 'configs/widget-domains';
 export const WIDGET_DOMAINS_URL = `${BACKOFFICE_V2_BASE}/${WIDGET_DOMAINS_PATH}`;
 
-// ANONYMIZER
-
-export const ANONYMIZE_PATH = 'anonymizer/anonymize';
-
 // AGENTS, CHATS
 
 export const ENDED_CHATS_PATH = 'agents/chats/ended';

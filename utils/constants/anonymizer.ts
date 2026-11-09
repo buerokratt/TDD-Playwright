@@ -21,5 +21,3 @@ export const ANONYMIZER_ENTITIES = [
 ] as const;
 
 export type AnonymizerEntity = (typeof ANONYMIZER_ENTITIES)[number];
-
-export const ANONYMIZER_DENYLIST_PLACEHOLDER = '[REDACTED]';

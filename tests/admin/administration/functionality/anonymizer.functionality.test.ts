@@ -1,5 +1,5 @@
 import { expect, test } from '@setup/test-setup';
-import { ANONYMIZER_APPROACHES, ANONYMIZER_DENYLIST_PLACEHOLDER, AnonymizerApproach } from '@utils/constants';
+import { ANONYMIZER_APPROACHES, AnonymizerApproach } from '@utils/constants';
 import { AnonymizerSettings } from '@utils/interfaces';
 import {
   createAnonymizerEmail,
@@ -29,10 +29,16 @@ test.describe('[administration] [functional] Words are added to and removed from
 
       await test.step('The upper-case variant of a listed word is added as a separate word', async () => {
         await anonymizerPage.enterWord('allowlist', allowedWord.toUpperCase());
+        await anonymizerPage.enterWord('denylist', deniedWord.toUpperCase());
         await anonymizerPage.assertWordsListed('allowlist', [
           ...settingsBefore.allowlist,
           allowedWord,
           allowedWord.toUpperCase(),
+        ]);
+        await anonymizerPage.assertWordsListed('denylist', [
+          ...settingsBefore.denylist,
+          deniedWord,
+          deniedWord.toUpperCase(),
         ]);
       });
     },
@@ -42,7 +48,8 @@ test.describe('[administration] [functional] Words are added to and removed from
     'Empty, whitespace and already listed words are not added',
     { annotation: { type: 'kiwi case', description: 'https://monitooring.test.buerokratt.ee/case/212/' } },
     async ({ anonymizerPage }) => {
-      const word = createAnonymizerWord('allow');
+      const allowedWord = createAnonymizerWord('allow');
+      const deniedWord = createAnonymizerWord('deny');
 
       await anonymizerPage.open();
 
@@ -50,18 +57,25 @@ test.describe('[administration] [functional] Words are added to and removed from
 
       await test.step('Enter on an empty value adds no word', async () => {
         await anonymizerPage.enterWord('allowlist', '');
+        await anonymizerPage.enterWord('denylist', '');
         await anonymizerPage.assertWordsListed('allowlist', settingsBefore.allowlist);
+        await anonymizerPage.assertWordsListed('denylist', settingsBefore.denylist);
       });
 
       await test.step('Enter on whitespace adds no word', async () => {
         await anonymizerPage.enterWord('allowlist', '   ');
+        await anonymizerPage.enterWord('denylist', '   ');
         await anonymizerPage.assertWordsListed('allowlist', settingsBefore.allowlist);
+        await anonymizerPage.assertWordsListed('denylist', settingsBefore.denylist);
       });
 
       await test.step('A word entered again is not listed twice', async () => {
-        await anonymizerPage.enterWord('allowlist', word);
-        await anonymizerPage.enterWord('allowlist', word);
-        await anonymizerPage.assertWordsListed('allowlist', [...settingsBefore.allowlist, word]);
+        await anonymizerPage.enterWord('allowlist', allowedWord);
+        await anonymizerPage.enterWord('allowlist', allowedWord);
+        await anonymizerPage.enterWord('denylist', deniedWord);
+        await anonymizerPage.enterWord('denylist', deniedWord);
+        await anonymizerPage.assertWordsListed('allowlist', [...settingsBefore.allowlist, allowedWord]);
+        await anonymizerPage.assertWordsListed('denylist', [...settingsBefore.denylist, deniedWord]);
       });
     },
   );
@@ -70,19 +84,24 @@ test.describe('[administration] [functional] Words are added to and removed from
     'A removed word is gone from its list',
     { annotation: { type: 'kiwi case', description: 'https://monitooring.test.buerokratt.ee/case/213/' } },
     async ({ anonymizerPage }) => {
-      const word = createAnonymizerWord('deny');
+      const allowedWord = createAnonymizerWord('allow');
+      const deniedWord = createAnonymizerWord('deny');
 
       await anonymizerPage.open();
 
       const settingsBefore = await anonymizerPage.readSettings();
 
-      await test.step('The denylist holds a word from the current run to remove', async () => {
-        await anonymizerPage.enterWord('denylist', word);
-        await anonymizerPage.assertWordsListed('denylist', [...settingsBefore.denylist, word]);
+      await test.step('Each list holds a word from the current run to remove', async () => {
+        await anonymizerPage.enterWord('allowlist', allowedWord);
+        await anonymizerPage.enterWord('denylist', deniedWord);
+        await anonymizerPage.assertWordsListed('allowlist', [...settingsBefore.allowlist, allowedWord]);
+        await anonymizerPage.assertWordsListed('denylist', [...settingsBefore.denylist, deniedWord]);
       });
 
-      await test.step('Removing the word takes it out of the denylist', async () => {
-        await anonymizerPage.removeWord('denylist', word);
+      await test.step('Removing the word takes it out of its list', async () => {
+        await anonymizerPage.removeWord('allowlist', allowedWord);
+        await anonymizerPage.removeWord('denylist', deniedWord);
+        await anonymizerPage.assertWordsListed('allowlist', settingsBefore.allowlist);
         await anonymizerPage.assertWordsListed('denylist', settingsBefore.denylist);
       });
     },
@@ -194,7 +213,7 @@ test.describe(
 test.describe('[administration] [functional] A word typed without Enter is not added to the anonymizer word lists', () => {
   test(
     'A word typed without Enter in either list is neither listed nor saved and stays in the input',
-    { annotation: { type: 'NO KIWI TEST CASE', description: 'Extension of the anonymizer word list coverage.' } },
+    { annotation: { type: 'NO KIWI TEST CASE', description: 'Extension of the anonymizer word list add coverage.' } },
     async ({ anonymizerPage }) => {
       const allowedWord = createAnonymizerWord('allow');
       const deniedWord = createAnonymizerWord('deny');
@@ -294,7 +313,7 @@ test.describe('[administration] [functional] The anonymizer testing card anonymi
       const deniedWord = createAnonymizerWord('denied');
       const text = `mail ${email} word ${deniedWord} end`;
       const anonymizedText: Record<AnonymizerApproach, string | RegExp> = {
-        Replace: `mail [EMAIL_ADDRESS] word ${ANONYMIZER_DENYLIST_PLACEHOLDER} end`,
+        Replace: 'mail [EMAIL_ADDRESS] word [REDACTED] end',
         Redact: 'mail  word  end',
         Mask: `mail xxxxxx${email.slice(6)} word <DENYLIST_MATCH> end`,
         Hash: /^mail [0-9a-f]{64} word [0-9a-f]{64} end$/,
@@ -364,7 +383,7 @@ test.describe('[administration] [functional] The anonymizer testing card anonymi
       const allowedEmail = createAnonymizerEmail('allowed');
       const allowedAndDeniedEmail = createAnonymizerEmail('both');
       const deniedWord = createAnonymizerWord('denied');
-      const placeholder = ANONYMIZER_DENYLIST_PLACEHOLDER;
+      const redacted = '[REDACTED]';
 
       await anonymizerPage.open();
       await anonymizerPage.selectFirstDomain();
@@ -387,7 +406,7 @@ test.describe('[administration] [functional] The anonymizer testing card anonymi
             `a ${allowedEmail} b ${allowedAndDeniedEmail} c ${deniedWord} d ${deniedWord.toUpperCase()} e x${deniedWord} f`,
           );
           await anonymizerPage.assertOutputIs(
-            `a ${allowedEmail} b ${placeholder} c ${placeholder} d ${placeholder} e x${deniedWord} f`,
+            `a ${allowedEmail} b ${redacted} c ${redacted} d ${redacted} e x${deniedWord} f`,
           );
         });
       });

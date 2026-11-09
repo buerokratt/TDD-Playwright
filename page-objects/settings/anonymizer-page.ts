@@ -49,7 +49,7 @@ export class AnonymizerPage {
   private readonly switchRecordAnonymously: Locator;
 
   private readonly buttonSaveSettings: Locator;
-  private readonly toastList: Locator;
+  private readonly toastItems: Locator;
 
   private readonly textareaInputText: Locator;
   private readonly textareaOutputText: Locator;
@@ -98,7 +98,7 @@ export class AnonymizerPage {
     this.switchRecordAnonymously = this.switchRow('Record conversations anonymously').getByRole('switch');
 
     this.buttonSaveSettings = this.page.getByRole('button', { name: 'Save Settings', exact: true });
-    this.toastList = this.page.locator('ol.toast__list');
+    this.toastItems = this.page.locator('ol.toast__list li');
 
     this.textareaInputText = this.page.getByPlaceholder('Enter text to be anonymized');
     this.textareaOutputText = this.page.getByPlaceholder('Anonymized text will appear here');
@@ -142,12 +142,12 @@ export class AnonymizerPage {
     await this.closeApproachListWithEscape();
   }
 
-  async selectApproach(approach: AnonymizerApproach): Promise<void> {
+  private async selectApproach(approach: AnonymizerApproach): Promise<void> {
     if ((await this.approachText().innerText()).trim() === approach) {
       return;
     }
 
-    await this.triggerApproachSelector.click();
+    await this.openApproachList();
     await this.optionsApproachSelector.filter({ hasText: new RegExp(`^${approach}$`) }).click();
     await expect(this.approachText(), 'The approach dropdown kept the option it was clicked out of').toHaveText(
       approach,
@@ -206,6 +206,7 @@ export class AnonymizerPage {
 
     await this.textareaInputText.fill(text);
     await expect(this.textareaInputText, 'The testing card kept text other than the one entered').toHaveValue(text);
+    await this.markShownToasts();
     await this.buttonAnonymize.click();
   }
 
@@ -216,10 +217,10 @@ export class AnonymizerPage {
   }
 
   async assertAnonymizationWasConfirmed({ timeout = ACTION_TIMEOUT }: RouteReadyOptions = {}): Promise<void> {
-    await expect(this.toastList, 'Anonymizing the text raised no notification').toContainText(
-      'Text anonymized successfully',
-      { timeout },
-    );
+    await expect(
+      this.newToast('Text anonymized successfully'),
+      'Anonymizing the text raised no new notification',
+    ).toBeVisible({ timeout });
   }
 
   async assertOutputWasAnonymized({ hidden, kept }: AnonymizedText): Promise<void> {
@@ -248,13 +249,11 @@ export class AnonymizerPage {
     });
   }
 
-  async selectFirstDomain(): Promise<string> {
+  async selectFirstDomain(): Promise<void> {
     const tab = this.domainTabs.first();
     const domain = (await tab.innerText()).trim();
 
     await this.openDomainTab(tab, domain);
-
-    return domain;
   }
 
   async readDomainNames(): Promise<string[]> {
@@ -266,6 +265,7 @@ export class AnonymizerPage {
   }
 
   async copySettingsTo(domain: string): Promise<void> {
+    await this.markShownToasts();
     await this.copyToDomain.copyTo(domain);
   }
 
@@ -321,22 +321,33 @@ export class AnonymizerPage {
     await this.setSwitch(this.switchRecordAnonymously, settings.recordAnonymously);
   }
 
-  async saveSettings(): Promise<Response> {
+  async saveSettings(): Promise<void> {
     const saved = this.page.waitForResponse(
       (response) => response.url().includes(ANONYMIZER_CONFIG_PATH) && response.request().method() === 'POST',
       { timeout: ACTION_TIMEOUT },
     );
 
+    await this.markShownToasts();
     await this.buttonSaveSettings.click();
 
-    return saved;
+    const response = await saved;
+
+    expect(response.ok(), `The admin rejected the anonymizer settings (${response.status()})`).toBeTruthy();
   }
 
   async assertSaveWasConfirmed({ timeout = ACTION_TIMEOUT }: RouteReadyOptions = {}): Promise<void> {
-    await expect(this.toastList, 'Saving the anonymizer settings raised no notification').toContainText(
-      'Anonymizer settings saved successfully',
-      { timeout },
-    );
+    await expect(
+      this.newToast('Anonymizer settings saved successfully'),
+      'Saving the anonymizer settings raised no new notification',
+    ).toBeVisible({ timeout });
+  }
+
+  private async markShownToasts(): Promise<void> {
+    await this.toastItems.evaluateAll((toasts) => toasts.forEach((toast) => toast.setAttribute('data-seen', '')));
+  }
+
+  private newToast(text: string): Locator {
+    return this.toastItems.and(this.page.locator(':not([data-seen])')).filter({ hasText: text }).first();
   }
 
   async assertSettingsStored(expected: AnonymizerSettings): Promise<void> {
