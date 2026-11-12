@@ -291,10 +291,9 @@ test.describe('[administration] [functional] The anonymizer testing card anonymi
         });
 
         await test.step('The output hides the address and the denied word, and keeps the allowed word and the rest of the text', async () => {
-          await anonymizerPage.assertOutputWasAnonymized({
-            hidden: [email, deniedWord],
-            kept: [allowedWord, randomWord],
-          });
+          await anonymizerPage.assertOutputIs(
+            `Write to [EMAIL_ADDRESS]. The word [REDACTED] is denied, ${allowedWord} is allowed and ${randomWord} is nothing at all.`,
+          );
         });
 
         await test.step('Clearing the testing card empties the text that was entered', async () => {

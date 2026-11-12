@@ -11,7 +11,7 @@ import {
   ANONYMIZER_TRANSFER_PATH,
 } from '@utils/constants';
 import { URLS } from '@utils/env';
-import { AnonymizedText, AnonymizerSettings, RouteReadyOptions } from '@utils/interfaces';
+import { AnonymizerSettings, RouteReadyOptions } from '@utils/interfaces';
 import { waitForAnonymizerReady } from '@utils/waits';
 
 const SELECT_PLACEHOLDER = '- Select option -';
@@ -221,22 +221,6 @@ export class AnonymizerPage {
       this.newToast('Text anonymized successfully'),
       'Anonymizing the text raised no new notification',
     ).toBeVisible({ timeout });
-  }
-
-  async assertOutputWasAnonymized({ hidden, kept }: AnonymizedText): Promise<void> {
-    await expect(async () => {
-      const output = await this.textareaOutputText.inputValue();
-
-      expect(output, 'The testing card showed no anonymized text back').not.toBe('');
-
-      for (const value of hidden) {
-        expect(output, `The anonymized text still carries "${value}"`).not.toContain(value);
-      }
-
-      for (const value of kept) {
-        expect(output, `The anonymized text lost "${value}"`).toContain(value);
-      }
-    }).toPass({ timeout: ACTION_TIMEOUT });
   }
 
   async clearTestingInput(): Promise<void> {
