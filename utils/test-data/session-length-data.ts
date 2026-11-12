@@ -11,3 +11,7 @@ export function nextSessionLength(current: string): string {
 export function nextResponseTime(current: string): string {
   return current === '10' ? '15' : '10';
 }
+
+export function nextAwayStatusTime(current: string): string {
+  return current === '10' ? '15' : '10';
+}

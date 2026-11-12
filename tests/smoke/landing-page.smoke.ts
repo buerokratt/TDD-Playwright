@@ -1,20 +1,15 @@
-import { AdminPageFactory } from '@page-objects/admin-page-factory';
 import { expect, test } from '@setup/test-setup';
 import { openAdminPage } from '@utils/helpers';
 
-test('[SMOKE] "Landing" page loads with the modules an admin may open', async ({ page }) => {
+test('[SMOKE] "Landing" page loads with the modules an admin may open', async ({ page, header, sideMenu }) => {
   const visit = await openAdminPage(page, 'chat/landing');
-
-  const apf = new AdminPageFactory(page);
-  const topMenu = apf.getPageHeader();
-  const sideMenu = apf.getSideMenu();
 
   await expect(page.getByRole('heading', { name: 'Welcome to Bürokratt', exact: true })).toBeVisible();
 
   await test.step('The header offers the admin session controls', async () => {
-    await topMenu.assertLogoVisible();
-    await topMenu.assertToggleSwitchVisible();
-    await topMenu.assertLogoutButtonVisible();
+    await header.assertLogoVisible();
+    await header.assertToggleSwitchVisible();
+    await header.assertLogoutButtonVisible();
     await sideMenu.assertCollapseButtonVisible();
   });
 

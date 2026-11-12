@@ -1,4 +1,3 @@
-import { AdminPageFactory } from '@page-objects/admin-page-factory';
 import { test } from '@setup/test-setup';
 
 test.describe(
@@ -6,67 +5,65 @@ test.describe(
   { annotation: { type: 'kiwi case', description: 'https://monitooring.test.buerokratt.ee/case/156/' } },
   () => {
     test('The page shows its heading and description and offers both removals with a way to save them', async ({
-      page,
+      deleteConversationsPage,
     }) => {
-      const dcp = new AdminPageFactory(page).getDeleteConversationsPage();
-
-      await dcp.open();
+      await deleteConversationsPage.open();
 
       await test.step('The page shows its heading and description', async () => {
-        await dcp.assertPageHeadingAndDescriptionAreShown();
+        await deleteConversationsPage.assertPageHeadingAndDescriptionAreShown();
       });
 
       await test.step('Both removals are offered as toggles with their tooltips', async () => {
-        await dcp.assertRemovalTogglesOffered();
+        await deleteConversationsPage.assertRemovalTogglesOffered();
       });
 
       await test.step('The rules can be saved', async () => {
-        await dcp.assertSaveOffered();
+        await deleteConversationsPage.assertSaveOffered();
       });
     });
 
-    test('With both removals switched on, every field the rules need is on the page', async ({ page }) => {
-      const dcp = new AdminPageFactory(page).getDeleteConversationsPage();
-
-      await dcp.open();
+    test('With both removals switched on, every field the rules need is on the page', async ({
+      deleteConversationsPage,
+    }) => {
+      await deleteConversationsPage.open();
 
       await test.step('Both removals are switched on', async () => {
-        await dcp.setAuthenticatedRemoval(true);
-        await dcp.setAnonymousRemoval(true);
+        await deleteConversationsPage.setAuthenticatedRemoval(true);
+        await deleteConversationsPage.setAnonymousRemoval(true);
       });
 
       await test.step('Each removal takes a period in days and explains what it deletes', async () => {
-        await dcp.assertPeriodFieldsOffered();
+        await deleteConversationsPage.assertPeriodFieldsOffered();
       });
 
       await test.step('The hour the deletion runs at is offered with its tooltip', async () => {
-        await dcp.assertDeletionTimeOffered();
+        await deleteConversationsPage.assertDeletionTimeOffered();
       });
 
       await test.step('The expiring conversations filter takes a range and offers its four shortcuts', async () => {
-        await dcp.assertExpiringRangeOffered();
+        await deleteConversationsPage.assertExpiringRangeOffered();
       });
 
       await test.step('The conversations falling in the period are counted', async () => {
-        await dcp.assertConversationCountShown();
+        await deleteConversationsPage.assertConversationCountShown();
       });
 
       await test.step('The column selector offers every column the table lists', async () => {
-        await dcp.assertColumnSelectorOffersEveryColumn();
+        await deleteConversationsPage.assertColumnSelectorOffersEveryColumn();
       });
 
       await test.step('The table lists its columns, each with a control to sort by it', async () => {
-        await dcp.assertTableListsEveryColumnWithSorting();
+        await deleteConversationsPage.assertTableListsEveryColumnWithSorting();
       });
 
       await test.step('A ninety day range fills the table, each conversation offered for viewing', async () => {
-        await dcp.loadNinetyDayRange();
-        await dcp.assertEveryRowEndsWithViewButton();
+        await deleteConversationsPage.loadNinetyDayRange();
+        await deleteConversationsPage.assertEveryRowEndsWithViewButton();
       });
 
       await test.step('The filled list is paged and the result count starts on the size the case names', async () => {
-        await dcp.assertPagingOfferedWhenListOverflows();
-        await dcp.assertResultCountOffered();
+        await deleteConversationsPage.assertPagingOfferedWhenListOverflows();
+        await deleteConversationsPage.assertResultCountOffered();
       });
     });
   },
