@@ -33,9 +33,3 @@ export const SKM_NUMBER_FIELDS: readonly SkmField[] = [
   'Maximum Number Of Tokens',
   'Maximum output tokens',
 ];
-
-export const OUT_OF_RANGE_STRICTNESS = '6';
-
-export const OUT_OF_RANGE_FOUND_DOCUMENTS = '21';
-
-export const OUT_OF_RANGE_MAX_TOKENS = '2001';

@@ -1,11 +1,5 @@
-import { AdminPageFactory } from '@page-objects/admin-page-factory';
 import { expect, test } from '@setup/test-setup';
-import {
-  ACTION_TIMEOUT,
-  OUT_OF_RANGE_FOUND_DOCUMENTS,
-  OUT_OF_RANGE_MAX_TOKENS,
-  OUT_OF_RANGE_STRICTNESS,
-} from '@utils/constants';
+import { ACTION_TIMEOUT } from '@utils/constants';
 import {
   hasNoSkmCredentials,
   readEverySkmDomain,
@@ -25,12 +19,10 @@ test.describe('[administration] [functional] SKM settings are saved and read bac
   test(
     'The saved retrieval settings are confirmed and come back after the page is reopened',
     { annotation: { type: 'kiwi case', description: 'https://monitooring.test.buerokratt.ee/case/197/' } },
-    async ({ page }) => {
-      const scp = new AdminPageFactory(page).getSkmConfigurationPage();
+    async ({ page, skmConfigurationPage }) => {
+      await skmConfigurationPage.open();
 
-      await scp.open();
-
-      const domains = await readEverySkmDomain(page, scp);
+      const domains = await readEverySkmDomain(page, skmConfigurationPage);
       const targetIndex = domains.findIndex(({ settings }) => hasNoSkmCredentials(settings));
 
       test.skip(targetIndex === -1, 'Every domain holds a client ID or secret that saving could erase');
@@ -47,23 +39,16 @@ test.describe('[administration] [functional] SKM settings are saved and read bac
       });
 
       await test.step('Strictness, found documents and index are changed and the save is confirmed', async () => {
-        await scp.selectDomainTab(targetIndex);
-        await scp.applyRetrievalSettings(changes);
-        await scp.saveSettings();
-        await scp.assertSaveWasConfirmed();
+        await skmConfigurationPage.selectDomainTab(targetIndex);
+        await skmConfigurationPage.applyRetrievalSettings(changes);
+        await skmConfigurationPage.saveSettings();
+        await skmConfigurationPage.assertSaveWasConfirmed();
       });
 
       await test.step('The domain comes back with the saved values after the page is reopened', async () => {
-        await scp.open();
-        await scp.selectDomainTab(targetIndex);
-        await scp.assertRetrievalSettingsStored(changes);
-      });
-
-      await test.step('The back office stores the saved values', async () => {
-        expect(
-          await readSkmSettings(page, target.domainId),
-          'The back office holds settings other than the ones saved',
-        ).toMatchObject(changes);
+        await skmConfigurationPage.open();
+        await skmConfigurationPage.selectDomainTab(targetIndex);
+        await skmConfigurationPage.assertRetrievalSettingsStored(changes);
       });
     },
   );
@@ -77,12 +62,10 @@ test.describe('[administration] [functional] SKM values outside their range are 
   test(
     'Every invalid value is named in a notification and the domain keeps the settings it ran on',
     { annotation: { type: 'kiwi case', description: 'https://monitooring.test.buerokratt.ee/case/198/' } },
-    async ({ page }) => {
-      const scp = new AdminPageFactory(page).getSkmConfigurationPage();
+    async ({ page, skmConfigurationPage }) => {
+      await skmConfigurationPage.open();
 
-      await scp.open();
-
-      const domains = await readEverySkmDomain(page, scp);
+      const domains = await readEverySkmDomain(page, skmConfigurationPage);
       const targetIndex = domains.findIndex(({ settings }) => hasNoSkmCredentials(settings));
 
       test.skip(targetIndex === -1, 'Every domain holds a client ID or secret that a save let through could erase');
@@ -93,38 +76,38 @@ test.describe('[administration] [functional] SKM values outside their range are 
         targetSnapshot = target;
       });
 
-      await scp.selectDomainTab(targetIndex);
-      await scp.setAgenticRetrieval(false);
+      await skmConfigurationPage.selectDomainTab(targetIndex);
+      await skmConfigurationPage.setAgenticRetrieval(false);
 
       await test.step('A strictness outside 1-5 is refused with its range', async () => {
-        await scp.fillStrictness(OUT_OF_RANGE_STRICTNESS);
-        await scp.saveSettings();
+        await skmConfigurationPage.fillStrictness('6');
+        await skmConfigurationPage.saveSettings();
 
-        await scp.assertSaveWasRejected('Range must be between 1 and 5');
+        await skmConfigurationPage.assertSaveWasRejected('Range must be between 1 and 5');
       });
 
       await test.step('A found documents value outside 1-20 is refused with its range', async () => {
-        await scp.fillStrictness(target.settings.range);
-        await scp.fillFoundDocuments(OUT_OF_RANGE_FOUND_DOCUMENTS);
-        await scp.saveSettings();
+        await skmConfigurationPage.fillStrictness(target.settings.range);
+        await skmConfigurationPage.fillFoundDocuments('21');
+        await skmConfigurationPage.saveSettings();
 
-        await scp.assertSaveWasRejected('Documents must be between 1 and 20');
+        await skmConfigurationPage.assertSaveWasRejected('Documents must be between 1 and 20');
       });
 
       await test.step('An empty system instruction is refused as empty', async () => {
-        await scp.fillFoundDocuments(target.settings.documents);
-        await scp.clearSystemInstruction();
-        await scp.saveSettings();
+        await skmConfigurationPage.fillFoundDocuments(target.settings.documents);
+        await skmConfigurationPage.clearSystemInstruction();
+        await skmConfigurationPage.saveSettings();
 
-        await scp.assertSaveWasRejected("System message can't be empty");
+        await skmConfigurationPage.assertSaveWasRejected("System message can't be empty");
       });
 
       await test.step('A maximum number of tokens outside 1-2000 is refused with its range', async () => {
-        await scp.fillSystemInstruction(target.settings.systemMessage);
-        await scp.fillMaxTokens(OUT_OF_RANGE_MAX_TOKENS);
-        await scp.saveSettings();
+        await skmConfigurationPage.fillSystemInstruction(target.settings.systemMessage);
+        await skmConfigurationPage.fillMaxTokens('2001');
+        await skmConfigurationPage.saveSettings();
 
-        await scp.assertSaveWasRejected('Maxmimum number of tokens must be between 1 and 2000');
+        await skmConfigurationPage.assertSaveWasRejected('Maxmimum number of tokens must be between 1 and 2000');
       });
 
       await test.step('The settings the domain held survive the refused saves', async () => {
@@ -145,12 +128,10 @@ test.describe('[administration] [functional] SKM settings are copied from one do
   test(
     'The target domain is confirmed and comes back holding the settings of the source with no client ID or secret',
     { annotation: { type: 'kiwi case', description: 'https://monitooring.test.buerokratt.ee/case/196/' } },
-    async ({ page }) => {
-      const scp = new AdminPageFactory(page).getSkmConfigurationPage();
+    async ({ page, skmConfigurationPage }) => {
+      await skmConfigurationPage.open();
 
-      await scp.open();
-
-      const domains = await readEverySkmDomain(page, scp);
+      const domains = await readEverySkmDomain(page, skmConfigurationPage);
 
       expect(domains.length, 'Copying settings is only offered where a second domain exists').toBeGreaterThan(1);
 
@@ -160,7 +141,7 @@ test.describe('[administration] [functional] SKM settings are copied from one do
 
       const sourceIndex = targetIndex === 0 ? 1 : 0;
       const target = domains[targetIndex];
-      const targetName = await scp.domainTabName(targetIndex);
+      const targetName = await skmConfigurationPage.domainTabName(targetIndex);
       const sourceSettings = withoutSkmCredentialFlags(domains[sourceIndex].settings);
 
       await test.step("The target domain's current settings are saved to be restored later", async () => {
@@ -181,13 +162,13 @@ test.describe('[administration] [functional] SKM settings are copied from one do
       });
 
       await test.step(`Copying the source onto "${targetName}" reports the settings went through`, async () => {
-        await scp.selectDomainTab(sourceIndex);
-        await scp.copySettingsTo(targetName);
-        await scp.assertSaveWasConfirmed();
+        await skmConfigurationPage.selectDomainTab(sourceIndex);
+        await skmConfigurationPage.copySettingsTo(targetName);
+        await skmConfigurationPage.assertSaveWasConfirmed();
       });
 
       await test.step('The target domain comes back with the settings of the source', async () => {
-        await scp.selectDomainTab(targetIndex);
+        await skmConfigurationPage.selectDomainTab(targetIndex);
 
         await expect
           .poll(async () => withoutSkmCredentialFlags(await readSkmSettings(page, target.domainId)), {

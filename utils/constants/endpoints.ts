@@ -18,6 +18,10 @@ export const ORGANIZATION_WORKING_TIME_URL = `${BACKOFFICE_V2_BASE}/configs/orga
 export const ANONYMIZER_CONFIG_PATH = 'configs/anonymizer';
 export const ANONYMIZER_TRANSFER_PATH = 'configs/transfer/anonymizer';
 
+export const SKM_CONFIG_PATH = 'configs/skm-config';
+export const SKM_CONFIG_URL = `${BACKOFFICE_V2_BASE}/${SKM_CONFIG_PATH}`;
+export const SKM_TRANSFER_PATH = 'configs/transfer/skm-config';
+
 export const WIDGET_DOMAINS_PATH = 'configs/widget-domains';
 export const WIDGET_DOMAINS_URL = `${BACKOFFICE_V2_BASE}/${WIDGET_DOMAINS_PATH}`;
 

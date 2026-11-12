@@ -8,6 +8,7 @@ import type {
   MultiDomainsPage,
   OfficeOpeningHoursPage,
   SessionLengthPage,
+  SkmConfigurationPage,
 } from '@page-objects/settings';
 
 export interface AdminFixtures {
@@ -24,4 +25,5 @@ export interface AdminFixtures {
   readonly deleteConversationsPage: DeleteConversationsPage;
   readonly anonymizerPage: AnonymizerPage;
   readonly multiDomainsPage: MultiDomainsPage;
+  readonly skmConfigurationPage: SkmConfigurationPage;
 }
