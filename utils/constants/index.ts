@@ -6,5 +6,6 @@ export * from './endpoints';
 export * from './multi-domains';
 export * from './paths';
 export * from './session-length';
+export * from './skm-configuration';
 export * from './timeouts';
 export * from './working-time';

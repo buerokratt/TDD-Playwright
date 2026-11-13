@@ -10,6 +10,7 @@ import {
   MultiDomainsPage,
   OfficeOpeningHoursPage,
   SessionLengthPage,
+  SkmConfigurationPage,
 } from '@page-objects/settings';
 import { WidgetPage } from '@page-objects/widget';
 import { ACTION_TIMEOUT } from '@utils/constants';
@@ -45,6 +46,7 @@ export const test = base.extend<AdminFixtures & CustomerFixtures>({
   deleteConversationsPage: async ({ page }, use) => use(new DeleteConversationsPage(page)),
   anonymizerPage: async ({ page }, use) => use(new AnonymizerPage(page)),
   multiDomainsPage: async ({ page }, use) => use(new MultiDomainsPage(page)),
+  skmConfigurationPage: async ({ page }, use) => use(new SkmConfigurationPage(page)),
   customerPage: async ({ browser }, use) => {
     const context = await browser.newContext();
 
