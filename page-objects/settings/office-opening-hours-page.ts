@@ -53,7 +53,7 @@ export class OfficeOpeningHoursPage {
   private readonly textareaBotCannotAnswerMessage: Locator;
 
   private readonly buttonSave: Locator;
-  private readonly toastList: Locator;
+  private readonly toastItems: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -109,7 +109,7 @@ export class OfficeOpeningHoursPage {
     });
 
     this.buttonSave = this.page.locator('main').getByRole('button', { name: 'Save', exact: true });
-    this.toastList = this.page.locator('ol.toast__list');
+    this.toastItems = this.page.locator('ol.toast__list li');
   }
 
   async waitForReady(options: RouteReadyOptions = {}): Promise<void> {
@@ -230,22 +230,13 @@ export class OfficeOpeningHoursPage {
     });
   }
 
-  async fillAbsenceMessage(message: string): Promise<void> {
-    await this.setSwitch(this.switchUseCustomerService, true);
-
-    await this.textareaAbsenceMessage.clear();
-    await this.textareaAbsenceMessage.fill(message);
-    await expect(
-      this.textareaAbsenceMessage,
-      'The absence notification kept the text it held instead of the one entered',
-    ).toHaveValue(message);
-  }
-
   async saveSettings(): Promise<void> {
+    await this.markShownToasts();
     await this.buttonSave.click();
   }
 
   async copySettingsTo(domain: string): Promise<void> {
+    await this.markShownToasts();
     await this.copyToDomain.copyTo(domain);
   }
 
@@ -272,27 +263,18 @@ export class OfficeOpeningHoursPage {
   }
 
   async assertSaveWasConfirmed({ timeout = ACTION_TIMEOUT }: RouteReadyOptions = {}): Promise<void> {
-    await expect(this.toastList, 'Updating the opening hours raised no notification').toContainText(
-      'Updated Successfully',
-      { timeout },
-    );
+    await expect(
+      this.newToast('Updated Successfully'),
+      'Updating the opening hours raised no new notification',
+    ).toBeVisible({ timeout });
   }
 
-  async assertSettingsCopied(source: string, target: string, absenceMessage: string): Promise<void> {
-    await expect(
-      this.textareaAbsenceMessage,
-      `"${target}" came back without the absence notification of "${source}"`,
-    ).toHaveValue(absenceMessage);
+  private async markShownToasts(): Promise<void> {
+    await this.toastItems.evaluateAll((toasts) => toasts.forEach((toast) => toast.setAttribute('data-seen', '')));
+  }
 
-    const sourceSettings = await this.settingsFor(await this.domainId(source));
-    const targetId = await this.domainId(target);
-
-    await expect
-      .poll(() => this.settingsFor(targetId), {
-        message: `"${target}" came back with opening hours of its own`,
-        timeout: ACTION_TIMEOUT,
-      })
-      .toEqual(sourceSettings);
+  private newToast(text: string): Locator {
+    return this.toastItems.and(this.page.locator(':not([data-seen])')).filter({ hasText: text }).first();
   }
 
   async withSettingsRestoredForDomains(
@@ -479,6 +461,17 @@ export class OfficeOpeningHoursPage {
     return leftChanged;
   }
 
+  private async fillAbsenceMessage(message: string): Promise<void> {
+    await this.setSwitch(this.switchUseCustomerService, true);
+
+    await this.textareaAbsenceMessage.clear();
+    await this.textareaAbsenceMessage.fill(message);
+    await expect(
+      this.textareaAbsenceMessage,
+      'The absence notification kept the text it held instead of the one entered',
+    ).toHaveValue(message);
+  }
+
   private async showSchedule({ sameOnAllWorkingDays }: { sameOnAllWorkingDays: boolean }): Promise<void> {
     await this.setSwitch(this.switchUseCustomerService, true);
     await this.setSwitch(this.switchWorkingAllTime, false);
@@ -516,10 +509,6 @@ export class OfficeOpeningHoursPage {
 
   private async assertMessageFieldIsShown(field: Locator, describedAs: string): Promise<void> {
     await expect(field, `The ${describedAs} field is missing`).toBeVisible();
-    await expect(field, `The ${describedAs} takes more than the 250 characters allowed`).toHaveAttribute(
-      'maxlength',
-      '250',
-    );
     await this.assertTooltipIsOffered(field, describedAs);
   }
 

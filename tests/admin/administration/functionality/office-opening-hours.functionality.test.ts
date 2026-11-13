@@ -1,4 +1,3 @@
-import { AdminPageFactory } from '@page-objects/admin-page-factory';
 import { expect, test } from '@setup/test-setup';
 import { WORKING_TIME_TAG } from '@utils/constants';
 import { WorkingTimeFormSettings } from '@utils/interfaces';
@@ -11,39 +10,43 @@ test.describe(
     test(
       'The target domain is confirmed and comes back holding the opening hours of the source',
       { annotation: { type: 'kiwi case', description: 'https://monitooring.test.buerokratt.ee/case/128/' } },
-      async ({ page }) => {
-        const ohp = new AdminPageFactory(page).getOfficeOpeningHoursPage();
+      async ({ officeOpeningHoursPage }) => {
+        await officeOpeningHoursPage.open();
 
-        await ohp.open();
-
-        const domains = await ohp.domainNamesBesidesSuiteWidget();
+        const domains = await officeOpeningHoursPage.domainNamesBesidesSuiteWidget();
         expect(
           domains.length,
           'Copying is tried only between domains the rest of the suite does not chat through, and fewer than two exist',
         ).toBeGreaterThan(1);
 
         const [source, target] = domains;
-        const absenceMessage = createWorkingTimeMessage();
 
-        await ohp.withSettingsRestoredForDomains([source, target], async () => {
+        await officeOpeningHoursPage.withSettingsRestoredForDomains([source, target], async () => {
+          await officeOpeningHoursPage.selectDomain(source);
+
+          const sourceBefore = await officeOpeningHoursPage.readSettings();
+          const copiedSettings: WorkingTimeFormSettings = {
+            workingAllTime: !sourceBefore.workingAllTime,
+            absenceMessage: createWorkingTimeMessage(),
+          };
+
           await test.step('The source domain is given opening hours the target does not have', async () => {
-            await ohp.selectDomain(source);
-            await ohp.fillAbsenceMessage(absenceMessage);
-            await ohp.saveSettings();
-            await ohp.assertSaveWasConfirmed();
+            await officeOpeningHoursPage.applySettings(copiedSettings);
+            await officeOpeningHoursPage.saveSettings();
+            await officeOpeningHoursPage.assertSaveWasConfirmed();
           });
 
           await test.step(`Copying them onto "${target}" reports the settings went through`, async () => {
-            await ohp.open();
-            await ohp.selectDomain(source);
+            await officeOpeningHoursPage.open();
+            await officeOpeningHoursPage.selectDomain(source);
 
-            await ohp.copySettingsTo(target);
-            await ohp.assertSaveWasConfirmed();
+            await officeOpeningHoursPage.copySettingsTo(target);
+            await officeOpeningHoursPage.assertSaveWasConfirmed();
           });
 
           await test.step('The target domain comes back with the opening hours of the source', async () => {
-            await ohp.selectDomain(target);
-            await ohp.assertSettingsCopied(source, target, absenceMessage);
+            await officeOpeningHoursPage.selectDomain(target);
+            await officeOpeningHoursPage.assertSettingsStored(copiedSettings);
           });
         });
       },
@@ -58,40 +61,38 @@ test.describe(
     test(
       'The saved 24/7 toggle and absence notification are confirmed and read back after a reload',
       { annotation: { type: 'kiwi case', description: 'https://monitooring.test.buerokratt.ee/case/126/' } },
-      async ({ page }) => {
-        const ohp = new AdminPageFactory(page).getOfficeOpeningHoursPage();
+      async ({ officeOpeningHoursPage }) => {
+        await officeOpeningHoursPage.open();
 
-        await ohp.open();
-
-        const [domain] = await ohp.domainNamesBesidesSuiteWidget();
+        const [domain] = await officeOpeningHoursPage.domainNamesBesidesSuiteWidget();
         expect(
           domain,
           'Saving is tried only on a domain the rest of the suite does not chat through, and none exists',
         ).toBeTruthy();
 
-        await ohp.withSettingsRestoredForDomains([domain], async () => {
-          await ohp.selectDomain(domain);
+        await officeOpeningHoursPage.withSettingsRestoredForDomains([domain], async () => {
+          await officeOpeningHoursPage.selectDomain(domain);
 
-          const settingsBefore = await ohp.readSettings();
+          const settingsBefore = await officeOpeningHoursPage.readSettings();
           const updatedSettings: WorkingTimeFormSettings = {
             workingAllTime: !settingsBefore.workingAllTime,
             absenceMessage: createWorkingTimeMessage(),
           };
 
           await test.step('The 24/7 toggle and the absence notification are given new values', async () => {
-            await ohp.applySettings(updatedSettings);
+            await officeOpeningHoursPage.applySettings(updatedSettings);
           });
 
           await test.step('Saving reports the change went through', async () => {
-            await ohp.saveSettings();
-            await ohp.assertSaveWasConfirmed();
+            await officeOpeningHoursPage.saveSettings();
+            await officeOpeningHoursPage.assertSaveWasConfirmed();
           });
 
           await test.step('The settings come back unchanged after a reload', async () => {
-            await ohp.open();
-            await ohp.selectDomain(domain);
+            await officeOpeningHoursPage.open();
+            await officeOpeningHoursPage.selectDomain(domain);
 
-            await ohp.assertSettingsStored(updatedSettings);
+            await officeOpeningHoursPage.assertSettingsStored(updatedSettings);
           });
         });
       },
