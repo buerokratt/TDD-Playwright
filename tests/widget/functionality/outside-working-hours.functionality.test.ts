@@ -7,6 +7,7 @@ import {
   WORKING_TIME_TAG,
 } from '@utils/constants';
 import { URLS } from '@utils/env';
+import { pendingChatCleanup } from '@utils/helpers';
 import { createContactEmail } from '@utils/test-data';
 
 test.describe(
@@ -73,6 +74,14 @@ test.describe(
   '[widget] [functional] The outside-working-hours contact form lets the customer skip it or leave valid contacts',
   { tag: WORKING_TIME_TAG },
   () => {
+    let pendingChatId: string | undefined;
+
+    test.beforeEach(() => {
+      pendingChatId = undefined;
+    });
+
+    test.afterEach(pendingChatCleanup(() => pendingChatId));
+
     test(
       'Skip on the contact form closes the chat window',
       { annotation: { type: 'kiwi case', description: 'https://monitooring.test.buerokratt.ee/case/133/' } },
@@ -131,6 +140,7 @@ test.describe(
           });
 
           await test.step('Submit with a valid e-mail shuts the chat window', async () => {
+            pendingChatId = await widgetPage.chatId();
             await widgetPage.submitContactForm({ email: createContactEmail() });
             await widgetPage.expectChatWindowClosed();
           });

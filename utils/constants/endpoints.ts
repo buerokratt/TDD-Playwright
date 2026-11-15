@@ -25,6 +25,8 @@ export const WIDGET_DOMAINS_URL = `${BACKOFFICE_V2_BASE}/${WIDGET_DOMAINS_PATH}`
 
 export const ENDED_CHATS_PATH = 'agents/chats/ended';
 
+export const CHAT_END_URL = `${BACKOFFICE_V2_BASE}/chats/end`;
+
 export const CHAT_MEASUREMENTS_PATH = 'chats/quality/measurements';
 
 // AUTH
