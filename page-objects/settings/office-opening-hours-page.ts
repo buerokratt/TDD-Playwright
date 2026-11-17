@@ -5,11 +5,10 @@ import {
   ACTION_TIMEOUT,
   CSA_ACTIVITY_URL,
   CSA_AVAILABLE_ALL_TIME,
-  CSA_UNAVAILABLE,
+  MON_FRI,
+  MON_SUN,
   ORGANIZATION_WORKING_TIME_URL,
-  WEEK_DAYS,
   WIDGET_DATA_URL,
-  WORKDAYS,
 } from '@utils/constants';
 import { URLS } from '@utils/env';
 import {
@@ -21,14 +20,11 @@ import {
 } from '@utils/interfaces';
 import { waitForOfficeOpeningHoursReady } from '@utils/waits';
 
-/** Administration -> Office opening hours, where the texts the bot falls back on are edited. */
 export class OfficeOpeningHoursPage {
   private readonly page: Page;
 
-  private widgetIdOfThisRun?: string;
-
-  private readonly headingWorkingTime: Locator;
-  private readonly textAfterWorkingHours: Locator;
+  private readonly headingOrganizationWorkingTime: Locator;
+  private readonly textDescription: Locator;
 
   private readonly domainTabs: Locator;
   private readonly domainTabActive: Locator;
@@ -37,19 +33,19 @@ export class OfficeOpeningHoursPage {
 
   private readonly switchUseCustomerService: Locator;
   private readonly switchWorkingAllTime: Locator;
-  private readonly switchNationalHolidays: Locator;
+  private readonly switchAvailableOnNationalHolidays: Locator;
   private readonly switchClosedOnWeekends: Locator;
   private readonly switchSameOnAllWorkingDays: Locator;
-  private readonly switchOutsideHoursNotification: Locator;
-  private readonly switchAbsenceNotification: Locator;
+  private readonly switchesDayOpenClosed: Locator;
   private readonly switchesDayOpen: Locator;
-  private readonly switchesDayOpenChecked: Locator;
+  private readonly switchOutsideOfficeHoursContactForm: Locator;
+  private readonly switchCsaAbsenceContactForm: Locator;
 
-  private readonly inputsTime: Locator;
+  private readonly inputsFromUntilTime: Locator;
 
-  private readonly textareaOutsideHoursMessage: Locator;
-  private readonly textareaAbsenceMessage: Locator;
-  private readonly textareaRedirectMessage: Locator;
+  private readonly textareaOutsideWorkingHoursMessage: Locator;
+  private readonly textareaAbsenceOfCsaMessage: Locator;
+  private readonly textareaRedirectIfBotCannotAnswerMessage: Locator;
   private readonly textareaBotCannotAnswerMessage: Locator;
 
   private readonly buttonSave: Locator;
@@ -58,8 +54,11 @@ export class OfficeOpeningHoursPage {
   constructor(page: Page) {
     this.page = page;
 
-    this.headingWorkingTime = this.page.getByRole('heading', { name: 'Organization working time', exact: true });
-    this.textAfterWorkingHours = this.page.getByText(
+    this.headingOrganizationWorkingTime = this.page.getByRole('heading', {
+      name: 'Organization working time',
+      exact: true,
+    });
+    this.textDescription = this.page.getByText(
       "After the end of the working hours, if the chatbot cannot answer the customer's questions by itself, it will ask for the customer's contact details.",
       { exact: true },
     );
@@ -74,7 +73,7 @@ export class OfficeOpeningHoursPage {
 
     this.switchUseCustomerService = this.page.getByRole('switch', { name: 'Use customer service', exact: true });
     this.switchWorkingAllTime = this.page.getByRole('switch', { name: 'Working hours are 24/7', exact: true });
-    this.switchNationalHolidays = this.page.getByRole('switch', {
+    this.switchAvailableOnNationalHolidays = this.page.getByRole('switch', {
       name: 'Available on national holidays',
       exact: true,
     });
@@ -83,27 +82,30 @@ export class OfficeOpeningHoursPage {
       name: 'The same on all working days',
       exact: true,
     });
-    this.switchOutsideHoursNotification = this.page.getByRole('switch', {
+    this.switchesDayOpenClosed = this.page.getByRole('switch', { name: 'Open Closed', exact: true });
+    this.switchesDayOpen = this.page.getByRole('switch', { name: 'Open Closed', exact: true, checked: true });
+    this.switchOutsideOfficeHoursContactForm = this.page.getByRole('switch', {
       name: 'Send a notification of outside office hours to the client. Will we ask the clients contact information?',
       exact: true,
     });
-    this.switchAbsenceNotification = this.page.getByRole('switch', {
+    this.switchCsaAbsenceContactForm = this.page.getByRole('switch', {
       name: 'Send a notification of absence to the client. Will we ask the clients contact information?',
       exact: true,
     });
-    this.switchesDayOpen = this.page.getByRole('switch', { name: 'Open Closed', exact: true });
-    this.switchesDayOpenChecked = this.page.getByRole('switch', { name: 'Open Closed', exact: true, checked: true });
 
-    this.inputsTime = this.page.locator('main .react-datepicker__input-container input');
+    this.inputsFromUntilTime = this.page.locator('main .react-datepicker__input-container input');
 
-    this.textareaOutsideHoursMessage = this.page.getByLabel('Outside working hours message', { exact: true });
-    this.textareaAbsenceMessage = this.page.getByLabel(
+    this.textareaOutsideWorkingHoursMessage = this.page.getByLabel('Outside working hours message', { exact: true });
+    this.textareaAbsenceOfCsaMessage = this.page.getByLabel(
       'Notification of the absence of a customer service representative',
       { exact: true },
     );
-    this.textareaRedirectMessage = this.page.getByLabel('Notification before redirecting, if Bürokratt cannot answer', {
-      exact: true,
-    });
+    this.textareaRedirectIfBotCannotAnswerMessage = this.page.getByLabel(
+      'Notification before redirecting, if Bürokratt cannot answer',
+      {
+        exact: true,
+      },
+    );
     this.textareaBotCannotAnswerMessage = this.page.getByLabel('Notification if Bürokratt cannot answer', {
       exact: true,
     });
@@ -117,32 +119,43 @@ export class OfficeOpeningHoursPage {
   }
 
   async open(): Promise<void> {
+    const settingsLoaded = this.page.waitForResponse(
+      (response) => response.url().startsWith(ORGANIZATION_WORKING_TIME_URL) && response.request().method() === 'GET',
+    );
+
     await this.page.goto(URLS.admin + 'chat/working-time');
     await this.waitForReady();
+
+    const response = await settingsLoaded;
+
+    expect(response.ok(), `The opening hours never loaded (${response.status()})`).toBeTruthy();
   }
 
   async assertPageIsShown(): Promise<void> {
-    await expect(this.headingWorkingTime, 'Office opening hours never rendered its heading').toBeVisible();
+    await expect(this.headingOrganizationWorkingTime, 'Office opening hours never rendered its heading').toBeVisible();
     await expect(
-      this.textAfterWorkingHours,
+      this.textDescription,
       'The page never explained what happens after the working hours end',
     ).toBeVisible();
     await expect(this.buttonSave, 'The page offers no way to save the opening hours').toBeVisible();
   }
 
-  async assertDomainControlsAreShown({ timeout = ACTION_TIMEOUT }: RouteReadyOptions = {}): Promise<void> {
+  async assertDomainTabsAreShown({ timeout = ACTION_TIMEOUT }: RouteReadyOptions = {}): Promise<void> {
     await expect(this.domainTabs.first(), 'The page rendered no domain tab').toBeVisible({ timeout });
     await expect(this.domainTabActive, 'The domain tabs left no domain selected').toHaveCount(1);
+  }
+
+  async assertCopyToDomainIsOffered(): Promise<void> {
     await this.copyToDomain.assertIsOffered();
   }
 
   async assertScheduleTogglesAreShown(): Promise<void> {
-    await this.setSwitch(this.switchUseCustomerService, true);
     await this.assertToggleIsShown(this.switchUseCustomerService, '"Use customer service" toggle');
+    await this.setSwitch(this.switchUseCustomerService, true);
     await this.assertToggleIsShown(this.switchWorkingAllTime, '"Working hours are 24/7" toggle');
 
     await this.setSwitch(this.switchWorkingAllTime, false);
-    await this.assertToggleIsShown(this.switchNationalHolidays, '"Available on national holidays" toggle');
+    await this.assertToggleIsShown(this.switchAvailableOnNationalHolidays, '"Available on national holidays" toggle');
     await this.assertToggleIsShown(this.switchClosedOnWeekends, '"Closed on weekends" toggle');
     await this.assertToggleIsShown(this.switchSameOnAllWorkingDays, '"The same on all working days" toggle');
   }
@@ -161,39 +174,41 @@ export class OfficeOpeningHoursPage {
     await this.showSchedule({ sameOnAllWorkingDays: false });
 
     await this.setSwitch(this.switchClosedOnWeekends, true);
-    await this.assertDailyHoursAreShown(WORKDAYS);
-    await expect(
-      this.page.locator('main').getByText('Saturday', { exact: true }),
-      'Saturday stayed in the schedule while the office is closed on weekends',
-    ).toBeHidden();
+    await this.assertDailyHoursAreShown(MON_FRI);
 
     await this.setSwitch(this.switchClosedOnWeekends, false);
-    await this.assertDailyHoursAreShown(WEEK_DAYS);
+    await this.assertDailyHoursAreShown(MON_SUN);
   }
 
-  async assertOutsideHoursNotificationIsShown(): Promise<void> {
+  async assertOutsideWorkingHoursFieldsAreShown(): Promise<void> {
     await this.setSwitch(this.switchUseCustomerService, true);
     await this.setSwitch(this.switchWorkingAllTime, false);
 
-    await this.assertToggleIsShown(this.switchOutsideHoursNotification, 'outside office hours notification toggle');
-    await this.assertMessageFieldIsShown(this.textareaOutsideHoursMessage, 'outside working hours message');
+    await this.assertToggleIsShown(
+      this.switchOutsideOfficeHoursContactForm,
+      'outside office hours notification toggle',
+    );
+    await this.assertMessageFieldIsShown(this.textareaOutsideWorkingHoursMessage, 'outside working hours message');
   }
 
-  async assertCustomerServiceNotificationsAreShown(): Promise<void> {
+  async assertCsaFieldsAreShown(): Promise<void> {
     await this.setSwitch(this.switchUseCustomerService, true);
 
-    await this.assertToggleIsShown(this.switchAbsenceNotification, 'absence notification toggle');
-    await this.assertMessageFieldIsShown(this.textareaAbsenceMessage, 'absence notification');
-    await this.assertMessageFieldIsShown(this.textareaRedirectMessage, 'notification before redirecting');
+    await this.assertToggleIsShown(this.switchCsaAbsenceContactForm, 'absence notification toggle');
+    await this.assertMessageFieldIsShown(this.textareaAbsenceOfCsaMessage, 'absence notification');
+    await this.assertMessageFieldIsShown(
+      this.textareaRedirectIfBotCannotAnswerMessage,
+      'notification before redirecting',
+    );
   }
 
-  async assertBotCannotAnswerNotificationIsShown(): Promise<void> {
+  async assertBotCannotAnswerFieldIsShown(): Promise<void> {
     await this.setSwitch(this.switchUseCustomerService, false);
 
     await this.assertMessageFieldIsShown(this.textareaBotCannotAnswerMessage, '"Bürokratt cannot answer" notification');
     await expect(
-      this.textareaAbsenceMessage,
-      'The absence notification stayed on the page with customer service switched off',
+      this.textareaRedirectIfBotCannotAnswerMessage,
+      'The notification before redirecting stayed on the page with customer service switched off',
     ).toBeHidden();
   }
 
@@ -245,13 +260,14 @@ export class OfficeOpeningHoursPage {
 
     return {
       workingAllTime: await this.isSwitchOn(this.switchWorkingAllTime),
-      absenceMessage: await this.textareaAbsenceMessage.inputValue(),
+      noCsaAvailableMessage: await this.textareaAbsenceOfCsaMessage.inputValue(),
     };
   }
 
   async applySettings(settings: WorkingTimeFormSettings): Promise<void> {
+    await this.setSwitch(this.switchUseCustomerService, true);
     await this.setSwitch(this.switchWorkingAllTime, settings.workingAllTime);
-    await this.fillAbsenceMessage(settings.absenceMessage);
+    await this.fillAbsenceMessage(settings.noCsaAvailableMessage);
   }
 
   async assertSettingsStored(expected: WorkingTimeFormSettings): Promise<void> {
@@ -277,10 +293,7 @@ export class OfficeOpeningHoursPage {
     return this.toastItems.and(this.page.locator(':not([data-seen])')).filter({ hasText: text }).first();
   }
 
-  async withSettingsRestoredForDomains(
-    domains: string[],
-    body: (settingsBefore: Record<string, WorkingTimeSettings>) => Promise<void>,
-  ): Promise<void> {
+  async withSettingsRestoredForDomains(domains: string[], body: () => Promise<void>): Promise<void> {
     const settingsBefore: Record<string, WorkingTimeSettings> = {};
 
     for (const domain of domains) {
@@ -288,7 +301,7 @@ export class OfficeOpeningHoursPage {
     }
 
     try {
-      await body(settingsBefore);
+      await body();
     } catch (error) {
       await this.restoreSettingsForDomains(settingsBefore);
       throw error;
@@ -304,17 +317,14 @@ export class OfficeOpeningHoursPage {
     return this.settingsFor(await this.widgetId());
   }
 
-  /** The notice the widget shows instead of offering an operator. */
   async noCsaAvailableMessage(): Promise<string> {
     return this.notice('organizationNoCsaAvailableMessage', 'for the case where no operator is available');
   }
 
-  /** The notice the bot answers with where it offers no operator at all. */
   async botCannotAnswerMessage(): Promise<string> {
     return this.notice('organizationBotCannotAnswerMessage', 'for the case where the bot cannot answer');
   }
 
-  /** The notice the bot asks with before it hands the chat over to an operator. */
   async redirectIfBotCannotAnswerMessage(): Promise<string> {
     return this.notice('organizationRedirectIfBotCannotAnswerMessage', 'for redirecting the chat to an operator');
   }
@@ -323,12 +333,7 @@ export class OfficeOpeningHoursPage {
     return this.notice('organizationOutsideWorkingHoursMessage', 'for the hours the office is closed');
   }
 
-  /**
-   * These notices are free-text fields an administrator may rewrite in any language, so tests
-   * have to read them rather than assume them — and an empty one has to stop the test rather
-   * than reach it, because a caller matching on "" finds every text node on the page.
-   */
-  private async notice(setting: string, describedAs: string): Promise<string> {
+  private async notice(setting: keyof WorkingTimeSettings, describedAs: string): Promise<string> {
     const notice = (await this.settings())[setting];
 
     expect(notice, `The back office holds no notice ${describedAs}`).toBeTruthy();
@@ -340,28 +345,11 @@ export class OfficeOpeningHoursPage {
     await this.write(CSA_AVAILABLE_ALL_TIME);
   }
 
-  async whileCsaUnavailable(body: () => Promise<void>): Promise<void> {
-    const settingsBefore = await this.settings();
-
-    try {
-      await this.write(CSA_UNAVAILABLE);
-      await body();
-    } finally {
-      await this.write(settingsBefore).catch((error: unknown) => {
-        test.info().annotations.push({
-          type: 'customer service left switched off',
-          description: error instanceof Error ? error.message.split('\n')[0] : String(error),
-        });
-      });
-    }
-  }
-
   async whileSettingsAre(changes: Partial<WorkingTimeSettings>, body: () => Promise<void>): Promise<void> {
     const settingsBefore = await this.settings();
 
-    await this.write(changes);
-
     try {
+      await this.write(changes);
       await body();
     } catch (error) {
       await this.write(settingsBefore).catch((restoreError: unknown) => {
@@ -380,19 +368,12 @@ export class OfficeOpeningHoursPage {
     await this.writeFor(await this.widgetId(), { ...(await this.settings()), ...changes });
   }
 
-  /** Every widget carries its own texts, and the settings endpoint asks for one of them by id. */
   private async widgetId(): Promise<string> {
-    if (this.widgetIdOfThisRun) {
-      return this.widgetIdOfThisRun;
-    }
-
     const widget = (await this.widgets()).find((candidate) => candidate.url === URLS.customer);
 
     expect(widget, `The back office configures no widget for ${URLS.customer}`).toBeTruthy();
 
-    this.widgetIdOfThisRun = (widget as { id: string }).id;
-
-    return this.widgetIdOfThisRun;
+    return (widget as { id: string }).id;
   }
 
   private async idCode(): Promise<string> {
@@ -464,10 +445,10 @@ export class OfficeOpeningHoursPage {
   private async fillAbsenceMessage(message: string): Promise<void> {
     await this.setSwitch(this.switchUseCustomerService, true);
 
-    await this.textareaAbsenceMessage.clear();
-    await this.textareaAbsenceMessage.fill(message);
+    await this.textareaAbsenceOfCsaMessage.clear();
+    await this.textareaAbsenceOfCsaMessage.fill(message);
     await expect(
-      this.textareaAbsenceMessage,
+      this.textareaAbsenceOfCsaMessage,
       'The absence notification kept the text it held instead of the one entered',
     ).toHaveValue(message);
   }
@@ -483,7 +464,7 @@ export class OfficeOpeningHoursPage {
       this.page.locator('main').getByText(label, { exact: true }),
       `The common hours are not labelled "${label}"`,
     ).toBeVisible();
-    await expect(this.inputsTime, `The "${label}" hours carry no from-until pair`).toHaveCount(2);
+    await expect(this.inputsFromUntilTime, `The "${label}" hours carry no from-until pair`).toHaveCount(2);
   }
 
   private async assertDailyHoursAreShown(days: string[]): Promise<void> {
@@ -494,11 +475,11 @@ export class OfficeOpeningHoursPage {
       ).toBeVisible();
     }
 
-    await expect(this.switchesDayOpen, 'Not every day in the schedule has an open-closed toggle').toHaveCount(
+    await expect(this.switchesDayOpenClosed, 'Not every day in the schedule has an open-closed toggle').toHaveCount(
       days.length,
     );
-    await expect(this.inputsTime, 'Not every open day carries a from-until pair').toHaveCount(
-      2 * (await this.switchesDayOpenChecked.count()),
+    await expect(this.inputsFromUntilTime, 'Not every open day carries a from-until pair').toHaveCount(
+      2 * (await this.switchesDayOpen.count()),
     );
   }
 

@@ -2,13 +2,13 @@ import { test } from '@setup/test-setup';
 import {
   MALFORMED_CONTACT_EMAIL,
   MALFORMED_CONTACT_PHONE,
-  OUTSIDE_WORKING_HOURS,
+  OUTSIDE_WORKING_HOURS_WITHOUT_CONTACTS,
   OUTSIDE_WORKING_HOURS_WITH_CONTACTS,
   WORKING_TIME_TAG,
 } from '@utils/constants';
 import { URLS } from '@utils/env';
 import { pendingChatCleanup } from '@utils/helpers';
-import { createContactEmail } from '@utils/test-data';
+import { createEmail } from '@utils/test-data';
 
 test.describe(
   '[widget] [functional] The outside-working-hours prompt lets the customer close or continue the chat',
@@ -18,21 +18,21 @@ test.describe(
       'Close on the outside-working-hours prompt closes the chat window',
       { annotation: { type: 'kiwi case', description: 'https://monitooring.test.buerokratt.ee/case/132/' } },
       async ({ officeOpeningHoursPage, customerPage, widgetPage }) => {
-        const outsideHours = await officeOpeningHoursPage.outsideWorkingHoursMessage();
+        const outsideWorkingHoursMessage = await officeOpeningHoursPage.outsideWorkingHoursMessage();
 
-        await officeOpeningHoursPage.whileSettingsAre(OUTSIDE_WORKING_HOURS, async () => {
+        await officeOpeningHoursPage.whileSettingsAre(OUTSIDE_WORKING_HOURS_WITHOUT_CONTACTS, async () => {
           await test.step('The customer asks for an operator', async () => {
             await customerPage.goto(URLS.customer);
             await widgetPage.openChat();
-            await widgetPage.askForOperator();
+            await widgetPage.requestCsa();
           });
 
-          await test.step('The widget shows the configured outside-hours notice with Close and Continue', async () => {
-            await widgetPage.expectCloseOrContinuePromptShown(outsideHours);
+          await test.step('The widget shows the configured notice with Close and Continue', async () => {
+            await widgetPage.expectCloseOrContinuePromptShown(outsideWorkingHoursMessage);
           });
 
           await test.step('Close shuts the chat window', async () => {
-            await widgetPage.closeChatOnPrompt();
+            await widgetPage.closePrompt();
             await widgetPage.expectChatWindowClosed();
           });
         });
@@ -43,22 +43,22 @@ test.describe(
       'Continue on the outside-working-hours prompt keeps the chat open',
       { annotation: { type: 'kiwi case', description: 'https://monitooring.test.buerokratt.ee/case/132/' } },
       async ({ officeOpeningHoursPage, customerPage, widgetPage }) => {
-        const outsideHours = await officeOpeningHoursPage.outsideWorkingHoursMessage();
+        const outsideWorkingHoursMessage = await officeOpeningHoursPage.outsideWorkingHoursMessage();
 
-        await officeOpeningHoursPage.whileSettingsAre(OUTSIDE_WORKING_HOURS, async () => {
+        await officeOpeningHoursPage.whileSettingsAre(OUTSIDE_WORKING_HOURS_WITHOUT_CONTACTS, async () => {
           await test.step('The customer asks for an operator', async () => {
             await customerPage.goto(URLS.customer);
             await widgetPage.openChat();
-            await widgetPage.askForOperator();
+            await widgetPage.requestCsa();
           });
 
-          await test.step('The widget shows the configured outside-hours notice with Close and Continue', async () => {
-            await widgetPage.expectCloseOrContinuePromptShown(outsideHours);
+          await test.step('The widget shows the configured notice with Close and Continue', async () => {
+            await widgetPage.expectCloseOrContinuePromptShown(outsideWorkingHoursMessage);
           });
 
           await test.step('Continue drops the prompt and leaves the message box open', async () => {
-            await widgetPage.continueChatOnPrompt();
-            await widgetPage.expectChatContinuesAfterPrompt(outsideHours);
+            await widgetPage.continuePrompt();
+            await widgetPage.expectChatContinuesAfterPrompt(outsideWorkingHoursMessage);
           });
 
           await test.step('The chat notes that the conversation goes on with the bot', async () => {
@@ -86,17 +86,17 @@ test.describe(
       'Skip on the contact form closes the chat window',
       { annotation: { type: 'kiwi case', description: 'https://monitooring.test.buerokratt.ee/case/133/' } },
       async ({ officeOpeningHoursPage, customerPage, widgetPage }) => {
-        const outsideHours = await officeOpeningHoursPage.outsideWorkingHoursMessage();
+        const outsideWorkingHoursMessage = await officeOpeningHoursPage.outsideWorkingHoursMessage();
 
         await officeOpeningHoursPage.whileSettingsAre(OUTSIDE_WORKING_HOURS_WITH_CONTACTS, async () => {
           await test.step('The customer asks for an operator', async () => {
             await customerPage.goto(URLS.customer);
             await widgetPage.openChat();
-            await widgetPage.askForOperator();
+            await widgetPage.requestCsa();
           });
 
-          await test.step('The widget shows the configured outside-hours notice with the contact fields, Skip and Submit', async () => {
-            await widgetPage.expectContactFormShown(outsideHours);
+          await test.step('The widget shows the configured notice with the contact fields, Skip and Submit', async () => {
+            await widgetPage.expectContactFormShown(outsideWorkingHoursMessage);
           });
 
           await test.step('Skip shuts the chat window', async () => {
@@ -111,17 +111,17 @@ test.describe(
       'Submit on the contact form checks the contacts and closes the chat once one is valid',
       { annotation: { type: 'kiwi case', description: 'https://monitooring.test.buerokratt.ee/case/133/' } },
       async ({ officeOpeningHoursPage, customerPage, widgetPage }) => {
-        const outsideHours = await officeOpeningHoursPage.outsideWorkingHoursMessage();
+        const outsideWorkingHoursMessage = await officeOpeningHoursPage.outsideWorkingHoursMessage();
 
         await officeOpeningHoursPage.whileSettingsAre(OUTSIDE_WORKING_HOURS_WITH_CONTACTS, async () => {
           await test.step('The customer asks for an operator', async () => {
             await customerPage.goto(URLS.customer);
             await widgetPage.openChat();
-            await widgetPage.askForOperator();
+            await widgetPage.requestCsa();
           });
 
-          await test.step('The widget shows the configured outside-hours notice with the contact fields, Skip and Submit', async () => {
-            await widgetPage.expectContactFormShown(outsideHours);
+          await test.step('The widget shows the configured notice with the contact fields, Skip and Submit', async () => {
+            await widgetPage.expectContactFormShown(outsideWorkingHoursMessage);
           });
 
           await test.step('Submit without contacts asks for at least one', async () => {
@@ -141,7 +141,7 @@ test.describe(
 
           await test.step('Submit with a valid e-mail shuts the chat window', async () => {
             pendingChatId = await widgetPage.chatId();
-            await widgetPage.submitContactForm({ email: createContactEmail() });
+            await widgetPage.submitContactForm({ email: createEmail() });
             await widgetPage.expectChatWindowClosed();
           });
         });

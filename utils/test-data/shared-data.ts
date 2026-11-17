@@ -10,3 +10,7 @@ export function uniqueSuffix(): string {
 
   return `${stamp}${random}`;
 }
+
+export function createEmail(prefix = 'autotest'): string {
+  return `${prefix}${uniqueSuffix()}@example.com`;
+}

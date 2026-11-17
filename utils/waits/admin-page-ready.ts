@@ -89,6 +89,18 @@ export async function waitForChatAnalysisReady(
   ).toBeVisible({ timeout });
 }
 
+export async function waitForOfficeOpeningHoursReady(
+  page: Page,
+  { timeout = ACTION_TIMEOUT }: RouteReadyOptions = {},
+): Promise<void> {
+  await waitForAppSettled(page, { timeout });
+
+  await expect(
+    page.getByRole('heading', { name: 'Organization working time', exact: true }),
+    'Office opening hours never rendered its heading',
+  ).toBeVisible({ timeout });
+}
+
 export async function waitForSessionLengthReady(
   page: Page,
   { timeout = ACTION_TIMEOUT }: RouteReadyOptions = {},
@@ -142,23 +154,6 @@ export async function waitForMultiDomainsReady(
   ).toBeVisible({ timeout });
 }
 
-export async function waitForOfficeOpeningHoursReady(
-  page: Page,
-  { timeout = ACTION_TIMEOUT }: RouteReadyOptions = {},
-): Promise<void> {
-  await waitForAppSettled(page, { timeout });
-
-  await expect(
-    page.getByRole('heading', { name: 'Organization working time', exact: true }),
-    'Office opening hours never rendered its heading',
-  ).toBeVisible({ timeout });
-
-  await expect(
-    page.getByRole('switch', { name: 'Use customer service', exact: true }),
-    'Office opening hours rendered its heading but never received the settings it holds',
-  ).toBeVisible({ timeout });
-}
-
 const ROUTE_READY: { test: (url: string) => boolean; wait: typeof waitForAppSettled }[] = [
   {
     test: (url) => /\/chat\/(?:unanswered|active|pending)(?:\/|$)/i.test(url),
@@ -168,11 +163,11 @@ const ROUTE_READY: { test: (url: string) => boolean; wait: typeof waitForAppSett
   { test: (url) => url.includes('services/overview'), wait: waitForServicesOverviewReady },
   { test: (url) => url.includes('services/newService'), wait: waitForNewServiceReady },
   { test: (url) => url.includes('chat/chat-analysis'), wait: waitForChatAnalysisReady },
+  { test: (url) => url.includes('chat/working-time'), wait: waitForOfficeOpeningHoursReady },
   { test: (url) => url.includes('chat/session-length'), wait: waitForSessionLengthReady },
   { test: (url) => url.includes('chat/delete-conversations'), wait: waitForDeleteConversationsReady },
   { test: (url) => url.includes('chat/anonymizer'), wait: waitForAnonymizerReady },
   { test: (url) => url.includes('chat/multi-domains'), wait: waitForMultiDomainsReady },
-  { test: (url) => url.includes('chat/working-time'), wait: waitForOfficeOpeningHoursReady },
 ];
 
 export async function waitForRouteReady(page: Page, url: string, options?: RouteReadyOptions): Promise<void> {

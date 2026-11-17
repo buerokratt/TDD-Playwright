@@ -4,6 +4,8 @@ export const TEST_TIMEOUT = 120000;
 /** How long one interaction with the admin may take to land, and the cap on a flow's action. */
 export const ACTION_TIMEOUT = 15000;
 
+export const CSA_STATUS_SWITCH_TIMEOUT = 30000;
+
 /** How long a data table may keep redrawing its rows before they are taken as final. */
 export const TABLE_SETTLE_TIMEOUT = 5000;
 
