@@ -1,6 +1,6 @@
 import { PlaywrightTestProject, devices } from '@playwright/test';
 
-import { ACTION_TIMEOUT, ADMIN_AUTH_STATE, VIEWPORT, WORKING_TIME_TAG } from '@utils/constants';
+import { ACTION_TIMEOUT, ADMIN_AUTH_STATE, VIEWPORT } from '@utils/constants';
 
 export const CHROMIUM_ARGS = ['--incognito', '--start-maximized'];
 
@@ -22,8 +22,6 @@ const BROWSERS = [
   { name: 'webkit', device: devices['Desktop Safari'] },
 ];
 
-const WORKING_TIME_GREP = new RegExp(WORKING_TIME_TAG);
-
 const SUITES = [
   { name: 'smoke', testMatch: '**/*.smoke.ts' },
   {
@@ -31,22 +29,16 @@ const SUITES = [
     testMatch: '**/*.flow.ts',
     actionTimeout: ACTION_TIMEOUT,
     background: true,
+    dependsOn: 'widget',
   },
-  { name: 'tests', testMatch: '**/*.test.ts', testIgnore: '**/tests/widget/**', grepInvert: WORKING_TIME_GREP },
+  { name: 'tests', testMatch: '**/*.test.ts', testIgnore: '**/tests/widget/**' },
   {
     name: 'widget',
     testMatch: '**/tests/widget/**/*.test.ts',
-    grepInvert: WORKING_TIME_GREP,
-    actionTimeout: ACTION_TIMEOUT,
-    background: true,
-  },
-  {
-    name: 'working-time',
-    testMatch: '**/*.test.ts',
-    grep: WORKING_TIME_GREP,
     actionTimeout: ACTION_TIMEOUT,
     background: true,
     workers: 1,
+    dependsOn: 'tests',
   },
 ];
 
@@ -55,8 +47,6 @@ export const BROWSER_PROJECTS: PlaywrightTestProject[] = BROWSERS.flatMap((brows
     name: `${suite.name}-${browser.name}`,
     testMatch: suite.testMatch,
     testIgnore: suite.testIgnore,
-    grep: suite.grep,
-    grepInvert: suite.grepInvert,
     ...(suite.workers && { workers: suite.workers }),
     use: {
       ...browser.device,
@@ -69,6 +59,6 @@ export const BROWSER_PROJECTS: PlaywrightTestProject[] = BROWSERS.flatMap((brows
         },
       }),
     },
-    dependencies: ['setup'],
+    dependencies: ['setup', ...(suite.dependsOn ? [`${suite.dependsOn}-${browser.name}`] : [])],
   })),
 );
