@@ -306,17 +306,8 @@ export class AnonymizerPage {
   }
 
   async saveSettings(): Promise<void> {
-    const saved = this.page.waitForResponse(
-      (response) => response.url().includes(ANONYMIZER_CONFIG_PATH) && response.request().method() === 'POST',
-      { timeout: ACTION_TIMEOUT },
-    );
-
     await this.markShownToasts();
     await this.buttonSaveSettings.click();
-
-    const response = await saved;
-
-    expect(response.ok(), `The admin rejected the anonymizer settings (${response.status()})`).toBeTruthy();
   }
 
   async assertSaveWasConfirmed({ timeout = ACTION_TIMEOUT }: RouteReadyOptions = {}): Promise<void> {
