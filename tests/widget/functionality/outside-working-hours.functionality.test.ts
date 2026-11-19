@@ -9,11 +9,15 @@ import { URLS } from '@utils/env';
 import { pendingChatCleanup } from '@utils/helpers';
 import { createEmail } from '@utils/test-data';
 
-test.describe('[widget] [functional] The outside-working-hours prompt lets the customer close or continue the chat', () => {
-  test(
-    'Close on the outside-working-hours prompt closes the chat window',
-    { annotation: { type: 'kiwi case', description: 'https://monitooring.test.buerokratt.ee/case/132/' } },
-    async ({ officeOpeningHoursPage, customerPage, widgetPage }) => {
+test.describe(
+  '[widget] [functional] The outside-working-hours prompt lets the customer close or continue the chat',
+  { annotation: { type: 'kiwi case', description: 'https://monitooring.test.buerokratt.ee/case/132/' } },
+  () => {
+    test('Close on the outside-working-hours prompt closes the chat window', async ({
+      officeOpeningHoursPage,
+      customerPage,
+      widgetPage,
+    }) => {
       const outsideWorkingHoursMessage = await officeOpeningHoursPage.outsideWorkingHoursMessage();
 
       await officeOpeningHoursPage.whileSettingsAre(OUTSIDE_WORKING_HOURS_WITHOUT_CONTACTS, async () => {
@@ -32,13 +36,13 @@ test.describe('[widget] [functional] The outside-working-hours prompt lets the c
           await widgetPage.expectChatWindowClosed();
         });
       });
-    },
-  );
+    });
 
-  test(
-    'Continue on the outside-working-hours prompt keeps the chat open',
-    { annotation: { type: 'kiwi case', description: 'https://monitooring.test.buerokratt.ee/case/132/' } },
-    async ({ officeOpeningHoursPage, customerPage, widgetPage }) => {
+    test('Continue on the outside-working-hours prompt keeps the chat open', async ({
+      officeOpeningHoursPage,
+      customerPage,
+      widgetPage,
+    }) => {
       const outsideWorkingHoursMessage = await officeOpeningHoursPage.outsideWorkingHoursMessage();
 
       await officeOpeningHoursPage.whileSettingsAre(OUTSIDE_WORKING_HOURS_WITHOUT_CONTACTS, async () => {
@@ -61,23 +65,27 @@ test.describe('[widget] [functional] The outside-working-hours prompt lets the c
           await widgetPage.expectContinueConversationNoteShown();
         });
       });
-    },
-  );
-});
+    });
+  },
+);
 
-test.describe('[widget] [functional] The outside-working-hours contact form lets the customer skip it or leave valid contacts', () => {
-  let pendingChatId: string | undefined;
+test.describe(
+  '[widget] [functional] The outside-working-hours contact form lets the customer skip it or leave valid contacts',
+  { annotation: { type: 'kiwi case', description: 'https://monitooring.test.buerokratt.ee/case/133/' } },
+  () => {
+    let pendingChatId: string | undefined;
 
-  test.beforeEach(() => {
-    pendingChatId = undefined;
-  });
+    test.beforeEach(() => {
+      pendingChatId = undefined;
+    });
 
-  test.afterEach(pendingChatCleanup(() => pendingChatId));
+    test.afterEach(pendingChatCleanup(() => pendingChatId));
 
-  test(
-    'Skip on the contact form closes the chat window',
-    { annotation: { type: 'kiwi case', description: 'https://monitooring.test.buerokratt.ee/case/133/' } },
-    async ({ officeOpeningHoursPage, customerPage, widgetPage }) => {
+    test('Skip on the contact form closes the chat window', async ({
+      officeOpeningHoursPage,
+      customerPage,
+      widgetPage,
+    }) => {
       const outsideWorkingHoursMessage = await officeOpeningHoursPage.outsideWorkingHoursMessage();
 
       await officeOpeningHoursPage.whileSettingsAre(OUTSIDE_WORKING_HOURS_WITH_CONTACTS, async () => {
@@ -96,13 +104,13 @@ test.describe('[widget] [functional] The outside-working-hours contact form lets
           await widgetPage.expectChatWindowClosed();
         });
       });
-    },
-  );
+    });
 
-  test(
-    'Submit on the contact form checks the contacts and closes the chat once one is valid',
-    { annotation: { type: 'kiwi case', description: 'https://monitooring.test.buerokratt.ee/case/133/' } },
-    async ({ officeOpeningHoursPage, customerPage, widgetPage }) => {
+    test('Submit on the contact form checks the contacts and closes the chat once one is valid', async ({
+      officeOpeningHoursPage,
+      customerPage,
+      widgetPage,
+    }) => {
       const outsideWorkingHoursMessage = await officeOpeningHoursPage.outsideWorkingHoursMessage();
 
       await officeOpeningHoursPage.whileSettingsAre(OUTSIDE_WORKING_HOURS_WITH_CONTACTS, async () => {
@@ -137,6 +145,6 @@ test.describe('[widget] [functional] The outside-working-hours contact form lets
           await widgetPage.expectChatWindowClosed();
         });
       });
-    },
-  );
-});
+    });
+  },
+);

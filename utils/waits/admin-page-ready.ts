@@ -15,6 +15,18 @@ export async function waitForAppSettled(
     .catch(() => {});
 }
 
+export async function waitForLandingReady(
+  page: Page,
+  { timeout = ACTION_TIMEOUT }: RouteReadyOptions = {},
+): Promise<void> {
+  await waitForAppSettled(page, { timeout });
+
+  await expect(
+    page.getByRole('heading', { name: 'Welcome to Bürokratt', exact: true }),
+    'The landing page never rendered its welcome heading',
+  ).toBeVisible({ timeout });
+}
+
 export async function waitForConversationsReady(
   page: Page,
   { timeout = ACTION_TIMEOUT }: RouteReadyOptions = {},

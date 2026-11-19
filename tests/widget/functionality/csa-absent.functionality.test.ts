@@ -9,11 +9,16 @@ import { URLS } from '@utils/env';
 import { pendingChatCleanup } from '@utils/helpers';
 import { createEmail } from '@utils/test-data';
 
-test.describe('[widget] [functional] The operator-absence prompt lets the customer close or continue the chat', () => {
-  test(
-    'Close on the operator-absence prompt closes the chat window',
-    { annotation: { type: 'kiwi case', description: 'https://monitooring.test.buerokratt.ee/case/131/' } },
-    async ({ officeOpeningHoursPage, header, customerPage, widgetPage }) => {
+test.describe(
+  '[widget] [functional] The operator-absence prompt lets the customer close or continue the chat',
+  { annotation: { type: 'kiwi case', description: 'https://monitooring.test.buerokratt.ee/case/131/' } },
+  () => {
+    test('Close on the operator-absence prompt closes the chat window', async ({
+      officeOpeningHoursPage,
+      header,
+      customerPage,
+      widgetPage,
+    }) => {
       const noCsaAvailableMessage = await officeOpeningHoursPage.noCsaAvailableMessage();
 
       await officeOpeningHoursPage.whileSettingsAre(CSA_ABSENT_WITHOUT_CONTACTS, async () => {
@@ -34,13 +39,14 @@ test.describe('[widget] [functional] The operator-absence prompt lets the custom
           });
         });
       });
-    },
-  );
+    });
 
-  test(
-    'Continue on the operator-absence prompt keeps the chat open',
-    { annotation: { type: 'kiwi case', description: 'https://monitooring.test.buerokratt.ee/case/131/' } },
-    async ({ officeOpeningHoursPage, header, customerPage, widgetPage }) => {
+    test('Continue on the operator-absence prompt keeps the chat open', async ({
+      officeOpeningHoursPage,
+      header,
+      customerPage,
+      widgetPage,
+    }) => {
       const noCsaAvailableMessage = await officeOpeningHoursPage.noCsaAvailableMessage();
 
       await officeOpeningHoursPage.whileSettingsAre(CSA_ABSENT_WITHOUT_CONTACTS, async () => {
@@ -65,23 +71,28 @@ test.describe('[widget] [functional] The operator-absence prompt lets the custom
           });
         });
       });
-    },
-  );
-});
+    });
+  },
+);
 
-test.describe('[widget] [functional] The operator-absence contact form lets the customer skip it or leave valid contacts', () => {
-  let pendingChatId: string | undefined;
+test.describe(
+  '[widget] [functional] The operator-absence contact form lets the customer skip it or leave valid contacts',
+  { annotation: { type: 'kiwi case', description: 'https://monitooring.test.buerokratt.ee/case/127/' } },
+  () => {
+    let pendingChatId: string | undefined;
 
-  test.beforeEach(() => {
-    pendingChatId = undefined;
-  });
+    test.beforeEach(() => {
+      pendingChatId = undefined;
+    });
 
-  test.afterEach(pendingChatCleanup(() => pendingChatId));
+    test.afterEach(pendingChatCleanup(() => pendingChatId));
 
-  test(
-    'Skip on the operator-absence contact form closes the chat window',
-    { annotation: { type: 'kiwi case', description: 'https://monitooring.test.buerokratt.ee/case/127/' } },
-    async ({ officeOpeningHoursPage, header, customerPage, widgetPage }) => {
+    test('Skip on the operator-absence contact form closes the chat window', async ({
+      officeOpeningHoursPage,
+      header,
+      customerPage,
+      widgetPage,
+    }) => {
       const noCsaAvailableMessage = await officeOpeningHoursPage.noCsaAvailableMessage();
 
       await officeOpeningHoursPage.whileSettingsAre(CSA_ABSENT_WITH_CONTACTS, async () => {
@@ -102,13 +113,14 @@ test.describe('[widget] [functional] The operator-absence contact form lets the 
           });
         });
       });
-    },
-  );
+    });
 
-  test(
-    'Submit on the operator-absence contact form checks the contacts and closes the chat once one is valid',
-    { annotation: { type: 'kiwi case', description: 'https://monitooring.test.buerokratt.ee/case/127/' } },
-    async ({ officeOpeningHoursPage, header, customerPage, widgetPage }) => {
+    test('Submit on the operator-absence contact form checks the contacts and closes the chat once one is valid', async ({
+      officeOpeningHoursPage,
+      header,
+      customerPage,
+      widgetPage,
+    }) => {
       const noCsaAvailableMessage = await officeOpeningHoursPage.noCsaAvailableMessage();
 
       await officeOpeningHoursPage.whileSettingsAre(CSA_ABSENT_WITH_CONTACTS, async () => {
@@ -145,6 +157,6 @@ test.describe('[widget] [functional] The operator-absence contact form lets the 
           });
         });
       });
-    },
-  );
-});
+    });
+  },
+);

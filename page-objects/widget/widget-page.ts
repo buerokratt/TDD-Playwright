@@ -1,7 +1,12 @@
 import { Locator, Page, expect, test } from '@playwright/test';
 
 import {
+  ASK_FOR_OPERATOR_MESSAGE,
   BOT_CANNOT_ANSWER_TIMEOUT,
+  FORWARD_TO_BACKOFFICE_PATH,
+  INVALID_EMAIL_MESSAGE,
+  INVALID_PHONE_MESSAGE,
+  REQUIRED_CONTACTS_MESSAGE,
   WIDGET_IDLE_TIMEOUT,
   WIDGET_MESSAGE_BOX_TIMEOUT,
   WIDGET_REDRAW_TIMEOUT,
@@ -9,11 +14,6 @@ import {
 } from '@utils/constants';
 import { ContactFormValues } from '@utils/interfaces';
 import { isEventuallyVisible } from '@utils/waits';
-
-const ASK_FOR_OPERATOR = 'I want to talk to a human';
-const CONTACTS_REQUIRED = 'Please fill in at least one field';
-const EMAIL_REJECTED = 'Please make sure the email address is correct';
-const PHONE_REJECTED = 'Please make sure the phone number is correct';
 
 const asRendered = (notice: string): string => notice.replace(/\[([^\]]+)]\([^)]+\)/g, '$1');
 
@@ -40,6 +40,7 @@ export class WidgetPage {
   private readonly buttonClosePrompt: Locator;
   private readonly buttonContinuePrompt: Locator;
   private readonly noteContinueConversation: Locator;
+  private readonly noteForwardedToBackOffice: Locator;
 
   private readonly inputContactEmail: Locator;
   private readonly inputContactPhone: Locator;
@@ -70,6 +71,7 @@ export class WidgetPage {
     this.buttonClosePrompt = this.page.locator('form').getByRole('button', { name: 'Close', exact: true });
     this.buttonContinuePrompt = this.page.locator('form').getByRole('button', { name: 'Continue', exact: true });
     this.noteContinueConversation = this.page.getByText('Continue conversation with bürokratt', { exact: true });
+    this.noteForwardedToBackOffice = this.page.getByText('Conversation forwarded to back office', { exact: true });
 
     this.inputContactEmail = this.page.getByPlaceholder('email@gmail.com');
     this.inputContactPhone = this.page.getByPlaceholder('+372 123 456');
@@ -88,19 +90,11 @@ export class WidgetPage {
     });
   }
 
-  /**
-   * The notice the bot answers with when no operator is available is a free-text field of the
-   * back office's, so it carries whatever wording and language an administrator last typed.
-   * The caller reads it from there and passes it in rather than this page assuming a phrase.
-   */
   async forwardChatToCsa(noCsaAvailableMessage: string): Promise<void> {
     await this.requestCsa();
 
     const offeredRouting = await isEventuallyVisible(this.buttonConfirmForwarding, WIDGET_REPLY_TIMEOUT);
 
-    // Whether the bot offers an operator at all depends on its current configuration, and
-    // a bare timeout on the button says nothing about which of the known refusals happened:
-    // the operator being away, or the bot answering with contact details instead of routing.
     expect(
       offeredRouting,
       `The bot never offered to route the chat. Its last reply: "${await this.lastReply(noCsaAvailableMessage)}"`,
@@ -111,7 +105,7 @@ export class WidgetPage {
 
   async confirmForwarding(): Promise<void> {
     const forwarded = this.page.waitForResponse(
-      (response) => response.url().includes('forwards/forward-to-backoffice') && response.request().method() === 'POST',
+      (response) => response.url().includes(FORWARD_TO_BACKOFFICE_PATH) && response.request().method() === 'POST',
       { timeout: WIDGET_REPLY_TIMEOUT },
     );
 
@@ -136,8 +130,6 @@ export class WidgetPage {
   }
 
   async expectNoOperatorOffered(botCannotAnswerMessage: string): Promise<void> {
-    await this.requestCsa();
-
     const showedNotice = await isEventuallyVisible(
       this.page.getByText(asRendered(botCannotAnswerMessage), { exact: false }),
       WIDGET_REPLY_TIMEOUT,
@@ -155,7 +147,7 @@ export class WidgetPage {
   }
 
   async requestCsa(): Promise<void> {
-    await this.inputMessage.fill(ASK_FOR_OPERATOR);
+    await this.inputMessage.fill(ASK_FOR_OPERATOR_MESSAGE);
     await this.buttonSendMessage.click();
   }
 
@@ -214,6 +206,13 @@ export class WidgetPage {
     });
   }
 
+  async expectForwardedToBackOfficeNoteShown(): Promise<void> {
+    await expect(
+      this.noteForwardedToBackOffice,
+      'The widget never told the customer the chat went to the back office',
+    ).toBeVisible({ timeout: WIDGET_REPLY_TIMEOUT });
+  }
+
   async expectContinueConversationNoteShown(): Promise<void> {
     await expect(
       this.noteContinueConversation,
@@ -244,15 +243,15 @@ export class WidgetPage {
   }
 
   async expectContactsRequired(): Promise<void> {
-    await this.expectContactFormRejected(CONTACTS_REQUIRED);
+    await this.expectContactFormRejected(REQUIRED_CONTACTS_MESSAGE);
   }
 
   async expectEmailRejected(): Promise<void> {
-    await this.expectContactFormRejected(EMAIL_REJECTED);
+    await this.expectContactFormRejected(INVALID_EMAIL_MESSAGE);
   }
 
   async expectPhoneRejected(): Promise<void> {
-    await this.expectContactFormRejected(PHONE_REJECTED);
+    await this.expectContactFormRejected(INVALID_PHONE_MESSAGE);
   }
 
   private noticePrompt(notice: string): Locator {

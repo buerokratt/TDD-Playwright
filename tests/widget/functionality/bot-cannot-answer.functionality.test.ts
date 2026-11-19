@@ -3,11 +3,15 @@ import { CSA_UNAVAILABLE } from '@utils/constants';
 import { URLS } from '@utils/env';
 import { pendingChatCleanup } from '@utils/helpers';
 
-test.describe('[widget] [functional] The bot-cannot-answer prompt lets the customer close or continue the chat', () => {
-  test(
-    'Close on the bot-cannot-answer prompt closes the chat window',
-    { annotation: { type: 'kiwi case', description: 'https://monitooring.test.buerokratt.ee/case/125/' } },
-    async ({ officeOpeningHoursPage, customerPage, widgetPage }) => {
+test.describe(
+  '[widget] [functional] The bot-cannot-answer prompt lets the customer close or continue the chat',
+  { annotation: { type: 'kiwi case', description: 'https://monitooring.test.buerokratt.ee/case/125/' } },
+  () => {
+    test('Close on the bot-cannot-answer prompt closes the chat window', async ({
+      officeOpeningHoursPage,
+      customerPage,
+      widgetPage,
+    }) => {
       const botCannotAnswerMessage = await officeOpeningHoursPage.botCannotAnswerMessage();
 
       await officeOpeningHoursPage.whileSettingsAre(CSA_UNAVAILABLE, async () => {
@@ -26,13 +30,13 @@ test.describe('[widget] [functional] The bot-cannot-answer prompt lets the custo
           await widgetPage.expectChatWindowClosed();
         });
       });
-    },
-  );
+    });
 
-  test(
-    'Continue on the bot-cannot-answer prompt keeps the chat open',
-    { annotation: { type: 'kiwi case', description: 'https://monitooring.test.buerokratt.ee/case/125/' } },
-    async ({ officeOpeningHoursPage, customerPage, widgetPage }) => {
+    test('Continue on the bot-cannot-answer prompt keeps the chat open', async ({
+      officeOpeningHoursPage,
+      customerPage,
+      widgetPage,
+    }) => {
       const botCannotAnswerMessage = await officeOpeningHoursPage.botCannotAnswerMessage();
 
       await officeOpeningHoursPage.whileSettingsAre(CSA_UNAVAILABLE, async () => {
@@ -55,23 +59,28 @@ test.describe('[widget] [functional] The bot-cannot-answer prompt lets the custo
           await widgetPage.expectContinueConversationNoteShown();
         });
       });
-    },
-  );
-});
+    });
+  },
+);
 
-test.describe('[widget] [functional] The forwarding prompt offers an operator while customer service is used', () => {
-  let pendingChatId: string | undefined;
+test.describe(
+  '[widget] [functional] The forwarding prompt offers an operator while customer service is used',
+  { annotation: { type: 'kiwi case', description: 'https://monitooring.test.buerokratt.ee/case/129/' } },
+  () => {
+    let pendingChatId: string | undefined;
 
-  test.beforeEach(() => {
-    pendingChatId = undefined;
-  });
+    test.beforeEach(() => {
+      pendingChatId = undefined;
+    });
 
-  test.afterEach(pendingChatCleanup(() => pendingChatId));
+    test.afterEach(pendingChatCleanup(() => pendingChatId));
 
-  test(
-    'Yes on the forwarding prompt hands the chat over to an operator',
-    { annotation: { type: 'kiwi case', description: 'https://monitooring.test.buerokratt.ee/case/129/' } },
-    async ({ officeOpeningHoursPage, header, customerPage, widgetPage }) => {
+    test('Yes on the forwarding prompt hands the chat over to an operator', async ({
+      officeOpeningHoursPage,
+      header,
+      customerPage,
+      widgetPage,
+    }) => {
       const redirectMessage = await officeOpeningHoursPage.redirectIfBotCannotAnswerMessage();
 
       await test.step('The operator is present before the customer writes', async () => {
@@ -92,13 +101,18 @@ test.describe('[widget] [functional] The forwarding prompt offers an operator wh
         pendingChatId = await widgetPage.chatId();
         await widgetPage.confirmForwarding();
       });
-    },
-  );
 
-  test(
-    'No on the forwarding prompt keeps the chat with the bot',
-    { annotation: { type: 'kiwi case', description: 'https://monitooring.test.buerokratt.ee/case/129/' } },
-    async ({ officeOpeningHoursPage, header, customerPage, widgetPage }) => {
+      await test.step('The chat notes that the conversation went to the back office', async () => {
+        await widgetPage.expectForwardedToBackOfficeNoteShown();
+      });
+    });
+
+    test('No on the forwarding prompt keeps the chat with the bot', async ({
+      officeOpeningHoursPage,
+      header,
+      customerPage,
+      widgetPage,
+    }) => {
       const redirectMessage = await officeOpeningHoursPage.redirectIfBotCannotAnswerMessage();
 
       await test.step('The operator is present before the customer writes', async () => {
@@ -123,6 +137,6 @@ test.describe('[widget] [functional] The forwarding prompt offers an operator wh
       await test.step('The chat notes that the conversation goes on with the bot', async () => {
         await widgetPage.expectContinueConversationNoteShown();
       });
-    },
-  );
-});
+    });
+  },
+);

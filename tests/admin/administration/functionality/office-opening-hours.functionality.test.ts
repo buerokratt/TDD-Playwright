@@ -2,11 +2,11 @@ import { expect, test } from '@setup/test-setup';
 import { WorkingTimeFormSettings } from '@utils/interfaces';
 import { createWorkingTimeMessage } from '@utils/test-data';
 
-test.describe('[administration] [functional] Office opening hours settings are saved for the selected domain', () => {
-  test(
-    'The saved settings are confirmed and read back after a reload',
-    { annotation: { type: 'kiwi case', description: 'https://monitooring.test.buerokratt.ee/case/126/' } },
-    async ({ officeOpeningHoursPage }) => {
+test.describe(
+  '[administration] [functional] Office opening hours settings are saved for the selected domain',
+  { annotation: { type: 'kiwi case', description: 'https://monitooring.test.buerokratt.ee/case/126/' } },
+  () => {
+    test('The saved settings are confirmed and read back after a reload', async ({ officeOpeningHoursPage }) => {
       await officeOpeningHoursPage.open();
 
       const [domain] = await officeOpeningHoursPage.domainNamesBesidesSuiteWidget();
@@ -40,15 +40,9 @@ test.describe('[administration] [functional] Office opening hours settings are s
           await officeOpeningHoursPage.assertSettingsStored(updatedSettings);
         });
       });
-    },
-  );
+    });
 
-  test(
-    'Saving without a change keeps the stored settings',
-    {
-      annotation: { type: 'NO KIWI TEST CASE', description: 'Extension of the office opening hours saving coverage.' },
-    },
-    async ({ officeOpeningHoursPage }) => {
+    test('Saving without a change keeps the stored settings', async ({ officeOpeningHoursPage }) => {
       await officeOpeningHoursPage.open();
 
       const [domain] = await officeOpeningHoursPage.domainNamesBesidesSuiteWidget();
@@ -77,15 +71,17 @@ test.describe('[administration] [functional] Office opening hours settings are s
           await officeOpeningHoursPage.assertSettingsStored(settingsBefore);
         });
       });
-    },
-  );
-});
+    });
+  },
+);
 
-test.describe('[administration] [functional] Office opening hours settings are copied from one domain to another', () => {
-  test(
-    'The target domain is confirmed and comes back holding the settings of the source',
-    { annotation: { type: 'kiwi case', description: 'https://monitooring.test.buerokratt.ee/case/128/' } },
-    async ({ officeOpeningHoursPage }) => {
+test.describe(
+  '[administration] [functional] Office opening hours settings are copied from one domain to another',
+  { annotation: { type: 'kiwi case', description: 'https://monitooring.test.buerokratt.ee/case/128/' } },
+  () => {
+    test('The target domain is confirmed and comes back holding the settings of the source', async ({
+      officeOpeningHoursPage,
+    }) => {
       await officeOpeningHoursPage.open();
 
       const domains = await officeOpeningHoursPage.domainNamesBesidesSuiteWidget();
@@ -116,11 +112,11 @@ test.describe('[administration] [functional] Office opening hours settings are c
           await officeOpeningHoursPage.assertSaveWasConfirmed();
         });
 
-        await test.step('The target domain comes back with the opening hours of the source', async () => {
+        await test.step('The target domain comes back with the settings of the source', async () => {
           await officeOpeningHoursPage.selectDomain(target);
           await officeOpeningHoursPage.assertSettingsStored(settings);
         });
       });
-    },
-  );
-});
+    });
+  },
+);

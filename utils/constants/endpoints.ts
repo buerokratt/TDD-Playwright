@@ -29,6 +29,10 @@ export const CHAT_END_URL = `${BACKOFFICE_V2_BASE}/chats/end`;
 
 export const CHAT_MEASUREMENTS_PATH = 'chats/quality/measurements';
 
+// FORWARDS
+
+export const FORWARD_TO_BACKOFFICE_PATH = 'forwards/forward-to-backoffice';
+
 // AUTH
 
 export const USER_INFO_URL = `${BACKOFFICE_V2_BASE}/auth/jwt/userinfo`;

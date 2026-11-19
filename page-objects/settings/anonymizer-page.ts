@@ -448,11 +448,15 @@ export class AnonymizerPage {
     );
   }
 
-  private settingsLoaded({ timeout = ACTION_TIMEOUT }: RouteReadyOptions = {}): Promise<Response> {
-    return this.page.waitForResponse(
+  private async settingsLoaded({ timeout = ACTION_TIMEOUT }: RouteReadyOptions = {}): Promise<Response> {
+    const response = await this.page.waitForResponse(
       (response) => response.url().includes(ANONYMIZER_CONFIG_PATH) && response.request().method() === 'GET',
       { timeout },
     );
+
+    expect(response.ok(), `The anonymizer settings never loaded (${response.status()})`).toBeTruthy();
+
+    return response;
   }
 
   private approachText(): Locator {

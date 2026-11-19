@@ -73,6 +73,7 @@ test('[e2e] [chats] The widget offers no operator while the CSA is unavailable',
   await officeOpeningHoursPage.whileSettingsAre(CSA_UNAVAILABLE, async () => {
     await customerPage.goto(URLS.customer);
     await widgetPage.openChat();
+    await widgetPage.requestCsa();
     await widgetPage.expectNoOperatorOffered(botCannotAnswer);
   });
 });

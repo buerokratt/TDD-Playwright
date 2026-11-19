@@ -250,11 +250,15 @@ export class ChatAnalysisPage {
     ).toHaveText('You can change the order of the labels by dragging them.');
   }
 
-  private settingsLoaded({ timeout = ACTION_TIMEOUT }: RouteReadyOptions = {}): Promise<Response> {
-    return this.page.waitForResponse(
+  private async settingsLoaded({ timeout = ACTION_TIMEOUT }: RouteReadyOptions = {}): Promise<Response> {
+    const response = await this.page.waitForResponse(
       (response) => response.url().includes('configs/chat-analysis') && response.request().method() === 'GET',
       { timeout },
     );
+
+    expect(response.ok(), `The chat analysis settings never loaded (${response.status()})`).toBeTruthy();
+
+    return response;
   }
 
   private async listedLabels(title: string): Promise<string[]> {

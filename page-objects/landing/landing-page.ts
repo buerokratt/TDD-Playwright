@@ -1,7 +1,8 @@
 import { Page } from '@playwright/test';
 
 import { URLS } from '@utils/env';
-import { waitForAppSettled } from '@utils/waits';
+import { RouteReadyOptions } from '@utils/interfaces';
+import { waitForLandingReady } from '@utils/waits';
 
 export class LandingPage {
   private readonly page: Page;
@@ -12,6 +13,10 @@ export class LandingPage {
 
   async open(): Promise<void> {
     await this.page.goto(URLS.admin + 'chat/landing');
-    await waitForAppSettled(this.page);
+    await this.waitForReady();
+  }
+
+  async waitForReady(options: RouteReadyOptions = {}): Promise<void> {
+    await waitForLandingReady(this.page, options);
   }
 }

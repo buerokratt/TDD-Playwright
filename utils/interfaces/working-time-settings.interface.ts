@@ -7,9 +7,9 @@ export interface WorkingTimeSettings {
   readonly organizationAllWeekdaysTimeStartISO: string;
   readonly organizationAllWeekdaysTimeEndISO: string;
   readonly organizationOutsideWorkingHoursAskForContacts: 'true' | 'false';
+  readonly organizationOutsideWorkingHoursMessage: string;
   readonly organizationNoCsaAskForContacts: 'true' | 'false';
   readonly organizationNoCsaAvailableMessage: string;
-  readonly organizationBotCannotAnswerMessage: string;
   readonly organizationRedirectIfBotCannotAnswerMessage: string;
-  readonly organizationOutsideWorkingHoursMessage: string;
+  readonly organizationBotCannotAnswerMessage: string;
 }

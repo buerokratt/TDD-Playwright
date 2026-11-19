@@ -26,5 +26,6 @@ export * from './service-data.interface';
 export * from './session-length-settings.interface';
 export * from './widget-data.interface';
 export * from './widget-domain.interface';
+export * from './working-time-domain-snapshot.interface';
 export * from './working-time-form-settings.interface';
 export * from './working-time-settings.interface';
