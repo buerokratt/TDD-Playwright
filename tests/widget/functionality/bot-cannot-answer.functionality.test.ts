@@ -50,6 +50,10 @@ test.describe('[widget] [functional] The bot-cannot-answer prompt lets the custo
           await widgetPage.continuePrompt();
           await widgetPage.expectChatContinuesAfterPrompt(botCannotAnswerMessage);
         });
+
+        await test.step('The chat notes that the conversation goes on with the bot', async () => {
+          await widgetPage.expectContinueConversationNoteShown();
+        });
       });
     },
   );
