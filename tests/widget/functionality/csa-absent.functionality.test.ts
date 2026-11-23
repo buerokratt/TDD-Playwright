@@ -6,7 +6,6 @@ import {
   MALFORMED_CONTACT_PHONE,
 } from '@utils/constants';
 import { URLS } from '@utils/env';
-import { pendingChatCleanup } from '@utils/helpers';
 import { createEmail } from '@utils/test-data';
 
 test.describe(
@@ -85,7 +84,11 @@ test.describe(
       pendingChatId = undefined;
     });
 
-    test.afterEach(pendingChatCleanup(() => pendingChatId));
+    test.afterEach(async ({ pendingChatsPage }) => {
+      if (pendingChatId) {
+        await pendingChatsPage.closeAsUserNotReached(pendingChatId);
+      }
+    });
 
     test('Skip on the operator-absence contact form closes the chat window', async ({
       officeOpeningHoursPage,

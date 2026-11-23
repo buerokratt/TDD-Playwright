@@ -1,7 +1,6 @@
 import { test } from '@setup/test-setup';
 import { CSA_UNAVAILABLE } from '@utils/constants';
 import { URLS } from '@utils/env';
-import { pendingChatCleanup } from '@utils/helpers';
 
 test.describe(
   '[widget] [functional] The bot-cannot-answer prompt lets the customer close or continue the chat',
@@ -67,14 +66,6 @@ test.describe(
   '[widget] [functional] The forwarding prompt offers an operator while customer service is used',
   { annotation: { type: 'kiwi case', description: 'https://monitooring.test.buerokratt.ee/case/129/' } },
   () => {
-    let pendingChatId: string | undefined;
-
-    test.beforeEach(() => {
-      pendingChatId = undefined;
-    });
-
-    test.afterEach(pendingChatCleanup(() => pendingChatId));
-
     test('Yes on the forwarding prompt hands the chat over to an operator', async ({
       officeOpeningHoursPage,
       header,
@@ -98,7 +89,6 @@ test.describe(
       });
 
       await test.step('Yes hands the chat over to the back office', async () => {
-        pendingChatId = await widgetPage.chatId();
         await widgetPage.confirmForwarding();
       });
 

@@ -3,7 +3,6 @@ export * from './conversation-analysis-test-helpers';
 export * from './delete-conversations-test-helpers';
 export * from './locale';
 export * from './multi-domains-test-helpers';
-export * from './pending-chat-test-helpers';
 export * from './service-test-helpers';
 export * from './session-length-test-helpers';
 export * from './smoke-helpers';

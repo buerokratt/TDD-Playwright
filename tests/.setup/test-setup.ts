@@ -1,6 +1,6 @@
 import { test as base, expect } from '@playwright/test';
 
-import { ActiveChatsPage, HistoryPage, UnansweredChatsPage } from '@page-objects/chats';
+import { ActiveChatsPage, HistoryPage, PendingChatsPage, UnansweredChatsPage } from '@page-objects/chats';
 import { Header, SideMenu } from '@page-objects/menu';
 import { NewServicePage, ServicesOverviewPage } from '@page-objects/services';
 import {
@@ -36,6 +36,7 @@ export const test = base.extend<AdminFixtures & CustomerFixtures>({
   sideMenu: async ({ page }, use) => use(new SideMenu(page)),
   unansweredChatsPage: async ({ page }, use) => use(new UnansweredChatsPage(page)),
   activeChatsPage: async ({ page }, use) => use(new ActiveChatsPage(page)),
+  pendingChatsPage: async ({ page }, use) => use(new PendingChatsPage(page)),
   historyPage: async ({ page }, use) => use(new HistoryPage(page)),
   servicesOverviewPage: async ({ page }, use) => use(new ServicesOverviewPage(page)),
   newServicePage: async ({ page }, use) => use(new NewServicePage(page)),

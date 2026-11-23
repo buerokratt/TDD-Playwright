@@ -57,9 +57,6 @@ test.describe(
         const settingsBefore = await officeOpeningHoursPage.readSettings();
 
         await test.step('Saving the untouched page reports the change went through', async () => {
-          await officeOpeningHoursPage.open();
-          await officeOpeningHoursPage.selectDomain(domain);
-
           await officeOpeningHoursPage.saveSettings();
           await officeOpeningHoursPage.assertSaveWasConfirmed();
         });
@@ -92,9 +89,11 @@ test.describe(
 
       const [source, target] = domains;
 
-      await officeOpeningHoursPage.selectDomain(source);
-
       await officeOpeningHoursPage.withSettingsRestoredForDomains([source, target], async () => {
+        await officeOpeningHoursPage.selectDomain(target);
+        const targetSettingsBefore = await officeOpeningHoursPage.readSettings();
+
+        await officeOpeningHoursPage.selectDomain(source);
         const settingsBefore = await officeOpeningHoursPage.readSettings();
         const settings: WorkingTimeFormSettings = {
           workingAllTime: !settingsBefore.workingAllTime,
@@ -105,6 +104,11 @@ test.describe(
           await officeOpeningHoursPage.applySettings(settings);
           await officeOpeningHoursPage.saveSettings();
           await officeOpeningHoursPage.assertSaveWasConfirmed();
+
+          expect(
+            targetSettingsBefore,
+            `"${target}" already holds the settings that are about to be copied onto it`,
+          ).not.toEqual(settings);
         });
 
         await test.step(`Copying them onto "${target}" reports the settings went through`, async () => {

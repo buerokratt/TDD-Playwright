@@ -167,6 +167,7 @@ export async function waitForMultiDomainsReady(
 }
 
 const ROUTE_READY: { test: (url: string) => boolean; wait: typeof waitForAppSettled }[] = [
+  { test: (url) => url.includes('chat/landing'), wait: waitForLandingReady },
   {
     test: (url) => /\/chat\/(?:unanswered|active|pending)(?:\/|$)/i.test(url),
     wait: waitForConversationsReady,

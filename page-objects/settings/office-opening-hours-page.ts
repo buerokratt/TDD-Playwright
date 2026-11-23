@@ -7,6 +7,7 @@ import {
   CSA_AVAILABLE_ALL_TIME,
   MON_FRI,
   MON_SUN,
+  ORGANIZATION_WORKING_TIME_TRANSFER_PATH,
   ORGANIZATION_WORKING_TIME_URL,
   WIDGET_DATA_URL,
 } from '@utils/constants';
@@ -69,7 +70,7 @@ export class OfficeOpeningHoursPage {
     this.buttonCopyToDomain = this.page.locator('main').getByRole('button', { name: 'Copy to domain' });
     this.copyToDomain = new CopyToDomainModal(this.page, {
       button: this.buttonCopyToDomain,
-      transferPath: 'configs/transfer/organization-working-time',
+      transferPath: ORGANIZATION_WORKING_TIME_TRANSFER_PATH,
     });
 
     this.switchUseCustomerService = this.page.getByRole('switch', { name: 'Use customer service', exact: true });
@@ -243,12 +244,16 @@ export class OfficeOpeningHoursPage {
   }
 
   async readSettings(): Promise<WorkingTimeFormSettings> {
-    await this.setSwitch(this.switchUseCustomerService, true);
+    const useCustomerService = await this.isSwitchOn(this.switchUseCustomerService);
 
-    return {
+    await this.setSwitch(this.switchUseCustomerService, true);
+    const settings = {
       workingAllTime: await this.isSwitchOn(this.switchWorkingAllTime),
       noCsaAvailableMessage: await this.textareaAbsenceOfCsaMessage.inputValue(),
     };
+    await this.setSwitch(this.switchUseCustomerService, useCustomerService);
+
+    return settings;
   }
 
   async applySettings(settings: WorkingTimeFormSettings): Promise<void> {
