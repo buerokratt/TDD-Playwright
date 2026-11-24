@@ -1,6 +1,6 @@
 import { NewUserData } from '@utils/interfaces';
 
-import { uniqueSuffix } from './shared-data';
+import { createEmail, uniqueSuffix } from './shared-data';
 
 export function createUserData(prefix = 'autotestuser'): NewUserData {
   const name = `${prefix}${uniqueSuffix()}`;
@@ -10,7 +10,7 @@ export function createUserData(prefix = 'autotestuser'): NewUserData {
     personalCode: Date.now().toString().slice(-11),
     roles: ['Customer support'],
     displayName: name,
-    email: `${name}@test.test`,
+    email: createEmail(prefix),
   };
 }
 
@@ -21,6 +21,6 @@ export function createUpdatedUserData(user: NewUserData): NewUserData {
     ...user,
     name,
     displayName: name,
-    email: `${name}@test.test`,
+    email: createEmail(name),
   };
 }

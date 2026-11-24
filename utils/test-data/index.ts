@@ -7,3 +7,4 @@ export * from './office-opening-hours-data';
 export * from './service-data';
 export * from './session-length-data';
 export * from './shared-data';
+export * from './user-data';
