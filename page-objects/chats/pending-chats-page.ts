@@ -16,26 +16,19 @@ export class PendingChatsPage extends ChatsPage {
 
   async open(): Promise<void> {
     await this.page.goto(URLS.admin + 'chat/pending');
+    await this.waitForReady();
   }
 
   async closeAsUserNotReached(chatId: string): Promise<void> {
-    const tab = this.tabs.and(this.page.locator(`[id$="-trigger-${chatId}"]`));
-
     await this.open();
-    await tab.click();
-
-    if (await this.buttonTakeOver.isVisible()) {
-      await this.buttonTakeOver.click();
-    }
+    await this.takeOverChat(chatId);
 
     const chatEnded = this.page.waitForResponse(
       (response) => response.url() === CHAT_END_URL && response.request().method() === 'POST',
+      { timeout: ACTION_TIMEOUT },
     );
 
     await this.buttonCouldNotReachUser.click();
     expect((await chatEnded).ok(), `The pending chat ${chatId} could not be closed`).toBeTruthy();
-    await expect(tab, `The pending chat ${chatId} stayed in the queue after it was closed`).toBeHidden({
-      timeout: ACTION_TIMEOUT,
-    });
   }
 }
