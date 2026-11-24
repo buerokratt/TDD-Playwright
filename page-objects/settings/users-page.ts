@@ -6,6 +6,7 @@ import {
   ADD_USER_PROFILE_FIELDS,
   ADD_USER_REQUIRED_FIELDS,
   PAGE_PREFERENCE_PATH,
+  REQUIRED_USER_FIELD_MESSAGE,
   USERS_TABLE_COLUMNS,
   USERS_TABLE_FILTERABLE_COLUMNS,
   USER_ROLES,
@@ -358,7 +359,7 @@ export class UsersPage {
 
   async assertRequiredFieldsFlagged(labels: readonly string[] = ADD_USER_REQUIRED_FIELDS): Promise<void> {
     for (const label of labels) {
-      await this.assertFieldRejected(label, 'Required');
+      await this.assertFieldRejected(label, REQUIRED_USER_FIELD_MESSAGE);
     }
   }
 

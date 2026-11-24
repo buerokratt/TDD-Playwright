@@ -1,5 +1,5 @@
 import { test } from '@setup/test-setup';
-import { ADMIN_PERSONAL_CODE } from '@utils/constants';
+import { ADMIN_PERSONAL_CODE, INVALID_USER_EMAIL_MESSAGE, INVALID_USER_ID_CODE_MESSAGE } from '@utils/constants';
 import { userCleanup } from '@utils/helpers';
 import { createUpdatedUserData, createUserData } from '@utils/test-data';
 
@@ -70,7 +70,7 @@ test.describe(
         await usersPage.fillAddUser(rejectedUser);
         await usersPage.fillIdCode(rejectedUser.personalCode);
         await usersPage.confirmAddUser();
-        await usersPage.assertFieldRejected('ID code', 'Invalid Id Code');
+        await usersPage.assertFieldRejected('ID code', INVALID_USER_ID_CODE_MESSAGE);
         await usersPage.assertAddUserDialogIsShown();
       });
 
@@ -85,7 +85,7 @@ test.describe(
         await usersPage.fillIdCode(`EE${rejectedUser.personalCode}`);
         await usersPage.fillEmail('not-an-email');
         await usersPage.confirmAddUser();
-        await usersPage.assertFieldRejected('E-mail', 'Invalid email');
+        await usersPage.assertFieldRejected('E-mail', INVALID_USER_EMAIL_MESSAGE);
         await usersPage.assertAddUserDialogIsShown();
       });
 
@@ -177,7 +177,7 @@ test.describe(
         await usersPage.selectEditUserRoles(rejectedEditUser.roles);
         await usersPage.fillEmail('not-an-email');
         await usersPage.confirmEditUser();
-        await usersPage.assertFieldRejected('E-mail', 'Invalid email');
+        await usersPage.assertFieldRejected('E-mail', INVALID_USER_EMAIL_MESSAGE);
         await usersPage.assertEditUserDialogIsShown();
       });
 
