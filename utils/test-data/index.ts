@@ -3,6 +3,7 @@ export * from './chat-analysis-data';
 export * from './chat-data';
 export * from './delete-conversations-data';
 export * from './domain-data';
+export * from './office-opening-hours-data';
 export * from './service-data';
 export * from './session-length-data';
-export * from './user-data';
+export * from './shared-data';

@@ -15,6 +15,18 @@ export async function waitForAppSettled(
     .catch(() => {});
 }
 
+export async function waitForLandingReady(
+  page: Page,
+  { timeout = ACTION_TIMEOUT }: RouteReadyOptions = {},
+): Promise<void> {
+  await waitForAppSettled(page, { timeout });
+
+  await expect(
+    page.getByRole('heading', { name: 'Welcome to Bürokratt', exact: true }),
+    'The landing page never rendered its welcome heading',
+  ).toBeVisible({ timeout });
+}
+
 export async function waitForConversationsReady(
   page: Page,
   { timeout = ACTION_TIMEOUT }: RouteReadyOptions = {},
@@ -106,6 +118,18 @@ export async function waitForChatAnalysisReady(
   ).toBeVisible({ timeout });
 }
 
+export async function waitForOfficeOpeningHoursReady(
+  page: Page,
+  { timeout = ACTION_TIMEOUT }: RouteReadyOptions = {},
+): Promise<void> {
+  await waitForAppSettled(page, { timeout });
+
+  await expect(
+    page.getByRole('heading', { name: 'Organization working time', exact: true }),
+    'Office opening hours never rendered its heading',
+  ).toBeVisible({ timeout });
+}
+
 export async function waitForSessionLengthReady(
   page: Page,
   { timeout = ACTION_TIMEOUT }: RouteReadyOptions = {},
@@ -160,6 +184,7 @@ export async function waitForMultiDomainsReady(
 }
 
 const ROUTE_READY: { test: (url: string) => boolean; wait: typeof waitForAppSettled }[] = [
+  { test: (url) => url.includes('chat/landing'), wait: waitForLandingReady },
   {
     test: (url) => /\/chat\/(?:unanswered|active|pending)(?:\/|$)/i.test(url),
     wait: waitForConversationsReady,
@@ -169,6 +194,7 @@ const ROUTE_READY: { test: (url: string) => boolean; wait: typeof waitForAppSett
   { test: (url) => url.includes('services/newService'), wait: waitForNewServiceReady },
   { test: (url) => url.includes('chat/users'), wait: waitForUsersReady },
   { test: (url) => url.includes('chat/chat-analysis'), wait: waitForChatAnalysisReady },
+  { test: (url) => url.includes('chat/working-time'), wait: waitForOfficeOpeningHoursReady },
   { test: (url) => url.includes('chat/session-length'), wait: waitForSessionLengthReady },
   { test: (url) => url.includes('chat/delete-conversations'), wait: waitForDeleteConversationsReady },
   { test: (url) => url.includes('chat/anonymizer'), wait: waitForAnonymizerReady },

@@ -2,13 +2,13 @@ import { test } from '@setup/test-setup';
 import { URLS } from '@utils/env';
 import { readCustomerWidgetName } from '@utils/helpers';
 import { AnonymizerSettings } from '@utils/interfaces';
-import { createAnonymizerEmail } from '@utils/test-data';
+import { createEmail } from '@utils/test-data';
 
 test(
   '[e2e] [chats] Anonymous recording anonymizes customer messages in the chat log',
   { annotation: { type: 'kiwi case', description: 'https://monitooring.test.buerokratt.ee/case/177/' } },
   async ({ page, anonymizerPage, historyPage, customerPage, widgetPage }) => {
-    const customerEmail = createAnonymizerEmail('mari.tamm.');
+    const customerEmail = createEmail('mari.tamm.');
     const customerMessage = `Write to me at ${customerEmail}`;
 
     await anonymizerPage.open();

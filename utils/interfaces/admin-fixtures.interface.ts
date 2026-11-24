@@ -1,4 +1,4 @@
-import type { ActiveChatsPage, HistoryPage, UnansweredChatsPage } from '@page-objects/chats';
+import type { ActiveChatsPage, HistoryPage, PendingChatsPage, UnansweredChatsPage } from '@page-objects/chats';
 import type { Header, SideMenu } from '@page-objects/menu';
 import type { NewServicePage, ServicesOverviewPage } from '@page-objects/services';
 import type {
@@ -16,6 +16,7 @@ export interface AdminFixtures {
   readonly sideMenu: SideMenu;
   readonly unansweredChatsPage: UnansweredChatsPage;
   readonly activeChatsPage: ActiveChatsPage;
+  readonly pendingChatsPage: PendingChatsPage;
   readonly historyPage: HistoryPage;
   readonly servicesOverviewPage: ServicesOverviewPage;
   readonly newServicePage: NewServicePage;

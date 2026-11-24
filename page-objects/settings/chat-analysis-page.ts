@@ -1,7 +1,7 @@
 import { Locator, Page, Response, expect } from '@playwright/test';
 
 import { CopyToDomainModal } from '@page-objects/common';
-import { ACTION_TIMEOUT } from '@utils/constants';
+import { ACTION_TIMEOUT, CHAT_ANALYSIS_TRANSFER_PATH } from '@utils/constants';
 import { URLS } from '@utils/env';
 import { ChatAnalysisLabelSection, ChatAnalysisSettings, RouteReadyOptions } from '@utils/interfaces';
 import { waitForChatAnalysisReady } from '@utils/waits';
@@ -36,7 +36,7 @@ export class ChatAnalysisPage {
     this.buttonCopyToDomain = this.page.locator('main').getByRole('button', { name: 'Copy to domain' });
     this.copyToDomain = new CopyToDomainModal(this.page, {
       button: this.buttonCopyToDomain,
-      transferPath: 'configs/transfer/chat-analysis',
+      transferPath: CHAT_ANALYSIS_TRANSFER_PATH,
     });
 
     this.labelChatAnalysisSwitch = this.page.locator('main div.switch label.switch__label').first();
@@ -250,11 +250,15 @@ export class ChatAnalysisPage {
     ).toHaveText('You can change the order of the labels by dragging them.');
   }
 
-  private settingsLoaded({ timeout = ACTION_TIMEOUT }: RouteReadyOptions = {}): Promise<Response> {
-    return this.page.waitForResponse(
+  private async settingsLoaded({ timeout = ACTION_TIMEOUT }: RouteReadyOptions = {}): Promise<Response> {
+    const response = await this.page.waitForResponse(
       (response) => response.url().includes('configs/chat-analysis') && response.request().method() === 'GET',
       { timeout },
     );
+
+    expect(response.ok(), `The chat analysis settings never loaded (${response.status()})`).toBeTruthy();
+
+    return response;
   }
 
   private async listedLabels(title: string): Promise<string[]> {
