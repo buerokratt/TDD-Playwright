@@ -1,7 +1,6 @@
-import { AdminPageFactory } from '@page-objects/admin-page-factory';
 import { test } from '@setup/test-setup';
 import { ADMIN_PERSONAL_CODE, USERS_TABLE_RESULT_COUNTS } from '@utils/constants';
-import { existingDomainNames, usersPageSizeCleanup } from '@utils/helpers';
+import { readWidgetDomains, usersPageSizeCleanup } from '@utils/helpers';
 
 test.describe(
   '[administration] [visibility] The users page shows its users and the controls to manage them',
@@ -11,39 +10,39 @@ test.describe(
 
     test.afterEach(usersPageSizeCleanup(() => pageSizeBeforeRun));
 
-    test('The page lists every user with their controls and pages the list by the result count', async ({ page }) => {
-      const up = new AdminPageFactory(page).getUsersPage();
-
-      await up.open();
+    test('The page lists every user with their controls and pages the list by the result count', async ({
+      usersPage,
+    }) => {
+      await usersPage.open();
 
       await test.step('The page shows its "Users" heading and a way to add a user', async () => {
-        await up.assertHeadingAndAddUserShown();
+        await usersPage.assertHeadingAndAddUserShown();
       });
 
       await test.step('The table lists every column the case names, each with a control to sort by it', async () => {
-        await up.assertTableListsEveryColumnWithSorting();
+        await usersPage.assertTableListsEveryColumnWithSorting();
       });
 
       await test.step('Name, ID code, Role, Display Name, User title, E-mail and Department carry a filter control, and no other column does', async () => {
-        await up.assertFilterOfferedOnlyOnFilterableColumns();
+        await usersPage.assertFilterOfferedOnlyOnFilterableColumns();
       });
 
       await test.step('Every user row offers its status, Edit and Delete', async () => {
-        await up.assertEveryRowOffersStatusEditAndDelete();
+        await usersPage.assertEveryRowOffersStatusEditAndDelete();
       });
 
-      await test.step('Delete is disabled only on the row of the logged-in user', async () => {
-        await up.assertDeleteDisabledOnlyOnOwnRow(ADMIN_PERSONAL_CODE);
+      await test.step('Delete is disabled on the row of the logged-in user and on no other row listed with it', async () => {
+        await usersPage.assertDeleteDisabledOnlyOnOwnRow(ADMIN_PERSONAL_CODE);
       });
 
       await test.step('The result count offers 10, 20, 30, 40 and 50', async () => {
-        await up.assertResultCountOffered();
+        await usersPage.assertResultCountOffered();
       });
 
       await test.step('The list is paged once it overflows the result count', async () => {
-        pageSizeBeforeRun = await up.readPageSize();
-        await up.setPageSize(USERS_TABLE_RESULT_COUNTS[0]);
-        await up.assertPagingOfferedWhenListOverflows();
+        pageSizeBeforeRun = await usersPage.readPageSize();
+        await usersPage.setPageSize(USERS_TABLE_RESULT_COUNTS[0]);
+        await usersPage.assertPagingOfferedWhenListOverflows();
       });
     });
   },
@@ -55,35 +54,35 @@ test.describe(
   () => {
     test('The dialog shows every field with its roles and domains to choose from and both its controls', async ({
       page,
+      usersPage,
     }) => {
-      const up = new AdminPageFactory(page).getUsersPage();
-      const domainNames = await existingDomainNames(page);
+      const domainNames = (await readWidgetDomains(page)).map((domain) => domain.name);
 
-      await up.open();
+      await usersPage.open();
 
       await test.step('The "Add user" dialog opens over the users page', async () => {
-        await up.openAddUser();
-        await up.assertAddUserDialogIsShown();
+        await usersPage.openAddUser();
+        await usersPage.assertAddUserDialogIsShown();
       });
 
       await test.step('The dialog asks for the first- and lastname and the ID code, with the note on the country prefix', async () => {
-        await up.assertNameAndIdCodeAsked();
+        await usersPage.assertNameAndIdCodeAsked();
       });
 
       await test.step('"User role(s)" is a multiselect that starts on "Choose" and offers the five roles', async () => {
-        await up.assertRolesOffered();
+        await usersPage.assertRolesOffered();
       });
 
       await test.step('"Domains" is a multiselect that starts on "Choose" and offers every existing domain', async () => {
-        await up.assertDomainsOffered(domainNames);
+        await usersPage.assertDomainsOffered(domainNames);
       });
 
       await test.step('The dialog asks for the display name, the user title, the e-mail and the department', async () => {
-        await up.assertProfileFieldsAsked();
+        await usersPage.assertProfileFieldsAsked();
       });
 
       await test.step('The dialog offers "Cancel" and "Add user"', async () => {
-        await up.assertAddUserControlsOffered();
+        await usersPage.assertAddUserControlsOffered();
       });
     });
   },
@@ -95,37 +94,37 @@ test.describe(
   () => {
     test('The dialog shows every field filled in from the row, with only the roles and domains not yet chosen on offer', async ({
       page,
+      usersPage,
     }) => {
-      const up = new AdminPageFactory(page).getUsersPage();
-      const domainNames = await existingDomainNames(page);
+      const domainNames = (await readWidgetDomains(page)).map((domain) => domain.name);
 
-      await up.open();
+      await usersPage.open();
 
-      const user = await up.readUserRow(ADMIN_PERSONAL_CODE);
+      const user = await usersPage.readUserRow(ADMIN_PERSONAL_CODE);
 
       await test.step('The "Edit user" dialog opens over the row of the logged-in user', async () => {
-        await up.openEditUser(ADMIN_PERSONAL_CODE);
-        await up.assertEditUserDialogIsShown();
+        await usersPage.openEditUser(ADMIN_PERSONAL_CODE);
+        await usersPage.assertEditUserDialogIsShown();
       });
 
       await test.step('The first- and lastname is filled in with the name the row lists', async () => {
-        await up.assertNameFilledIn(user);
+        await usersPage.assertNameFilledIn(user);
       });
 
       await test.step('"User role(s)" holds the roles the row lists and offers only the roles not yet chosen', async () => {
-        await up.assertUserRolesHeld(user);
+        await usersPage.assertUserRolesHeld(user);
       });
 
       await test.step('"Domains" holds the domains the row lists and offers only the domains not yet chosen', async () => {
-        await up.assertUserDomainsHeld(user, domainNames);
+        await usersPage.assertUserDomainsHeld(user, domainNames);
       });
 
       await test.step('The display name, the user title, the e-mail and the department are filled in as the row lists them', async () => {
-        await up.assertProfileFilledIn(user);
+        await usersPage.assertProfileFilledIn(user);
       });
 
       await test.step('The dialog offers "Cancel" and "Edit user"', async () => {
-        await up.assertEditUserControlsOffered();
+        await usersPage.assertEditUserControlsOffered();
       });
     });
   },

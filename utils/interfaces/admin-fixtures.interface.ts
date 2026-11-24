@@ -8,6 +8,7 @@ import type {
   MultiDomainsPage,
   OfficeOpeningHoursPage,
   SessionLengthPage,
+  UsersPage,
 } from '@page-objects/settings';
 
 export interface AdminFixtures {
@@ -18,6 +19,7 @@ export interface AdminFixtures {
   readonly historyPage: HistoryPage;
   readonly servicesOverviewPage: ServicesOverviewPage;
   readonly newServicePage: NewServicePage;
+  readonly usersPage: UsersPage;
   readonly chatAnalysisPage: ChatAnalysisPage;
   readonly officeOpeningHoursPage: OfficeOpeningHoursPage;
   readonly sessionLengthPage: SessionLengthPage;

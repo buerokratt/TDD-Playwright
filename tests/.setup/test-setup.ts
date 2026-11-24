@@ -10,6 +10,7 @@ import {
   MultiDomainsPage,
   OfficeOpeningHoursPage,
   SessionLengthPage,
+  UsersPage,
 } from '@page-objects/settings';
 import { WidgetPage } from '@page-objects/widget';
 import { ACTION_TIMEOUT } from '@utils/constants';
@@ -39,6 +40,7 @@ export const test = base.extend<AdminFixtures & CustomerFixtures>({
   historyPage: async ({ page }, use) => use(new HistoryPage(page)),
   servicesOverviewPage: async ({ page }, use) => use(new ServicesOverviewPage(page)),
   newServicePage: async ({ page }, use) => use(new NewServicePage(page)),
+  usersPage: async ({ page }, use) => use(new UsersPage(page)),
   chatAnalysisPage: async ({ page }, use) => use(new ChatAnalysisPage(page)),
   officeOpeningHoursPage: async ({ page }, use) => use(new OfficeOpeningHoursPage(page)),
   sessionLengthPage: async ({ page }, use) => use(new SessionLengthPage(page)),

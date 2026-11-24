@@ -9,6 +9,8 @@ export const CSA_ACTIVITY_URL = `${BACKOFFICE_V2_BASE}/${CSA_ACTIVITY_PATH}`;
 
 export const WIDGET_DATA_URL = `${BACKOFFICE_V2_BASE}/accounts/widget-data`;
 
+export const PAGE_PREFERENCE_PATH = 'accounts/update-page-preference';
+
 // CONFIGS
 
 export const CHAT_ANALYSIS_URL = `${BACKOFFICE_V2_BASE}/configs/chat-analysis`;

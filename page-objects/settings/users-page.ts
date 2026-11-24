@@ -9,7 +9,6 @@ import {
   USERS_TABLE_COLUMNS,
   USERS_TABLE_FILTERABLE_COLUMNS,
   USER_ROLES,
-  USER_STATUS_BUSY_COLOR,
   USERS_TABLE_RESULT_COUNTS,
 } from '@utils/constants';
 import { URLS } from '@utils/env';
@@ -43,7 +42,7 @@ export class UsersPage {
 
   private readonly dialogUser: Locator;
 
-  private readonly toastList: Locator;
+  private readonly toastItems: Locator;
 
   private readonly dialogDeleteUser: Locator;
   private readonly buttonConfirmDeleteUser: Locator;
@@ -83,7 +82,7 @@ export class UsersPage {
 
     this.dialogUser = this.dialogAddUser.or(this.dialogEditUser);
 
-    this.toastList = this.page.locator('ol.toast__list');
+    this.toastItems = this.page.locator('ol.toast__list li');
 
     this.dialogDeleteUser = this.page.getByRole('dialog', { name: 'Delete user' });
     this.buttonConfirmDeleteUser = this.dialogDeleteUser.getByRole('button', { name: 'Yes', exact: true });
@@ -212,12 +211,7 @@ export class UsersPage {
     const pageSize = Number(await this.readPageSize());
     const rows = await this.usersTable.getRows().count();
 
-    expect(rows, 'The users table stayed empty').toBeGreaterThan(0);
-
-    if (rows < pageSize) {
-      return;
-    }
-
+    expect(rows, 'The stand lists fewer users than the result count holds, so the list cannot overflow').toBe(pageSize);
     await expect(this.paginationNavigation, 'The list filled its page but was offered no way to turn it').toBeVisible();
   }
 
@@ -340,6 +334,7 @@ export class UsersPage {
   }
 
   async confirmAddUser(): Promise<void> {
+    await this.markShownToasts();
     await this.buttonConfirmAddUser.click();
   }
 
@@ -348,7 +343,7 @@ export class UsersPage {
   }
 
   async assertUserAddedConfirmed({ timeout = ACTION_TIMEOUT }: RouteReadyOptions = {}): Promise<void> {
-    await expect(this.toastList, 'Adding the user raised no notification').toContainText('New user added', {
+    await expect(this.newToast('New user added'), 'Adding the user raised no new notification').toBeVisible({
       timeout,
     });
   }
@@ -375,9 +370,9 @@ export class UsersPage {
 
   async assertUserExistsReported({ timeout = ACTION_TIMEOUT }: RouteReadyOptions = {}): Promise<void> {
     await expect(
-      this.toastList,
-      'Adding a user under a taken ID code raised no "User Exists" notification',
-    ).toContainText('User Exists', { timeout });
+      this.newToast('User Exists'),
+      'Adding a user under a taken ID code raised no new "User Exists" notification',
+    ).toBeVisible({ timeout });
   }
 
   async assertUserNotListed(name: string): Promise<void> {
@@ -404,7 +399,7 @@ export class UsersPage {
         .getByRole('button')
         .locator('span'),
       `The user ${personalCode} is not shown as "Busy"`,
-    ).toHaveCSS('background-color', USER_STATUS_BUSY_COLOR);
+    ).toHaveCSS('background-color', 'rgb(215, 62, 62)');
   }
 
   async deleteUserIfExists(personalCode: string): Promise<void> {
@@ -426,11 +421,12 @@ export class UsersPage {
   }
 
   async confirmDeleteUser(): Promise<void> {
+    await this.markShownToasts();
     await this.buttonConfirmDeleteUser.click();
   }
 
   async assertUserDeletedConfirmed({ timeout = ACTION_TIMEOUT }: RouteReadyOptions = {}): Promise<void> {
-    await expect(this.toastList, 'Deleting the user raised no notification').toContainText('User deleted', {
+    await expect(this.newToast('User deleted'), 'Deleting the user raised no new notification').toBeVisible({
       timeout,
     });
   }
@@ -523,6 +519,7 @@ export class UsersPage {
   }
 
   async confirmEditUser(): Promise<void> {
+    await this.markShownToasts();
     await this.buttonConfirmEditUser.click();
   }
 
@@ -531,8 +528,16 @@ export class UsersPage {
   }
 
   async assertUserUpdatedConfirmed({ timeout = ACTION_TIMEOUT }: RouteReadyOptions = {}): Promise<void> {
-    await expect(this.toastList, 'Saving the user raised no notification').toContainText('User updated', {
+    await expect(this.newToast('User updated'), 'Saving the user raised no new notification').toBeVisible({
       timeout,
     });
+  }
+
+  private async markShownToasts(): Promise<void> {
+    await this.toastItems.evaluateAll((toasts) => toasts.forEach((toast) => toast.setAttribute('data-seen', '')));
+  }
+
+  private newToast(text: string): Locator {
+    return this.toastItems.and(this.page.locator(':not([data-seen])')).filter({ hasText: text }).first();
   }
 }

@@ -1,29 +1,24 @@
-import { Page } from '@playwright/test';
-
-import { AdminPageFactory } from '@page-objects/admin-page-factory';
+import { AdminFixtures } from '@utils/interfaces';
 
 type PageSizeResolver = () => string | undefined;
+type PersonalCodeResolver = () => string;
 
 export function usersPageSizeCleanup(resolvePageSize: PageSizeResolver) {
-  return async ({ page }: { page: Page }): Promise<void> => {
+  return async ({ usersPage }: Pick<AdminFixtures, 'usersPage'>): Promise<void> => {
     const pageSize = resolvePageSize();
 
     if (!pageSize) {
       return;
     }
 
-    const up = new AdminPageFactory(page).getUsersPage();
-
-    await up.open();
-    await up.setPageSize(pageSize);
+    await usersPage.open();
+    await usersPage.setPageSize(pageSize);
   };
 }
 
-export function userCleanup(resolvePersonalCode: () => string) {
-  return async ({ page }: { page: Page }): Promise<void> => {
-    const up = new AdminPageFactory(page).getUsersPage();
-
-    await up.open();
-    await up.deleteUserIfExists(resolvePersonalCode());
+export function userCleanup(resolvePersonalCode: PersonalCodeResolver) {
+  return async ({ usersPage }: Pick<AdminFixtures, 'usersPage'>): Promise<void> => {
+    await usersPage.open();
+    await usersPage.deleteUserIfExists(resolvePersonalCode());
   };
 }
