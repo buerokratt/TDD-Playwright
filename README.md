@@ -130,7 +130,6 @@ How implementation is done in this repository:
 - Shared setup logic lives under `tests/.setup/`
 - Admin authentication state is stored under `tests/admin/.auth/`
 - Translation-related setup exists under `tests/admin/.translation/`
-- Console errors are monitored in shared setup helpers
 - Main UI suite runs with **4 workers in CI** and **50% of available workers locally** by default
 - API Playwright config runs with **single-worker execution in CI**
 
@@ -141,6 +140,24 @@ Shared test infrastructure includes:
 - deterministic service test data in `utils/test-data/service-data.js`
 - paginated admin table helpers in `page-objects/common/paginated-data-table.js`
 - service-specific helper utilities in `tests/admin/services/service-test-helpers.js`
+
+---
+
+## Playwright test agents
+
+The Playwright planner, generator and healer agents are not committed: each developer generates them for the agent tool they use.
+
+```bash
+npx playwright init-agents --loop=claude -c playwright.seed.config.ts --project=seed
+```
+
+`--loop` also takes `codex`, `copilot`, `opencode` and `vscode`. For Claude Code the command writes `.claude/agents/` and `.mcp.json`, both git-ignored. The `seed` project lives in `playwright.seed.config.ts`, apart from the suite, and points the agents at `tests/.setup/admin.seed.ts`, which opens the admin with the stored session.
+
+`init-agents` writes the MCP configuration without the custom `--config` path, so add it to the server's `args` in `.mcp.json` by hand:
+
+```json
+"args": ["playwright", "run-test-mcp-server", "--config", "playwright.seed.config.ts"]
+```
 
 ---
 

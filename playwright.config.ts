@@ -1,14 +1,7 @@
 import 'dotenv/config';
 import { defineConfig, devices } from '@playwright/test';
 
-import {
-  ADMIN_AUTH_STATE,
-  GLOBAL_TEARDOWN,
-  TEST_DIR,
-  TEST_RESULTS_DIR,
-  TEST_TIMEOUT,
-  VIEWPORT,
-} from '@utils/constants';
+import { ADMIN_AUTH_STATE, TEST_DIR, TEST_RESULTS_DIR, TEST_TIMEOUT, VIEWPORT } from '@utils/constants';
 import { URLS } from '@utils/env';
 
 import { BROWSER_PROJECTS, CHROMIUM_ARGS, SHARED_USE } from './playwright.browsers';
@@ -16,7 +9,6 @@ import { BROWSER_PROJECTS, CHROMIUM_ARGS, SHARED_USE } from './playwright.browse
 export default defineConfig({
   timeout: TEST_TIMEOUT,
   testDir: TEST_DIR,
-  globalTeardown: GLOBAL_TEARDOWN,
   fullyParallel: false,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,

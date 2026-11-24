@@ -5,4 +5,6 @@ export interface SessionLengthSettings {
   readonly idleWarningMessage: string;
   readonly showEndMessage: boolean;
   readonly endMessage: string;
+  readonly awayStatus: boolean;
+  readonly awayStatusTime: string;
 }
