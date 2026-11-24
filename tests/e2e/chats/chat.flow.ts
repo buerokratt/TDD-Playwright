@@ -1,4 +1,5 @@
 import { test } from '@setup/test-setup';
+import { CSA_UNAVAILABLE } from '@utils/constants';
 import { URLS } from '@utils/env';
 import { createChatMarker } from '@utils/test-data';
 
@@ -31,7 +32,7 @@ test('[e2e] [chats] A routed chat carries messages both ways between customer an
     await customerPage.bringToFront();
     await customerPage.goto(URLS.customer);
     await widgetPage.openChat();
-    await widgetPage.requestCsaChat(await officeOpeningHoursPage.noCsaAvailableMessage());
+    await widgetPage.forwardChatToCsa(await officeOpeningHoursPage.noCsaAvailableMessage());
   });
 
   // The widget hides its message box while a question of the bot's is still unanswered, and
@@ -69,9 +70,10 @@ test('[e2e] [chats] The widget offers no operator while the CSA is unavailable',
 }) => {
   const botCannotAnswer = await officeOpeningHoursPage.botCannotAnswerMessage();
 
-  await officeOpeningHoursPage.whileCsaUnavailable(async () => {
+  await officeOpeningHoursPage.whileSettingsAre(CSA_UNAVAILABLE, async () => {
     await customerPage.goto(URLS.customer);
     await widgetPage.openChat();
+    await widgetPage.requestCsa();
     await widgetPage.expectNoOperatorOffered(botCannotAnswer);
   });
 });

@@ -1,12 +1,7 @@
 import { expect, test } from '@setup/test-setup';
 import { ANONYMIZER_APPROACHES, AnonymizerApproach } from '@utils/constants';
 import { AnonymizerSettings } from '@utils/interfaces';
-import {
-  createAnonymizerEmail,
-  createAnonymizerWord,
-  nextAnonymizerApproach,
-  toggledAnonymizerEntities,
-} from '@utils/test-data';
+import { createAnonymizerWord, createEmail, nextAnonymizerApproach, toggledAnonymizerEntities } from '@utils/test-data';
 
 test.describe('[administration] [functional] Words are added to and removed from the anonymizer word lists', () => {
   test(
@@ -254,7 +249,7 @@ test.describe('[administration] [functional] The anonymizer testing card anonymi
     'Entity value and the denied word are hidden, the allowed word and the rest stay, the entered text is emptied',
     { annotation: { type: 'kiwi case', description: 'https://monitooring.test.buerokratt.ee/case/175/' } },
     async ({ anonymizerPage }) => {
-      const email = createAnonymizerEmail('entity');
+      const email = createEmail('entity');
       const allowedWord = createAnonymizerWord('allowed');
       const deniedWord = createAnonymizerWord('denied');
       const randomWord = createAnonymizerWord('random');
@@ -308,7 +303,7 @@ test.describe('[administration] [functional] The anonymizer testing card anonymi
     'Matched value is hidden in its own form for each approach',
     { annotation: { type: 'NO KIWI TEST CASE', description: 'Extension of the anonymizer testing card coverage.' } },
     async ({ anonymizerPage }) => {
-      const email = createAnonymizerEmail('entity');
+      const email = createEmail('entity');
       const deniedWord = createAnonymizerWord('denied');
       const text = `mail ${email} word ${deniedWord} end`;
       const anonymizedText: Record<AnonymizerApproach, string | RegExp> = {
@@ -348,8 +343,8 @@ test.describe('[administration] [functional] The anonymizer testing card anonymi
     'Entity value is kept when allowlisted and hidden when it is not',
     { annotation: { type: 'NO KIWI TEST CASE', description: 'Extension of the anonymizer testing card coverage.' } },
     async ({ anonymizerPage }) => {
-      const email = createAnonymizerEmail('entity');
-      const allowedEmail = createAnonymizerEmail('allowed');
+      const email = createEmail('entity');
+      const allowedEmail = createEmail('allowed');
 
       await anonymizerPage.open();
       await anonymizerPage.selectFirstDomain();
@@ -379,8 +374,8 @@ test.describe('[administration] [functional] The anonymizer testing card anonymi
     'Denied word wins over the entity and the allowlist, only a whole word is hidden and in any case',
     { annotation: { type: 'NO KIWI TEST CASE', description: 'Extension of the anonymizer testing card coverage.' } },
     async ({ anonymizerPage }) => {
-      const allowedEmail = createAnonymizerEmail('allowed');
-      const allowedAndDeniedEmail = createAnonymizerEmail('both');
+      const allowedEmail = createEmail('allowed');
+      const allowedAndDeniedEmail = createEmail('both');
       const deniedWord = createAnonymizerWord('denied');
       const redacted = '[REDACTED]';
 

@@ -29,6 +29,7 @@ const SUITES = [
     testMatch: '**/*.flow.ts',
     actionTimeout: ACTION_TIMEOUT,
     background: true,
+    dependsOn: 'widget',
   },
   { name: 'tests', testMatch: '**/*.test.ts', testIgnore: '**/tests/widget/**' },
   {
@@ -36,6 +37,8 @@ const SUITES = [
     testMatch: '**/tests/widget/**/*.test.ts',
     actionTimeout: ACTION_TIMEOUT,
     background: true,
+    workers: 1,
+    dependsOn: 'tests',
   },
 ];
 
@@ -44,6 +47,7 @@ export const BROWSER_PROJECTS: PlaywrightTestProject[] = BROWSERS.flatMap((brows
     name: `${suite.name}-${browser.name}`,
     testMatch: suite.testMatch,
     testIgnore: suite.testIgnore,
+    ...(suite.workers && { workers: suite.workers }),
     use: {
       ...browser.device,
       ...SHARED_USE,
@@ -55,6 +59,6 @@ export const BROWSER_PROJECTS: PlaywrightTestProject[] = BROWSERS.flatMap((brows
         },
       }),
     },
-    dependencies: ['setup'],
+    dependencies: ['setup', ...(suite.dependsOn ? [`${suite.dependsOn}-${browser.name}`] : [])],
   })),
 );

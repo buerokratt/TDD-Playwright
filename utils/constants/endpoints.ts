@@ -12,8 +12,10 @@ export const WIDGET_DATA_URL = `${BACKOFFICE_V2_BASE}/accounts/widget-data`;
 // CONFIGS
 
 export const CHAT_ANALYSIS_URL = `${BACKOFFICE_V2_BASE}/configs/chat-analysis`;
+export const CHAT_ANALYSIS_TRANSFER_PATH = 'configs/transfer/chat-analysis';
 
 export const ORGANIZATION_WORKING_TIME_URL = `${BACKOFFICE_V2_BASE}/configs/organization-working-time`;
+export const ORGANIZATION_WORKING_TIME_TRANSFER_PATH = 'configs/transfer/organization-working-time';
 
 export const ANONYMIZER_CONFIG_PATH = 'configs/anonymizer';
 export const ANONYMIZER_TRANSFER_PATH = 'configs/transfer/anonymizer';
@@ -25,7 +27,13 @@ export const WIDGET_DOMAINS_URL = `${BACKOFFICE_V2_BASE}/${WIDGET_DOMAINS_PATH}`
 
 export const ENDED_CHATS_PATH = 'agents/chats/ended';
 
+export const CHAT_END_URL = `${BACKOFFICE_V2_BASE}/chats/end`;
+
 export const CHAT_MEASUREMENTS_PATH = 'chats/quality/measurements';
+
+// FORWARDS
+
+export const FORWARD_TO_BACKOFFICE_PATH = 'forwards/forward-to-backoffice';
 
 // AUTH
 

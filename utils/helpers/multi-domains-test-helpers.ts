@@ -2,7 +2,7 @@ import { Page, expect } from '@playwright/test';
 
 import { USER_INFO_URL, WIDGET_DATA_URL, WIDGET_DOMAINS_URL } from '@utils/constants';
 import { URLS } from '@utils/env';
-import { WidgetDomain } from '@utils/interfaces';
+import { WidgetData, WidgetDomain } from '@utils/interfaces';
 
 type WidgetDomainsResolver = () => WidgetDomain[] | undefined;
 
@@ -20,7 +20,7 @@ export async function readCustomerWidgetName(page: Page): Promise<string> {
 
   expect(response.ok(), `The back office would not list its widgets (${response.status()})`).toBeTruthy();
 
-  const widgets = (await response.json()) as { name: string; url: string }[];
+  const widgets = (await response.json()) as WidgetData[];
   const widget = widgets.find((candidate) => candidate.url === URLS.customer);
 
   if (!widget) {
