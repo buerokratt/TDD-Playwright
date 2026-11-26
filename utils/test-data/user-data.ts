@@ -1,8 +1,8 @@
-import { NewUserData } from '@utils/interfaces';
+import { UserData } from '@utils/interfaces';
 
 import { createEmail, uniqueSuffix } from './shared-data';
 
-export function createUserData(prefix = 'autotestuser'): NewUserData {
+export function createUserData(prefix = 'autotestuser'): UserData {
   const name = `${prefix}${uniqueSuffix()}`;
 
   return {
@@ -14,7 +14,7 @@ export function createUserData(prefix = 'autotestuser'): NewUserData {
   };
 }
 
-export function createUpdatedUserData(user: NewUserData): NewUserData {
+export function createUpdatedUserData(user: UserData): UserData {
   const name = `${user.name}updated`;
 
   return {

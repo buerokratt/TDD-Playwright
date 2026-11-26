@@ -161,6 +161,36 @@ export class PaginatedDataTable {
     return this.getRowByText(text).first();
   }
 
+  async countAcrossPages(locate: (rows: Locator) => Locator, { maxPages = 10 }: FindRowOptions = {}): Promise<number> {
+    await this.waitUntilReady();
+    await this.goToFirstPage();
+
+    const nextPageButton = this.nextPageButton();
+    let total = 0;
+
+    for (let pageIndex = 0; pageIndex < maxPages; pageIndex++) {
+      total += await locate(this.getRows()).count();
+
+      const canAdvance =
+        (await nextPageButton.isVisible().catch(() => false)) && (await nextPageButton.isEnabled().catch(() => false));
+
+      if (!canAdvance) {
+        break;
+      }
+
+      const rowsBefore = await this.rowsSignature();
+      await nextPageButton.click({ force: true }).catch(() => {});
+
+      if (!(await this.waitForRowsToChange(rowsBefore))) {
+        break;
+      }
+
+      await this.waitUntilReady();
+    }
+
+    return total;
+  }
+
   async ensureRowsPerPage(pageSize: string = this.defaultPageSize): Promise<void> {
     if (!this.pageSizeSelect || (await this.pageSizeSelect.count()) === 0) {
       return;

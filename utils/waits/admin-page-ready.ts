@@ -56,7 +56,7 @@ export async function waitForHistoryReady(
   });
 
   await expect(
-    page.locator('table.data-table tbody tr').first(),
+    page.locator('main').getByRole('table').locator('tbody tr').first(),
     'History rendered its heading but never received a conversation',
   ).toBeVisible({ timeout });
 }

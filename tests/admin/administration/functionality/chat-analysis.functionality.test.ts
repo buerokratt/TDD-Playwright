@@ -6,8 +6,6 @@ import { createChatAnalysisLabel, createOverlongChatAnalysisLabel } from '@utils
 
 const [themeSection, qualitySection] = CHAT_ANALYSIS_LABEL_SECTIONS;
 const sectionTitles = CHAT_ANALYSIS_LABEL_SECTIONS.map((section) => section.title);
-const addedLabel = createChatAnalysisLabel('autotestaddedfield');
-const copiedLabel = createChatAnalysisLabel('autotestcopiedfield');
 
 test.describe('[administration] [functional] A value entered in a label section is listed as a chip', () => {
   test(
@@ -101,6 +99,8 @@ test.describe('[administration] [functional] A chip is deleted once the deletion
 });
 
 test.describe('[administration] [functional] Chat analysis settings are saved for the selected domain', () => {
+  const addedLabel = createChatAnalysisLabel('autotestaddedfield');
+
   test.afterEach(chatAnalysisCleanup(() => addedLabel));
 
   test(
@@ -135,6 +135,7 @@ test.describe('[administration] [functional] Chat analysis settings are saved fo
 });
 
 test.describe('[administration] [functional] Settings are copied from one domain to another', () => {
+  const copiedLabel = createChatAnalysisLabel('autotestcopiedfield');
   let targetSnapshot: ChatAnalysisDomainSnapshot | undefined;
 
   test.afterEach(chatAnalysisConfigRestore(() => targetSnapshot));

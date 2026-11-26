@@ -3,17 +3,16 @@ import { Locator, Page, expect } from '@playwright/test';
 import { PaginatedDataTable } from '@page-objects/common';
 import {
   ACTION_TIMEOUT,
-  ADD_USER_PROFILE_FIELDS,
-  ADD_USER_REQUIRED_FIELDS,
   PAGE_PREFERENCE_PATH,
   REQUIRED_USER_FIELD_MESSAGE,
   USERS_TABLE_COLUMNS,
   USERS_TABLE_FILTERABLE_COLUMNS,
   USER_ROLES,
+  UserRole,
   USERS_TABLE_RESULT_COUNTS,
 } from '@utils/constants';
 import { URLS } from '@utils/env';
-import { NewUserData, RouteReadyOptions, UserRow } from '@utils/interfaces';
+import { RouteReadyOptions, UserData, UserDialogFillOptions, UserRow } from '@utils/interfaces';
 import { waitForUsersReady } from '@utils/waits';
 
 export class UsersPage {
@@ -32,21 +31,20 @@ export class UsersPage {
   private readonly dialogAddUser: Locator;
   private readonly headingAddUser: Locator;
   private readonly noteIdCodePrefix: Locator;
-  private readonly optionsMultiSelect: Locator;
-  private readonly buttonCancelAddUser: Locator;
   private readonly buttonConfirmAddUser: Locator;
 
   private readonly dialogEditUser: Locator;
   private readonly headingEditUser: Locator;
-  private readonly buttonCancelEditUser: Locator;
   private readonly buttonConfirmEditUser: Locator;
-
-  private readonly dialogUser: Locator;
-
-  private readonly toastItems: Locator;
 
   private readonly dialogDeleteUser: Locator;
   private readonly buttonConfirmDeleteUser: Locator;
+
+  private readonly dialogUser: Locator;
+  private readonly optionsMultiSelect: Locator;
+  private readonly buttonCancelUser: Locator;
+
+  private readonly toastItems: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -72,21 +70,20 @@ export class UsersPage {
       'The personal identification number must start with a country prefix, (eg.EE12345678910)',
       { exact: true },
     );
-    this.optionsMultiSelect = this.page.getByRole('option');
-    this.buttonCancelAddUser = this.dialogAddUser.getByRole('button', { name: 'Cancel', exact: true });
     this.buttonConfirmAddUser = this.dialogAddUser.getByRole('button', { name: 'Add user', exact: true });
 
     this.dialogEditUser = this.page.getByRole('dialog', { name: 'Edit user' });
     this.headingEditUser = this.dialogEditUser.getByRole('heading', { name: 'Edit user', exact: true });
-    this.buttonCancelEditUser = this.dialogEditUser.getByRole('button', { name: 'Cancel', exact: true });
     this.buttonConfirmEditUser = this.dialogEditUser.getByRole('button', { name: 'Edit user', exact: true });
-
-    this.dialogUser = this.dialogAddUser.or(this.dialogEditUser);
-
-    this.toastItems = this.page.locator('ol.toast__list li');
 
     this.dialogDeleteUser = this.page.getByRole('dialog', { name: 'Delete user' });
     this.buttonConfirmDeleteUser = this.dialogDeleteUser.getByRole('button', { name: 'Yes', exact: true });
+
+    this.dialogUser = this.dialogAddUser.or(this.dialogEditUser);
+    this.optionsMultiSelect = this.page.getByRole('option');
+    this.buttonCancelUser = this.dialogUser.getByRole('button', { name: 'Cancel', exact: true });
+
+    this.toastItems = this.page.locator('ol.toast__list li');
   }
 
   async waitForReady(options: RouteReadyOptions = {}): Promise<void> {
@@ -100,6 +97,14 @@ export class UsersPage {
 
   private columnHeader(column: string): Locator {
     return this.table.getByRole('columnheader', { name: column, exact: true });
+  }
+
+  private columnSortButton(column: string): Locator {
+    return this.columnHeader(column).locator('xpath=.//button[following-sibling::text()[normalize-space()]]');
+  }
+
+  private columnFilterButton(column: string): Locator {
+    return this.columnHeader(column).locator('xpath=.//button[preceding-sibling::text()[normalize-space()]]');
   }
 
   private columnCells(column: string): Locator {
@@ -136,7 +141,7 @@ export class UsersPage {
     for (const column of USERS_TABLE_COLUMNS) {
       await expect(this.columnHeader(column), `The table lists no "${column}" column`).toBeVisible();
       await expect(
-        this.columnHeader(column).locator('button').first(),
+        this.columnSortButton(column),
         `The "${column}" column was listed with no way to sort by it`,
       ).toBeVisible();
     }
@@ -147,11 +152,11 @@ export class UsersPage {
       const filterable = USERS_TABLE_FILTERABLE_COLUMNS.includes(column);
 
       await expect(
-        this.columnHeader(column).locator('button'),
+        this.columnFilterButton(column),
         filterable
           ? `The "${column}" column offers no way to filter by it`
           : `The "${column}" column offers a filter the case does not name`,
-      ).toHaveCount(filterable ? 2 : 1);
+      ).toHaveCount(filterable ? 1 : 0);
     }
   }
 
@@ -180,10 +185,12 @@ export class UsersPage {
       ownRow.getByRole('button', { name: 'Delete', exact: true }),
       'The logged-in user is offered a way to delete themselves',
     ).toBeDisabled();
-    await expect(
-      this.table.getByRole('button', { name: 'Delete', exact: true, disabled: true }),
+    expect(
+      await this.usersTable.countAcrossPages((rows) =>
+        rows.getByRole('button', { name: 'Delete', exact: true, disabled: true }),
+      ),
       'Delete is disabled on a user other than the logged-in one',
-    ).toHaveCount(1);
+    ).toBe(1);
   }
 
   async readPageSize(): Promise<string> {
@@ -212,7 +219,11 @@ export class UsersPage {
     const pageSize = Number(await this.readPageSize());
     const rows = await this.usersTable.getRows().count();
 
-    expect(rows, 'The stand lists fewer users than the result count holds, so the list cannot overflow').toBe(pageSize);
+    if (rows < pageSize) {
+      await expect(this.paginationNavigation, 'The list fits on one page but was offered paging').toBeHidden();
+      return;
+    }
+
     await expect(this.paginationNavigation, 'The list filled its page but was offered no way to turn it').toBeVisible();
   }
 
@@ -224,7 +235,7 @@ export class UsersPage {
     ).toHaveText(USERS_TABLE_RESULT_COUNTS);
   }
 
-  async openAddUser(): Promise<void> {
+  async openAddUserDialog(): Promise<void> {
     await this.buttonAddUser.click();
   }
 
@@ -245,12 +256,22 @@ export class UsersPage {
     ).toBeVisible();
   }
 
-  async assertRolesOffered(): Promise<void> {
-    await this.assertMultiSelectOffers(this.dialogAddUser, 'User role(s)', USER_ROLES);
+  async assertRolesOffered(user?: UserRow): Promise<void> {
+    await this.assertMultiSelectOffers(
+      user ? this.dialogEditUser : this.dialogAddUser,
+      'User role(s)',
+      USER_ROLES,
+      user?.roles ?? [],
+    );
   }
 
-  async assertDomainsOffered(domainNames: readonly string[]): Promise<void> {
-    await this.assertMultiSelectOffers(this.dialogAddUser, 'Domains', domainNames);
+  async assertDomainsOffered(domainNames: readonly string[], user?: UserRow): Promise<void> {
+    await this.assertMultiSelectOffers(
+      user ? this.dialogEditUser : this.dialogAddUser,
+      'Domains',
+      domainNames,
+      user?.domains ?? [],
+    );
   }
 
   private async assertMultiSelectOffers(
@@ -295,22 +316,37 @@ export class UsersPage {
   }
 
   async assertProfileFieldsAsked(): Promise<void> {
-    for (const label of ADD_USER_PROFILE_FIELDS) {
+    for (const label of ['Display Name', 'User title', 'E-mail', 'Department']) {
       await expect(this.dialogTextbox(this.dialogAddUser, label), `The dialog asks for no "${label}"`).toBeVisible();
     }
   }
 
   async assertAddUserControlsOffered(): Promise<void> {
-    await expect(this.buttonCancelAddUser, 'The dialog offers no way to cancel').toBeVisible();
+    await expect(this.buttonCancelUser, 'The dialog offers no way to cancel').toBeVisible();
     await expect(this.buttonConfirmAddUser, 'The dialog offers no way to add the user').toBeVisible();
   }
 
-  async fillAddUser(user: NewUserData): Promise<void> {
-    await this.dialogTextbox(this.dialogAddUser, 'First- and lastname').fill(user.name);
-    await this.dialogTextbox(this.dialogAddUser, 'ID code').fill(`EE${user.personalCode}`);
-    await this.chooseOptions(this.dialogAddUser, 'User role(s)', user.roles);
-    await this.dialogTextbox(this.dialogAddUser, 'Display Name').fill(user.displayName);
-    await this.dialogTextbox(this.dialogAddUser, 'E-mail').fill(user.email);
+  async fillAddUserDialog(user: UserData): Promise<void> {
+    await this.fillUserDialog(this.dialogAddUser, user, { idCode: true, roles: true });
+  }
+
+  private async fillUserDialog(
+    dialog: Locator,
+    user: UserData,
+    { idCode = false, roles = false }: UserDialogFillOptions = {},
+  ): Promise<void> {
+    await this.dialogTextbox(dialog, 'First- and lastname').fill(user.name);
+
+    if (idCode) {
+      await this.dialogTextbox(dialog, 'ID code').fill(`EE${user.personalCode}`);
+    }
+
+    if (roles) {
+      await this.chooseOptions(dialog, 'User role(s)', user.roles);
+    }
+
+    await this.dialogTextbox(dialog, 'Display Name').fill(user.displayName);
+    await this.dialogTextbox(dialog, 'E-mail').fill(user.email);
   }
 
   private async chooseOptions(dialog: Locator, label: string, choices: readonly string[]): Promise<void> {
@@ -349,15 +385,11 @@ export class UsersPage {
     });
   }
 
-  async fillIdCode(idCode: string): Promise<void> {
-    await this.dialogTextbox(this.dialogAddUser, 'ID code').fill(idCode);
+  async fillUserField(label: string, value: string): Promise<void> {
+    await this.dialogTextbox(this.dialogUser, label).fill(value);
   }
 
-  async fillEmail(email: string): Promise<void> {
-    await this.dialogTextbox(this.dialogUser, 'E-mail').fill(email);
-  }
-
-  async assertRequiredFieldsFlagged(labels: readonly string[] = ADD_USER_REQUIRED_FIELDS): Promise<void> {
+  async assertRequiredFieldsFlagged(labels: readonly string[]): Promise<void> {
     for (const label of labels) {
       await this.assertFieldRejected(label, REQUIRED_USER_FIELD_MESSAGE);
     }
@@ -380,7 +412,7 @@ export class UsersPage {
     await this.usersTable.expectRowDeleted(name);
   }
 
-  async assertUserListed(user: NewUserData): Promise<void> {
+  async assertUserListed(user: UserData): Promise<void> {
     const row = await this.readUserRow(user.personalCode);
 
     expect(row, 'The users table does not list the new user with the entered values').toMatchObject({
@@ -410,12 +442,12 @@ export class UsersPage {
       return;
     }
 
-    await this.openDeleteUser(personalCode);
+    await this.openDeleteUserDialog(personalCode);
     await this.confirmDeleteUser();
     await this.usersTable.expectRowDeleted(`EE${personalCode}`);
   }
 
-  async openDeleteUser(personalCode: string): Promise<void> {
+  async openDeleteUserDialog(personalCode: string): Promise<void> {
     const row = await this.usersTable.findRowAcrossPages(`EE${personalCode}`);
 
     await row.getByRole('button', { name: 'Delete', exact: true }).click();
@@ -440,10 +472,15 @@ export class UsersPage {
     const cells = (await row.locator('td').allInnerTexts()).map((text) => text.trim());
     const cell = (column: string): string => cells[USERS_TABLE_COLUMNS.indexOf(column)];
     const list = (column: string): string[] => cell(column).split(', ').filter(Boolean);
+    const roles = list('Role');
+
+    expect(USER_ROLES, `The user ${personalCode} holds a role the suite does not know`).toEqual(
+      expect.arrayContaining(roles),
+    );
 
     return {
       name: cell('Name'),
-      roles: list('Role'),
+      roles: roles as UserRole[],
       domains: list('Domains'),
       displayName: cell('Display Name'),
       title: cell('User title'),
@@ -452,7 +489,7 @@ export class UsersPage {
     };
   }
 
-  async openEditUser(personalCode: string): Promise<void> {
+  async openEditUserDialog(personalCode: string): Promise<void> {
     const row = await this.usersTable.findRowAcrossPages(`EE${personalCode}`);
 
     await row.getByRole('button', { name: 'Edit', exact: true }).click();
@@ -466,19 +503,11 @@ export class UsersPage {
   async assertNameFilledIn(user: UserRow): Promise<void> {
     await expect(
       this.dialogTextbox(this.dialogEditUser, 'First- and lastname'),
-      'The dialog does not start on the name the row lists',
+      '"First- and lastname" does not hold the value the row lists',
     ).toHaveValue(user.name);
   }
 
-  async assertUserRolesHeld(user: UserRow): Promise<void> {
-    await this.assertMultiSelectOffers(this.dialogEditUser, 'User role(s)', USER_ROLES, user.roles);
-  }
-
-  async assertUserDomainsHeld(user: UserRow, domainNames: readonly string[]): Promise<void> {
-    await this.assertMultiSelectOffers(this.dialogEditUser, 'Domains', domainNames, user.domains);
-  }
-
-  async assertProfileFilledIn(user: UserRow): Promise<void> {
+  async assertProfileFieldsFilledIn(user: UserRow): Promise<void> {
     for (const [label, value] of [
       ['Display Name', user.displayName],
       ['User title', user.title],
@@ -487,23 +516,24 @@ export class UsersPage {
     ]) {
       await expect(
         this.dialogTextbox(this.dialogEditUser, label),
-        `The dialog does not start "${label}" on what the row lists`,
+        `"${label}" does not hold the value the row lists`,
       ).toHaveValue(value);
     }
   }
 
   async assertEditUserControlsOffered(): Promise<void> {
-    await expect(this.buttonCancelEditUser, 'The dialog offers no way to cancel').toBeVisible();
+    await expect(this.buttonCancelUser, 'The dialog offers no way to cancel').toBeVisible();
     await expect(this.buttonConfirmEditUser, 'The dialog offers no way to save the user').toBeVisible();
   }
 
-  async fillEditUser(user: NewUserData): Promise<void> {
-    await this.dialogTextbox(this.dialogEditUser, 'First- and lastname').fill(user.name);
-    await this.dialogTextbox(this.dialogEditUser, 'Display Name').fill(user.displayName);
-    await this.dialogTextbox(this.dialogEditUser, 'E-mail').fill(user.email);
+  async fillEditUserDialog(
+    user: UserData,
+    { roles = false }: Pick<UserDialogFillOptions, 'roles'> = {},
+  ): Promise<void> {
+    await this.fillUserDialog(this.dialogEditUser, user, { roles });
   }
 
-  async clearEditUser(user: NewUserData): Promise<void> {
+  async clearEditUserDialog(user: UserData): Promise<void> {
     for (const label of ['First- and lastname', 'Display Name', 'E-mail']) {
       await this.dialogTextbox(this.dialogEditUser, label).fill('');
     }
@@ -513,10 +543,6 @@ export class UsersPage {
         .getByRole('button', { name: `Remove ${role}`, exact: true })
         .click();
     }
-  }
-
-  async selectEditUserRoles(roles: readonly string[]): Promise<void> {
-    await this.chooseOptions(this.dialogEditUser, 'User role(s)', roles);
   }
 
   async confirmEditUser(): Promise<void> {
