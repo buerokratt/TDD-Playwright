@@ -8,4 +8,5 @@ export * from './office-opening-hours';
 export * from './paths';
 export * from './session-length';
 export * from './timeouts';
+export * from './users';
 export * from './widget';

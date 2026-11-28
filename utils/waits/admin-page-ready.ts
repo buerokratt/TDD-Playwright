@@ -56,7 +56,7 @@ export async function waitForHistoryReady(
   });
 
   await expect(
-    page.locator('table.data-table tbody tr').first(),
+    page.locator('main').getByRole('table').locator('tbody tr').first(),
     'History rendered its heading but never received a conversation',
   ).toBeVisible({ timeout });
 }
@@ -87,6 +87,23 @@ export async function waitForNewServiceReady(
 
   await expect(header).toBeVisible({ timeout });
   await expect(page.locator('.react-flow__node').first()).toBeVisible({ timeout });
+}
+
+export async function waitForUsersReady(
+  page: Page,
+  { timeout = ACTION_TIMEOUT }: RouteReadyOptions = {},
+): Promise<void> {
+  await waitForAppSettled(page, { timeout });
+
+  await expect(
+    page.getByRole('heading', { name: 'Users', exact: true }),
+    'Users never rendered its heading',
+  ).toBeVisible({ timeout });
+
+  await expect(
+    page.locator('main').getByRole('table').locator('tbody tr').first(),
+    'Users rendered its heading but never received a user',
+  ).toBeVisible({ timeout });
 }
 
 export async function waitForChatAnalysisReady(
@@ -175,6 +192,7 @@ const ROUTE_READY: { test: (url: string) => boolean; wait: typeof waitForAppSett
   { test: (url) => url.includes('chat/history'), wait: waitForHistoryReady },
   { test: (url) => url.includes('services/overview'), wait: waitForServicesOverviewReady },
   { test: (url) => url.includes('services/newService'), wait: waitForNewServiceReady },
+  { test: (url) => url.includes('chat/users'), wait: waitForUsersReady },
   { test: (url) => url.includes('chat/chat-analysis'), wait: waitForChatAnalysisReady },
   { test: (url) => url.includes('chat/working-time'), wait: waitForOfficeOpeningHoursReady },
   { test: (url) => url.includes('chat/session-length'), wait: waitForSessionLengthReady },

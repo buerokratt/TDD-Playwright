@@ -1,5 +1,6 @@
 import { AUTH_FILE, ensureAuthDirectory } from '@auth/auth.helpers';
 import { expect, test as setup } from '@setup/test-setup';
+import { ADMIN_PERSONAL_CODE } from '@utils/constants';
 import { seedEnglishLocale } from '@utils/helpers';
 
 setup('authenticate', async ({ page }) => {
@@ -21,7 +22,7 @@ setup('authenticate', async ({ page }) => {
     await expect(personalCode, 'TARA never opened the Mobiil-ID form').toBeVisible({ timeout: 5000 });
   }).toPass({ timeout: 30000 });
 
-  await personalCode.fill('60001017869');
+  await personalCode.fill(ADMIN_PERSONAL_CODE);
   await page.getByRole('textbox', { name: 'Telefoninumber' }).fill('68000769');
   await page.getByRole('button', { name: 'Jätka' }).click();
 

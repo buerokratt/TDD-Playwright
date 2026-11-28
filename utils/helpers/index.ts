@@ -6,3 +6,4 @@ export * from './multi-domains-test-helpers';
 export * from './service-test-helpers';
 export * from './session-length-test-helpers';
 export * from './smoke-helpers';
+export * from './users-test-helpers';
