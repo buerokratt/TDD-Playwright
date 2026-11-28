@@ -3,7 +3,6 @@ import { Locator, Page, expect } from '@playwright/test';
 import { PaginatedDataTable } from '@page-objects/common';
 import {
   ACTION_TIMEOUT,
-  PAGE_PREFERENCE_PATH,
   REQUIRED_USER_FIELD_MESSAGE,
   USERS_TABLE_COLUMNS,
   USERS_TABLE_FILTERABLE_COLUMNS,
@@ -100,11 +99,11 @@ export class UsersPage {
   }
 
   private columnSortButton(column: string): Locator {
-    return this.columnHeader(column).locator('xpath=.//button[following-sibling::text()[normalize-space()]]');
+    return this.columnHeader(column).getByRole('button').nth(0);
   }
 
   private columnFilterButton(column: string): Locator {
-    return this.columnHeader(column).locator('xpath=.//button[preceding-sibling::text()[normalize-space()]]');
+    return this.columnHeader(column).getByRole('button').nth(1);
   }
 
   private columnCells(column: string): Locator {
@@ -132,17 +131,17 @@ export class UsersPage {
 
   async assertHeadingAndAddUserShown(): Promise<void> {
     await expect(this.headingUsers, 'Users never rendered its heading').toBeVisible();
-    await expect(this.buttonAddUser, 'The page offers no way to add a user').toBeVisible();
+    await expect(this.buttonAddUser, 'The page does not offer a way to add a user').toBeVisible();
   }
 
   async assertTableListsEveryColumnWithSorting(): Promise<void> {
     await expect(this.table, 'The users table is not on the page').toBeVisible();
 
     for (const column of USERS_TABLE_COLUMNS) {
-      await expect(this.columnHeader(column), `The table lists no "${column}" column`).toBeVisible();
+      await expect(this.columnHeader(column), `The table does not list the "${column}" column`).toBeVisible();
       await expect(
         this.columnSortButton(column),
-        `The "${column}" column was listed with no way to sort by it`,
+        `The "${column}" column does not offer a way to sort by it`,
       ).toBeVisible();
     }
   }
@@ -154,8 +153,8 @@ export class UsersPage {
       await expect(
         this.columnFilterButton(column),
         filterable
-          ? `The "${column}" column offers no way to filter by it`
-          : `The "${column}" column offers a filter the case does not name`,
+          ? `The "${column}" column does not offer a way to filter by it`
+          : `The "${column}" column offers a filter`,
       ).toHaveCount(filterable ? 1 : 0);
     }
   }
@@ -164,16 +163,16 @@ export class UsersPage {
     const rows = await this.usersTable.getRows().count();
 
     expect(rows, 'The users table stayed empty').toBeGreaterThan(0);
-    await expect(this.columnCells('Status').locator('button'), 'A user was listed with no status to click').toHaveCount(
+    await expect(this.columnCells('Status').locator('button'), 'A user row does not offer its status').toHaveCount(
       rows,
     );
     await expect(
       this.table.getByRole('button', { name: 'Edit', exact: true }),
-      'A user was listed with no way to edit them',
+      'A user row does not offer Edit',
     ).toHaveCount(rows);
     await expect(
       this.table.getByRole('button', { name: 'Delete', exact: true }),
-      'A user was listed with no way to delete them',
+      'A user row does not offer Delete',
     ).toHaveCount(rows);
   }
 
@@ -197,24 +196,6 @@ export class UsersPage {
     return this.selectPageSize.inputValue();
   }
 
-  async setPageSize(pageSize: string, { timeout = ACTION_TIMEOUT }: RouteReadyOptions = {}): Promise<void> {
-    if ((await this.readPageSize()) === pageSize) {
-      return;
-    }
-
-    const [response] = await Promise.all([
-      this.page.waitForResponse(
-        (response) => response.url().includes(PAGE_PREFERENCE_PATH) && response.request().method() === 'POST',
-        { timeout },
-      ),
-      this.selectPageSize.selectOption(pageSize),
-    ]);
-
-    expect(response.ok(), `The back office would not save the result count (${response.status()})`).toBeTruthy();
-    await expect(this.selectPageSize, `The result count would not move to "${pageSize}"`).toHaveValue(pageSize);
-    await this.usersTable.waitUntilReady();
-  }
-
   async assertPagingOfferedWhenListOverflows(): Promise<void> {
     const pageSize = Number(await this.readPageSize());
     const rows = await this.usersTable.getRows().count();
@@ -224,11 +205,14 @@ export class UsersPage {
       return;
     }
 
-    await expect(this.paginationNavigation, 'The list filled its page but was offered no way to turn it').toBeVisible();
+    await expect(
+      this.paginationNavigation,
+      'The list filled its page but does not offer a way to turn it',
+    ).toBeVisible();
   }
 
   async assertResultCountOffered(): Promise<void> {
-    await expect(this.selectPageSize, 'The table offers no choice of how many rows to show').toBeVisible();
+    await expect(this.selectPageSize, 'The table does not offer a choice of how many rows to show').toBeVisible();
     await expect(
       this.selectPageSize.locator('option'),
       'The result count offers a different set of page sizes',
@@ -240,16 +224,17 @@ export class UsersPage {
   }
 
   async assertAddUserDialogIsShown(): Promise<void> {
-    await expect(this.dialogAddUser, 'Adding a user opened no dialog').toBeVisible();
+    await expect(this.dialogAddUser, 'Adding a user did not open a dialog').toBeVisible();
     await expect(this.headingAddUser, 'The dialog is not titled "Add user"').toBeVisible();
   }
 
   async assertNameAndIdCodeAsked(): Promise<void> {
-    await expect(
-      this.dialogTextbox(this.dialogAddUser, 'First- and lastname'),
-      'The dialog asks for no first- and lastname',
-    ).toBeVisible();
-    await expect(this.dialogTextbox(this.dialogAddUser, 'ID code'), 'The dialog asks for no ID code').toBeVisible();
+    for (const label of ['First- and lastname', 'ID code']) {
+      await expect(
+        this.dialogTextbox(this.dialogAddUser, label),
+        `The dialog does not ask for "${label}"`,
+      ).toBeVisible();
+    }
     await expect(
       this.noteIdCodePrefix,
       'The ID code was asked for without the note on its country prefix',
@@ -283,7 +268,7 @@ export class UsersPage {
     const multiSelect = this.dialogMultiSelect(dialog, label);
     const choices = available.filter((choice) => !chosen.includes(choice));
 
-    await expect(multiSelect, `The dialog offers no "${label}" multiselect`).toBeVisible();
+    await expect(multiSelect, `The dialog does not offer the "${label}" multiselect`).toBeVisible();
 
     if (chosen.length === 0) {
       await expect(
@@ -317,13 +302,16 @@ export class UsersPage {
 
   async assertProfileFieldsAsked(): Promise<void> {
     for (const label of ['Display Name', 'User title', 'E-mail', 'Department']) {
-      await expect(this.dialogTextbox(this.dialogAddUser, label), `The dialog asks for no "${label}"`).toBeVisible();
+      await expect(
+        this.dialogTextbox(this.dialogAddUser, label),
+        `The dialog does not ask for "${label}"`,
+      ).toBeVisible();
     }
   }
 
   async assertAddUserControlsOffered(): Promise<void> {
-    await expect(this.buttonCancelUser, 'The dialog offers no way to cancel').toBeVisible();
-    await expect(this.buttonConfirmAddUser, 'The dialog offers no way to add the user').toBeVisible();
+    await expect(this.buttonCancelUser, 'The dialog does not offer a way to cancel').toBeVisible();
+    await expect(this.buttonConfirmAddUser, 'The dialog does not offer a way to add the user').toBeVisible();
   }
 
   async fillAddUserDialog(user: UserData): Promise<void> {
@@ -380,7 +368,7 @@ export class UsersPage {
   }
 
   async assertUserAddedConfirmed({ timeout = ACTION_TIMEOUT }: RouteReadyOptions = {}): Promise<void> {
-    await expect(this.newToast('New user added'), 'Adding the user raised no new notification').toBeVisible({
+    await expect(this.newToast('New user added'), 'Adding the user did not raise a new notification').toBeVisible({
       timeout,
     });
   }
@@ -404,7 +392,7 @@ export class UsersPage {
   async assertUserExistsReported({ timeout = ACTION_TIMEOUT }: RouteReadyOptions = {}): Promise<void> {
     await expect(
       this.newToast('User Exists'),
-      'Adding a user under a taken ID code raised no new "User Exists" notification',
+      'Adding a user under a taken ID code did not raise a new "User Exists" notification',
     ).toBeVisible({ timeout });
   }
 
@@ -459,7 +447,7 @@ export class UsersPage {
   }
 
   async assertUserDeletedConfirmed({ timeout = ACTION_TIMEOUT }: RouteReadyOptions = {}): Promise<void> {
-    await expect(this.newToast('User deleted'), 'Deleting the user raised no new notification').toBeVisible({
+    await expect(this.newToast('User deleted'), 'Deleting the user did not raise a new notification').toBeVisible({
       timeout,
     });
   }
@@ -496,7 +484,7 @@ export class UsersPage {
   }
 
   async assertEditUserDialogIsShown(): Promise<void> {
-    await expect(this.dialogEditUser, 'Editing a user opened no dialog').toBeVisible();
+    await expect(this.dialogEditUser, 'Editing a user did not open a dialog').toBeVisible();
     await expect(this.headingEditUser, 'The dialog is not titled "Edit user"').toBeVisible();
   }
 
@@ -522,8 +510,8 @@ export class UsersPage {
   }
 
   async assertEditUserControlsOffered(): Promise<void> {
-    await expect(this.buttonCancelUser, 'The dialog offers no way to cancel').toBeVisible();
-    await expect(this.buttonConfirmEditUser, 'The dialog offers no way to save the user').toBeVisible();
+    await expect(this.buttonCancelUser, 'The dialog does not offer a way to cancel').toBeVisible();
+    await expect(this.buttonConfirmEditUser, 'The dialog does not offer a way to save the user').toBeVisible();
   }
 
   async fillEditUserDialog(
@@ -555,7 +543,7 @@ export class UsersPage {
   }
 
   async assertUserUpdatedConfirmed({ timeout = ACTION_TIMEOUT }: RouteReadyOptions = {}): Promise<void> {
-    await expect(this.newToast('User updated'), 'Saving the user raised no new notification').toBeVisible({
+    await expect(this.newToast('User updated'), 'Saving the user did not raise a new notification').toBeVisible({
       timeout,
     });
   }

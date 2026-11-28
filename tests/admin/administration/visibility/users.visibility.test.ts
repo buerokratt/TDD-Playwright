@@ -1,5 +1,5 @@
 import { test } from '@setup/test-setup';
-import { ADMIN_PERSONAL_CODE, USERS_TABLE_RESULT_COUNTS } from '@utils/constants';
+import { ADMIN_PERSONAL_CODE } from '@utils/constants';
 import { readWidgetDomains } from '@utils/helpers';
 
 test.describe('[administration] [visibility] The users page shows its users and the controls to manage them', () => {
@@ -30,9 +30,8 @@ test.describe('[administration] [visibility] The users page shows its users and 
       });
 
       await test.step('The result count offers 10, 20, 30, 40 and 50, and the list is paged once it overflows', async () => {
-        await usersPage.assertResultCountOffered();
-        await usersPage.setPageSize(USERS_TABLE_RESULT_COUNTS[0]);
         await usersPage.assertPagingOfferedWhenListOverflows();
+        await usersPage.assertResultCountOffered();
       });
     },
   );

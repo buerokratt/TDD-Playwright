@@ -188,6 +188,8 @@ export class PaginatedDataTable {
       await this.waitUntilReady();
     }
 
+    await this.goToFirstPage();
+
     return total;
   }
 
